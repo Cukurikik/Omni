@@ -1,0 +1,1808 @@
+{
+  "_comment": "OMNI TOOLS CLI REGISTRY - THE ULTIMATE 150 TOOLS",
+  "tools": {
+    "=========================================_1": "",
+    "_CATEGORY_1": "🎬 30 VIDEO TOOLS (FFmpeg)",
+    "=========================================_2": "",
+    "video_to_mp4": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c:v",
+        "libx264",
+        "-c:a",
+        "aac",
+        "-f",
+        "hls",
+        "-hls_time",
+        "4",
+        "-hls_playlist_type",
+        "event",
+        "-hls_segment_filename",
+        "{output_dir}/hls_{tool_id}_%03d.ts",
+        "{output}.m3u8"
+      ],
+      "timeout_mins": 30
+    },
+    "video_to_mkv": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c",
+        "copy",
+        "{output}.mkv"
+      ],
+      "timeout_mins": 10
+    },
+    "video_to_avi": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c:v",
+        "mpeg4",
+        "-c:a",
+        "mp3",
+        "{output}.avi"
+      ],
+      "timeout_mins": 30
+    },
+    "video_to_webm": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c:v",
+        "libvpx-vp9",
+        "-c:a",
+        "libopus",
+        "{output}.webm"
+      ],
+      "timeout_mins": 60
+    },
+    "video_to_gif": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "fps=15,scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse",
+        "{output}.gif"
+      ],
+      "timeout_mins": 15
+    },
+    "video_compress_1080p": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:1080",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "23",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 45
+    },
+    "video_compress_720p": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:720",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "28",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_compress_480p": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:480",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "30",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 20
+    },
+    "video_compress_360p": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:360",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "32",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 15
+    },
+    "video_extract_audio_mp3": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vn",
+        "-acodec",
+        "libmp3lame",
+        "-q:a",
+        "2",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "video_extract_audio_wav": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vn",
+        "-acodec",
+        "pcm_s16le",
+        "{output}.wav"
+      ],
+      "timeout_mins": 10
+    },
+    "video_remove_audio": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c",
+        "copy",
+        "-an",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 5
+    },
+    "video_speed_0.5x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=2.0*PTS[v];[0:a]atempo=0.5[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_speed_0.75x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=1.33*PTS[v];[0:a]atempo=0.75[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_speed_1.25x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_speed_1.5x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=0.66*PTS[v];[0:a]atempo=1.5[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_speed_2.0x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_reverse": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "reverse",
+        "-af",
+        "areverse",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 60
+    },
+    "video_grayscale": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "colorchannelmixer=.3:.4:.3:0:.3:.4:.3:0:.3:.4:.3",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_sepia": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "colorchannelmixer=.393:.769:.189:0:.349:.686:.168:0:.272:.534:.131",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_blur": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "boxblur=10:5",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_crop_1_1": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "crop=ih:ih",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 20
+    },
+    "video_crop_16_9": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "crop=iw:iw/(16/9)",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 20
+    },
+    "video_crop_9_16": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "crop=ih*(9/16):ih",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 20
+    },
+    "video_extract_frame_1s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-ss",
+        "00:00:01",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "video_extract_frame_10s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-ss",
+        "00:00:10",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "video_extract_frame_30s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-ss",
+        "00:00:30",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "video_extract_frame_60s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-ss",
+        "00:01:00",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "video_rotate_90_cw": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "transpose=1",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_rotate_90_ccw": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "transpose=2",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "=========================================_3": "",
+    "_CATEGORY_2": "🎵 30 AUDIO TOOLS (FFmpeg)",
+    "=========================================_4": "",
+    "audio_to_mp3": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "libmp3lame",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_to_wav": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "pcm_s16le",
+        "{output}.wav"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_to_ogg": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "libvorbis",
+        "{output}.ogg"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_to_flac": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "flac",
+        "{output}.flac"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_compress_320k": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "320k",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_compress_256k": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "256k",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_compress_192k": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "192k",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_compress_128k": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "128k",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_compress_64k": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "64k",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 5
+    },
+    "audio_vol_up_150": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=1.5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_vol_up_200": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=2.0",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_vol_down_50": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=0.5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_vol_down_25": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=0.25",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_bass_boost_low": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "bass=g=5:f=110:w=0.6",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_bass_boost_med": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "bass=g=10:f=110:w=0.6",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_bass_boost_high": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "bass=g=15:f=110:w=0.6",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_treble_boost": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "treble=g=10:f=10000:w=0.5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_treble_cut": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "treble=g=-10:f=10000:w=0.5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_fade_in_3s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "afade=t=in:ss=0:d=3",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_fade_in_5s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "afade=t=in:ss=0:d=5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_fade_out_3s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "areverse,afade=t=in:ss=0:d=3,areverse",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 15
+    },
+    "audio_fade_out_5s": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "areverse,afade=t=in:ss=0:d=5,areverse",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 15
+    },
+    "audio_speed_0.5x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "atempo=0.5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_speed_1.5x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "atempo=1.5",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_speed_2.0x": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "atempo=2.0",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "audio_reverse": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "areverse",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 15
+    },
+    "audio_8d_surround": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "apulsator=hz=0.125",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 15
+    },
+    "audio_mono_to_stereo": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-ac",
+        "2",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 5
+    },
+    "audio_stereo_to_mono": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-ac",
+        "1",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 5
+    },
+    "audio_remove_silence": {
+      "binary": "ffmpeg",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "silenceremove=stop_periods=-1:stop_duration=1:stop_threshold=-90dB",
+        "{output}.mp3"
+      ],
+      "timeout_mins": 10
+    },
+    "=========================================_5": "",
+    "_CATEGORY_3": "🖼️ 30 IMAGE TOOLS (ImageMagick)",
+    "=========================================_6": "",
+    "image_to_png": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "{output}.png"
+      ],
+      "timeout_mins": 2
+    },
+    "image_to_jpg": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-background",
+        "white",
+        "-flatten",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_to_webp": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-quality",
+        "80",
+        "{output}.webp"
+      ],
+      "timeout_mins": 2
+    },
+    "image_to_bmp": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "{output}.bmp"
+      ],
+      "timeout_mins": 2
+    },
+    "image_to_tiff": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "{output}.tiff"
+      ],
+      "timeout_mins": 2
+    },
+    "image_compress_high": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-quality",
+        "50",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_compress_med": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-quality",
+        "70",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_compress_low": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-quality",
+        "90",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_resize_4k": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-resize",
+        "3840x2160>",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_resize_1080p": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-resize",
+        "1920x1080>",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_resize_720p": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-resize",
+        "1280x720>",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_resize_480p": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-resize",
+        "854x480>",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_grayscale": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-colorspace",
+        "Gray",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_sepia": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-sepia-tone",
+        "80%",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_invert": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-negate",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_blur_light": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-blur",
+        "0x4",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_blur_heavy": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-blur",
+        "0x12",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_sharpen_light": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-sharpen",
+        "0x2",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_sharpen_heavy": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-sharpen",
+        "0x5",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_rotate_90": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-rotate",
+        "90",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_rotate_180": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-rotate",
+        "180",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_rotate_270": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-rotate",
+        "270",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_flip_horizontal": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-flop",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_flip_vertical": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-flip",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_auto_orient": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-auto-orient",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_edge_detect": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-edge",
+        "1",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_charcoal": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-charcoal",
+        "2",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_noise_reduce": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-noise",
+        "3",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_contrast_boost": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-contrast",
+        "-contrast",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "image_brightness_boost": {
+      "binary": "magick",
+      "args": [
+        "{input}",
+        "-modulate",
+        "120,100",
+        "{output}.jpg"
+      ],
+      "timeout_mins": 2
+    },
+    "=========================================_7": "",
+    "_CATEGORY_4": "📄 30 PDF TOOLS (gs, qpdf, pdftk, poppler)",
+    "=========================================_8": "",
+    "pdf_compress_screen": {
+      "binary": "gs",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/screen",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_compress_ebook": {
+      "binary": "gs",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/ebook",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_compress_printer": {
+      "binary": "gs",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/printer",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_compress_prepress": {
+      "binary": "gs",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/prepress",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_protect_pass": {
+      "binary": "qpdf",
+      "args": [
+        "--encrypt",
+        "{user_pass}",
+        "{owner_pass}",
+        "256",
+        "--",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_decrypt_pass": {
+      "binary": "qpdf",
+      "args": [
+        "--password={password}",
+        "--decrypt",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_merge_generic": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "cat",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_burst_pages": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "burst",
+        "output",
+        "{output}_page_%04d.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_rotate_90_cw": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "cat",
+        "1-endE",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_rotate_90_ccw": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "cat",
+        "1-endW",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_rotate_180": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "cat",
+        "1-endS",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_allow_printing": {
+      "binary": "qpdf",
+      "args": [
+        "--encrypt",
+        "",
+        "omni",
+        "256",
+        "--print=full",
+        "--",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_allow_copying": {
+      "binary": "qpdf",
+      "args": [
+        "--encrypt",
+        "",
+        "omni",
+        "256",
+        "--extract=y",
+        "--",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_linearize_web": {
+      "binary": "qpdf",
+      "args": [
+        "--linearize",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_to_images_jpg": {
+      "binary": "pdftoppm",
+      "args": [
+        "-jpeg",
+        "-r",
+        "300",
+        "{input}",
+        "{output}_page"
+      ],
+      "timeout_mins": 15
+    },
+    "pdf_to_images_png": {
+      "binary": "pdftoppm",
+      "args": [
+        "-png",
+        "-r",
+        "300",
+        "{input}",
+        "{output}_page"
+      ],
+      "timeout_mins": 15
+    },
+    "pdf_extract_text": {
+      "binary": "pdftotext",
+      "args": [
+        "{input}",
+        "{output}.txt"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_remove_pass_unsec": {
+      "binary": "qpdf",
+      "args": [
+        "--decrypt",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 2
+    },
+    "pdf_watermark_draft": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "background",
+        "draft_stamp.pdf",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_watermark_confidential": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "background",
+        "confidential_stamp.pdf",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_grayscale": {
+      "binary": "gs",
+      "args": [
+        "-sOutputFile={output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-sColorConversionStrategy=Gray",
+        "-dProcessColorModel=/DeviceGray",
+        "-dCompatibilityLevel=1.4",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_repair_corrupt": {
+      "binary": "gs",
+      "args": [
+        "-o",
+        "{output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-dPDFSETTINGS=/prepress",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_attach_file": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "attach_files",
+        "{attachment_path}",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_extract_attachments": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "unpack_files",
+        "output",
+        "{output_dir}"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_metadata_clear": {
+      "binary": "qpdf",
+      "args": [
+        "--empty",
+        "--pages",
+        "{input}",
+        "1-z",
+        "--",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_scale_a4": {
+      "binary": "gs",
+      "args": [
+        "-sOutputFile={output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-sPAPERSIZE=a4",
+        "-dFIXEDMEDIA",
+        "-dPDFFitPage",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_scale_letter": {
+      "binary": "gs",
+      "args": [
+        "-sOutputFile={output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-sPAPERSIZE=letter",
+        "-dFIXEDMEDIA",
+        "-dPDFFitPage",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "{input}"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_uncompress_streams": {
+      "binary": "qpdf",
+      "args": [
+        "--stream-data=uncompress",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_flatten": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "generate_fdf",
+        "output",
+        "temp.fdf",
+        "&&",
+        "pdftk",
+        "{input}",
+        "fill_form",
+        "temp.fdf",
+        "output",
+        "{output}.pdf",
+        "flatten"
+      ],
+      "timeout_mins": 5
+    },
+    "pdf_reverse_pages": {
+      "binary": "pdftk",
+      "args": [
+        "{input}",
+        "cat",
+        "end-1",
+        "output",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "=========================================_9": "",
+    "_CATEGORY_5": "🔄 30 CONVERTER TOOLS (Pandoc, LibreOffice, dll)",
+    "=========================================_10": "",
+    "docx_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "pptx_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "xlsx_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "html_to_pdf": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf",
+        "--pdf-engine=wkhtmltopdf"
+      ],
+      "timeout_mins": 10
+    },
+    "md_to_pdf": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "txt_to_pdf": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "rtf_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "odt_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "odp_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "ods_to_pdf": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "md_to_html": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-f",
+        "markdown",
+        "-t",
+        "html",
+        "-o",
+        "{output}.html"
+      ],
+      "timeout_mins": 2
+    },
+    "html_to_md": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-f",
+        "html",
+        "-t",
+        "markdown",
+        "-o",
+        "{output}.md"
+      ],
+      "timeout_mins": 2
+    },
+    "docx_to_md": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-f",
+        "docx",
+        "-t",
+        "markdown",
+        "-o",
+        "{output}.md"
+      ],
+      "timeout_mins": 5
+    },
+    "docx_to_html": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-f",
+        "docx",
+        "-t",
+        "html",
+        "-o",
+        "{output}.html"
+      ],
+      "timeout_mins": 5
+    },
+    "html_to_docx": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-f",
+        "html",
+        "-t",
+        "docx",
+        "-o",
+        "{output}.docx"
+      ],
+      "timeout_mins": 5
+    },
+    "csv_to_html": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.html"
+      ],
+      "timeout_mins": 2
+    },
+    "csv_to_pdf": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 5
+    },
+    "epub_to_pdf": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "timeout_mins": 15
+    },
+    "pdf_to_html": {
+      "binary": "pdftohtml",
+      "args": [
+        "-c",
+        "-s",
+        "{input}",
+        "{output}.html"
+      ],
+      "timeout_mins": 10
+    },
+    "pdf_to_txt": {
+      "binary": "pdftotext",
+      "args": [
+        "-layout",
+        "{input}",
+        "{output}.txt"
+      ],
+      "timeout_mins": 5
+    },
+    "rtf_to_docx": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "docx",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "docx_to_odt": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "odt",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "pptx_to_odp": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "odp",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "xlsx_to_ods": {
+      "binary": "soffice",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "ods",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "timeout_mins": 15
+    },
+    "md_to_docx": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.docx"
+      ],
+      "timeout_mins": 5
+    },
+    "epub_to_md": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-t",
+        "markdown",
+        "-o",
+        "{output}.md"
+      ],
+      "timeout_mins": 5
+    },
+    "md_to_epub": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.epub"
+      ],
+      "timeout_mins": 5
+    },
+    "latex_to_pdf": {
+      "binary": "pandoc",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf",
+        "--pdf-engine=pdflatex"
+      ],
+      "timeout_mins": 10
+    },
+    "xml_to_json": {
+      "binary": "python3",
+      "args": [
+        "-c",
+        "import xmltodict, json, sys; json.dump(xmltodict.parse(open(sys.argv[1]).read()), open(sys.argv[2], 'w'))",
+        "{input}",
+        "{output}.json"
+      ],
+      "timeout_mins": 2
+    },
+    "csv_to_json": {
+      "binary": "python3",
+      "args": [
+        "-c",
+        "import csv, json, sys; json.dump(list(csv.DictReader(open(sys.argv[1]))), open(sys.argv[2], 'w'))",
+        "{input}",
+        "{output}.json"
+      ],
+      "timeout_mins": 2
+    },
+    "video_glitch": {
+      "binary": "ffmpeg",
+      "args": [
+        "-i",
+        "{input}",
+        "-vf",
+        "tblend=all_mode=grainextract",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "video_pixel": {
+      "binary": "ffmpeg",
+      "args": [
+        "-i",
+        "{input}",
+        "-vf",
+        "pixelize",
+        "{output}.mp4"
+      ],
+      "timeout_mins": 30
+    },
+    "kinetic_test_tool": {
+      "binary": "auto_generated",
+      "input_ext": "",
+      "output_ext": "",
+      "description": "Auto-generated handler for KineticTestTool"
+    }
+  }
+}

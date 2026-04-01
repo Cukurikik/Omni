@@ -1,0 +1,18 @@
+[
+  {
+    "id": "video_tool_01",
+    "endpoint": "/api/v1/tools/video/sync-timeline",
+    "description": "Sinkronisasi frame video dan audio tingkat rendah",
+    "delegateTo": "C++",
+    "actionCmd": "sync_av_timeline",
+    "timeoutMs": 30000
+  },
+  {
+    "id": "video_tool_02",
+    "endpoint": "/api/v1/tools/video/compressor",
+    "description": "Kompresi video dengan manipulasi CRF memori langsung",
+    "delegateTo": "C++",
+    "actionCmd": "compress_video_crf",
+    "timeoutMs": 120000
+  }
+]

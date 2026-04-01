@@ -1,0 +1,18 @@
+[
+  {
+    "id": "audio_tool_01",
+    "endpoint": "/api/v1/tools/audio/detect-drop",
+    "description": "Mendeteksi otomatis ketukan 'drop' pada musik EDM",
+    "delegateTo": "C++",
+    "actionCmd": "analyze_edm_drop",
+    "timeoutMs": 15000
+  },
+  {
+    "id": "audio_tool_02",
+    "endpoint": "/api/v1/tools/audio/isolate-vocal",
+    "description": "Memisahkan vokal dari instrumen (Stem Splitting tingkat rendah)",
+    "delegateTo": "C++",
+    "actionCmd": "split_vocal_stem",
+    "timeoutMs": 60000
+  }
+]

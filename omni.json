@@ -1,0 +1,66 @@
+{
+  "framework": "OMNI TOOLS",
+  "appName": "EXIA",
+  "version": "2.0.0",
+  "environment": "development",
+  "ephemeralMode": true,
+  "cacheTTLMinutes": 60,
+
+  "network": {
+    "gatewayPort": 8080,
+    "uiDevPort": 3000,
+    "allowedOrigins": ["http://localhost:3000"]
+  },
+
+  "paths": {
+    "engineBinary": "./engine_bin/media_engine.exe",
+    "aiScripts": "./ai_scripts"
+  },
+
+  "exiaGlobalSettings": {
+    "_comment": "300 Fitur pengaturan pengguna, UI, dan performa bersarang di sini",
+    "uiTheme": "dark_cyber",
+    "hardwareAcceleration": true,
+    "maxConcurrentTasks": 15,
+    "aiChatMemoryLimitMB": 512,
+    "defaultExportFormat": "mp4",
+    "autoSaveIntervalSec": 60
+  },
+
+  "toolRegistries": {
+    "unified": "./configs/registry_omni.json",
+    "video": "./configs/registry_video.json",
+    "audio": "./configs/registry_audio.json",
+    "pdf": "./configs/registry_pdf.json",
+    "converter": "./configs/registry_converter.json",
+    "aiAssistant": "./configs/registry_ai_chat.json"
+  },
+
+  "universalDependencies": {
+    "ui_jsx": [
+      "axios",
+      "framer-motion",
+      "lucide-react",
+      "react-router-dom",
+      "zustand"
+    ],
+    "api_golang": [
+      "github.com/gorilla/websocket",
+      "github.com/joho/godotenv"
+    ],
+    "ai_python": [
+      "numpy",
+      "transformers",
+      "torch"
+    ],
+    "engine_cpp": [
+      "opencv4"
+    ]
+  },
+
+  "security": {
+    "requireAuth": true,
+    "maxPayloadSizeMB": 500,
+    "universalErrorFormat": true
+  }
+}

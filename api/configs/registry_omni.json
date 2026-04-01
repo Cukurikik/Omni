@@ -1,0 +1,987 @@
+{
+  "tools": [
+    {
+      "id": "audio_tool_01",
+      "category": "AUDIO",
+      "name": "Detektor Drop Jedag-Jedug (C++)",
+      "description": "Cari detik puncak drop audio secara presisi menggunakan DSP sliding-window energy.",
+      "endpoint": "/api/v1/tools/audio/detect-drop",
+      "accepts": ".mp3, .wav",
+      "delegateTo": "C++",
+      "extraInputs": []
+    },
+    {
+      "id": "audio_tool_02",
+      "category": "AUDIO",
+      "name": "Isolasi Vokal (AI Stem Splitter)",
+      "description": "Pisahkan vokal dari instrumen menggunakan algoritma DeepFilter tingkat rendah.",
+      "endpoint": "/api/v1/tools/audio/isolate-vocal",
+      "accepts": ".mp3, .wav, .flac",
+      "delegateTo": "C++",
+      "extraInputs": []
+    },
+    {
+      "id": "audio_tool_03",
+      "category": "AUDIO",
+      "name": "Audio Trimmer",
+      "description": "Potong audio dengan presisi milidetik tanpa re-encoding.",
+      "endpoint": "/api/v1/tools/audio/trim",
+      "accepts": ".mp3, .wav, .ogg, .flac",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "start_ms", "label": "Mulai (Milidetik)", "type": "number", "default": 0 },
+        { "name": "end_ms", "label": "Akhir (Milidetik)", "type": "number", "default": 30000 }
+      ]
+    },
+    {
+      "id": "audio_tool_04",
+      "category": "AUDIO",
+      "name": "Audio Merger",
+      "description": "Gabungkan beberapa file audio menjadi satu trek utuh.",
+      "endpoint": "/api/v1/tools/audio/merge",
+      "accepts": ".mp3, .wav",
+      "delegateTo": "C++",
+      "extraInputs": []
+    },
+    {
+      "id": "audio_tool_05",
+      "category": "AUDIO",
+      "name": "Audio Converter",
+      "description": "Konversi format audio: MP3, WAV, OGG, FLAC, AAC.",
+      "endpoint": "/api/v1/tools/audio/convert",
+      "accepts": ".mp3, .wav, .ogg, .flac, .aac",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "output_format", "label": "Format Output", "type": "text", "default": "mp3" }
+      ]
+    },
+    {
+      "id": "audio_tool_06",
+      "category": "AUDIO",
+      "name": "Noise Remover",
+      "description": "Hapus noise latar belakang dari rekaman audio.",
+      "endpoint": "/api/v1/tools/audio/denoise",
+      "accepts": ".mp3, .wav",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "sensitivity", "label": "Sensitivitas (0-100)", "type": "number", "default": 50 }
+      ]
+    },
+    {
+      "id": "audio_tool_07",
+      "category": "AUDIO",
+      "name": "Pitch Shifter",
+      "description": "Ubah nada audio tanpa mengubah kecepatan.",
+      "endpoint": "/api/v1/tools/audio/pitch-shift",
+      "accepts": ".mp3, .wav",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "semitones", "label": "Semitone (+/-12)", "type": "number", "default": 0 }
+      ]
+    },
+    {
+      "id": "audio_tool_08",
+      "category": "AUDIO",
+      "name": "Normalizer",
+      "description": "Normalisasi volume audio ke level standar broadcast.",
+      "endpoint": "/api/v1/tools/audio/normalize",
+      "accepts": ".mp3, .wav, .flac",
+      "delegateTo": "C++",
+      "extraInputs": []
+    },
+
+    {
+      "id": "video_tool_01",
+      "category": "VIDEO",
+      "name": "Video Trimmer",
+      "description": "Potong video dengan presisi frame menggunakan seek langsung.",
+      "endpoint": "/api/v1/tools/video/trim",
+      "accepts": ".mp4, .mkv, .mov, .avi",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "start_ms", "label": "Mulai (Milidetik)", "type": "number", "default": 0 },
+        { "name": "end_ms", "label": "Akhir (Milidetik)", "type": "number", "default": 60000 }
+      ]
+    },
+    {
+      "id": "video_tool_02",
+      "category": "VIDEO",
+      "name": "Video Compressor",
+      "description": "Kompresi video dengan kontrol CRF dan bitrate penuh.",
+      "endpoint": "/api/v1/tools/video/compress",
+      "accepts": ".mp4, .mkv, .mov",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "crf_value", "label": "CRF Quality (0-51, semakin kecil = semakin bagus)", "type": "number", "default": 23 }
+      ]
+    },
+    {
+      "id": "video_tool_03",
+      "category": "VIDEO",
+      "name": "Video Converter",
+      "description": "Konversi format video: MP4, WebM, MKV, MOV, AVI.",
+      "endpoint": "/api/v1/tools/video/convert",
+      "accepts": ".mp4, .mkv, .mov, .avi, .webm",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "output_format", "label": "Format Output", "type": "text", "default": "mp4" }
+      ]
+    },
+    {
+      "id": "video_tool_04",
+      "category": "VIDEO",
+      "name": "Video Merger",
+      "description": "Gabungkan multiple video via concat protocol.",
+      "endpoint": "/api/v1/tools/video/merge",
+      "accepts": ".mp4, .mkv",
+      "delegateTo": "C++",
+      "extraInputs": []
+    },
+    {
+      "id": "video_tool_05",
+      "category": "VIDEO",
+      "name": "Ekstrak Frame Presisi (C++)",
+      "description": "Ambil 1 frame gambar dari timestamp video spesifik menggunakan OpenCV.",
+      "endpoint": "/api/v1/tools/video/extract-frame",
+      "accepts": ".mp4, .mkv",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "timestamp_ms", "label": "Detik Ke (Milidetik)", "type": "number", "default": 10000 }
+      ]
+    },
+    {
+      "id": "video_tool_06",
+      "category": "VIDEO",
+      "name": "Speed Controller",
+      "description": "Ubah kecepatan video 0.25x hingga 4x via setpts filter.",
+      "endpoint": "/api/v1/tools/video/speed",
+      "accepts": ".mp4, .mkv, .mov",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "speed_factor", "label": "Faktor Kecepatan (0.25 - 4.0)", "type": "number", "default": 1 }
+      ]
+    },
+    {
+      "id": "video_tool_07",
+      "category": "VIDEO",
+      "name": "GIF Converter",
+      "description": "Konversi video ke GIF berkualitas tinggi dengan palette optimization.",
+      "endpoint": "/api/v1/tools/video/to-gif",
+      "accepts": ".mp4, .mkv, .mov",
+      "delegateTo": "C++",
+      "extraInputs": [
+        { "name": "fps", "label": "Frame Per Detik GIF", "type": "number", "default": 15 }
+      ]
+    },
+    {
+      "id": "video_tool_08",
+      "category": "VIDEO",
+      "name": "Audio Extractor",
+      "description": "Ekstrak audio track dari video tanpa re-encoding.",
+      "endpoint": "/api/v1/tools/video/extract-audio",
+      "accepts": ".mp4, .mkv, .mov, .avi",
+      "delegateTo": "C++",
+      "extraInputs": []
+    },
+
+    {
+      "id": "pdf_tool_01",
+      "category": "PDF",
+      "name": "PDF Merger",
+      "description": "Gabungkan dokumen PDF berukuran raksasa melalui buffer memori.",
+      "endpoint": "/api/v1/tools/pdf/merge",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "pdf_tool_02",
+      "category": "PDF",
+      "name": "Kunci PDF (Sandi Golang)",
+      "description": "Beri sandi keamanan dan enkripsi AES-256 pada file PDF Anda.",
+      "endpoint": "/api/v1/tools/pdf/protect",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "password", "label": "Kata Sandi Baru", "type": "password", "default": "" }
+      ]
+    },
+    {
+      "id": "pdf_tool_03",
+      "category": "PDF",
+      "name": "PDF Splitter",
+      "description": "Pecah PDF menjadi halaman-halaman terpisah.",
+      "endpoint": "/api/v1/tools/pdf/split",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "page_range", "label": "Rentang Halaman (misal: 1-5)", "type": "text", "default": "1-5" }
+      ]
+    },
+    {
+      "id": "pdf_tool_04",
+      "category": "PDF",
+      "name": "PDF Compressor",
+      "description": "Kompres ukuran file PDF tanpa menghilangkan kualitas.",
+      "endpoint": "/api/v1/tools/pdf/compress",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "pdf_tool_05",
+      "category": "PDF",
+      "name": "PDF Watermark",
+      "description": "Tambahkan watermark teks pada setiap halaman PDF.",
+      "endpoint": "/api/v1/tools/pdf/watermark",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "watermark_text", "label": "Teks Watermark", "type": "text", "default": "RAHASIA" }
+      ]
+    },
+    {
+      "id": "pdf_tool_06",
+      "category": "PDF",
+      "name": "PDF to Image",
+      "description": "Konversi setiap halaman PDF menjadi gambar PNG.",
+      "endpoint": "/api/v1/tools/pdf/to-image",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "pdf_tool_07",
+      "category": "PDF",
+      "name": "PDF OCR Scanner",
+      "description": "Ekstrak teks dari halaman PDF yang di-scan (gambar).",
+      "endpoint": "/api/v1/tools/pdf/ocr",
+      "accepts": ".pdf",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "pdf_tool_08",
+      "category": "PDF",
+      "name": "PDF Rotate Pages",
+      "description": "Rotasi halaman PDF 90°, 180°, atau 270°.",
+      "endpoint": "/api/v1/tools/pdf/rotate",
+      "accepts": ".pdf",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "degrees", "label": "Derajat Rotasi (90/180/270)", "type": "number", "default": 90 }
+      ]
+    },
+
+    {
+      "id": "image_tool_01",
+      "category": "IMAGE",
+      "name": "Image Cropper",
+      "description": "Potong gambar dengan rasio aspek kustom (1:1, 4:3, 16:9).",
+      "endpoint": "/api/v1/tools/image/crop",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "aspect_ratio", "label": "Rasio Aspek", "type": "text", "default": "1:1" }
+      ]
+    },
+    {
+      "id": "image_tool_02",
+      "category": "IMAGE",
+      "name": "Image Resizer",
+      "description": "Ubah resolusi gambar (Width x Height) secara presisi.",
+      "endpoint": "/api/v1/tools/image/resize",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "width", "label": "Lebar (px)", "type": "number", "default": 1920 },
+        { "name": "height", "label": "Tinggi (px)", "type": "number", "default": 1080 }
+      ]
+    },
+    {
+      "id": "image_tool_03",
+      "category": "IMAGE",
+      "name": "Background Remover (AI)",
+      "description": "Hapus latar belakang gambar secara otomatis menggunakan AI.",
+      "endpoint": "/api/v1/tools/image/remove-bg",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_04",
+      "category": "IMAGE",
+      "name": "Image Upscaler (AI)",
+      "description": "Tingkatkan resolusi gambar tanpa kehilangan kualitas (Super Resolution).",
+      "endpoint": "/api/v1/tools/image/upscale",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Python",
+      "extraInputs": [
+        { "name": "scale", "label": "Skala (2x/4x)", "type": "number", "default": 2 }
+      ]
+    },
+    {
+      "id": "image_tool_05",
+      "category": "IMAGE",
+      "name": "Image Filters",
+      "description": "Terapkan filter: Grayscale, Sepia, Invert, atau Blue.",
+      "endpoint": "/api/v1/tools/image/filter",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "filter_type", "label": "Jenis Filter", "type": "text", "default": "grayscale" }
+      ]
+    },
+    {
+      "id": "image_tool_06",
+      "category": "IMAGE",
+      "name": "Brightness & Contrast",
+      "description": "Sesuaikan kecerahan dan kontras gambar.",
+      "endpoint": "/api/v1/tools/image/adjust",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "brightness", "label": "Kecerahan (-100 ke 100)", "type": "number", "default": 0 },
+        { "name": "contrast", "label": "Kontras (-100 ke 100)", "type": "number", "default": 0 }
+      ]
+    },
+    {
+      "id": "image_tool_07",
+      "category": "IMAGE",
+      "name": "Image Rotator",
+      "description": "Putar gambar 90, 180, atau 270 derajat.",
+      "endpoint": "/api/v1/tools/image/rotate",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "degrees", "label": "Derajat", "type": "number", "default": 90 }
+      ]
+    },
+    {
+      "id": "image_tool_08",
+      "category": "IMAGE",
+      "name": "Image Flipper",
+      "description": "Balik gambar secara horizontal atau vertikal.",
+      "endpoint": "/api/v1/tools/image/flip",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "direction", "label": "Arah (h/v)", "type": "text", "default": "h" }
+      ]
+    },
+    {
+      "id": "image_tool_09",
+      "category": "IMAGE",
+      "name": "Watermark Image",
+      "description": "Tambahkan logo atau teks watermark pada gambar.",
+      "endpoint": "/api/v1/tools/image/watermark",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "text", "label": "Teks Watermark", "type": "text", "default": "OMNI TOOLS" }
+      ]
+    },
+    {
+      "id": "image_tool_10",
+      "category": "IMAGE",
+      "name": "EXIF Data Stripper",
+      "description": "Hapus metadata sensitif (GPS, Kamera) dari file gambar.",
+      "endpoint": "/api/v1/tools/image/strip-exif",
+      "accepts": ".png, .jpg",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_11",
+      "category": "IMAGE",
+      "name": "Color Palette Extractor",
+      "description": "Ekstrak skema warna dominan dari sebuah gambar.",
+      "endpoint": "/api/v1/tools/image/extract-palette",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_12",
+      "category": "IMAGE",
+      "name": "Image Compressor",
+      "description": "Kompres ukuran file gambar tanpa mengurangi resolusi.",
+      "endpoint": "/api/v1/tools/image/compress",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "quality", "label": "Kualitas (1-100)", "type": "number", "default": 80 }
+      ]
+    },
+    {
+      "id": "image_tool_13",
+      "category": "IMAGE",
+      "name": "Blur Tool",
+      "description": "Berikan efek blur Gaussian pada gambar.",
+      "endpoint": "/api/v1/tools/image/blur",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "sigma", "label": "Intensitas Blur", "type": "number", "default": 2 }
+      ]
+    },
+    {
+      "id": "image_tool_14",
+      "category": "IMAGE",
+      "name": "Sharpen Tool",
+      "description": "Pertajam detail gambar yang buram.",
+      "endpoint": "/api/v1/tools/image/sharpen",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_15",
+      "category": "IMAGE",
+      "name": "PNG to SVG (Vectorizer)",
+      "description": "Ubah gambar raster menjadi grafik vektor SVG.",
+      "endpoint": "/api/v1/tools/image/vectorize",
+      "accepts": ".png, .jpg",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_16",
+      "category": "IMAGE",
+      "name": "WebP Optimizer",
+      "description": "Optimasi file WebP agar ukurannya super kecil.",
+      "endpoint": "/api/v1/tools/image/webp-opt",
+      "accepts": ".webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_17",
+      "category": "IMAGE",
+      "name": "Face Refiner (AI)",
+      "description": "Perbaiki detail wajah yang blur menjadi tajam (Face Restoration).",
+      "endpoint": "/api/v1/tools/image/face-fix",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_18",
+      "category": "IMAGE",
+      "name": "Object Eraser (AI)",
+      "description": "Hapus objek yang tidak diinginkan dari gambar (Inpainting).",
+      "endpoint": "/api/v1/tools/image/inpainting",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_19",
+      "category": "IMAGE",
+      "name": "Image Histogram",
+      "description": "Generate histogram distribusi warna gambar.",
+      "endpoint": "/api/v1/tools/image/histogram",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_20",
+      "category": "IMAGE",
+      "name": "Vignette Effect",
+      "description": "Tambahkan efek vignette artistik pada pinggiran gambar.",
+      "endpoint": "/api/v1/tools/image/vignette",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_21",
+      "category": "IMAGE",
+      "name": "HDR Simulator",
+      "description": "Simulasi dynamic range tinggi pada gambar standar.",
+      "endpoint": "/api/v1/tools/image/hdr",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_22",
+      "category": "IMAGE",
+      "name": "Image Border/Frame",
+      "description": "Tambahkan bingkai kustom pada gambar.",
+      "endpoint": "/api/v1/tools/image/border",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "color", "label": "Warna Hex", "type": "text", "default": "#000000" },
+        { "name": "thickness", "label": "Tebal (px)", "type": "number", "default": 10 }
+      ]
+    },
+    {
+      "id": "image_tool_23",
+      "category": "IMAGE",
+      "name": "Rounded Corners",
+      "description": "Buat sudut gambar menjadi melengkung/bulat.",
+      "endpoint": "/api/v1/tools/image/round",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "radius", "label": "Radius (px)", "type": "number", "default": 20 }
+      ]
+    },
+    {
+      "id": "image_tool_24",
+      "category": "IMAGE",
+      "name": "Pixel Art Converter",
+      "description": "Ubah gambar menjadi gaya pixel art retro.",
+      "endpoint": "/api/v1/tools/image/pixelate",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "pixel_size", "label": "Ukuran Pixel", "type": "number", "default": 8 }
+      ]
+    },
+    {
+      "id": "image_tool_25",
+      "category": "IMAGE",
+      "name": "Noise Reduction",
+      "description": "Kurangi noise/grain pada foto minim cahaya.",
+      "endpoint": "/api/v1/tools/image/denoise",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_26",
+      "category": "IMAGE",
+      "name": "Collage Maker",
+      "description": "Gabungkan beberapa gambar menjadi satu tata letak kolase.",
+      "endpoint": "/api/v1/tools/image/collage",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_27",
+      "category": "IMAGE",
+      "name": "GIF from Images",
+      "description": "Buat animasi GIF dari sekumpulan gambar.",
+      "endpoint": "/api/v1/tools/image/make-gif",
+      "accepts": ".png, .jpg",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "delay", "label": "Delay (ms)", "type": "number", "default": 100 }
+      ]
+    },
+    {
+      "id": "image_tool_28",
+      "category": "IMAGE",
+      "name": "Image Metadata Editor",
+      "description": "Edit title, author, dan copyright metadata gambar.",
+      "endpoint": "/api/v1/tools/image/metadata-edit",
+      "accepts": ".png, .jpg",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_29",
+      "category": "IMAGE",
+      "name": "Exposure Adjuster",
+      "description": "Koreksi pencahayaan gambar (Over/Under Exposure).",
+      "endpoint": "/api/v1/tools/image/exposure",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "image_tool_30",
+      "category": "IMAGE",
+      "name": "Hue & Saturation",
+      "description": "Ubah spektrum warna dan intensitas warna gambar.",
+      "endpoint": "/api/v1/tools/image/hsv",
+      "accepts": ".png, .jpg, .webp",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+
+    {
+      "id": "conv_tool_01",
+      "category": "CONVERTER",
+      "name": "JSON to XML Converter",
+      "description": "Konversi format payload JSON ke skema XML Strict.",
+      "endpoint": "/api/v1/tools/converter/json-to-xml",
+      "accepts": ".json",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_02",
+      "category": "CONVERTER",
+      "name": "HEIC to JPG Converter",
+      "description": "Dekode gambar HEIC eksklusif Apple menjadi JPG standar.",
+      "endpoint": "/api/v1/tools/converter/heic-to-jpg",
+      "accepts": ".heic",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_03",
+      "category": "CONVERTER",
+      "name": "CSV to JSON Converter",
+      "description": "Konversi data tabel CSV menjadi array JSON.",
+      "endpoint": "/api/v1/tools/converter/csv-to-json",
+      "accepts": ".csv",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_04",
+      "category": "CONVERTER",
+      "name": "Markdown to HTML",
+      "description": "Render file Markdown menjadi halaman HTML penuh.",
+      "endpoint": "/api/v1/tools/converter/md-to-html",
+      "accepts": ".md",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_05",
+      "category": "CONVERTER",
+      "name": "Base64 Encoder/Decoder",
+      "description": "Encode atau decode file/teks ke format Base64.",
+      "endpoint": "/api/v1/tools/converter/base64",
+      "accepts": "*",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "mode", "label": "Mode (encode/decode)", "type": "text", "default": "encode" }
+      ]
+    },
+    {
+      "id": "conv_tool_06",
+      "category": "CONVERTER",
+      "name": "Image Format Converter",
+      "description": "Konversi gambar antar format: PNG, JPG, WebP, BMP.",
+      "endpoint": "/api/v1/tools/converter/image-format",
+      "accepts": ".png, .jpg, .jpeg, .webp, .bmp",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "output_format", "label": "Format Output (png/jpg/webp)", "type": "text", "default": "png" }
+      ]
+    },
+    {
+      "id": "conv_tool_07",
+      "category": "CONVERTER",
+      "name": "QR Code Generator",
+      "description": "Generate QR Code dari teks atau URL.",
+      "endpoint": "/api/v1/tools/converter/qr-generate",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "qr_text", "label": "Teks / URL untuk QR", "type": "text", "default": "https://omnitools.dev" }
+      ]
+    },
+    {
+      "id": "conv_tool_08",
+      "category": "CONVERTER",
+      "name": "Hash Generator (SHA/MD5)",
+      "description": "Generate hash SHA-256 atau MD5 dari file apapun.",
+      "endpoint": "/api/v1/tools/converter/hash",
+      "accepts": "*",
+      "delegateTo": "Golang",
+      "extraInputs": [
+        { "name": "algorithm", "label": "Algoritma (sha256/md5)", "type": "text", "default": "sha256" }
+      ]
+    },
+    {
+      "id": "conv_tool_09",
+      "category": "CONVERTER",
+      "name": "YAML to JSON",
+      "description": "Konversi skema konfigurasi YAML ke JSON.",
+      "endpoint": "/api/v1/tools/converter/yaml-to-json",
+      "accepts": ".yaml, .yml",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_10",
+      "category": "CONVERTER",
+      "name": "XML to JSON",
+      "description": "Ubah struktur XML menjadi JSON object.",
+      "endpoint": "/api/v1/tools/converter/xml-to-json",
+      "accepts": ".xml",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_11",
+      "category": "CONVERTER",
+      "name": "PDF to Word (OCR)",
+      "description": "Konversi PDF menjadi file Word yang bisa diedit.",
+      "endpoint": "/api/v1/tools/converter/pdf-to-word",
+      "accepts": ".pdf",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_12",
+      "category": "CONVERTER",
+      "name": "Excel to JSON",
+      "description": "Ekstrak data tabel Excel (XLSX) menjadi array JSON.",
+      "endpoint": "/api/v1/tools/converter/excel-to-json",
+      "accepts": ".xlsx",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_13",
+      "category": "CONVERTER",
+      "name": "Unit Converter",
+      "description": "Konversi satuan: Panjang, Berat, Suhu, Luas.",
+      "endpoint": "/api/v1/tools/converter/units",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_14",
+      "category": "CONVERTER",
+      "name": "Currency Converter",
+      "description": "Konversi nilai mata uang dunia real-time.",
+      "endpoint": "/api/v1/tools/converter/currency",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_15",
+      "category": "CONVERTER",
+      "name": "Timezone Converter",
+      "description": "Hitung perbedaan waktu antar zona waktu dunia.",
+      "endpoint": "/api/v1/tools/converter/timezone",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_16",
+      "category": "CONVERTER",
+      "name": "Ebook Converter (EPUB-MOBI)",
+      "description": "Konversi format buku digital EPUB, MOBI, AZW3.",
+      "endpoint": "/api/v1/tools/converter/ebook",
+      "accepts": ".epub, .mobi",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_17",
+      "category": "CONVERTER",
+      "name": "Font Converter (TTF/OTF/WOFF)",
+      "description": "Konversi format font untuk kebutuhan web atau sistem.",
+      "endpoint": "/api/v1/tools/converter/font",
+      "accepts": ".ttf, .otf, .woff",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_18",
+      "category": "CONVERTER",
+      "name": "CAD to PDF Converter",
+      "description": "Konversi file teknik DWG/DXF menjadi PDF.",
+      "endpoint": "/api/v1/tools/converter/cad-to-pdf",
+      "accepts": ".dwg, .dxf",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_19",
+      "category": "CONVERTER",
+      "name": "ZIP Creator",
+      "description": "Gabungkan beberapa file menjadi satu arsip ZIP.",
+      "endpoint": "/api/v1/tools/converter/zip-create",
+      "accepts": "*",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_20",
+      "category": "CONVERTER",
+      "name": "ZIP/RAR Extractor",
+      "description": "Ekstrak isi dari arsip ZIP, RAR, atau 7Z.",
+      "endpoint": "/api/v1/tools/converter/archive-extract",
+      "accepts": ".zip, .rar, .7z",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_21",
+      "category": "CONVERTER",
+      "name": "HEX to RGB Converter",
+      "description": "Konversi kode warna Hex ke format RGB/HSL.",
+      "endpoint": "/api/v1/tools/converter/color",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_22",
+      "category": "CONVERTER",
+      "name": "Subtitle Converter (SRT-VTT)",
+      "description": "Ubah format subtitle video antar SRT, VTT, SUB.",
+      "endpoint": "/api/v1/tools/converter/subtitle",
+      "accepts": ".srt, .vtt",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_23",
+      "category": "CONVERTER",
+      "name": "Number System (Hex/Bin/Dec)",
+      "description": "Konversi angka antar sistem Desimal, Biner, Hexa.",
+      "endpoint": "/api/v1/tools/converter/numbers",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_24",
+      "category": "CONVERTER",
+      "name": "URL Encoder/Decoder",
+      "description": "Encode atau decode string untuk kebutuhan URL/URI.",
+      "endpoint": "/api/v1/tools/converter/url-codec",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_25",
+      "category": "CONVERTER",
+      "name": "JWT Decoder",
+      "description": "Bongkar payload dari JSON Web Token secara aman.",
+      "endpoint": "/api/v1/tools/converter/jwt-decode",
+      "accepts": "",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_26",
+      "category": "CONVERTER",
+      "name": "HTML to PDF",
+      "description": "Render halaman web atau HTML menjadi file PDF.",
+      "endpoint": "/api/v1/tools/converter/html-to-pdf",
+      "accepts": ".html",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_27",
+      "category": "CONVERTER",
+      "name": "SVG to PNG Converter",
+      "description": "Render grafik vektor SVG menjadi gambar raster PNG.",
+      "endpoint": "/api/v1/tools/converter/svg-to-png",
+      "accepts": ".svg",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_28",
+      "category": "CONVERTER",
+      "name": "CSV to Excel",
+      "description": "Konversi file data CSV menjadi spreadsheet Excel.",
+      "endpoint": "/api/v1/tools/converter/csv-to-xlsx",
+      "accepts": ".csv",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_29",
+      "category": "CONVERTER",
+      "name": "RAR to ZIP Converter",
+      "description": "Ubah format kompresi dari RAR ke ZIP standar.",
+      "endpoint": "/api/v1/tools/converter/rar-to-zip",
+      "accepts": ".rar",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+    {
+      "id": "conv_tool_30",
+      "category": "CONVERTER",
+      "name": "Magic Byte Detector",
+      "description": "Deteksi tipe file asli berdasarkan signature byte (bukan ekstensi).",
+      "endpoint": "/api/v1/tools/converter/detect-type",
+      "accepts": "*",
+      "delegateTo": "Golang",
+      "extraInputs": []
+    },
+
+    {
+      "id": "ai_tool_01",
+      "category": "AI",
+      "name": "AI Chat Assistant (Real-Time)",
+      "description": "Percakapan AI real-time via WebSocket pipeline Go→Python.",
+      "endpoint": "/ws/ai-chat",
+      "accepts": "",
+      "delegateTo": "Python",
+      "extraInputs": [
+        { "name": "prompt", "label": "Ketik Pertanyaan Anda", "type": "text", "default": "" }
+      ]
+    },
+    {
+      "id": "ai_tool_02",
+      "category": "AI",
+      "name": "AI Image Captioner",
+      "description": "Hasilkan deskripsi otomatis untuk gambar menggunakan model Vision.",
+      "endpoint": "/api/v1/tools/ai/caption-image",
+      "accepts": ".png, .jpg, .jpeg, .webp",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "ai_tool_03",
+      "category": "AI",
+      "name": "AI Text Summarizer",
+      "description": "Ringkas dokumen panjang menjadi poin-poin utama.",
+      "endpoint": "/api/v1/tools/ai/summarize",
+      "accepts": ".txt, .pdf",
+      "delegateTo": "Python",
+      "extraInputs": [
+        { "name": "max_sentences", "label": "Maks Kalimat Ringkasan", "type": "number", "default": 5 }
+      ]
+    },
+    {
+      "id": "ai_tool_04",
+      "category": "AI",
+      "name": "AI Code Reviewer",
+      "description": "Review otomatis kode sumber dan berikan saran perbaikan.",
+      "endpoint": "/api/v1/tools/ai/review-code",
+      "accepts": ".js, .ts, .py, .go, .cpp",
+      "delegateTo": "Python",
+      "extraInputs": []
+    },
+    {
+      "id": "ai_tool_05",
+      "category": "AI",
+      "name": "AI Translator",
+      "description": "Terjemahkan teks ke 50+ bahasa menggunakan model NLP.",
+      "endpoint": "/api/v1/tools/ai/translate",
+      "accepts": ".txt",
+      "delegateTo": "Python",
+      "extraInputs": [
+        { "name": "target_lang", "label": "Bahasa Target (en/id/ja/ko/de)", "type": "text", "default": "en" }
+      ]
+    },
+    {
+      "id": "ai_tool_06",
+      "category": "AI",
+      "name": "AI Visual Generator",
+      "description": "Hasilkan gambar AI dari prompt teks (Stable Diffusion).",
+      "endpoint": "/api/v1/tools/ai/generate-visual",
+      "accepts": "",
+      "delegateTo": "Python",
+      "extraInputs": [
+        { "name": "prompt", "label": "Deskripsi Gambar", "type": "text", "default": "" }
+      ]
+    }
+  ]
+}
+

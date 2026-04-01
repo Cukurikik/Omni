@@ -1,41 +1,85 @@
-# Prerequisites
-*.d
+# Omni Framework .gitignore
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
+# ==========================
+# Compiled Binaries & Executables
+# ==========================
+*.exe
+*.exe~
+*.dll
 *.so
 *.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
+*.o
 *.a
-*.lib
-
-# Executables
-*.exe
 *.out
-*.app
 
-# debug information files
-*.dwo
+# ==========================
+# Large Binary Archives
+# ==========================
+*.zip
+*.tar.gz
+*.tar.bz2
+*.7z
+*.rar
+
+# ==========================
+# FFmpeg / Pandoc / QPDF Binaries (downloaded at runtime)
+# ==========================
+bin/ffmpeg.exe
+bin/ffplay.exe
+bin/ffprobe.exe
+bin/ffmpeg-*/
+bin/pandoc.exe
+bin/pandoc-*/
+bin/qpdf.exe
+bin/qpdf-*/
+bin/qpdf*.dll
+bin/clang-format.exe
+bin/clang-format.zip
+bin/magick.exe
+
+# MSVC Runtime DLLs
+bin/concrt140.dll
+bin/msvcp140*.dll
+bin/vcruntime140.dll
+
+# ==========================
+# Node / Build Artifacts
+# ==========================
+node_modules/
+.next/
+dist/
+build/
+*.tsbuildinfo
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================
+# IDE
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# Environment
+# ==========================
+.env
+.env.local
+.env.*.local
+
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log
+
+# ==========================
+# Test artifacts
+# ==========================
+*.mp4
+*.mp3
+*.wav
