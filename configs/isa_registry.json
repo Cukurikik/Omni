@@ -1,0 +1,5153 @@
+{
+  "instructions": {
+    "video_to_mp4": {
+      "opcode": "0xV01",
+      "mnemonic": "VID_TO_MP4",
+      "description": "Convert video to optimized MP4/HLS format.",
+      "engine": "ffmpeg",
+      "category": "HEAVY",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c:v",
+        "libx264",
+        "-c:a",
+        "aac",
+        "-f",
+        "hls",
+        "-hls_time",
+        "4",
+        "-hls_playlist_type",
+        "event",
+        "-hls_segment_filename",
+        "{output_dir}/hls_{tool_id}_%03d.ts",
+        "{output}.m3u8"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout_seconds": 1800
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_to_mkv": {
+      "opcode": "0xV01",
+      "mnemonic": "VIDEO_TO_MKV",
+      "description": "Execute video_to_mkv",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c",
+        "copy",
+        "{output}.mkv"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_to_avi": {
+      "opcode": "0xV02",
+      "mnemonic": "VIDEO_TO_AVI",
+      "description": "Execute video_to_avi",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c:v",
+        "mpeg4",
+        "-c:a",
+        "mp3",
+        "{output}.avi"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_to_webm": {
+      "opcode": "0xV03",
+      "mnemonic": "VIDEO_TO_WEBM",
+      "description": "Execute video_to_webm",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c:v",
+        "libvpx-vp9",
+        "-c:a",
+        "libopus",
+        "{output}.webm"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 3600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_to_gif": {
+      "opcode": "0xV04",
+      "mnemonic": "VIDEO_TO_GIF",
+      "description": "Execute video_to_gif",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "fps=15,scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse",
+        "{output}.gif"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_compress_1080p": {
+      "opcode": "0xV05",
+      "mnemonic": "VIDEO_COMPRESS_1080P",
+      "description": "Execute video_compress_1080p",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:1080",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "23",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 2700000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_compress_720p": {
+      "opcode": "0xV06",
+      "mnemonic": "VIDEO_COMPRESS_720P",
+      "description": "Execute video_compress_720p",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:720",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "28",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_compress_480p": {
+      "opcode": "0xV07",
+      "mnemonic": "VIDEO_COMPRESS_480P",
+      "description": "Execute video_compress_480p",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:480",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "30",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1200000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_compress_360p": {
+      "opcode": "0xV08",
+      "mnemonic": "VIDEO_COMPRESS_360P",
+      "description": "Execute video_compress_360p",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "scale=-1:360",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "32",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_extract_audio_mp3": {
+      "opcode": "0xV09",
+      "mnemonic": "VIDEO_EXTRACT_AUDIO_MP3",
+      "description": "Execute video_extract_audio_mp3",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vn",
+        "-acodec",
+        "libmp3lame",
+        "-q:a",
+        "2",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_extract_audio_wav": {
+      "opcode": "0xV0A",
+      "mnemonic": "VIDEO_EXTRACT_AUDIO_WAV",
+      "description": "Execute video_extract_audio_wav",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vn",
+        "-acodec",
+        "pcm_s16le",
+        "{output}.wav"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_remove_audio": {
+      "opcode": "0xV0B",
+      "mnemonic": "VIDEO_REMOVE_AUDIO",
+      "description": "Execute video_remove_audio",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-c",
+        "copy",
+        "-an",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_speed_0.5x": {
+      "opcode": "0xV0C",
+      "mnemonic": "VIDEO_SPEED_0_5X",
+      "description": "Execute video_speed_0.5x",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=2.0*PTS[v];[0:a]atempo=0.5[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_speed_0.75x": {
+      "opcode": "0xV0D",
+      "mnemonic": "VIDEO_SPEED_0_75X",
+      "description": "Execute video_speed_0.75x",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=1.33*PTS[v];[0:a]atempo=0.75[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_speed_1.25x": {
+      "opcode": "0xV0E",
+      "mnemonic": "VIDEO_SPEED_1_25X",
+      "description": "Execute video_speed_1.25x",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=0.8*PTS[v];[0:a]atempo=1.25[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_speed_1.5x": {
+      "opcode": "0xV0F",
+      "mnemonic": "VIDEO_SPEED_1_5X",
+      "description": "Execute video_speed_1.5x",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=0.66*PTS[v];[0:a]atempo=1.5[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_speed_2.0x": {
+      "opcode": "0xV10",
+      "mnemonic": "VIDEO_SPEED_2_0X",
+      "description": "Execute video_speed_2.0x",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter_complex",
+        "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_reverse": {
+      "opcode": "0xV11",
+      "mnemonic": "VIDEO_REVERSE",
+      "description": "Execute video_reverse",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "reverse",
+        "-af",
+        "areverse",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 3600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_grayscale": {
+      "opcode": "0xV12",
+      "mnemonic": "VIDEO_GRAYSCALE",
+      "description": "Execute video_grayscale",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "colorchannelmixer=.3:.4:.3:0:.3:.4:.3:0:.3:.4:.3",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_sepia": {
+      "opcode": "0xV13",
+      "mnemonic": "VIDEO_SEPIA",
+      "description": "Execute video_sepia",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "colorchannelmixer=.393:.769:.189:0:.349:.686:.168:0:.272:.534:.131",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_blur": {
+      "opcode": "0xV14",
+      "mnemonic": "VIDEO_BLUR",
+      "description": "Execute video_blur",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "boxblur=10:5",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_crop_1_1": {
+      "opcode": "0xV15",
+      "mnemonic": "VIDEO_CROP_1_1",
+      "description": "Execute video_crop_1_1",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "crop=ih:ih",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1200000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_crop_16_9": {
+      "opcode": "0xV16",
+      "mnemonic": "VIDEO_CROP_16_9",
+      "description": "Execute video_crop_16_9",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "crop=iw:iw/(16/9)",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1200000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_crop_9_16": {
+      "opcode": "0xV17",
+      "mnemonic": "VIDEO_CROP_9_16",
+      "description": "Execute video_crop_9_16",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "crop=ih*(9/16):ih",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1200000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_extract_frame_1s": {
+      "opcode": "0xV18",
+      "mnemonic": "VIDEO_EXTRACT_FRAME_1S",
+      "description": "Execute video_extract_frame_1s",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-ss",
+        "00:00:01",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_extract_frame_10s": {
+      "opcode": "0xV19",
+      "mnemonic": "VIDEO_EXTRACT_FRAME_10S",
+      "description": "Execute video_extract_frame_10s",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-ss",
+        "00:00:10",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_extract_frame_30s": {
+      "opcode": "0xV1A",
+      "mnemonic": "VIDEO_EXTRACT_FRAME_30S",
+      "description": "Execute video_extract_frame_30s",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-ss",
+        "00:00:30",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_extract_frame_60s": {
+      "opcode": "0xV1B",
+      "mnemonic": "VIDEO_EXTRACT_FRAME_60S",
+      "description": "Execute video_extract_frame_60s",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-ss",
+        "00:01:00",
+        "-i",
+        "{input}",
+        "-vframes",
+        "1",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_rotate_90_cw": {
+      "opcode": "0xV1C",
+      "mnemonic": "VIDEO_ROTATE_90_CW",
+      "description": "Execute video_rotate_90_cw",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "transpose=1",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_rotate_90_ccw": {
+      "opcode": "0xV1D",
+      "mnemonic": "VIDEO_ROTATE_90_CCW",
+      "description": "Execute video_rotate_90_ccw",
+      "engine": "ffmpeg",
+      "category": "VIDEO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-vf",
+        "transpose=2",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_to_mp3": {
+      "opcode": "0xA1E",
+      "mnemonic": "AUDIO_TO_MP3",
+      "description": "Execute audio_to_mp3",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "libmp3lame",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_to_wav": {
+      "opcode": "0xA1F",
+      "mnemonic": "AUDIO_TO_WAV",
+      "description": "Execute audio_to_wav",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "pcm_s16le",
+        "{output}.wav"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_to_ogg": {
+      "opcode": "0xA20",
+      "mnemonic": "AUDIO_TO_OGG",
+      "description": "Execute audio_to_ogg",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "libvorbis",
+        "{output}.ogg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_to_flac": {
+      "opcode": "0xA21",
+      "mnemonic": "AUDIO_TO_FLAC",
+      "description": "Execute audio_to_flac",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-acodec",
+        "flac",
+        "{output}.flac"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_compress_320k": {
+      "opcode": "0xA22",
+      "mnemonic": "AUDIO_COMPRESS_320K",
+      "description": "Execute audio_compress_320k",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "320k",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_compress_256k": {
+      "opcode": "0xA23",
+      "mnemonic": "AUDIO_COMPRESS_256K",
+      "description": "Execute audio_compress_256k",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "256k",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_compress_192k": {
+      "opcode": "0xA24",
+      "mnemonic": "AUDIO_COMPRESS_192K",
+      "description": "Execute audio_compress_192k",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "192k",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_compress_128k": {
+      "opcode": "0xA25",
+      "mnemonic": "AUDIO_COMPRESS_128K",
+      "description": "Execute audio_compress_128k",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "128k",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_compress_64k": {
+      "opcode": "0xA26",
+      "mnemonic": "AUDIO_COMPRESS_64K",
+      "description": "Execute audio_compress_64k",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-b:a",
+        "64k",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_vol_up_150": {
+      "opcode": "0xA27",
+      "mnemonic": "AUDIO_VOL_UP_150",
+      "description": "Execute audio_vol_up_150",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=1.5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_vol_up_200": {
+      "opcode": "0xA28",
+      "mnemonic": "AUDIO_VOL_UP_200",
+      "description": "Execute audio_vol_up_200",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=2.0",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_vol_down_50": {
+      "opcode": "0xA29",
+      "mnemonic": "AUDIO_VOL_DOWN_50",
+      "description": "Execute audio_vol_down_50",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=0.5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_vol_down_25": {
+      "opcode": "0xA2A",
+      "mnemonic": "AUDIO_VOL_DOWN_25",
+      "description": "Execute audio_vol_down_25",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "volume=0.25",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_bass_boost_low": {
+      "opcode": "0xA2B",
+      "mnemonic": "AUDIO_BASS_BOOST_LOW",
+      "description": "Execute audio_bass_boost_low",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "bass=g=5:f=110:w=0.6",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_bass_boost_med": {
+      "opcode": "0xA2C",
+      "mnemonic": "AUDIO_BASS_BOOST_MED",
+      "description": "Execute audio_bass_boost_med",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "bass=g=10:f=110:w=0.6",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_bass_boost_high": {
+      "opcode": "0xA2D",
+      "mnemonic": "AUDIO_BASS_BOOST_HIGH",
+      "description": "Execute audio_bass_boost_high",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "bass=g=15:f=110:w=0.6",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_treble_boost": {
+      "opcode": "0xA2E",
+      "mnemonic": "AUDIO_TREBLE_BOOST",
+      "description": "Execute audio_treble_boost",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "treble=g=10:f=10000:w=0.5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_treble_cut": {
+      "opcode": "0xA2F",
+      "mnemonic": "AUDIO_TREBLE_CUT",
+      "description": "Execute audio_treble_cut",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "treble=g=-10:f=10000:w=0.5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_fade_in_3s": {
+      "opcode": "0xA30",
+      "mnemonic": "AUDIO_FADE_IN_3S",
+      "description": "Execute audio_fade_in_3s",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "afade=t=in:ss=0:d=3",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_fade_in_5s": {
+      "opcode": "0xA31",
+      "mnemonic": "AUDIO_FADE_IN_5S",
+      "description": "Execute audio_fade_in_5s",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "afade=t=in:ss=0:d=5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_fade_out_3s": {
+      "opcode": "0xA32",
+      "mnemonic": "AUDIO_FADE_OUT_3S",
+      "description": "Execute audio_fade_out_3s",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "areverse,afade=t=in:ss=0:d=3,areverse",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_fade_out_5s": {
+      "opcode": "0xA33",
+      "mnemonic": "AUDIO_FADE_OUT_5S",
+      "description": "Execute audio_fade_out_5s",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "areverse,afade=t=in:ss=0:d=5,areverse",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_speed_0.5x": {
+      "opcode": "0xA34",
+      "mnemonic": "AUDIO_SPEED_0_5X",
+      "description": "Execute audio_speed_0.5x",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "atempo=0.5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_speed_1.5x": {
+      "opcode": "0xA35",
+      "mnemonic": "AUDIO_SPEED_1_5X",
+      "description": "Execute audio_speed_1.5x",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "atempo=1.5",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_speed_2.0x": {
+      "opcode": "0xA36",
+      "mnemonic": "AUDIO_SPEED_2_0X",
+      "description": "Execute audio_speed_2.0x",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-filter:a",
+        "atempo=2.0",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_reverse": {
+      "opcode": "0xA37",
+      "mnemonic": "AUDIO_REVERSE",
+      "description": "Execute audio_reverse",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "areverse",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_8d_surround": {
+      "opcode": "0xA38",
+      "mnemonic": "AUDIO_8D_SURROUND",
+      "description": "Execute audio_8d_surround",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "apulsator=hz=0.125",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_mono_to_stereo": {
+      "opcode": "0xA39",
+      "mnemonic": "AUDIO_MONO_TO_STEREO",
+      "description": "Execute audio_mono_to_stereo",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-ac",
+        "2",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_stereo_to_mono": {
+      "opcode": "0xA3A",
+      "mnemonic": "AUDIO_STEREO_TO_MONO",
+      "description": "Execute audio_stereo_to_mono",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-ac",
+        "1",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "audio_remove_silence": {
+      "opcode": "0xA3B",
+      "mnemonic": "AUDIO_REMOVE_SILENCE",
+      "description": "Execute audio_remove_silence",
+      "engine": "ffmpeg",
+      "category": "AUDIO",
+      "args": [
+        "-y",
+        "-i",
+        "{input}",
+        "-af",
+        "silenceremove=stop_periods=-1:stop_duration=1:stop_threshold=-90dB",
+        "{output}.mp3"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_to_png": {
+      "opcode": "0xM3C",
+      "mnemonic": "IMAGE_TO_PNG",
+      "description": "Execute image_to_png",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "{output}.png"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_to_jpg": {
+      "opcode": "0xM3D",
+      "mnemonic": "IMAGE_TO_JPG",
+      "description": "Execute image_to_jpg",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-background",
+        "white",
+        "-flatten",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_to_webp": {
+      "opcode": "0xM3E",
+      "mnemonic": "IMAGE_TO_WEBP",
+      "description": "Execute image_to_webp",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-quality",
+        "80",
+        "{output}.webp"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_to_bmp": {
+      "opcode": "0xM3F",
+      "mnemonic": "IMAGE_TO_BMP",
+      "description": "Execute image_to_bmp",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "{output}.bmp"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_to_tiff": {
+      "opcode": "0xM40",
+      "mnemonic": "IMAGE_TO_TIFF",
+      "description": "Execute image_to_tiff",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "{output}.tiff"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_compress_high": {
+      "opcode": "0xM41",
+      "mnemonic": "IMAGE_COMPRESS_HIGH",
+      "description": "Execute image_compress_high",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-quality",
+        "50",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_compress_med": {
+      "opcode": "0xM42",
+      "mnemonic": "IMAGE_COMPRESS_MED",
+      "description": "Execute image_compress_med",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-quality",
+        "70",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_compress_low": {
+      "opcode": "0xM43",
+      "mnemonic": "IMAGE_COMPRESS_LOW",
+      "description": "Execute image_compress_low",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-quality",
+        "90",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_resize_4k": {
+      "opcode": "0xM44",
+      "mnemonic": "IMAGE_RESIZE_4K",
+      "description": "Execute image_resize_4k",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-resize",
+        "3840x2160>",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_resize_1080p": {
+      "opcode": "0xM45",
+      "mnemonic": "IMAGE_RESIZE_1080P",
+      "description": "Execute image_resize_1080p",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-resize",
+        "1920x1080>",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_resize_720p": {
+      "opcode": "0xM46",
+      "mnemonic": "IMAGE_RESIZE_720P",
+      "description": "Execute image_resize_720p",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-resize",
+        "1280x720>",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_resize_480p": {
+      "opcode": "0xM47",
+      "mnemonic": "IMAGE_RESIZE_480P",
+      "description": "Execute image_resize_480p",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-resize",
+        "854x480>",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_grayscale": {
+      "opcode": "0xM48",
+      "mnemonic": "IMAGE_GRAYSCALE",
+      "description": "Execute image_grayscale",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-colorspace",
+        "Gray",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_sepia": {
+      "opcode": "0xM49",
+      "mnemonic": "IMAGE_SEPIA",
+      "description": "Execute image_sepia",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-sepia-tone",
+        "80%",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_invert": {
+      "opcode": "0xM4A",
+      "mnemonic": "IMAGE_INVERT",
+      "description": "Execute image_invert",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-negate",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_blur_light": {
+      "opcode": "0xM4B",
+      "mnemonic": "IMAGE_BLUR_LIGHT",
+      "description": "Execute image_blur_light",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-blur",
+        "0x4",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_blur_heavy": {
+      "opcode": "0xM4C",
+      "mnemonic": "IMAGE_BLUR_HEAVY",
+      "description": "Execute image_blur_heavy",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-blur",
+        "0x12",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_sharpen_light": {
+      "opcode": "0xM4D",
+      "mnemonic": "IMAGE_SHARPEN_LIGHT",
+      "description": "Execute image_sharpen_light",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-sharpen",
+        "0x2",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_sharpen_heavy": {
+      "opcode": "0xM4E",
+      "mnemonic": "IMAGE_SHARPEN_HEAVY",
+      "description": "Execute image_sharpen_heavy",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-sharpen",
+        "0x5",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_rotate_90": {
+      "opcode": "0xM4F",
+      "mnemonic": "IMAGE_ROTATE_90",
+      "description": "Execute image_rotate_90",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-rotate",
+        "90",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_rotate_180": {
+      "opcode": "0xM50",
+      "mnemonic": "IMAGE_ROTATE_180",
+      "description": "Execute image_rotate_180",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-rotate",
+        "180",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_rotate_270": {
+      "opcode": "0xM51",
+      "mnemonic": "IMAGE_ROTATE_270",
+      "description": "Execute image_rotate_270",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-rotate",
+        "270",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_flip_horizontal": {
+      "opcode": "0xM52",
+      "mnemonic": "IMAGE_FLIP_HORIZONTAL",
+      "description": "Execute image_flip_horizontal",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-flop",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_flip_vertical": {
+      "opcode": "0xM53",
+      "mnemonic": "IMAGE_FLIP_VERTICAL",
+      "description": "Execute image_flip_vertical",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-flip",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_auto_orient": {
+      "opcode": "0xM54",
+      "mnemonic": "IMAGE_AUTO_ORIENT",
+      "description": "Execute image_auto_orient",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-auto-orient",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_edge_detect": {
+      "opcode": "0xM55",
+      "mnemonic": "IMAGE_EDGE_DETECT",
+      "description": "Execute image_edge_detect",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-edge",
+        "1",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_charcoal": {
+      "opcode": "0xM56",
+      "mnemonic": "IMAGE_CHARCOAL",
+      "description": "Execute image_charcoal",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-charcoal",
+        "2",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_noise_reduce": {
+      "opcode": "0xM57",
+      "mnemonic": "IMAGE_NOISE_REDUCE",
+      "description": "Execute image_noise_reduce",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-noise",
+        "3",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_contrast_boost": {
+      "opcode": "0xM58",
+      "mnemonic": "IMAGE_CONTRAST_BOOST",
+      "description": "Execute image_contrast_boost",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-contrast",
+        "-contrast",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "image_brightness_boost": {
+      "opcode": "0xM59",
+      "mnemonic": "IMAGE_BRIGHTNESS_BOOST",
+      "description": "Execute image_brightness_boost",
+      "engine": "magick",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-modulate",
+        "120,100",
+        "{output}.jpg"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_compress_screen": {
+      "opcode": "0xM5A",
+      "mnemonic": "PDF_COMPRESS_SCREEN",
+      "description": "Execute pdf_compress_screen",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/screen",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_compress_ebook": {
+      "opcode": "0xM5B",
+      "mnemonic": "PDF_COMPRESS_EBOOK",
+      "description": "Execute pdf_compress_ebook",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/ebook",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_compress_printer": {
+      "opcode": "0xM5C",
+      "mnemonic": "PDF_COMPRESS_PRINTER",
+      "description": "Execute pdf_compress_printer",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/printer",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_compress_prepress": {
+      "opcode": "0xM5D",
+      "mnemonic": "PDF_COMPRESS_PREPRESS",
+      "description": "Execute pdf_compress_prepress",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dPDFSETTINGS=/prepress",
+        "-dNOPAUSE",
+        "-dQUIET",
+        "-dBATCH",
+        "-sOutputFile={output}.pdf",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_protect_pass": {
+      "opcode": "0xM5E",
+      "mnemonic": "PDF_PROTECT_PASS",
+      "description": "Execute pdf_protect_pass",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--encrypt",
+        "{user_pass}",
+        "{owner_pass}",
+        "256",
+        "--",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        },
+        {
+          "name": "user_pass",
+          "type": "string",
+          "required": false,
+          "mnemonic_ref": "{user_pass}"
+        },
+        {
+          "name": "owner_pass",
+          "type": "string",
+          "required": false,
+          "mnemonic_ref": "{owner_pass}"
+        }
+      ]
+    },
+    "pdf_decrypt_pass": {
+      "opcode": "0xM5F",
+      "mnemonic": "PDF_DECRYPT_PASS",
+      "description": "Execute pdf_decrypt_pass",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--password={password}",
+        "--decrypt",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "required": false,
+          "mnemonic_ref": "{password}"
+        }
+      ]
+    },
+    "pdf_merge_generic": {
+      "opcode": "0xM60",
+      "mnemonic": "PDF_MERGE_GENERIC",
+      "description": "Execute pdf_merge_generic",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "cat",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_burst_pages": {
+      "opcode": "0xM61",
+      "mnemonic": "PDF_BURST_PAGES",
+      "description": "Execute pdf_burst_pages",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "burst",
+        "output",
+        "{output}_page_%04d.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_rotate_90_cw": {
+      "opcode": "0xM62",
+      "mnemonic": "PDF_ROTATE_90_CW",
+      "description": "Execute pdf_rotate_90_cw",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "cat",
+        "1-endE",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_rotate_90_ccw": {
+      "opcode": "0xM63",
+      "mnemonic": "PDF_ROTATE_90_CCW",
+      "description": "Execute pdf_rotate_90_ccw",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "cat",
+        "1-endW",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_rotate_180": {
+      "opcode": "0xM64",
+      "mnemonic": "PDF_ROTATE_180",
+      "description": "Execute pdf_rotate_180",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "cat",
+        "1-endS",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_allow_printing": {
+      "opcode": "0xM65",
+      "mnemonic": "PDF_ALLOW_PRINTING",
+      "description": "Execute pdf_allow_printing",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--encrypt",
+        "",
+        "omni",
+        "256",
+        "--print=full",
+        "--",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_allow_copying": {
+      "opcode": "0xM66",
+      "mnemonic": "PDF_ALLOW_COPYING",
+      "description": "Execute pdf_allow_copying",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--encrypt",
+        "",
+        "omni",
+        "256",
+        "--extract=y",
+        "--",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_linearize_web": {
+      "opcode": "0xM67",
+      "mnemonic": "PDF_LINEARIZE_WEB",
+      "description": "Execute pdf_linearize_web",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--linearize",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_to_images_jpg": {
+      "opcode": "0xM68",
+      "mnemonic": "PDF_TO_IMAGES_JPG",
+      "description": "Execute pdf_to_images_jpg",
+      "engine": "pdftoppm",
+      "category": "MISC",
+      "args": [
+        "-jpeg",
+        "-r",
+        "300",
+        "{input}",
+        "{output}_page"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_to_images_png": {
+      "opcode": "0xM69",
+      "mnemonic": "PDF_TO_IMAGES_PNG",
+      "description": "Execute pdf_to_images_png",
+      "engine": "pdftoppm",
+      "category": "MISC",
+      "args": [
+        "-png",
+        "-r",
+        "300",
+        "{input}",
+        "{output}_page"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_extract_text": {
+      "opcode": "0xM6A",
+      "mnemonic": "PDF_EXTRACT_TEXT",
+      "description": "Execute pdf_extract_text",
+      "engine": "pdftotext",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "{output}.txt"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_remove_pass_unsec": {
+      "opcode": "0xM6B",
+      "mnemonic": "PDF_REMOVE_PASS_UNSEC",
+      "description": "Execute pdf_remove_pass_unsec",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--decrypt",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_watermark_draft": {
+      "opcode": "0xM6C",
+      "mnemonic": "PDF_WATERMARK_DRAFT",
+      "description": "Execute pdf_watermark_draft",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "background",
+        "draft_stamp.pdf",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_watermark_confidential": {
+      "opcode": "0xM6D",
+      "mnemonic": "PDF_WATERMARK_CONFIDENTIAL",
+      "description": "Execute pdf_watermark_confidential",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "background",
+        "confidential_stamp.pdf",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_grayscale": {
+      "opcode": "0xM6E",
+      "mnemonic": "PDF_GRAYSCALE",
+      "description": "Execute pdf_grayscale",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sOutputFile={output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-sColorConversionStrategy=Gray",
+        "-dProcessColorModel=/DeviceGray",
+        "-dCompatibilityLevel=1.4",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_repair_corrupt": {
+      "opcode": "0xM6F",
+      "mnemonic": "PDF_REPAIR_CORRUPT",
+      "description": "Execute pdf_repair_corrupt",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-o",
+        "{output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-dPDFSETTINGS=/prepress",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_attach_file": {
+      "opcode": "0xM70",
+      "mnemonic": "PDF_ATTACH_FILE",
+      "description": "Execute pdf_attach_file",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "attach_files",
+        "{attachment_path}",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        },
+        {
+          "name": "attachment_path",
+          "type": "string",
+          "required": false,
+          "mnemonic_ref": "{attachment_path}"
+        }
+      ]
+    },
+    "pdf_extract_attachments": {
+      "opcode": "0xM71",
+      "mnemonic": "PDF_EXTRACT_ATTACHMENTS",
+      "description": "Execute pdf_extract_attachments",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "unpack_files",
+        "output",
+        "{output_dir}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_metadata_clear": {
+      "opcode": "0xM72",
+      "mnemonic": "PDF_METADATA_CLEAR",
+      "description": "Execute pdf_metadata_clear",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--empty",
+        "--pages",
+        "{input}",
+        "1-z",
+        "--",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_scale_a4": {
+      "opcode": "0xM73",
+      "mnemonic": "PDF_SCALE_A4",
+      "description": "Execute pdf_scale_a4",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sOutputFile={output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-sPAPERSIZE=a4",
+        "-dFIXEDMEDIA",
+        "-dPDFFitPage",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_scale_letter": {
+      "opcode": "0xM74",
+      "mnemonic": "PDF_SCALE_LETTER",
+      "description": "Execute pdf_scale_letter",
+      "engine": "gs",
+      "category": "MISC",
+      "args": [
+        "-sOutputFile={output}.pdf",
+        "-sDEVICE=pdfwrite",
+        "-sPAPERSIZE=letter",
+        "-dFIXEDMEDIA",
+        "-dPDFFitPage",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_uncompress_streams": {
+      "opcode": "0xM75",
+      "mnemonic": "PDF_UNCOMPRESS_STREAMS",
+      "description": "Execute pdf_uncompress_streams",
+      "engine": "qpdf",
+      "category": "MISC",
+      "args": [
+        "--stream-data=uncompress",
+        "{input}",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_flatten": {
+      "opcode": "0xM76",
+      "mnemonic": "PDF_FLATTEN",
+      "description": "Execute pdf_flatten",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "generate_fdf",
+        "output",
+        "temp.fdf",
+        "&&",
+        "pdftk",
+        "{input}",
+        "fill_form",
+        "temp.fdf",
+        "output",
+        "{output}.pdf",
+        "flatten"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_reverse_pages": {
+      "opcode": "0xM77",
+      "mnemonic": "PDF_REVERSE_PAGES",
+      "description": "Execute pdf_reverse_pages",
+      "engine": "pdftk",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "cat",
+        "end-1",
+        "output",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "docx_to_pdf": {
+      "opcode": "0xM78",
+      "mnemonic": "DOCX_TO_PDF",
+      "description": "Execute docx_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pptx_to_pdf": {
+      "opcode": "0xM79",
+      "mnemonic": "PPTX_TO_PDF",
+      "description": "Execute pptx_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "xlsx_to_pdf": {
+      "opcode": "0xM7A",
+      "mnemonic": "XLSX_TO_PDF",
+      "description": "Execute xlsx_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "html_to_pdf": {
+      "opcode": "0xM7B",
+      "mnemonic": "HTML_TO_PDF",
+      "description": "Execute html_to_pdf",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf",
+        "--pdf-engine=wkhtmltopdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "md_to_pdf": {
+      "opcode": "0xM7C",
+      "mnemonic": "MD_TO_PDF",
+      "description": "Execute md_to_pdf",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "txt_to_pdf": {
+      "opcode": "0xM7D",
+      "mnemonic": "TXT_TO_PDF",
+      "description": "Execute txt_to_pdf",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "rtf_to_pdf": {
+      "opcode": "0xM7E",
+      "mnemonic": "RTF_TO_PDF",
+      "description": "Execute rtf_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "odt_to_pdf": {
+      "opcode": "0xM7F",
+      "mnemonic": "ODT_TO_PDF",
+      "description": "Execute odt_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "odp_to_pdf": {
+      "opcode": "0xM80",
+      "mnemonic": "ODP_TO_PDF",
+      "description": "Execute odp_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "ods_to_pdf": {
+      "opcode": "0xM81",
+      "mnemonic": "ODS_TO_PDF",
+      "description": "Execute ods_to_pdf",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "md_to_html": {
+      "opcode": "0xM82",
+      "mnemonic": "MD_TO_HTML",
+      "description": "Execute md_to_html",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-f",
+        "markdown",
+        "-t",
+        "html",
+        "-o",
+        "{output}.html"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "html_to_md": {
+      "opcode": "0xM83",
+      "mnemonic": "HTML_TO_MD",
+      "description": "Execute html_to_md",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-f",
+        "html",
+        "-t",
+        "markdown",
+        "-o",
+        "{output}.md"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "docx_to_md": {
+      "opcode": "0xM84",
+      "mnemonic": "DOCX_TO_MD",
+      "description": "Execute docx_to_md",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-f",
+        "docx",
+        "-t",
+        "markdown",
+        "-o",
+        "{output}.md"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "docx_to_html": {
+      "opcode": "0xM85",
+      "mnemonic": "DOCX_TO_HTML",
+      "description": "Execute docx_to_html",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-f",
+        "docx",
+        "-t",
+        "html",
+        "-o",
+        "{output}.html"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "html_to_docx": {
+      "opcode": "0xM86",
+      "mnemonic": "HTML_TO_DOCX",
+      "description": "Execute html_to_docx",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-f",
+        "html",
+        "-t",
+        "docx",
+        "-o",
+        "{output}.docx"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "csv_to_html": {
+      "opcode": "0xM87",
+      "mnemonic": "CSV_TO_HTML",
+      "description": "Execute csv_to_html",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.html"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "csv_to_pdf": {
+      "opcode": "0xM88",
+      "mnemonic": "CSV_TO_PDF",
+      "description": "Execute csv_to_pdf",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "epub_to_pdf": {
+      "opcode": "0xM89",
+      "mnemonic": "EPUB_TO_PDF",
+      "description": "Execute epub_to_pdf",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_to_html": {
+      "opcode": "0xM8A",
+      "mnemonic": "PDF_TO_HTML",
+      "description": "Execute pdf_to_html",
+      "engine": "pdftohtml",
+      "category": "MISC",
+      "args": [
+        "-c",
+        "-s",
+        "{input}",
+        "{output}.html"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pdf_to_txt": {
+      "opcode": "0xM8B",
+      "mnemonic": "PDF_TO_TXT",
+      "description": "Execute pdf_to_txt",
+      "engine": "pdftotext",
+      "category": "MISC",
+      "args": [
+        "-layout",
+        "{input}",
+        "{output}.txt"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "rtf_to_docx": {
+      "opcode": "0xM8C",
+      "mnemonic": "RTF_TO_DOCX",
+      "description": "Execute rtf_to_docx",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "docx",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "docx_to_odt": {
+      "opcode": "0xM8D",
+      "mnemonic": "DOCX_TO_ODT",
+      "description": "Execute docx_to_odt",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "odt",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "pptx_to_odp": {
+      "opcode": "0xM8E",
+      "mnemonic": "PPTX_TO_ODP",
+      "description": "Execute pptx_to_odp",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "odp",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "xlsx_to_ods": {
+      "opcode": "0xM8F",
+      "mnemonic": "XLSX_TO_ODS",
+      "description": "Execute xlsx_to_ods",
+      "engine": "soffice",
+      "category": "MISC",
+      "args": [
+        "--headless",
+        "--convert-to",
+        "ods",
+        "--outdir",
+        "{output_dir}",
+        "{input}"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 900000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "md_to_docx": {
+      "opcode": "0xM90",
+      "mnemonic": "MD_TO_DOCX",
+      "description": "Execute md_to_docx",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.docx"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "epub_to_md": {
+      "opcode": "0xM91",
+      "mnemonic": "EPUB_TO_MD",
+      "description": "Execute epub_to_md",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-t",
+        "markdown",
+        "-o",
+        "{output}.md"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "md_to_epub": {
+      "opcode": "0xM92",
+      "mnemonic": "MD_TO_EPUB",
+      "description": "Execute md_to_epub",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.epub"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 300000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "latex_to_pdf": {
+      "opcode": "0xM93",
+      "mnemonic": "LATEX_TO_PDF",
+      "description": "Execute latex_to_pdf",
+      "engine": "pandoc",
+      "category": "MISC",
+      "args": [
+        "{input}",
+        "-o",
+        "{output}.pdf",
+        "--pdf-engine=pdflatex"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 600000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "xml_to_json": {
+      "opcode": "0xM94",
+      "mnemonic": "XML_TO_JSON",
+      "description": "Execute xml_to_json",
+      "engine": "python3",
+      "category": "MISC",
+      "args": [
+        "-c",
+        "import xmltodict, json, sys; json.dump(xmltodict.parse(open(sys.argv[1]).read()), open(sys.argv[2], 'w'))",
+        "{input}",
+        "{output}.json"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "csv_to_json": {
+      "opcode": "0xM95",
+      "mnemonic": "CSV_TO_JSON",
+      "description": "Execute csv_to_json",
+      "engine": "python3",
+      "category": "MISC",
+      "args": [
+        "-c",
+        "import csv, json, sys; json.dump(list(csv.DictReader(open(sys.argv[1]))), open(sys.argv[2], 'w'))",
+        "{input}",
+        "{output}.json"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 120000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_glitch": {
+      "opcode": "0xM96",
+      "mnemonic": "VIDEO_GLITCH",
+      "description": "Execute video_glitch",
+      "engine": "ffmpeg",
+      "category": "MISC",
+      "args": [
+        "-i",
+        "{input}",
+        "-vf",
+        "tblend=all_mode=grainextract",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    },
+    "video_pixel": {
+      "opcode": "0xM97",
+      "mnemonic": "VIDEO_PIXEL",
+      "description": "Execute video_pixel",
+      "engine": "ffmpeg",
+      "category": "MISC",
+      "args": [
+        "-i",
+        "{input}",
+        "-vf",
+        "pixelize",
+        "{output}.mp4"
+      ],
+      "constraints": {
+        "max_ram_bytes": 2147483648,
+        "timeout": 1800000000000,
+        "cpu_limit": 1
+      },
+      "operands": [
+        {
+          "name": "input",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{input}"
+        },
+        {
+          "name": "output",
+          "type": "file",
+          "required": true,
+          "mnemonic_ref": "{output}"
+        }
+      ]
+    }
+  }
+}

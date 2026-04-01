@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ai_assistant_01",
+    "endpoint": "/ws/v1/ai/chat",
+    "description": "Assistant AI Percakapan Real-Time via WebSocket",
+    "delegateTo": "Python",
+    "actionCmd": "run_llm_stream",
+    "connectionType": "websocket"
+  },
+  {
+    "id": "ai_tool_02",
+    "endpoint": "/api/v1/tools/ai/generate-visual",
+    "description": "Menghasilkan aset gambar/video AI (Stable Diffusion/Flux) berdasarkan prompt text",
+    "delegateTo": "Python",
+    "actionCmd": "visual_generator.py",
+    "timeoutMs": 60000
+  }
+]

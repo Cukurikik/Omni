@@ -1,0 +1,17 @@
+{
+  "name": "@omni-os/client",
+  "version": "1.0.0",
+  "description": "SDK OMNI Framework untuk integrasi Frontend",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

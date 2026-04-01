@@ -1,0 +1,63 @@
+# ===================================
+# OMNI FRAMEWORK MANIFEST
+# ===================================
+# Ini adalah contoh "Omnifile" — Konstitusi Proyek OMNI.
+# Developer di seluruh dunia cukup menyalin file ini,
+# mengubah isinya, lalu menjalankan: omni init
+#
+# Sintaks: KEY "value" | KEY 123 | KEY true
+#          BLOCK_NAME: (diikuti list - atau key-value berpasangan)
+# ===================================
+
+APP_NAME "Global Video Converter"
+VERSION "1.0.0"
+PORT 8080
+THEME "tailwind"
+
+# ===================================
+# DAFTAR FITUR YANG DI-GENERATE OTOMATIS
+# ===================================
+# Setiap ID di bawah akan otomatis:
+#   1. Dibuatkan handler Golang   (api/routes/)
+#   2. Dibuatkan komponen React   (ui/src/modules/)
+#   3. Didaftarkan ke registry    (configs/)
+# ===================================
+REQUIRE_TOOLS:
+  - video_trimmer
+  - video_merger
+  - video_converter
+  - video_compressor
+  - audio_trimmer
+  - audio_converter
+  - pdf_merger
+  - pdf_compressor
+  - kinetic_xor_encrypt
+  - kinetic_byte_invert
+
+# ===================================
+# PENGATURAN MESIN BARE-METAL
+# ===================================
+MAX_UPLOAD_GB 50
+MAX_RAM_USAGE "4GB"
+PERSISTENCE true
+ENVIRONMENT "production"
+
+# ===================================
+# VARIABEL LINGKUNGAN (RAHASIA)
+# ===================================
+# Blok ini akan otomatis dikonversi menjadi
+# file .env di root proyek saat `omni init`.
+# ===================================
+ENV:
+  FIREBASE_PROJECT "my-omni-project"
+  OMNI_SECRET "super_secret_key_999"
+  AI_API_KEY "sk-xxxxxxxxxxxx"
+
+# ===================================
+# KONFIGURASI CLUSTER (Opsional)
+# ===================================
+# Gunakan NEXUS_ROLE "master" untuk server utama
+# atau NEXUS_ROLE "worker" untuk node pekerja.
+# ===================================
+NEXUS_ROLE "master"
+NEXUS_SECRET "omni_cluster_absolute_power"

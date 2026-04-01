@@ -1,0 +1,18 @@
+[
+  {
+    "id": "conv_tool_01",
+    "endpoint": "/api/v1/tools/converter/json-to-xml",
+    "description": "Konversi format payload JSON ke skema XML Strict",
+    "delegateTo": "Golang",
+    "actionCmd": "convert_json_xml",
+    "timeoutMs": 5000
+  },
+  {
+    "id": "conv_tool_02",
+    "endpoint": "/api/v1/tools/converter/heic-to-jpg",
+    "description": "Dekode konversi gambar HEIC eksklusif Apple menjadi format standari JPG",
+    "delegateTo": "Golang",
+    "actionCmd": "libvips_heic_jpg",
+    "timeoutMs": 25000
+  }
+]

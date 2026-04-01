@@ -1,0 +1,18 @@
+[
+  {
+    "id": "pdf_tool_01",
+    "endpoint": "/api/v1/tools/pdf/merge",
+    "description": "Menggabungkan dokumen PDF berukuran raksasa melalui buffer memori",
+    "delegateTo": "Golang",
+    "actionCmd": "qpdf_merge_handler",
+    "timeoutMs": 15000
+  },
+  {
+    "id": "pdf_tool_02",
+    "endpoint": "/api/v1/tools/pdf/encrypt",
+    "description": "Menambahkan lapisan keamanan password + enkripsi AES256 ke PDF",
+    "delegateTo": "Golang",
+    "actionCmd": "qpdf_encrypt_handler",
+    "timeoutMs": 10000
+  }
+]

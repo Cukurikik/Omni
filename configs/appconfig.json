@@ -1,0 +1,48 @@
+{
+  "app_name": "OMNI OS",
+  "version": "2.0.0-NEXUS",
+  "environment": "production",
+  "server": {
+    "host": "0.0.0.0",
+    "port": 3000,
+    "read_timeout_seconds": 60,
+    "write_timeout_seconds": 3600,
+    "graceful_shutdown_seconds": 10
+  },
+  "security": {
+    "session_secret": "OMNI_SUPER_SECRET_KEY_999",
+    "cors_allowed_origins": ["*"],
+    "rate_limit_per_second": 20,
+    "enable_coop_coep": true
+  },
+  "storage": {
+    "max_upload_gb": 50,
+    "quarantine_dir": "../release/omni_quarantine",
+    "cache_dir": "../release/omni_cache",
+    "cache_ttl_minutes": 60
+  },
+  "engine": {
+    "max_concurrent_workers": 4,
+    "go_workers": 8,
+    "ffmpeg_throttle_threads": 2,
+    "job_cleanup_hours": 24
+  },
+  "features": {
+    "live_reload": true,
+    "telemetry": true,
+    "auto_heal": true
+  },
+  "firebase": {
+    "enabled": true,
+    "credentials_path": "../configs/serviceAccountKey.json",
+    "project_id": "omni-tool-9c48b"
+  },
+  "nexus_cluster": {
+    "role": "master",
+    "master_url": "http://127.0.0.1:3000",
+    "cluster_secret": "OMNI_NEXUS_ABSOLUTE_POWER_999",
+    "worker_max_jobs": 2,
+    "heartbeat_interval_seconds": 5,
+    "dead_threshold_seconds": 15
+  }
+}

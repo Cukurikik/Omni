@@ -1,0 +1,246 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "OMNI TOOLS Enterprise API",
+    "description": "Dokumentasi otomatis dari 150+ alat mesin C++, Python, dan Golang yang di-orchestrate oleh OMNI Gateway.",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1",
+      "description": "Development Gateway"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-OMNI-API-KEY"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/tools/universal/": {
+      "post": {
+        "summary": "Jalankan alat apa saja dari OMNI Engine",
+        "description": "Gerbang utama (multiplexer) untuk 150+ alat. Endpoint ini mendukung File Stream 50GB tanpa RAM bloat.",
+        "tags": [
+          "Universal Execution"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tool_id": {
+                    "type": "string",
+                    "description": "ID alat dari CLI Registry",
+                    "enum": [
+                      "video_to_mp4",
+                      "video_to_mkv",
+                      "video_to_avi",
+                      "video_to_webm",
+                      "video_to_gif",
+                      "video_compress_1080p",
+                      "video_compress_720p",
+                      "video_compress_480p",
+                      "video_compress_360p",
+                      "video_extract_audio_mp3",
+                      "video_extract_audio_wav",
+                      "video_remove_audio",
+                      "video_speed_0.5x",
+                      "video_speed_0.75x",
+                      "video_speed_1.25x",
+                      "video_speed_1.5x",
+                      "video_speed_2.0x",
+                      "video_reverse",
+                      "video_grayscale",
+                      "video_sepia",
+                      "video_blur",
+                      "video_crop_1_1",
+                      "video_crop_16_9",
+                      "video_crop_9_16",
+                      "video_extract_frame_1s",
+                      "video_extract_frame_10s",
+                      "video_extract_frame_30s",
+                      "video_extract_frame_60s",
+                      "video_rotate_90_cw",
+                      "video_rotate_90_ccw",
+                      "audio_to_mp3",
+                      "audio_to_wav",
+                      "audio_to_ogg",
+                      "audio_to_flac",
+                      "audio_compress_320k",
+                      "audio_compress_256k",
+                      "audio_compress_192k",
+                      "audio_compress_128k",
+                      "audio_compress_64k",
+                      "audio_vol_up_150",
+                      "audio_vol_up_200",
+                      "audio_vol_down_50",
+                      "audio_vol_down_25",
+                      "audio_bass_boost_low",
+                      "audio_bass_boost_med",
+                      "audio_bass_boost_high",
+                      "audio_treble_boost",
+                      "audio_treble_cut",
+                      "audio_fade_in_3s",
+                      "audio_fade_in_5s",
+                      "audio_fade_out_3s",
+                      "audio_fade_out_5s",
+                      "audio_speed_0.5x",
+                      "audio_speed_1.5x",
+                      "audio_speed_2.0x",
+                      "audio_reverse",
+                      "audio_8d_surround",
+                      "audio_mono_to_stereo",
+                      "audio_stereo_to_mono",
+                      "audio_remove_silence",
+                      "image_to_png",
+                      "image_to_jpg",
+                      "image_to_webp",
+                      "image_to_bmp",
+                      "image_to_tiff",
+                      "image_compress_high",
+                      "image_compress_med",
+                      "image_compress_low",
+                      "image_resize_4k",
+                      "image_resize_1080p",
+                      "image_resize_720p",
+                      "image_resize_480p",
+                      "image_grayscale",
+                      "image_sepia",
+                      "image_invert",
+                      "image_blur_light",
+                      "image_blur_heavy",
+                      "image_sharpen_light",
+                      "image_sharpen_heavy",
+                      "image_rotate_90",
+                      "image_rotate_180",
+                      "image_rotate_270",
+                      "image_flip_horizontal",
+                      "image_flip_vertical",
+                      "image_auto_orient",
+                      "image_edge_detect",
+                      "image_charcoal",
+                      "image_noise_reduce",
+                      "image_contrast_boost",
+                      "image_brightness_boost",
+                      "pdf_compress_screen",
+                      "pdf_compress_ebook",
+                      "pdf_compress_printer",
+                      "pdf_compress_prepress",
+                      "pdf_protect_pass",
+                      "pdf_decrypt_pass",
+                      "pdf_merge_generic",
+                      "pdf_burst_pages",
+                      "pdf_rotate_90_cw",
+                      "pdf_rotate_90_ccw",
+                      "pdf_rotate_180",
+                      "pdf_allow_printing",
+                      "pdf_allow_copying",
+                      "pdf_linearize_web",
+                      "pdf_to_images_jpg",
+                      "pdf_to_images_png",
+                      "pdf_extract_text",
+                      "pdf_remove_pass_unsec",
+                      "pdf_watermark_draft",
+                      "pdf_watermark_confidential",
+                      "pdf_grayscale",
+                      "pdf_repair_corrupt",
+                      "pdf_attach_file",
+                      "pdf_extract_attachments",
+                      "pdf_metadata_clear",
+                      "pdf_scale_a4",
+                      "pdf_scale_letter",
+                      "pdf_uncompress_streams",
+                      "pdf_flatten",
+                      "pdf_reverse_pages",
+                      "docx_to_pdf",
+                      "pptx_to_pdf",
+                      "xlsx_to_pdf",
+                      "html_to_pdf",
+                      "md_to_pdf",
+                      "txt_to_pdf",
+                      "rtf_to_pdf",
+                      "odt_to_pdf",
+                      "odp_to_pdf",
+                      "ods_to_pdf",
+                      "md_to_html",
+                      "html_to_md",
+                      "docx_to_md",
+                      "docx_to_html",
+                      "html_to_docx",
+                      "csv_to_html",
+                      "csv_to_pdf",
+                      "epub_to_pdf",
+                      "pdf_to_html",
+                      "pdf_to_txt",
+                      "rtf_to_docx",
+                      "docx_to_odt",
+                      "pptx_to_odp",
+                      "xlsx_to_ods",
+                      "md_to_docx",
+                      "epub_to_md",
+                      "md_to_epub",
+                      "latex_to_pdf",
+                      "xml_to_json",
+                      "csv_to_json",
+                      "video_glitch",
+                      "video_pixel"
+                    ]
+                  },
+                  "omni_file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "File sumber yang akan diproses"
+                  }
+                },
+                "required": [
+                  "tool_id",
+                  "omni_file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Penugasan selesai dengan sukses dan file hasil siap diunduh.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "download_path": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Akses Ditolak (X-OMNI-API-KEY tidak valid)"
+          }
+        }
+      }
+    }
+  }
+}

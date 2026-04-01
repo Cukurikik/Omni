@@ -1,0 +1,8 @@
+{
+  "port": "3000",
+  "max_upload_gb": 50,
+  "worker_pool_size": 4,
+  "session_secret": "OMNI_SUPER_SECRET_KEY_999",
+  "env": "production",
+  "ffmpeg_path": "C:\\Users\\IKYY\\Downloads\\HEAVY-TOOLS\\bin\\ffmpeg-8.1-essentials_build\\bin\\ffmpeg.exe"
+}

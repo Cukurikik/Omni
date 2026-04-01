@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - "-IC:/Users/IKYY/Downloads/HEAVY-TOOLS/native-node/node_modules/node-addon-api"
+    - "-IC:/Users/IKYY/AppData/Local/node-gyp/Cache/24.14.0/include/node"
+    - "-std=c++17"
+    - "-DNAPI_DISABLE_CPP_EXCEPTIONS"
+    - "-D_WIN32"
