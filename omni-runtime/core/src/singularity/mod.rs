@@ -6,12 +6,14 @@ pub mod v8_micro_isolate;
 pub mod node_parasite_daemon;
 pub mod monkey_patch;
 pub mod transpiler;
+pub mod telepathy_engine;
 
 use crate::compiler::ast::OmniProgram;
 
 /// OMNI SINGULARITY — Mesin Eksekusi Kedaulatan
 /// V8 Asli (rusty_v8) → Primary Engine
 /// Node.js Parasite → Fallback untuk heavy I/O
+/// Telepathy Engine → Intent-based speculative execution
 pub struct OmniSingularity {
     pub evolution_engine: self_evolving::SelfEvolvingCompiler,
     pub healer: auto_healing::ProductionAutoHealer,
@@ -20,6 +22,7 @@ pub struct OmniSingularity {
     pub micro_v8: v8_micro_isolate::V8MicroIsolate,
     pub node_parasite: node_parasite_daemon::NodeParasiteDaemon,
     pub transpiler: transpiler::OmniTranspiler,
+    pub telepathy: telepathy_engine::TelepathyEngine,
 }
 
 impl OmniSingularity {
@@ -32,6 +35,7 @@ impl OmniSingularity {
             micro_v8: v8_micro_isolate::V8MicroIsolate::new(),
             node_parasite: node_parasite_daemon::NodeParasiteDaemon::new(),
             transpiler: transpiler::OmniTranspiler::new(is_release),
+            telepathy: telepathy_engine::TelepathyEngine::new(),
         }
     }
 
@@ -47,6 +51,9 @@ impl OmniSingularity {
         
         // Node.js Parasite (opsional, untuk heavy I/O)
         self.node_parasite.spawn_daemon().map_err(|e| e.to_string())?;
+
+        // Telepathy Engine — Intent-based speculative execution
+        self.telepathy.activate()?;
         
         println!("👁️ Semua engine aktif. OMNI siap mengeksekusi kode.");
         Ok(())
