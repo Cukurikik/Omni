@@ -1,0 +1,21 @@
+[package]
+name        = "omni-docs-nexus"
+version     = "1.0.0"
+authors     = ["OMNI Architect <architect@omniframework.dev>"]
+description = "Native Zero-Copy Documentation Web Server for OMNI Framework"
+license     = "OMNI-Enterprise"
+edition     = "omni-2025"
+
+[dependencies]
+omni-std     = "^2.0"
+omni-net     = "^1.5"
+
+[permissions]
+allow_net    = ["0.0.0.0:3000"]
+allow_fs     = ["/docs/", "/omni_modules/"]
+allow_thread = true
+
+[build]
+target       = ["wasm32", "x86_64-linux", "aarch64-apple", "x86_64-windows"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll"]
