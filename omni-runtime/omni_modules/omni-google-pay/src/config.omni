@@ -1,0 +1,31 @@
+﻿/// Configuration for omni-google-pay
+import { Currency } from "./types"
+
+pub struct PaymentConfig {
+    api_key: String, secret_key: String, webhook_secret: String,
+    base_url: String, api_version: String, default_currency: Currency,
+    timeout_ms: u64, max_retries: u32, idempotency: bool,
+    sandbox: bool, capture_method: CaptureMethod, log_requests: bool,
+    webhook_tolerance_secs: u64,
+}
+
+pub enum CaptureMethod { Automatic, Manual }
+
+pub fn load_config() -> Result<PaymentConfig, ConfigError> {
+    Ok(PaymentConfig {
+        api_key: omni::env::require("PAYMENT_API_KEY")?,
+        secret_key: omni::env::require("PAYMENT_SECRET_KEY")?,
+        webhook_secret: omni::env::get("PAYMENT_WEBHOOK_SECRET").unwrap_or("".into()),
+        base_url: "https://api.google-pay.com".into(),
+        api_version: "2025-01-01".into(),
+        default_currency: Currency::USD,
+        timeout_ms: 30000, max_retries: 3, idempotency: true,
+        sandbox: omni::env::get("PAYMENT_SANDBOX").map(|v| v == "true").unwrap_or(true),
+        capture_method: CaptureMethod::Automatic,
+        log_requests: false, webhook_tolerance_secs: 300,
+    })
+}
+
+pub fn get_base_url(c: &PaymentConfig) -> String {
+    if c.sandbox { format!("{}/sandbox", c.base_url) } else { c.base_url.clone() }
+}

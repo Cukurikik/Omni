@@ -1,0 +1,26 @@
+// File ini hanya dipanggil oleh omni-cli secara internal
+// $ omni export --flip --new-owner="pembeli@email.com"
+
+export function executeOneClickHandover(newOwnerEmail: string) {
+    // 🗄️ SQL: Dump SQLite database dan ubah ownership credential
+    const dbDump = use::sql {
+        dump_schema_and_data();
+        UPDATE system_config SET owner_email = $newOwnerEmail;
+    };
+
+    // 🛡️ RUST: Enkripsi seluruh aset (kode, db, SSL) dalam satu bundle executable (.omni_bundle)
+    const encryptedBundlePath = use::rust {
+        let bundle = pack_assets_and_runtime();
+        return encrypt_with_owner_public_key($bundle, $newOwnerEmail);
+    };
+
+    // ⚡ GO: Upload bundle ke P2P OMNI Orbit network secara rahasia
+    use::go { 
+        orbit.SeedFile($encryptedBundlePath, hide_from_public=true) 
+    };
+
+    return { 
+        status: "BERHASIL", 
+        message: "File 'Toko_Siap_Jual.omni_bundle' siap dikirim ke pembeli!" 
+    };
+}

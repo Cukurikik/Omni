@@ -1,0 +1,52 @@
+// 🟡 BASELINE: JavaScript (V8 Isolate) untuk merender Dashboard Real-Time
+import { SocketView, AlertBox } from 'omni/ui';
+
+export async function NetworkMonitor() {
+    
+    // 🐘 PHP: Dekripsi token otorisasi dari aplikasi Monolith lama klien
+    const authStatus = await use::php {
+        $legacy_token = $_COOKIE['PHPSESSID'];
+        $is_valid = password_verify("super_secret", $legacy_token);
+        return $is_valid ? "AUTHORIZED" : "DENIED";
+    };
+
+    if (authStatus === "DENIED") return <AlertBox>Akses Ditolak oleh PHP Guard</AlertBox>;
+
+    // ⚡ GOLANG: Membuka Goroutines untuk mendengarkan jutaan log jaringan secara paralel
+    const liveTraffic = await use::go {
+        trafficChannel := make(chan int)
+        go func() {
+            for {
+                // Simulasi jutaan paket masuk
+                trafficChannel <- ReadNetworkInterface() 
+            }
+        }()
+        return <-trafficChannel
+    };
+
+    // 📊 R: Bahasa R mendeteksi apakah trafik yang masuk adalah serangan DDoS
+    const anomalyReport = await use::r {
+        traffic_data <- c($liveTraffic)
+        z_scores <- scale(traffic_data)
+        is_anomaly <- abs(z_scores) > 3.0
+        
+        if(is_anomaly) return("DDoS TERDETEKSI!") else return("Normal")
+    };
+
+    // 💎 RUBY: Memformat string peringatan dengan elegan (Syntactic Sugar)
+    const alertMessage = await use::ruby {
+        report = $anomalyReport
+        if report.include?("DDoS")
+            "🔥 KONDISI KRITIS: #{report.reverse} | SEGERA AKTIFKAN SHIELD!"
+        else
+            "✅ Sistem Aman. Trafik stabil."
+        end
+    };
+
+    return (
+        <SocketView>
+            <h1>Status Jaringan: {alertMessage}</h1>
+            <p>Load Saat Ini: {liveTraffic} packets/s</p>
+        </SocketView>
+    );
+}

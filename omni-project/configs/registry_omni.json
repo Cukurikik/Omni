@@ -1,0 +1,14 @@
+{
+  "tools": [
+    {
+      "id": "demo_tool",
+      "category": "SYSTEM",
+      "name": "Demo Tool",
+      "description": "Generated from Omnifile",
+      "endpoint": "/api/v1/tools/universal/execute",
+      "accepts": "*/*",
+      "delegateTo": "C++",
+      "extraInputs": []
+    }
+  ]
+}

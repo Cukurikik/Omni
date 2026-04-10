@@ -1,0 +1,11 @@
+[package]
+name = "omni-hft"
+version = "1.0.0"
+description = "High-Frequency Trading engine for sub-microsecond crypto and stock orders"
+license     = "OMNI-Community"
+
+[permissions]
+allow_net = ["0.0.0.0/0"]
+allow_ebpf = true
+allow_realtime = true
+allow_thread = true

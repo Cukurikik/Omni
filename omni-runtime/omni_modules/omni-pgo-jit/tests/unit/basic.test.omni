@@ -1,0 +1,1 @@
+﻿test('omni-pgo-jit unit check', fn() {})

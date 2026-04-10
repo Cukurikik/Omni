@@ -1,0 +1,22 @@
+trait Logger {
+    fn log(msg: String);
+}
+
+struct ConsoleLogger {
+    prefix: String,
+}
+
+impl Logger for ConsoleLogger {
+    fn log(msg: String) {
+        println(self.prefix, msg);
+    }
+}
+
+let logger = new ConsoleLogger("SYS_LOG:");
+logger.log("OMNI Core Initialized.");
+
+// Simple loop to test advanced nested scope semantics along with impl calls
+for i in 1..4 {
+    logger.log("Step " + i);
+}
+

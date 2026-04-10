@@ -1,0 +1,21 @@
+/// [OMNI-PACKAGE] omni-io-uring
+/// Description: Defeats Javascript File I/O event loops.
+
+import "omni-types"
+
+extern "omni-c" fn omni_sys_init_io_uring(entries: Number) -> *mut u8;
+extern "omni-c" fn omni_sys_submit_io(ring: *mut u8, fd: Number) -> void;
+
+export struct IOUringEngine {
+    priv ring_ptr: *mut u8,
+
+    pub fn boot(self) -> Result<bool, SystemError> {
+        self.ring_ptr = omni_sys_init_io_uring(4096);
+        return Ok(true);
+    }
+
+    pub fn schedule_read(self, file_descriptor: Number) -> Result<bool, SystemError> {
+        omni_sys_submit_io(self.ring_ptr, file_descriptor);
+        return Ok(true);
+    }
+}

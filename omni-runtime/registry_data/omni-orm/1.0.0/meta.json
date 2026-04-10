@@ -1,0 +1,21 @@
+{
+  "name": "omni-orm",
+  "version": "1.0.0",
+  "description": "OMNI Orm module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-orm",
+  "repository": "https://github.com/omni-framework/omni-orm",
+  "keywords": [
+    "omni",
+    "runtime",
+    "orm"
+  ],
+  "edition": "omni-2025",
+  "checksum": "2b6d7770fb8d6da8a7c866efdf92044ecb50cdf4f9506d24894632aef5dce8af",
+  "size": 7299,
+  "published_at": "2026-04-09T10:02:36.4246787+07:00",
+  "downloads": 0
+}

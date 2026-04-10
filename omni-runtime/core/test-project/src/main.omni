@@ -1,0 +1,15 @@
+// OMNI-LANG The Sovereign Arsenal
+// Project: test-project
+
+import { HTTP, Crypto, File } from "omni:core"
+
+async fn handle_request() {
+	let config = await File.read_json("/etc/config.json");
+	let secret = Crypto.sha256(config.salt + "password123");
+
+	HTTP.serve(port: 8080, handler: (req) => {
+		return Response.json({ status: "Aman", hash: secret });
+	});
+}
+
+handle_request();

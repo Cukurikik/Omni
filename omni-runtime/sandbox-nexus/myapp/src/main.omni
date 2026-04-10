@@ -1,0 +1,8 @@
+// myapp — powered by OMNI Framework
+import { Ok, Err } from "omni-std";
+
+fn main() {
+    println("🚀 myapp is running!");
+}
+
+main();

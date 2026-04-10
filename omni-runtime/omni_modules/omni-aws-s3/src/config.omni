@@ -1,0 +1,34 @@
+﻿/// Configuration for omni-aws-s3
+import { StorageClass } from "./types"
+
+pub struct CloudConfig {
+    access_key: String, secret_key: String, region: String,
+    endpoint: Option<String>, bucket: String, prefix: String,
+    storage_class: StorageClass, multipart_threshold: u64,
+    multipart_chunk: u64, max_concurrency: u32,
+    timeout_ms: u64, retry_max: u32, server_side_encrypt: bool,
+    cdn_base_url: Option<String>,
+}
+
+pub fn load_config() -> Result<CloudConfig, ConfigError> {
+    Ok(CloudConfig {
+        access_key: omni::env::require("CLOUD_ACCESS_KEY")?,
+        secret_key: omni::env::require("CLOUD_SECRET_KEY")?,
+        region: omni::env::get("CLOUD_REGION").unwrap_or("us-east-1".into()),
+        endpoint: omni::env::get("CLOUD_ENDPOINT"),
+        bucket: omni::env::require("CLOUD_BUCKET")?,
+        prefix: omni::env::get("CLOUD_PREFIX").unwrap_or("".into()),
+        storage_class: StorageClass::Standard,
+        multipart_threshold: 5 * 1024 * 1024,
+        multipart_chunk: 8 * 1024 * 1024,
+        max_concurrency: 4, timeout_ms: 60000, retry_max: 3,
+        server_side_encrypt: true, cdn_base_url: None,
+    })
+}
+
+pub fn build_endpoint(c: &CloudConfig) -> String {
+    match &c.endpoint {
+        Some(ep) => ep.clone(),
+        None => format!("https://{}.{}.cloud-api.omniframework.dev", c.bucket, c.region),
+    }
+}

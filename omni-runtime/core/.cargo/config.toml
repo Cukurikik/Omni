@@ -1,0 +1,10 @@
+[target.x86_64-pc-windows-gnu]
+linker = "zig"
+# Zig sebagai linker untuk cross-compilation
+
+[target.x86_64-pc-windows-msvc]
+# Default MSVC linker — akan digunakan otomatis di Windows
+
+[build]
+# Gunakan GNU target secara default agar kompatibel dengan Golang CGO
+# target = "x86_64-pc-windows-gnu"

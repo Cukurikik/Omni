@@ -1,0 +1,1 @@
+﻿type omni_readline_Entity { id: UUID! createdAt: String! }

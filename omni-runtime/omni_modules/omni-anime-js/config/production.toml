@@ -1,0 +1,18 @@
+[connection]
+endpoint = 'omni-anime-js.prod.internal'
+port = 5432
+timeout_ms = 10000
+max_retries = 5
+pool_size = 50
+
+[tls]
+enabled = true
+
+[logging]
+level = 'warn'
+format = 'json'
+
+[performance]
+buffer_size = 131072
+queue_depth = 1024
+worker_threads = 16

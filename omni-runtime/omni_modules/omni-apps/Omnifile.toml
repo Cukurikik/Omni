@@ -1,0 +1,9 @@
+[package]
+name        = "omni-apps"
+version     = "1.0.0"
+description = "Polyglot Frontend & Backend App generator bridging TypeScript UI and Go Microservices"
+license     = "OMNI-Community"
+
+[publish]
+registry    = "https://nexus.omniframework.dev"
+tier        = "free"

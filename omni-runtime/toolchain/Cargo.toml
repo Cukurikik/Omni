@@ -1,0 +1,18 @@
+[package]
+name = "omni-toolchain"
+version = "1.0.0"
+edition = "2021"
+authors = ["ANTIGRAVITY <omni@architecture.dev>"]
+description = "OMNI Build Toolchain — Orkestrasi kompilasi multi-bahasa (C/Rust/Go/C++) untuk seluruh modul omni_modules"
+
+[[bin]]
+name = "omni-build"
+path = "src/main.rs"
+
+[dependencies]
+toml = "0.8"
+walkdir = "2"
+cc = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+colored = "2"

@@ -1,0 +1,15 @@
+use::commerce {
+    // Membangun toko online hanya dengan 1 baris kode konfigurasi
+    let store = Store::new("Toko Baju", { gateway: "Stripe", currency: "IDR" });
+    store.enable_flash_sale_mode(1_000_000_req_per_sec); // Tahan jutaan trafik!
+}
+
+export function processCheckout(cartId: string) {
+    // 🛡️ RUST: Kunci stok di RAM secara mutlak untuk mencegah overselling
+    const inventorySecured = use::rust { return lock_inventory_in_ram($cartId); };
+
+    // ⚡ GO: Bayar seketika ke Payment Gateway tanpa HTTP Bottleneck
+    const paymentResult = use::go { return stripe_direct_charge($inventorySecured); };
+
+    return paymentResult;
+}

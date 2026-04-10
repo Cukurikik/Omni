@@ -1,0 +1,11 @@
+// Example: Advanced pipeline with omni-mojs
+import { DataPipeline } from '@omni/omni-mojs/compute'
+import { TypeSafeClient } from '@omni/omni-mojs/ui'
+
+fn main() {
+    let pipeline = DataPipeline::new()
+        .add_stage('fetch', |_| client.get('/data'))
+        .add_stage('transform', |d| d.map(|x| x * 2))
+        .add_stage('store', |d| client.post('/results', d))
+    pipeline.execute(None)?
+}

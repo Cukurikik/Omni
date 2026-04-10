@@ -1,0 +1,42 @@
+import { UtilMath as M, Config } from "my_module";
+export { compute };
+
+// 1. Defining a Trait
+trait Logger {
+    fn log(msg: String);
+    fn error(msg: String);
+}
+
+// 2. Defining a function that returns a Result mock
+fn divide(a, b) {
+    if b == 0 {
+        return { Err: "Division by zero" };
+    }
+    return { Ok: a / b };
+}
+
+fn compute() {
+    println("--- Testing Traits ---");
+    // Traits transpile to Symbols in JS or empty objects structurally.
+    // They are just declarations for now.
+    println("Trait parsed successfully!");
+
+    println("--- Testing Try / ? Operator ---");
+    // Standard JS execution
+    let res1 = try divide(10, 2);
+    println("10 / 2 =");
+    println(res1);
+
+    // Using postfix ?
+    let res2 = divide(20, 4)?;
+    println("20 / 4 =");
+    println(res2);
+    
+    // This will error safely using OmniRuntime.unwrap and will be caught by our V8 runtime!
+    println("Triggering error (monadic unwrapping):");
+    let err = divide(10, 0)?;
+    println("Should not reach here");
+}
+
+// Auto-run if executed directly
+compute();

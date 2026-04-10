@@ -1,0 +1,5 @@
+﻿import { * } from "../src/lib.omni"
+
+test("omni-env initialization", fn() {
+    // Assert Initialization
+})

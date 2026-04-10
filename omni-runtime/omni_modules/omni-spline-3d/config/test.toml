@@ -1,0 +1,17 @@
+[connection]
+endpoint = 'localhost'
+port = 15432
+timeout_ms = 5000
+max_retries = 1
+pool_size = 2
+
+[tls]
+enabled = false
+
+[logging]
+level = 'debug'
+
+[performance]
+buffer_size = 4096
+queue_depth = 16
+worker_threads = 1

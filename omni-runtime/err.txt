@@ -1,0 +1,7 @@
+﻿cargo : error: could not find `Cargo.toml` in `C:\Users\IKYY\Downloads\Omni\omni-runtime` or any parent directory
+At line:1 char:1
++ cargo check --color never 2>&1 | Out-File -Encoding UTF8 err.txt
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: could no...arent directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

@@ -1,0 +1,9 @@
+// Example: Basic omni-google-pay usage
+import { init } from '@omni/omni-google-pay'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

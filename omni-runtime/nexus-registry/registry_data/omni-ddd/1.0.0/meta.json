@@ -1,0 +1,21 @@
+{
+  "name": "omni-ddd",
+  "version": "1.0.0",
+  "description": "OMNI Ddd module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-ddd",
+  "repository": "https://github.com/omni-framework/omni-ddd",
+  "keywords": [
+    "omni",
+    "runtime",
+    "ddd"
+  ],
+  "edition": "omni-2025",
+  "checksum": "5e2de4cd410b12149b4e380429d5e4cd8e2ab976d588463b57bf2e2904b40be6",
+  "size": 7299,
+  "published_at": "2026-04-09T23:00:37.3703063+07:00",
+  "downloads": 0
+}

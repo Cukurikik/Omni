@@ -1,0 +1,21 @@
+[package]
+name        = "omni-std"
+version     = "2.0.0"
+authors     = ["ANTIGRAVITY <omni@architecture.dev>"]
+description = "Omni Standard Library core functions."
+license     = "OMNI-Community"
+edition     = "omni-2025"
+
+[dependencies]
+
+[dev-dependencies]
+omni-test = "^1.0"
+
+[permissions]
+allow_thread = true
+allow_memory = true
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "free"
+price_usd    = 0

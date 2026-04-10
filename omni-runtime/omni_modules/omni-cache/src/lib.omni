@@ -1,0 +1,4 @@
+﻿import "omni-std"
+export struct Cache {
+    fn get(key: String) -> Option<String> { None }
+}

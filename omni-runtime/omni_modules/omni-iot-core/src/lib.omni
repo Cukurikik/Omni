@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-iot-core
+/// Description: Advanced iot computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct IotCoreInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

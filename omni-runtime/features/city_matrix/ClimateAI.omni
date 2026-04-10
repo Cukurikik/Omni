@@ -1,0 +1,14 @@
+export function predictWeather() {
+    // 🔬 JULIA: Matrix Tensor dari Satelit dengan komputasi superkomputer
+    const atmosphere = use::julia {
+        return solve_navier_stokes(get_satellite_data())
+    };
+
+    // 🐍 PYTHON: Feed ke model Transformer
+    const forecast = use::python {
+        import xarray as xr
+        return model.predict($atmosphere)
+    };
+
+    return forecast;
+}

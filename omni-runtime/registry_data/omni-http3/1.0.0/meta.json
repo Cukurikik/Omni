@@ -1,0 +1,21 @@
+{
+  "name": "omni-http3",
+  "version": "1.0.0",
+  "description": "OMNI Http3 module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-http3",
+  "repository": "https://github.com/omni-framework/omni-http3",
+  "keywords": [
+    "omni",
+    "runtime",
+    "http3"
+  ],
+  "edition": "omni-2025",
+  "checksum": "f27c3d1a027f6b012f9180d02e27949dc4d5778f1cc5c416ee338a598cbc783c",
+  "size": 7301,
+  "published_at": "2026-04-09T10:02:36.2711832+07:00",
+  "downloads": 0
+}

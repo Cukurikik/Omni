@@ -1,0 +1,21 @@
+{
+  "name": "omni-dns",
+  "version": "1.0.0",
+  "description": "OMNI Dns module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-dns",
+  "repository": "https://github.com/omni-framework/omni-dns",
+  "keywords": [
+    "omni",
+    "runtime",
+    "dns"
+  ],
+  "edition": "omni-2025",
+  "checksum": "e34cf7b936e2d2d0868bb4b79408afaff55924efbb1811fb96d9f88b8fbaf781",
+  "size": 7299,
+  "published_at": "2026-04-09T23:00:37.417368+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,18 @@
+[project]
+name = "testing_omni_framework"
+version = "1.0.0"
+description = "OMNI Enterprise Framework Application"
+compiler_version = ">= 1.5.0"
+
+[dependencies.intelligence]
+torch = "2.1.0"
+[dependencies.business]
+gorilla_mux = "1.8.0"
+[dependencies.metal]
+hardware_driver = "0.1.0"
+
+[permissions]
+allow_network = ["*"]
+allow_file_system = ["/tmp"]
+allow_gpu_access = true
+allow_cpu_ring_0 = false  # Protected

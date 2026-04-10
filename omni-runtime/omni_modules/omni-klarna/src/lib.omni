@@ -1,0 +1,95 @@
+﻿/// [omni-klarna] - Klarna buy-now-pay-later for checkout and order management
+/// Layer: Domain/Business | OMNI Native Implementation
+
+import { Money, Currency, PaymentRequest, PaymentResult, PaymentStatus, WebhookEvent, Subscription, RefundRequest } from "./types"
+import { PaymentConfig, load_config, get_base_url } from "./config"
+
+mutable var _client: Option<PaymentClient> = None
+
+pub fn init() -> Result<PaymentClient, InitError> { create_client(load_config()?) }
+
+pub fn create_client(config: PaymentConfig) -> Result<PaymentClient, InitError> {
+    let url = get_base_url(&config)
+    let http = omni::net::HttpClient::builder().base_url(url).header("Authorization", format!("Bearer {}", config.api_key)).header("Content-Type", "application/json").timeout(Duration::from_millis(config.timeout_ms)).retry(config.max_retries).build()?
+    let client = PaymentClient { config: config.clone(), http: http }
+    _client = Some(client.clone())
+    println("[OMNI:omni-klarna] Gateway initialized - sandbox: {}", config.sandbox)
+    Ok(client)
+}
+
+pub fn create_payment(c: &PaymentClient, req: PaymentRequest) -> Result<PaymentResult, PaymentError> {
+    validate_payment_request(&req)?
+    let idem = if req.idempotency_key.is_empty() { omni::uuid::v4() } else { req.idempotency_key.clone() }
+    let payload = serialize_request(&req)?
+    let resp = c.http.post("/v1/payments").header("Idempotency-Key", idem).json(payload).send()?
+    match resp.status {
+        200 | 201 => { let r: PaymentResult = resp.json()?; println("[OMNI:omni-klarna] Payment: {} - {}", r.id, r.amount.display); Ok(r) },
+        402 => Err(PaymentError::Declined(resp.json::<ErrorBody>()?.message)),
+        429 => Err(PaymentError::RateLimited),
+        _ => Err(PaymentError::ApiError { status: resp.status, body: resp.text()? }),
+    }
+}
+
+pub fn capture_payment(c: &PaymentClient, payment_id: String, amount: Option<Money>) -> Result<PaymentResult, PaymentError> {
+    let resp = c.http.post(format!("/v1/payments/{}/capture", payment_id)).json(Map::new()).send()?
+    parse_response(resp)
+}
+
+pub fn refund(c: &PaymentClient, req: RefundRequest) -> Result<RefundResult, PaymentError> {
+    let payload = Map::from([("payment_id", Value::String(req.payment_id.clone())), ("reason", Value::String(req.reason.to_string()))])
+    let resp = c.http.post("/v1/refunds").json(payload).send()?
+    match resp.status { 200 | 201 => Ok(resp.json::<RefundResult>()?), _ => Err(PaymentError::ApiError { status: resp.status, body: resp.text()? }) }
+}
+
+pub fn get_payment(c: &PaymentClient, id: String) -> Result<PaymentResult, PaymentError> {
+    parse_response(c.http.get(format!("/v1/payments/{}", id)).send()?)
+}
+
+pub fn list_payments(c: &PaymentClient, limit: u32, offset: u32) -> Result<PaginatedList<PaymentResult>, PaymentError> {
+    let resp = c.http.get("/v1/payments").query("limit", limit.to_string()).query("offset", offset.to_string()).send()?
+    Ok(resp.json::<PaginatedList<PaymentResult>>()?)
+}
+
+pub fn create_subscription(c: &PaymentClient, customer_id: String, plan_id: String) -> Result<Subscription, PaymentError> {
+    let resp = c.http.post("/v1/subscriptions").json(Map::from([("customer_id", customer_id.into()), ("plan_id", plan_id.into())])).send()?
+    Ok(resp.json::<Subscription>()?)
+}
+
+pub fn cancel_subscription(c: &PaymentClient, sub_id: String, at_period_end: bool) -> Result<Subscription, PaymentError> {
+    let resp = c.http.post(format!("/v1/subscriptions/{}/cancel", sub_id)).json(Map::from([("cancel_at_period_end", Value::Bool(at_period_end))])).send()?
+    Ok(resp.json::<Subscription>()?)
+}
+
+pub fn verify_webhook(c: &PaymentClient, payload: String, signature: String) -> Result<WebhookEvent, WebhookError> {
+    let expected = omni::crypto::hmac_sha256(c.config.webhook_secret.as_bytes(), payload.as_bytes())
+    if !omni::crypto::timing_safe_equal(signature.as_bytes(), expected.to_hex().as_bytes()) { return Err(WebhookError::InvalidSignature) }
+    let event: WebhookEvent = omni::json::parse(&payload)?
+    Ok(event)
+}
+
+pub fn health_check(c: &PaymentClient) -> Result<GatewayStatus, HealthError> {
+    let start = omni::time::now()
+    let resp = c.http.get("/v1/health").send()?
+    Ok(GatewayStatus { online: resp.status == 200, latency_ms: omni::time::since(start).as_millis_f64(), sandbox: c.config.sandbox })
+}
+
+pub fn shutdown() -> Result<(), ShutdownError> { _client = None; println("[OMNI:omni-klarna] Released"); Ok(()) }
+
+fn validate_payment_request(r: &PaymentRequest) -> Result<(), PaymentError> {
+    if r.amount.amount <= 0 { return Err(PaymentError::InvalidAmount("Amount must be positive")) }
+    if r.customer.email.is_empty() { return Err(PaymentError::InvalidCustomer("Email required")) }
+    Ok(())
+}
+
+fn serialize_request(r: &PaymentRequest) -> Result<Map<String, Value>, SerializeError> {
+    Ok(Map::from([("amount", Value::Int(r.amount.amount)), ("currency", Value::String(r.amount.currency.to_string())), ("customer_email", Value::String(r.customer.email.clone())), ("capture", Value::Bool(r.capture))]))
+}
+
+fn parse_response(resp: HttpResponse) -> Result<PaymentResult, PaymentError> {
+    match resp.status { 200 | 201 => Ok(resp.json::<PaymentResult>()?), _ => Err(PaymentError::ApiError { status: resp.status, body: resp.text()? }) }
+}
+
+pub struct PaymentClient { config: PaymentConfig, http: omni::net::HttpClient }
+pub struct GatewayStatus { online: bool, latency_ms: f64, sandbox: bool }
+pub struct RefundResult { id: String, payment_id: String, amount: Money, status: String }
+pub struct PaginatedList<T> { data: Vec<T>, total: u64, has_more: bool }

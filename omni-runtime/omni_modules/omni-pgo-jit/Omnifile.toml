@@ -1,0 +1,8 @@
+[package]
+name = "omni-pgo-jit"
+version = "1.0.0"
+[dependencies]
+omni-std = "^2.0"
+[permissions]
+allow_thread = true
+allow_memory = true

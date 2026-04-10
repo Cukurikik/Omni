@@ -1,0 +1,1 @@
+﻿fn benchmark_throughput() {}

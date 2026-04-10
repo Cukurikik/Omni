@@ -1,0 +1,10 @@
+// ⚡ omni-auth — OMNI Builtin Module
+// Modul ini adalah jembatan menuju implementasi native engine.
+// Developer bisa melakukan import "omni-auth";
+
+@system_module
+export struct omni_auth_Interface {
+    version: "1.0.0"
+}
+
+// TODO: Definisikan interface publik secara deklaratif 

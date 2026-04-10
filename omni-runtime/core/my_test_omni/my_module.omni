@@ -1,0 +1,6 @@
+// Mock module
+export { UtilMath };
+
+let UtilMath = {
+    pi: 3.14
+};

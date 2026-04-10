@@ -1,0 +1,9 @@
+// Example: Basic omni-neo4j usage
+import { init } from '@omni/omni-neo4j'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

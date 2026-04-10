@@ -1,0 +1,21 @@
+{
+  "name": "omni-cluster",
+  "version": "1.0.0",
+  "description": "OMNI Cluster module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cluster",
+  "repository": "https://github.com/omni-framework/omni-cluster",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cluster"
+  ],
+  "edition": "omni-2025",
+  "checksum": "aa351a6ef914d3239b5f93924c71b87a76bd6f5f6935cc5d066fd7c5a3a5c127",
+  "size": 6279,
+  "published_at": "2026-04-09T10:02:36.0174165+07:00",
+  "downloads": 0
+}

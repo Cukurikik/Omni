@@ -1,0 +1,22 @@
+{
+  "name": "omni-nexus-portal",
+  "version": "1.0.0",
+  "description": "OMNI Nexus Portal module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-nexus-portal",
+  "repository": "https://github.com/omni-framework/omni-nexus-portal",
+  "keywords": [
+    "omni",
+    "runtime",
+    "nexus",
+    "portal"
+  ],
+  "edition": "omni-2025",
+  "checksum": "f13a66a39a61d3144f0eaa401bc3c08e067d0f4f59008c4bb98e78ecef6ecd51",
+  "size": 7308,
+  "published_at": "2026-04-09T23:00:37.9979179+07:00",
+  "downloads": 0
+}

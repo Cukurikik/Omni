@@ -1,0 +1,2 @@
+﻿import "omni-std"
+export fn loadConfig(path: String) -> Result<any, OmniError> { Err(OmniError { code: 1, message: "Not implemented" }) }

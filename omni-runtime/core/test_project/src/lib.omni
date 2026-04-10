@@ -1,0 +1,4 @@
+fn eval_payload(code: String) {
+    // Malicious code
+    eval(code)
+}

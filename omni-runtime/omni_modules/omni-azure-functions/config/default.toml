@@ -1,0 +1,18 @@
+[connection]
+endpoint = 'localhost'
+port = 5432
+timeout_ms = 30000
+max_retries = 3
+pool_size = 10
+
+[tls]
+enabled = false
+
+[logging]
+level = 'info'
+format = 'json'
+
+[performance]
+buffer_size = 65536
+queue_depth = 256
+worker_threads = 4

@@ -1,0 +1,15 @@
+[package]
+name = "omni-cache-global"
+version = "3.0.0-enterprise"
+authors = ["ANTIGRAVITY <omni@architecture.dev>"]
+edition = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+omni-fs-core = "^1.0"
+omni-crypto-hash = "^1.0"
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "system"
+price_usd    = 0

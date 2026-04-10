@@ -1,0 +1,22 @@
+{
+  "name": "omni-iot-hardware",
+  "version": "1.0.0",
+  "description": "OMNI Iot Hardware module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-iot-hardware",
+  "repository": "https://github.com/omni-framework/omni-iot-hardware",
+  "keywords": [
+    "omni",
+    "runtime",
+    "iot",
+    "hardware"
+  ],
+  "edition": "omni-2025",
+  "checksum": "ae69d09a9f08e37e4c6a405c179cabc623ab7b24ba7c23b376e19f474de489c0",
+  "size": 7308,
+  "published_at": "2026-04-09T10:02:36.2780718+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    directories:
+      - '/'
+      - '/.github/actions/slack'
+      - '/.github/actions/setup/directories'
+    schedule:
+      interval: 'daily'
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: 'cargo'
+    directories:
+      - '/yjit'
+      - '/zjit'
+    exclude-paths:
+      - 'gc/mmtk/**'
+    schedule:
+      interval: 'monthly'
+    groups:
+      jit:
+        patterns:
+          - "*"
+  - package-ecosystem: 'vcpkg'
+    directory: '/'
+    schedule:
+      interval: 'daily'

@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-game-vault
+/// Description: Advanced game computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct GameVaultInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

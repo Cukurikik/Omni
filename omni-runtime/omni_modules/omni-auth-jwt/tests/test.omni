@@ -1,0 +1,88 @@
+﻿/// Tests for omni-auth-jwt
+import * from "../src/lib"
+import * from "../src/types"
+import * from "../src/config"
+import { describe, it, expect, beforeEach, afterEach } from "omni-test"
+
+describe("omni-auth-jwt") {
+    describe("initialization") {
+        it("should initialize with default config") {
+            let result = init()
+            expect(result).to_be_ok()
+        }
+        it("should create client with custom config") {
+            let config = load_config().unwrap()
+            let client = create_client(config)
+            expect(client).to_be_ok()
+        }
+        it("should fail with invalid config") {
+            let bad = make_invalid_config()
+            let result = create_client(bad)
+            expect(result).to_be_err()
+        }
+    }
+    describe("configuration") {
+        it("should load default config") {
+            let config = load_config().unwrap()
+            expect(config).to_not_be_null()
+        }
+        it("should override from env") {
+            omni::env::set("OMNI_LOG_LEVEL", "debug")
+            let config = load_config().unwrap()
+            expect(config).to_not_be_null()
+            omni::env::remove("OMNI_LOG_LEVEL")
+        }
+        it("should validate constraints") {
+            let config = load_config().unwrap()
+            expect(validate_config(&config)).to_be_ok()
+        }
+    }
+    describe("core operations") {
+        it("should execute successfully") {
+            let client = create_client(load_config().unwrap()).unwrap()
+            let result = execute(&client, || Ok(42))
+            expect(result).to_be_ok()
+            expect(result.unwrap().value).to_equal(42)
+            shutdown().ok()
+        }
+        it("should include timing metadata") {
+            let client = create_client(load_config().unwrap()).unwrap()
+            let result = execute(&client, || { omni::time::sleep(Duration::from_millis(10)); Ok("done") })
+            expect(result).to_be_ok()
+            expect(result.unwrap().duration_ms).to_be_greater_than(5.0)
+            shutdown().ok()
+        }
+        it("should retry on transient failures") {
+            let client = create_client(load_config().unwrap()).unwrap()
+            mutable var attempts = 0
+            let result = execute(&client, || { attempts += 1; if attempts < 3 { Err(OpError::Transient) } else { Ok("ok") } })
+            expect(result).to_be_ok()
+            expect(result.unwrap().retries).to_equal(2)
+            shutdown().ok()
+        }
+    }
+    describe("health check") {
+        it("should return healthy") {
+            init().unwrap()
+            let status = health_check()
+            expect(status).to_be_ok()
+            expect(status.unwrap().healthy).to_be_true()
+            shutdown().ok()
+        }
+    }
+    describe("shutdown") {
+        it("should shutdown gracefully") { init().unwrap(); expect(shutdown()).to_be_ok() }
+        it("should handle double shutdown") { init().unwrap(); shutdown().ok(); expect(shutdown()).to_be_ok() }
+    }
+    describe("monadic error handling") {
+        it("should propagate errors") {
+            let result: Result<i32, OpError> = Err(OpError::InvalidInput("bad"))
+            expect(result).to_be_err()
+        }
+        it("should chain with ? operator") {
+            fn chain() -> Result<String, OpError> { let a = Ok(1)?; let b = Ok(a + 1)?; Ok(format!("result: {}", b)) }
+            expect(chain()).to_be_ok()
+            expect(chain().unwrap()).to_equal("result: 2")
+        }
+    }
+}

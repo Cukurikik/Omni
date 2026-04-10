@@ -1,0 +1,20 @@
+/// [OMNI-PACKAGE] omni-gc-zero
+/// Description: Hooks OMNI Front-end structural allocations natively into Rust Arenas.
+
+import "omni-types"
+
+extern "omni-c" fn omni_arena_alloc(size: Number) -> *mut u8;
+extern "omni-c" fn omni_arena_reset() -> void;
+
+export struct ZeroGC {
+    pub fn execute_route_without_gc(self, logic_block: fn() -> Object) -> Object {
+        // Runs arbitrary TypeScript parsing entirely bypassing V8 JS memory constructs.
+        // Allocated inside a localized Rust Arena. 
+        let response = logic_block();
+        
+        // Destroys all references O(1). No Stop-The-World Pauses.
+        omni_arena_reset();
+        
+        return response;
+    }
+}

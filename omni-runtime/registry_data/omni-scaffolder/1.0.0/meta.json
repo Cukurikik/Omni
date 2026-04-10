@@ -1,0 +1,21 @@
+{
+  "name": "omni-scaffolder",
+  "version": "1.0.0",
+  "description": "OMNI Scaffolder module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-scaffolder",
+  "repository": "https://github.com/omni-framework/omni-scaffolder",
+  "keywords": [
+    "omni",
+    "runtime",
+    "scaffolder"
+  ],
+  "edition": "omni-2025",
+  "checksum": "744e6a90cf39e5029c42b4fbc59eba931dc62a6b1e10ba7b708c83679e2a41e5",
+  "size": 6282,
+  "published_at": "2026-04-09T10:02:36.540416+07:00",
+  "downloads": 0
+}

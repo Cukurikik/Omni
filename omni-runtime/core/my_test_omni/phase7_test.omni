@@ -1,0 +1,21 @@
+// phase7_test.omni
+// Testing Type Inference & Validation in OMNI 2.0.0
+
+println("Initializing Phase 7 Type Constraints Test");
+
+// 1. Deklarasi dengan tipe eksplisit
+let account_balance: Float = 1000.50;
+
+// 2. Simulasi assignment yang salah tipe
+// Compiler seharusnya mendeteksi "Type mismatch" jika mencoba:
+// account_balance = "seribu"; 
+
+// 3. Inference dari function
+fn process_transaction(amount: Float) -> Float {
+    let result = account_balance - amount;
+    return result;
+}
+
+// 4. Test Assignment Mismatch (UNCOMMENT TO TEST COMPILER FAILURE)
+let is_active: Bool = true;
+is_active = 0; // Semantic Error Expeted

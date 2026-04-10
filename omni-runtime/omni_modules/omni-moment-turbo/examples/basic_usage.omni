@@ -1,0 +1,9 @@
+// Example: Basic omni-moment-turbo usage
+import { init } from '@omni/omni-moment-turbo'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

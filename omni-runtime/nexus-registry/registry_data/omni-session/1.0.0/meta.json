@@ -1,0 +1,21 @@
+{
+  "name": "omni-session",
+  "version": "1.0.0",
+  "description": "Session management with pluggable stores (memory, Redis, FS)",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-session",
+  "repository": "https://github.com/omni-framework/omni-session",
+  "keywords": [
+    "omni",
+    "runtime",
+    "session"
+  ],
+  "edition": "omni-2025",
+  "checksum": "51a33cf8c5dbd4e9c03ed64afb285b4b12fb730bbd06e7c367f4eec168173f73",
+  "size": 7303,
+  "published_at": "2026-04-09T23:00:38.4218082+07:00",
+  "downloads": 0
+}

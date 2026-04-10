@@ -1,0 +1,21 @@
+{
+  "name": "omni-std",
+  "version": "1.0.0",
+  "description": "OMNI Std module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-std",
+  "repository": "https://github.com/omni-framework/omni-std",
+  "keywords": [
+    "omni",
+    "runtime",
+    "std"
+  ],
+  "edition": "omni-2025",
+  "checksum": "4efd69199323cdd639c6301237d4c322a13f5148ac7cc487ebf605e4b258c301",
+  "size": 1155,
+  "published_at": "2026-04-09T10:02:36.568575+07:00",
+  "downloads": 0
+}

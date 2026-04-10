@@ -1,0 +1,11 @@
+// Example: Microservice with omni-elastic-search
+import { HTTPServer } from '@omni/omni-elastic-search/network'
+import { DomainService } from '@omni/omni-elastic-search/domain'
+
+fn main() {
+    let svc = DomainService::new()
+    let server = HTTPServer::new(3000)
+    server.handle('/api/v1/entities', svc.handler())
+    server.handle('/health', server.health_check())
+    server.start()
+}

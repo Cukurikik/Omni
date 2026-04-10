@@ -1,0 +1,38 @@
+{
+  "name": "omni-lang",
+  "displayName": "OMNI Framework & Language Support",
+  "description": "Kedaulatan Mutlak untuk file .omni (Syntax Highlighting & IntelliSense Spek Dewa)",
+  "version": "1.0.0",
+  "publisher": "OmniCommand",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "omni",
+        "aliases": ["Omni", "omni"],
+        "extensions": [".omni"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/omni-crest-light.svg",
+          "dark": "./icons/omni-crest-dark.svg"
+        }
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "omni-icons",
+        "label": "OMNI Singularity Icons",
+        "path": "./icon-theme.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "omni",
+        "scopeName": "source.omni",
+        "path": "./syntaxes/omni.tmLanguage.json"
+      }
+    ]
+  }
+}

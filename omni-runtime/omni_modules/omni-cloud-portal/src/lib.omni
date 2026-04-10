@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-cloud-portal
+/// Description: Advanced cloud computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct CloudPortalInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

@@ -1,0 +1,8 @@
+// Integration: Full-stack omni-glassmorphism connectivity
+import { init } from '@omni/omni-glassmorphism'
+
+test 'full stack boot' {
+    let instance = init(Config::from_env())?
+    assert instance.driver.is_connected()
+    assert instance.pool.available_count() > 0
+}

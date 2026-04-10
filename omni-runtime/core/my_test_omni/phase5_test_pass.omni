@@ -1,0 +1,14 @@
+import { UtilMath } from "math_mock";
+
+trait Logger {
+    fn log(msg: String);
+}
+
+fn compute_val(a, b) {
+    let result = a * b;
+    return result;
+}
+
+let scale = 1.5;
+let output = compute_val(10, 20);
+println("Output is:", output);

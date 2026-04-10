@@ -1,0 +1,1 @@
+﻿type omni_os_Entity { id: UUID! createdAt: String! }

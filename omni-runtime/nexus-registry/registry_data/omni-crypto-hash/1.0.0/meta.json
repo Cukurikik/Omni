@@ -1,0 +1,22 @@
+{
+  "name": "omni-crypto-hash",
+  "version": "1.0.0",
+  "description": "OMNI Crypto Hash module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-crypto-hash",
+  "repository": "https://github.com/omni-framework/omni-crypto-hash",
+  "keywords": [
+    "omni",
+    "runtime",
+    "crypto",
+    "hash"
+  ],
+  "edition": "omni-2025",
+  "checksum": "a9f12c8446cefcf0dea60107eca5de2f048217c3778b79b8405efd0c10b14a0a",
+  "size": 7307,
+  "published_at": "2026-04-09T23:00:37.3140239+07:00",
+  "downloads": 0
+}

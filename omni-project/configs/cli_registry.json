@@ -1,0 +1,10 @@
+{
+  "tools": {
+    "demo_tool": {
+      "binary": "auto_generated",
+      "input_ext": "",
+      "output_ext": "",
+      "description": "Auto-scaffolded from Omnifile: demo_tool"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+/// [OMNI-PACKAGE] omni-std
+/// Description: Omni Standard Library core functions.
+/// @since 2.0.0
+
+@system_module
+export struct OmniError {
+    code: u32,
+    message: String
+}
+
+// Monadic Result Type implementation via LLVM bridge
+@system_module
+export enum Result<T, E> {
+    Ok(T),
+    Err(E)
+}
+
+// Nullable Safety
+export enum Option<T> {
+    Some(T),
+    None
+}
+
+// ─── Native Bridges to C/Rust/CPP ─────────────────────────
+
+extern "omni-c" fn omni_buffer_alloc(size: usize) -> Result<*mut u8, OmniError>;
+extern "omni-c" fn omni_buffer_free(buffer: *mut u8) -> Result<(), OmniError>;
+
+extern "omni-cpp" fn omni_vec_create(element_size: usize) -> *mut u8;
+extern "omni-cpp" fn omni_vec_push(vec_ptr: *mut u8, element_data: *mut u8) -> void;
+extern "omni-cpp" fn omni_vec_free(vec_ptr: *mut u8) -> void;
+
+export struct Vec<T> {
+    _ptr: *mut u8,
+    
+    fn new(element_size: usize) -> Vec<T> { 
+        Vec { _ptr: omni_vec_create(element_size) } 
+    }
+    
+    fn push(self, item_ptr: *mut u8) -> void { 
+        omni_vec_push(self._ptr, item_ptr);
+    }
+    
+    fn free(self) -> void {
+        omni_vec_free(self._ptr);
+    }
+}

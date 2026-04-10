@@ -113,21 +113,13 @@ func StreamUpload(r *http.Request, destFolder string) (*UploadResult, error) {
 		// Gunakan ID unik sebagai prefix untuk mencegah collision
 		destPath := filepath.Join(quarantineDir, quarantineID+"_"+originalName)
 
-		// 6. Buat file kosong di SSD
-		outFile, err := os.Create(destPath)
-		if err != nil {
-			part.Close()
-			return nil, fmt.Errorf("gagal membuat file di SSD: %v", err)
-		}
-
-		// 7. THE MAGIC: io.Copy — Alirkan data langsung dari Network → SSD
-		// io.Copy menggunakan buffer internal 32KB saja!
-		// File 50GB akan lewat "pipa" ini tanpa mengisi RAM!
+		// 6. THE MAGIC: OMNI-TITAN (10GB Smart RAM Pool)
+		// Mengalirkan data dari Network → RAM Buffer → SSD
+		// Melindungi SSD dari keausan (TBW) dengan batch write raksasa!
 		startTime := time.Now()
-		written, copyErr := io.Copy(outFile, part)
+		written, copyErr := StreamUploadSmartBuffer(part, destPath)
 		elapsed := time.Since(startTime)
 
-		outFile.Close()
 		part.Close()
 
 		if copyErr != nil {
@@ -190,14 +182,7 @@ func StreamUploadMultiple(r *http.Request, destFolder string) ([]*UploadResult, 
 		quarantineID := generateQuarantineID()
 		destPath := filepath.Join(quarantineDir, quarantineID+"_"+originalName)
 
-		outFile, err := os.Create(destPath)
-		if err != nil {
-			part.Close()
-			continue
-		}
-
-		written, copyErr := io.Copy(outFile, part)
-		outFile.Close()
+		written, copyErr := StreamUploadSmartBuffer(part, destPath)
 		part.Close()
 
 		if copyErr != nil {

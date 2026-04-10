@@ -1,0 +1,22 @@
+{
+  "name": "omni-test-runner",
+  "version": "1.0.0",
+  "description": "Test framework with describe/it blocks and assertion library",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-test-runner",
+  "repository": "https://github.com/omni-framework/omni-test-runner",
+  "keywords": [
+    "omni",
+    "runtime",
+    "test",
+    "runner"
+  ],
+  "edition": "omni-2025",
+  "checksum": "c0ab5e4afa58750f631787cf043b08af6ae5e735055b91775e6a59d594a00af9",
+  "size": 6283,
+  "published_at": "2026-04-09T10:02:36.6169165+07:00",
+  "downloads": 0
+}

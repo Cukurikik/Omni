@@ -1,0 +1,8 @@
+// Integration: Full-stack omni-google-pay connectivity
+import { init } from '@omni/omni-google-pay'
+
+test 'full stack boot' {
+    let instance = init(Config::from_env())?
+    assert instance.driver.is_connected()
+    assert instance.pool.available_count() > 0
+}

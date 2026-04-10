@@ -1,0 +1,115 @@
+﻿/// [omni-webpack-killer] - OMNI native bundler with tree-shaking and HMR
+/// Layer: Core Utility | OMNI Native Implementation
+
+import { TimedResult, HttpRequest, HttpResponse, HttpMethod, Body, Schema, Validator, QueueMessage, EmailMessage, RateLimitConfig, LogLevel, LogEntry } from "./types"
+import { UtilConfig, load_config, validate_config } from "./config"
+
+mutable var _instance: Option<ModuleInstance> = None
+mutable var _config: UtilConfig = load_config().unwrap_or(UtilConfig::default())
+
+pub fn init() -> Result<ModuleInstance, InitError> {
+    let config = load_config()?
+    validate_config(&config)?
+    let inst = ModuleInstance { id: omni::uuid::v4(), config: config, started_at: omni::time::now(), stats: ModuleStats::zero() }
+    _instance = Some(inst.clone())
+    println("[OMNI:omni-webpack-killer] Module initialized")
+    Ok(inst)
+}
+
+pub fn create_client(config: UtilConfig) -> Result<Client, ConfigError> {
+    validate_config(&config)?
+    Ok(Client { config: config, cache: Cache::new(config.cache_ttl_secs), logger: Logger::new(config.log_level) })
+}
+
+pub fn execute<T>(client: &Client, op: fn() -> Result<T, OpError>) -> Result<TimedResult<T>, OpError> {
+    let start = omni::time::now()
+    let mut retries: u32 = 0
+    let mut last_err: Option<OpError> = None
+    while retries <= client.config.max_retries {
+        match op() {
+            Ok(val) => { return Ok(TimedResult { value: val, duration_ms: omni::time::since(start).as_millis_f64(), cached: false, retries: retries }) },
+            Err(e) => { last_err = Some(e); retries += 1; if retries <= client.config.max_retries { omni::time::sleep(Duration::from_millis(exp_backoff(retries, 100, 5000))) } },
+        }
+    }
+    Err(last_err.unwrap_or(OpError::Unknown))
+}
+
+pub fn execute_cached<T: Clone>(client: &Client, key: String, ttl: u64, op: fn() -> Result<T, OpError>) -> Result<TimedResult<T>, OpError> {
+    if client.config.cache_enabled {
+        if let Some(cached) = client.cache.get::<T>(&key) {
+            return Ok(TimedResult { value: cached, duration_ms: 0.0, cached: true, retries: 0 })
+        }
+    }
+    let result = execute(client, op)?
+    if client.config.cache_enabled { client.cache.set(key, result.value.clone(), ttl) }
+    Ok(result)
+}
+
+pub fn execute_batch<T>(client: &Client, ops: Vec<fn() -> Result<T, OpError>>) -> Vec<Result<TimedResult<T>, OpError>> {
+    let conc = client.config.concurrency as usize
+    let results: Vec<Result<TimedResult<T>, OpError>> = Vec::with_capacity(ops.len())
+    for chunk in ops.chunks(conc) {
+        let batch = go spawn_all(chunk.iter().map(|op| execute(client, *op)).collect())
+        results.extend(batch)
+    }
+    results
+}
+
+pub fn validate<T>(schema: &Schema<T>, value: &T) -> Result<T, ValidationError> {
+    let mut errors: Vec<FieldError> = Vec::new()
+    for v in &schema.validators {
+        match v {
+            Validator::Required => { if is_empty(value) { errors.push(FieldError { field: "value", message: "Required", code: "REQUIRED" }) } },
+            Validator::MinLength(min) => { if get_length(value) < *min { errors.push(FieldError { field: "value", message: format!("Min: {}", min), code: "MIN_LENGTH" }) } },
+            Validator::MaxLength(max) => { if get_length(value) > *max { errors.push(FieldError { field: "value", message: format!("Max: {}", max), code: "MAX_LENGTH" }) } },
+            _ => {},
+        }
+    }
+    if errors.is_empty() { Ok(value.clone()) } else { Err(ValidationError { errors: errors }) }
+}
+
+pub fn create_rate_limiter(config: RateLimitConfig) -> RateLimiter {
+    RateLimiter { config: config, counters: Map::new() }
+}
+
+pub fn check_rate_limit(rl: &mut RateLimiter, key: String) -> Result<RateLimitResult, RateLimitError> {
+    let now = omni::time::now().unix_ms()
+    let counter = rl.counters.entry(key).or_insert(RateCounter { count: 0, window_start: now })
+    if counter.window_start < now - rl.config.window_ms as i64 { counter.count = 0; counter.window_start = now }
+    counter.count += 1
+    if counter.count > rl.config.max_requests {
+        let retry = (counter.window_start + rl.config.window_ms as i64 - now) as u64
+        Ok(RateLimitResult { allowed: false, remaining: 0, retry_after_ms: Some(retry) })
+    } else {
+        Ok(RateLimitResult { allowed: true, remaining: rl.config.max_requests - counter.count, retry_after_ms: None })
+    }
+}
+
+pub fn log(level: LogLevel, msg: String, fields: Map<String, Any>) {
+    if level as u8 >= _config.log_level as u8 {
+        let entry = LogEntry { level: level, message: msg, timestamp: omni::time::now(), fields: fields, caller: omni::runtime::caller_info() }
+        println("{}", omni::json::serialize(&entry))
+    }
+}
+
+pub fn health_check() -> Result<ModuleStatus, HealthError> {
+    Ok(ModuleStatus { healthy: true, uptime: _instance.as_ref().map(|i| omni::time::since(i.started_at)).unwrap_or(Duration::zero()), stats: _instance.as_ref().map(|i| i.stats.clone()).unwrap_or(ModuleStats::zero()) })
+}
+
+pub fn shutdown() -> Result<(), ShutdownError> { _instance = None; println("[OMNI:omni-webpack-killer] Shutdown complete"); Ok(()) }
+
+fn exp_backoff(attempt: u32, base: u64, max: u64) -> u64 {
+    let delay = base * (2u64.pow(attempt - 1))
+    let jitter = omni::crypto::random_u64() % (delay / 4 + 1)
+    (delay + jitter).min(max)
+}
+
+pub struct ModuleInstance { id: String, config: UtilConfig, started_at: Timestamp, stats: ModuleStats }
+pub struct Client { config: UtilConfig, cache: Cache, logger: Logger }
+pub struct RateLimiter { config: RateLimitConfig, counters: Map<String, RateCounter> }
+pub struct RateCounter { count: u64, window_start: i64 }
+pub struct RateLimitResult { allowed: bool, remaining: u64, retry_after_ms: Option<u64> }
+pub struct ModuleStats { ops_total: u64, ops_failed: u64, cache_hits: u64, cache_misses: u64, avg_latency_ms: f64 }
+pub struct ModuleStatus { healthy: bool, uptime: Duration, stats: ModuleStats }
+pub struct ValidationError { errors: Vec<FieldError> }
+pub struct FieldError { field: String, message: String, code: String }

@@ -1,0 +1,21 @@
+{
+  "name": "omni-process",
+  "version": "1.0.0",
+  "description": "Child process spawning with IPC and signal handling",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-process",
+  "repository": "https://github.com/omni-framework/omni-process",
+  "keywords": [
+    "omni",
+    "runtime",
+    "process"
+  ],
+  "edition": "omni-2025",
+  "checksum": "9d2058b1826430d342b006070fd06705ce39badbe2cc8df6e6a651dacfc9d378",
+  "size": 7303,
+  "published_at": "2026-04-09T23:00:38.267717+07:00",
+  "downloads": 0
+}

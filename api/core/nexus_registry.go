@@ -293,3 +293,13 @@ func DecrementActiveJobs() {
 		nexusActiveJobs--
 	}
 }
+
+// GetRegisteredWorkerCount mengembalikan jumlah worker nodes yang terdaftar di cluster.
+// Digunakan oleh Prometheus metrics.
+func GetRegisteredWorkerCount() int {
+	fleetMutex.RLock()
+	defer fleetMutex.RUnlock()
+	return len(NexusFleet)
+}
+
+

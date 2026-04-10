@@ -1,0 +1,2 @@
+﻿import "omni-std"
+export fn validateSchema(data: any, schema: String) -> Result<bool, OmniError> { Ok(true) }

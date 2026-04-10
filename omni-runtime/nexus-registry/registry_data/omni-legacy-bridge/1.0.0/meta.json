@@ -1,0 +1,22 @@
+{
+  "name": "omni-legacy-bridge",
+  "version": "1.0.0",
+  "description": "OMNI Legacy Bridge module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-legacy-bridge",
+  "repository": "https://github.com/omni-framework/omni-legacy-bridge",
+  "keywords": [
+    "omni",
+    "runtime",
+    "legacy",
+    "bridge"
+  ],
+  "edition": "omni-2025",
+  "checksum": "17984f72f2911b36fb03d0870562fcdb9cbda59309edc64c395bc9a96d203179",
+  "size": 1165,
+  "published_at": "2026-04-09T23:00:37.7506203+07:00",
+  "downloads": 0
+}

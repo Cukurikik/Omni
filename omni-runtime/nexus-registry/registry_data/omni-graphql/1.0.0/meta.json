@@ -1,0 +1,21 @@
+{
+  "name": "omni-graphql",
+  "version": "1.0.0",
+  "description": "OMNI Graphql module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-graphql",
+  "repository": "https://github.com/omni-framework/omni-graphql",
+  "keywords": [
+    "omni",
+    "runtime",
+    "graphql"
+  ],
+  "edition": "omni-2025",
+  "checksum": "4366ab33a135732578589c6e57fc4db307dcfd48b2c140b7363cd3ac07774569",
+  "size": 1159,
+  "published_at": "2026-04-09T23:00:37.5590686+07:00",
+  "downloads": 0
+}

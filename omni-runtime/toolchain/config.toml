@@ -1,0 +1,53 @@
+# ============================================================
+# OMNI Build Toolchain — Konfigurasi Compiler
+# ============================================================
+# File ini mendefinisikan path compiler dan flag optimisasi
+# untuk setiap bahasa yang digunakan di dalam omni_modules.
+# ============================================================
+
+[toolchain]
+name = "omni-llvm-toolchain"
+version = "1.0.0"
+
+[compilers.c]
+command = "gcc"             # Atau "clang" untuk LLVM native
+flags = ["-Wall", "-Wextra", "-std=c11", "-fPIC"]
+release_flags = ["-O3", "-DNDEBUG", "-flto"]
+debug_flags = ["-g", "-O0", "-DDEBUG"]
+output_ext = ".o"
+
+[compilers.cpp]
+command = "g++"             # Atau "clang++"
+flags = ["-Wall", "-Wextra", "-std=c++17", "-fPIC"]
+release_flags = ["-O3", "-DNDEBUG", "-flto"]
+debug_flags = ["-g", "-O0", "-DDEBUG"]
+output_ext = ".o"
+
+[compilers.rust]
+command = "rustc"
+flags = ["--edition", "2021"]
+release_flags = ["-C", "opt-level=3", "-C", "lto=thin"]
+debug_flags = ["-C", "debuginfo=2"]
+output_ext = ".rlib"
+
+[compilers.go]
+command = "go"
+subcommand = "build"
+flags = ["-v"]
+release_flags = ["-ldflags", "-s -w"]
+debug_flags = ["-race"]
+output_ext = ".a"
+
+[linker]
+command = "gcc"             # Atau "ld.lld" untuk LLVM linker
+flags = ["-shared"]
+release_flags = ["-O3", "-flto"]
+
+[targets]
+default = "x86_64"
+supported = ["x86_64", "aarch64", "wasm32"]
+
+[paths]
+modules_dir = "../omni_modules"
+output_dir = "../target/modules"
+reports_dir = "../target/reports"

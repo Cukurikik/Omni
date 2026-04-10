@@ -1,0 +1,9 @@
+// Example: Basic omni-vercel-edge usage
+import { init } from '@omni/omni-vercel-edge'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

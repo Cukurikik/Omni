@@ -1,0 +1,21 @@
+{
+  "name": "omni-env",
+  "version": "1.0.0",
+  "description": "OMNI Env module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-env",
+  "repository": "https://github.com/omni-framework/omni-env",
+  "keywords": [
+    "omni",
+    "runtime",
+    "env"
+  ],
+  "edition": "omni-2025",
+  "checksum": "13e7b06a699e87f57c12597ec856e0be94b5c6877e7723b98c331e42b09aff23",
+  "size": 1155,
+  "published_at": "2026-04-09T23:00:37.4593132+07:00",
+  "downloads": 0
+}

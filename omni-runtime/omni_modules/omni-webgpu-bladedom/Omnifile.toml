@@ -1,0 +1,18 @@
+[package]
+name        = "omni-webgpu-bladedom"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
+description = "React / Virtual-DOM Killer via WebGPU (240 FPS Renderer)"
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_net   = []
+allow_fs    = [] 
+allow_gpu   = true        # Menggunakan WebGPU API Hardware
+
+[build]
+target      = ["wasm32", "x86_64", "arm64"]
+optimize    = "release"
+llvm_passes = ["vectorize"]

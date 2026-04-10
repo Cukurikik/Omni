@@ -1,0 +1,330 @@
+// ==========================================
+// OMNI-LANG SELF-HOSTING IR GENERATOR (Stage-1 Compiler)
+// ==========================================
+// Mengonversi AST menjadi OMNI-IR (SSA format).
+// Setiap variabel didefinisikan tepat satu kali (Static Single Assignment).
+// OMNI-IR kemudian dikirim ke Tri-Target Backend:
+//   1. LLVM IR  → Binary Executable (.exe, .elf)
+//   2. WASM/JS  → Browser Bundle (.js, .wasm)
+//   3. Omni-VM  → JIT Bytecode (.omnivm)
+// ==========================================
+
+import { Vector, String, Int, HashMap } from "omni:core"
+import { Expression, Statement, Parameter } from "./parser"
+
+// =============================
+// IR Type System
+// =============================
+enum IRType {
+    Int64,
+    Float64,
+    StringPtr,
+    RenderNodePtr,
+    MatrixPtr(rows: Int, cols: Int),
+    RawPtr,
+    Void,
+}
+
+// =============================
+// SSA Instruction Set
+// =============================
+enum OmniInstruction {
+    // UI Graph
+    AllocRenderTree { dest: String, tag: String },
+    
+    // Zero-Cost Generics
+    MonomorphizedCall { dest: String, func_name: String, args: Vector<String> },
+    
+    // SIMD Vector Math
+    SimdMultiply { dest: String, left: String, right: String },
+    
+    // Async State Machine
+    SpawnStateMachine { dest: String, state_id: Int, func_ptr: String },
+    
+    // Standard Operations
+    LoadConstantInt { dest: String, value: Int },
+    LoadConstantFloat { dest: String, value: Float },
+    LoadString { dest: String, value: String },
+    Add { dest: String, left: String, right: String },
+    Sub { dest: String, left: String, right: String },
+    Mul { dest: String, left: String, right: String },
+    Div { dest: String, left: String, right: String },
+    MemoryAlloc { dest: String, size_bytes: Int },
+    MemoryFree { ptr: String },
+    
+    // Control Flow
+    Call { dest: String, func_name: String, args: Vector<String> },
+    Return { value: String },
+    Branch { condition: String, true_label: String, false_label: String },
+    Label { name: String },
+    
+    // FFI (Foreign Function Interface)
+    FFIDeclare {
+        name: String,
+        lib: String,
+        language: String,
+        params: Vector<IRType>,
+        ret: IRType,
+        gil_safe: Bool,
+    },
+    FFICall { dest: String, func_name: String, args: Vector<String> },
+}
+
+// =============================
+// IR Container
+// =============================
+struct OmniIR {
+    instructions: Vector<OmniInstruction>,
+    register_count: Int,
+    label_count: Int,
+}
+
+impl OmniIR {
+    fn new() -> Self {
+        return OmniIR {
+            instructions: Vector.new(),
+            register_count: 0,
+            label_count: 0,
+        }
+    }
+
+    // Generate unique SSA register name
+    fn next_register(mut self) -> String {
+        let name = "R" + self.register_count.to_string()
+        self.register_count += 1
+        return name
+    }
+
+    // Generate unique label
+    fn next_label(mut self, prefix: String) -> String {
+        let name = prefix + "_" + self.label_count.to_string()
+        self.label_count += 1
+        return name
+    }
+
+    fn push(mut self, inst: OmniInstruction) {
+        self.instructions.push(inst)
+    }
+}
+
+// =============================
+// THE IR GENERATOR (AST → OMNI-IR)
+// =============================
+struct IRGenerator {
+    ir: OmniIR,
+    symbol_table: HashMap<String, String>,  // variable name → register
+}
+
+impl IRGenerator {
+    fn new() -> Self {
+        return IRGenerator {
+            ir: OmniIR.new(),
+            symbol_table: HashMap.new(),
+        }
+    }
+
+    // Generate IR from a list of AST statements
+    fn generate(mut self, statements: Vector<Statement>) -> OmniIR {
+        for stmt in statements {
+            self.generate_statement(stmt)
+        }
+        return self.ir
+    }
+
+    // =============================
+    // STATEMENT GENERATION
+    // =============================
+    fn generate_statement(mut self, stmt: Statement) {
+        match stmt {
+            Statement.VariableDeclaration { name, kind, type_annotation, initializer } => {
+                let reg = self.generate_expression(initializer)
+                self.symbol_table.insert(name, reg)
+            },
+
+            Statement.FunctionDeclaration { name, parameters, return_type, is_async, body } => {
+                // Generate function label
+                self.ir.push(OmniInstruction.Label { name: "fn_" + name })
+                
+                // Register parameters
+                for param in parameters {
+                    let reg = self.ir.next_register()
+                    self.symbol_table.insert(param.name, reg)
+                }
+
+                // If async, wrap in state machine
+                if is_async {
+                    let state_reg = self.ir.next_register()
+                    self.ir.push(OmniInstruction.SpawnStateMachine {
+                        dest: state_reg,
+                        state_id: self.ir.label_count,
+                        func_ptr: "fn_" + name,
+                    })
+                }
+
+                // Generate body
+                for body_stmt in body {
+                    self.generate_statement(body_stmt)
+                }
+            },
+
+            Statement.ExternFunctionDeclaration { name, parameters, return_type, ffi_lib, ffi_language, gil_safe } => {
+                // Lower @ffi extern fn → FFIDeclare instruction
+                let param_types = parameters.map(|p| self.resolve_type(p.type_name))
+                let ret_type = self.resolve_type(return_type)
+                
+                self.ir.push(OmniInstruction.FFIDeclare {
+                    name: name,
+                    lib: ffi_lib,
+                    language: ffi_language,
+                    params: param_types,
+                    ret: ret_type,
+                    gil_safe: gil_safe,
+                })
+            },
+
+            Statement.ReturnStatement { value } => {
+                match value {
+                    Option.Some(expr) => {
+                        let reg = self.generate_expression(expr)
+                        self.ir.push(OmniInstruction.Return { value: reg })
+                    },
+                    Option.None => {
+                        self.ir.push(OmniInstruction.Return { value: "void" })
+                    }
+                }
+            },
+
+            Statement.GuardStatement { binding_name, expression, else_block } => {
+                let reg = self.generate_expression(expression)
+                let else_label = self.ir.next_label("guard_else")
+                let end_label = self.ir.next_label("guard_end")
+                
+                self.ir.push(OmniInstruction.Branch {
+                    condition: reg,
+                    true_label: end_label,
+                    false_label: else_label,
+                })
+                
+                self.ir.push(OmniInstruction.Label { name: else_label })
+                for s in else_block {
+                    self.generate_statement(s)
+                }
+                
+                self.ir.push(OmniInstruction.Label { name: end_label })
+                self.symbol_table.insert(binding_name, reg)
+            },
+
+            Statement.ExpressionStatement { expression } => {
+                self.generate_expression(expression)
+            },
+
+            _ => {} // ImportStatement handled at module level
+        }
+    }
+
+    // =============================
+    // EXPRESSION GENERATION
+    // =============================
+    fn generate_expression(mut self, expr: Expression) -> String {
+        return match expr {
+            Expression.LiteralInt(n) => {
+                let reg = self.ir.next_register()
+                self.ir.push(OmniInstruction.LoadConstantInt { dest: reg, value: n })
+                reg
+            },
+
+            Expression.LiteralFloat(n) => {
+                let reg = self.ir.next_register()
+                self.ir.push(OmniInstruction.LoadConstantFloat { dest: reg, value: n })
+                reg
+            },
+
+            Expression.LiteralString(s) => {
+                let reg = self.ir.next_register()
+                self.ir.push(OmniInstruction.LoadString { dest: reg, value: s })
+                reg
+            },
+
+            Expression.Identifier(name) => {
+                // Look up in symbol table
+                self.symbol_table.get(name) ?? "UNDEFINED_" + name
+            },
+
+            Expression.Binary { operator, left, right } => {
+                let left_reg = self.generate_expression(*left)
+                let right_reg = self.generate_expression(*right)
+                let dest = self.ir.next_register()
+                
+                match operator {
+                    "+" => self.ir.push(OmniInstruction.Add { dest, left: left_reg, right: right_reg }),
+                    "-" => self.ir.push(OmniInstruction.Sub { dest, left: left_reg, right: right_reg }),
+                    "*" => self.ir.push(OmniInstruction.Mul { dest, left: left_reg, right: right_reg }),
+                    "/" => self.ir.push(OmniInstruction.Div { dest, left: left_reg, right: right_reg }),
+                    _ => {}
+                }
+                
+                dest
+            },
+
+            Expression.MatrixOperation { operator, base, exponent } => {
+                let left_reg = self.generate_expression(*base)
+                let right_reg = self.generate_expression(*exponent)
+                let dest = self.ir.next_register()
+                
+                self.ir.push(OmniInstruction.SimdMultiply { dest, left: left_reg, right: right_reg })
+                dest
+            },
+
+            Expression.FunctionCall { callee, arguments } => {
+                let callee_name = match *callee {
+                    Expression.Identifier(name) => name,
+                    _ => "anonymous",
+                }
+                let arg_regs = arguments.map(|arg| self.generate_expression(arg))
+                let dest = self.ir.next_register()
+                
+                // Check if this is an FFI call
+                if self.is_ffi_function(callee_name) {
+                    self.ir.push(OmniInstruction.FFICall { dest, func_name: callee_name, args: arg_regs })
+                } else {
+                    self.ir.push(OmniInstruction.Call { dest, func_name: callee_name, args: arg_regs })
+                }
+                
+                dest
+            },
+
+            Expression.AwaitExpr { inner } => {
+                // Await is lowered to state machine yield point
+                let inner_reg = self.generate_expression(*inner)
+                inner_reg // simplified: the state machine handles suspension
+            },
+
+            _ => "UNIMPL"
+        }
+    }
+
+    // Type name → IRType mapping
+    fn resolve_type(self, type_name: String) -> IRType {
+        return match type_name {
+            "Int"     => IRType.Int64,
+            "Float"   => IRType.Float64,
+            "String"  => IRType.StringPtr,
+            "Pointer" => IRType.RawPtr,
+            "Void"    => IRType.Void,
+            _         => IRType.RawPtr,  // Default: opaque pointer
+        }
+    }
+
+    fn is_ffi_function(self, name: String) -> Bool {
+        // Check if any FFIDeclare instruction matches this name
+        for inst in self.ir.instructions {
+            match inst {
+                OmniInstruction.FFIDeclare { name: decl_name, .. } => {
+                    if decl_name == name { return true }
+                },
+                _ => {}
+            }
+        }
+        return false
+    }
+}

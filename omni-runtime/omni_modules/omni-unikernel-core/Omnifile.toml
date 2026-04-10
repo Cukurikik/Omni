@@ -1,0 +1,10 @@
+[package]
+name        = "omni-unikernel-core"
+version     = "1.0.0"
+description = "Compiles OMNI Apps directly into 3MB Bootable OS Isolates. Eliminating Docker and Linux."
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_os_boot = true

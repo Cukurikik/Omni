@@ -1,0 +1,17 @@
+[package]
+name        = "omni-quantum-bridge"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
+description = "Quantum Assembly Language Bridge for Qubits computation"
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_net   = ["qpu.quantum-compute.ibm.com"] # Interface ke QPU 
+allow_hw    = true        # Menggunakan ekstensi komputasi hardware quantum simulator
+
+[build]
+target      = ["all"]
+optimize    = "release"
+llvm_passes = ["quantum_entangle_simd"]

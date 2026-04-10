@@ -1,0 +1,11 @@
+[package]
+name        = "omni-xdp-router"
+version     = "1.0.0"
+description = "Injects HTTP logic directly into NIC Hardware passing Kernel bottlenecks."
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_ebpf = true
+allow_net  = ["0.0.0.0/0"]

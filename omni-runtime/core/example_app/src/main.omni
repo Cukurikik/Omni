@@ -1,0 +1,16 @@
+/// Entry point of the OMNI application: example_app
+
+@system::core
+fn main() -> Void {
+    immutable val app_config_name = "OMNI Nexus";
+    
+    // Default HTTP routine via Goroutine pattern
+    @network::go
+    spawn server_routine();
+
+    print("Status: Application Initialized.");
+}
+
+fn server_routine() -> Void {
+    print("Server worker thread started...");
+}

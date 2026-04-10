@@ -1,0 +1,21 @@
+{
+  "name": "omni-yaml",
+  "version": "1.0.0",
+  "description": "YAML parser and emitter with full 1.2 spec compliance",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-yaml",
+  "repository": "https://github.com/omni-framework/omni-yaml",
+  "keywords": [
+    "omni",
+    "runtime",
+    "yaml"
+  ],
+  "edition": "omni-2025",
+  "checksum": "e6521d379ff916bdcbd9fd43955a5a692aa4e6d45f8a497bc0c78c62f900fe0d",
+  "size": 7300,
+  "published_at": "2026-04-09T23:00:38.7343535+07:00",
+  "downloads": 0
+}

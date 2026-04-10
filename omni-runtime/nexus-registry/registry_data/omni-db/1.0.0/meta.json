@@ -1,0 +1,21 @@
+{
+  "name": "omni-db",
+  "version": "1.0.0",
+  "description": "OMNI Db module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-db",
+  "repository": "https://github.com/omni-framework/omni-db",
+  "keywords": [
+    "omni",
+    "runtime",
+    "db"
+  ],
+  "edition": "omni-2025",
+  "checksum": "2dcb60fdd071ac5dd5f80fc203cbed30582b3692b1ea298d415b9d8fd4048eeb",
+  "size": 2178,
+  "published_at": "2026-04-09T23:00:37.3575184+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,17 @@
+[package]
+name        = "omni-intent-ast"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
+description = "Telepathy Engine: Dynamic Code-less Abstract Syntax Tree Constructor"
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_hw    = true        # Interface BCI (Brain-Computer Interface) Mocks
+allow_mem   = ["PROT_EXEC", "PROT_WRITE"] # Menulis Machine Code langsung ke RAM
+
+[build]
+target      = ["all"]
+optimize    = "release"
+llvm_passes = ["omni_ast_mutation"]

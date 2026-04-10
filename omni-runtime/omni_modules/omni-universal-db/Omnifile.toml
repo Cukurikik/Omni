@@ -1,0 +1,17 @@
+[package]
+name        = "omni-universal-db"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <data@architecture.dev>"]
+description = "The Ultimate DB Bridger: Relational, NoSQL, Cache, Graph, Vector. 100% Free."
+license     = "OMNI-Community"
+edition     = "omni-2025"
+
+[permissions]
+allow_net   = ["0.0.0.0/0"]
+allow_fs    = ["/var/data/", "/tmp/"]
+allow_memory = true
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "free"
+price_usd    = 0

@@ -24,6 +24,10 @@ func SetupRoutes(mux *http.ServeMux) {
 	// Rute Inti OMNI Framework (Mempersatukan 152 Tools)
 	RegisterOmniRoutes(mux)
 
+	// 🛣️ OMNI-ROUTER: File-Based Auto API Routes
+	// Dihasilkan otomatis oleh CLI (omni dev / omni build)
+	RegisterAutoRoutes(mux)
+
 	// ==========================================
 	// 2. RUTE SYSTEM & ASSET CACHE
 	// ==========================================
@@ -61,6 +65,7 @@ func SetupRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/ws/ai-chat", middleware.HeavyTaskRateLimiter(AiChatStreamHandler))
 	mux.HandleFunc("/ws/swarm", middleware.HeavyTaskRateLimiter(WebRTCSwarmHandler))
 	mux.HandleFunc("/api/v1/monitor/stream", services.MonitorHandler)
+	mux.HandleFunc("/api/v1/omni/metrics", MetricsHandler)
 
 	// 📡 OMNI-RESONANCE: Live-Reload WebSocket
 	mux.HandleFunc("/ws/omni_live", core.ResonanceHandler)
@@ -72,8 +77,23 @@ func SetupRoutes(mux *http.ServeMux) {
 		mux.HandleFunc("/api/nexus/status", core.NexusStatusHandler)
 	}
 
-	// 📡 OMNI-BROADCASTER: Job Progress Real-Time WebSocket
+	// 📡 OMNI-BROADCASTER: Job Progress Real-Time WebSocket (Legacy)
 	mux.HandleFunc("/ws/jobs", core.JobStreamHandler)
+
+	// 📡 OMNI-STREAM: SSE — Battery-Efficient Job Monitoring (Modern)
+	mux.HandleFunc("/api/v1/stream/jobs", core.SSEJobStreamHandler)
+
+	// 🔌 OMNI-ADAPTER: Third-Party Integration Status
+	mux.HandleFunc("/api/v1/adapters/status", AdapterStatusHandler)
+
+	// 🔬 OMNI-DEV: System Inspection (hanya aktif saat development)
+	mux.HandleFunc("/api/v1/dev/inspect", core.DevInspectHandler)
+
+	// 🧪 OMNI-TEST: Deep Validation Engine (V1.3)
+	mux.HandleFunc("/api/v1/test/deep", core.DeepTestHandler)
+
+	// ⚡ OMNI-WASM: WebAssembly Module Status (V1.3)
+	mux.HandleFunc("/api/v1/wasm/status", WasmStatusHandler)
 
 	mux.HandleFunc("/api/v1/tus", middleware.APIKeyAuthGuard(TusHandler))
 	mux.HandleFunc("/api/v1/tus/", middleware.APIKeyAuthGuard(TusHandler))

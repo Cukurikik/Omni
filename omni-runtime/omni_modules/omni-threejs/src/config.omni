@@ -1,0 +1,29 @@
+﻿/// Configuration for omni-threejs
+import { TimelineConfig, Direction, FillMode } from "./types"
+
+pub immutable val DEFAULT_FPS: u32 = 60
+pub immutable val DEFAULT_DURATION: f64 = 0.3
+pub immutable val DEFAULT_EASING: String = "cubic-bezier(0.4, 0, 0.2, 1)"
+
+pub struct AnimConfig {
+    fps: u32, use_raf: bool, gpu_accelerated: bool,
+    lazy_rendering: bool, auto_cleanup: bool,
+    default_duration: f64, default_easing: String,
+    reduced_motion: bool, max_concurrent: u32, batch_updates: bool,
+}
+
+pub fn load_config() -> Result<AnimConfig, ConfigError> {
+    Ok(AnimConfig {
+        fps: omni::env::get("OMNI_ANIM_FPS").map(|v| v.parse::<u32>()).unwrap_or(Ok(60))?,
+        use_raf: true, gpu_accelerated: true, lazy_rendering: true,
+        auto_cleanup: true, default_duration: 0.3,
+        default_easing: DEFAULT_EASING.clone(), reduced_motion: false,
+        max_concurrent: 64, batch_updates: true,
+    })
+}
+
+pub fn validate_config(c: &AnimConfig) -> Result<(), ConfigError> {
+    if c.fps < 1 || c.fps > 240 { return Err(ConfigError::InvalidValue("fps must be 1-240")) }
+    if c.max_concurrent < 1 { return Err(ConfigError::InvalidValue("max_concurrent >= 1")) }
+    Ok(())
+}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"omnitools/core"
 	"omnitools/services"
+	"log"
 )
 
 // ExecuteTool adalah Switchboard utama yang dihasilkan otomatis oleh OMNI-SYNC.
@@ -316,7 +317,23 @@ func ExecuteTool(job *core.Job) ([]byte, error) {
 		return services.ExecuteEngineWithTimeout(job.EngineCmd, job.Args, job.Timeout)
 	case "kinetic_test_tool":
 		return services.ExecuteEngineWithTimeout(job.EngineCmd, job.Args, job.Timeout)
+	case "brain":
+		// 🤖 OMNI-POLYGLOT [PYTHON]: Routed via Universal Bridge
+		log.Printf("🤖 [POLYGLOT] Menyerahkan tugas %s ke PYTHON Engine...", job.ID)
+		resultBytes, err := core.CallUniversalWorker(job, "python", "api/engine/brain/main.py")
+		if err != nil {
+			return nil, fmt.Errorf("python worker [brain] gagal: %w", err)
+		}
+		return resultBytes, nil
+	case "ai_vision":
+		// 🤖 OMNI-POLYGLOT [PYTHON]: Routed via Universal Bridge
+		log.Printf("🤖 [POLYGLOT] Menyerahkan tugas %s ke PYTHON Engine...", job.ID)
+		resultBytes, err := core.CallUniversalWorker(job, "python", "api/engine/ai_vision/main.py")
+		if err != nil {
+			return nil, fmt.Errorf("python worker [ai_vision] gagal: %w", err)
+		}
+		return resultBytes, nil
 	default:
-		return nil, fmt.Errorf("tool_id [%s] tidak terdaftar di engine registry", job.EngineCmd)
+		return nil, fmt.Errorf("tool_id [%s] tidak terdaftar di engine registry", job.ID)
 	}
 }

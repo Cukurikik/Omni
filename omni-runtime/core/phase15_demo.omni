@@ -1,0 +1,52 @@
+// ═══════════════════════════════════════════════════════════
+// 🧪 PHASE 15 DEMO: Import Resolution + Selective Stdlib
+// ═══════════════════════════════════════════════════════════
+// File ini mendemonstrasikan Phase 15 Import Resolver:
+//   1. import "std:crypto" → OmniCrypto module
+//   2. import "std:math"   → OmniMath module  
+//   3. import "std:string"  → OmniString module
+//   4. import "std:net"    → OmniNet module
+//   5. Hanya modul yang di-import yang di-load (selective)
+// ═══════════════════════════════════════════════════════════
+
+import "std:crypto"
+import "std:math"
+import "std:string"
+import "std:net"
+
+// ─── CRYPTO: SHA256 Hashing ───
+let secret = "OMNI-NEXUS-2025"
+let hash = OmniCrypto.sha256(secret)
+print("🔐 SHA256 of '" + secret + "': " + hash)
+
+// ─── CRYPTO: UUID Generation ───
+let session_id = OmniCrypto.uuid()
+print("🆔 Session UUID: " + session_id)
+
+// ─── MATH: Tensor Operations ───
+let prices = [120.5, 135.2, 128.7, 142.1, 138.9]
+let avg = OmniMath.mean(prices)
+let std = OmniMath.std(prices)
+print("📊 Price Average: " + avg)
+print("📈 Price StdDev: " + std)
+
+// ─── MATH: Matrix Operations ───
+let matrix_a = [[1, 2], [3, 4]]
+let matrix_b = [[5, 6], [7, 8]]
+let result = OmniMath.matmul(matrix_a, matrix_b)
+print("🧮 Matrix Multiply: " + JSON.stringify(result))
+
+// ─── STRING: Manipulation ───  
+let raw_title = "hello world from omni framework"
+let slug = OmniString.slugify(raw_title)
+let camel = OmniString.camelCase(raw_title)
+print("🔤 Slug: " + slug)
+print("🔤 CamelCase: " + camel)
+
+// ─── FINAL STATUS ───
+print("")
+print("═══════════════════════════════════════")
+print("✅ Phase 15: Import Resolution ACTIVE")
+print("   Loaded: std:crypto, std:math, std:string, std:net")
+print("   Mode: Selective (tidak memuat std:ui, std:graph, dll)")
+print("═══════════════════════════════════════")

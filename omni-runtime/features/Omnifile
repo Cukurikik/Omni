@@ -1,0 +1,20 @@
+PROJECT "Global Financial Dashboard"
+VERSION "2.0.0"
+COMPILER "OMNI-V2-CHIMERA"
+
+// Dependensi yang diunduh langsung dari sumbernya
+DEPENDENCIES {
+    // Mengambil SDK dari GitHub dengan verifikasi Hash SHA-256 (Anti-Malware)
+    "github.com/stripe/stripe-omni" @v12.0.1 
+        checksum: "sha256:8f3a39e8d1c8f1a14c9c57d81ef3b584a2c1"
+        
+    // Mengambil model AI dari ekosistem HuggingFace langsung ke dalam OMNI
+    "huggingface.co/models/omni-vision-v1" @latest
+}
+
+// Izin Eksekusi Tingkat OS (Keamanan Pasif)
+PERMISSIONS {
+    allow_network: ["api.stripe.com", "*.omni.network"] // Blokir semua URL selain ini!
+    allow_file_system: ["/data/logs", "/tmp/buffer"]    // Ransomware tidak akan bisa membaca folder sistem!
+    allow_hardware: ["GPU_0", "CAMERA"]
+}

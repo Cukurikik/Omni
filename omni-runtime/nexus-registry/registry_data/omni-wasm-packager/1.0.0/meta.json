@@ -1,0 +1,22 @@
+{
+  "name": "omni-wasm-packager",
+  "version": "1.0.0",
+  "description": "WebAssembly module bundler and optimizer",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-wasm-packager",
+  "repository": "https://github.com/omni-framework/omni-wasm-packager",
+  "keywords": [
+    "omni",
+    "runtime",
+    "wasm",
+    "packager"
+  ],
+  "edition": "omni-2025",
+  "checksum": "046127e5701257be92e7f233ca8843d796c7d92b8ceff52b6da7863e7144711a",
+  "size": 6285,
+  "published_at": "2026-04-09T23:00:38.6794836+07:00",
+  "downloads": 0
+}

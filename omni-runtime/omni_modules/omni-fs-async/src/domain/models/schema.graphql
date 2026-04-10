@@ -1,0 +1,1 @@
+﻿type omni_fs_async_Entity { id: UUID! createdAt: String! }

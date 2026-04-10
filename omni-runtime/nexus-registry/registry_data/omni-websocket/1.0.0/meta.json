@@ -1,0 +1,21 @@
+{
+  "name": "omni-websocket",
+  "version": "1.0.0",
+  "description": "WebSocket server/client with compression and auto-reconnect",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-websocket",
+  "repository": "https://github.com/omni-framework/omni-websocket",
+  "keywords": [
+    "omni",
+    "runtime",
+    "websocket"
+  ],
+  "edition": "omni-2025",
+  "checksum": "f35dc01d049148a2cb46b03a37c9e50aa82ae0e0e65f4be22afb34bface42dd0",
+  "size": 7305,
+  "published_at": "2026-04-09T23:00:38.7078866+07:00",
+  "downloads": 0
+}

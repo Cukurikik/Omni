@@ -1,0 +1,11 @@
+// Example: Microservice with omni-scrollreveal
+import { HTTPServer } from '@omni/omni-scrollreveal/network'
+import { DomainService } from '@omni/omni-scrollreveal/domain'
+
+fn main() {
+    let svc = DomainService::new()
+    let server = HTTPServer::new(3000)
+    server.handle('/api/v1/entities', svc.handler())
+    server.handle('/health', server.health_check())
+    server.start()
+}

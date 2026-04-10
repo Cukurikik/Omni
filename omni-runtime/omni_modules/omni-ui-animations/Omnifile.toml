@@ -1,0 +1,12 @@
+[package]
+name        = "omni-ui-animations"
+version     = "1.0.0"
+authors     = ["Premium UI Dev <dev@ui.dev>"]
+description = "300+ Premium Web Animations for the OMNI Framework"
+license     = "OMNI-Community"
+edition     = "omni-2025"
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "free"
+price_usd    = 0

@@ -1,0 +1,49 @@
+// ========================================================
+// 🧠 FASE 2: DESAIN FRONTEND COMPILER (The Brain of OMNI)
+// Blueprint_Phase2_Frontend.omni
+// ========================================================
+// Tujuan: Lexer, Parser/AST, Semantic Analyzer, dan Diagnostik 
+// yang mampu mengenali 16 bahasa secara instan (termasuk JSX
+// dan vektor/matriks murni) dengan pesan error ala Elm/Rust.
+// ========================================================
+
+// 1. LEXER (Scanner / Tokenizer) - "Pemecah Atom"
+// Mengubah: `let ai_tensor = (base_matrix ^ 2);`
+// Menjadi: [KEYWORD:let][ID:ai_tensor][OP:=][LPAREN:(][ID:base_matrix][OP_MATH:^][LIT_INT:2][RPAREN:)][SEMI:;]
+// Kemampuan Spesial: Mampu mendeteksi token HTML/JSX langsung untuk rendering UI tanpa plugin lokal.
+
+// 2. PARSER & AST (Pohon Logika)
+// Menyusun rantai token menjadi abstrak syntax tree OMNI-AST yang secara native 
+// mengerti UI DOM dan Kalkulus Matriks.
+// Node khusus: VariableDeclaration -> BinaryExpression -> MatrixOperation
+
+// 3. SEMANTIC ANALYSIS - "Sang Hakim Logika" (Static Checking)
+fn handle_semantics() {
+    // a. Type Checking (Pengecekan Tipe Matrix/Vector native)
+    let base_matrix: Matrix<Float> = [1.0, 2.5; 3.1, 4.2]
+    let result = base_matrix ^ 2 // Diizinkan: Operator ^ legal untuk Matrix
+
+    // b. Null-Safety Check (Pengecekan Optionals)
+    let user_id: String? = db.get_user()
+    // ERROR: user_id.length() tidak diizinkan tanpa `guard` atau `?.`
+
+    // c. Ownership Check (Validasi Memori Linear)
+    let mut heavy_data = allocate_video()
+    process_data(heavy_data)
+    // ERROR: use-after-free, kompilator mendeteksi `heavy_data` sudah dipindahkan (moved).
+}
+
+// 4. ERROR REPORTING - "Pesan Diagnostik Tingkat Dewa"
+/*
+❌ [OMNI-VAULT ERROR]: Pelanggaran Null-Safety!
+   --> src/dashboard.omni:14:25
+    |
+ 13 |    let user_id: String? = db.get_user();
+ 14 |    let id_length = user_id.length();
+    |                    ^^^^^^^ Mengakses metode pada nilai yang berpotensi Null.
+    |
+ 💡 SOLUSI MUTLAK:
+    Gunakan 'guard let' (Gaya Swift) atau operator opsional '?.' (Gaya TS).
+    Coba ubah menjadi:
+    let id_length = user_id?.length() ?? 0;
+*/

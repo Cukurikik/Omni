@@ -1,0 +1,8 @@
+// Integration: Full-stack omni-bitpay connectivity
+import { init } from '@omni/omni-bitpay'
+
+test 'full stack boot' {
+    let instance = init(Config::from_env())?
+    assert instance.driver.is_connected()
+    assert instance.pool.available_count() > 0
+}

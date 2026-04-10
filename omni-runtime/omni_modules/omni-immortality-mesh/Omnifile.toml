@@ -1,0 +1,17 @@
+[package]
+name        = "omni-immortality-mesh"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
+description = "Biological Self-Healing Code (Crash-Resistant Framework)"
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_mem   = ["PROT_EXEC", "PROT_WRITE"] 
+allow_hw    = true
+
+[build]
+target      = ["all"]
+optimize    = "release"
+llvm_passes = ["hot_reloading_jit", "fault_tolerance"]

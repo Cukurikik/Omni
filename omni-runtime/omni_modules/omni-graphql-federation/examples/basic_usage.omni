@@ -1,0 +1,9 @@
+// Example: Basic omni-graphql-federation usage
+import { init } from '@omni/omni-graphql-federation'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

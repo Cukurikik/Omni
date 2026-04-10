@@ -1,0 +1,21 @@
+{
+  "name": "omni-test",
+  "version": "1.0.0",
+  "description": "OMNI Test module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-test",
+  "repository": "https://github.com/omni-framework/omni-test",
+  "keywords": [
+    "omni",
+    "runtime",
+    "test"
+  ],
+  "edition": "omni-2025",
+  "checksum": "ede7199694fa947328a267fdc7d565fcaa1df689a6c4f1f09b75a34a55b448a9",
+  "size": 1156,
+  "published_at": "2026-04-09T10:02:36.5924467+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,21 @@
+{
+  "name": "omni-path",
+  "version": "1.0.0",
+  "description": "OMNI Path module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-path",
+  "repository": "https://github.com/omni-framework/omni-path",
+  "keywords": [
+    "omni",
+    "runtime",
+    "path"
+  ],
+  "edition": "omni-2025",
+  "checksum": "c63fad88cb72800d7648ae504e7d2fbe17e79bbadce860b7ca641da154ec2668",
+  "size": 7300,
+  "published_at": "2026-04-09T10:02:36.4391759+07:00",
+  "downloads": 0
+}

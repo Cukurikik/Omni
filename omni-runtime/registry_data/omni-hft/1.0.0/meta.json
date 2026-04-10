@@ -1,0 +1,21 @@
+{
+  "name": "omni-hft",
+  "version": "1.0.0",
+  "description": "OMNI Hft module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-hft",
+  "repository": "https://github.com/omni-framework/omni-hft",
+  "keywords": [
+    "omni",
+    "runtime",
+    "hft"
+  ],
+  "edition": "omni-2025",
+  "checksum": "70f0a6712702516adc216d40a218bc75c32cde62cb4f814599cdcc3b6ffa55d7",
+  "size": 2179,
+  "published_at": "2026-04-09T10:02:36.2425069+07:00",
+  "downloads": 0
+}

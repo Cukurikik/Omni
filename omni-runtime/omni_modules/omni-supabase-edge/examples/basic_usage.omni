@@ -1,0 +1,9 @@
+// Example: Basic omni-supabase-edge usage
+import { init } from '@omni/omni-supabase-edge'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

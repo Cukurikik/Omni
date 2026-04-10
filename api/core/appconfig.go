@@ -23,6 +23,7 @@ type AppConfigStruct struct {
 	AppName     string `json:"app_name"`
 	Version     string `json:"version"`
 	Environment string `json:"environment"`
+	CliLanguage string `json:"cli_language"`
 
 	Server struct {
 		Host                    string `json:"host"`
@@ -38,6 +39,11 @@ type AppConfigStruct struct {
 		RateLimitPerSecond int      `json:"rate_limit_per_second"`
 		EnableCoopCoep     bool     `json:"enable_coop_coep"`
 	} `json:"security"`
+
+	Database struct {
+		Engine string `json:"engine"` // postgres, firebase, or local
+		URL    string `json:"url"`
+	} `json:"database"`
 
 	Storage struct {
 		MaxUploadGB     int64  `json:"max_upload_gb"`
@@ -73,6 +79,26 @@ type AppConfigStruct struct {
 		HeartbeatIntervalSec    int    `json:"heartbeat_interval_seconds"` // Interval heartbeat (detik)
 		DeadThresholdSec        int    `json:"dead_threshold_seconds"`     // Batas waktu node dianggap mati
 	} `json:"nexus_cluster"`
+
+	// V1.3: OMNI-CHAMELEON — CSS Framework & View Transitions
+	UI struct {
+		CSSFramework    string `json:"css_framework"`    // tailwind, bootstrap, bulma, none
+		ViewTransitions bool   `json:"view_transitions"` // Enable View Transitions API
+	} `json:"ui"`
+
+	// V1.3: OMNI-WASM — WebAssembly Sandbox Configuration
+	Wasm struct {
+		Enabled       bool   `json:"enabled"`
+		ModulesDir    string `json:"modules_dir"`
+		MemoryLimitMB int    `json:"memory_limit_mb"` // Max RAM per Wasm module
+	} `json:"wasm"`
+
+	// V1.3: OMNI-UDS — Inter-Process Communication Configuration
+	IPC struct {
+		Mode       string `json:"mode"`        // uds, tcp, auto
+		SocketPath string `json:"socket_path"` // Path untuk Unix Domain Socket
+		Port       int    `json:"port"`        // Port untuk TCP fallback
+	} `json:"ipc"`
 }
 
 var (

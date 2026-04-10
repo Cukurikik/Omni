@@ -1,0 +1,11 @@
+# OMNI Ignore File
+# File/folder yang tidak perlu dipublish ke OMNI-NEXUS
+
+omni_modules/
+.omni-cache/
+*.log
+.env
+.env.local
+dist/
+target/
+.git/

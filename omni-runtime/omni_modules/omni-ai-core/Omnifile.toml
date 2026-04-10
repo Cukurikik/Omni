@@ -1,0 +1,16 @@
+[package]
+name        = "omni-ai-core"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <omni@architecture.dev>"]
+description = "Auto-generated Enterprise OMNI Module for ai computing."
+license     = "OMNI-Enterprise"
+edition     = "omni-2025"
+
+[dependencies]
+omni-std     = "^2.0"
+omni-runtime = "^2.0"
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "enterprise"
+price_usd    = 0

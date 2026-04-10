@@ -1,0 +1,11 @@
+// Example: Advanced pipeline with omni-backblaze-b2
+import { DataPipeline } from '@omni/omni-backblaze-b2/compute'
+import { TypeSafeClient } from '@omni/omni-backblaze-b2/ui'
+
+fn main() {
+    let pipeline = DataPipeline::new()
+        .add_stage('fetch', |_| client.get('/data'))
+        .add_stage('transform', |d| d.map(|x| x * 2))
+        .add_stage('store', |d| client.post('/results', d))
+    pipeline.execute(None)?
+}

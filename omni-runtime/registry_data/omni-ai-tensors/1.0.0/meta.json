@@ -1,0 +1,22 @@
+{
+  "name": "omni-ai-tensors",
+  "version": "1.0.0",
+  "description": "Tensor operations: matmul, conv2d, softmax on CPU/GPU",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-ai-tensors",
+  "repository": "https://github.com/omni-framework/omni-ai-tensors",
+  "keywords": [
+    "omni",
+    "runtime",
+    "ai",
+    "tensors"
+  ],
+  "edition": "omni-2025",
+  "checksum": "5877fa54915179c496e290ad47bec1482444940652696096bda3a56d87dc07fd",
+  "size": 7306,
+  "published_at": "2026-04-09T10:02:35.8675349+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,22 @@
+{
+  "name": "omni-net-tcp",
+  "version": "1.0.0",
+  "description": "Native TCP server and client with goroutine-based concurrency",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-net-tcp",
+  "repository": "https://github.com/omni-framework/omni-net-tcp",
+  "keywords": [
+    "omni",
+    "runtime",
+    "net",
+    "tcp"
+  ],
+  "edition": "omni-2025",
+  "checksum": "c40c295479f0af15755480b275a4851e75c3ee6ad2d8e5239e34b019ca5ad4eb",
+  "size": 7303,
+  "published_at": "2026-04-09T10:02:36.3931897+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,1 @@
+﻿type omni_events_Model { id: ID! }

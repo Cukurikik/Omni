@@ -1,0 +1,22 @@
+[package]
+name = "phase8_app"
+version = "0.1.0"
+authors = ["Omni Developer <dev@omni.nexus>"]
+description = "A new OMNI 15-paradigm standard project"
+edition = "omni-2025"
+
+[dependencies]
+omni-std = { version = "latest", hash = "sha256:abcd1234efgh5678ijkl9012mnop3456qrst7890uvwx1234yzab5678cdef9012__omni-std" }
+omni-std = { version = "latest", hash = "sha256:abcd1234efgh5678ijkl9012mnop3456qrst7890uvwx1234yzab5678cdef9012__omni-std" }
+omni-std = { version = "latest", hash = "sha256:abcd1234efgh5678ijkl9012mnop3456qrst7890uvwx1234yzab5678cdef9012__omni-std" }
+omni-std = "^2.0"
+
+[permissions]
+allow_net = []
+allow_fs = []
+allow_env = []
+allow_thread = true
+
+[build]
+target = ["wasm32", "x86_64-linux", "aarch64-apple"]
+optimize = "release"

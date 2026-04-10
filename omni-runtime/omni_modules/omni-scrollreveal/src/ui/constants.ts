@@ -1,0 +1,14 @@
+// omni-scrollreveal â€” Constants & Configuration
+
+export const MODULE_NAME = 'omni-scrollreveal';
+export const MODULE_VERSION = '1.0.0';
+export const DEFAULT_TIMEOUT = 30000;
+export const DEFAULT_RETRIES = 3;
+export const DEFAULT_PAGE_SIZE = 20;
+export const MAX_PAGE_SIZE = 100;
+export const API_VERSION = 'v1';
+export const HEALTH_CHECK_INTERVAL = 30000;
+
+export const HTTP_STATUS = { OK: 200, CREATED: 201, NO_CONTENT: 204, BAD_REQUEST: 400, UNAUTHORIZED: 401, FORBIDDEN: 403, NOT_FOUND: 404, CONFLICT: 409, TOO_MANY_REQUESTS: 429, INTERNAL_ERROR: 500, SERVICE_UNAVAILABLE: 503 } as const;
+
+export const ERROR_CODES = { CONNECTION_FAILED: 'E001', TIMEOUT: 'E002', AUTH_FAILED: 'E003', NOT_FOUND: 'E004', VALIDATION_FAILED: 'E005', RATE_LIMITED: 'E006', INTERNAL: 'E007' } as const;

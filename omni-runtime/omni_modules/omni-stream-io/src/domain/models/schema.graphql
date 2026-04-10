@@ -1,0 +1,1 @@
+﻿type omni_stream_io_Entity { id: UUID! createdAt: String! }

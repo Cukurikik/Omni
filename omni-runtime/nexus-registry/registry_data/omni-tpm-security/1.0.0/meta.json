@@ -1,0 +1,22 @@
+{
+  "name": "omni-tpm-security",
+  "version": "1.0.0",
+  "description": "OMNI Tpm Security module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-tpm-security",
+  "repository": "https://github.com/omni-framework/omni-tpm-security",
+  "keywords": [
+    "omni",
+    "runtime",
+    "tpm",
+    "security"
+  ],
+  "edition": "omni-2025",
+  "checksum": "412daae5ae6ba71a576905815270992fd15d67266646386bb0d0e72594b27433",
+  "size": 7308,
+  "published_at": "2026-04-09T23:00:38.5651834+07:00",
+  "downloads": 0
+}

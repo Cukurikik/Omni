@@ -1,0 +1,21 @@
+{
+  "name": "omni-vm",
+  "version": "1.0.0",
+  "description": "Virtual machine for OMNI bytecode execution",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-vm",
+  "repository": "https://github.com/omni-framework/omni-vm",
+  "keywords": [
+    "omni",
+    "runtime",
+    "vm"
+  ],
+  "edition": "omni-2025",
+  "checksum": "92b954a2b1ea21abefa282bee3c098b6b4fef7540d11d75dda6a44e30468102a",
+  "size": 6274,
+  "published_at": "2026-04-09T10:02:36.7059114+07:00",
+  "downloads": 0
+}

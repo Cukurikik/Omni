@@ -1,0 +1,7 @@
+[package]
+name = "omni_runner"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+omnicore = { package = "omni-core", path = "C:/Users/IKYY/Downloads/Omni/omni-runtime/core" }

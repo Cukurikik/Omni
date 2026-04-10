@@ -1,0 +1,9 @@
+// Example: Basic omni-video-ffmpeg usage
+import { init } from '@omni/omni-video-ffmpeg'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

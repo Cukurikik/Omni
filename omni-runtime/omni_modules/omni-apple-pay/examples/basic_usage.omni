@@ -1,0 +1,9 @@
+// Example: Basic omni-apple-pay usage
+import { init } from '@omni/omni-apple-pay'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

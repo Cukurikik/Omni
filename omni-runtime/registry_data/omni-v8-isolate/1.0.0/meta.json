@@ -1,0 +1,22 @@
+{
+  "name": "omni-v8-isolate",
+  "version": "1.0.0",
+  "description": "V8 JavaScript engine integration with isolate management",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-v8-isolate",
+  "repository": "https://github.com/omni-framework/omni-v8-isolate",
+  "keywords": [
+    "omni",
+    "runtime",
+    "v8",
+    "isolate"
+  ],
+  "edition": "omni-2025",
+  "checksum": "b3511c34daddddce56a421b37f1c344880908e2eefc172bf4d3ddf079b74db07",
+  "size": 6282,
+  "published_at": "2026-04-09T10:02:36.6815667+07:00",
+  "downloads": 0
+}

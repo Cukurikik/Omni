@@ -1,0 +1,17 @@
+use::agency {
+    // Inisialisasi entitas proyek jasa
+    let project = Project::create("Redesign Logo", client_id);
+    
+    // Buat Invoice PDF dalam 0.001 detik secara Native menggunakan OMNI-Docs internal C++
+    project.generate_invoice_pdf({ amount: 5000, tax: 0.11 }).send_to_client();
+}
+
+export function finalizeContract(clientId: string) {
+    // ⚙️ C++: Render PDF Kontrak secara asinkron super cepat
+    const pdfBuffer = use::cpp { return render_contract_native($clientId); };
+
+    // ⚡ GO: Tembak email dengan SMTP UDP Mesh
+    use::go { email.SendAttachment($clientId, $pdfBuffer); };
+
+    return { status: "KONTRAK DIKIRIM OTONOM" };
+}

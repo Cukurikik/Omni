@@ -1,7 +1,10 @@
 package core
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"os/exec"
 	"time"
 )
 
@@ -35,4 +38,36 @@ func ExecuteTool(job *Job) ([]byte, error) {
 		return nil, fmt.Errorf("engine executor belum terdaftar (GlobalExecutor is nil)")
 	}
 	return GlobalExecutor(job)
+}
+
+// CallUniversalWorker adalah jembatan penghubung antar dimensi bahasa
+func CallUniversalWorker(job *Job, lang string, entryPoint string) ([]byte, error) {
+	var cmd *exec.Cmd
+
+	// Deteksi Runtime dan Siapkan Perintah
+	switch lang {
+	case "python":
+		cmd = exec.Command("python3", entryPoint)
+	case "nodejs":
+		cmd = exec.Command("node", entryPoint)
+	case "rust":
+		cmd = exec.Command(entryPoint)
+	default:
+		// Jika Go, jalankan sebagai internal function (performa maksimal)
+		return nil, fmt.Errorf("internal execution")
+	}
+
+	// JSON Payload untuk dikirim ke Worker (Python/Node/Rust)
+	payload, _ := json.Marshal(job)
+	cmd.Stdin = bytes.NewReader(payload)
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+
+	err := cmd.Run()
+	if err != nil {
+		return nil, err
+	}
+
+	return out.Bytes(), nil
 }

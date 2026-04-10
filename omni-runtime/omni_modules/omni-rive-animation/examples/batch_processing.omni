@@ -1,0 +1,9 @@
+// Example: Batch processing with omni-rive-animation
+import { JobQueue, Job } from '@omni/omni-rive-animation/compute'
+
+fn main() {
+    let queue = JobQueue::new()
+    for i in 0..1000 { queue.enqueue(Job::new(|_| process(i))) }
+    let results = queue.process_all()
+    println!("Processed: {} jobs", results.len())
+}

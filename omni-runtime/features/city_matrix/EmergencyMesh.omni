@@ -1,0 +1,10 @@
+export function triggerApocalypseProtocol() {
+    // ⚡ GO: Buka koneksi UDP massal ke seluruh device di kota
+    use::go {
+        omninet.Broadcast("EVACUATE", 9999)
+    };
+
+    // 🍎 SWIFT & 🤖 KOTLIN: Nyalakan sirine pada HP meski dalam mode Silent
+    use::swift { Siren.overrideSilentAndPlay() };
+    use::kotlin { AndroidAlarm.bypassDNDAndPlay() };
+}

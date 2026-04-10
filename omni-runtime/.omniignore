@@ -1,0 +1,43 @@
+# OMNI Ignore File
+# File/folder yang tidak perlu dipublish ke OMNI-NEXUS registry
+# Sintaks identik dengan .gitignore
+
+# ─── Dependencies ──────────────────────────────────────────
+omni_modules/
+.omni-cache/
+
+# ─── Build output ─────────────────────────────────────────
+dist/
+target/
+*.wasm
+*.dll
+*.so
+*.dylib
+
+# ─── Environment & secrets ────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# ─── Logs ──────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── IDE / Editor ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── OS files ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Version control ──────────────────────────────────────
+.git/
+.gitignore

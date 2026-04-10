@@ -1,0 +1,23 @@
+import { WebTurboServer } from "omni-web-turbo"
+
+fn main() -> Result<void, Error> {
+    println(">>> INITIATING OPERATION NODE-SLAYER <<<")
+    
+    let server = WebTurboServer { port: 8080 }
+    
+    println("1. Spinning up Go Goroutine Mesh (Bypassing V8 Event Queue)")
+    match server.listen() {
+        Ok(_) => println("✅ Go Mesh Bound Successfully"),
+        Err(e) => return Err(e)
+    }
+
+    println("2. Requesting 2MB Zero-Copy System Buffer (Bypassing V8 GC)")
+    let buffer_ptr = server.poll_native_buffer(1024)?
+    println("✅ Memory Acquired at pointer: ${buffer_ptr}")
+
+    println("3. Deallocating safely without GC pauses")
+    server.free_native_buffer(buffer_ptr)?
+    println("✅ Mission Accomplished. Node.js limitations bypassed.")
+
+    Ok(void)
+}

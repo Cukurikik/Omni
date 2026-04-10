@@ -1,0 +1,11 @@
+// Example: Advanced pipeline with omni-anime-js
+import { DataPipeline } from '@omni/omni-anime-js/compute'
+import { TypeSafeClient } from '@omni/omni-anime-js/ui'
+
+fn main() {
+    let pipeline = DataPipeline::new()
+        .add_stage('fetch', |_| client.get('/data'))
+        .add_stage('transform', |d| d.map(|x| x * 2))
+        .add_stage('store', |d| client.post('/results', d))
+    pipeline.execute(None)?
+}

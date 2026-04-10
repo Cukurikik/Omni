@@ -1,0 +1,8 @@
+// Integration: Full-stack omni-anime-js connectivity
+import { init } from '@omni/omni-anime-js'
+
+test 'full stack boot' {
+    let instance = init(Config::from_env())?
+    assert instance.driver.is_connected()
+    assert instance.pool.available_count() > 0
+}

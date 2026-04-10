@@ -1,0 +1,9 @@
+// Example: Basic omni-svg-morph usage
+import { init } from '@omni/omni-svg-morph'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

@@ -1,0 +1,21 @@
+{
+  "name": "omni-tty",
+  "version": "1.0.0",
+  "description": "Terminal I/O: raw mode, ANSI colors, cursor control",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-tty",
+  "repository": "https://github.com/omni-framework/omni-tty",
+  "keywords": [
+    "omni",
+    "runtime",
+    "tty"
+  ],
+  "edition": "omni-2025",
+  "checksum": "63d0974a25a3370e8ea844a1ecc34c55c2e9a44ef347f374a07bfd9debf784bb",
+  "size": 7299,
+  "published_at": "2026-04-09T23:00:38.5926303+07:00",
+  "downloads": 0
+}

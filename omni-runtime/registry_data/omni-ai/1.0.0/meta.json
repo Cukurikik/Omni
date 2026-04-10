@@ -1,0 +1,21 @@
+{
+  "name": "omni-ai",
+  "version": "1.0.0",
+  "description": "AI inference runtime with ONNX and TensorFlow Lite support",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-ai",
+  "repository": "https://github.com/omni-framework/omni-ai",
+  "keywords": [
+    "omni",
+    "runtime",
+    "ai"
+  ],
+  "edition": "omni-2025",
+  "checksum": "49c5f477f373f4a2aee6a9fca1311b1b50a0de82135cd75a4aa25ce8132ab520",
+  "size": 2178,
+  "published_at": "2026-04-09T10:02:35.8544125+07:00",
+  "downloads": 0
+}

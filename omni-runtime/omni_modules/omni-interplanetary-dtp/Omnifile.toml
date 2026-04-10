@@ -1,0 +1,17 @@
+[package]
+name        = "omni-interplanetary-dtp"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
+description = "Delay-Tolerant Networking (DTP) Mapped for Interplanetary Communication"
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_net   = ["0.0.0.0/0"]
+allow_dtp   = true        # Mengaktifkan Space-Socket NASA Protocol
+
+[build]
+target      = ["all"]
+optimize    = "release"
+llvm_passes = ["omni_dtp_bundle"]

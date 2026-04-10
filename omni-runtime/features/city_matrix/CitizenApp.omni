@@ -1,0 +1,16 @@
+import { View, Button } from 'omni/ui';
+
+export function DigitalID() {
+    const scanFace = () => {
+        // 🍎 SWIFT & 🤖 KOTLIN: Akses Secure Enclave Apple & Android secara Native
+        const verified = use::swift {
+            return FaceID.authenticate_absolute()
+        } || use::kotlin {
+            return AndroidBiometric.verify()
+        };
+        
+        if (verified) alert("Identitas Warga OMNI Diverifikasi!");
+    };
+
+    return <View><Button onClick={scanFace}>Akses Kota</Button></View>;
+}

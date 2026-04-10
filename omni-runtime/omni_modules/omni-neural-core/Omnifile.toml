@@ -1,0 +1,19 @@
+[package]
+name        = "omni-neural-core"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
+description = "Native On-Chip LLM Inference Engine (Zero HTTP Latency)"
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_net   = []          # Sengaja kosong! AI berjalan MURNI OFFLINE di RAM
+allow_fs    = ["/models/"] # Hanya membaca file model terkuantisasi
+allow_gpu   = true        # Menggunakan CUDA untuk matriks inferensi
+allow_simd  = true
+
+[build]
+target      = ["all"]
+optimize    = "release"
+llvm_passes = ["vectorize", "inline", "AI_memory_unroll"]

@@ -1,0 +1,16 @@
+# ==========================================
+# [DIMENSI 1: GRAPHQL] KONTRAK DATA IDENTITAS
+# ==========================================
+
+type OmniUser {
+    id: ID!
+    email: String!
+    is_verified: Boolean!
+    biometric_hash: String
+    security_clearance: Int!
+}
+
+type Mutation {
+    # Endpoint mutlak untuk mendaftarkan Jenderal baru
+    registerOmniUser(email: String!, plain_text_pass: String!): OmniUser!
+}

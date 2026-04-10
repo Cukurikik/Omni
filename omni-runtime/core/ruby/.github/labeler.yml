@@ -1,0 +1,7 @@
+Documentation:
+- changed-files:
+  - all-globs-to-all-files: doc/**
+
+Backport:
+- base-branch: 'ruby_3_\d'
+- base-branch: 'ruby_4_\d'

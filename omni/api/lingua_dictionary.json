@@ -1,0 +1,127 @@
+{
+  "omni_lingua_version": "1.0.0",
+  "name": "OMNI LINGUA POLYGLOT DICTIONARY",
+  "description": "Standard AST Mapping and Zero-Copy Hooks for Omni Framework (Phase 6+)",
+  "languages": {
+    "javascript": {
+      "extensions": [".js", ".mjs", ".cjs"],
+      "ast_engine": "swc",
+      "dynamic": true,
+      "zero_copy_hook": "SharedArrayBuffer",
+      "compiler_daemon_support": false
+    },
+    "typescript": {
+      "extensions": [".ts", ".tsx"],
+      "ast_engine": "swc",
+      "dynamic": true,
+      "zero_copy_hook": "SharedArrayBuffer",
+      "compiler_daemon_support": false
+    },
+    "rust": {
+      "extensions": [".rs"],
+      "ast_engine": "syn",
+      "dynamic": false,
+      "zero_copy_hook": "*mut u8 (omni_allocate)",
+      "compiler_daemon_support": true,
+      "linker": "lld-mold"
+    },
+    "golang": {
+      "extensions": [".go"],
+      "ast_engine": "go/ast",
+      "dynamic": false,
+      "zero_copy_hook": "unsafe.Pointer",
+      "compiler_daemon_support": true,
+      "linker": "internal"
+    },
+    "cpp": {
+      "extensions": [".cpp", ".hpp", ".cc", ".cxx", ".h"],
+      "ast_engine": "clangd",
+      "dynamic": false,
+      "zero_copy_hook": "omni::TensorView",
+      "compiler_daemon_support": true,
+      "linker": "lld"
+    },
+    "python": {
+      "extensions": [".py"],
+      "ast_engine": "ast (builtin)",
+      "dynamic": true,
+      "zero_copy_hook": "ctypes.c_void_p",
+      "compiler_daemon_support": false
+    },
+    "ruby": {
+      "extensions": [".rb"],
+      "ast_engine": "parser",
+      "dynamic": true,
+      "zero_copy_hook": "FFI::Pointer",
+      "compiler_daemon_support": false
+    },
+    "php": {
+      "extensions": [".php"],
+      "ast_engine": "nikic/php-parser",
+      "dynamic": true,
+      "zero_copy_hook": "FFI::cdef",
+      "compiler_daemon_support": false
+    },
+    "java": {
+      "extensions": [".java"],
+      "ast_engine": "javaparser",
+      "dynamic": false,
+      "zero_copy_hook": "ByteBuffer.allocateDirect",
+      "compiler_daemon_support": true,
+      "linker": "jvm"
+    },
+    "csharp": {
+      "extensions": [".cs"],
+      "ast_engine": "roslyn",
+      "dynamic": false,
+      "zero_copy_hook": "IntPtr",
+      "compiler_daemon_support": true,
+      "linker": "msbuild"
+    },
+    "swift": {
+      "extensions": [".swift"],
+      "ast_engine": "swift-syntax",
+      "dynamic": false,
+      "zero_copy_hook": "UnsafeMutableRawPointer",
+      "compiler_daemon_support": true,
+      "linker": "swiftc"
+    },
+    "kotlin": {
+      "extensions": [".kt", ".kts"],
+      "ast_engine": "kotlin-compiler-embeddable",
+      "dynamic": false,
+      "zero_copy_hook": "ByteBuffer.allocateDirect",
+      "compiler_daemon_support": true,
+      "linker": "jvm"
+    },
+    "dart": {
+      "extensions": [".dart"],
+      "ast_engine": "analyzer",
+      "dynamic": false,
+      "zero_copy_hook": "ffi.Pointer",
+      "compiler_daemon_support": true,
+      "linker": "dart2native"
+    },
+    "lua": {
+      "extensions": [".lua"],
+      "ast_engine": "luaparse",
+      "dynamic": true,
+      "zero_copy_hook": "ffi.cast",
+      "compiler_daemon_support": false
+    },
+    "bash": {
+      "extensions": [".sh", ".bash"],
+      "ast_engine": "bashlex",
+      "dynamic": true,
+      "zero_copy_hook": "N/A",
+      "compiler_daemon_support": false
+    }
+  },
+  "metadata": {
+    "zero_copy_enabled": true,
+    "daemon_ipc_port": 9099,
+    "daemon_protocol": "tcp_loopback",
+    "ffi_architecture": "Apache Arrow-Like Contiguous C-Struct",
+    "primary_allocator": "Rust"
+  }
+}

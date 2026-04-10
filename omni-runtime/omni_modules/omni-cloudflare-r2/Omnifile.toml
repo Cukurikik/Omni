@@ -1,0 +1,35 @@
+﻿[package]
+name        = "omni-cloudflare-r2"
+version     = "1.0.0"
+authors     = ["OMNI Core Team <core@omniframework.dev>"]
+description = "Cloudflare R2 object storage, S3-compatible, zero egress"
+license     = "OMNI-Community"
+homepage    = "https://omniframework.dev/packages/omni-cloudflare-r2"
+repository  = "https://github.com/omni-framework/omni-cloudflare-r2"
+keywords    = ["cloud", "storage", "serverless", "infrastructure"]
+edition     = "omni-2025"
+tier        = "free"
+price_usd   = 0
+
+[dependencies]
+omni-std = "^2.0"
+omni-net = "^2.0"
+omni-crypto = "^2.0"
+
+[dev-dependencies]
+omni-test = "^1.0"
+omni-bench-suite = "^1.0"
+
+[permissions]
+allow_net    = ["*"]
+allow_fs     = ["/tmp/omni-cloud/"]
+allow_env    = ["OMNI_ENV", "OMNI_LOG_LEVEL"]
+allow_thread = true
+
+[build]
+target       = ["wasm32", "x86_64-linux", "x86_64-windows", "aarch64-apple"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll"]
+
+[publish]
+registry = "https://nexus.omniframework.dev"

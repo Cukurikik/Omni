@@ -1,0 +1,13 @@
+===============================================
+OMNI-VM JIT RUNTIME (Dynamic Execution Stack)
+Target: In-Memory / Hot-Reload V-Engine
+===============================================
+
+[0x0000] HEAP_ALC S:1024 -> R:R1
+[0x0001] LOAD_INT 42 -> R:R2
+[0x0002] LOAD_REG R:R1
+[0x0003] LOAD_REG R:R2
+[0x0004] SIMD_MUL 
+[0x0005] STORE_RG R:R3
+
+[VM HALT]

@@ -1,0 +1,53 @@
+﻿/// Type definitions for omni-google-pay - Payment Layer
+
+pub struct Money { amount: i64, currency: Currency, display: String }
+
+pub enum Currency {
+    USD, EUR, GBP, JPY, CNY, IDR, SGD, MYR, THB, VND,
+    KRW, AUD, CAD, CHF, HKD, NZD, SEK, NOK, DKK, PLN,
+    BRL, MXN, INR, PHP, TWD, ZAR, NGN, AED, SAR,
+    BTC, ETH, USDC, USDT,
+}
+
+pub struct PaymentRequest {
+    idempotency_key: String, amount: Money, customer: CustomerInfo,
+    payment_method: PaymentMethod, metadata: Map<String, String>,
+    capture: bool, description: Option<String>, receipt_email: Option<String>,
+}
+
+pub struct CustomerInfo { id: Option<String>, email: String, name: String, phone: Option<String>, address: Option<Address> }
+pub struct Address { line1: String, line2: Option<String>, city: String, state: Option<String>, postal_code: String, country: String }
+
+pub enum PaymentMethod {
+    Card { number: String, exp_month: u8, exp_year: u16, cvc: String },
+    BankTransfer { bank_code: String, account: String },
+    EWallet { provider: String, phone: String },
+    QRCode { standard: String },
+    Crypto { wallet: String, chain: String },
+    BNPL { provider: String },
+}
+
+pub struct PaymentResult {
+    id: String, status: PaymentStatus, amount: Money,
+    fee: Money, net: Money, created_at: Timestamp,
+    captured_at: Option<Timestamp>, receipt_url: Option<String>,
+}
+
+pub enum PaymentStatus {
+    Pending, RequiresAction { redirect_url: String }, RequiresCapture,
+    Processing, Succeeded, Failed { code: String, message: String },
+    Canceled, Refunded { refund_id: String }, Disputed { dispute_id: String },
+}
+
+pub struct WebhookEvent { id: String, event_type: String, data: Map<String, Any>, signature: String, timestamp: Timestamp }
+
+pub struct Subscription {
+    id: String, customer_id: String, plan_id: String,
+    status: SubscriptionStatus, current_period: Period,
+    cancel_at: Option<Timestamp>, trial_end: Option<Timestamp>,
+}
+
+pub enum SubscriptionStatus { Trialing, Active, PastDue, Canceled, Unpaid, Paused }
+pub struct Period { start: Timestamp, end: Timestamp }
+pub struct RefundRequest { payment_id: String, amount: Option<Money>, reason: RefundReason, metadata: Map<String, String> }
+pub enum RefundReason { Duplicate, Fraudulent, RequestedByCustomer, Other { description: String } }

@@ -1,0 +1,11 @@
+// omni-runtime/core/my_test_omni/math.omni
+fn dead_function(x) {
+    let unneeded = 999;
+    return unneeded;
+}
+
+fn add_numbers(a, b) {
+    return a + b;
+}
+
+export { add_numbers, dead_function };

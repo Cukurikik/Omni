@@ -1,0 +1,7 @@
+let message = "Messy Code";
+use::rust {
+    println!("Test");
+}
+use::go    {
+    omninet.Broadcast($message, 9999);
+}

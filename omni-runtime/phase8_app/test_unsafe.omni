@@ -1,0 +1,11 @@
+fn test_unsafe() {
+    unsafe_zone "memory_hack" {
+        use::rust {
+            let buffer = new Vector(100);
+            return buffer.ptr();
+        }
+    }
+}
+
+// Call it
+test_unsafe();

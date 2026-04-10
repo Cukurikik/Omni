@@ -1,0 +1,32 @@
+﻿/// Example: Basic usage of omni-lottie-web
+/// Run: omni run examples/basic.omni
+
+import { init, create_client, execute, health_check, shutdown } from "../src/lib"
+import { load_config } from "../src/config"
+
+fn main() -> Result<(), Error> {
+    println("=== omni-lottie-web - Basic Example ===")
+
+    println("[1/5] Initializing...")
+    let instance = init()?
+    println("  ok - id: {}", instance.id)
+
+    println("[2/5] Creating client...")
+    let client = create_client(load_config()?)?
+    println("  ok - client created")
+
+    println("[3/5] Executing operation...")
+    let result = execute(&client, || Ok("Hello from omni-lottie-web!"))?
+    println("  ok - {} ({}ms, retries: {})", result.value, result.duration_ms, result.retries)
+
+    println("[4/5] Health check...")
+    let status = health_check()?
+    println("  ok - healthy: {}", status.healthy)
+
+    println("[5/5] Shutdown...")
+    shutdown()?
+    println("  ok - done")
+
+    println("=== Example completed ===")
+    Ok(())
+}

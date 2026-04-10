@@ -1,0 +1,8 @@
+﻿// Enterprise Package Management Layer for omni-cli-publish
+import { FileSystemWatcher } from "./system/fs_hooks/watcher"
+import { NexusAPI } from "./network/registry_api/client"
+import { DAGResolver } from "./compute/dag_solver/graph"
+
+export interface omni_cli_publish_Registry {
+    fn execute() -> Result<bool, NexusError>;
+}

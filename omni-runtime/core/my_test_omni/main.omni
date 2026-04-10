@@ -1,0 +1,7 @@
+import { add_numbers } from "math";
+
+fn main() {
+    let result = add_numbers(10, 50);
+}
+
+main();

@@ -1,0 +1,22 @@
+{
+  "name": "omni-ts-checker",
+  "version": "1.0.0",
+  "description": "OMNI Ts Checker module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-ts-checker",
+  "repository": "https://github.com/omni-framework/omni-ts-checker",
+  "keywords": [
+    "omni",
+    "runtime",
+    "ts",
+    "checker"
+  ],
+  "edition": "omni-2025",
+  "checksum": "3fe8de07bcd27caf5f1557d4a12bb722038c49e56fd34d6647b6138eec11fa57",
+  "size": 6282,
+  "published_at": "2026-04-09T23:00:38.581463+07:00",
+  "downloads": 0
+}

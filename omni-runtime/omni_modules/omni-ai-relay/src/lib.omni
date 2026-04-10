@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-ai-relay
+/// Description: Advanced ai computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct AiRelayInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

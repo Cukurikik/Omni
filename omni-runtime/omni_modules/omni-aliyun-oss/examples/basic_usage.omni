@@ -1,0 +1,9 @@
+// Example: Basic omni-aliyun-oss usage
+import { init } from '@omni/omni-aliyun-oss'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}
