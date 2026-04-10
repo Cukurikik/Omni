@@ -1,0 +1,266 @@
+// ==========================================
+// OMNI-LANG SELF-HOSTING LEXER (Stage-1 Compiler)
+// ==========================================
+// Ini adalah Lexer OMNI-LANG yang ditulis dalam bahasa OMNI sendiri.
+// Kompilator Rust (Stage-0) membaca file ini dan mengeksekusinya.
+// Jika ini bisa di-compile oleh OMNI sendiri, bahasa ini HIDUP.
+// ==========================================
+
+import { Vector, String, Char, Int, Bool, Option, Result } from "omni:core"
+
+// =============================
+// Token Type Definition
+// =============================
+enum TokenKind {
+    // Keywords
+    Let, Fn, Mut, Guard, Else, Import, Return, Unsafe,
+    Spawn, Await, Async, Extern,
+
+    // Decorators
+    FFIDecorator,            // @ffi(...)
+
+    // Identifiers & Literals
+    Identifier(String),
+    IntLiteral(Int),
+    FloatLiteral(Float),
+    StringLiteral(String),
+
+    // Operators
+    Assign,                  // =
+    Plus, Minus, Star, Slash,
+    MatrixPower,             // ^
+    QuestionDot,             // ?.
+    NullCoalesce,            // ??
+    Arrow,                   // ->
+    FatArrow,                // =>
+
+    // Delimiters
+    LParen, RParen,          // ( )
+    LBrace, RBrace,          // { }
+    LBracket, RBracket,      // [ ]
+    LAngle, RAngle,          // < >
+    At,                      // @
+    SemiColon, Colon, Comma, Dot,
+    SlashAngle,              // />
+
+    EOF,
+}
+
+// =============================
+// Token Structure
+// =============================
+struct Token {
+    kind: TokenKind,
+    line: Int,
+    column: Int,
+    lexeme: String,
+}
+
+// =============================
+// THE ATOM SPLITTER (Lexer)
+// =============================
+struct OmniLexer {
+    source: String,
+    position: Int,
+    line: Int,
+    column: Int,
+    tokens: Vector<Token>,
+}
+
+impl OmniLexer {
+    fn new(source: String) -> Self {
+        return OmniLexer {
+            source: source,
+            position: 0,
+            line: 1,
+            column: 1,
+            tokens: Vector.new(),
+        }
+    }
+
+    // Peek at current character without consuming
+    fn peek(mut self) -> Option<Char> {
+        guard let ch = self.source.char_at(self.position) else {
+            return Option.None
+        }
+        return Option.Some(ch)
+    }
+
+    // Advance cursor by one character
+    fn advance(mut self) -> Char {
+        let ch = self.source.char_at(self.position) ?? '\0'
+        self.position += 1
+        if ch == '\n' {
+            self.line += 1
+            self.column = 1
+        } else {
+            self.column += 1
+        }
+        return ch
+    }
+
+    // Skip whitespace and comments  
+    fn skip_whitespace(mut self) {
+        while self.position < self.source.length() {
+            let ch = self.peek() ?? break
+            if ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' {
+                self.advance()
+            } else if ch == '/' && self.peek_next() == Some('/') {
+                // Line comment: skip until newline
+                while self.peek() != Some('\n') && self.position < self.source.length() {
+                    self.advance()
+                }
+            } else {
+                break
+            }
+        }
+    }
+
+    // Scan a full identifier or keyword
+    fn scan_identifier(mut self) -> Token {
+        let start = self.position
+        let start_col = self.column
+        
+        while self.position < self.source.length() {
+            let ch = self.peek() ?? break
+            if ch.is_alphanumeric() || ch == '_' {
+                self.advance()
+            } else {
+                break
+            }
+        }
+
+        let lexeme = self.source.slice(start, self.position)
+        let kind = match lexeme {
+            "let"    => TokenKind.Let,
+            "fn"     => TokenKind.Fn,
+            "mut"    => TokenKind.Mut,
+            "guard"  => TokenKind.Guard,
+            "else"   => TokenKind.Else,
+            "import" => TokenKind.Import,
+            "return" => TokenKind.Return,
+            "unsafe" => TokenKind.Unsafe,
+            "spawn"  => TokenKind.Spawn,
+            "await"  => TokenKind.Await,
+            "async"  => TokenKind.Async,
+            "extern" => TokenKind.Extern,
+            _        => TokenKind.Identifier(lexeme),
+        }
+
+        return Token { kind, line: self.line, column: start_col, lexeme }
+    }
+
+    // Scan a number literal (int or float)
+    fn scan_number(mut self) -> Token {
+        let start = self.position
+        let start_col = self.column
+        let mut is_float = false
+
+        while self.position < self.source.length() {
+            let ch = self.peek() ?? break
+            if ch.is_digit() {
+                self.advance()
+            } else if ch == '.' && !is_float {
+                is_float = true
+                self.advance()
+            } else {
+                break
+            }
+        }
+
+        let lexeme = self.source.slice(start, self.position)
+        let kind = if is_float {
+            TokenKind.FloatLiteral(lexeme.parse_float())
+        } else {
+            TokenKind.IntLiteral(lexeme.parse_int())
+        }
+
+        return Token { kind, line: self.line, column: start_col, lexeme }
+    }
+
+    // Scan a string literal
+    fn scan_string(mut self) -> Token {
+        let start_col = self.column
+        self.advance() // consume opening quote
+        let start = self.position
+
+        while self.position < self.source.length() {
+            let ch = self.peek() ?? break
+            if ch == '"' {
+                break
+            }
+            if ch == '\\' {
+                self.advance() // skip escape
+            }
+            self.advance()
+        }
+
+        let value = self.source.slice(start, self.position)
+        self.advance() // consume closing quote
+
+        return Token {
+            kind: TokenKind.StringLiteral(value),
+            line: self.line,
+            column: start_col,
+            lexeme: "\"" + value + "\"",
+        }
+    }
+
+    // Main tokenize loop
+    fn tokenize(mut self) -> Vector<Token> {
+        while self.position < self.source.length() {
+            self.skip_whitespace()
+            if self.position >= self.source.length() { break }
+
+            let ch = self.peek() ?? break
+
+            let token = match ch {
+                '@' => { self.advance(); self.make_token(TokenKind.At, "@") },
+                '(' => { self.advance(); self.make_token(TokenKind.LParen, "(") },
+                ')' => { self.advance(); self.make_token(TokenKind.RParen, ")") },
+                '{' => { self.advance(); self.make_token(TokenKind.LBrace, "{") },
+                '}' => { self.advance(); self.make_token(TokenKind.RBrace, "}") },
+                '[' => { self.advance(); self.make_token(TokenKind.LBracket, "[") },
+                ']' => { self.advance(); self.make_token(TokenKind.RBracket, "]") },
+                '<' => { self.advance(); self.make_token(TokenKind.LAngle, "<") },
+                '>' => { self.advance(); self.make_token(TokenKind.RAngle, ">") },
+                ';' => { self.advance(); self.make_token(TokenKind.SemiColon, ";") },
+                ':' => { self.advance(); self.make_token(TokenKind.Colon, ":") },
+                ',' => { self.advance(); self.make_token(TokenKind.Comma, ",") },
+                '.' => { self.advance(); self.make_token(TokenKind.Dot, ".") },
+                '+' => { self.advance(); self.make_token(TokenKind.Plus, "+") },
+                '-' => { self.advance(); self.make_token(TokenKind.Minus, "-") },
+                '*' => { self.advance(); self.make_token(TokenKind.Star, "*") },
+                '/' => { self.advance(); self.make_token(TokenKind.Slash, "/") },
+                '^' => { self.advance(); self.make_token(TokenKind.MatrixPower, "^") },
+                '=' => { self.advance(); self.make_token(TokenKind.Assign, "=") },
+                '"' => self.scan_string(),
+                _ => {
+                    if ch.is_alpha() || ch == '_' {
+                        self.scan_identifier()
+                    } else if ch.is_digit() {
+                        self.scan_number()
+                    } else {
+                        self.advance() // skip unknown
+                        continue
+                    }
+                }
+            }
+
+            self.tokens.push(token)
+        }
+
+        self.tokens.push(Token {
+            kind: TokenKind.EOF,
+            line: self.line,
+            column: self.column,
+            lexeme: "",
+        })
+
+        return self.tokens
+    }
+
+    fn make_token(self, kind: TokenKind, lexeme: String) -> Token {
+        return Token { kind, line: self.line, column: self.column - 1, lexeme }
+    }
+}

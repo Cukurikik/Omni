@@ -1,0 +1,21 @@
+{
+  "name": "omni-monitor",
+  "version": "1.0.0",
+  "description": "OMNI Monitor module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-monitor",
+  "repository": "https://github.com/omni-framework/omni-monitor",
+  "keywords": [
+    "omni",
+    "runtime",
+    "monitor"
+  ],
+  "edition": "omni-2025",
+  "checksum": "ad90f5a6270aa8ce375acccdf204366b311ef8deec072df9e4ecf3843b269e17",
+  "size": 1159,
+  "published_at": "2026-04-09T10:02:36.3686693+07:00",
+  "downloads": 0
+}

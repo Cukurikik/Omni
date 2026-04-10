@@ -1,0 +1,21 @@
+{
+  "name": "omni-cookie",
+  "version": "1.0.0",
+  "description": "OMNI Cookie module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cookie",
+  "repository": "https://github.com/omni-framework/omni-cookie",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cookie"
+  ],
+  "edition": "omni-2025",
+  "checksum": "4590c836b2b264101c41ed4ac3ae7ada78bf51022c8c7d5f5b580e61ff6b494c",
+  "size": 7302,
+  "published_at": "2026-04-09T23:00:37.2848933+07:00",
+  "downloads": 0
+}

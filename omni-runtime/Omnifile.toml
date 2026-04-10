@@ -1,0 +1,63 @@
+# ============================================================
+# Omnifile.toml â€” OMNI Framework Project Manifest v1
+# ============================================================
+# Ini adalah jantung dari setiap proyek OMNI.
+# Setara dengan package.json di Node.js, tapi untuk 15 bahasa.
+# ============================================================
+
+[package]
+name        = "my-omni-app"
+version     = "1.0.0"
+edition     = "omni-2025"
+authors     = ["Developer <dev@email.com>"]
+description = "Aplikasi OMNI pertama saya"
+license     = "MIT"
+homepage    = ""
+repository  = ""
+keywords    = []
+
+# â”€â”€â”€ Dependencies â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Paket yang dibutuhkan saat PRODUKSI.
+# Install dengan: omni get <nama-paket>
+# Semua paket diinstal ke folder omni_modules/
+
+[dependencies]
+omni-std    = "1.0.0"      # Standard library (tipe data, IO, error handling)
+omni-net    = "1.0.0"      # HTTP server/client, WebSocket, TCP
+omni-crypto = "1.0.0"      # Hashing (SHA, Blake3), AES, RSA, signing
+
+# â”€â”€â”€ Dev Dependencies â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Paket yang HANYA dibutuhkan saat DEVELOPMENT.
+# Tidak disertakan saat build produksi.
+
+[dev-dependencies]
+omni-test   = "1.0.0"      # Unit testing & benchmark framework
+omni-log    = "1.0.0"      # Structured logging (JSON, pretty-print)
+
+# â”€â”€â”€ Scripts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Shortcut untuk perintah yang sering dipakai.
+# Jalankan dengan: omni run <nama-script>
+
+[scripts]
+dev     = "omni serve --hot-reload"
+build   = "omni build --release --target all"
+test    = "omni test --all --coverage"
+deploy  = "omni cloud deploy --region id-jkt-1"
+lint    = "omni check --strict"
+
+# â”€â”€â”€ Permissions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Whitelist eksplisit â€” OMNI TIDAK memberi akses wildcard.
+# Ini mencegah supply chain attack (seperti yang terjadi di npm).
+
+[permissions]
+allow_net    = []                       # Domain yang boleh diakses (kosong = tidak ada)
+allow_fs     = ["./data/", "/tmp/"]     # Folder yang boleh diakses
+allow_env    = []                       # Environment variable yang boleh dibaca
+allow_thread = true                     # Boleh spawn green thread
+
+# â”€â”€â”€ Build Configuration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+[build]
+target       = ["x86_64-windows"]       # Target platform
+optimize     = "debug"                  # debug | release
+entry_point  = "src/main.omni"          # File utama

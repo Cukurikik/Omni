@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-finance-sync
+/// Description: Advanced finance computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct FinanceSyncInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

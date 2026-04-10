@@ -1,0 +1,31 @@
+﻿/// Configuration for omni-dynamodb-native
+import { ConnectionConfig, SSLMode, RetryPolicy } from "./types"
+
+pub struct DatabaseConfig {
+    host: String, port: u16, database: String,
+    username: String, password: String, ssl_mode: SSLMode,
+    pool_min: u32, pool_max: u32,
+    idle_timeout_ms: u64, connect_timeout_ms: u64,
+    query_timeout_ms: u64, statement_cache: u32,
+    auto_migrate: bool, log_queries: bool, log_slow_ms: u64,
+    retry: RetryPolicy,
+}
+
+pub fn load_config() -> Result<DatabaseConfig, ConfigError> {
+    Ok(DatabaseConfig {
+        host: omni::env::get("DATABASE_HOST").unwrap_or("localhost".into()),
+        port: omni::env::get("DATABASE_PORT").map(|v| v.parse::<u16>()).unwrap_or(Ok(443))?,
+        database: omni::env::get("DATABASE_NAME").unwrap_or("omni_db".into()),
+        username: omni::env::get("DATABASE_USER").unwrap_or("omni".into()),
+        password: omni::env::get("DATABASE_PASSWORD").unwrap_or("".into()),
+        ssl_mode: SSLMode::Prefer, pool_min: 2, pool_max: 20,
+        idle_timeout_ms: 30000, connect_timeout_ms: 5000,
+        query_timeout_ms: 30000, statement_cache: 256,
+        auto_migrate: false, log_queries: false, log_slow_ms: 1000,
+        retry: RetryPolicy { max_retries: 3, base_delay_ms: 100, max_delay_ms: 5000, backoff_factor: 2.0, jitter: true },
+    })
+}
+
+pub fn build_connection_string(c: &DatabaseConfig) -> String {
+    format!("dynamodb_native://{}:{}@{}:{}/{}?sslmode={}", c.username, c.password, c.host, c.port, c.database, c.ssl_mode)
+}

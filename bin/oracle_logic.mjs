@@ -13,13 +13,13 @@ function runOracleLogic() {
     try {
         // 1. Cek Sintaks & Tipe Go (Fast Check)
         console.log("🔍 Memvalidasi Integritas Tipe Backend...");
-        execSync('go vet ./...', { cwd: join(ROOT_DIR, 'api'), stdio: 'inherit' });
+        execSync('go vet ./...', { cwd: join(ROOT_DIR, 'api'), stdio: 'inherit', env: { ...process.env, CGO_ENABLED: '0' } });
 
         // 2. Simulasi Fuzzing (Dalam implementasi nyata: go test -fuzz)
         // Disini kita jalankan unit test sebagai proxy untuk validasi logika
         console.log("🧪 Menjalankan Unit Test Terintegrasi...");
         // Kita gunakan -short agar cepat saat dev loop
-        execSync('go test -short ./...', { cwd: join(ROOT_DIR, 'api'), stdio: 'inherit' });
+        execSync('go test -short ./...', { cwd: join(ROOT_DIR, 'api'), stdio: 'inherit', env: { ...process.env, CGO_ENABLED: '0' } });
 
         console.log("✅ [ORACLE LOGIC] Logika sistem dinyatakan SEHAT.");
         return true;

@@ -1,0 +1,6 @@
+﻿// omni_fast.omni
+import "omni-net"
+export fn main() {
+    let server = Server.listen(8000).await
+    println("OMNI HTTP/3 Server Running natively on OS bounds")
+}

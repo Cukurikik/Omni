@@ -1,0 +1,8 @@
+﻿// Enterprise Web & DB Layer for omni-url
+import { MemoryPool } from "./system/memory/pool"
+import { TCPAccelerator } from "./network/tcp_hooks/accelerator"
+import { GraphResolver } from "./domain/resolvers/main"
+
+export interface omni_url_Engine {
+    fn mount() -> Result<bool, SystemError>;
+}

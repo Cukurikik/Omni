@@ -1,0 +1,22 @@
+{
+  "name": "omni-source-map",
+  "version": "1.0.0",
+  "description": "OMNI Source Map module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-source-map",
+  "repository": "https://github.com/omni-framework/omni-source-map",
+  "keywords": [
+    "omni",
+    "runtime",
+    "source",
+    "map"
+  ],
+  "edition": "omni-2025",
+  "checksum": "600ee472422f0c0ecdcc9e87348f0a5ed4b2c2c91eb14a83d2bbccfcd6f4c532",
+  "size": 6282,
+  "published_at": "2026-04-09T23:00:38.4372904+07:00",
+  "downloads": 0
+}

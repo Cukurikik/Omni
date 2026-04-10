@@ -1,0 +1,9 @@
+// Example: Basic omni-netlify-edge usage
+import { init } from '@omni/omni-netlify-edge'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

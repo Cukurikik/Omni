@@ -1,0 +1,11 @@
+// Example: Advanced pipeline with omni-threejs
+import { DataPipeline } from '@omni/omni-threejs/compute'
+import { TypeSafeClient } from '@omni/omni-threejs/ui'
+
+fn main() {
+    let pipeline = DataPipeline::new()
+        .add_stage('fetch', |_| client.get('/data'))
+        .add_stage('transform', |d| d.map(|x| x * 2))
+        .add_stage('store', |d| client.post('/results', d))
+    pipeline.execute(None)?
+}

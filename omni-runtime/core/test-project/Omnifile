@@ -1,0 +1,11 @@
+[project]
+name = "test-project"
+version = "1.0.0"
+compiler_version = ">= 1.5.0"
+
+[dependencies]
+omni_ai_vision = { version = "2.1.0", hash = "sha256:8f3a...b2c1" }
+
+[permissions]
+allow_network = ["api.omni-lang.org"]
+allow_file_system = ["/tmp/uploads"]

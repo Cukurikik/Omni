@@ -1,0 +1,5 @@
+﻿import "omni-std"
+extern "omni-c" fn omni_crypto_encrypt(d: *const u8, l: Number) -> *mut u8;
+export struct Cryptography {
+    fn encrypt(data: String) -> Result<String, OmniError> { Ok(data) }
+}

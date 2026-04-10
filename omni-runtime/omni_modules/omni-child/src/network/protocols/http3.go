@@ -1,0 +1,2 @@
+﻿package protocols
+func HandleQUIC() {}

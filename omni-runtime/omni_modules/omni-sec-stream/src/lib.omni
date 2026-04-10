@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-sec-stream
+/// Description: Advanced sec computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct SecStreamInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

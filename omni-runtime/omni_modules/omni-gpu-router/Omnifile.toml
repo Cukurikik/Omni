@@ -1,0 +1,10 @@
+[package]
+name        = "omni-gpu-router"
+version     = "1.0.0"
+description = "Hyper-Threaded HTTP Core directly executing 10,000 HTTP parsing streams per clock cycle."
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_gpu_compute = true

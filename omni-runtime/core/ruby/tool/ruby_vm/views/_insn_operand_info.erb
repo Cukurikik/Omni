@@ -1,0 +1,69 @@
+%# -*- C -*-
+%# Copyright (c) 2017 Urabe, Shyouhei.  All rights reserved.
+%#
+%# This file is a part of  the programming language Ruby.  Permission is hereby
+%# granted, to either  redistribute and/or modify this file,  provided that the
+%# conditions mentioned  in the  file COPYING  are met.   Consult the  file for
+%# details.
+%
+% zjit_insns, insns = RubyVM::Instructions.partition { |i| i.name.start_with?('zjit_') }
+%
+% operands_info = proc { |i| sprintf("%-6s", cstr(i.operands_info)) }
+%
+% next_offset = 0
+% op_offset = proc do |i|
+%   offset = sprintf("%3d", next_offset)
+%   next_offset += i.operands_info.length + 1 # insn.operands_info + \0
+%   offset
+% end
+%
+CONSTFUNC(MAYBE_UNUSED(static const char *insn_op_types(VALUE insn)));
+CONSTFUNC(MAYBE_UNUSED(static int insn_op_type(VALUE insn, long pos)));
+
+RUBY_SYMBOL_EXPORT_BEGIN /* for debuggers */
+extern const char rb_vm_insn_op_base[];
+extern const unsigned short rb_vm_insn_op_offset[VM_INSTRUCTION_SIZE];
+RUBY_SYMBOL_EXPORT_END
+
+#ifdef RUBY_VM_INSNS_INFO
+const char rb_vm_insn_op_base[] =
+% insns.each_slice(5) do |row|
+    <%= row.map(&operands_info).join(' "\0" ') %> "\0"
+% end
+#if USE_ZJIT
+% zjit_insns.each_slice(5) do |row|
+    <%= row.map(&operands_info).join(' "\0" ') %> "\0"
+% end
+#endif
+    ;
+
+const unsigned short rb_vm_insn_op_offset[] = {
+% insns.each_slice(12) do |row|
+    <%= row.map(&op_offset).join(', ') %>,
+% end
+#if USE_ZJIT
+% zjit_insns.each_slice(12) do |row|
+    <%= row.map(&op_offset).join(', ') %>,
+% end
+#endif
+};
+
+ASSERT_VM_INSTRUCTION_SIZE(rb_vm_insn_op_offset);
+#endif
+
+const char *
+insn_op_types(VALUE i)
+{
+    return &rb_vm_insn_op_base[rb_vm_insn_op_offset[i]];
+}
+
+int
+insn_op_type(VALUE i, long j)
+{
+    if (j >= insn_len(i)) {
+        return 0;
+    }
+    else {
+        return insn_op_types(i)[j];
+    }
+}

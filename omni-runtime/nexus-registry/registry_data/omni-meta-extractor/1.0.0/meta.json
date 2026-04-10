@@ -1,0 +1,22 @@
+{
+  "name": "omni-meta-extractor",
+  "version": "1.0.0",
+  "description": "OMNI Meta Extractor module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-meta-extractor",
+  "repository": "https://github.com/omni-framework/omni-meta-extractor",
+  "keywords": [
+    "omni",
+    "runtime",
+    "meta",
+    "extractor"
+  ],
+  "edition": "omni-2025",
+  "checksum": "990284209eaa3a30a0a1f918be254372f963c2931f6320506c874e9ebe32acf7",
+  "size": 6286,
+  "published_at": "2026-04-09T23:00:37.8128934+07:00",
+  "downloads": 0
+}

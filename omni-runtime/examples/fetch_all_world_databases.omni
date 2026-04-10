@@ -1,0 +1,24 @@
+import { OmniUniversalClient, DBConfig } from "omni-universal-db"
+
+fn main() -> Result<void, Error> {
+    println(">>> OMNI-UNIVERSAL-DB GLOBAL SIMULATION <<<")
+    
+    let databases = [
+        DBConfig { driver: "libpq", paradigm: "Relational", connection_string: "postgres://db1" },
+        DBConfig { driver: "libmysql", paradigm: "Relational", connection_string: "mysql://db2" },
+        DBConfig { driver: "redis", paradigm: "Cache", connection_string: "redis://db3" },
+        DBConfig { driver: "mongodb", paradigm: "NoSQL", connection_string: "mongodb://db4" },
+        DBConfig { driver: "neo4j", paradigm: "Graph", connection_string: "bolt://db5" },
+        DBConfig { driver: "pinecone", paradigm: "Vector", connection_string: "gRPC://db6" }
+    ];
+
+    for config in databases {
+        let client = OmniUniversalClient { config: config, native_conn_ptr: null }
+        client.connect()?
+        client.query("FIND *")?
+        println("✅ Connected & Queried " + config.driver + " globally without lag.")
+    }
+
+    println(">>> ALL WORLD DATABASES MAPPED SEAMLESSLY VIA 100% FREE MODULE <<<")
+    Ok(void)
+}

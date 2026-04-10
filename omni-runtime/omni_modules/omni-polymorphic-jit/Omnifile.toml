@@ -1,0 +1,10 @@
+[package]
+name        = "omni-polymorphic-jit"
+version     = "1.0.0"
+description = "Biological Assembly Engine modifying machine code structures based on realtime traffic patterns."
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_memory_rewrite = true

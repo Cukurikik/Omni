@@ -1,0 +1,42 @@
+/// [OMNI-PACKAGE] omni-hft
+/// Description: Kernel-level eBPF & Julia SIMD Arbitrage execution framework.
+/// @since 2.0.0
+
+import "omni-std"
+import "omni-types"
+
+// Bridge to Julia compute layer
+extern "julia" fn execute_arbitrage_signal(bids: *mut f64, asks: *mut f64, threshold: f64) -> *mut f64;
+
+// Bridge to Linux eBPF Native Ring-0 Kernel Hook
+extern "omni-c" fn attach_ebpf_hook(interface: String) -> Result<bool, SystemError>;
+
+export struct TradeSignal {
+    optimal_price: f64,
+    side: String,
+}
+
+export struct HFTArbitrageEngine {
+    pub spread_threshold: f64,
+
+    pub fn attach(self, net_interface: String) -> Result<bool, SystemError> {
+        let kernel_result = attach_ebpf_hook(net_interface);
+        match kernel_result {
+            Ok(_) => Ok(true),
+            Err(e) => Err(SystemError { code: 500, message: "eBPF Kernel Attach Failed" })
+        }
+    }
+
+    pub fn compute_ticks(self, bids: Array<f64>, asks: Array<f64>) -> Result<Array<TradeSignal>, ComputeError> {
+        // Zero-copy array pointers handed right to Julia SIMD processor natively
+        let result_ptr = execute_arbitrage_signal(bids.toPointer(), asks.toPointer(), self.spread_threshold);
+        
+        if result_ptr == null {
+            return Err(ComputeError { code: 1, message: "SIMD Vector allocation failed" });
+        }
+        
+        let signals = [];
+        // Typically map C-Rust-Julia unmanaged pointers back to UI structural entities
+        return Ok(signals);
+    }
+}

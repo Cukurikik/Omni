@@ -1,0 +1,106 @@
+/* 
+  ⚡ OMNI-MOTION: The Cinematic DOM Engine
+  Standard Native Browser Animations (No heavy JS libs)
+  Supports: View Transitions API, CSS Math, Scroll-Driven Animations
+*/
+
+:root {
+  --omni-ease-spring: linear(
+    0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017,
+    1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%,
+    1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%,
+    0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1
+  );
+  --omni-duration-cinematic: 800ms;
+  --omni-glow-primary: rgba(59, 130, 246, 0.5);
+  
+  /* Cursor Tracking Math Variables (updated via JS) */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+/* 1. NATIVE VIEW TRANSITIONS (Cross-fade & Slide) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--omni-duration-cinematic);
+  animation-timing-function: var(--omni-ease-spring);
+}
+
+::view-transition-old(root) {
+  animation-name: omni-fade-out, omni-slide-out;
+}
+
+::view-transition-new(root) {
+  animation-name: omni-fade-in, omni-slide-in;
+  mix-blend-mode: normal;
+}
+
+@keyframes omni-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes omni-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes omni-slide-in { from { transform: translateY(20px) scale(0.98); } }
+@keyframes omni-slide-out { to { transform: translateY(-20px) scale(1.02); } }
+
+
+/* 2. THE MAGNETIC GLOW EFFECT (Cursor Tracking) */
+.omni-magnetic {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s var(--omni-ease-spring), border-color 0.3s ease;
+}
+
+.omni-magnetic::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    var(--omni-glow-primary),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.omni-magnetic:hover::before {
+  opacity: 1;
+}
+
+.omni-magnetic:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+}
+
+.omni-magnetic > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* 3. SCROLL-DRIVEN ANIMATIONS (Native CSS Level 4) */
+/* Fade in elements as they enter the scroll port */
+@supports (animation-timeline: view()) {
+  .omni-scroll-reveal {
+    animation: reveal-scrolling linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+  }
+
+  @keyframes reveal-scrolling {
+    from {
+      opacity: 0;
+      transform: translateY(50px) scale(0.9);
+      filter: blur(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+}

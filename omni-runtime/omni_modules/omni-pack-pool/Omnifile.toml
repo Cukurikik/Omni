@@ -1,0 +1,21 @@
+[package]
+name        = "omni-pack-pool"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY <omni@architecture.dev>"]
+description = "High-performance OMNI module designed specifically to outperform Node.js in pack functionality."
+license     = "OMNI-Enterprise"
+edition     = "omni-2025"
+
+[dependencies]
+omni-std     = "^2.0"
+omni-runtime = "^2.0"
+
+[permissions]
+allow_net    = ["0.0.0.0/0"]
+allow_thread = true
+allow_ebpf   = true
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "enterprise"
+price_usd    = 0

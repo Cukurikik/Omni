@@ -1,0 +1,22 @@
+{
+  "name": "omni-fs-async",
+  "version": "1.0.0",
+  "description": "OMNI Fs Async module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-fs-async",
+  "repository": "https://github.com/omni-framework/omni-fs-async",
+  "keywords": [
+    "omni",
+    "runtime",
+    "fs",
+    "async"
+  ],
+  "edition": "omni-2025",
+  "checksum": "1b84fa56d4fa89ad3f72308da824911e00240d067ddf730958df5226f7540deb",
+  "size": 7304,
+  "published_at": "2026-04-09T23:00:37.5024724+07:00",
+  "downloads": 0
+}

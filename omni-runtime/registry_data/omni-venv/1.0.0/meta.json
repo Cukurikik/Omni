@@ -1,0 +1,21 @@
+{
+  "name": "omni-venv",
+  "version": "1.0.0",
+  "description": "OMNI Venv module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-venv",
+  "repository": "https://github.com/omni-framework/omni-venv",
+  "keywords": [
+    "omni",
+    "runtime",
+    "venv"
+  ],
+  "edition": "omni-2025",
+  "checksum": "6c107e137189fe068b85417967ebddcd9c1ca1b02f86610c4d25757976d9051c",
+  "size": 6276,
+  "published_at": "2026-04-09T10:02:36.6973569+07:00",
+  "downloads": 0
+}

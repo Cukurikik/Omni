@@ -1,0 +1,36 @@
+/// [OMNI-PACKAGE] omni-cluster
+/// Description: Zero-copy cluster manager bypassing TCP IPC loopbacks entirely.
+/// @since 2.0.0
+
+import "omni-std"
+
+extern "go" fn StartGossipNode(nodeID: Number, port: Number) -> Result<void, ClusterError>;
+extern "omni-c" fn omni_sys_cluster_lease_lock(state_ptr: *mut u8) -> bool;
+
+export struct ClusterError {
+    code: Number,
+    message: String,
+}
+
+export struct OmniSwarm {
+    pub cluster_id: Number,
+
+    pub fn spawn_node(self, port: Number) -> Result<bool, ClusterError> {
+        let gossip_result = StartGossipNode(self.cluster_id, port);
+        
+        match gossip_result {
+            Ok(_) => Ok(true),
+            Err(e) => Err(ClusterError { code: 501, message: "Gossip Mesh failed to stabilize" })
+        }
+    }
+
+    pub fn acquire_shared_lock(self, memory_ptr: *mut u8) -> Result<bool, ClusterError> {
+        let locked = omni_sys_cluster_lease_lock(memory_ptr);
+        
+        if locked {
+            Ok(true)
+        } else {
+            Err(ClusterError { code: 409, message: "Failed to Atomic Lease lock in Rust layer" })
+        }
+    }
+}

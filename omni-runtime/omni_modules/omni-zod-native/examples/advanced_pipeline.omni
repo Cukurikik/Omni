@@ -1,0 +1,11 @@
+// Example: Advanced pipeline with omni-zod-native
+import { DataPipeline } from '@omni/omni-zod-native/compute'
+import { TypeSafeClient } from '@omni/omni-zod-native/ui'
+
+fn main() {
+    let pipeline = DataPipeline::new()
+        .add_stage('fetch', |_| client.get('/data'))
+        .add_stage('transform', |d| d.map(|x| x * 2))
+        .add_stage('store', |d| client.post('/results', d))
+    pipeline.execute(None)?
+}

@@ -1,0 +1,21 @@
+{
+  "name": "omni-uast",
+  "version": "1.0.0",
+  "description": "OMNI Uast module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-uast",
+  "repository": "https://github.com/omni-framework/omni-uast",
+  "keywords": [
+    "omni",
+    "runtime",
+    "uast"
+  ],
+  "edition": "omni-2025",
+  "checksum": "3148dd2a10f5fa658d5e917097850adbc3d3eb4fa1b6d6ad9a1123473b47adeb",
+  "size": 6276,
+  "published_at": "2026-04-09T10:02:36.6582372+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,22 @@
+{
+  "name": "omni-stream-io",
+  "version": "1.0.0",
+  "description": "Streaming I/O primitives: Transform, Pipeline, Multiplex",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-stream-io",
+  "repository": "https://github.com/omni-framework/omni-stream-io",
+  "keywords": [
+    "omni",
+    "runtime",
+    "stream",
+    "io"
+  ],
+  "edition": "omni-2025",
+  "checksum": "8dc7475945a0da506098a0d712eb551dc19301116dc157e7644158b100b3fbae",
+  "size": 7305,
+  "published_at": "2026-04-09T10:02:36.5850114+07:00",
+  "downloads": 0
+}

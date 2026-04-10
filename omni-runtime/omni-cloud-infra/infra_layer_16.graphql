@@ -1,0 +1,6 @@
+﻿type OmniInfraLayer16 {
+    id: UUID!
+    latencyCap: Duration!
+    memRegion: String!
+    bypassV8: Boolean!
+}

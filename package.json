@@ -1,0 +1,12 @@
+{
+  "name": "omnitools-fusion-framework",
+  "version": "1.0.0",
+  "description": "OMNI Framework CLI",
+  "bin": {
+    "omni": "./bin/omni.mjs"
+  },
+  "devDependencies": {
+    "chokidar": "^5.0.0",
+    "typescript": "^6.0.2"
+  }
+}

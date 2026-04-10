@@ -1,0 +1,49 @@
+# ============================================================
+# omni.lock — OMNI Dependency Lockfile
+# ============================================================
+# JANGAN EDIT FILE INI SECARA MANUAL.
+# File ini di-generate otomatis oleh `omni install` atau `omni get`.
+# Commit file ini ke Git untuk build yang deterministik.
+# ============================================================
+
+[metadata]
+generated_by = "omni-cli v1.0.0"
+generated_at = "2026-04-07T08:10:00+07:00"
+lockfile_version = 1
+
+# ─── Resolved Dependencies ─────────────────────────────────
+
+[[package]]
+name     = "omni-std"
+version  = "1.0.0"
+checksum = "sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
+source   = "builtin"
+
+[[package]]
+name     = "omni-net"
+version  = "1.0.0"
+checksum = "sha256:b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3"
+source   = "builtin"
+depends  = ["omni-std@1.0.0"]
+
+[[package]]
+name     = "omni-crypto"
+version  = "1.0.0"
+checksum = "sha256:c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"
+source   = "builtin"
+depends  = ["omni-std@1.0.0"]
+
+[[package]]
+name     = "omni-test"
+version  = "1.0.0"
+checksum = "sha256:d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5"
+source   = "builtin"
+dev      = true
+
+[[package]]
+name     = "omni-log"
+version  = "1.0.0"
+checksum = "sha256:e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6"
+source   = "builtin"
+dev      = true
+depends  = ["omni-std@1.0.0"]

@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-ai-core
+/// Description: Advanced ai computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct AiCoreInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

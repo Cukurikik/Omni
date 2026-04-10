@@ -1,0 +1,9 @@
+// Example: Basic omni-backblaze-b2 usage
+import { init } from '@omni/omni-backblaze-b2'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

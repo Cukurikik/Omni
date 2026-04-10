@@ -1,0 +1,22 @@
+{
+  "name": "omni-git-resolver",
+  "version": "1.0.0",
+  "description": "OMNI Git Resolver module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-git-resolver",
+  "repository": "https://github.com/omni-framework/omni-git-resolver",
+  "keywords": [
+    "omni",
+    "runtime",
+    "git",
+    "resolver"
+  ],
+  "edition": "omni-2025",
+  "checksum": "39ffb68a073b0557004d381d57642a5ddbe35ef89655701f4ac7b002b5420c13",
+  "size": 6284,
+  "published_at": "2026-04-09T10:02:36.2143511+07:00",
+  "downloads": 0
+}

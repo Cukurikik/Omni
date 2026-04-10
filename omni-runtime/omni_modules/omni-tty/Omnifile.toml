@@ -1,0 +1,18 @@
+[package]
+name = "omni-tty"
+version = "1.0.0-enterprise"
+authors = ["ANTIGRAVITY <omni@architecture.dev>"]
+edition = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+omni-crypto = "^1.5"
+
+[dev-dependencies]
+omni-test = "^1.0"
+omni-bench = "^2.0"
+
+[permissions]
+allow_net = ["0.0.0.0/0"]
+allow_fs = ["/tmp", "/var/log"]
+allow_ebpf = true

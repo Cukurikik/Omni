@@ -1,0 +1,9 @@
+export function registerProperty(address: string, owner: string) {
+    // 🛡️ RUST: Kriptografi Zero-Knowledge Proof untuk privasi warga
+    const zkProof = use::rust { return generate_zk_snark($owner); };
+
+    // ⚡ GO: Sinkronisasi ke jaringan desentralisasi OMNINET
+    const txHash = use::go { return blockchain.Commit($address, $zkProof) };
+
+    return txHash;
+}

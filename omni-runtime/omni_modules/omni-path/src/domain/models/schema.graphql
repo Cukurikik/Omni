@@ -1,0 +1,1 @@
+﻿type omni_path_Entity { id: UUID! createdAt: String! }

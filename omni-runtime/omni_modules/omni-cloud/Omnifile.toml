@@ -1,0 +1,10 @@
+[package]
+name = "omni-cloud"
+version = "1.0.0"
+description = "PaaS Cloud Hosting SDK for orchestrating OMNI-Cells with zero-cold-start"
+license = "OMNI-Enterprise"
+
+[permissions]
+allow_net = ["*.omni.cloud"]
+allow_env = ["OMNI_REGION", "OMNI_ACCESS_KEY"]
+allow_thread = true

@@ -1,0 +1,29 @@
+# ==========================================
+# OMNI-JS RUNTIME: Git Ignore Rules
+# ==========================================
+
+# Rust
+core/target/
+**/*.rs.bk
+
+# Golang  
+net/cmd/omni-runtime
+net/cmd/omni-runtime.exe
+
+# Build output
+dist/
+
+# Python
+forge/__pycache__/
+forge/*.pyc
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

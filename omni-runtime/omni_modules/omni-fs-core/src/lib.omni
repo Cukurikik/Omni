@@ -1,0 +1,67 @@
+// ============================================================
+// 🌐 OMNI-FS-CORE: Universal Entry Point
+// ============================================================
+// Gerbang masuk utama untuk modul omni-fs-core.
+// Menyatukan seluruh layer (System, Network, Compute, Domain)
+// ke dalam satu interface publik yang bisa di-import oleh
+// developer manapun via `omni get omni-fs-core`.
+//
+// Penggunaan:
+//   import { readFile, writeFile, watchDir } from "omni-fs-core"
+// ============================================================
+
+// === System Layer: Native OS File Operations ===
+import { read_file, write_file, append_file, remove_file }   from "./system/linux/hooks"
+import { copy_file, rename_file, stat_file, exists }          from "./system/linux/hooks"
+import { create_dir, create_dir_recursive, list_dir }         from "./system/linux/hooks"
+
+import { omni_open, omni_read, omni_write, omni_close }       from "./system/linux/syscalls"
+import { omni_stat, omni_read_all, omni_write_all }            from "./system/linux/syscalls"
+
+import { omni_cpp_read_file, omni_cpp_write_file }             from "./system/apple/ops"
+
+// === Network Layer: Streaming & FS Watcher ===
+import { RingBuffer }                                          from "./network/buffers/ring_buffer"
+import { OmniWatcher, NewWatcher, WatchDirectory }             from "./network/protocols/file_watcher"
+
+// === Compute Layer: Statistik & Analitik ===
+import { computeStats }                                        from "./compute/simd/processor"
+
+// === Domain Layer: Schema Validasi & Events ===
+import { omni_fs_core_Model }                                  from "./domain/models/schema"
+import { CoreBus }                                             from "./domain/events/bus"
+
+// ============================================================
+// Ekspor Publik (Developer-Facing API)
+// ============================================================
+export interface OmniFsCore {
+    // File Operations (Rust layer)
+    fn read_file(path: String) -> Result<Vec<u8>, FsError>;
+    fn read_file_string(path: String) -> Result<String, FsError>;
+    fn write_file(path: String, data: Vec<u8>) -> Result<void, FsError>;
+    fn append_file(path: String, data: Vec<u8>) -> Result<void, FsError>;
+    fn remove_file(path: String) -> Result<void, FsError>;
+    fn copy_file(src: String, dest: String) -> Result<u64, FsError>;
+    fn rename_file(from: String, to: String) -> Result<void, FsError>;
+
+    // Directory Operations (Rust layer)
+    fn create_dir(path: String) -> Result<void, FsError>;
+    fn create_dir_recursive(path: String) -> Result<void, FsError>;
+    fn list_dir(path: String) -> Result<Vec<DirEntry>, FsError>;
+
+    // Metadata (Rust + C layer)
+    fn stat_file(path: String) -> Result<FileMeta, FsError>;
+    fn exists(path: String) -> bool;
+
+    // Low-level Syscalls (C layer)
+    fn omni_open(path: String, flags: i32) -> FileHandle;
+    fn omni_read(handle: FileHandle, count: usize) -> Vec<u8>;
+    fn omni_write(handle: FileHandle, data: Vec<u8>) -> i32;
+    fn omni_close(handle: FileHandle) -> Result<void, SyscallError>;
+
+    // File Watching (Go layer)
+    fn watch_dir(path: String, interval_ms: u64) -> Watcher;
+
+    // Buffered I/O (Rust layer)
+    fn create_ring_buffer(capacity: usize) -> RingBuffer<u8>;
+}

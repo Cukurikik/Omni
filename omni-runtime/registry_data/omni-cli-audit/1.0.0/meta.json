@@ -1,0 +1,22 @@
+{
+  "name": "omni-cli-audit",
+  "version": "1.0.0",
+  "description": "OMNI Cli Audit module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cli-audit",
+  "repository": "https://github.com/omni-framework/omni-cli-audit",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cli",
+    "audit"
+  ],
+  "edition": "omni-2025",
+  "checksum": "cfc842e818c31b255b7873fcf184abcac7f1bc020c52ebda3edbcc15b432bb3c",
+  "size": 6281,
+  "published_at": "2026-04-09T10:02:35.9558705+07:00",
+  "downloads": 0
+}

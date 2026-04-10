@@ -1,0 +1,33 @@
+{
+  "scopeName": "source.omni",
+  "name": "omni",
+  "patterns": [
+    {
+      "name": "meta.embedded.go.omni",
+      "begin": "use::go\\s*\\{",
+      "end": "\\}",
+      "patterns": [
+        { "include": "source.go" } 
+      ]
+    },
+    {
+      "name": "meta.embedded.python.omni",
+      "begin": "use::python\\s*\\{",
+      "end": "\\}",
+      "patterns": [
+        { "include": "source.python" } 
+      ]
+    },
+    {
+      "name": "meta.embedded.rust.omni",
+      "begin": "use::rust\\s*\\{",
+      "end": "\\}",
+      "patterns": [
+        { "include": "source.rust" } 
+      ]
+    },
+    {
+      "include": "source.ts" 
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+﻿/// [OMNI] omni-events Entry
+import { * } from "./system/memory"
+import { * } from "./network/gateway"
+export interface omni_events_sys { fn init() -> bool; }

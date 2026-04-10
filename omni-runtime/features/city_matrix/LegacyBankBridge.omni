@@ -1,0 +1,15 @@
+export function processCityTaxes(citizenId: string) {
+    // 🐘 PHP: Dekripsi arsitektur monolith bank lama (Tanpa Apache)
+    const bankRecord = use::php {
+        require 'legacy_bank_decryptor.php';
+        return decrypt_citizen_funds($citizenId);
+    };
+
+    // 💎 RUBY: Logika bisnis elegan untuk validasi pajak
+    const taxStatus = use::ruby {
+        funds = $bankRecord
+        funds > 5000 ? "PAJAK DIBAYAR" : "SALDO KURANG"
+    };
+
+    return { id: citizenId, status: taxStatus };
+}

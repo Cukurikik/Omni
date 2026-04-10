@@ -1,0 +1,8 @@
+﻿// The Ultimate Edge & Hardware Engine for omni-ai-tensors
+import { NativeFFIBridge } from "./system/ffi_bridges/connector"
+import { TensorCompute } from "./compute/tensors/matrix"
+import { NativeUI } from "./ui/native_gui/renderer"
+
+export interface omni_ai_tensors_Enterprise {
+    fn unleash_power() -> Result<bool, HardwareError>;
+}

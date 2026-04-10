@@ -1,0 +1,13 @@
+{
+  "iconDefinitions": {
+    "omni_file": {
+      "iconPath": "./icons/omni-crest-dark.svg"
+    }
+  },
+  "fileExtensions": {
+    "omni": "omni_file"
+  },
+  "languageIds": {
+    "omni": "omni_file"
+  }
+}

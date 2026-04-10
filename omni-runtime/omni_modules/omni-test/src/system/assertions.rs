@@ -1,0 +1,1 @@
+﻿// Rust safe assertions

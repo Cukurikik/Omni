@@ -1,0 +1,13 @@
+specVersion: "v1"
+serviceId: "omni-tool-9c48b-service"
+location: "us-east4"
+schemas:
+  - source: "./schema"
+    datasource:
+      postgresql:
+        database: "omni-tool-9c48b-database"
+        cloudSql:
+          instanceId: "omni-tool-9c48b-instance"
+          # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
+          # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
+connectorDirs: ["./example"]

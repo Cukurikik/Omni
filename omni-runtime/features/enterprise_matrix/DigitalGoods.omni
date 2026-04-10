@@ -1,0 +1,16 @@
+use::digital_goods {
+    let course_video = VideoFile::load("course_1.mp4");
+    
+    // Enkripsi video dengan data pembeli, anti pembajakan!
+    return course_video.stream_with_drm(buyer_email);
+}
+
+export function provisionDigitalAsset(email: string) {
+    // 🛡️ RUST: Inject watermark steganografi yang absolut ke metadata video
+    const encryptedAsset = use::rust { return inject_drm_watermark("course_1.mp4", $email); };
+
+    // ⚡ GO: Buat presigned URL streaming yang akan lenyap otomatis (Self-Destruct) di RAM
+    const streamUrl = use::go { return cdn.CreateVolatileLink($encryptedAsset, ttl="5m") };
+
+    return streamUrl;
+}

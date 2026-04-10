@@ -1,0 +1,92 @@
+// ============================================================
+// 🚀 OMNI Framework — Contoh Proyek v1
+// ============================================================
+// File ini menunjukkan bagaimana developer menggunakan
+// omni_modules dalam proyek OMNI.
+//
+// Jalankan: omni run dev
+// ============================================================
+
+// ─── Import dari omni_modules ─────────────────────────────
+// Cara import PERSIS seperti npm:
+//   Node.js  → import express from "express"
+//   OMNI     → import { serve } from "omni-net"
+
+import { Ok, Err, isOk, unwrap, createError } from "omni-std";
+import { readFile, writeFile } from "omni-std/io";
+import { serve, json, text, OmniRouter } from "omni-net";
+import { sha256, hashPassword, verifyPassword } from "omni-crypto";
+import { createLogger } from "omni-log";
+
+// ─── Setup Logger ─────────────────────────────────────────
+
+const logger = createLogger("MyApp", { level: "debug", format: "pretty" });
+
+// ─── Business Logic ───────────────────────────────────────
+
+fn handleHome(req) -> OmniResponse {
+    logger.info("Homepage diakses", { path: req.path });
+    return json({
+        framework: "OMNI",
+        version: "1.0.0",
+        languages: 15,
+        message: "Selamat datang di OMNI Framework! 🚀",
+    });
+}
+
+fn handleHash(req) -> OmniResponse {
+    const body = JSON.parse(req.body);
+    const hash = sha256(body.text);
+    logger.debug("Hashing selesai", { input_length: body.text.length });
+    return json({ original: body.text, sha256: hash });
+}
+
+fn handleRegister(req) -> OmniResponse {
+    const body = JSON.parse(req.body);
+    const passwordHash = unwrap(hashPassword(body.password));
+    
+    // Simpan ke file (di produksi: database)
+    const userData = JSON.stringify({
+        username: body.username,
+        password_hash: passwordHash,
+        created_at: Date.now(),
+    });
+    
+    const writeResult = writeFile(`./data/users/${body.username}.json`, userData);
+    
+    if (isOk(writeResult)) {
+        logger.info("User terdaftar", { username: body.username });
+        return json({ success: true, message: "Registrasi berhasil!" });
+    } else {
+        logger.error("Gagal menyimpan user", { username: body.username });
+        return json({ success: false, error: "Gagal menyimpan data" }, 500);
+    }
+}
+
+fn handleReadConfig(req) -> OmniResponse {
+    const configResult = readFile("./config.toml");
+    
+    if (isOk(configResult)) {
+        return text(configResult.value);
+    } else {
+        return json({ error: "Config tidak ditemukan" }, 404);
+    }
+}
+
+// ─── Router Setup ─────────────────────────────────────────
+
+const router = new OmniRouter()
+    .get("/", handleHome)
+    .get("/config", handleReadConfig)
+    .post("/hash", handleHash)
+    .post("/register", handleRegister);
+
+// ─── Start Server ─────────────────────────────────────────
+
+serve(router, { port: 3000, workers: 4 });
+
+logger.info("🌟 Server OMNI aktif!", {
+    url: "http://localhost:3000",
+    routes: 4,
+    modules: ["omni-std", "omni-net", "omni-crypto", "omni-log"],
+});

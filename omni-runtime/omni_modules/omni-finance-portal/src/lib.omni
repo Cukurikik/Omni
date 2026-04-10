@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-finance-portal
+/// Description: Advanced finance computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct FinancePortalInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

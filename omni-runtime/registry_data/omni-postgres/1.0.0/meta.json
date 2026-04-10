@@ -1,0 +1,21 @@
+{
+  "name": "omni-postgres",
+  "version": "1.0.0",
+  "description": "PostgreSQL wire-protocol client with async query pipeline",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-postgres",
+  "repository": "https://github.com/omni-framework/omni-postgres",
+  "keywords": [
+    "omni",
+    "runtime",
+    "postgres"
+  ],
+  "edition": "omni-2025",
+  "checksum": "9dd9c7e27e4d0ea68de0991d8d7deecfbf3180ec2e0d6d71639fd3d5f6af9dc7",
+  "size": 7304,
+  "published_at": "2026-04-09T10:02:36.4651911+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,21 @@
+{
+  "name": "omni-config",
+  "version": "1.0.0",
+  "description": "OMNI Config module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-config",
+  "repository": "https://github.com/omni-framework/omni-config",
+  "keywords": [
+    "omni",
+    "runtime",
+    "config"
+  ],
+  "edition": "omni-2025",
+  "checksum": "bccb4b24f77cdd955cd85536bed42b37c2f2669d7d1a1aa06a2a2118b2059fc2",
+  "size": 1158,
+  "published_at": "2026-04-09T23:00:37.27249+07:00",
+  "downloads": 0
+}

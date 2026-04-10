@@ -1,0 +1,5 @@
+﻿import { * } from "../src/lib.omni"
+
+test("omni-graphql initialization", fn() {
+    // Assert Initialization
+})

@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-cloud-relay
+/// Description: Advanced cloud computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct CloudRelayInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

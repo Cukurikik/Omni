@@ -1,0 +1,22 @@
+{
+  "name": "omni-cli-dev",
+  "version": "1.0.0",
+  "description": "OMNI Cli Dev module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cli-dev",
+  "repository": "https://github.com/omni-framework/omni-cli-dev",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cli",
+    "dev"
+  ],
+  "edition": "omni-2025",
+  "checksum": "ce274fac5ea0c8d67a921eefc6d559eec90f2355936ded27903d55b92a3c1500",
+  "size": 6279,
+  "published_at": "2026-04-09T23:00:37.1804522+07:00",
+  "downloads": 0
+}

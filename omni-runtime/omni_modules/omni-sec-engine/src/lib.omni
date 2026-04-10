@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-sec-engine
+/// Description: Advanced sec computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct SecEngineInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

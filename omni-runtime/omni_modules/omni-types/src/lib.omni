@@ -1,0 +1,72 @@
+/// [OMNI-PACKAGE] omni-types
+/// Description: UAST Type definitions and inference engines.
+/// @since 2.0.0
+
+import "omni-std"
+
+// ─── Native Bridges ─────────────────────────────────────────
+
+extern "omni-c" fn omni_uuid_v4() -> String;
+// FFI bridges to C# logic via LLVM
+extern "omni-csharp" fn omni_money_add(a: Number, currA: String, b: Number, currB: String) -> Result<Number, OmniError>;
+extern "omni-csharp" fn omni_money_subtract(a: Number, currA: String, b: Number, currB: String) -> Result<Number, OmniError>;
+
+
+// ─── OMNI Exports ──────────────────────────────────────────
+
+export type UUID = String
+export type Email = String  
+export type URL = String
+export type ISO8601 = String
+
+export fn uuid() -> UUID {
+    omni_uuid_v4()
+}
+
+@schema
+export struct Money {
+    amount: Number
+    currency: String
+
+    fn new(amount: Number, currency: String = "USD") -> Money { 
+        Money { amount, currency } 
+    }
+    
+    fn add(self, other: Money) -> Result<Money, OmniError> {
+        let result = omni_money_add(self.amount, self.currency, other.amount, other.currency)?
+        Ok(Money { amount: result, currency: self.currency })
+    }
+    
+    fn subtract(self, other: Money) -> Result<Money, OmniError> {
+        let result = omni_money_subtract(self.amount, self.currency, other.amount, other.currency)?
+        Ok(Money { amount: result, currency: self.currency })
+    }
+    
+    fn multiply(self, factor: Number) -> Money {
+        Money { amount: self.amount * factor, currency: self.currency }
+    }
+    
+    fn format(self) -> String { 
+        self.currency + " " + self.amount.toFixed(2) 
+    }
+}
+
+@schema
+export struct Duration {
+    ms: Number
+    
+    fn fromSeconds(s: Number) -> Duration { Duration { ms: s * 1000 } }
+    fn fromMinutes(m: Number) -> Duration { Duration { ms: m * 60000 } }
+    fn fromHours(h: Number) -> Duration { Duration { ms: h * 3600000 } }
+    
+    fn toSeconds(self) -> Number { self.ms / 1000 }
+    fn toMinutes(self) -> Number { self.ms / 60000 }
+}
+
+export struct Range<T> {
+    start: T
+    end: T
+    fn contains(self, value: T) -> bool { value >= self.start && value <= self.end }
+}
+
+export fn branded<T>(value: T, brand: String) -> T { value }

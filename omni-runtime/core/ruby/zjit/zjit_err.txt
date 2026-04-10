@@ -1,0 +1,1512 @@
+﻿cargo :     Blocking waiting for file lock on build directory
+At line:1 char:1
++ cargo check --color never 2>&1 | Out-File -Encoding UTF8 zjit_err.txt
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Blocking wa...build directory:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   Compiling zjit v0.0.1 (C:\Users\IKYY\Downloads\Omni\ruby\zjit)
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> zjit\src\options.rs:463:42
+    |
+463 | ...                   use std::os::unix::io::IntoRawFd;
+    |                                    ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> zjit\src\options.rs:208:19
+    |
+208 |     File(std::os::unix::io::RawFd),
+    |                   ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\state.rs:350:68
+     |
+ 350 |         let cme = rb_callable_method_entry(zjit_module.class_of(), ID!(induce_side_exit_bang));
+     |                                                                    -------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\state.rs:355:68
+     |
+ 355 |         let cme = rb_callable_method_entry(zjit_module.class_of(), ID!(induce_compile_failure_bang));
+     |                                                                    -------------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\state.rs:360:68
+     |
+ 360 |         let cme = rb_callable_method_entry(zjit_module.class_of(), ID!(induce_breakpoint_bang));
+     |                                                                    --------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:846:56
+     |
+ 846 |     unsafe { rb_utf8_str_new(str.as_ptr() as *const _, str.len() as i64) }
+     |              ---------------                           ^^^^^^^^^^^^^^^^ expected `i32`, found `i64`
+     |              |
+     |              arguments to this function are incorrect
+     |
+note: function defined here
+    --> zjit\src\cruby_bindings.inc.rs:2041:12
+     |
+2041 |     pub fn rb_utf8_str_new(
+     |            ^^^^^^^^^^^^^^^
+2042 |         ptr: *const ::std::os::raw::c_char,
+2043 |         len: ::std::os::raw::c_long,
+     |         ---
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+     |
+ 846 |     unsafe { rb_utf8_str_new(str.as_ptr() as *const _, (str.len() as i64).try_into().unwrap()) }
+     |                                                        +                +++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1521:25
+     |
+1520 |                       $name.store(
+     |                             ----- arguments to this method are incorrect
+1521 |                           unsafe { $crate::cruby::rb_intern2(ptr.cast(), content.len() as _) }.0,
+     |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u64`, found `u32`
+...
+1530 | /     def_ids! {
+1531 | |         name: NULL               content: b""
+1532 | |         name: respond_to_missing content: b"respond_to_missing?"
+1533 | |         name: eq                 content: b"=="
+...    |
+1575 | |         name: induce_breakpoint_bang      content: b"induce_breakpoint!"
+1576 | |     }
+     | |_____- in this macro invocation
+     |
+note: method defined here
+    --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\core\src\sync\atomic.rs:2966:20
+     |
+2966 |               pub fn store(&self, val: $int_type, order: Ordering) {
+     |                      ^^^^^
+...
+3866 | / atomic_int! {
+3867 | |     cfg(target_has_atomic = "64"),
+3868 | |     cfg(target_has_atomic_equal_alignment = "64"),
+3869 | |     stable(feature = "integer_atomics_stable", since = "1.34.0"),
+...    |
+3882 | |     u64 AtomicU64
+3883 | | }
+     | |_- in this macro invocation
+     = note: this error originates in the macro `def_ids` which comes from the expansion of the macro `atomic_int` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u32` to a `u64`
+     |
+1521 |                         unsafe { $crate::cruby::rb_intern2(ptr.cast(), content.len() as _) }.0.into(),
+     |                                                                                               +++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:309:13
+     |
+ 309 |         id: ID!(thread_ptr),
+     |             --------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:315:13
+     |
+ 315 |         id: ID!(self_),
+     |             ---------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:447:17
+     |
+ 447 |             id: ID!(len),
+     |                 -------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:471:17
+     |
+ 471 |             id: ID!(len),
+     |                 -------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:499:17
+     |
+ 499 |             id: ID!(len),
+     |                 -------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:522:13
+     |
+ 522 |         id: ID!(len),
+     |             -------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:757:54
+     |
+ 757 |     if !fun.assume_expected_cfunc(block, recv_class, ID!(eq), rb_str_equal as _, state) {
+     |                                                      ------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:780:54
+     |
+ 780 |     if !fun.assume_expected_cfunc(block, recv_class, ID!(eq), rb_obj_equal as _, state) {
+     |                                                      ------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:802:54
+     |
+ 802 |     if !fun.assume_expected_cfunc(block, recv_class, ID!(eq), rb_obj_equal as _, state) {
+     |                                                      ------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\cruby_methods.rs:878:38
+     |
+ 878 |             let respond_to_missing = ID!(respond_to_missing);
+     |                                      ----------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+   --> zjit\src\hir.rs:270:41
+    |
+270 |                     self.ptr_map.map_id(method.0),
+    |                                  ------ ^^^^^^^^ expected `u64`, found `u32`
+    |                                  |
+    |                                  arguments to this method are incorrect
+    |
+note: method defined here
+   --> zjit\src\hir.rs:477:8
+    |
+477 |     fn map_id(&self, id: u64) -> *const c_void {
+    |        ^^^^^^        -------
+help: you can convert a `u32` to a `u64`
+    |
+270 |                     self.ptr_map.map_id(method.0.into()),
+    |                                                 +++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:3606:59
+     |
+3606 | ...   self.push_insn(block, Insn::LoadField { recv, id: ID!(_rbasic_flags), offset: RUBY_OFFSET_RBASIC_FLAGS, return_type: types::...
+     |                                                         ------------------ in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:3611:127
+     |
+3611 | ...(RUBY_FL_FREEZE as u64), mask_name: Some(ID!(RUBY_FL_FREEZE)), reason: SideExitReason::GuardNotFrozen, state });
+     |                                             ------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:3616:129
+     |
+3616 | ...BY_ELTS_SHARED as u64), mask_name: Some(ID!(RUBY_ELTS_SHARED)), reason: SideExitReason::GuardNotShared, state });
+     |                                            --------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:3671:105
+     |
+3671 | ...   Insn::Send { recv, block: None, args, state, cd, .. } if ruby_call_method_id(cd) == ID!(freeze) && args.is_empty() =>
+     |                                                                                           ----------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:3673:105
+     |
+3673 | ...   Insn::Send { recv, block: None, args, state, cd, .. } if ruby_call_method_id(cd) == ID!(minusat) && args.is_empty() =>
+     |                                                                                           ------------ in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:3927:105
+     |
+3927 | ...   let as_heap = self.push_insn(block, Insn::LoadField { recv, id: ID!(_as_heap), offset: RUBY_OFFSET_RSTRUCT_AS_HEAP_PTR, retu...
+     |                                                                       ------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4075:102
+     |
+4075 | ...   let method_entry = fun.push_insn(block, Insn::LoadField { recv: lep, id: ID!(_ep_method_entry), offset: SIZEOF_VALUE_I32 * V...
+     |                                                                                --------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4079:103
+     |
+4079 | ...   let block_handler = fun.push_insn(block, Insn::LoadField { recv: lep, id: ID!(_ep_specval), offset: SIZEOF_VALUE_I32 * VM_EN...
+     |                                                                                 ---------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4389:17
+     |
+4389 |             id: ID!(_shape_id),
+     |                 -------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4413:19
+     |
+4413 |             name: ID!(rb_ivar_get_at_no_ractor_check),
+     |                   ----------------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4422:23
+     |
+4422 |             recv, id: ID!(_as_heap),
+     |                       ------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4489:37
+     |
+4489 |                 recv: self_val, id: ID!(_fields_obj),
+     |                                     ---------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4498:37
+     |
+4498 |                 recv: self_val, id: ID!(_fields_obj),
+     |                                     ---------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4654:103
+     |
+4654 | ...   let as_heap = self.push_insn(block, Insn::LoadField { recv: self_val, id: ID!(_as_heap), offset: ROBJECT_OFFSET_AS_HEAP_FIEL...
+     |                                                                                 ------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:4664:90
+     |
+4664 | ...   self.push_insn(block, Insn::StoreField { recv: self_val, id: ID!(_shape_id), offset: shape_id_offset, val: shape_id });
+     |                                                                    -------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:5507:90
+     |
+5507 | ...                   let val = unsafe { rb_yarv_ary_entry_internal(array_obj, index) };
+     |                                          --------------------------            ^^^^^ expected `i32`, found `i64`
+     |                                          |
+     |                                          arguments to this function are incorrect
+     |
+note: function defined here
+    --> zjit\src\cruby_bindings.inc.rs:2278:12
+     |
+2278 |     pub fn rb_yarv_ary_entry_internal(ary: VALUE, offset: ::std::os::raw::c_long) -> VALUE;
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^             ------
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+     |
+5507 |                                 let val = unsafe { rb_yarv_ary_entry_internal(array_obj, index.try_into().unwrap()) };
+     |                                                                                               ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7173:35
+     |
+7173 |                         x if x == ID!(include_p).0 => BOP_INCLUDE_P,
+     |                                   -------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:7173:35
+     |
+7173 |                         x if x == ID!(include_p).0 => BOP_INCLUDE_P,
+     |                              -    ^^^^^^^^^^^^^^^^ expected `u64`, found `u32`
+     |                              |
+     |                              expected because this is `u64`
+     |
+help: you can convert a `u32` to a `u64`
+     |
+7173 |                         x if x == ID!(include_p).0.into() => BOP_INCLUDE_P,
+     |                                                   +++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:7286:33
+     |
+7286 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+7286 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:7323:33
+     |
+7323 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+7323 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7345:29
+     |
+7345 |                         if [ID!(NULL), ID!(RubyVM), ID!(ZJIT), ID(0)] == segments {
+     |                             --------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7345:40
+     |
+7345 |                         if [ID!(NULL), ID!(RubyVM), ID!(ZJIT), ID(0)] == segments {
+     |                                        ----------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7345:53
+     |
+7345 |                         if [ID!(NULL), ID!(RubyVM), ID!(ZJIT), ID(0)] == segments {
+     |                                                     --------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7346:46
+     |
+7346 | ...                   debug_assert_ne!(ID!(NULL), ID(0));
+     |                                        --------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7347:75
+     |
+7347 | ...                   let ruby_vm_mod = rb_const_lookup(rb_cObject, ID!(RubyVM));
+     |                                                                     ----------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7350:83
+     |
+7350 | ...                   let lookedup_module = rb_const_lookup(rb_cRubyVM, ID!(ZJIT));
+     |                                                                         --------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7540:29
+     |
+7540 |                         id: ID!(_env_data_index_flags),
+     |                             -------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7550:29
+     |
+7550 |                         id: ID!(_env_data_index_flags),
+     |                             -------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7590:105
+     |
+7590 | ...ock, Insn::LoadField { recv: ep, id: ID!(_env_data_index_specval), offset: SIZEOF_VALUE_I32 * VM_ENV_DATA_INDEX_SPECVAL, return...
+     |                                         ---------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7823:36
+     |
+7823 | ...   && (mid == ID!(induce_side_exit_bang) || mid == ID!(induce_compile_failure_bang) || mid == ID!(induce_breakpoint_bang))
+     |                  -------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7823:73
+     |
+7823 | ...   && (mid == ID!(induce_side_exit_bang) || mid == ID!(induce_compile_failure_bang) || mid == ID!(induce_breakpoint_bang))
+     |                                                       -------------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7823:116
+     |
+7823 | ...duce_compile_failure_bang) || mid == ID!(induce_breakpoint_bang))
+     |                                         --------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7829:35
+     |
+7829 |                         if mid == ID!(induce_side_exit_bang)
+     |                                   -------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7830:71
+     |
+7830 | ...                   && state::zjit_module_method_match_serial(ID!(induce_side_exit_bang), &state::INDUCE_SIDE_EXIT_SERIAL)
+     |                                                                 -------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7835:35
+     |
+7835 |                         if mid == ID!(induce_compile_failure_bang)
+     |                                   -------------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7836:71
+     |
+7836 | ...   && state::zjit_module_method_match_serial(ID!(induce_compile_failure_bang), &state::INDUCE_COMPILE_FAILURE_SERIAL)
+     |                                                 -------------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7840:35
+     |
+7840 |                         if mid == ID!(induce_breakpoint_bang)
+     |                                   --------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:7841:71
+     |
+7841 | ...                   && state::zjit_module_method_match_serial(ID!(induce_breakpoint_bang), &state::INDUCE_BREAKPOINT_SERIAL)
+     |                                                                 --------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:8118:33
+     |
+8118 | ...                   id: ID!(_env_data_index_specval),
+     |                           ---------------------------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:8157:33
+     |
+8157 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8157 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:8162:33
+     |
+8162 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8162 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:8167:33
+     |
+8167 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8167 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:8223:33
+     |
+8223 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8223 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:8239:33
+     |
+8239 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8239 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\hir.rs:8245:33
+     |
+8245 |                     let id = ID(get_arg(pc, 0).as_u64());
+     |                              -- ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                              |
+     |                              arguments to this struct are incorrect
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8245 |                     let id = ID(get_arg(pc, 0).as_u64().try_into().unwrap());
+     |                                                        ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\cruby.rs:1583:31
+     |
+1583 |             $crate::cruby::ID(id)
+     |             ----------------- ^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this struct are incorrect
+     |
+    ::: zjit\src\hir.rs:8539:87
+     |
+8539 |     let self_param = fun.push_insn(jit_entry_block, Insn::LoadArg { idx: arg_idx, id: ID!(self_), val_type: types::BasicObject });
+     |                                                                                       ---------- in this macro invocation
+     |
+note: tuple struct defined here
+    --> zjit\src\cruby.rs:259:12
+     |
+ 259 | pub struct ID(pub ::std::os::raw::c_ulong);
+     |            ^^
+     = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+1583 |             $crate::cruby::ID(id.try_into().unwrap())
+     |                                 ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> zjit\src\codegen.rs:2149:74
+     |
+2149 |     let new_hash = asm_ccall!(asm, rb_hash_new_with_size, lir::Opnd::Imm(cap));
+     |                                                           -------------- ^^^ expected `i64`, found `i32`
+     |                                                           |
+     |                                                           arguments to this enum variant are incorrect
+     |
+note: tuple variant defined here
+    --> zjit\src\backend\lir.rs:298:5
+     |
+ 298 |     Imm(i64),           // Raw signed immediate
+     |     ^^^
+help: you can convert an `i32` to an `i64`
+     |
+2149 |     let new_hash = asm_ccall!(asm, rb_hash_new_with_size, lir::Opnd::Imm(cap.into()));
+     |                                                                             +++++++
+
+error[E0599]: no method named `into_raw_fd` found for struct `File` in the current scope
+   --> zjit\src\options.rs:465:78
+    |
+465 | ...                   options.dump_disasm = Some(DumpDisasm::File(file.into_raw_fd()));
+    |                                                                        ^^^^^^^^^^^
+    |
+help: there is a method `into_raw_handle` with a similar name
+    |
+465 -                             options.dump_disasm = Some(DumpDisasm::File(file.into_raw_fd()));
+465 +                             options.dump_disasm = Some(DumpDisasm::File(file.into_raw_handle()));
+    |
+
+Some errors have detailed explanations: E0308, E0433, E0599.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `zjit` (lib) due to 66 previous errors

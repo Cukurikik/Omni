@@ -1,0 +1,21 @@
+{
+  "name": "omni-mongo",
+  "version": "1.0.0",
+  "description": "OMNI Mongo module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-mongo",
+  "repository": "https://github.com/omni-framework/omni-mongo",
+  "keywords": [
+    "omni",
+    "runtime",
+    "mongo"
+  ],
+  "edition": "omni-2025",
+  "checksum": "bf7f98d6a61937faaa0619117a9aaae881e7cf41f9d6ad3965d179cb0d5f00b6",
+  "size": 7301,
+  "published_at": "2026-04-09T23:00:37.8442634+07:00",
+  "downloads": 0
+}

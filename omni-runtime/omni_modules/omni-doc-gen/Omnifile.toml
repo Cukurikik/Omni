@@ -1,0 +1,15 @@
+[package]
+name = "omni-doc-gen"
+version = "4.0.0-enterprise"
+authors = ["ANTIGRAVITY <omni@architecture.dev>"]
+edition = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+omni-fs-core = "^1.0"
+omni-uast = "^1.0"
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "devtools"
+price_usd    = 0

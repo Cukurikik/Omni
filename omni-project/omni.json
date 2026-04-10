@@ -1,0 +1,24 @@
+{
+  "framework": "OMNI TOOLS",
+  "appName": "omni-project",
+  "version": "1.0.0",
+  "ephemeralMode": true,
+  "cacheTTLMinutes": 60,
+  "network": {
+    "gatewayPort": 3000,
+    "allowedOrigins": [
+      "*"
+    ]
+  },
+  "universalDependencies": {
+    "ui_jsx": [],
+    "api_golang": [],
+    "ai_python": [],
+    "engine_cpp": []
+  },
+  "security": {
+    "requireAuth": true,
+    "maxPayloadSizeMB": 51200,
+    "universalErrorFormat": true
+  }
+}

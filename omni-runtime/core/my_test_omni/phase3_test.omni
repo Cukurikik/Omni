@@ -1,0 +1,36 @@
+fn main() {
+    println("--- Testing Ternary ---");
+    let t = true ? "YES" : "NO";
+    println(t);
+
+    println("--- Testing Compound Assignment ---");
+    let mut x = 10;
+    x += 5;
+    println(x);
+    x *= 2;
+    println(x);
+    x /= 3;
+    println(x);
+    x -= 1;
+    println(x);
+
+    println("--- Testing Typeof ---");
+    let num_type = typeof 123;
+    println(num_type);
+    let str_type = typeof "hello";
+    println(str_type);
+
+    println("--- Testing Spread & Array Destructuring ---");
+    let arr1 = [1, 2, 3];
+    let arr2 = [...arr1, 4, 5];
+    let [a, b] = arr2;
+    println(a);
+    println(b);
+
+    println("--- Testing New ---");
+    // In V8, we can use Set or Map directly since JS built-ins exist
+    let my_set = new Set();
+    println("Set created");
+}
+
+main();

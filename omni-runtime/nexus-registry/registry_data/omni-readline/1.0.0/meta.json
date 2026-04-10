@@ -1,0 +1,21 @@
+{
+  "name": "omni-readline",
+  "version": "1.0.0",
+  "description": "Interactive line editor with history and tab completion",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-readline",
+  "repository": "https://github.com/omni-framework/omni-readline",
+  "keywords": [
+    "omni",
+    "runtime",
+    "readline"
+  ],
+  "edition": "omni-2025",
+  "checksum": "d723f9d7d72a83d691cc521dccc4a7ab9c72ed9ad889782b5198d309b5bed54f",
+  "size": 7304,
+  "published_at": "2026-04-09T23:00:38.3197616+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,9 @@
+// Example: Basic omni-nodemailer-native usage
+import { init } from '@omni/omni-nodemailer-native'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

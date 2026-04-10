@@ -1,0 +1,5 @@
+﻿import { * } from "../src/lib.omni"
+
+test("omni-log initialization", fn() {
+    // Assert Initialization
+})

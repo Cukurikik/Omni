@@ -1,0 +1,120 @@
+// ═══════════════════════════════════════════════
+// OMNI PHASE 2 — Advanced Control Flow Test Suite
+// ═══════════════════════════════════════════════
+
+// 1. WHILE LOOP
+let mut counter = 0;
+while counter < 5 {
+    counter = counter + 1;
+}
+print("✅ 1. While Loop:");
+print(counter);
+
+// 2. WHILE WITH BREAK
+let mut sum = 0;
+let mut i = 0;
+while true {
+    if i >= 10 {
+        break;
+    }
+    sum = sum + i;
+    i = i + 1;
+}
+print("✅ 2. While + Break:");
+print(sum);
+
+// 3. LOGICAL OPERATORS
+let x = true && false;
+let y = true || false;
+let z = !false;
+print("✅ 3. Logical Operators:");
+print(x);
+print(y);
+print(z);
+
+// 4. MODULO
+let remainder = 17 % 5;
+print("✅ 4. Modulo:");
+print(remainder);
+
+// 5. ENUM
+enum Color {
+    Red,
+    Green,
+    Blue,
+}
+print("✅ 5. Enum:");
+print(Color);
+print(Color.Red);
+
+// 6. MATCH EXPRESSION
+let status = "active";
+let label = match status {
+    "active" => "✅ Active",
+    "inactive" => "⛔ Inactive",
+    _ => "❓ Unknown",
+};
+print("✅ 6. Match Expression:");
+print(label);
+
+// 7. MATCH WITH NUMBERS
+let code = 200;
+let message = match code {
+    200 => "OK",
+    404 => "Not Found",
+    500 => "Server Error",
+    _ => "Unknown Code",
+};
+print("✅ 7. Match Numbers:");
+print(message);
+
+// 8. RANGE
+let range = 0..5;
+print("✅ 8. Range:");
+print(range);
+
+// 9. FOR-IN WITH RANGE
+let mut total = 0;
+for n in 1..6 {
+    total = total + n;
+}
+print("✅ 9. For-In + Range:");
+print(total);
+
+// 10. COMBINED: FizzBuzz with while + match + modulo
+let mut results = [];
+let mut n = 1;
+while n <= 15 {
+    let tag = match n % 15 {
+        0 => "FizzBuzz",
+        _ => "other",
+    };
+    if tag == "FizzBuzz" {
+        results = results.concat(["FizzBuzz"]);
+    } else {
+        let tag3 = match n % 3 {
+            0 => "Fizz",
+            _ => "none",
+        };
+        if tag3 == "Fizz" {
+            results = results.concat(["Fizz"]);
+        } else {
+            let tag5 = match n % 5 {
+                0 => "Buzz",
+                _ => "none",
+            };
+            if tag5 == "Buzz" {
+                results = results.concat(["Buzz"]);
+            } else {
+                results = results.concat([n]);
+            }
+        }
+    }
+    n = n + 1;
+}
+print("✅ 10. FizzBuzz (Combined):");
+print(results);
+
+print("═══════════════════════════════════════");
+print("🎉 ALL PHASE 2 TESTS COMPLETE!");
+print("═══════════════════════════════════════");

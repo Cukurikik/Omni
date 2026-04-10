@@ -1,0 +1,125 @@
+// ==========================================
+// 🧬 OMNI-ASSIMILATOR: THIRD-PARTY MUTATION ENGINE
+// ==========================================
+
+const ASSIMILATION_RULES = {
+    // VARIASI 1: ZUSTAND (State Management)
+    'zustand': {
+        installCmd: 'npm install zustand',
+        mutate: () => {
+            console.log("🧬 [MUTASI] Menginjeksi OMNI-AURA (Golang SSD) ke dalam Zustand...");
+            const adapterDir = join(ROOT_DIR, 'ui/src/omni-adapters');
+            if (!existsSync(adapterDir)) mkdirSync(adapterDir, { recursive: true });
+
+            const proxyCode = `import { create as originalCreate } from 'zustand';
+
+// OMNI MUTATION: Zustand API tetap sama, tapi State otomatis tersimpan di Golang!
+export const create = (config) => {
+    const store = originalCreate(config);
+    const originalSet = store.setState;
+    
+    // Hijack (Kudeta) fungsi set bawaan Zustand
+    store.setState = (partial, replace) => {
+        originalSet(partial, replace); // Update UI React seketika
+        // MUTASI: Kirim state terbaru ke Golang secara asinkron via WebSocket/Fetch
+        fetch('/api/v1/omni/state-sync', {
+            method: 'POST',
+            body: JSON.stringify({ state: store.getState() })
+        }).catch(() => {}); // Silent fail jika offline, OMNI-SYNC akan urus nanti
+    };
+    return store;
+};
+export default create;`;
+            
+            writeFileSync(join(adapterDir, 'omni-zustand.ts'), proxyCode);
+            console.log("✅ [ASIMILASI ZUSTAND] Selesai! Gunakan import { create } from '@/omni-adapters/omni-zustand';");
+        }
+    },
+
+    // VARIASI 2: RXJS (Event & Reactive Streams)
+    'rxjs': {
+        installCmd: 'npm install rxjs',
+        mutate: () => {
+            console.log("🧬 [MUTASI] Mengawinkan RxJS dengan C++ Kinetic Engine & WebSockets...");
+            const adapterDir = join(ROOT_DIR, 'ui/src/omni-adapters');
+            if (!existsSync(adapterDir)) mkdirSync(adapterDir, { recursive: true });
+
+            const proxyCode = `import { Subject as OriginalSubject } from 'rxjs';
+
+// OMNI MUTATION: Subject RxJS sekarang terhubung langsung ke Jaringan Master-Worker!
+export class OmniSubject extends OriginalSubject {
+    constructor(topicId) {
+        super();
+        this.topicId = topicId;
+        // Dengarkan Event dari Golang/C++ Backend
+        const ws = new WebSocket(\`ws://localhost:3000/ws/events?topic=\${topicId}\`);
+        ws.onmessage = (msg) => {
+            super.next(JSON.parse(msg.data)); // Pancarkan event ke seluruh komponen React
+        };
+        this.omniWs = ws;
+    }
+
+    // Hijack next(): Selain memancarkan ke UI, tembak juga ke C++ Backend!
+    next(value) {
+        super.next(value);
+        if (this.omniWs.readyState === WebSocket.OPEN) {
+            this.omniWs.send(JSON.stringify({ topic: this.topicId, payload: value }));
+        }
+    }
+}`;
+            writeFileSync(join(adapterDir, 'omni-rxjs.ts'), proxyCode);
+            console.log("✅ [ASIMILASI RXJS] Selesai! Event Stream kini melintasi Server dan C++!");
+        }
+    },
+
+    // VARIASI 3: REACT QUERY / TANSTACK (Data Fetching)
+    '@tanstack/react-query': {
+        installCmd: 'npm install @tanstack/react-query',
+        mutate: () => {
+            console.log("🧬 [MUTASI] Mengganti HTTP Polling React Query dengan OMNI Binary Streaming...");
+            const adapterDir = join(ROOT_DIR, 'ui/src/omni-adapters');
+            if (!existsSync(adapterDir)) mkdirSync(adapterDir, { recursive: true });
+
+            const proxyCode = `import { useQuery as originalUseQuery } from '@tanstack/react-query';
+
+// OMNI MUTATION: Gunakan Cache Bare-Metal Golang sebelum hit ke Database
+export function useOmniQuery(queryKey, queryFn, options = {}) {
+    const mutatedQueryFn = async () => {
+        // Coba baca dari OMNI Cache lokal yang super cepat
+        const cacheHit = await fetch(\`/api/v1/omni/cache?key=\${queryKey.join('-')}\`);
+        if (cacheHit.status === 200) return cacheHit.json();
+        
+        // Jika tidak ada di cache, jalankan fungsi asli, lalu paksa Golang menyimpannya
+        const data = await queryFn();
+        fetch('/api/v1/omni/cache', { method: 'POST', body: JSON.stringify({ key: queryKey.join('-'), data }) });
+        return data;
+    };
+    return originalUseQuery(queryKey, mutatedQueryFn, options);
+}`;
+            writeFileSync(join(adapterDir, 'omni-query.ts'), proxyCode);
+            console.log("✅ [ASIMILASI TANSTACK] Selesai! Fetching kini di-back-up oleh Golang RAM Cache!");
+        }
+    }
+};
+
+function runOmniInstall(packageName) {
+    if (!packageName) {
+        console.log("❌ Masukkan nama paket! Contoh: omni install zustand");
+        console.log("💡 Tersedia untuk Asimilasi: " + Object.keys(ASSIMILATION_RULES).join(", "));
+        process.exit(1);
+    }
+
+    const rule = ASSIMILATION_RULES[packageName];
+    if (!rule) {
+        // Jika tidak ada rule mutasi, install normal seperti NPM biasa
+        console.log(\`📦 Menginstal \${packageName} murni (Tanpa Mutasi)...\`);
+        execSync(\`npm install \${packageName}\`, { cwd: join(ROOT_DIR, 'ui'), stdio: 'inherit' });
+        return;
+    }
+
+    console.log(\`\\n🛸 [OMNI-ASSIMILATOR] Menarik paket \${packageName.toUpperCase()} dari dimensi luar...\`);
+    execSync(rule.installCmd, { cwd: join(ROOT_DIR, 'ui'), stdio: 'ignore' });
+    
+    // EKSEKUSI MUTASI DEWA
+    rule.mutate();
+}

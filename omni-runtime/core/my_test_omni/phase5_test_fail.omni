@@ -1,0 +1,9 @@
+fn check_vars() {
+    let a = 10;
+    println(a); // OK
+
+    // Undeclared variable 'b'
+    let c = a + b; 
+}
+
+check_vars();

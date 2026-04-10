@@ -1,0 +1,21 @@
+{
+  "name": "omni-querystring",
+  "version": "1.0.0",
+  "description": "Query string parser and encoder with nested object support",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-querystring",
+  "repository": "https://github.com/omni-framework/omni-querystring",
+  "keywords": [
+    "omni",
+    "runtime",
+    "querystring"
+  ],
+  "edition": "omni-2025",
+  "checksum": "d2d975d28728ccca8bcb32461135778d3a5f8d0a112963bfc53e9f1649e38d01",
+  "size": 7307,
+  "published_at": "2026-04-09T10:02:36.4872102+07:00",
+  "downloads": 0
+}

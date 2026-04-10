@@ -1,0 +1,239 @@
+﻿cargo :    Compiling omni-core v1.3.0 (C:\Users\IKYY\Downloads\Omni\omni-runtime\core)
+At line:1 char:1
++ cargo check --color never 2>&1 | Out-File -Encoding UTF8 err.txt
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...i-runtime\core):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0425]: cannot find function `read_string` in module `fs`
+   --> src\cli\meta.rs:26:34
+    |
+ 26 |                 let schema = fs::read_string(schema_path).unwrap();
+    |                                  ^^^^^^^^^^^
+    |
+   ::: C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\fs.rs:382:1
+    |
+382 | pub fn read_to_string<P: AsRef<Path>>(path: P) -> io::Result<String> {
+    | -------------------------------------------------------------------- similarly named function `read_to_string` defined here
+    |
+help: a function with a similar name exists
+    |
+ 26 |                 let schema = fs::read_to_string(schema_path).unwrap();
+    |                                       +++
+
+error[E0425]: cannot find function `read_string` in module `fs`
+   --> src\cli\meta.rs:87:29
+    |
+ 87 |                 let _ = fs::read_string(file_path).unwrap();
+    |                             ^^^^^^^^^^^
+    |
+   ::: C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\fs.rs:382:1
+    |
+382 | pub fn read_to_string<P: AsRef<Path>>(path: P) -> io::Result<String> {
+    | -------------------------------------------------------------------- similarly named function `read_to_string` defined here
+    |
+help: a function with a similar name exists
+    |
+ 87 |                 let _ = fs::read_to_string(file_path).unwrap();
+    |                                  +++
+
+error[E0425]: cannot find function `read_string` in module `fs`
+   --> src\cli\cicd.rs:126:39
+    |
+126 |                     let content = fs::read_string(cargo_path).unwrap();
+    |                                       ^^^^^^^^^^^
+    |
+   ::: C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\fs.rs:382:1
+    |
+382 | pub fn read_to_string<P: AsRef<Path>>(path: P) -> io::Result<String> {
+    | -------------------------------------------------------------------- similarly named function `read_to_string` defined here
+    |
+help: a function with a similar name exists
+    |
+126 |                     let content = fs::read_to_string(cargo_path).unwrap();
+    |                                            +++
+
+error[E0425]: cannot find function `read_string` in module `fs`
+   --> src\cli\forensics.rs:30:43
+    |
+ 30 |                         let content = fs::read_string(file).unwrap();
+    |                                           ^^^^^^^^^^^
+    |
+   ::: C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\fs.rs:382:1
+    |
+382 | pub fn read_to_string<P: AsRef<Path>>(path: P) -> io::Result<String> {
+    | -------------------------------------------------------------------- similarly named function `read_to_string` defined here
+    |
+help: a function with a similar name exists
+    |
+ 30 |                         let content = fs::read_to_string(file).unwrap();
+    |                                                +++
+
+warning: unused import: `TcpStream`
+ --> src\cli\dev.rs:5:29
+  |
+5 | use std::net::{TcpListener, TcpStream};
+  |                             ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused imports: `Read` and `Write`
+ --> src\cli\dev.rs:6:15
+  |
+6 | use std::io::{Read, Write};
+  |               ^^^^  ^^^^^
+
+warning: unused import: `Transaction`
+    --> src\cli\test.rs:2242:47
+     |
+2242 |         use crate::stdlib::db::{PostgresPool, Transaction};
+     |                                               ^^^^^^^^^^^
+
+warning: unused import: `Program`
+ --> src\cli\compile.rs:8:40
+  |
+8 | use crate::parser::{parse_omni_source, Program};
+  |                                        ^^^^^^^
+
+warning: unused import: `std::time::Instant`
+ --> src\cli\profile.rs:2:5
+  |
+2 | use std::time::Instant;
+  |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::process`
+ --> src\cli\orchestration.rs:1:5
+  |
+1 | use std::process;
+  |     ^^^^^^^^^^^^
+
+warning: unused import: `std::process`
+ --> src\cli\cybersecurity.rs:1:5
+  |
+1 | use std::process;
+  |     ^^^^^^^^^^^^
+
+warning: unused import: `std::process`
+ --> src\cli\distributed.rs:1:5
+  |
+1 | use std::process;
+  |     ^^^^^^^^^^^^
+
+warning: unused import: `std::process`
+ --> src\cli\analytics.rs:1:5
+  |
+1 | use std::process;
+  |     ^^^^^^^^^^^^
+
+warning: unused import: `Stdio`
+ --> src\cli\meta.rs:3:29
+  |
+3 | use std::process::{Command, Stdio};
+  |                             ^^^^^
+
+warning: unused import: `std::process`
+ --> src\cli\mesh.rs:3:5
+  |
+3 | use std::process;
+  |     ^^^^^^^^^^^^
+
+warning: unused import: `Path`
+ --> src\nexus\vault.rs:3:17
+  |
+3 | use std::path::{Path, PathBuf};
+  |                 ^^^^
+
+warning: unused import: `PathBuf`
+ --> src\jit\c_bridge.rs:8:23
+  |
+8 | use std::path::{Path, PathBuf};
+  |                       ^^^^^^^
+
+warning: unused import: `std::process::Command`
+ --> src\jit\c_bridge.rs:9:5
+  |
+9 | use std::process::Command;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: variant `f32` should have an upper camel case name
+  --> src\types\mod.rs:24:5
+   |
+24 |     f32,
+   |     ^^^ help: convert the identifier to upper camel case (notice the capitalization): `F32`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: variant `f64` should have an upper camel case name
+  --> src\types\mod.rs:25:5
+   |
+25 |     f64,
+   |     ^^^ help: convert the identifier to upper camel case (notice the capitalization): `F64`
+
+error[E0282]: type annotations needed
+   --> src\cli\cicd.rs:130:28
+    |
+130 |                         if line.starts_with("version =") && !bumped {
+    |                            ^^^^ cannot infer type
+
+warning: unused variable: `func_name`
+   --> src\compiler\backend\llvm_emitter.rs:115:57
+    |
+115 | ...                   if let Expr::Identifier(func_name) = &**callee {
+    |                                               ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_func_name`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable `has_spawn` is assigned to, but never used
+    --> src\cli\test.rs:1912:13
+     |
+1912 |         let mut has_spawn = false;
+     |             ^^^^^^^^^^^^^
+     |
+     = note: consider using `_has_spawn` instead
+
+warning: variable `has_arrow` is assigned to, but never used
+    --> src\cli\test.rs:1914:13
+     |
+1914 |         let mut has_arrow = false;
+     |             ^^^^^^^^^^^^^
+     |
+     = note: consider using `_has_arrow` instead
+
+warning: value assigned to `has_spawn` is never read
+    --> src\cli\test.rs:1920:33
+     |
+1920 |                 Token::Spawn => has_spawn = true,
+     |                                 ^^^^^^^^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+     = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `has_arrow` is never read
+    --> src\cli\test.rs:1921:33
+     |
+1921 |                 Token::Arrow => has_arrow = true,
+     |                                 ^^^^^^^^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: unreachable pattern
+   --> src\cli\mod.rs:145:31
+    |
+119 |         "shield" | "audit" | "sandbox" | "ddos-mitigate" => {
+    |                    ------- matches all the relevant values
+...
+145 |         "forensic" | "heal" | "audit" => {
+    |                               ^^^^^^^ no value can reach this
+    |
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `completed`
+   --> src\runtime\scheduler.rs:367:13
+    |
+367 |         let completed = self.tick();
+    |             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_completed`
+
+Some errors have detailed explanations: E0282, E0425.
+For more information about an error, try `rustc --explain E0282`.
+warning: `omni-core` (lib) generated 23 warnings
+error: could not compile `omni-core` (lib) due to 5 previous errors; 23 warnings emitted

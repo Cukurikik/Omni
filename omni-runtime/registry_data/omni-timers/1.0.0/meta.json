@@ -1,0 +1,21 @@
+{
+  "name": "omni-timers",
+  "version": "1.0.0",
+  "description": "High-resolution timers with tick-based scheduler",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-timers",
+  "repository": "https://github.com/omni-framework/omni-timers",
+  "keywords": [
+    "omni",
+    "runtime",
+    "timers"
+  ],
+  "edition": "omni-2025",
+  "checksum": "84d14c20db4e58c266ab2edac50af1ebc91246aff308d89043940485ab5ecca9",
+  "size": 6278,
+  "published_at": "2026-04-09T10:02:36.6227468+07:00",
+  "downloads": 0
+}

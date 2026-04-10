@@ -1,0 +1,51 @@
+﻿/// Type definitions for omni-aos - Animation and UI Layer
+
+pub type EasingFn = fn(t: f64) -> f64
+
+pub struct Keyframe {
+    time:     f64,
+    value:    f64,
+    easing:   EasingFn,
+    metadata: Option<Map<String, Any>>,
+}
+
+pub struct TimelineConfig {
+    duration:    f64,
+    delay:       f64,
+    repeat:      i32,
+    yoyo:        bool,
+    auto_play:   bool,
+    direction:   Direction,
+    fill_mode:   FillMode,
+}
+
+pub enum Direction { Normal, Reverse, Alternate, AlternateReverse }
+pub enum FillMode { None, Forwards, Backwards, Both }
+pub enum AnimationState {
+    Idle,
+    Running { progress: f64 },
+    Paused  { at: f64 },
+    Completed,
+    Cancelled,
+}
+
+pub struct Transform {
+    x: f64, y: f64, z: f64,
+    scale_x: f64, scale_y: f64,
+    rotate: f64, skew_x: f64, skew_y: f64, opacity: f64,
+}
+
+pub interface RenderTarget {
+    fn get_dimensions() -> (u32, u32)
+    fn request_frame(callback: fn(f64) -> ()) -> u64
+    fn cancel_frame(id: u64) -> ()
+}
+
+pub struct AnimEvent {
+    kind:      AnimEventKind,
+    target_id: String,
+    timestamp: f64,
+    progress:  f64,
+}
+
+pub enum AnimEventKind { Start, Update, Complete, Repeat, ReverseComplete }

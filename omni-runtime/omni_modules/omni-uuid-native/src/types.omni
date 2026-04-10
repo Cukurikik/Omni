@@ -1,0 +1,23 @@
+﻿/// Type definitions for omni-uuid-native - Core Utility Layer
+
+pub struct TimedResult<T> { value: T, duration_ms: f64, cached: bool, retries: u32 }
+
+pub struct HttpRequest { method: HttpMethod, url: String, headers: Map<String, String>, body: Option<Body>, timeout_ms: u64 }
+pub enum HttpMethod { GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS }
+pub enum Body { Text(String), JSON(Map<String, Any>), Form(Map<String, String>), Binary(Vec<u8>), Stream(ReadableStream) }
+pub struct HttpResponse { status: u16, headers: Map<String, String>, body: Vec<u8>, duration_ms: f64, url: String }
+
+pub struct Schema<T> { validators: Vec<Validator<T>>, transforms: Vec<TransformFn<T>>, description: String, optional: bool }
+pub enum Validator<T> { Required, MinLength(usize), MaxLength(usize), Pattern(String), Range { min: T, max: T }, OneOf(Vec<T>), Custom { name: String, check: fn(T) -> bool } }
+pub enum TransformFn<T> { Trim, Lowercase, Uppercase, Coerce, Custom { name: String, apply: fn(T) -> T } }
+
+pub struct QueueMessage { id: String, topic: String, partition: Option<u32>, key: Option<String>, value: Vec<u8>, headers: Map<String, String>, timestamp: Timestamp }
+pub struct EmailMessage { from: EmailAddress, to: Vec<EmailAddress>, subject: String, text_body: Option<String>, html_body: Option<String>, attachments: Vec<Attachment> }
+pub struct EmailAddress { name: Option<String>, address: String }
+pub struct Attachment { filename: String, content_type: String, data: Vec<u8>, inline: bool }
+
+pub struct RateLimitConfig { max_requests: u64, window_ms: u64, strategy: RateLimitStrategy }
+pub enum RateLimitStrategy { FixedWindow, SlidingWindow, TokenBucket { refill_rate: f64 }, LeakyBucket { drain_rate: f64 } }
+
+pub enum LogLevel { Trace, Debug, Info, Warn, Error, Fatal }
+pub struct LogEntry { level: LogLevel, message: String, timestamp: Timestamp, fields: Map<String, Any>, caller: String }

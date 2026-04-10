@@ -1,0 +1,46 @@
+﻿/// Type definitions for omni-cassandra - Database Layer
+
+pub struct ConnectionConfig {
+    host: String, port: u16, username: String, password: String,
+    database: String, ssl_mode: SSLMode, pool_size: u32,
+    idle_timeout: Duration, max_lifetime: Duration, retry_policy: RetryPolicy,
+}
+
+pub enum SSLMode { Disable, Prefer, Require, VerifyCA, VerifyFull }
+
+pub struct PoolStats {
+    active: u32, idle: u32, total: u32, max_size: u32,
+    wait_count: u64, wait_time_ms: u64,
+}
+
+pub struct QueryResult<T> {
+    rows: Vec<T>, affected: u64, last_insert_id: Option<i64>,
+    duration_ms: f64, columns: Vec<ColumnInfo>,
+}
+
+pub struct ColumnInfo { name: String, data_type: DataType, nullable: bool, primary: bool, indexed: bool }
+
+pub enum DataType {
+    Integer, BigInt, Float, Double, Decimal { precision: u8, scale: u8 },
+    Text, Varchar { max_len: u32 }, Boolean, Timestamp, TimestampTZ,
+    UUID, JSON, JSONB, Bytea, Array { inner: Box<DataType> },
+}
+
+pub enum IsolationLevel { ReadUncommitted, ReadCommitted, RepeatableRead, Serializable, Snapshot }
+
+pub struct RetryPolicy {
+    max_retries: u32, base_delay_ms: u64, max_delay_ms: u64,
+    backoff_factor: f64, jitter: bool,
+}
+
+pub struct Migration {
+    id: String, name: String, sql_up: String, sql_down: String,
+    checksum: String, applied_at: Option<Timestamp>,
+}
+
+pub struct HealthStatus {
+    connected: bool, latency_ms: f64, version: String,
+    uptime_secs: u64, pool: PoolStats, replication: Option<ReplicationStatus>,
+}
+
+pub struct ReplicationStatus { role: String, lag_bytes: u64, connected_slaves: u32 }

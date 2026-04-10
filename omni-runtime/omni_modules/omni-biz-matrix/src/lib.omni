@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-biz-matrix
+/// Description: Advanced biz computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct BizMatrixInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

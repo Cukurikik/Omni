@@ -69,3 +69,12 @@ func ResolveLogPath() string {
 	os.MkdirAll("logs", 0755)
 	return "logs"
 }
+
+// dirExists checks whether a directory exists
+func dirExists(path string) bool {
+	info, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return info.IsDir()
+}

@@ -1,0 +1,21 @@
+{
+  "name": "omni-redis",
+  "version": "1.0.0",
+  "description": "Redis client with cluster support and Lua scripting bridge",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-redis",
+  "repository": "https://github.com/omni-framework/omni-redis",
+  "keywords": [
+    "omni",
+    "runtime",
+    "redis"
+  ],
+  "edition": "omni-2025",
+  "checksum": "c56b863639487ea8525e53a28022533017fa5d042b23e5c376d64795c79a94d4",
+  "size": 7301,
+  "published_at": "2026-04-09T10:02:36.5132655+07:00",
+  "downloads": 0
+}

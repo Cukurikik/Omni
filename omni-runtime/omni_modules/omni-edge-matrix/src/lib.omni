@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-edge-matrix
+/// Description: Advanced edge computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct EdgeMatrixInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

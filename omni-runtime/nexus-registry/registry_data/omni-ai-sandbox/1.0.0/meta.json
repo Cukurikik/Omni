@@ -1,0 +1,22 @@
+{
+  "name": "omni-ai-sandbox",
+  "version": "1.0.0",
+  "description": "Sandboxed AI model execution environment",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-ai-sandbox",
+  "repository": "https://github.com/omni-framework/omni-ai-sandbox",
+  "keywords": [
+    "omni",
+    "runtime",
+    "ai",
+    "sandbox"
+  ],
+  "edition": "omni-2025",
+  "checksum": "29354a8f36bdf988873e1677dc8a17f5607b4b3f576fd06c841da8eabbbe0f6a",
+  "size": 6282,
+  "published_at": "2026-04-09T23:00:37.0410964+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,3 @@
+﻿import "omni-std"
+extern "omni-c" fn omni_env_get(k_ptr: *const u8, len: Number) -> *const u8;
+export fn getEnv(key: String) -> Option<String> { None }

@@ -1,0 +1,91 @@
+// ══════════════════════════════════════════════════════════════
+// 🛒 OMNI FRAMEWORK — BUILT-IN MODULE: Commerce Engine
+// ══════════════════════════════════════════════════════════════
+// Modul bawaan framework OMNI untuk sistem e-commerce.
+// Developer bisa langsung import modul ini untuk membangun
+// toko online, payment gateway, atau marketplace.
+//
+// Penggunaan:
+//   import "std:commerce"
+//   let total: Int = hitung_total(50000, 3)
+//   let final: Int = kalkulasi_diskon(total, 20)
+// ══════════════════════════════════════════════════════════════
+
+// ═══ Struct: Entitas Bisnis ═══
+struct Pengguna {
+    nama: String,
+    umur: Int,
+    email: String,
+}
+
+struct Transaksi {
+    id: String,
+    jumlah: Float,
+    status: String,
+    pengguna: String,
+}
+
+struct Produk {
+    id: String,
+    nama: String,
+    harga: Int,
+    stok: Int,
+}
+
+struct Keranjang {
+    items: String,
+    total: Int,
+    diskon: Int,
+}
+
+// ═══ Fungsi: Kalkulasi Harga ═══
+fn hitung_total(harga: Int, qty: Int) -> Int {
+    let total: Int = harga * qty
+    return total
+}
+
+pub fn kalkulasi_diskon(harga: Int, persen: Int) -> Int {
+    let diskon: Int = harga * persen / 100
+    let final_harga: Int = harga - diskon
+    return final_harga
+}
+
+fn hitung_pajak(harga: Int, pajak_persen: Int) -> Int {
+    let pajak: Int = harga * pajak_persen / 100
+    return harga + pajak
+}
+
+fn hitung_ongkir(berat: Int, jarak: Int) -> Int {
+    let tarif_per_kg: Int = 2500
+    let tarif_per_km: Int = 100
+    return berat * tarif_per_kg + jarak * tarif_per_km
+}
+
+// ═══ Extension: Pengguna ═══
+extension Pengguna {
+    fn salam() -> String {
+        return "Halo dari Pengguna OMNI!"
+    }
+
+    fn is_aktif(status: Bool) -> Bool {
+        return status
+    }
+}
+
+// ═══ Demo: Alur Belanja Lengkap ═══
+let daftar_belanja: String = "Beras, Telur, Susu"
+let total_belanja: Int = hitung_total(50000, 3)
+let harga_diskon: Int = kalkulasi_diskon(total_belanja, 20)
+let harga_final: Int = hitung_pajak(harga_diskon, 11)
+
+print(total_belanja)
+print(harga_diskon)
+print(harga_final)
+
+if harga_diskon > 100000 {
+    print("Transaksi besar terdeteksi!")
+} else {
+    print("Transaksi normal")
+}
+
+print("═══ OMNI Commerce Module — Ready for Production ═══")

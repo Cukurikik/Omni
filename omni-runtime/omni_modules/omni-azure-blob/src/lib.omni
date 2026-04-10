@@ -1,0 +1,97 @@
+﻿/// [omni-azure-blob] - Azure Blob Storage SDK for containers and SAS tokens
+/// Layer: Network/Cloud | OMNI Native Implementation
+
+import { CloudCredential, ObjectMeta, StorageClass, BucketConfig, MultipartUpload, UploadPart, PresignedConfig, HttpMethod } from "./types"
+import { CloudConfig, load_config, build_endpoint } from "./config"
+
+mutable var _client: Option<CloudClient> = None
+
+pub fn init() -> Result<CloudClient, InitError> { create_client(load_config()?) }
+
+pub fn create_client(config: CloudConfig) -> Result<CloudClient, InitError> {
+    let endpoint = build_endpoint(&config)
+    let signer = SigV4Signer { access_key: config.access_key.clone(), secret_key: config.secret_key.clone(), region: config.region.clone(), service: "s3" }
+    let http = omni::net::HttpClient::builder().base_url(endpoint).timeout(Duration::from_millis(config.timeout_ms)).retry(config.retry_max).build()?
+    let client = CloudClient { config: config.clone(), http: http, signer: signer }
+    _client = Some(client.clone())
+    println("[OMNI:omni-azure-blob] Cloud storage initialized - region: {}, bucket: {}", config.region, config.bucket)
+    Ok(client)
+}
+
+pub fn put_object(c: &CloudClient, key: String, data: &[u8], content_type: String) -> Result<ObjectMeta, StorageError> {
+    let full_key = format!("{}{}", c.config.prefix, key)
+    if data.len() as u64 > c.config.multipart_threshold { return put_multipart(c, full_key, data, content_type) }
+    let mut headers = Map::new()
+    headers.insert("Content-Type", content_type.clone())
+    headers.insert("x-amz-storage-class", c.config.storage_class.to_string())
+    if c.config.server_side_encrypt { headers.insert("x-amz-server-side-encryption", "AES256") }
+    let signed = c.signer.sign(HttpMethod::PUT, &full_key, &headers, data)?
+    let resp = c.http.put(format!("/{}", full_key)).headers(signed.headers).body(data).send()?
+    match resp.status {
+        200 => Ok(ObjectMeta { key: full_key, size: data.len() as u64, etag: resp.header("ETag").unwrap_or_default(), content_type: content_type, last_modified: omni::time::now(), storage_class: c.config.storage_class.clone(), metadata: Map::new(), version_id: resp.header("x-amz-version-id") }),
+        _ => Err(StorageError::UploadFailed { status: resp.status, body: resp.text()? }),
+    }
+}
+
+pub fn get_object(c: &CloudClient, key: String) -> Result<ObjectData, StorageError> {
+    let full_key = format!("{}{}", c.config.prefix, key)
+    let signed = c.signer.sign(HttpMethod::GET, &full_key, &Map::new(), &[])?
+    let resp = c.http.get(format!("/{}", full_key)).headers(signed.headers).send()?
+    match resp.status {
+        200 => Ok(ObjectData { meta: ObjectMeta { key: full_key, size: resp.body.len() as u64, etag: resp.header("ETag").unwrap_or_default(), content_type: resp.header("Content-Type").unwrap_or("application/octet-stream".into()), last_modified: omni::time::now(), storage_class: StorageClass::Standard, metadata: Map::new(), version_id: None }, body: resp.body }),
+        404 => Err(StorageError::NotFound(full_key)),
+        _ => Err(StorageError::DownloadFailed { status: resp.status }),
+    }
+}
+
+pub fn delete_object(c: &CloudClient, key: String) -> Result<(), StorageError> {
+    let full_key = format!("{}{}", c.config.prefix, key)
+    let signed = c.signer.sign(HttpMethod::DELETE, &full_key, &Map::new(), &[])?
+    let resp = c.http.delete(format!("/{}", full_key)).headers(signed.headers).send()?
+    match resp.status { 204 | 200 => Ok(()), 404 => Err(StorageError::NotFound(full_key)), _ => Err(StorageError::DeleteFailed { status: resp.status }) }
+}
+
+pub fn list_objects(c: &CloudClient, prefix: String, max_keys: u32) -> Result<ObjectList, StorageError> {
+    let full_prefix = format!("{}{}", c.config.prefix, prefix)
+    let resp = c.http.get("/").query("list-type", "2").query("prefix", full_prefix).query("max-keys", max_keys.to_string()).send()?
+    Ok(parse_list_response(resp)?)
+}
+
+pub fn copy_object(c: &CloudClient, src: String, dest: String) -> Result<ObjectMeta, StorageError> {
+    let mut headers = Map::new()
+    headers.insert("x-amz-copy-source", format!("{}/{}", c.config.bucket, src))
+    let resp = c.http.put(format!("/{}{}", c.config.prefix, dest)).headers(headers).send()?
+    match resp.status { 200 => parse_copy_response(resp), _ => Err(StorageError::CopyFailed { status: resp.status }) }
+}
+
+pub fn presign_url(c: &CloudClient, config: PresignedConfig) -> Result<String, StorageError> {
+    let full_key = format!("{}{}", c.config.prefix, config.key)
+    c.signer.presign(config.method, &full_key, config.expires_in)
+}
+
+fn put_multipart(c: &CloudClient, key: String, data: &[u8], ct: String) -> Result<ObjectMeta, StorageError> {
+    let chunk = c.config.multipart_chunk as usize
+    let total = (data.len() + chunk - 1) / chunk
+    let upload_id = init_multipart(c, &key, &ct)?
+    let mut parts: Vec<UploadPart> = Vec::with_capacity(total)
+    for i in 0..total {
+        let start = i * chunk; let end = ((i + 1) * chunk).min(data.len())
+        let part = upload_part(c, &key, &upload_id, (i + 1) as u32, &data[start..end])?
+        parts.push(part)
+    }
+    complete_multipart(c, &key, &upload_id, &parts)
+}
+
+pub fn health_check(c: &CloudClient) -> Result<CloudStatus, HealthError> {
+    let start = omni::time::now()
+    let resp = c.http.head("/").send()?
+    Ok(CloudStatus { reachable: resp.status < 400, latency_ms: omni::time::since(start).as_millis_f64(), region: c.config.region.clone(), bucket: c.config.bucket.clone() })
+}
+
+pub fn shutdown() -> Result<(), ShutdownError> { _client = None; println("[OMNI:omni-azure-blob] Cloud client released"); Ok(()) }
+
+pub struct CloudClient { config: CloudConfig, http: omni::net::HttpClient, signer: SigV4Signer }
+pub struct SigV4Signer { access_key: String, secret_key: String, region: String, service: String }
+pub struct ObjectData { meta: ObjectMeta, body: Vec<u8> }
+pub struct ObjectList { objects: Vec<ObjectMeta>, common_prefixes: Vec<String>, is_truncated: bool, next_token: Option<String> }
+pub struct CloudStatus { reachable: bool, latency_ms: f64, region: String, bucket: String }

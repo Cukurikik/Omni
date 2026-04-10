@@ -1,0 +1,52 @@
+// ==========================================
+// TATA BAHASA OMNI-LANG (PEG/PEST FORMAT)
+// ==========================================
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+COMMENT = _{ "//" ~ (!"\n" ~ ANY)* | "/*" ~ (!"*/" ~ ANY)* ~ "*/" }
+
+OmniProgram = { SOI ~ Statement* ~ EOI }
+
+Statement = { UnsafeZone | Declaration | Assignment | PolyglotBlock | ReturnStatement | ExpressionStmt }
+
+// Deklarasi Dasar
+Declaration = { LetDecl | FnDecl }
+LetDecl = { "let" ~ Identifier ~ (":" ~ Type)? ~ "=" ~ Expression ~ ";" }
+FnDecl = { "fn" ~ Identifier ~ "(" ~ ParameterList? ~ ")" ~ ("->" ~ Type)? ~ Block }
+
+Assignment = { Identifier ~ "=" ~ Expression ~ ";" }
+ReturnStatement = { "return" ~ Expression ~ ";" }
+ExpressionStmt = { Expression ~ ";" }
+UnsafeZone = { "unsafe_zone" ~ StringLiteral ~ Block }
+
+// Sistem Tipe Data
+Type = { "Int" | "Float" | "String" | "Boolean" | "TitanBuffer" | "OmniTensor" | SafePointerType | GenericType }
+SafePointerType = { "SafePointer<" ~ Type ~ ">" }
+GenericType = { Identifier ~ "<" ~ Type ~ ">" }
+
+// BLOK FUSI 15 BAHASA
+PolyglotBlock = { "use::" ~ OmniLangID ~ "{" ~ NativeSourceCode ~ "}" }
+
+// The 15 Sovereignty Identifiers
+OmniLangID = { "go" | "js" | "ts" | "rust" | "python" | "graphql" | "swift" | "ruby" | "julia" | "c" | "csharp" | "php" | "kotlin" | "sql" | "r" }
+
+// Interoperabilitas Memori (Zero-Copy)
+NativeSourceCode = { (MemoryInjection | NativeText | Block)* }
+MemoryInjection = { "$" ~ Identifier ~ ("." ~ Identifier)* }
+NativeText = { (!("$" | "{" | "}") ~ ANY)+ }
+
+// Elemen Pendukung
+Block = { "{" ~ Statement* ~ "}" }
+
+Identifier = @{ ASCII_ALPHA ~ (ASCII_ALPHANUMERIC | "_")* }
+
+// Expression Rule Dasar
+Expression = { StringLiteral | NumberLiteral | PolyglotBlock | Identifier | FunctionCall }
+StringLiteral = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+NumberLiteral = @{ ASCII_DIGIT+ ~ ("." ~ ASCII_DIGIT+)? }
+FunctionCall = { Identifier ~ "(" ~ ArgumentList? ~ ")" }
+
+ParameterList = { Parameter ~ ("," ~ Parameter)* }
+Parameter = { Identifier ~ ":" ~ Type }
+
+ArgumentList = { Expression ~ ("," ~ Expression)* }

@@ -1,0 +1,9 @@
+// Example: Basic omni-redis usage
+import { init } from '@omni/omni-redis'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

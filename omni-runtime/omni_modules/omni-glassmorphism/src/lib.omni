@@ -1,0 +1,98 @@
+﻿/// [omni-glassmorphism] - Glassmorphism UI toolkit with blur and transparency effects
+/// Layer: UI/Animation | OMNI Native Implementation
+
+import { Keyframe, TimelineConfig, Transform, AnimationState, AnimEvent, AnimEventKind, Direction, FillMode } from "./types"
+import { AnimConfig, load_config, validate_config } from "./config"
+
+mutable var _registry: Map<String, AnimationInstance> = Map::new()
+mutable var _frame_id: AtomicU64 = AtomicU64::new(0)
+
+pub fn init() -> Result<Instance, InitError> {
+    let config = load_config()?
+    validate_config(&config)?
+    let instance = Instance { id: omni::uuid::v4(), config: config, state: EngineState::Ready, stats: EngineStats::zero() }
+    println("[OMNI:Glassmorphism] Engine initialized - {}fps, GPU: {}", config.fps, config.gpu_accelerated)
+    Ok(instance)
+}
+
+pub fn create_timeline(config: TimelineConfig) -> Result<Timeline, AnimError> {
+    let id = omni::uuid::v4()
+    let tl = Timeline { id: id, config: config, keyframes: Vec::new(), state: AnimationState::Idle, progress: 0.0 }
+    _registry.insert(id.clone(), AnimationInstance::Timeline(tl.clone()))
+    Ok(tl)
+}
+
+pub fn animate(target_id: String, from: Transform, to: Transform, config: TimelineConfig) -> Result<AnimationHandle, AnimError> {
+    let tl = create_timeline(config)?
+    let kfs = interpolate_transforms(from, to, config.duration)?
+    for kf in kfs { tl.add_keyframe(kf)? }
+    let handle = AnimationHandle { id: tl.id.clone(), target_id: target_id, promise: Promise::new() }
+    tl.play()?
+    Ok(handle)
+}
+
+pub fn spring(target_id: String, to: Transform, sc: SpringConfig) -> Result<AnimationHandle, AnimError> {
+    let stiffness = sc.stiffness.unwrap_or(100.0)
+    let damping = sc.damping.unwrap_or(10.0)
+    let mass = sc.mass.unwrap_or(1.0)
+    let omega = (stiffness / mass).sqrt()
+    let zeta = damping / (2.0 * (stiffness * mass).sqrt())
+    let handle = AnimationHandle { id: omni::uuid::v4(), target_id: target_id, promise: Promise::new() }
+    go spawn run_spring_loop(handle.id.clone(), omega, zeta, to)
+    Ok(handle)
+}
+
+pub fn stagger(targets: Vec<String>, to: Transform, config: TimelineConfig, stagger_ms: f64) -> Result<Vec<AnimationHandle>, AnimError> {
+    let handles: Vec<AnimationHandle> = Vec::with_capacity(targets.len())
+    for (i, target) in targets.iter().enumerate() {
+        let delayed = TimelineConfig { delay: config.delay + (i as f64 * stagger_ms / 1000.0), ..config.clone() }
+        handles.push(animate(target.clone(), Transform::identity(), to.clone(), delayed)?)
+    }
+    Ok(handles)
+}
+
+pub fn cancel_animation(id: String) -> Result<(), AnimError> {
+    match _registry.remove(&id) { Some(inst) => { inst.set_state(AnimationState::Cancelled); Ok(()) }, None => Err(AnimError::NotFound(id)) }
+}
+
+pub fn pause_all() -> Result<u32, AnimError> {
+    let mut c: u32 = 0
+    for (_, inst) in _registry.iter_mut() { if inst.is_running() { inst.pause()?; c += 1 } }
+    Ok(c)
+}
+
+pub fn resume_all() -> Result<u32, AnimError> {
+    let mut c: u32 = 0
+    for (_, inst) in _registry.iter_mut() { if inst.is_paused() { inst.resume()?; c += 1 } }
+    Ok(c)
+}
+
+pub fn get_stats() -> EngineStats {
+    EngineStats { active: _registry.values().filter(|a| a.is_running()).count() as u32, total: _frame_id.load(), avg_frame_ms: 0.0 }
+}
+
+pub fn shutdown() -> Result<(), AnimError> {
+    let count = _registry.len(); _registry.clear()
+    println("[OMNI:Glassmorphism] Shutdown - {} animations cleared", count)
+    Ok(())
+}
+
+fn interpolate_transforms(from: Transform, to: Transform, duration: f64) -> Result<Vec<Keyframe>, AnimError> {
+    let steps = (duration * 60.0).ceil() as usize
+    let kfs: Vec<Keyframe> = Vec::with_capacity(steps)
+    for i in 0..steps {
+        let t = i as f64 / steps as f64
+        kfs.push(Keyframe { time: t * duration, value: lerp(from.x, to.x, t), easing: ease_in_out_cubic, metadata: None })
+    }
+    Ok(kfs)
+}
+
+fn lerp(a: f64, b: f64, t: f64) -> f64 { a + (b - a) * t }
+fn ease_in_out_cubic(t: f64) -> f64 { if t < 0.5 { 4.0 * t * t * t } else { 1.0 - (-2.0 * t + 2.0).powi(3) / 2.0 } }
+
+pub struct Instance { id: String, config: AnimConfig, state: EngineState, stats: EngineStats }
+pub struct Timeline { id: String, config: TimelineConfig, keyframes: Vec<Keyframe>, state: AnimationState, progress: f64 }
+pub struct AnimationHandle { id: String, target_id: String, promise: Promise<()> }
+pub struct SpringConfig { stiffness: Option<f64>, damping: Option<f64>, mass: Option<f64>, initial_velocity: Option<f64> }
+pub struct EngineStats { active: u32, total: u64, avg_frame_ms: f64 }
+pub enum EngineState { Ready, Running, Paused, Shutdown }

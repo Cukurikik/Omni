@@ -1,0 +1,34 @@
+/* -*- C -*- */
+
+%# Copyright (c) 2017 Urabe, Shyouhei.  All rights reserved.
+%#
+%# This file is a part of  the programming language Ruby.  Permission is hereby
+%# granted, to either  redistribute and/or modify this file,  provided that the
+%# conditions mentioned  in the  file COPYING  are met.   Consult the  file for
+%# details.
+<%= render 'copyright' %>
+<%= render 'notice', locals: {
+    this_file: 'is VM main loop',
+    edit: __FILE__,
+} -%>
+
+#include "vm_insnhelper.h"
+% RubyVM::BareInstruction.all.each do |insn|
+<%= render 'insn_entry', locals: { insn: insn } -%>
+% end
+%
+% RubyVM::OperandsUnification.all.each do |insn|
+<%= render 'insn_entry', locals: { insn: insn } -%>
+% end
+%
+% RubyVM::InstructionsUnification.all.each do |insn|
+<%= render 'insn_entry', locals: { insn: insn } -%>
+% end
+%
+% RubyVM::ZJITInstruction.all.each do |insn|
+<%= render 'zjit_instruction', locals: { insn: insn } -%>
+% end
+%
+% RubyVM::TraceInstruction.all.each do |insn|
+<%= render 'trace_instruction', locals: { insn: insn } -%>
+% end

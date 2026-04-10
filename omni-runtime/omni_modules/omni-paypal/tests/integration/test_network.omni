@@ -1,0 +1,9 @@
+// Integration: Network layer connectivity
+import { ConnectionPool } from '@omni/omni-paypal/network'
+
+test 'connection pool lifecycle' {
+    let pool = ConnectionPool::new('localhost', 10)
+    let conn = pool.acquire()?
+    pool.release(conn)
+    assert pool.stats().available == 10
+}

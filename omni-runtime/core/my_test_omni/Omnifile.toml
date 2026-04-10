@@ -1,0 +1,19 @@
+[package]
+name = "my_test_omni"
+version = "0.1.0"
+authors = ["Omni Developer <dev@omni.nexus>"]
+description = "A new OMNI 15-paradigm standard project"
+edition = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+
+[permissions]
+allow_net = []
+allow_fs = []
+allow_env = []
+allow_thread = true
+
+[build]
+target = ["wasm32", "x86_64-linux", "aarch64-apple"]
+optimize = "release"

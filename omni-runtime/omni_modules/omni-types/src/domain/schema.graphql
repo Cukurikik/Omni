@@ -1,0 +1,27 @@
+# ============================================================
+# 📦 omni-types/domain/schema.graphql — Core Type Schema
+# ============================================================
+
+schema {
+  query: Query
+}
+
+type Query {
+  _version: String!
+}
+
+"Scalar universal untuk merepresentasikan waktu."
+scalar ISO8601
+
+"Scalar string unik UUID v4."
+scalar UUID
+
+"Tipe uang dalam mata uang tertentu, menggunakan standard desimal presisi tinggi."
+type Money {
+  amount: Float!
+  currency: String!
+}
+
+type Duration {
+  milliseconds: Int!
+}

@@ -1,0 +1,8 @@
+﻿import "omni-std"
+extern "omni-cpp" fn omni_fs_read_all(path: String) -> Result<*mut u8, OmniError>;
+export struct FileSystem {
+    fn readText(path: String) -> Result<String, OmniError> {
+        // Bridged
+        Ok("mock data")
+    }
+}

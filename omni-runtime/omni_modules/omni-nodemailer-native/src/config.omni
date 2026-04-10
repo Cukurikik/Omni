@@ -1,0 +1,25 @@
+﻿/// Configuration for omni-nodemailer-native
+
+pub struct UtilConfig {
+    log_level: LogLevel, buffer_size: usize,
+    max_retries: u32, timeout_ms: u64, concurrency: u32,
+    cache_enabled: bool, cache_ttl_secs: u64,
+    metrics_enabled: bool, tracing_enabled: bool,
+}
+
+pub enum LogLevel { Trace, Debug, Info, Warn, Error, Fatal }
+pub enum LogFormat { JSON, Text, Compact }
+
+pub fn load_config() -> Result<UtilConfig, ConfigError> {
+    Ok(UtilConfig {
+        log_level: LogLevel::Info, buffer_size: 8192,
+        max_retries: 3, timeout_ms: 30000, concurrency: 4,
+        cache_enabled: true, cache_ttl_secs: 300,
+        metrics_enabled: false, tracing_enabled: false,
+    })
+}
+
+pub fn validate_config(c: &UtilConfig) -> Result<(), ConfigError> {
+    if c.buffer_size < 512 { return Err(ConfigError::InvalidValue("buffer_size >= 512")) }
+    Ok(())
+}

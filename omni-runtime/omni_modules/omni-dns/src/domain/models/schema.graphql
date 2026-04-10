@@ -1,0 +1,1 @@
+﻿type omni_dns_Entity { id: UUID! createdAt: String! }

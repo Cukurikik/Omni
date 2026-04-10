@@ -1,0 +1,21 @@
+{
+  "name": "omni-profiler",
+  "version": "1.0.0",
+  "description": "CPU and memory profiler with flamegraph export",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-profiler",
+  "repository": "https://github.com/omni-framework/omni-profiler",
+  "keywords": [
+    "omni",
+    "runtime",
+    "profiler"
+  ],
+  "edition": "omni-2025",
+  "checksum": "c9a26967222f52ef0ad8fde917da3c7c73015bb2b6bed34a40bdd582cf13e52a",
+  "size": 6280,
+  "published_at": "2026-04-09T10:02:36.4796523+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,22 @@
+{
+  "name": "omni-deps-resolver",
+  "version": "1.0.0",
+  "description": "OMNI Deps Resolver module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-deps-resolver",
+  "repository": "https://github.com/omni-framework/omni-deps-resolver",
+  "keywords": [
+    "omni",
+    "runtime",
+    "deps",
+    "resolver"
+  ],
+  "edition": "omni-2025",
+  "checksum": "5296f1c44b66831583a5adbef2c31d4d43b6da8059b482074e09c10583565465",
+  "size": 6285,
+  "published_at": "2026-04-09T23:00:37.3952423+07:00",
+  "downloads": 0
+}

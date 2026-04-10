@@ -1,0 +1,10 @@
+export function monitorWaterPurity() {
+    // ⚙️ C: Baca GPIO Pin sensor air
+    const toxLevel = use::c { return read_analog_pin(7); };
+
+    // 🛡️ RUST: Filter data anomali / kerusakan sensor
+    const cleanTox = use::rust { return filter_noise($toxLevel); };
+
+    // 🗄️ SQL: Simpan ke database
+    use::sql { INSERT INTO water_logs (tox) VALUES ($cleanTox); };
+}

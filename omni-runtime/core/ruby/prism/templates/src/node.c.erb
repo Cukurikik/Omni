@@ -1,0 +1,166 @@
+#line <%= __LINE__ + 1 %> "prism/templates/src/<%= File.basename(__FILE__) %>"
+#include "prism/internal/node.h"
+
+#include "prism/internal/arena.h"
+
+#include <stdlib.h>
+
+/**
+ * Attempts to grow the node list to the next size. If there is already
+ * capacity in the list, this function does nothing. Otherwise it allocates a
+ * new array from the arena (abandon-and-copy strategy) and copies the existing
+ * data into it.
+ */
+static void
+pm_node_list_grow(pm_arena_t *arena, pm_node_list_t *list, size_t size) {
+    size_t requested_size = list->size + size;
+
+    // Guard against overflow on the addition.
+    if (requested_size < list->size) abort();
+
+    // If the requested size is within the existing capacity, return.
+    if (requested_size <= list->capacity) return;
+
+    // Otherwise, compute the next capacity by doubling.
+    size_t next_capacity = list->capacity == 0 ? 4 : list->capacity * 2;
+
+    // Guard against overflow on the doubling.
+    while (requested_size > next_capacity) {
+        if (next_capacity == 0) abort();
+        next_capacity *= 2;
+    }
+
+    // Allocate a new array from the arena (old array is abandoned).
+    pm_node_t **nodes = (pm_node_t **) pm_arena_alloc(arena, sizeof(pm_node_t *) * next_capacity, PRISM_ALIGNOF(pm_node_t *));
+
+    // Copy old data into the new array.
+    if (list->size > 0) {
+        memcpy(nodes, list->nodes, list->size * sizeof(pm_node_t *));
+    }
+
+    list->nodes = nodes;
+    list->capacity = next_capacity;
+}
+
+/**
+ * Slow path for pm_node_list_append: grow the list and append the node.
+ * Do not call directly - use pm_node_list_append instead.
+ */
+void
+pm_node_list_append_slow(pm_arena_t *arena, pm_node_list_t *list, pm_node_t *node) {
+    pm_node_list_grow(arena, list, 1);
+    list->nodes[list->size++] = node;
+}
+
+/**
+ * Prepend a new node onto the beginning of the node list.
+ */
+void
+pm_node_list_prepend(pm_arena_t *arena, pm_node_list_t *list, pm_node_t *node) {
+    pm_node_list_grow(arena, list, 1);
+    memmove(list->nodes + 1, list->nodes, list->size * sizeof(pm_node_t *));
+    list->nodes[0] = node;
+    list->size++;
+}
+
+/**
+ * Concatenate the given node list onto the end of the other node list.
+ */
+void
+pm_node_list_concat(pm_arena_t *arena, pm_node_list_t *list, pm_node_list_t *other) {
+    if (other->size > 0) {
+        pm_node_list_grow(arena, list, other->size);
+        memcpy(list->nodes + list->size, other->nodes, other->size * sizeof(pm_node_t *));
+        list->size += other->size;
+    }
+}
+
+/**
+ * Returns a string representation of the given node type.
+ */
+const char *
+pm_node_type(pm_node_type_t node_type)
+{
+    switch (node_type) {
+<%- nodes.each do |node| -%>
+        case <%= node.type %>:
+            return "<%= node.type %>";
+<%- end -%>
+    }
+    return "";
+}
+
+/**
+ * Visit each of the nodes in this subtree using the given visitor callback. The
+ * callback function will be called for each node in the subtree. If it returns
+ * false, then that node's children will not be visited. If it returns true,
+ * then the children will be visited. The data parameter is treated as an opaque
+ * pointer and is passed to the visitor callback for consumers to use as they
+ * see fit.
+ */
+void
+pm_visit_node(const pm_node_t *node, bool (*visitor)(const pm_node_t *node, void *data), void *data) {
+    if (visitor(node, data)) pm_visit_child_nodes(node, visitor, data);
+}
+
+/**
+ * Visit the children of the given node with the given callback. This is the
+ * default behavior for walking the tree that is called from pm_visit_node if
+ * the callback returns true.
+ */
+void
+pm_visit_child_nodes(const pm_node_t *node, bool (*visitor)(const pm_node_t *node, void *data), void *data) {
+    switch (PM_NODE_TYPE(node)) {
+        <%- nodes.each do |node| -%>
+        <%- if (fields = node.fields.select { |field| field.is_a?(Prism::Template::NodeField) || field.is_a?(Prism::Template::OptionalNodeField) || field.is_a?(Prism::Template::NodeListField) }).any? -%>
+        case <%= node.type %>: {
+            const pm_<%= node.human %>_t *cast = (const pm_<%= node.human %>_t *) node;
+            <%- fields.each do |field| -%>
+
+            // Visit the <%= field.name %> field
+            <%- case field -%>
+            <%- when Prism::Template::NodeField -%>
+            pm_visit_node((const pm_node_t *) cast-><%= field.name %>, visitor, data);
+            <%- when Prism::Template::OptionalNodeField -%>
+            if (cast-><%= field.name %> != NULL) {
+                pm_visit_node((const pm_node_t *) cast-><%= field.name %>, visitor, data);
+            }
+            <%- when Prism::Template::NodeListField -%>
+            const pm_node_list_t *<%= field.name %> = &cast-><%= field.name %>;
+            for (size_t index = 0; index < <%= field.name %>->size; index++) {
+                pm_visit_node(<%= field.name %>->nodes[index], visitor, data);
+            }
+            <%- end -%>
+            <%- end -%>
+
+            break;
+        }
+        <%- else -%>
+        case <%= node.type %>:
+            break;
+        <%- end -%>
+        <%- end -%>
+        case PM_SCOPE_NODE:
+            break;
+    }
+}
+<%- nodes.each do |node| -%>
+
+<%- params = node.fields.map(&:c_param) -%>
+/**
+ * Allocate and initialize a new <%= node.name %> node.
+ */
+pm_<%= node.human %>_t *
+pm_<%= node.human %>_new(pm_arena_t *arena, uint32_t node_id, pm_node_flags_t flags, pm_location_t location<%= params.empty? ? "" : ", #{params.join(", ")}" %>) {
+    pm_<%= node.human %>_t *node = (pm_<%= node.human %>_t *) pm_arena_alloc(arena, sizeof(pm_<%= node.human %>_t), PRISM_ALIGNOF(pm_<%= node.human %>_t));
+
+    *node = (pm_<%= node.human %>_t) {
+        .base = { .type = <%= node.type %>, .flags = flags, .node_id = node_id, .location = location }<%= node.fields.empty? ? "" : "," %>
+<%- node.fields.each_with_index do |field, index| -%>
+        .<%= field.name %> = <%= field.name %><%= index < node.fields.size - 1 ? "," : "" %>
+<%- end -%>
+    };
+
+    return node;
+}
+<%- end -%>

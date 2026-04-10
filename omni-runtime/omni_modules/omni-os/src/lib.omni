@@ -1,0 +1,8 @@
+﻿// The Ultimate Entry Point for omni-os
+import { LinuxSystemHooks } from "./system/linux/hooks"
+import { WindowsRegistry } from "./system/windows/registry"
+import { SIMDProcessor } from "./compute/simd/processor"
+
+export interface omni_os_Controller {
+    fn initialize_cluster() -> Result<bool, SystemError>;
+}

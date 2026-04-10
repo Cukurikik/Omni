@@ -1,0 +1,2482 @@
+{
+  "omni-ai": {
+    "name": "omni-ai",
+    "description": "AI inference runtime with ONNX and TensorFlow Lite support",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "49c5f477f373f4a2aee6a9fca1311b1b50a0de82135cd75a4aa25ce8132ab520",
+        "size": 2178,
+        "published_at": "2026-04-09T10:02:35.8554846+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.8554846+07:00"
+  },
+  "omni-ai-sandbox": {
+    "name": "omni-ai-sandbox",
+    "description": "Sandboxed AI model execution environment",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "29354a8f36bdf988873e1677dc8a17f5607b4b3f576fd06c841da8eabbbe0f6a",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:35.8585701+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.8585701+07:00"
+  },
+  "omni-ai-tensors": {
+    "name": "omni-ai-tensors",
+    "description": "Tensor operations: matmul, conv2d, softmax on CPU/GPU",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "5877fa54915179c496e290ad47bec1482444940652696096bda3a56d87dc07fd",
+        "size": 7306,
+        "published_at": "2026-04-09T10:02:35.86807+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.86807+07:00"
+  },
+  "omni-allocator": {
+    "name": "omni-allocator",
+    "description": "Custom memory allocator: arena, pool, and slab strategies",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "5347dbe4133d79b47030a97bc50dae9c8889e76d0c2dcea6296207f789f11c4b",
+        "size": 6281,
+        "published_at": "2026-04-09T10:02:35.8742794+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.8742794+07:00"
+  },
+  "omni-ast-transformer": {
+    "name": "omni-ast-transformer",
+    "description": "OMNI Ast Transformer module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "4d4ba0c99f2ae0d78dcc0edf66c59edbd2733c8825eec1a1ccf68ffadf6a81bb",
+        "size": 6287,
+        "published_at": "2026-04-09T10:02:35.8808233+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.8808233+07:00"
+  },
+  "omni-auth": {
+    "name": "omni-auth",
+    "description": "OMNI Auth module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "68ccbe36aad1db530202d6925d34959c7f82a26a9a28faa276b0595f6d65d4fa",
+        "size": 1156,
+        "published_at": "2026-04-09T10:02:35.8873995+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.8873995+07:00"
+  },
+  "omni-bench-suite": {
+    "name": "omni-bench-suite",
+    "description": "Benchmarking suite with statistical analysis and comparison",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "b358d2a4179e95ea36276aab6209f7d9dff52ec7745b80bc1fc2260685f2d400",
+        "size": 6283,
+        "published_at": "2026-04-09T10:02:35.8943573+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.8943573+07:00"
+  },
+  "omni-bin-compiler": {
+    "name": "omni-bin-compiler",
+    "description": "OMNI Bin Compiler module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "b6af33637dc67919a1fe783a1b39c326c6c58b2d3bf27cd6feca870ef6493c9a",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:35.902415+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.902415+07:00"
+  },
+  "omni-buffer": {
+    "name": "omni-buffer",
+    "description": "Zero-copy binary buffer with endian-aware read/write operations",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f133b2aadbdfeba84d8b2e271cf18b8065ede1e2521f73d4361fa99d9cb20b65",
+        "size": 7302,
+        "published_at": "2026-04-09T10:02:35.9083001+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9083001+07:00"
+  },
+  "omni-build-scripts": {
+    "name": "omni-build-scripts",
+    "description": "OMNI Build Scripts module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "1b505c36e59520a100119675e6e1d5889419ef06aad25a07e9e5d26af2f483ed",
+        "size": 6285,
+        "published_at": "2026-04-09T10:02:35.9151064+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9151064+07:00"
+  },
+  "omni-bundler": {
+    "name": "omni-bundler",
+    "description": "OMNI Bundler module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "689ddb4261408e2a23d9c040c1425e2fb6c49a654a45f13340be3222098f435c",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:35.9227901+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9227901+07:00"
+  },
+  "omni-cache": {
+    "name": "omni-cache",
+    "description": "OMNI Cache module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "1c7b8ed6f26fe24755a956c834d4a51fb619471a83ee8ea17d026dba0b2c3617",
+        "size": 1157,
+        "published_at": "2026-04-09T10:02:35.9275234+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9275234+07:00"
+  },
+  "omni-cache-global": {
+    "name": "omni-cache-global",
+    "description": "OMNI Cache Global module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "22d5a15d207857e6c6967f3d1ef660ac35655202ab9ec6c93aad0a432c243336",
+        "size": 6284,
+        "published_at": "2026-04-09T10:02:35.9363162+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9363162+07:00"
+  },
+  "omni-child": {
+    "name": "omni-child",
+    "description": "OMNI Child module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "2aa57da2b922175bde7fafcecf08c9604e5531fa43815b1c7b4320f8e765f586",
+        "size": 7301,
+        "published_at": "2026-04-09T10:02:35.9422092+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9422092+07:00"
+  },
+  "omni-cli": {
+    "name": "omni-cli",
+    "description": "OMNI Cli module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "1e0d4c4951702c1d2248497f20a1fbf293406445df7c69f9fe6b59b8443f1a74",
+        "size": 1155,
+        "published_at": "2026-04-09T10:02:35.9477565+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9477565+07:00"
+  },
+  "omni-cli-audit": {
+    "name": "omni-cli-audit",
+    "description": "OMNI Cli Audit module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "cfc842e818c31b255b7873fcf184abcac7f1bc020c52ebda3edbcc15b432bb3c",
+        "size": 6281,
+        "published_at": "2026-04-09T10:02:35.9558705+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9558705+07:00"
+  },
+  "omni-cli-dev": {
+    "name": "omni-cli-dev",
+    "description": "OMNI Cli Dev module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ce274fac5ea0c8d67a921eefc6d559eec90f2355936ded27903d55b92a3c1500",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:35.9635121+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9635121+07:00"
+  },
+  "omni-cli-get": {
+    "name": "omni-cli-get",
+    "description": "OMNI Cli Get module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a12a9cfe7f9c610b0896d13197552bd95174f342718cb3495d03a938b45ba887",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:35.969894+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.969894+07:00"
+  },
+  "omni-cli-publish": {
+    "name": "omni-cli-publish",
+    "description": "OMNI Cli Publish module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "84ac8ac61ed7b07d124e24163918d28ba09040d7b6975f6b11e975a1b5ff1da2",
+        "size": 6283,
+        "published_at": "2026-04-09T10:02:35.9775163+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9775163+07:00"
+  },
+  "omni-cli-remove": {
+    "name": "omni-cli-remove",
+    "description": "OMNI Cli Remove module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "d6d5a5543bfef7bc4acc9279ec000baeb086d3831e208046a9e6af80d121595b",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:35.9849651+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9849651+07:00"
+  },
+  "omni-cli-update": {
+    "name": "omni-cli-update",
+    "description": "OMNI Cli Update module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ea09f77712c846f205d47b18facc7ee3e222cf542d0b4af63937ff10bb9f2281",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:35.9929802+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:35.9929802+07:00"
+  },
+  "omni-cloud": {
+    "name": "omni-cloud",
+    "description": "OMNI Cloud module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "bf4aed0512cf9a9d443d7b9e6d9d1e28d7f12de4cc5a7cd0d5e9110b5b166e9b",
+        "size": 1157,
+        "published_at": "2026-04-09T10:02:36.0003924+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0003924+07:00"
+  },
+  "omni-cloud-storage": {
+    "name": "omni-cloud-storage",
+    "description": "OMNI Cloud Storage module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f1bca9a470a216435677146f3e5c937ae53fdb28a984e30290211aedb70165b6",
+        "size": 7309,
+        "published_at": "2026-04-09T10:02:36.0091493+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0091493+07:00"
+  },
+  "omni-cluster": {
+    "name": "omni-cluster",
+    "description": "OMNI Cluster module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "aa351a6ef914d3239b5f93924c71b87a76bd6f5f6935cc5d066fd7c5a3a5c127",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:36.0174165+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0174165+07:00"
+  },
+  "omni-compiler-core": {
+    "name": "omni-compiler-core",
+    "description": "OMNI Compiler Core module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "8ddb2652f926963d642e5784421a02f1bf819313a4f0284893afc7419a36dc30",
+        "size": 6285,
+        "published_at": "2026-04-09T10:02:36.0292071+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0292071+07:00"
+  },
+  "omni-compress": {
+    "name": "omni-compress",
+    "description": "OMNI Compress module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f900d54788a2d70961212b3cf9b2bedb592703003c57b9b31782ccfc3eba3d3f",
+        "size": 7304,
+        "published_at": "2026-04-09T10:02:36.036251+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.036251+07:00"
+  },
+  "omni-config": {
+    "name": "omni-config",
+    "description": "OMNI Config module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "bccb4b24f77cdd955cd85536bed42b37c2f2669d7d1a1aa06a2a2118b2059fc2",
+        "size": 1158,
+        "published_at": "2026-04-09T10:02:36.0418884+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0418884+07:00"
+  },
+  "omni-cookie": {
+    "name": "omni-cookie",
+    "description": "OMNI Cookie module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "4590c836b2b264101c41ed4ac3ae7ada78bf51022c8c7d5f5b580e61ff6b494c",
+        "size": 7302,
+        "published_at": "2026-04-09T10:02:36.0494387+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0494387+07:00"
+  },
+  "omni-cors": {
+    "name": "omni-cors",
+    "description": "OMNI Cors module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "eef18c73d201ec64524e294f191bbbe645736fdf53709071fd04e4dcb1e353a7",
+        "size": 7300,
+        "published_at": "2026-04-09T10:02:36.0563203+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0563203+07:00"
+  },
+  "omni-crypto": {
+    "name": "omni-crypto",
+    "description": "Cryptographic primitives: AES-256-GCM, SHA-256, Ed25519, X25519",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "e8aa408d6adbbe05e4521bcf4d4f916474b806f85883e82ef444a8b542ac36dc",
+        "size": 1158,
+        "published_at": "2026-04-09T10:02:36.0626476+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0626476+07:00"
+  },
+  "omni-crypto-hash": {
+    "name": "omni-crypto-hash",
+    "description": "OMNI Crypto Hash module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a9f12c8446cefcf0dea60107eca5de2f048217c3778b79b8405efd0c10b14a0a",
+        "size": 7307,
+        "published_at": "2026-04-09T10:02:36.0718372+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0718372+07:00"
+  },
+  "omni-crypto-tls": {
+    "name": "omni-crypto-tls",
+    "description": "OMNI Crypto Tls module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "31b1423a9b96419600205f2978ca1b7384e94296998e4e40460adebcd5d6df2f",
+        "size": 7306,
+        "published_at": "2026-04-09T10:02:36.0816838+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0816838+07:00"
+  },
+  "omni-cyclic-solver": {
+    "name": "omni-cyclic-solver",
+    "description": "OMNI Cyclic Solver module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "c1cc5b8ac68820e3b4103997e0b22b19c7c00cefa579567aa5185d6ff081b197",
+        "size": 6285,
+        "published_at": "2026-04-09T10:02:36.0879428+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0879428+07:00"
+  },
+  "omni-daemon": {
+    "name": "omni-daemon",
+    "description": "OMNI Daemon module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "e0e42b50c4499eb1d2c1cdd95ce99288d8409e3be563d09c1a7f55e95cb3cd2d",
+        "size": 6278,
+        "published_at": "2026-04-09T10:02:36.0964463+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.0964463+07:00"
+  },
+  "omni-db": {
+    "name": "omni-db",
+    "description": "OMNI Db module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "2dcb60fdd071ac5dd5f80fc203cbed30582b3692b1ea298d415b9d8fd4048eeb",
+        "size": 2178,
+        "published_at": "2026-04-09T10:02:36.102565+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.102565+07:00"
+  },
+  "omni-ddd": {
+    "name": "omni-ddd",
+    "description": "OMNI Ddd module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "5e2de4cd410b12149b4e380429d5e4cd8e2ab976d588463b57bf2e2904b40be6",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.1093727+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1093727+07:00"
+  },
+  "omni-debugger-protocol": {
+    "name": "omni-debugger-protocol",
+    "description": "OMNI Debugger Protocol module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "6a75188ee4f732bdf79fcc45463df089fd1ea56f4274915bf5164ab47526d1a5",
+        "size": 6289,
+        "published_at": "2026-04-09T10:02:36.1161828+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1161828+07:00"
+  },
+  "omni-deps-resolver": {
+    "name": "omni-deps-resolver",
+    "description": "OMNI Deps Resolver module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "5296f1c44b66831583a5adbef2c31d4d43b6da8059b482074e09c10583565465",
+        "size": 6285,
+        "published_at": "2026-04-09T10:02:36.1235779+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1235779+07:00"
+  },
+  "omni-dev-deps": {
+    "name": "omni-dev-deps",
+    "description": "OMNI Dev Deps module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "fa0813c0ee20aa7b4c69c3b12fba49724285f5334462e89bad019bb7a5efb227",
+        "size": 6280,
+        "published_at": "2026-04-09T10:02:36.1307799+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1307799+07:00"
+  },
+  "omni-dns": {
+    "name": "omni-dns",
+    "description": "OMNI Dns module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "e34cf7b936e2d2d0868bb4b79408afaff55924efbb1811fb96d9f88b8fbaf781",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.1373358+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1373358+07:00"
+  },
+  "omni-doc-gen": {
+    "name": "omni-doc-gen",
+    "description": "OMNI Doc Gen module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ab20233acc3c3932216f733b47f927889aeaba36433973d095f53749f25059f3",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:36.1447901+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1447901+07:00"
+  },
+  "omni-dotnet-bridge": {
+    "name": "omni-dotnet-bridge",
+    "description": "OMNI Dotnet Bridge module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "b8c562b75818ea5708da307e668baeb71b4ffa6dbd085c8a17d6fc4eb9ea1287",
+        "size": 7309,
+        "published_at": "2026-04-09T10:02:36.1522743+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1522743+07:00"
+  },
+  "omni-edge-runtime": {
+    "name": "omni-edge-runtime",
+    "description": "Edge compute runtime with V8 isolates and cold-start \u003c5ms",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a9b97bef32d48bdc5e59f79f6b29de5ceea92de44ff4f94165a498df26ee02a6",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:36.1591947+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1591947+07:00"
+  },
+  "omni-env": {
+    "name": "omni-env",
+    "description": "OMNI Env module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "13e7b06a699e87f57c12597ec856e0be94b5c6877e7723b98c331e42b09aff23",
+        "size": 1155,
+        "published_at": "2026-04-09T10:02:36.165241+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.165241+07:00"
+  },
+  "omni-events": {
+    "name": "omni-events",
+    "description": "Lock-free event emitter and pub/sub system with zero-copy dispatch",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "d044562a1f8c4e5da52c9b7ea087205b531a8fda73de66df18d5c1be09e21d49",
+        "size": 9350,
+        "published_at": "2026-04-09T10:02:36.1725832+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1725832+07:00"
+  },
+  "omni-formatter": {
+    "name": "omni-formatter",
+    "description": "OMNI Formatter module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "52554316168e0482c8104f705a23a752168887af39b19cdf5d64ff64a69c7aa0",
+        "size": 6281,
+        "published_at": "2026-04-09T10:02:36.1789827+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1789827+07:00"
+  },
+  "omni-fs": {
+    "name": "omni-fs",
+    "description": "OMNI Fs module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "7f55adb31c7b70a0e290a9339b6d5fa793f8f21996ce6156767cc46c6bf10c66",
+        "size": 1154,
+        "published_at": "2026-04-09T10:02:36.1849725+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1849725+07:00"
+  },
+  "omni-fs-async": {
+    "name": "omni-fs-async",
+    "description": "OMNI Fs Async module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "1b84fa56d4fa89ad3f72308da824911e00240d067ddf730958df5226f7540deb",
+        "size": 7304,
+        "published_at": "2026-04-09T10:02:36.1929291+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1929291+07:00"
+  },
+  "omni-fs-core": {
+    "name": "omni-fs-core",
+    "description": "High-performance filesystem I/O with POSIX syscalls and async watchers",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "e3c648d3d2683557de93e696017a5427a5f1c0427bbe0ae239021258eff4e70c",
+        "size": 9351,
+        "published_at": "2026-04-09T10:02:36.1997609+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.1997609+07:00"
+  },
+  "omni-gc": {
+    "name": "omni-gc",
+    "description": "OMNI Gc module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "53131a8cd66e2453f6d7951c66c8b5af3af7cdbca13c7d839efd002bbb481012",
+        "size": 6274,
+        "published_at": "2026-04-09T10:02:36.2063214+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2063214+07:00"
+  },
+  "omni-git-resolver": {
+    "name": "omni-git-resolver",
+    "description": "OMNI Git Resolver module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "39ffb68a073b0557004d381d57642a5ddbe35ef89655701f4ac7b002b5420c13",
+        "size": 6284,
+        "published_at": "2026-04-09T10:02:36.2143511+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2148642+07:00"
+  },
+  "omni-gpu-accelerator": {
+    "name": "omni-gpu-accelerator",
+    "description": "OMNI Gpu Accelerator module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "6a5a1d873d7470aed3ff90b71bb8b28ddee60e749b33f3874caff9645cb243fe",
+        "size": 7311,
+        "published_at": "2026-04-09T10:02:36.2222423+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2222423+07:00"
+  },
+  "omni-graphql": {
+    "name": "omni-graphql",
+    "description": "OMNI Graphql module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "4366ab33a135732578589c6e57fc4db307dcfd48b2c140b7363cd3ac07774569",
+        "size": 1159,
+        "published_at": "2026-04-09T10:02:36.2285532+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2285532+07:00"
+  },
+  "omni-graphql-core": {
+    "name": "omni-graphql-core",
+    "description": "OMNI Graphql Core module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a89bf4651b0b576208544232a60729aa626dcee7b493878d415bd7c47e9dc590",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:36.2361117+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2361117+07:00"
+  },
+  "omni-hft": {
+    "name": "omni-hft",
+    "description": "OMNI Hft module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "70f0a6712702516adc216d40a218bc75c32cde62cb4f814599cdcc3b6ffa55d7",
+        "size": 2179,
+        "published_at": "2026-04-09T10:02:36.2430253+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2430253+07:00"
+  },
+  "omni-hotlink": {
+    "name": "omni-hotlink",
+    "description": "OMNI Hotlink module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "01dbd46157b3604ca982f0544679e674cf942018978db798e5bb7ef9e70f4e65",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:36.2508664+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2508664+07:00"
+  },
+  "omni-http": {
+    "name": "omni-http",
+    "description": "OMNI Http module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "4af15ad16055f00eecfa72ad43b324cfe35aadbc814b666310ab111171bc54d7",
+        "size": 2180,
+        "published_at": "2026-04-09T10:02:36.2577855+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2577855+07:00"
+  },
+  "omni-http2": {
+    "name": "omni-http2",
+    "description": "HTTP/2 server with middleware pipeline (Logger, CORS, Recovery)",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "038dc88756a901f4540998401655cbfa57708a8a5c97e6c5039659d28afe6864",
+        "size": 8325,
+        "published_at": "2026-04-09T10:02:36.2647573+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2647573+07:00"
+  },
+  "omni-http3": {
+    "name": "omni-http3",
+    "description": "OMNI Http3 module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f27c3d1a027f6b012f9180d02e27949dc4d5778f1cc5c416ee338a598cbc783c",
+        "size": 7301,
+        "published_at": "2026-04-09T10:02:36.2711832+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2711832+07:00"
+  },
+  "omni-iot-hardware": {
+    "name": "omni-iot-hardware",
+    "description": "OMNI Iot Hardware module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ae69d09a9f08e37e4c6a405c179cabc623ab7b24ba7c23b376e19f474de489c0",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:36.2780718+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2780718+07:00"
+  },
+  "omni-java-bridge": {
+    "name": "omni-java-bridge",
+    "description": "OMNI Java Bridge module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "1ac02136ecbbe9d59137a3a4fdc023311a600674de0ea857289f3eec8aa2c4d9",
+        "size": 7307,
+        "published_at": "2026-04-09T10:02:36.2850798+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2850798+07:00"
+  },
+  "omni-json": {
+    "name": "omni-json",
+    "description": "Ultra-fast JSON parser and serializer with streaming support",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "1fa1b384758e4be4826963b05d862c94472fbde00e89686d2bf6e741f0e0e03e",
+        "size": 7300,
+        "published_at": "2026-04-09T10:02:36.2929663+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2929663+07:00"
+  },
+  "omni-jwt": {
+    "name": "omni-jwt",
+    "description": "OMNI Jwt module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f15de8c30e35d33c6edd332245828f5c4bac43a40f5ec365464af22a5cb57a24",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.2993336+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.2993336+07:00"
+  },
+  "omni-legacy-bridge": {
+    "name": "omni-legacy-bridge",
+    "description": "OMNI Legacy Bridge module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "17984f72f2911b36fb03d0870562fcdb9cbda59309edc64c395bc9a96d203179",
+        "size": 1165,
+        "published_at": "2026-04-09T10:02:36.3057913+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3057913+07:00"
+  },
+  "omni-linter": {
+    "name": "omni-linter",
+    "description": "OMNI Linter module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "66329bb9a4b96ff9f3a02e632e3d5f203e2fa29e83ff51d62c2466cce0d97d15",
+        "size": 6278,
+        "published_at": "2026-04-09T10:02:36.3133426+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3133426+07:00"
+  },
+  "omni-lock-engine": {
+    "name": "omni-lock-engine",
+    "description": "OMNI Lock Engine module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "273922d8ac012126e7301ccbc53fcbfdfcf02be9a4f3585a5aa5ec99060b06dc",
+        "size": 6283,
+        "published_at": "2026-04-09T10:02:36.319743+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.319743+07:00"
+  },
+  "omni-log": {
+    "name": "omni-log",
+    "description": "OMNI Log module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "6f394d6d4d406b3386800357b1d398e1b6213e44f48b8a4afbeed5c3d7a615f3",
+        "size": 1155,
+        "published_at": "2026-04-09T10:02:36.3258526+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3258526+07:00"
+  },
+  "omni-lsp-server": {
+    "name": "omni-lsp-server",
+    "description": "OMNI Lsp Server module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "8556e3a065f0decb84631bf0d5e2e9b7f370493f53d15ff16148fc3466feab61",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:36.3334862+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3334862+07:00"
+  },
+  "omni-meta-extractor": {
+    "name": "omni-meta-extractor",
+    "description": "OMNI Meta Extractor module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "990284209eaa3a30a0a1f918be254372f963c2931f6320506c874e9ebe32acf7",
+        "size": 6286,
+        "published_at": "2026-04-09T10:02:36.3408553+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3408553+07:00"
+  },
+  "omni-minifier": {
+    "name": "omni-minifier",
+    "description": "OMNI Minifier module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "2b571a12a91d0c394b211423e96ee12cfd935da363de2bdb87a33d28e14e56be",
+        "size": 6280,
+        "published_at": "2026-04-09T10:02:36.3484467+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3484467+07:00"
+  },
+  "omni-mobile-swift": {
+    "name": "omni-mobile-swift",
+    "description": "OMNI Mobile Swift module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a556e799b37efaf3f61dce8abd310c82350ed317c3c0b1682ab1e2787125a38d",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:36.3547614+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3547614+07:00"
+  },
+  "omni-mongo": {
+    "name": "omni-mongo",
+    "description": "OMNI Mongo module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "bf7f98d6a61937faaa0619117a9aaae881e7cf41f9d6ad3965d179cb0d5f00b6",
+        "size": 7301,
+        "published_at": "2026-04-09T10:02:36.3639278+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3639278+07:00"
+  },
+  "omni-monitor": {
+    "name": "omni-monitor",
+    "description": "OMNI Monitor module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ad90f5a6270aa8ce375acccdf204366b311ef8deec072df9e4ecf3843b269e17",
+        "size": 1159,
+        "published_at": "2026-04-09T10:02:36.3691889+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3691889+07:00"
+  },
+  "omni-multipart": {
+    "name": "omni-multipart",
+    "description": "OMNI Multipart module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "7a38e0dec54b2cf8bb7fa8cdb58484a4b4b18cd51696ce6b3b62e765d6122e17",
+        "size": 7305,
+        "published_at": "2026-04-09T10:02:36.3776184+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3776184+07:00"
+  },
+  "omni-net": {
+    "name": "omni-net",
+    "description": "OMNI Net module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "3a2813c5a8ae04a9b70dfa4f3a7075ccc8a236be9c498e028dec5716fa255ba3",
+        "size": 1155,
+        "published_at": "2026-04-09T10:02:36.385074+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.385074+07:00"
+  },
+  "omni-net-tcp": {
+    "name": "omni-net-tcp",
+    "description": "Native TCP server and client with goroutine-based concurrency",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "c40c295479f0af15755480b275a4851e75c3ee6ad2d8e5239e34b019ca5ad4eb",
+        "size": 7303,
+        "published_at": "2026-04-09T10:02:36.3931897+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.3931897+07:00"
+  },
+  "omni-net-udp": {
+    "name": "omni-net-udp",
+    "description": "OMNI Net Udp module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a02f65f90bc5f4d159d069fe96f320e388703fadf9f8b7504422706696b3f906",
+        "size": 7303,
+        "published_at": "2026-04-09T10:02:36.402544+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.402544+07:00"
+  },
+  "omni-nexus-credentials": {
+    "name": "omni-nexus-credentials",
+    "description": "OMNI Nexus Credentials module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "9f505c2572b478c5d287c7bf00ddb12f339e45f33064b85a68df509b5cd438d9",
+        "size": 6289,
+        "published_at": "2026-04-09T10:02:36.4090444+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4090444+07:00"
+  },
+  "omni-nexus-portal": {
+    "name": "omni-nexus-portal",
+    "description": "OMNI Nexus Portal module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f13a66a39a61d3144f0eaa401bc3c08e067d0f4f59008c4bb98e78ecef6ecd51",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:36.4182309+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4182309+07:00"
+  },
+  "omni-orm": {
+    "name": "omni-orm",
+    "description": "OMNI Orm module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "2b6d7770fb8d6da8a7c866efdf92044ecb50cdf4f9506d24894632aef5dce8af",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.42521+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.42521+07:00"
+  },
+  "omni-os": {
+    "name": "omni-os",
+    "description": "OMNI Os module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "5dd446ed3b35a83f983ecaf8fc8a0802d96f22d68c46aa8b9632d4bb5fa2cbb3",
+        "size": 7298,
+        "published_at": "2026-04-09T10:02:36.431543+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.431543+07:00"
+  },
+  "omni-path": {
+    "name": "omni-path",
+    "description": "OMNI Path module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "c63fad88cb72800d7648ae504e7d2fbe17e79bbadce860b7ca641da154ec2668",
+        "size": 7300,
+        "published_at": "2026-04-09T10:02:36.4391759+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4391759+07:00"
+  },
+  "omni-pay-gateway": {
+    "name": "omni-pay-gateway",
+    "description": "OMNI Pay Gateway module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "35a50c4f231136ca2a676f64a090d38e08a9c4c69f355302994762c198295420",
+        "size": 7307,
+        "published_at": "2026-04-09T10:02:36.4449096+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4449096+07:00"
+  },
+  "omni-peer-deps": {
+    "name": "omni-peer-deps",
+    "description": "OMNI Peer Deps module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ab82d71a564bc8b23070aca1fb3b5064dc91fe9b88eac77711dd7b0e375ab9ba",
+        "size": 6281,
+        "published_at": "2026-04-09T10:02:36.451139+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.451139+07:00"
+  },
+  "omni-pgo-jit": {
+    "name": "omni-pgo-jit",
+    "description": "OMNI Pgo Jit module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a17a9a25d7c2f8a300767b298657e073826f9f382ea9c1e31b9933ad4969da43",
+        "size": 6279,
+        "published_at": "2026-04-09T10:02:36.457458+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.457458+07:00"
+  },
+  "omni-postgres": {
+    "name": "omni-postgres",
+    "description": "PostgreSQL wire-protocol client with async query pipeline",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "9dd9c7e27e4d0ea68de0991d8d7deecfbf3180ec2e0d6d71639fd3d5f6af9dc7",
+        "size": 7304,
+        "published_at": "2026-04-09T10:02:36.4657264+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4657264+07:00"
+  },
+  "omni-process": {
+    "name": "omni-process",
+    "description": "Child process spawning with IPC and signal handling",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "9d2058b1826430d342b006070fd06705ce39badbe2cc8df6e6a651dacfc9d378",
+        "size": 7303,
+        "published_at": "2026-04-09T10:02:36.4737635+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4737635+07:00"
+  },
+  "omni-profiler": {
+    "name": "omni-profiler",
+    "description": "CPU and memory profiler with flamegraph export",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "c9a26967222f52ef0ad8fde917da3c7c73015bb2b6bed34a40bdd582cf13e52a",
+        "size": 6280,
+        "published_at": "2026-04-09T10:02:36.4796523+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4796523+07:00"
+  },
+  "omni-querystring": {
+    "name": "omni-querystring",
+    "description": "Query string parser and encoder with nested object support",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "d2d975d28728ccca8bcb32461135778d3a5f8d0a112963bfc53e9f1649e38d01",
+        "size": 7307,
+        "published_at": "2026-04-09T10:02:36.4872102+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4872102+07:00"
+  },
+  "omni-queue": {
+    "name": "omni-queue",
+    "description": "OMNI Queue module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "da64c6b550f126090642a36bad96bab1f58c4b6dd332fa2d761779bef568b5ab",
+        "size": 1157,
+        "published_at": "2026-04-09T10:02:36.4942102+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.4942102+07:00"
+  },
+  "omni-readline": {
+    "name": "omni-readline",
+    "description": "Interactive line editor with history and tab completion",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "d723f9d7d72a83d691cc521dccc4a7ab9c72ed9ad889782b5198d309b5bed54f",
+        "size": 7304,
+        "published_at": "2026-04-09T10:02:36.5037443+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5037443+07:00"
+  },
+  "omni-redis": {
+    "name": "omni-redis",
+    "description": "Redis client with cluster support and Lua scripting bridge",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "c56b863639487ea8525e53a28022533017fa5d042b23e5c376d64795c79a94d4",
+        "size": 7301,
+        "published_at": "2026-04-09T10:02:36.5132655+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5132655+07:00"
+  },
+  "omni-repl": {
+    "name": "omni-repl",
+    "description": "Interactive REPL with syntax highlighting and completion",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "28605f3a1bec01808b49c05cae746c0c99b6bf99ebf027eeef3b8f850f31696f",
+        "size": 6276,
+        "published_at": "2026-04-09T10:02:36.5236682+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5236682+07:00"
+  },
+  "omni-runtime": {
+    "name": "omni-runtime",
+    "description": "OMNI Runtime module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "0812e8046ca4db06556d6200f8f583e5b571f199915d1c6d78c8e6e700497d93",
+        "size": 1159,
+        "published_at": "2026-04-09T10:02:36.531975+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.531975+07:00"
+  },
+  "omni-scaffolder": {
+    "name": "omni-scaffolder",
+    "description": "OMNI Scaffolder module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "744e6a90cf39e5029c42b4fbc59eba931dc62a6b1e10ba7b708c83679e2a41e5",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:36.540416+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.540416+07:00"
+  },
+  "omni-session": {
+    "name": "omni-session",
+    "description": "Session management with pluggable stores (memory, Redis, FS)",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "51a33cf8c5dbd4e9c03ed64afb285b4b12fb730bbd06e7c367f4eec168173f73",
+        "size": 7303,
+        "published_at": "2026-04-09T10:02:36.5479127+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5479127+07:00"
+  },
+  "omni-source-map": {
+    "name": "omni-source-map",
+    "description": "OMNI Source Map module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "600ee472422f0c0ecdcc9e87348f0a5ed4b2c2c91eb14a83d2bbccfcd6f4c532",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:36.5560667+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5560667+07:00"
+  },
+  "omni-sqlite": {
+    "name": "omni-sqlite",
+    "description": "Embedded SQLite3 database driver with connection pooling",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "9b3f5809ceb73e73718057f41f054e5c00eaed170b99e39c1eb127879ae46d0d",
+        "size": 7302,
+        "published_at": "2026-04-09T10:02:36.5630298+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5630298+07:00"
+  },
+  "omni-std": {
+    "name": "omni-std",
+    "description": "OMNI Std module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "4efd69199323cdd639c6301237d4c322a13f5148ac7cc487ebf605e4b258c301",
+        "size": 1155,
+        "published_at": "2026-04-09T10:02:36.568575+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.568575+07:00"
+  },
+  "omni-stream": {
+    "name": "omni-stream",
+    "description": "OMNI Stream module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "a21613b7e54689858e06218df80e6f4ee94260c2bbd7a4897ddf4be819ca8888",
+        "size": 1158,
+        "published_at": "2026-04-09T10:02:36.5749094+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5749094+07:00"
+  },
+  "omni-stream-io": {
+    "name": "omni-stream-io",
+    "description": "Streaming I/O primitives: Transform, Pipeline, Multiplex",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "8dc7475945a0da506098a0d712eb551dc19301116dc157e7644158b100b3fbae",
+        "size": 7305,
+        "published_at": "2026-04-09T10:02:36.5850114+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.5850114+07:00"
+  },
+  "omni-test": {
+    "name": "omni-test",
+    "description": "OMNI Test module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ede7199694fa947328a267fdc7d565fcaa1df689a6c4f1f09b75a34a55b448a9",
+        "size": 1156,
+        "published_at": "2026-04-09T10:02:36.592975+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.592975+07:00"
+  },
+  "omni-test-coverage": {
+    "name": "omni-test-coverage",
+    "description": "Code coverage analyzer with per-line and branch metrics",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "b42e5f576267c360c0cbfb76c09e74ab5a89365791f204615e7d9dac660c0c80",
+        "size": 6285,
+        "published_at": "2026-04-09T10:02:36.6021221+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6021221+07:00"
+  },
+  "omni-test-mock": {
+    "name": "omni-test-mock",
+    "description": "Mocking library with spy, stub, and fake generators",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "01354d907af5761e493cf7c7e8caada3445c20da1a9f77f6d55b1a926730db09",
+        "size": 6281,
+        "published_at": "2026-04-09T10:02:36.6100543+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6100543+07:00"
+  },
+  "omni-test-runner": {
+    "name": "omni-test-runner",
+    "description": "Test framework with describe/it blocks and assertion library",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "c0ab5e4afa58750f631787cf043b08af6ae5e735055b91775e6a59d594a00af9",
+        "size": 6283,
+        "published_at": "2026-04-09T10:02:36.6169165+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6169165+07:00"
+  },
+  "omni-timers": {
+    "name": "omni-timers",
+    "description": "High-resolution timers with tick-based scheduler",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "84d14c20db4e58c266ab2edac50af1ebc91246aff308d89043940485ab5ecca9",
+        "size": 6278,
+        "published_at": "2026-04-09T10:02:36.6243102+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6243102+07:00"
+  },
+  "omni-tpm-security": {
+    "name": "omni-tpm-security",
+    "description": "OMNI Tpm Security module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "412daae5ae6ba71a576905815270992fd15d67266646386bb0d0e72594b27433",
+        "size": 7308,
+        "published_at": "2026-04-09T10:02:36.6313492+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6313492+07:00"
+  },
+  "omni-ts-checker": {
+    "name": "omni-ts-checker",
+    "description": "OMNI Ts Checker module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "3fe8de07bcd27caf5f1557d4a12bb722038c49e56fd34d6647b6138eec11fa57",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:36.6377688+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6377688+07:00"
+  },
+  "omni-tty": {
+    "name": "omni-tty",
+    "description": "Terminal I/O: raw mode, ANSI colors, cursor control",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "63d0974a25a3370e8ea844a1ecc34c55c2e9a44ef347f374a07bfd9debf784bb",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.6451022+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6451022+07:00"
+  },
+  "omni-types": {
+    "name": "omni-types",
+    "description": "OMNI Types module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "e455899a9f90a6006e49d2761bbdead412a3c72372a45d4b2f4dd22fcafe9069",
+        "size": 1157,
+        "published_at": "2026-04-09T10:02:36.6502278+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6502278+07:00"
+  },
+  "omni-uast": {
+    "name": "omni-uast",
+    "description": "OMNI Uast module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "3148dd2a10f5fa658d5e917097850adbc3d3eb4fa1b6d6ad9a1123473b47adeb",
+        "size": 6276,
+        "published_at": "2026-04-09T10:02:36.6587597+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6587597+07:00"
+  },
+  "omni-ui": {
+    "name": "omni-ui",
+    "description": "UI component renderer for OMNI declarative templates",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "d5a9e7c510b3f657e4990b059f3c7757f778f336de386f41cb6013d24283e5df",
+        "size": 7298,
+        "published_at": "2026-04-09T10:02:36.6660513+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6660513+07:00"
+  },
+  "omni-url": {
+    "name": "omni-url",
+    "description": "URL parser and builder with full RFC 3986 compliance",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "0a9c2c55e9124b76ca71060df778edc50e541d916b71d129165f343504d0d6fd",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.6737606+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6737606+07:00"
+  },
+  "omni-v8-isolate": {
+    "name": "omni-v8-isolate",
+    "description": "V8 JavaScript engine integration with isolate management",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "b3511c34daddddce56a421b37f1c344880908e2eefc172bf4d3ddf079b74db07",
+        "size": 6282,
+        "published_at": "2026-04-09T10:02:36.6821554+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6821554+07:00"
+  },
+  "omni-validate": {
+    "name": "omni-validate",
+    "description": "OMNI Validate module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "fb607bbfcee7e1a7e30cf523cfc2e503d4d615c8428c7c0232ee7065debaedc3",
+        "size": 1160,
+        "published_at": "2026-04-09T10:02:36.6895366+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6895366+07:00"
+  },
+  "omni-venv": {
+    "name": "omni-venv",
+    "description": "OMNI Venv module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "6c107e137189fe068b85417967ebddcd9c1ca1b02f86610c4d25757976d9051c",
+        "size": 6276,
+        "published_at": "2026-04-09T10:02:36.6979019+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.6979019+07:00"
+  },
+  "omni-vm": {
+    "name": "omni-vm",
+    "description": "Virtual machine for OMNI bytecode execution",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "92b954a2b1ea21abefa282bee3c098b6b4fef7540d11d75dda6a44e30468102a",
+        "size": 6274,
+        "published_at": "2026-04-09T10:02:36.7059114+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7059114+07:00"
+  },
+  "omni-wasm-packager": {
+    "name": "omni-wasm-packager",
+    "description": "WebAssembly module bundler and optimizer",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "046127e5701257be92e7f233ca8843d796c7d92b8ceff52b6da7863e7144711a",
+        "size": 6285,
+        "published_at": "2026-04-09T10:02:36.7137475+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7137475+07:00"
+  },
+  "omni-web3-core": {
+    "name": "omni-web3-core",
+    "description": "Web3 primitives: wallet, transaction signing, ABI encoding",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "8b8a2dffaa8b7ff3eee340dbe420dcc8173b65d2cc53d379fef66dd2aebdec95",
+        "size": 7305,
+        "published_at": "2026-04-09T10:02:36.7215848+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7215848+07:00"
+  },
+  "omni-webrtc": {
+    "name": "omni-webrtc",
+    "description": "WebRTC data channel and peer connection management",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "652b49f1259e71ebc078b44ef63f76dbd249a1258ce43ee8eb0e9ee18fc17246",
+        "size": 7302,
+        "published_at": "2026-04-09T10:02:36.7300619+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7300619+07:00"
+  },
+  "omni-websocket": {
+    "name": "omni-websocket",
+    "description": "WebSocket server/client with compression and auto-reconnect",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "f35dc01d049148a2cb46b03a37c9e50aa82ae0e0e65f4be22afb34bface42dd0",
+        "size": 7305,
+        "published_at": "2026-04-09T10:02:36.7397847+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7397847+07:00"
+  },
+  "omni-workspace": {
+    "name": "omni-workspace",
+    "description": "OMNI Workspace module for the polyglot runtime ecosystem",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "cae6e9c9022768b77e258ca6e408c4ca9fee7185f58081f63548ccec17b552ab",
+        "size": 6281,
+        "published_at": "2026-04-09T10:02:36.7486805+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7486805+07:00"
+  },
+  "omni-xml": {
+    "name": "omni-xml",
+    "description": "Streaming XML parser with namespace-aware DOM builder",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "ad22d781ac7111f4bb05feeffbfad6b01307fdcb737b51336164d1260ad67332",
+        "size": 7299,
+        "published_at": "2026-04-09T10:02:36.7566303+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7566303+07:00"
+  },
+  "omni-yaml": {
+    "name": "omni-yaml",
+    "description": "YAML parser and emitter with full 1.2 spec compliance",
+    "authors": [
+      "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+    ],
+    "license": "MIT",
+    "latest_version": "1.0.0",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "checksum": "e6521d379ff916bdcbd9fd43955a5a692aa4e6d45f8a497bc0c78c62f900fe0d",
+        "size": 7300,
+        "published_at": "2026-04-09T10:02:36.7629634+07:00",
+        "downloads": 0
+      }
+    ],
+    "total_downloads": 0,
+    "created_at": "2026-04-09T10:02:36.7629634+07:00"
+  }
+}

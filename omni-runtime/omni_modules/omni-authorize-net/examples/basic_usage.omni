@@ -1,0 +1,9 @@
+// Example: Basic omni-authorize-net usage
+import { init } from '@omni/omni-authorize-net'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

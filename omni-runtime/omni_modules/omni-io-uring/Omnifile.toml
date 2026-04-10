@@ -1,0 +1,10 @@
+[package]
+name        = "omni-io-uring"
+version     = "1.0.0"
+description = "Libuv killer. Native Linux io_uring structures mapping into Go routing channels."
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_syscall = true

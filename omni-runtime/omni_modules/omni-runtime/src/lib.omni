@@ -1,0 +1,44 @@
+/// [OMNI-PACKAGE] omni-runtime
+/// Description: Core runtime interactions and reflection.
+/// @since 2.0.0
+
+import "omni-std"
+
+// ─── Native Bridges ─────────────────────────────────────────
+
+extern "omni-c" fn omni_sys_uptime() -> Result<f64, OmniError>;
+extern "omni-c" fn omni_sys_sleep(milliseconds: u32) -> void;
+extern "omni-c" fn omni_sys_exit(exit_code: i32) -> never;
+
+extern "omni-go" fn omni_spawn_goroutine(task: fn() -> void) -> Result<u64, OmniError>;
+extern "omni-go" fn omni_set_timeout(task: fn() -> void, ms: u32) -> Result<u64, OmniError>;
+
+// ─── OMNI Exports ──────────────────────────────────────────
+
+export struct EventLoop {
+    fn nextTick(callback: fn() -> void) -> void {
+        omni_spawn_goroutine(callback)
+    }
+
+    fn setTimeout(callback: fn() -> void, ms: Number) -> Result<Number, OmniError> {
+        omni_set_timeout(callback, ms as u32)
+    }
+}
+
+export fn spawn(task: fn() -> void) -> Result<Number, OmniError> {
+    omni_spawn_goroutine(task)
+}
+
+export fn sleep(ms: Number) -> void {
+    omni_sys_sleep(ms as u32)
+}
+
+export fn exit(code: Number = 0) -> never {
+    omni_sys_exit(code as i32)
+}
+
+export fn uptime() -> Result<Number, OmniError> {
+    omni_sys_uptime()
+}
+
+export fn version() -> String { "omni-runtime v2.0.0" }

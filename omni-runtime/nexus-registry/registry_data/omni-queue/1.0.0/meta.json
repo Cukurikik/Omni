@@ -1,0 +1,21 @@
+{
+  "name": "omni-queue",
+  "version": "1.0.0",
+  "description": "OMNI Queue module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-queue",
+  "repository": "https://github.com/omni-framework/omni-queue",
+  "keywords": [
+    "omni",
+    "runtime",
+    "queue"
+  ],
+  "edition": "omni-2025",
+  "checksum": "da64c6b550f126090642a36bad96bab1f58c4b6dd332fa2d761779bef568b5ab",
+  "size": 1157,
+  "published_at": "2026-04-09T23:00:38.3022417+07:00",
+  "downloads": 0
+}

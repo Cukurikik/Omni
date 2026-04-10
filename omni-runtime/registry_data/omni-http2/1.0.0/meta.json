@@ -1,0 +1,21 @@
+{
+  "name": "omni-http2",
+  "version": "1.0.0",
+  "description": "HTTP/2 server with middleware pipeline (Logger, CORS, Recovery)",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-http2",
+  "repository": "https://github.com/omni-framework/omni-http2",
+  "keywords": [
+    "omni",
+    "runtime",
+    "http2"
+  ],
+  "edition": "omni-2025",
+  "checksum": "038dc88756a901f4540998401655cbfa57708a8a5c97e6c5039659d28afe6864",
+  "size": 8325,
+  "published_at": "2026-04-09T10:02:36.2642419+07:00",
+  "downloads": 0
+}

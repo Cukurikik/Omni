@@ -1,0 +1,21 @@
+{
+  "name": "omni-http",
+  "version": "1.0.0",
+  "description": "OMNI Http module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-http",
+  "repository": "https://github.com/omni-framework/omni-http",
+  "keywords": [
+    "omni",
+    "runtime",
+    "http"
+  ],
+  "edition": "omni-2025",
+  "checksum": "4af15ad16055f00eecfa72ad43b324cfe35aadbc814b666310ab111171bc54d7",
+  "size": 2180,
+  "published_at": "2026-04-09T10:02:36.2572701+07:00",
+  "downloads": 0
+}

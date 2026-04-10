@@ -1,0 +1,3 @@
+module omni
+
+go 1.26.1

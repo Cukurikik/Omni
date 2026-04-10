@@ -1,0 +1,23 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Obsidian Black Singularity Background -->
+  <rect width="256" height="256" rx="64" fill="#0b0f19"/>
+  
+  <!-- Event Horizon (Outer Ring) -->
+  <circle cx="128" cy="128" r="90" fill="#050505" stroke="url(#cyan_red_grad)" stroke-width="4" stroke-dasharray="10 6"/>
+  <circle cx="128" cy="128" r="70" fill="#000000"/>
+
+  <!-- Sharp Geometric Infinity Symbol (Zero-Latency) -->
+  <path d="M 64 128 L 96 96 L 160 160 L 192 128 L 160 96 L 96 160 Z" stroke="url(#cyan_red_grad)" stroke-width="12" stroke-linejoin="miter" fill="none"/>
+  
+  <!-- Core Data Nodes -->
+  <circle cx="64" cy="128" r="8" fill="#00ffff"/>
+  <circle cx="192" cy="128" r="8" fill="#dc143c"/>
+  
+  <defs>
+    <linearGradient id="cyan_red_grad" x1="30" y1="30" x2="226" y2="226" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00ffff"/> <!-- Neon Cyan -->
+      <stop offset="50%" stop-color="#8a2be2"/> <!-- Blend -->
+      <stop offset="100%" stop-color="#dc143c"/> <!-- Crimson Red -->
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,22 @@
+{
+  "name": "omni-cli-update",
+  "version": "1.0.0",
+  "description": "OMNI Cli Update module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cli-update",
+  "repository": "https://github.com/omni-framework/omni-cli-update",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cli",
+    "update"
+  ],
+  "edition": "omni-2025",
+  "checksum": "ea09f77712c846f205d47b18facc7ee3e222cf542d0b4af63937ff10bb9f2281",
+  "size": 6282,
+  "published_at": "2026-04-09T23:00:37.2157978+07:00",
+  "downloads": 0
+}

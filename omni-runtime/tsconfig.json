@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "ESNext", "DOM"],
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "omni-std": ["./omni_modules/omni-std/src/index.ts"],
+      "omni-std/*": ["./omni_modules/omni-std/src/*"],
+      "omni-net": ["./omni_modules/omni-net/src/index.ts"],
+      "omni-crypto": ["./omni_modules/omni-crypto/src/index.ts"],
+      "omni-test": ["./omni_modules/omni-test/src/index.ts"],
+      "omni-log": ["./omni_modules/omni-log/src/index.ts"],
+      "omni-env": ["./omni_modules/omni-env/src/index.ts"],
+      "omni-db": ["./omni_modules/omni-db/src/index.ts"],
+      "omni-auth": ["./omni_modules/omni-auth/src/index.ts"],
+      "omni-validate": ["./omni_modules/omni-validate/src/index.ts"]
+    }
+  },
+  "include": ["stdlib/**/*.ts", "omni_modules/*/src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

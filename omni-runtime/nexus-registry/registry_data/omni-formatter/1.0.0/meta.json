@@ -1,0 +1,21 @@
+{
+  "name": "omni-formatter",
+  "version": "1.0.0",
+  "description": "OMNI Formatter module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-formatter",
+  "repository": "https://github.com/omni-framework/omni-formatter",
+  "keywords": [
+    "omni",
+    "runtime",
+    "formatter"
+  ],
+  "edition": "omni-2025",
+  "checksum": "52554316168e0482c8104f705a23a752168887af39b19cdf5d64ff64a69c7aa0",
+  "size": 6281,
+  "published_at": "2026-04-09T23:00:37.48289+07:00",
+  "downloads": 0
+}

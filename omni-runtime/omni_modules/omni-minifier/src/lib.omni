@@ -1,0 +1,8 @@
+﻿// Enterprise DX and Tooling Engine for omni-minifier
+import { NativeLSP } from "./network/lsp/server"
+import { ThreadPool } from "./system/threads/pool"
+import { ASTWalker } from "./compute/ast_parser/walker"
+
+export interface omni_minifier_Tooling {
+    fn initialize_tool() -> Result<bool, DXError>;
+}

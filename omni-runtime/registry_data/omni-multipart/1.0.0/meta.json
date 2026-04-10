@@ -1,0 +1,21 @@
+{
+  "name": "omni-multipart",
+  "version": "1.0.0",
+  "description": "OMNI Multipart module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-multipart",
+  "repository": "https://github.com/omni-framework/omni-multipart",
+  "keywords": [
+    "omni",
+    "runtime",
+    "multipart"
+  ],
+  "edition": "omni-2025",
+  "checksum": "7a38e0dec54b2cf8bb7fa8cdb58484a4b4b18cd51696ce6b3b62e765d6122e17",
+  "size": 7305,
+  "published_at": "2026-04-09T10:02:36.3770739+07:00",
+  "downloads": 0
+}

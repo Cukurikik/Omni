@@ -1,0 +1,22 @@
+{
+  "name": "omni-cli-get",
+  "version": "1.0.0",
+  "description": "OMNI Cli Get module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cli-get",
+  "repository": "https://github.com/omni-framework/omni-cli-get",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cli",
+    "get"
+  ],
+  "edition": "omni-2025",
+  "checksum": "a12a9cfe7f9c610b0896d13197552bd95174f342718cb3495d03a938b45ba887",
+  "size": 6279,
+  "published_at": "2026-04-09T23:00:37.1894697+07:00",
+  "downloads": 0
+}

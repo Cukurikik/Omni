@@ -1,6 +1,6 @@
 {
   "app_name": "OMNI OS",
-  "version": "2.0.0-NEXUS",
+  "version": "1.3.0-SOVEREIGN",
   "environment": "production",
   "server": {
     "host": "0.0.0.0",
@@ -14,6 +14,10 @@
     "cors_allowed_origins": ["*"],
     "rate_limit_per_second": 20,
     "enable_coop_coep": true
+  },
+  "database": {
+    "engine": "local",
+    "url": "postgres://postgres:password@localhost:5432/omni"
   },
   "storage": {
     "max_upload_gb": 50,
@@ -44,5 +48,19 @@
     "worker_max_jobs": 2,
     "heartbeat_interval_seconds": 5,
     "dead_threshold_seconds": 15
+  },
+  "ui": {
+    "css_framework": "tailwind",
+    "view_transitions": true
+  },
+  "wasm": {
+    "enabled": false,
+    "modules_dir": "../wasm_modules",
+    "memory_limit_mb": 256
+  },
+  "ipc": {
+    "mode": "auto",
+    "socket_path": "/tmp/omni_ipc.sock",
+    "port": 3099
   }
 }

@@ -1,0 +1,23 @@
+use::saas {
+    let tenant = Tenant::identify(request);
+    
+    // Batasi akses jika pengguna belum bayar langganan bulan ini
+    tenant.require_subscription_tier("PRO_TIER"); 
+}
+
+export function processApiCall(req: object) {
+    // ⚡ GO: Titan Buffer mencekik request spam Tier Gratis dari Memory
+    const isAllowed = use::go { 
+        return rate_limiter.Check($req.tenantId, limit=10, window="1s") 
+    };
+
+    if (!isAllowed) return "HTTP 429: Upgrade ke PRO_TIER";
+
+    // 🐍 PYTHON: Jalankan komputasi ML yang berat untuk tenant yang membayar
+    const result = use::python {
+        import heavy_ml
+        return heavy_ml.process($req.payload)
+    };
+
+    return result;
+}

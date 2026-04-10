@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-sec-matrix
+/// Description: Advanced sec computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct SecMatrixInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

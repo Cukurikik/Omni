@@ -1,0 +1,22 @@
+{
+  "name": "omni-build-scripts",
+  "version": "1.0.0",
+  "description": "OMNI Build Scripts module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-build-scripts",
+  "repository": "https://github.com/omni-framework/omni-build-scripts",
+  "keywords": [
+    "omni",
+    "runtime",
+    "build",
+    "scripts"
+  ],
+  "edition": "omni-2025",
+  "checksum": "1b505c36e59520a100119675e6e1d5889419ef06aad25a07e9e5d26af2f483ed",
+  "size": 6285,
+  "published_at": "2026-04-09T10:02:35.9145606+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,15 @@
+use::graphql {
+    type Query { getCityStatus(): CityMetrics! }
+}
+
+export async function routeCityData() {
+    // ⚡ GO: Menerima jutaan request warga via UDP Mesh
+    const trafficData = use::go { return omninet.ListenUDP("city_core_port") };
+
+    // 🗄️ SQL: Mencatat log ke Bare-Metal WAL
+    use::sql {
+        INSERT INTO city_logs (data, timestamp) VALUES ($trafficData, NOW());
+    };
+
+    return { status: "KOTA OMNI BEROPERASI MUTLAK" };
+}

@@ -1,0 +1,9 @@
+// Example: Realtime streaming with omni-nodemailer-native
+import { WSHub } from '@omni/omni-nodemailer-native/network'
+
+fn main() {
+    let hub = WSHub::new()
+    hub.on_connect(|conn| println!("Connected: {}", conn.id))
+    hub.on_message(|msg| hub.broadcast(msg.room, msg.data))
+    hub.listen(8080)
+}

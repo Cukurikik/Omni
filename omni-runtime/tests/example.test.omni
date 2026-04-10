@@ -1,0 +1,118 @@
+// ============================================================
+// 🧪 OMNI Framework — Contoh Unit Test
+// ============================================================
+// Jalankan: omni test --all
+// ============================================================
+
+import { describe, it, expect, bench, beforeEach, runTests } from "omni-test";
+import { Ok, Err, isOk, isErr, unwrap, map, andThen, Some, None, isSome } from "omni-std";
+import { sha256, blake3, hashPassword, verifyPassword } from "omni-crypto";
+
+// ─── Test: omni-std Result Type ───────────────────────────
+
+describe("Result<T, E> Monad", () => {
+    it("Ok wraps a value correctly", () => {
+        const result = Ok(42);
+        expect(isOk(result)).toBe(true);
+        expect(unwrap(result)).toBe(42);
+    });
+
+    it("Err wraps an error correctly", () => {
+        const result = Err({ code: "E001", message: "test error" });
+        expect(isErr(result)).toBe(true);
+    });
+
+    it("map transforms Ok value", () => {
+        const result = Ok(10);
+        const doubled = map(result, (x) => x * 2);
+        expect(unwrap(doubled)).toBe(20);
+    });
+
+    it("map does not affect Err", () => {
+        const result = Err({ code: "E001", message: "fail" });
+        const mapped = map(result, (x) => x * 2);
+        expect(isErr(mapped)).toBe(true);
+    });
+
+    it("andThen chains Result operations", () => {
+        const divide = (a, b) => b === 0 
+            ? Err({ code: "E002", message: "Division by zero" })
+            : Ok(a / b);
+
+        const result = andThen(Ok(100), (x) => divide(x, 5));
+        expect(unwrap(result)).toBe(20);
+
+        const errResult = andThen(Ok(100), (x) => divide(x, 0));
+        expect(isErr(errResult)).toBe(true);
+    });
+
+    it("unwrap on Err throws", () => {
+        expect(() => unwrap(Err("boom"))).toThrow("Unwrap pada Err");
+    });
+});
+
+// ─── Test: omni-std Option Type ───────────────────────────
+
+describe("Option<T>", () => {
+    it("Some wraps a value", () => {
+        const opt = Some("hello");
+        expect(isSome(opt)).toBe(true);
+    });
+
+    it("None represents absence", () => {
+        expect(isSome(None)).toBe(false);
+    });
+});
+
+// ─── Test: omni-crypto Hashing ────────────────────────────
+
+describe("Cryptography — Hashing", () => {
+    it("sha256 produces consistent hash", () => {
+        const hash1 = sha256("hello");
+        const hash2 = sha256("hello");
+        expect(hash1).toBe(hash2);
+    });
+
+    it("sha256 produces different hash for different input", () => {
+        const hash1 = sha256("hello");
+        const hash2 = sha256("world");
+        expect(hash1).not.toBe(hash2);
+    });
+
+    it("blake3 is faster than sha256", () => {
+        const hashB = blake3("test data for blake3");
+        expect(hashB).toBeDefined();
+        expect(hashB.length).toBeGreaterThan(0);
+    });
+});
+
+// ─── Test: Password Hashing ──────────────────────────────
+
+describe("Cryptography — Password", () => {
+    it("hashPassword returns Ok", () => {
+        const result = hashPassword("MySecretPassword123!");
+        expect(isOk(result)).toBe(true);
+    });
+
+    it("verifyPassword matches correct password", () => {
+        const hash = unwrap(hashPassword("correct-horse-battery-staple"));
+        expect(verifyPassword("correct-horse-battery-staple", hash)).toBe(true);
+    });
+
+    it("verifyPassword rejects wrong password", () => {
+        const hash = unwrap(hashPassword("correct-horse-battery-staple"));
+        expect(verifyPassword("wrong-password", hash)).toBe(false);
+    });
+});
+
+// ─── Benchmark ────────────────────────────────────────────
+
+describe("Performance Benchmarks", () => {
+    it("sha256 benchmark", () => {
+        const result = bench("sha256", () => sha256("benchmark data"), 50000);
+        expect(result.opsPerSec).toBeGreaterThan(100);
+    });
+});
+
+// ─── Run! ─────────────────────────────────────────────────
+runTests();

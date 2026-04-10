@@ -1,0 +1,22 @@
+{
+  "name": "omni-peer-deps",
+  "version": "1.0.0",
+  "description": "OMNI Peer Deps module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-peer-deps",
+  "repository": "https://github.com/omni-framework/omni-peer-deps",
+  "keywords": [
+    "omni",
+    "runtime",
+    "peer",
+    "deps"
+  ],
+  "edition": "omni-2025",
+  "checksum": "ab82d71a564bc8b23070aca1fb3b5064dc91fe9b88eac77711dd7b0e375ab9ba",
+  "size": 6281,
+  "published_at": "2026-04-09T10:02:36.451139+07:00",
+  "downloads": 0
+}

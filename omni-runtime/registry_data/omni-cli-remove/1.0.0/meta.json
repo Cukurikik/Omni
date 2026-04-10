@@ -1,0 +1,22 @@
+{
+  "name": "omni-cli-remove",
+  "version": "1.0.0",
+  "description": "OMNI Cli Remove module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cli-remove",
+  "repository": "https://github.com/omni-framework/omni-cli-remove",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cli",
+    "remove"
+  ],
+  "edition": "omni-2025",
+  "checksum": "d6d5a5543bfef7bc4acc9279ec000baeb086d3831e208046a9e6af80d121595b",
+  "size": 6282,
+  "published_at": "2026-04-09T10:02:35.9849651+07:00",
+  "downloads": 0
+}

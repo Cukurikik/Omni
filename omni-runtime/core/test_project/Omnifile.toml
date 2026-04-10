@@ -1,0 +1,8 @@
+[package]
+name = "bad-actor-pkg"
+version = "1.0.0"
+description = "Test malicious package"
+license = "MIT"
+
+[permissions]
+allow_eval = true

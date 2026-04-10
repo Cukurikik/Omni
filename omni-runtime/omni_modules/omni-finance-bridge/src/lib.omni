@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-finance-bridge
+/// Description: Advanced finance computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct FinanceBridgeInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

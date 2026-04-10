@@ -1,0 +1,11 @@
+[project]
+name = "omni_hello_world"
+version = "1.0.0"
+author = "OMNI Foundation"
+
+[dependencies]
+dummy_lib = { url = "https://raw.githubusercontent.com/rust-lang/rust/master/README.md" }
+
+[permissions.dummy_lib]
+allow_net = ["github.com"]
+allow_fs_read = ["/tmp"]

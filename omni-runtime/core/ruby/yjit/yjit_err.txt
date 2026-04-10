@@ -1,0 +1,673 @@
+﻿cargo :     Checking yjit v0.1.0 (C:\Users\IKYY\Downloads\Omni\ruby\yjit)
+At line:1 char:1
++ cargo check --color never 2>&1 | Out-File -Encoding UTF8 yjit_err.txt
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking yj...Omni\ruby\yjit):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> yjit\src\disasm.rs:149:34
+    |
+149 |                     use std::os::unix::io::{FromRawFd, IntoRawFd};
+    |                                  ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> yjit\src\options.rs:307:42
+    |
+307 | ...                   use std::os::unix::io::IntoRawFd;
+    |                                    ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> yjit\src\options.rs:354:38
+    |
+354 |                         use std::os::unix::io::IntoRawFd;
+    |                                      ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0433]: failed to resolve: could not find `unix` in `os`
+  --> yjit\src\log.rs:77:34
+   |
+77 |                     use std::os::unix::io::{FromRawFd, IntoRawFd};
+   |                                  ^^^^ could not find `unix` in `os`
+   |
+note: found an item that was configured out
+  --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+   |
+29 |     doc,
+   |     --- the item is gated here
+...
+36 | pub mod unix {}
+   |         ^^^^
+note: found an item that was configured out
+  --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+   |
+84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+   |                                         ----------- the item is gated here
+85 | pub mod unix;
+   |         ^^^^
+
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> yjit\src\options.rs:143:19
+    |
+143 |     File(std::os::unix::io::RawFd),
+    |                   ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0433]: failed to resolve: could not find `unix` in `os`
+   --> yjit\src\options.rs:155:19
+    |
+155 |     File(std::os::unix::io::RawFd),
+    |                   ^^^^ could not find `unix` in `os`
+    |
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:36:9
+    |
+ 29 |     doc,
+    |     --- the item is gated here
+...
+ 36 | pub mod unix {}
+    |         ^^^^
+note: found an item that was configured out
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\os\mod.rs:85:9
+    |
+ 84 | #[cfg(all(not(target_os = "hermit"), any(unix, doc)))]
+    |                                         ----------- the item is gated here
+ 85 | pub mod unix;
+    |         ^^^^
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:2281:98
+     |
+2281 |         let target_cme = unsafe { rb_callable_method_entry_or_negative(comptime_recv.class_of(), ID!(to_ary)) };
+     |                                   ------------------------------------                           ^^^^^^^^^^^ expected `u32`, found `u64`
+     |                                   |
+     |                                   arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1095:12
+     |
+1095 |     pub fn rb_callable_method_entry_or_negative(
+     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1096 |         klass: VALUE,
+1097 |         id: ID,
+     |         --
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+    -->  yjit\src\cruby.rs:835:80
+     |
+ 835 |         $crate::cruby::ids::$id_name.load(std::sync::atomic::Ordering::Relaxed).try_into().unwrap()
+     |                                                                                ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:2292:80
+     |
+2292 |         if !assume_method_basic_definition(jit, asm, comptime_recv.class_of(), ID!(method_missing)) {
+     |             ------------------------------                                     ^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\invariants.rs:191:8
+     |
+ 191 | pub fn assume_method_basic_definition(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 195 |     mid: ID
+     |     -------
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+    -->  yjit\src\cruby.rs:835:80
+     |
+ 835 |         $crate::cruby::ids::$id_name.load(std::sync::atomic::Ordering::Relaxed).try_into().unwrap()
+     |                                                                                ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:2961:82
+     |
+2961 |         let ivar_val = asm.ccall(rb_ivar_get as *const u8, vec![recv, Opnd::UImm(ivar_name)]);
+     |                                                                       ---------- ^^^^^^^^^ expected `u64`, found `u32`
+     |                                                                       |
+     |                                                                       arguments to this enum variant are incorrect
+     |
+note: tuple variant defined here
+    --> yjit\src\backend\ir.rs:90:5
+     |
+  90 |     UImm(u64),          // Raw unsigned immediate
+     |     ^^^^
+help: you can convert a `u32` to a `u64`
+     |
+2961 |         let ivar_val = asm.ccall(rb_ivar_get as *const u8, vec![recv, Opnd::UImm(ivar_name.into())]);
+     |                                                                                           +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:3041:122
+     |
+3041 |                     asm.ccall(rb_ivar_get_at as *const u8, vec![recv, Opnd::UImm((ivar_index as u32).into()), Opnd::UImm(ivar_name)])
+     |                                                                                                               ---------- ^^^^^^^^^ expected `u64`, found `u32`
+     |                                                                                                               |
+     |                                                                                                               arguments to this enum variant are incorrect
+     |
+note: tuple variant defined here
+    --> yjit\src\backend\ir.rs:90:5
+     |
+  90 |     UImm(u64),          // Raw unsigned immediate
+     |     ^^^^
+help: you can convert a `u32` to a `u64`
+     |
+3041 |                     asm.ccall(rb_ivar_get_at as *const u8, vec![recv, Opnd::UImm((ivar_index as u32).into()), Opnd::UImm(ivar_name.into())])
+     |                                                                                                                                   +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:3077:9
+     |
+3072 |     gen_get_ivar(
+     |     ------------ arguments to this function are incorrect
+...
+3077 |         ivar_name,
+     |         ^^^^^^^^^ expected `u32`, found `u64`
+     |
+note: function defined here
+    --> yjit\src\codegen.rs:2928:4
+     |
+2928 | fn gen_get_ivar(
+     |    ^^^^^^^^^^^^
+...
+2933 |     ivar_name: ID,
+     |     -------------
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+3077 |         ivar_name.try_into().unwrap(),
+     |                  ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:3135:9
+     |
+3131 |     gen_set_ivar(
+     |     ------------ arguments to this function are incorrect
+...
+3135 |         ivar_name,
+     |         ^^^^^^^^^ expected `u32`, found `u64`
+     |
+note: function defined here
+    --> yjit\src\codegen.rs:3145:4
+     |
+3145 | fn gen_set_ivar(
+     |    ^^^^^^^^^^^^
+...
+3149 |     ivar_name: ID,
+     |     -------------
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+3135 |         ivar_name.try_into().unwrap(),
+     |                  ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:3236:32
+     |
+3236 |                     Opnd::UImm(ivar_name),
+     |                     ---------- ^^^^^^^^^ expected `u64`, found `u32`
+     |                     |
+     |                     arguments to this enum variant are incorrect
+     |
+note: tuple variant defined here
+    --> yjit\src\backend\ir.rs:90:5
+     |
+  90 |     UImm(u64),          // Raw unsigned immediate
+     |     ^^^^
+help: you can convert a `u32` to a `u64`
+     |
+3236 |                     Opnd::UImm(ivar_name.into()),
+     |                                         +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:3465:41
+     |
+3465 |         rb_shape_get_iv_index(shape_id, ivar_name, &mut ivar_index)
+     |         ---------------------           ^^^^^^^^^ expected `u32`, found `u64`
+     |         |
+     |         arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1113:12
+     |
+1113 |     pub fn rb_shape_get_iv_index(shape_id: shape_id_t, id: ID, value: *mut attr_index_t) -> bool;
+     |            ^^^^^^^^^^^^^^^^^^^^^                       --
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+3465 |         rb_shape_get_iv_index(shape_id, ivar_name.try_into().unwrap(), &mut ivar_index)
+     |                                                  ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:6574:70
+     |
+6574 |             if !assume_method_basic_definition(jit, asm, recv_class, ID!(respond_to_missing)) {
+     |                 ------------------------------                       ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                 |
+     |                 arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\invariants.rs:191:8
+     |
+ 191 | pub fn assume_method_basic_definition(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 195 |     mid: ID
+     |     -------
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+    -->  yjit\src\cruby.rs:835:80
+     |
+ 835 |         $crate::cruby::ids::$id_name.load(std::sync::atomic::Ordering::Relaxed).try_into().unwrap()
+     |                                                                                ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:6708:67
+     |
+6708 |     if !jit.assume_expected_cfunc(asm, known_recv_class.unwrap(), ID!(eq), rb_obj_equal as _) {
+     |             ---------------------                                 ^^^^^^^ expected `u32`, found `u64`
+     |             |
+     |             arguments to this method are incorrect
+     |
+note: method defined here
+    --> yjit\src\codegen.rs:342:12
+     |
+ 342 |     pub fn assume_expected_cfunc(
+     |            ^^^^^^^^^^^^^^^^^^^^^
+...
+ 346 |         method: ID,
+     |         ----------
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+    -->  yjit\src\cruby.rs:835:80
+     |
+ 835 |         $crate::cruby::ids::$id_name.load(std::sync::atomic::Ordering::Relaxed).try_into().unwrap()
+     |                                                                                ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:6798:38
+     |
+6798 |     let hash = rb_hash_new_with_size(kw_len as u64);
+     |                --------------------- ^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                |
+     |                arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1145:12
+     |
+1145 |     pub fn rb_hash_new_with_size(size: st_index_t) -> VALUE;
+     |            ^^^^^^^^^^^^^^^^^^^^^ ----
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+6798 |     let hash = rb_hash_new_with_size((kw_len as u64).try_into().unwrap());
+     |                                      +             +++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:7288:71
+     |
+7288 |         let name_str = get_method_name(Some(unsafe { (*cme).owner }), mid);
+     |                        ---------------                                ^^^ expected `u64`, found `u32`
+     |                        |
+     |                        arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\codegen.rs:9571:4
+     |
+9571 | fn get_method_name(class: Option<VALUE>, mid: u64) -> String {
+     |    ^^^^^^^^^^^^^^^                       --------
+help: you can convert a `u32` to a `u64`
+     |
+7288 |         let name_str = get_method_name(Some(unsafe { (*cme).owner }), mid.into());
+     |                                                                          +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:8592:59
+     |
+8592 |                 let hash = unsafe { rb_hash_new_with_size(keyword_len as u64) };
+     |                                     --------------------- ^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+     |                                     |
+     |                                     arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1145:12
+     |
+1145 |     pub fn rb_hash_new_with_size(size: st_index_t) -> VALUE;
+     |            ^^^^^^^^^^^^^^^^^^^^^ ----
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+8592 |                 let hash = unsafe { rb_hash_new_with_size((keyword_len as u64).try_into().unwrap()) };
+     |                                                           +                  +++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:8967:37
+     |
+8967 |     assert!((off as i64) < unsafe { RSTRUCT_LEN(comptime_recv) });
+     |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `i64`, found `i32`
+     |
+help: you can convert an `i32` to an `i64`
+     |
+8967 |     assert!((off as i64) < unsafe { RSTRUCT_LEN(comptime_recv).into() });
+     |                                                               +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:9051:37
+     |
+9051 |     assert!((off as i64) < unsafe { RSTRUCT_LEN(comptime_recv) });
+     |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `i64`, found `i32`
+     |
+help: you can convert an `i32` to an `i64`
+     |
+9051 |     assert!((off as i64) < unsafe { RSTRUCT_LEN(comptime_recv).into() });
+     |                                                               +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:9175:80
+     |
+9175 |     asm_comment!(asm, "call to {}", get_method_name(Some(comptime_recv_klass), mid));
+     |                                     ---------------                            ^^^ expected `u64`, found `u32`
+     |                                     |
+     |                                     arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\codegen.rs:9571:4
+     |
+9571 | fn get_method_name(class: Option<VALUE>, mid: u64) -> String {
+     |    ^^^^^^^^^^^^^^^                       --------
+help: you can convert a `u32` to a `u64`
+     |
+9175 |     asm_comment!(asm, "call to {}", get_method_name(Some(comptime_recv_klass), mid.into()));
+     |                                                                                   +++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\codegen.rs:9574:49
+     |
+9574 |         unsafe { cstr_to_rust_string(rb_id2name(mid)) }
+     |                                      ---------- ^^^ expected `u32`, found `u64`
+     |                                      |
+     |                                      arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1048:12
+     |
+1048 |     pub fn rb_id2name(id: ID) -> *const ::std::os::raw::c_char;
+     |            ^^^^^^^^^^ --
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     |
+9574 |         unsafe { cstr_to_rust_string(rb_id2name(mid.try_into().unwrap())) }
+     |                                                    ++++++++++++++++++++
+
+error[E0308]: mismatched types
+     --> yjit\src\codegen.rs:10138:136
+      |
+10138 | ...MBOL) } && assume_method_basic_definition(jit, asm, comptime_recv.class_of(), ID!(to_s)) {
+      |               ------------------------------                                     ^^^^^^^^^ expected `u32`, found `u64`
+      |               |
+      |               arguments to this function are incorrect
+      |
+note: function defined here
+     --> yjit\src\invariants.rs:191:8
+      |
+  191 | pub fn assume_method_basic_definition(
+      |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+  195 |     mid: ID
+      |     -------
+help: you can convert a `u64` to a `u32` and panic if the converted value doesn't fit
+     -->   yjit\src\cruby.rs:835:80
+      |
+  835 |         $crate::cruby::ids::$id_name.load(std::sync::atomic::Ordering::Relaxed).try_into().unwrap()
+      |                                                                                ++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\cruby.rs:610:56
+     |
+ 610 |     unsafe { rb_utf8_str_new(str.as_ptr() as *const _, str.len() as i64) }
+     |              ---------------                           ^^^^^^^^^^^^^^^^ expected `i32`, found `i64`
+     |              |
+     |              arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1065:12
+     |
+1065 |     pub fn rb_utf8_str_new(
+     |            ^^^^^^^^^^^^^^^
+1066 |         ptr: *const ::std::os::raw::c_char,
+1067 |         len: ::std::os::raw::c_long,
+     |         ---
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+     |
+ 610 |     unsafe { rb_utf8_str_new(str.as_ptr() as *const _, (str.len() as i64).try_into().unwrap()) }
+     |                                                        +                +++++++++++++++++++++
+
+error[E0308]: mismatched types
+   --> yjit\src\cruby.rs:812:34
+    |
+812 |                           unsafe { $crate::cruby::rb_intern2(ptr.cast(), content.len() as _) },
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u64`, found `u32`
+...
+821 | /     def_ids! {
+822 | |         name: NULL               content: b""
+823 | |         name: respond_to_missing content: b"respond_to_missing?"
+824 | |         name: method_missing     content: b"method_missing"
+...   |
+828 | |         name: include_p          content: b"include?"
+829 | |     }
+    | |_____- in this macro invocation
+    |
+    = note: this error originates in the macro `def_ids` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert a `u32` to a `u64`
+    |
+812 |                         unsafe { $crate::cruby::rb_intern2(ptr.cast(), content.len() as _).into() },
+    |                                                                                           +++++++
+
+error[E0599]: no function or associated item named `from_raw_fd` found for struct `File` in the current scope
+   --> yjit\src\disasm.rs:153:60
+    |
+153 |                     let mut file = unsafe { std::fs::File::from_raw_fd(*fd) };
+    |                                                            ^^^^^^^^^^^ function or associated item not found in `File`
+    |
+note: if you're trying to build a new `File` consider using one of the following associated functions:
+      File::open
+      File::create
+      File::create_new
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\fs.rs:569:5
+    |
+569 |     pub fn open<P: AsRef<Path>>(path: P) -> io::Result<File> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+637 |     pub fn create<P: AsRef<Path>>(path: P) -> io::Result<File> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+711 |     pub fn create_new<P: AsRef<Path>>(path: P) -> io::Result<File> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_raw_handle` with a similar name
+    |
+153 -                     let mut file = unsafe { std::fs::File::from_raw_fd(*fd) };
+153 +                     let mut file = unsafe { std::fs::File::from_raw_handle(*fd) };
+    |
+
+error[E0308]: mismatched types
+    --> yjit\src\disasm.rs:341:40
+     |
+ 341 |         let insn_ary = rb_ary_new_capa((insn_vec.len() * 2) as i64);
+     |                        --------------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `i32`, found `i64`
+     |                        |
+     |                        arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1032:12
+     |
+1032 |     pub fn rb_ary_new_capa(capa: ::std::os::raw::c_long) -> VALUE;
+     |            ^^^^^^^^^^^^^^^ ----
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+     |
+ 341 |         let insn_ary = rb_ary_new_capa(((insn_vec.len() * 2) as i64).try_into().unwrap());
+     |                                        +                           +++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\disasm.rs:353:17
+     |
+ 351 |             rb_ary_store(
+     |             ------------ arguments to this function are incorrect
+ 352 |                 insn_ary,
+ 353 |                 (2 * idx + 0) as i64,
+     |                 ^^^^^^^^^^^^^^^^^^^^ expected `i32`, found `i64`
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1033:12
+     |
+1033 |     pub fn rb_ary_store(ary: VALUE, key: ::std::os::raw::c_long, val: VALUE);
+     |            ^^^^^^^^^^^^             ---
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+     |
+ 353 |                 ((2 * idx + 0) as i64).try_into().unwrap(),
+     |                 +                    +++++++++++++++++++++
+
+error[E0308]: mismatched types
+    --> yjit\src\disasm.rs:356:36
+     |
+ 356 |             rb_ary_store(insn_ary, (2 * idx + 1) as i64, op_sym);
+     |             ------------           ^^^^^^^^^^^^^^^^^^^^ expected `i32`, found `i64`
+     |             |
+     |             arguments to this function are incorrect
+     |
+note: function defined here
+    --> yjit\src\cruby_bindings.inc.rs:1033:12
+     |
+1033 |     pub fn rb_ary_store(ary: VALUE, key: ::std::os::raw::c_long, val: VALUE);
+     |            ^^^^^^^^^^^^             ---
+help: you can convert an `i64` to an `i32` and panic if the converted value doesn't fit
+     |
+ 356 |             rb_ary_store(insn_ary, ((2 * idx + 1) as i64).try_into().unwrap(), op_sym);
+     |                                    +                    +++++++++++++++++++++
+
+error[E0308]: mismatched types
+   --> yjit\src\cruby.rs:835:29
+    |
+835 |         $crate::cruby::ids::$id_name.load(std::sync::atomic::Ordering::Relaxed)
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found `u64`
+    |
+   ::: yjit\src\invariants.rs:235:12
+    |
+235 |         if id == ID!(NULL) {
+    |            --    --------- in this macro invocation
+    |            |
+    |            expected because this is `u32`
+    |
+    = note: this error originates in the macro `ID` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: you can convert `id` from `u32` to `u64`, matching the type of `$id_name.load(std::sync::atomic::Ordering::Relaxed)`
+   --> yjit\src\invariants.rs:235:12
+    |
+235 |         if u64::from(id) == ID!(NULL) {
+    |            ++++++++++  +
+
+error[E0599]: no method named `into_raw_fd` found for struct `File` in the current scope
+   --> yjit\src\options.rs:309:87
+    |
+309 | ...                   unsafe { OPTIONS.dump_disasm = Some(DumpDisasm::File(file.into_raw_fd())) }
+    |                                                                                 ^^^^^^^^^^^
+    |
+help: there is a method `into_raw_handle` with a similar name
+    |
+309 -                             unsafe { OPTIONS.dump_disasm = Some(DumpDisasm::File(file.into_raw_fd())) }
+309 +                             unsafe { OPTIONS.dump_disasm = Some(DumpDisasm::File(file.into_raw_handle())) }
+    |
+
+error[E0599]: no method named `into_raw_fd` found for struct `File` in the current scope
+   --> yjit\src\options.rs:357:74
+    |
+357 |                         unsafe { OPTIONS.log = Some(LogOutput::File(file.into_raw_fd())) }
+    |                                                                          ^^^^^^^^^^^
+    |
+help: there is a method `into_raw_handle` with a similar name
+    |
+357 -                         unsafe { OPTIONS.log = Some(LogOutput::File(file.into_raw_fd())) }
+357 +                         unsafe { OPTIONS.log = Some(LogOutput::File(file.into_raw_handle())) }
+    |
+
+error[E0599]: no function or associated item named `from_raw_fd` found for struct `File` in the current scope
+   --> yjit\src\log.rs:81:60
+    |
+ 81 |                     let mut file = unsafe { std::fs::File::from_raw_fd(fd) };
+    |                                                            ^^^^^^^^^^^ function or associated item not found in `File`
+    |
+note: if you're trying to build a new `File` consider using one of the following associated functions:
+      File::open
+      File::create
+      File::create_new
+   --> C:\Users\IKYY\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib/rustlib/src/rust\library\std\src\fs.rs:569:5
+    |
+569 |     pub fn open<P: AsRef<Path>>(path: P) -> io::Result<File> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+637 |     pub fn create<P: AsRef<Path>>(path: P) -> io::Result<File> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+711 |     pub fn create_new<P: AsRef<Path>>(path: P) -> io::Result<File> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: there is an associated function `from_raw_handle` with a similar name
+    |
+ 81 -                     let mut file = unsafe { std::fs::File::from_raw_fd(fd) };
+ 81 +                     let mut file = unsafe { std::fs::File::from_raw_handle(fd) };
+    |
+
+Some errors have detailed explanations: E0308, E0433, E0599.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `yjit` (lib) due to 34 previous errors

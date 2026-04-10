@@ -1,0 +1,24 @@
+[Unit]
+Description=OMNI Framework Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/omni-app
+ExecStart=/var/www/omni-app/omni_gateway
+Restart=always
+RestartSec=5
+LimitNOFILE=65535
+
+# Environment
+Environment=NODE_ENV=production
+Environment=PORT=3000
+
+# Security
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/www/omni-app
+
+[Install]
+WantedBy=multi-user.target

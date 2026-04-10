@@ -1,0 +1,22 @@
+[package]
+name        = "omni-env"
+version     = "2.0.0"
+authors     = ["ANTIGRAVITY <omni@architecture.dev>"]
+description = "Environment variables and process arguments management."
+license     = "OMNI-Community"
+edition     = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+
+[dev-dependencies]
+omni-test = "^1.0"
+
+[permissions]
+allow_thread = true
+allow_memory = true
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "free"
+price_usd    = 0

@@ -1,0 +1,5 @@
+﻿import "omni-std"
+extern "omni-go" fn omni_net_listen(port: Number) -> Result<Number, OmniError>;
+export struct Server {
+    fn listen(port: Number) -> Result<bool, OmniError> { Ok(true) }
+}

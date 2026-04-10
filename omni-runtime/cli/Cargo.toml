@@ -1,0 +1,9 @@
+[package]
+name = "omni-cli"
+version = "2.0.0"
+edition = "2021"
+authors = ["Antigravity <omni@architecture.dev>"]
+description = "The absolute ultra-fast CLI driver for the OMNI Ecosystem (Node.js Killer)"
+
+[dependencies]
+# Dependencies will be resolved internally

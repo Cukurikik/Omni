@@ -1,0 +1,21 @@
+{
+  "name": "omni-compress",
+  "version": "1.0.0",
+  "description": "OMNI Compress module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-compress",
+  "repository": "https://github.com/omni-framework/omni-compress",
+  "keywords": [
+    "omni",
+    "runtime",
+    "compress"
+  ],
+  "edition": "omni-2025",
+  "checksum": "f900d54788a2d70961212b3cf9b2bedb592703003c57b9b31782ccfc3eba3d3f",
+  "size": 7304,
+  "published_at": "2026-04-09T10:02:36.036251+07:00",
+  "downloads": 0
+}

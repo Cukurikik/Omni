@@ -1,0 +1,9 @@
+// Example: Basic omni-cloudflare-workers usage
+import { init } from '@omni/omni-cloudflare-workers'
+
+fn main() -> Result<(), Error> {
+    let instance = init(Config::default())?
+    let result = instance.execute("hello")?
+    println!("Result: {}", result)
+    Ok(())
+}

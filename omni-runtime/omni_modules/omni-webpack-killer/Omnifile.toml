@@ -1,0 +1,36 @@
+﻿[package]
+name        = "omni-webpack-killer"
+version     = "1.0.0"
+authors     = ["OMNI Core Team <core@omniframework.dev>"]
+description = "OMNI native bundler with tree-shaking and HMR"
+license     = "OMNI-Community"
+homepage    = "https://omniframework.dev/packages/omni-webpack-killer"
+repository  = "https://github.com/omni-framework/omni-webpack-killer"
+keywords    = ["utility", "core", "infrastructure", "tool"]
+edition     = "omni-2025"
+tier        = "free"
+price_usd   = 0
+
+[dependencies]
+omni-std = "^2.0"
+omni-fs = "^2.0"
+omni-uast = "^2.0"
+omni-minifier = "^2.0"
+
+[dev-dependencies]
+omni-test = "^1.0"
+omni-bench-suite = "^1.0"
+
+[permissions]
+allow_net    = ["*"]
+allow_fs     = ["/tmp/omni-util/"]
+allow_env    = ["OMNI_ENV", "OMNI_LOG_LEVEL"]
+allow_thread = true
+
+[build]
+target       = ["wasm32", "x86_64-linux", "x86_64-windows", "aarch64-apple"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll"]
+
+[publish]
+registry = "https://nexus.omniframework.dev"

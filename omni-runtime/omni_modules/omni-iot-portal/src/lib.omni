@@ -1,0 +1,12 @@
+﻿/// [OMNI-PACKAGE] omni-iot-portal
+/// Description: Advanced iot computing engine.
+/// @since 1.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct IotPortalInterface {
+    fn initialize() -> Result<bool, OmniError> {
+        Ok(true)
+    }
+}

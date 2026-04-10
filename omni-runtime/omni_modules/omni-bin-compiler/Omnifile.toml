@@ -1,0 +1,14 @@
+[package]
+name = "omni-bin-compiler"
+version = "5.0.0-ultimate"
+authors = ["ANTIGRAVITY <omni@architecture.dev>"]
+edition = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+omni-crypto-hash = "^1.5"
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "enterprise"
+price_usd    = 0

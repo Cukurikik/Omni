@@ -1,0 +1,14 @@
+﻿/// [OMNI-INTERFACE] Serverless & PaaS Orchestration
+/// Replaces: AWS SDK, Google Cloud SDK
+export struct OmniCloudDeployment {
+    region: String;
+    replicas: Number;
+
+    fn deploy(manifest: Object) -> Result<DeploymentStatus, CloudError> { /* System Interface */ }
+    fn scale(replicas: Number) -> Result<void, CloudError> { /* System Interface */ }
+    fn streamLogs() -> Stream<String> { /* System Interface */ }
+}
+
+export interface ServerlessFunction {
+    fn trigger(event: CloudEvent) -> void;
+}

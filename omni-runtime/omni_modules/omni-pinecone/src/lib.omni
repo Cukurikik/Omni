@@ -1,0 +1,92 @@
+﻿/// [omni-pinecone] - Pinecone vector database SDK for semantic search at scale
+/// Layer: Data Store | OMNI Native Implementation
+
+import { ConnectionConfig, SSLMode, PoolStats, QueryResult, ColumnInfo, DataType, IsolationLevel, RetryPolicy, Migration, HealthStatus } from "./types"
+import { DatabaseConfig, load_config, build_connection_string } from "./config"
+
+mutable var _pool: Option<ConnectionPool> = None
+
+pub fn init() -> Result<Client, ConnectionError> {
+    let config = load_config()?
+    create_client(config)
+}
+
+pub fn create_client(config: DatabaseConfig) -> Result<Client, ConnectionError> {
+    let conn_str = build_connection_string(&config)
+    println("[OMNI:omni-pinecone] Connecting to {}:{}/{}", config.host, config.port, config.database)
+    let pool = ConnectionPool::create(PoolConfig { min: config.pool_min, max: config.pool_max, idle_timeout: Duration::from_millis(config.idle_timeout_ms), connect_timeout: Duration::from_millis(config.connect_timeout_ms) })?
+    let test = pool.acquire()?; test.ping()?; pool.release(test)
+    _pool = Some(pool.clone())
+    println("[OMNI:omni-pinecone] Connected - pool: {}/{}", pool.stats().active, pool.stats().total)
+    Ok(Client { pool: pool, config: config })
+}
+
+pub fn query<T: FromRow>(client: &Client, sql: String, params: Vec<Value>) -> Result<QueryResult<T>, QueryError> {
+    let conn = client.pool.acquire()?
+    defer client.pool.release(conn)
+    let start = omni::time::now()
+    let stmt = conn.prepare_cached(sql.clone())?
+    let raw = stmt.execute(params)?
+    let rows: Vec<T> = raw.rows.iter().map(|r| T::from_row(r)).collect::<Result<Vec<T>, _>>()?
+    let dur = omni::time::since(start)
+    Ok(QueryResult { rows: rows, affected: raw.affected_rows, last_insert_id: raw.last_insert_id, duration_ms: dur.as_millis_f64(), columns: raw.columns })
+}
+
+pub fn execute(client: &Client, sql: String, params: Vec<Value>) -> Result<u64, QueryError> {
+    let conn = client.pool.acquire()?
+    defer client.pool.release(conn)
+    let stmt = conn.prepare_cached(sql)?
+    stmt.execute_raw(params)
+}
+
+pub fn query_one<T: FromRow>(client: &Client, sql: String, params: Vec<Value>) -> Result<Option<T>, QueryError> {
+    let result = query::<T>(client, sql, params)?
+    Ok(result.rows.into_iter().next())
+}
+
+pub fn begin(client: &Client) -> Result<Transaction, TransactionError> {
+    let conn = client.pool.acquire()?
+    conn.execute_raw("BEGIN")?
+    Ok(Transaction { conn: conn, pool: client.pool.clone(), committed: false })
+}
+
+pub fn commit(tx: &mut Transaction) -> Result<(), TransactionError> {
+    tx.conn.execute_raw("COMMIT")?; tx.committed = true; tx.pool.release(tx.conn.clone()); Ok(())
+}
+
+pub fn rollback(tx: &mut Transaction) -> Result<(), TransactionError> {
+    tx.conn.execute_raw("ROLLBACK")?; tx.pool.release(tx.conn.clone()); Ok(())
+}
+
+pub fn transact<T>(client: &Client, cb: fn(&Transaction) -> Result<T, QueryError>) -> Result<T, TransactionError> {
+    let mut tx = begin(client)?
+    match cb(&tx) { Ok(r) => { commit(&mut tx)?; Ok(r) }, Err(e) => { rollback(&mut tx)?; Err(TransactionError::QueryFailed(e)) } }
+}
+
+pub fn migrate(client: &Client, migrations: Vec<Migration>) -> Result<u32, MigrationError> {
+    execute(client, "CREATE TABLE IF NOT EXISTS _omni_migrations (id TEXT PRIMARY KEY, name TEXT, checksum TEXT, applied_at TIMESTAMP DEFAULT NOW())", Vec::new())?
+    let applied = query::<MigrationRecord>(client, "SELECT id FROM _omni_migrations", Vec::new())?
+    let ids: Vec<String> = applied.rows.iter().map(|r| r.id.clone()).collect()
+    let mut count: u32 = 0
+    for m in migrations {
+        if !ids.contains(&m.id) {
+            transact(client, |tx| { tx.execute(m.sql_up.clone(), Vec::new())?; Ok(()) })?
+            count += 1; println("[OMNI:omni-pinecone:MIGRATE] Applied: {} - {}", m.id, m.name)
+        }
+    }
+    Ok(count)
+}
+
+pub fn health_check(client: &Client) -> Result<HealthStatus, HealthError> {
+    let start = omni::time::now()
+    let ver = query_one::<VersionInfo>(client, "SELECT version()", Vec::new())?
+    Ok(HealthStatus { connected: true, latency_ms: omni::time::since(start).as_millis_f64(), version: ver.map(|v| v.version).unwrap_or("unknown".into()), uptime_secs: 0, pool: client.pool.stats(), replication: None })
+}
+
+pub fn shutdown() -> Result<(), ShutdownError> {
+    match _pool.take() { Some(p) => { p.close_all()?; println("[OMNI:omni-pinecone] Pool drained"); Ok(()) }, None => Ok(()) }
+}
+
+pub struct Client { pool: ConnectionPool, config: DatabaseConfig }
+pub struct Transaction { conn: Connection, pool: ConnectionPool, committed: bool }
+pub interface FromRow { fn from_row(row: &Row) -> Result<Self, RowError> }

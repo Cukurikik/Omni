@@ -1,0 +1,21 @@
+{
+  "name": "omni-events",
+  "version": "1.0.0",
+  "description": "Lock-free event emitter and pub/sub system with zero-copy dispatch",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-events",
+  "repository": "https://github.com/omni-framework/omni-events",
+  "keywords": [
+    "omni",
+    "runtime",
+    "events"
+  ],
+  "edition": "omni-2025",
+  "checksum": "d044562a1f8c4e5da52c9b7ea087205b531a8fda73de66df18d5c1be09e21d49",
+  "size": 9350,
+  "published_at": "2026-04-09T23:00:37.4720133+07:00",
+  "downloads": 0
+}

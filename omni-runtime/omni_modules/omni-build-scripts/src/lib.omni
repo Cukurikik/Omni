@@ -1,0 +1,8 @@
+﻿// Enterprise Package Management Layer for omni-build-scripts
+import { FileSystemWatcher } from "./system/fs_hooks/watcher"
+import { NexusAPI } from "./network/registry_api/client"
+import { DAGResolver } from "./compute/dag_solver/graph"
+
+export interface omni_build_scripts_Registry {
+    fn execute() -> Result<bool, NexusError>;
+}

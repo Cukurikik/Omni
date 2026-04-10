@@ -1,0 +1,22 @@
+{
+  "name": "omni-debugger-protocol",
+  "version": "1.0.0",
+  "description": "OMNI Debugger Protocol module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-debugger-protocol",
+  "repository": "https://github.com/omni-framework/omni-debugger-protocol",
+  "keywords": [
+    "omni",
+    "runtime",
+    "debugger",
+    "protocol"
+  ],
+  "edition": "omni-2025",
+  "checksum": "6a75188ee4f732bdf79fcc45463df089fd1ea56f4274915bf5164ab47526d1a5",
+  "size": 6289,
+  "published_at": "2026-04-09T10:02:36.1161828+07:00",
+  "downloads": 0
+}

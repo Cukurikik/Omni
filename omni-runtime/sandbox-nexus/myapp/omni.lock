@@ -1,0 +1,35 @@
+# ============================================================
+# omni.lock — OMNI Dependency Lockfile
+# ============================================================
+# JANGAN EDIT FILE INI SECARA MANUAL.
+# File ini di-generate otomatis oleh `omni install` atau `omni get`.
+# Commit file ini ke Git untuk build yang deterministik.
+# ============================================================
+
+[metadata]
+generated_by = "omni-cli v1.0.0"
+generated_at = "2026-04-23T03:11:37Z"
+lockfile_version = 1
+
+# ─── Resolved Dependencies ─────────────────────────────────
+
+[[package]]
+name     = "omni-std"
+version  = "1.0.0"
+checksum = "sha256:a86b2b25067fd61da86b2b25067f08b0a86b2b25067f68f2a86b2b25067f1ce3"
+source   = "builtin"
+
+[[package]]
+name     = "omni-test"
+version  = "1.0.0"
+checksum = "sha256:b5d0a770a51cf6d2b5d0a770a51c287fb5d0a770a51c483db5d0a770a51c3c2c"
+source   = "builtin"
+dev      = true
+
+[[package]]
+name     = "omni-log"
+version  = "1.0.0"
+checksum = "sha256:a86b220020be4cf4a86b220020be9259a86b220020bef21ba86b220020be860a"
+source   = "builtin"
+dev      = true
+

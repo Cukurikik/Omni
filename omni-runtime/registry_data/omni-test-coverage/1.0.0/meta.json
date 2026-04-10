@@ -1,0 +1,22 @@
+{
+  "name": "omni-test-coverage",
+  "version": "1.0.0",
+  "description": "Code coverage analyzer with per-line and branch metrics",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-test-coverage",
+  "repository": "https://github.com/omni-framework/omni-test-coverage",
+  "keywords": [
+    "omni",
+    "runtime",
+    "test",
+    "coverage"
+  ],
+  "edition": "omni-2025",
+  "checksum": "b42e5f576267c360c0cbfb76c09e74ab5a89365791f204615e7d9dac660c0c80",
+  "size": 6285,
+  "published_at": "2026-04-09T10:02:36.6021221+07:00",
+  "downloads": 0
+}

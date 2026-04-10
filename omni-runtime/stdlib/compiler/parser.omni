@@ -1,0 +1,470 @@
+// ==========================================
+// OMNI-LANG SELF-HOSTING PARSER (Stage-1 Compiler)
+// ==========================================
+// Recursive Descent Parser yang membangun AST dari stream Token.
+// Mendukung: Variable declarations, Functions, Guard, Async,
+// Matrix operations, JSX elements, dan FFI extern declarations.
+// ==========================================
+
+import { Vector, String, Option, Result, HashMap } from "omni:core"
+import { Token, TokenKind } from "./lexer"
+
+// =============================
+// AST Node Definitions
+// =============================
+enum Expression {
+    LiteralInt(Int),
+    LiteralFloat(Float),
+    LiteralString(String),
+    Identifier(String),
+
+    Binary {
+        operator: String,
+        left: Box<Expression>,
+        right: Box<Expression>,
+    },
+
+    // Vektor Matematika Native (A * B matriks)
+    MatrixOperation {
+        operator: String,
+        base: Box<Expression>,
+        exponent: Box<Expression>,
+    },
+
+    // DOM Native Node (<Dashboard theme="dark">)
+    JsxElement {
+        tag_name: String,
+        attributes: HashMap<String, Expression>,
+        children: Vector<Expression>,
+    },
+
+    // Safe Navigation (user?.name)
+    PropertyAccess {
+        object: Box<Expression>,
+        property: String,
+        safe_navigation: Bool,
+    },
+
+    // Function Call (foo(a, b))
+    FunctionCall {
+        callee: Box<Expression>,
+        arguments: Vector<Expression>,
+    },
+
+    // Await expression
+    AwaitExpr {
+        inner: Box<Expression>,
+    },
+}
+
+enum Statement {
+    VariableDeclaration {
+        name: String,
+        kind: String,              // let / mut
+        type_annotation: Option<String>,
+        initializer: Expression,
+    },
+
+    GuardStatement {
+        binding_name: String,
+        expression: Expression,
+        else_block: Vector<Statement>,
+    },
+
+    FunctionDeclaration {
+        name: String,
+        parameters: Vector<Parameter>,
+        return_type: Option<String>,
+        is_async: Bool,
+        body: Vector<Statement>,
+    },
+
+    // @ffi(lib = "...", language = "...") extern fn name(...) -> Type;
+    ExternFunctionDeclaration {
+        name: String,
+        parameters: Vector<Parameter>,
+        return_type: String,
+        ffi_lib: String,
+        ffi_language: String,
+        gil_safe: Bool,
+    },
+
+    ReturnStatement {
+        value: Option<Expression>,
+    },
+
+    ExpressionStatement {
+        expression: Expression,
+    },
+
+    ImportStatement {
+        names: Vector<String>,
+        source: String,
+    },
+}
+
+struct Parameter {
+    name: String,
+    type_name: String,
+}
+
+// =============================
+// THE LOGIC TREE (Parser)
+// =============================
+struct OmniParser {
+    tokens: Vector<Token>,
+    current: Int,
+}
+
+impl OmniParser {
+    fn new(tokens: Vector<Token>) -> Self {
+        return OmniParser { tokens, current: 0 }
+    }
+
+    // Look at current token without consuming
+    fn peek(self) -> Token {
+        return self.tokens[self.current]
+    }
+
+    // Consume current token and advance
+    fn advance(mut self) -> Token {
+        let token = self.tokens[self.current]
+        self.current += 1
+        return token
+    }
+
+    // Check if current token matches expected kind
+    fn check(self, kind: TokenKind) -> Bool {
+        return self.peek().kind == kind
+    }
+
+    // Consume token if it matches, error otherwise
+    fn expect(mut self, kind: TokenKind) -> Result<Token, String> {
+        if self.check(kind) {
+            return Result.Ok(self.advance())
+        }
+        return Result.Err(
+            "Parser Error pada baris " + self.peek().line.to_string() 
+            + ": Expected " + kind.to_string() 
+            + ", ditemukan " + self.peek().lexeme
+        )
+    }
+
+    // =============================
+    // TOP-LEVEL PARSING
+    // =============================
+    fn parse(mut self) -> Vector<Statement> {
+        let mut statements = Vector.new()
+        
+        while !self.check(TokenKind.EOF) {
+            let stmt = self.parse_statement()
+            match stmt {
+                Result.Ok(s) => statements.push(s),
+                Result.Err(e) => {
+                    omni.print("❌ " + e)
+                    self.advance() // skip error token
+                }
+            }
+        }
+
+        return statements
+    }
+
+    // =============================
+    // STATEMENT PARSING
+    // =============================
+    fn parse_statement(mut self) -> Result<Statement, String> {
+        let token = self.peek()
+
+        return match token.kind {
+            TokenKind.Let | TokenKind.Mut => self.parse_variable_declaration(),
+            TokenKind.Fn => self.parse_function_declaration(false),
+            TokenKind.Async => {
+                self.advance() // consume 'async'
+                self.parse_function_declaration(true)
+            },
+            TokenKind.Guard => self.parse_guard_statement(),
+            TokenKind.Return => self.parse_return_statement(),
+            TokenKind.Import => self.parse_import_statement(),
+            TokenKind.At => self.parse_decorator(),
+            _ => self.parse_expression_statement(),
+        }
+    }
+
+    fn parse_variable_declaration(mut self) -> Result<Statement, String> {
+        let kind_token = self.advance() // consume 'let' or 'mut'
+        let name_token = self.expect(TokenKind.Identifier(""))? 
+        
+        // Optional type annotation: let x: Int = ...
+        let type_annotation = if self.check(TokenKind.Colon) {
+            self.advance() // consume ':'
+            let type_token = self.advance()
+            Option.Some(type_token.lexeme)
+        } else {
+            Option.None
+        }
+
+        self.expect(TokenKind.Assign)?
+        let initializer = self.parse_expression()?
+        self.expect(TokenKind.SemiColon)?
+
+        return Result.Ok(Statement.VariableDeclaration {
+            name: name_token.lexeme,
+            kind: kind_token.lexeme,
+            type_annotation,
+            initializer,
+        })
+    }
+
+    fn parse_function_declaration(mut self, is_async: Bool) -> Result<Statement, String> {
+        self.expect(TokenKind.Fn)?
+        let name_token = self.advance()
+        
+        self.expect(TokenKind.LParen)?
+        let parameters = self.parse_parameter_list()?
+        self.expect(TokenKind.RParen)?
+
+        // Optional return type: fn foo() -> Int { }
+        let return_type = if self.check(TokenKind.Minus) {
+            self.advance() // consume '-'
+            self.advance() // consume '>'
+            Option.Some(self.advance().lexeme)
+        } else {
+            Option.None
+        }
+
+        self.expect(TokenKind.LBrace)?
+        let body = self.parse_block()?
+        self.expect(TokenKind.RBrace)?
+
+        return Result.Ok(Statement.FunctionDeclaration {
+            name: name_token.lexeme,
+            parameters,
+            return_type,
+            is_async,
+            body,
+        })
+    }
+
+    // Parse @ffi(...) extern fn ...
+    fn parse_decorator(mut self) -> Result<Statement, String> {
+        self.advance() // consume '@'
+        let decorator_name = self.advance() // should be 'ffi'
+        
+        if decorator_name.lexeme != "ffi" {
+            return Result.Err("Unknown decorator: @" + decorator_name.lexeme)
+        }
+
+        // Parse decorator arguments: (lib = "...", language = "...")
+        self.expect(TokenKind.LParen)?
+        let mut ffi_lib = ""
+        let mut ffi_language = ""
+        let mut gil_safe = false
+
+        while !self.check(TokenKind.RParen) {
+            let key = self.advance()
+            self.expect(TokenKind.Assign)?
+            let value = self.advance()
+            
+            match key.lexeme {
+                "lib"      => ffi_lib = value.lexeme.trim_quotes(),
+                "language" => ffi_language = value.lexeme.trim_quotes(),
+                "gil_safe" => gil_safe = value.lexeme == "true",
+                _ => {}
+            }
+
+            if self.check(TokenKind.Comma) { self.advance() }
+        }
+        self.expect(TokenKind.RParen)?
+
+        // Now parse: extern fn name(params) -> ReturnType;
+        self.expect(TokenKind.Extern)?
+        self.expect(TokenKind.Fn)?
+        let name = self.advance()
+
+        self.expect(TokenKind.LParen)?
+        let parameters = self.parse_parameter_list()?
+        self.expect(TokenKind.RParen)?
+
+        // Parse return type
+        self.advance() // '-'
+        self.advance() // '>'
+        let return_type = self.advance().lexeme
+
+        self.expect(TokenKind.SemiColon)?
+
+        return Result.Ok(Statement.ExternFunctionDeclaration {
+            name: name.lexeme,
+            parameters,
+            return_type,
+            ffi_lib,
+            ffi_language,
+            gil_safe,
+        })
+    }
+
+    fn parse_parameter_list(mut self) -> Result<Vector<Parameter>, String> {
+        let mut params = Vector.new()
+        
+        while !self.check(TokenKind.RParen) {
+            let name = self.advance()
+            self.expect(TokenKind.Colon)?
+            let type_name = self.advance()
+            
+            params.push(Parameter { name: name.lexeme, type_name: type_name.lexeme })
+            
+            if self.check(TokenKind.Comma) { self.advance() }
+        }
+
+        return Result.Ok(params)
+    }
+
+    fn parse_guard_statement(mut self) -> Result<Statement, String> {
+        self.advance() // consume 'guard'
+        self.expect(TokenKind.Let)?
+        let binding = self.advance()
+        self.expect(TokenKind.Assign)?
+        let expr = self.parse_expression()?
+        self.expect(TokenKind.Else)?
+        self.expect(TokenKind.LBrace)?
+        let else_block = self.parse_block()?
+        self.expect(TokenKind.RBrace)?
+
+        return Result.Ok(Statement.GuardStatement {
+            binding_name: binding.lexeme,
+            expression: expr,
+            else_block,
+        })
+    }
+
+    fn parse_return_statement(mut self) -> Result<Statement, String> {
+        self.advance() // consume 'return'
+        let value = if !self.check(TokenKind.SemiColon) {
+            Option.Some(self.parse_expression()?)
+        } else {
+            Option.None
+        }
+        self.expect(TokenKind.SemiColon)?
+        return Result.Ok(Statement.ReturnStatement { value })
+    }
+
+    fn parse_import_statement(mut self) -> Result<Statement, String> {
+        self.advance() // consume 'import'
+        self.expect(TokenKind.LBrace)?
+        let mut names = Vector.new()
+        while !self.check(TokenKind.RBrace) {
+            names.push(self.advance().lexeme)
+            if self.check(TokenKind.Comma) { self.advance() }
+        }
+        self.expect(TokenKind.RBrace)?
+        // consume 'from'
+        self.advance()
+        let source = self.advance().lexeme
+        return Result.Ok(Statement.ImportStatement { names, source })
+    }
+
+    fn parse_expression_statement(mut self) -> Result<Statement, String> {
+        let expr = self.parse_expression()?
+        if self.check(TokenKind.SemiColon) { self.advance() }
+        return Result.Ok(Statement.ExpressionStatement { expression: expr })
+    }
+
+    // =============================
+    // EXPRESSION PARSING (Pratt)
+    // =============================
+    fn parse_expression(mut self) -> Result<Expression, String> {
+        return self.parse_binary(0)
+    }
+
+    fn parse_binary(mut self, min_precedence: Int) -> Result<Expression, String> {
+        let mut left = self.parse_unary()?
+
+        while self.is_binary_operator() && self.precedence() >= min_precedence {
+            let op = self.advance()
+            let right = self.parse_binary(self.precedence() + 1)?
+            
+            left = if op.lexeme == "^" {
+                Expression.MatrixOperation {
+                    operator: op.lexeme,
+                    base: Box.new(left),
+                    exponent: Box.new(right),
+                }
+            } else {
+                Expression.Binary {
+                    operator: op.lexeme,
+                    left: Box.new(left),
+                    right: Box.new(right),
+                }
+            }
+        }
+
+        return Result.Ok(left)
+    }
+
+    fn parse_unary(mut self) -> Result<Expression, String> {
+        if self.check(TokenKind.Await) {
+            self.advance()
+            let inner = self.parse_unary()?
+            return Result.Ok(Expression.AwaitExpr { inner: Box.new(inner) })
+        }
+        return self.parse_primary()
+    }
+
+    fn parse_primary(mut self) -> Result<Expression, String> {
+        let token = self.advance()
+        
+        return match token.kind {
+            TokenKind.IntLiteral(n) => Result.Ok(Expression.LiteralInt(n)),
+            TokenKind.FloatLiteral(n) => Result.Ok(Expression.LiteralFloat(n)),
+            TokenKind.StringLiteral(s) => Result.Ok(Expression.LiteralString(s)),
+            TokenKind.Identifier(name) => {
+                // Check for function call: name(...)
+                if self.check(TokenKind.LParen) {
+                    self.advance() // consume '('
+                    let mut args = Vector.new()
+                    while !self.check(TokenKind.RParen) {
+                        args.push(self.parse_expression()?)
+                        if self.check(TokenKind.Comma) { self.advance() }
+                    }
+                    self.expect(TokenKind.RParen)?
+                    Result.Ok(Expression.FunctionCall {
+                        callee: Box.new(Expression.Identifier(name)),
+                        arguments: args,
+                    })
+                } else {
+                    Result.Ok(Expression.Identifier(name))
+                }
+            },
+            TokenKind.LParen => {
+                let expr = self.parse_expression()?
+                self.expect(TokenKind.RParen)?
+                Result.Ok(expr)
+            },
+            _ => Result.Err("Unexpected token: " + token.lexeme),
+        }
+    }
+
+    fn parse_block(mut self) -> Result<Vector<Statement>, String> {
+        let mut stmts = Vector.new()
+        while !self.check(TokenKind.RBrace) && !self.check(TokenKind.EOF) {
+            stmts.push(self.parse_statement()?)
+        }
+        return Result.Ok(stmts)
+    }
+
+    fn is_binary_operator(self) -> Bool {
+        let kind = self.peek().kind
+        return kind == TokenKind.Plus || kind == TokenKind.Minus 
+            || kind == TokenKind.Star || kind == TokenKind.Slash
+            || kind == TokenKind.MatrixPower
+    }
+
+    fn precedence(self) -> Int {
+        return match self.peek().kind {
+            TokenKind.Plus | TokenKind.Minus => 1,
+            TokenKind.Star | TokenKind.Slash => 2,
+            TokenKind.MatrixPower => 3,
+            _ => 0,
+        }
+    }
+}

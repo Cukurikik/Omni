@@ -1,0 +1,15 @@
+# ===================================
+# OMNI FRAMEWORK MANIFEST
+# Generated: 2026-04-01T21:49:49.969Z
+# ===================================
+
+APP_NAME "omni-project"
+VERSION "1.0.0"
+PORT 3000
+THEME "tailwind"
+ENVIRONMENT "development"
+PERSISTENCE false
+MAX_UPLOAD_GB 50
+
+REQUIRE_TOOLS:
+  - demo_tool

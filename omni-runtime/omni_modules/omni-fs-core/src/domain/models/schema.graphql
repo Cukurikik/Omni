@@ -1,0 +1,1 @@
+﻿type omni_fs_core_Entity { id: UUID! createdAt: String! }

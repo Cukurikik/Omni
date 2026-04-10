@@ -1,0 +1,14 @@
+# ============================================================
+# Omnifile.toml â€” Bawaan OMNI Framework (Internal)
+# ============================================================
+
+[package]
+name        = "omni-validate"
+version     = "1.0.0"
+edition     = "omni-2025"
+authors     = ["OMNI Core Team"]
+description = "Internal OMNI Framework builtin module"
+license     = "MIT"
+
+[dependencies]
+# Kosong (Builtin module independen atau rely on core)

@@ -1,0 +1,11 @@
+node_modules/
+.env
+release/omni_cache/
+release/omni_quarantine/
+logs/
+__pycache__/
+*.exe
+*.o
+*.so
+.venv/
+.omni_temp_module/

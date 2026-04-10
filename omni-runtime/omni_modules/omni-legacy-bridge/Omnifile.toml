@@ -1,0 +1,10 @@
+[package]
+name = "omni-legacy-bridge"
+version = "1.0.0"
+description = "Enterprise FFI bridge to integrate JVM, .NET, and legacy monolyth systems"
+license = "OMNI-Enterprise"
+
+[permissions]
+allow_sidecar = ["jvm-11", "jvm-17", "dotnet-6"]
+allow_fs = ["/var/run/omni-bridge"]
+allow_thread = true

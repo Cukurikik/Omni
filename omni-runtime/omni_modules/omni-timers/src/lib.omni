@@ -1,0 +1,4 @@
+﻿/// [OMNI] omni-timers Entry
+import { * } from "./system/memory"
+import { * } from "./network/gateway"
+export interface omni_timers_sys { fn init() -> bool; }

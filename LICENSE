@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 CUKURIKIK
+Copyright (c) 2025-2026 OMNI Framework
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+OMNI-NEXUS Premium Packages Addendum:
+
+Packages published under the "premium" tier on the OMNI-NEXUS registry
+(nexus.omniframework.dev) may carry additional commercial licensing terms
+as specified in their individual Omnifile.toml manifest files. The MIT License
+above applies to the OMNI Framework core runtime, CLI tools, and standard
+library modules only.
+
+For Enterprise licensing inquiries, contact: admin@omniframework.dev

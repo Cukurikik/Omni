@@ -1,0 +1,38 @@
+# omni-moment-turbo â€” GraphQL Schema Contract
+# Auto-generated for OMNI Native Bridge
+
+scalar DateTime
+scalar JSON
+scalar UUID
+
+type Query {
+  get(id: UUID!): Entity
+  list(page: PageInput!, filter: FilterInput): EntityPage!
+  search(query: String!, limit: Int): [Entity!]!
+  health: HealthStatus!
+  stats: Stats!
+}
+
+type Mutation {
+  create(input: CreateInput!): Entity!
+  update(id: UUID!, input: UpdateInput!): Entity!
+  delete(id: UUID!): Boolean!
+  bulkCreate(inputs: [CreateInput!]!): [Entity!]!
+  bulkDelete(ids: [UUID!]!): Int!
+}
+
+type Subscription {
+  onCreated: Entity!
+  onUpdated: Entity!
+  onDeleted: UUID!
+}
+
+type Entity { id: UUID!; data: JSON!; status: Status!; createdAt: DateTime!; updatedAt: DateTime!; metadata: JSON }
+type EntityPage { items: [Entity!]!; total: Int!; hasNext: Boolean!; page: Int!; size: Int! }
+type HealthStatus { healthy: Boolean!; latency: Int!; version: String! }
+type Stats { totalEntities: Int!; activeConnections: Int!; uptime: Int! }
+input PageInput { page: Int! = 1; size: Int! = 20; sortBy: String; ascending: Boolean }
+input FilterInput { status: Status; createdAfter: DateTime; createdBefore: DateTime; search: String }
+input CreateInput { data: JSON!; metadata: JSON }
+input UpdateInput { data: JSON; status: Status; metadata: JSON }
+enum Status { ACTIVE INACTIVE PENDING FAILED CANCELLED COMPLETED ARCHIVED }

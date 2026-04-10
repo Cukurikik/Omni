@@ -1,0 +1,1 @@
+﻿type omni_compress_Entity { id: UUID! createdAt: String! }

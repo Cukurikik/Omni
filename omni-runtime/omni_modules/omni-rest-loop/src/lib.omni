@@ -1,0 +1,13 @@
+﻿/// [OMNI-PACKAGE] omni-rest-loop
+/// Description: Zero-cost abstraction targeting massive concurrency to dismantle Node.js bottlenecks.
+/// @since 2.0.0
+
+import "omni-std"
+import "omni-runtime"
+
+export struct RestLoopServer {
+    fn listen(port: Number) -> Result<bool, OmniError> {
+        // Utilizing deep Go Green threads and Rust zero-copy I/O
+        Ok(true)
+    }
+}

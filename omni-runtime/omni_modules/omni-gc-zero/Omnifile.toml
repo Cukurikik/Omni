@@ -1,0 +1,10 @@
+[package]
+name        = "omni-gc-zero"
+version     = "1.0.0"
+description = "Node.js GC Killer: Rust Bump-Allocators overriding JS heaps for 0(1) cleanup."
+license     = "OMNI-Community"
+tier        = "free"
+price_usd   = 0
+
+[permissions]
+allow_memory = true

@@ -1,0 +1,21 @@
+{
+  "name": "omni-cloud",
+  "version": "1.0.0",
+  "description": "OMNI Cloud module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-cloud",
+  "repository": "https://github.com/omni-framework/omni-cloud",
+  "keywords": [
+    "omni",
+    "runtime",
+    "cloud"
+  ],
+  "edition": "omni-2025",
+  "checksum": "bf4aed0512cf9a9d443d7b9e6d9d1e28d7f12de4cc5a7cd0d5e9110b5b166e9b",
+  "size": 1157,
+  "published_at": "2026-04-09T23:00:37.2244522+07:00",
+  "downloads": 0
+}

@@ -1,0 +1,21 @@
+﻿/// [OMNI TUTORIAL #12]
+/// Ini adalah panduan penggunaan OMNI Framework untuk Developer Lain.
+
+import "omni-std"
+import "omni-runtime"
+
+// Aturan OMNI v2.0: ZERO-COPY & MONADIC ERROR HANDLING
+export fn run_example_12() -> Result<bool, OmniError> {
+    // Tutorial ke-12 - Tuliskan abstraksi Anda di sini tanpa garbage collector dari Node.js
+    // let data = mem::allocate(1024)
+    Ok(true)
+}
+
+// Integrasi EBPF & Concurrency GO Layer:
+@system_module
+export struct ExampleWorker_12 {
+    fn spawnWorker() {
+        // go spawn
+    }
+}
+

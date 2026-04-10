@@ -1,0 +1,22 @@
+{
+  "name": "omni-dotnet-bridge",
+  "version": "1.0.0",
+  "description": "OMNI Dotnet Bridge module for the polyglot runtime ecosystem",
+  "authors": [
+    "OMNI Core Team \u003ccore@omniframework.dev\u003e"
+  ],
+  "license": "MIT",
+  "homepage": "https://omniframework.dev/packages/omni-dotnet-bridge",
+  "repository": "https://github.com/omni-framework/omni-dotnet-bridge",
+  "keywords": [
+    "omni",
+    "runtime",
+    "dotnet",
+    "bridge"
+  ],
+  "edition": "omni-2025",
+  "checksum": "b8c562b75818ea5708da307e668baeb71b4ffa6dbd085c8a17d6fc4eb9ea1287",
+  "size": 7309,
+  "published_at": "2026-04-09T23:00:37.4373905+07:00",
+  "downloads": 0
+}

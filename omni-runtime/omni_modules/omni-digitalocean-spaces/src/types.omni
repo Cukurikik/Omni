@@ -1,0 +1,33 @@
+﻿/// Type definitions for omni-digitalocean-spaces - Cloud Layer
+
+pub struct CloudCredential { access_key: String, secret_key: String, session_token: Option<String>, region: String, endpoint: Option<String> }
+
+pub struct ObjectMeta {
+    key: String, size: u64, etag: String, content_type: String,
+    last_modified: Timestamp, storage_class: StorageClass,
+    metadata: Map<String, String>, version_id: Option<String>,
+}
+
+pub enum StorageClass { Standard, InfrequentAccess, OneZoneIA, Glacier, GlacierDeepArchive, Intelligent, Archive, ColdLine, NearLine }
+
+pub struct BucketConfig {
+    name: String, region: String, versioning: bool,
+    public_access: PublicAccess, cors_rules: Vec<CORSRule>,
+    lifecycle_rules: Vec<LifecycleRule>, encryption: EncryptionConfig,
+}
+
+pub enum PublicAccess { Disabled, ReadOnly, ReadWrite }
+pub struct CORSRule { allowed_origins: Vec<String>, allowed_methods: Vec<String>, allowed_headers: Vec<String>, max_age_secs: u32 }
+pub struct LifecycleRule { id: String, prefix: String, enabled: bool, transition_days: Option<u32>, target_class: Option<StorageClass>, expiration_days: Option<u32> }
+pub struct EncryptionConfig { algorithm: EncryptionAlgo, kms_key_id: Option<String> }
+pub enum EncryptionAlgo { AES256, KMS, CustomerManaged { key: Vec<u8> } }
+
+pub struct MultipartUpload { upload_id: String, key: String, parts: Vec<UploadPart>, initiated_at: Timestamp }
+pub struct UploadPart { part_number: u32, etag: String, size: u64 }
+
+pub struct PresignedConfig { key: String, method: HttpMethod, expires_in: Duration, conditions: Vec<PresignCondition> }
+pub enum PresignCondition { ContentLengthRange { min: u64, max: u64 }, ContentType(String), SuccessRedirect(String) }
+pub enum HttpMethod { GET, PUT, POST, DELETE, HEAD }
+
+pub struct FunctionConfig { name: String, runtime: String, handler: String, memory_mb: u32, timeout_secs: u32, env_vars: Map<String, String> }
+pub struct InvocationResult { status_code: u16, payload: Vec<u8>, log_result: Option<String>, duration_ms: f64, billed_ms: u64 }
