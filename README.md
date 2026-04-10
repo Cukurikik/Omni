@@ -16,7 +16,9 @@
 
 **OMNI Framework** adalah sistem runtime polylingual revolusioner yang menyatukan **15 bahasa pemrograman** ke dalam satu runtime tunggal berbasis **LLVM-Omni**. Framework ini dirancang untuk mengeliminasi fragmentasi dalam rekayasa perangkat lunak modern dan melampaui kapabilitas ekosistem konvensional seperti Node.js, JVM, atau .NET.
 
-[📖 Dokumentasi](docs/) · [🚀 Quick Start](#-quick-start) · [📦 Packages](https://github.com/Cukurikik/Omni/packages) · [🏷️ Releases](https://github.com/Cukurikik/Omni/releases) · [📋 Wiki](https://github.com/Cukurikik/Omni/wiki) · [🐛 Issues](https://github.com/Cukurikik/Omni/issues)
+> 📚 **REKOR BARU:** OMNI Framework kini didukung oleh **[2,6 Juta Kata Dokumentasi Enterprise-Grade](docs/OMNI-KNOWLEDGE-BASE.md)** yang tersebar di 540+ modul ekosistem, menjadikannya salah satu knowledge base framework terbesar di dunia.
+
+[📖 Baca Mega-Dokumentasi (2.6 Juta Kata)](docs/OMNI-KNOWLEDGE-BASE.md) · [🚀 Quick Start](#-quick-start) · [📦 Packages](https://github.com/Cukurikik/Omni/packages) · [🏷️ Releases](https://github.com/Cukurikik/Omni/releases) · [📋 Wiki](https://github.com/Cukurikik/Omni/wiki) · [🐛 Issues](https://github.com/Cukurikik/Omni/issues)
 
 </div>
 
