@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext", "dom"],
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@omni-bridge/*": ["../omni-bridge/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

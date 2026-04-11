@@ -1,8 +1,13 @@
 go 1.26.1
 
-use ./api
-
 use (
+	./api
+	./models
+	./omni-bridge
+	./omni-cli-systems/golang
 	./omni-runtime/core/testing_omni_framework/src
 	./omni-runtime/net
+	./omni-runtime/nexus-registry
+	./omni-runtime/stdlib/go
+	./omni_modules/omni-docs-nexus
 )

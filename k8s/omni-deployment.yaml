@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omni-gateway
+  labels:
+    app: omni-framework
+    tier: edge-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omni-framework
+  template:
+    metadata:
+      labels:
+        app: omni-framework
+    spec:
+      containers:
+      - name: omni-gateway
+        image: omni-gateway
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi" # OMNI Unikernel extremly low memory baseline
+          limits:
+            cpu: "500m"
+            memory: "128Mi"
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20

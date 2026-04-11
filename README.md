@@ -38,7 +38,7 @@
 - [Deployment](#-deployment)
 - [Kontribusi](#-kontribusi)
 - [Lisensi](#-lisensi)
-- [Releases & Downloads](#-releases--downloads)
+- [Releases & Downloads](#releases--downloads)
 
 ---
 
@@ -567,7 +567,7 @@ docker run -p 8080:8080 omni-framework
 
 ---
 
-## 🏷️ Releases & Downloads
+## Releases & Downloads
 
 File besar (>100MB) yang tidak bisa disimpan di Git repository disediakan melalui **GitHub Releases**:
 

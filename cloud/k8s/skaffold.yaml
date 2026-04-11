@@ -1,0 +1,22 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: omni-paws-cloud
+build:
+  artifacts:
+  # Kita asumsikan dockerfile mini khusus OMNI runtime untuk mengeksekusi Unikernel / WASM
+  - image: us-central1-docker.pkg.dev/omni-tool-9c48b/omni-cloud/omni-runtime
+    context: ../../
+    docker:
+      dockerfile: cloud/k8s/Dockerfile.omni
+manifests:
+  rawYaml:
+  - omni-pod-template.yaml
+deploy:
+  kubectl: {}
+profiles:
+- name: minikube
+  activation:
+    - kubeContext: minikube
+  deploy:
+    kubectl: {}

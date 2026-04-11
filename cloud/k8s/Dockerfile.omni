@@ -1,0 +1,9 @@
+FROM alpine:latest
+RUN apk add --no-cache curl libc6-compat
+# OMNI Telepathy Runtime & WebAssembly backend
+WORKDIR /omni
+COPY bin/omni.mjs /omni/
+COPY package.json /omni/
+# We would normally install nodejs or wasmedge here, but for extreme unikernel simulator:
+RUN apk add --no-cache nodejs
+ENTRYPOINT ["node", "/omni/omni.mjs", "cloud-run"]

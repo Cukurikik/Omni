@@ -1,42 +1,69 @@
 /// [OMNI-PACKAGE] omni-hft
 /// Description: Kernel-level eBPF & Julia SIMD Arbitrage execution framework.
 /// @since 2.0.0
+/// @tags ["hft", "trading", "enterprise"]
 
 import "omni-std"
 import "omni-types"
 
-// Bridge to Julia compute layer
-extern "julia" fn execute_arbitrage_signal(bids: *mut f64, asks: *mut f64, threshold: f64) -> *mut f64;
+// System Layer Bridge (Rust eBPF Core)
+extern "rust" fn ebpf_ring0::attach_ebpf_hook(interface: *const c_char) -> bool;
 
-// Bridge to Linux eBPF Native Ring-0 Kernel Hook
-extern "omni-c" fn attach_ebpf_hook(interface: String) -> Result<bool, SystemError>;
+// Compute Layer Bridge (Julia SIMD Core)
+extern "julia" fn HFTSimd::execute_arbitrage_signal(bids: *mut f64, asks: *mut f64, threshold: f64, len: i64) -> *mut f64;
 
 export struct TradeSignal {
-    optimal_price: f64,
-    side: String,
+    pub optimal_price: f64,
+    pub qty: f64,
+    pub side: String,
 }
 
 export struct HFTArbitrageEngine {
     pub spread_threshold: f64,
 
+    /// Mendaftarkan mesin HFT ke interface jaringan (Zero-Copy)
     pub fn attach(self, net_interface: String) -> Result<bool, SystemError> {
-        let kernel_result = attach_ebpf_hook(net_interface);
-        match kernel_result {
-            Ok(_) => Ok(true),
-            Err(e) => Err(SystemError { code: 500, message: "eBPF Kernel Attach Failed" })
+        let interface_ptr = net_interface.toPointer();
+        let kernel_result = attach_ebpf_hook(interface_ptr);
+        
+        if kernel_result {
+            Ok(true)
+        } else {
+            Err(SystemError { code: 500, message: "eBPF Kernel Attach Failed. Pastikan tier Anda adalah Enterprise Tier ($25.000/mo)." })
         }
     }
 
+    /// Menghitung spread antara Array Bids dan Asks secara Native Julia SIMD
     pub fn compute_ticks(self, bids: Array<f64>, asks: Array<f64>) -> Result<Array<TradeSignal>, ComputeError> {
+        if bids.length() != asks.length() {
+            return Err(ComputeError { code: 2, message: "Bids and Asks vectors must have equal length" });
+        }
+
         // Zero-copy array pointers handed right to Julia SIMD processor natively
-        let result_ptr = execute_arbitrage_signal(bids.toPointer(), asks.toPointer(), self.spread_threshold);
+        let len = bids.length();
+        let result_ptr = execute_arbitrage_signal(bids.toPointer(), asks.toPointer(), self.spread_threshold, len);
         
         if result_ptr == null {
             return Err(ComputeError { code: 1, message: "SIMD Vector allocation failed" });
         }
         
-        let signals = [];
-        // Typically map C-Rust-Julia unmanaged pointers back to UI structural entities
+        // unsafe { ... } -> Membungkus result SIMD kembali ke memori aman OMNI
+        let signals = unsafe_zone "simd_buffer" {
+            let simd_results = rust::slice::from_raw_parts(result_ptr, len);
+            
+            let mut computed = Array::new();
+            for (i, spread) in simd_results.iter().enumerate() {
+                if *spread > 0.0 {
+                    computed.push(TradeSignal {
+                        optimal_price: bids[i] + (*spread * 0.4),
+                        qty: 1.0, // simplified optimal qty calculation
+                        side: "Buy".to_string(),
+                    });
+                }
+            }
+            computed
+        };
+
         return Ok(signals);
     }
 }

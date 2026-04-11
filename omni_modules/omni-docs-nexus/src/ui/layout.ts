@@ -12,7 +12,7 @@ export function RenderDashboard(mdPointer: any, size: number): Uint8Array {
     const htmlContent = MarkdownParser.toHTML(rawMarkdown);
     
     // 3. Bangun struktur antarmuka OMNI Singularity
-    const webDocument = \`
+    const webDocument = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -79,7 +79,7 @@ export function RenderDashboard(mdPointer: any, size: number): Uint8Array {
         </script>
     </body>
     </html>
-    \`;
+    `;
 
-    return TextEncoder.encode(webDocument);
+    return new TextEncoder().encode(webDocument);
 }

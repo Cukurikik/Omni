@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omni-cloud-instance
+  labels:
+    app: omni-paws-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omni-paws-cloud
+  template:
+    metadata:
+      labels:
+        app: omni-paws-cloud
+    spec:
+      containers:
+      - name: omni-runtime
+        image: us-central1-docker.pkg.dev/omni-tool-9c48b/omni-cloud/omni-runtime
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omni-cloud-service
+spec:
+  selector:
+    app: omni-paws-cloud
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

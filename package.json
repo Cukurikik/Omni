@@ -8,5 +8,12 @@
   "devDependencies": {
     "chokidar": "^5.0.0",
     "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "@google-cloud/billing": "^5.1.1",
+    "@google-cloud/domains": "^4.2.1",
+    "@google-cloud/iam-credentials": "^4.2.1",
+    "@google-cloud/policy-troubleshooter": "^4.2.1",
+    "@google-cloud/storage-transfer": "^4.2.1"
   }
 }

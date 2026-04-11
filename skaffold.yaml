@@ -1,0 +1,29 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: omni-framework
+build:
+  artifacts:
+    - image: omni-gateway
+      context: .
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+deploy:
+  kubectl:
+    manifests:
+      - k8s/omni-deployment.yaml
+      - k8s/omni-service.yaml
+profiles:
+  - name: cloudrun
+    deploy:
+      cloudrun:
+        projectid: omni-cloud-project-12345
+        region: us-central1
+  - name: gke
+    deploy:
+      kubectl:
+        manifests:
+          - k8s/omni-deployment.yaml
+          - k8s/omni-service.yaml

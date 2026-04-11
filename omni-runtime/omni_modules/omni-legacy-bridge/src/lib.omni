@@ -1,13 +1,44 @@
-﻿/// [OMNI-INTERFACE] Enterprise Legacy System Bridge
-/// Replaces: JNI, Edge.js
+/// [OMNI-INTERFACE] Enterprise Legacy System Bridge
+/// Provides Zero-Copy FFI Bindings for JVM and CLR
+
+use @system/memory::{alloc, free}
+
+/// Java Native Interface Wrapper
+@rust
 export struct JavaBridge {
-    jarPath: String;
-    // Bind to JVM processes dynamically without IPC overhead
-    fn invokeClass(className: String, method: String, args: Vec<any>) -> Result<any, BridgeError> { /* System Interface */ }
+    vm_instance: any; // Mapped to *mut JavaVM natively
+
+    pub fn new(jvm_path: String) -> Self {
+        // Terhubung dengan stdlib/rust/jni_bridge.rs
+        Self { vm_instance: null }
+    }
+
+    /// Memuat class dan mengeksekusi metode (Monadic Error Handling)
+    pub fn invokeMethod(self, class_name: String, method: String, args: Vec<any>) -> Result<f64, String> {
+        let result = rust::jni_bridge::OmniJavaBridge::invoke_method(class_name, method, args);
+        match result {
+            Ok(v) => Ok(v),
+            Err(e) => Err(e.message)
+        }
+    }
 }
 
+/// Common Language Runtime (.NET) Wrapper
+@rust
 export struct DotNetBridge {
-    dllPath: String;
-    // Bind to CLR processes
-    fn invokeClass(className: String, method: String, args: Vec<any>) -> Result<any, BridgeError> { /* System Interface */ }
+    host_context: any;
+
+    pub fn new(runtime_config: String) -> Self {
+        // Terhubung dengan stdlib/rust/clr_bridge.rs
+        Self { host_context: null }
+    }
+
+    pub fn invokeDelegate(self, assembly: String, method: String) -> Result<String, String> {
+        let result = rust::clr_bridge::OmniDotNetBridge::invoke_delegate(assembly, method);
+        match result {
+            Ok(v) => Ok(v),
+            Err(e) => Err(e.message)
+        }
+    }
 }
+
