@@ -1,0 +1,2 @@
+// Kompilasi fisik UAST untuk omni-module-056
+pub fn init() { }

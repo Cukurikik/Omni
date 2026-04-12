@@ -2,6 +2,8 @@ go 1.26.1
 
 use (
 	./api
+	./bin
+	./engine
 	./models
 	./omni-bridge
 	./omni-cli-systems/golang
@@ -10,4 +12,6 @@ use (
 	./omni-runtime/nexus-registry
 	./omni-runtime/stdlib/go
 	./omni_modules/omni-docs-nexus
+	./tools/omnicli
+	./tools/omnils
 )

@@ -9,7 +9,6 @@ repository  = "https://github.com/omni-framework/omni-ibm-cloud-obj"
 keywords    = ["cloud", "storage", "serverless", "infrastructure"]
 edition     = "omni-2025"
 tier        = "free"
-price_usd   = 0
 
 [dependencies]
 omni-std = "^2.0"

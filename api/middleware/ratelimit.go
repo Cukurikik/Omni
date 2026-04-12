@@ -2,12 +2,11 @@ package middleware
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strings"
 	"sync"
 	"time"
-
-	"omnitools/services" // Menggunakan Kotak Hitam
 )
 
 // Konfigurasi Baju Zirah OMNI
@@ -78,7 +77,7 @@ func HeavyTaskRateLimiter(next http.HandlerFunc) http.HandlerFunc {
 				mapMutex.Unlock()
 
 				// 1. Catat ke Kotak Hitam OMNI!
-				services.WriteLog("SECURITY", "RATE_LIMIT_EXCEEDED", "IP "+ip+" mencoba melakukan spam komputasi berat.")
+				log.Printf("[SECURITY] RATE_LIMIT_EXCEEDED: IP %s mencoba melakukan spam komputasi berat.", ip)
 
 				// 2. Tolak dengan JSON Universal Error
 				w.Header().Set("Content-Type", "application/json")

@@ -1,0 +1,9 @@
+[package]
+name = "omni-module-115"
+version = "2.1.115"
+authors = ["Omni Nexus <bot@nexus.dev>"]
+description = "Auto-Downloaded Standard Library Component"
+tier = "free"
+
+[permissions]
+allow_thread = true

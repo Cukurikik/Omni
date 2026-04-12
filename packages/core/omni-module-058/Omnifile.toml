@@ -1,0 +1,9 @@
+[package]
+name = "omni-module-058"
+version = "2.1.58"
+authors = ["Omni Nexus <bot@nexus.dev>"]
+description = "Auto-Downloaded Standard Library Component"
+tier = "free"
+
+[permissions]
+allow_thread = true

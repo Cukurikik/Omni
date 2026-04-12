@@ -6,12 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"time"
-
-	"omnitools/services"
 )
 
 // ==========================================
@@ -30,7 +29,7 @@ func InitSandbox() {
 			os.MkdirAll(dir, os.ModePerm)
 		}
 	}
-	services.WriteLog("SECURITY", "INFO_SANDBOX", "Direktori Penjara & Cache divalidasi dan dikunci!")
+	log.Printf("[SECURITY] INFO_SANDBOX: Direktori Penjara & Cache divalidasi dan dikunci!")
 }
 
 // sendQuarantineError mengirimkan respons error JSON sesuai Kontrak Universal
@@ -165,7 +164,7 @@ func FileQuarantineHandler(next http.HandlerFunc) http.HandlerFunc {
 				return
 			}
 
-			services.WriteLog("QUARANTINE", "INFO_STREAM_OK", fmt.Sprintf("File streaming selesai: %s (%s)", safeFileName, filetype))
+			log.Printf("[QUARANTINE] INFO_STREAM_OK: File streaming selesai: %s (%s)", safeFileName, filetype)
 			break // Hanya proses 1 file utama
 		}
 

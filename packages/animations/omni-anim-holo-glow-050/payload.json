@@ -1,0 +1,9 @@
+{
+    "id": "omni-anim-holo-glow-050",
+    "supported": [
+        "web",
+        "ios",
+        "flutter"
+    ],
+    "intensity": 6.69432523031157
+}

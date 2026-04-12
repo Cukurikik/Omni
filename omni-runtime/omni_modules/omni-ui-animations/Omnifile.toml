@@ -8,5 +8,4 @@ edition     = "omni-2025"
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "free"
-price_usd    = 0
+tier         = "free"

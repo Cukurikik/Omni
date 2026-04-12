@@ -1,0 +1,2 @@
+// Kompilasi fisik UAST untuk omni-module-193
+pub fn init() { }

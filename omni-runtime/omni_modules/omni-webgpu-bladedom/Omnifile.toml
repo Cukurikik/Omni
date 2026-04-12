@@ -5,7 +5,6 @@ authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
 description = "React / Virtual-DOM Killer via WebGPU (240 FPS Renderer)"
 license     = "OMNI-Community"
 tier        = "free"
-price_usd   = 0
 
 [permissions]
 allow_net   = []

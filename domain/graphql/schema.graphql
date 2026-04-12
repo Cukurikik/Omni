@@ -1,0 +1,63 @@
+# ==========================================
+# 📊 OMNI GRAPHQL DOMAIN SCHEMA (Phase 49)
+# ==========================================
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Query {
+  "Mendapatkan Status Arbitrase dari Engine C++"
+  getHFTStatus: MarketStatus!
+  
+  "Memeriksa Riwayat Transaksi Ledger"
+  getOrderBook(limit: Int): [TradeOrder!]!
+}
+
+type Mutation {
+  "Mengeksekusi order paksa (Override ML Signal)"
+  forceExecuteArbitrage(pair: String!, volume: Float!): TradeReceipt!
+}
+
+type Subscription {
+  "Websocket sinkronisasi harga murni dari Engine C++ Go Bridge"
+  onPriceChange(pair: String!): PriceTick!
+}
+
+# ----------------- ENTITIES -----------------
+
+type MarketStatus {
+  active: Boolean!
+  latencyMicroseconds: Int!
+  totalProfitUsd: Float!
+}
+
+type TradeOrder {
+  id: ID!
+  symbol: String!
+  buyPrice: Float!
+  sellPrice: Float!
+  spread: Float!
+  status: OrderStatus!
+}
+
+type TradeReceipt {
+  success: Boolean!
+  transactionId: String
+  message: String
+}
+
+type PriceTick {
+  symbol: String!
+  bid: Float!
+  ask: Float!
+  timestamp: String!
+}
+
+enum OrderStatus {
+  PENDING
+  EXECUTED
+  FAILED
+}

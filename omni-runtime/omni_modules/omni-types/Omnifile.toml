@@ -18,5 +18,4 @@ allow_memory = true
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "free"
-price_usd    = 0
+tier         = "free"

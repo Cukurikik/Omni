@@ -5,7 +5,6 @@ authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
 description = "Delay-Tolerant Networking (DTP) Mapped for Interplanetary Communication"
 license     = "OMNI-Community"
 tier        = "free"
-price_usd   = 0
 
 [permissions]
 allow_net   = ["0.0.0.0/0"]

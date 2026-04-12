@@ -1,0 +1,11 @@
+[package]
+name        = "omni-anim-holo-bounce-046"
+version     = "1.0.0"
+authors     = ["OMNI Singularity Engine"]
+description = "Premium Holo Bounce Animation Package"
+license     = "OMNI-Commercial"
+tier        = "premium"
+price_usd   = 149
+
+[dependencies]
+omni-motion-sdk = "^2.0"

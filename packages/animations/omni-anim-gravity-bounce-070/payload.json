@@ -1,0 +1,9 @@
+{
+    "id": "omni-anim-gravity-bounce-070",
+    "supported": [
+        "web",
+        "ios",
+        "flutter"
+    ],
+    "intensity": 1.9619409839099256
+}

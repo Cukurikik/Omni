@@ -5,7 +5,6 @@ authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
 description = "Telepathy Engine: Dynamic Code-less Abstract Syntax Tree Constructor"
 license     = "OMNI-Community"
 tier        = "free"
-price_usd   = 0
 
 [permissions]
 allow_hw    = true        # Interface BCI (Brain-Computer Interface) Mocks

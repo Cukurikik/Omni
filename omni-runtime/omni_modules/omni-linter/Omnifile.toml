@@ -11,5 +11,4 @@ omni-uast = "^1.0"
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "devtools"
-price_usd    = 0
+tier         = "devtools"

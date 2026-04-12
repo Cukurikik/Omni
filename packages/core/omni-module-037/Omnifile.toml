@@ -1,0 +1,9 @@
+[package]
+name = "omni-module-037"
+version = "2.1.37"
+authors = ["Omni Nexus <bot@nexus.dev>"]
+description = "Auto-Downloaded Standard Library Component"
+tier = "free"
+
+[permissions]
+allow_thread = true

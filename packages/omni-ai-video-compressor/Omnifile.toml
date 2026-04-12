@@ -1,0 +1,20 @@
+[package]
+name      = "omni-ai-video-compressor"
+version   = "1.2.4"
+authors   = ["Antigravity Enterprise <omni@nexus.local>"]
+description = "Penyusut memori video 8K menggunakan ML Tensor."
+license   = "OMNI-Commercial"
+edition   = "omni-2025"
+tier      = "premium"
+price_usd = 199
+
+[dependencies]
+omni-std     = "^2.0"
+
+[permissions]
+allow_fs     = ["/tmp/videos/"]
+allow_ebpf   = true 
+allow_thread = true
+
+[build]
+llvm_passes  = ["vectorize", "inline"]

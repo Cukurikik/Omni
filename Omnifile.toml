@@ -1,0 +1,25 @@
+[package]
+name        = "omni-framework"
+version     = "1.0.0"
+authors     = ["OMNI Team"]
+description = "OMNI Framework — Polylingual Runtime Singularity"
+license     = "MIT"
+edition     = "omni-2025"
+
+[dependencies]
+omni-std     = "^2.0"
+omni-net     = "^1.5"
+
+[permissions]
+allow_net    = ["*"]
+allow_fs     = ["/tmp/omni/"]
+allow_thread = true
+
+[build]
+target       = ["wasm32", "x86_64-linux", "aarch64-apple"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll"]
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "free"

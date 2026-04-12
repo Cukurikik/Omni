@@ -1,10 +1,11 @@
 package middleware
 
 import (
+	"log"
 	"net/http"
 	"os"
 
-	"omnitools/services"
+	"omnitools/cloud_apis"
 )
 
 // APIKeyAuthGuard adalah Bouncer yang menjaga pintu masuk ke semua Endpoint OMNI.
@@ -29,13 +30,28 @@ func APIKeyAuthGuard(next http.HandlerFunc) http.HandlerFunc {
 			}
 		}
 
-		if clientKey != secretKey {
-			services.WriteLog("SECURITY", "WARN_UNAUTHORIZED", "Ada penyusup alien yang mencoba mengakses endpoint dengan Kunci Palsu/Kosong!")
-			http.Error(w, `{"success": false, "message": "Akses Ditolak: Anda tidak memiliki OMNI_AI_SECRET_KEY yang falid."}`, http.StatusUnauthorized)
+		if clientKey == secretKey {
+			// Superadmin API Key match! Bypass JWT
+			next.ServeHTTP(w, r)
 			return
 		}
 
-		// Kunci sah, silakan masuk ke sistem
-		next.ServeHTTP(w, r)
+		// Mode JWT (Model A: Enterprise Legacy Bridge)
+		if len(clientKey) > 20 { 
+			// Panjang lebih dari 20 berarti kemungkinan JWT.
+			authBridge := cloud_apis.NewFirebaseAuthBridge(os.Getenv("FIREBASE_PROJECT"), "")
+			_, err := authBridge.VerifyIDToken(r.Context(), clientKey)
+			
+			if err == nil {
+				// JWT Sah, izinkan lewat
+				next.ServeHTTP(w, r)
+				return
+			}
+			log.Printf("[SECURITY] JWT Validation Failed: %v", err)
+		}
+
+		log.Printf("[SECURITY] WARN_UNAUTHORIZED: Ada penyusup mencoba mengakses endpoint dengan Kunci/JWT Palsu!")
+		http.Error(w, `{"success": false, "message": "Akses Ditolak: Kredensial Enterprise/JWT tidak valid."}`, http.StatusUnauthorized)
+		return
 	}
 }

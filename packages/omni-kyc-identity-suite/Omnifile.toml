@@ -1,0 +1,18 @@
+[package]
+name      = "omni-kyc-identity-suite"
+version   = "3.0.0"
+authors   = ["Antigravity Enterprise <omni@nexus.local>"]
+description = "Lapisan keamanan regulasi bank KYC / AML tingkat dunia."
+license   = "OMNI-Commercial"
+edition   = "omni-2025"
+tier      = "premium"
+price_usd = 499
+
+[dependencies]
+omni-std     = "^2.0"
+omni-crypto  = "^3.0"
+
+[permissions]
+allow_net    = ["api.identpass.com"]
+allow_fs     = ["/tmp/kyc/"]
+allow_thread = true

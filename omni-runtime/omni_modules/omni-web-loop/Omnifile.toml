@@ -17,5 +17,4 @@ allow_ebpf   = true
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "enterprise"
-price_usd    = 0
+tier         = "enterprise"

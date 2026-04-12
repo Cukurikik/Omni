@@ -1,0 +1,9 @@
+{
+    "id": "omni-anim-neon-fade-123",
+    "supported": [
+        "web",
+        "ios",
+        "flutter"
+    ],
+    "intensity": 0.8419672007191792
+}

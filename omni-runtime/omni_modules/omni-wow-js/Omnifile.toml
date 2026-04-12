@@ -9,7 +9,6 @@ repository  = "https://github.com/omni-framework/omni-wow-js"
 keywords    = ["animation", "ui", "visual", "rendering"]
 edition     = "omni-2025"
 tier        = "free"
-price_usd   = 0
 
 [dependencies]
 omni-std = "^2.0"

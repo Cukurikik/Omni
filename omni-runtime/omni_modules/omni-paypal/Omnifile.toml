@@ -9,7 +9,6 @@ repository  = "https://github.com/omni-framework/omni-paypal"
 keywords    = ["payment", "finance", "transaction", "gateway"]
 edition     = "omni-2025"
 tier        = "free"
-price_usd   = 0
 
 [dependencies]
 omni-std = "^2.0"

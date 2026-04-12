@@ -58,6 +58,11 @@ allow_thread = true                     # Boleh spawn green thread
 # â”€â”€â”€ Build Configuration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 [build]
-target       = ["x86_64-windows"]       # Target platform
-optimize     = "debug"                  # debug | release
-entry_point  = "src/main.omni"          # File utama
+target       = ["x86_64-windows", "x86_64-linux", "wasm32-wasi"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll"]
+entry_point  = "src/main.omni"
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "free"

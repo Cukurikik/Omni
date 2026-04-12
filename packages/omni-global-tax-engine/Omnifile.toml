@@ -1,0 +1,17 @@
+[package]
+name      = "omni-global-tax-engine"
+version   = "1.0.0"
+authors   = ["Antigravity Enterprise <omni@nexus.local>"]
+description = "Mesin perhitungan pajak multinasional real-time."
+license   = "OMNI-Commercial"
+edition   = "omni-2025"
+tier      = "premium"
+price_usd = 299     # per install/tahun
+
+[dependencies]
+omni-std     = "^2.0"
+omni-finance = "^1.5"
+
+[permissions]
+allow_net    = ["api.stripe.com"]
+allow_thread = true

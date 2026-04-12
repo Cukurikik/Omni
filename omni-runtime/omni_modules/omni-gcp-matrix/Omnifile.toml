@@ -4,7 +4,6 @@ version     = "1.0.0"
 description = "Universal Meta-Bridge spanning 150+ Google Cloud Platform Services natively."
 license     = "OMNI-Community"
 tier        = "free"
-price_usd   = 0
 
 [permissions]
 allow_net      = ["*.googleapis.com", "oauth2.googleapis.com"]

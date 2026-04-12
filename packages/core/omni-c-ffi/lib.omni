@@ -1,0 +1,2 @@
+// Kompilasi fisik UAST untuk omni-c-ffi
+pub fn init() { }

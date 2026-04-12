@@ -1,10 +1,10 @@
 const fs = require('fs');
 const content = fs.readFileSync('bin/omni.mjs', 'utf8');
 
-const newDevServer = \
+const newDevServer = `
 async function startDevServer() {
     console.log("\\n==========================================");
-    console.log("? OMNI-PRIME DEV ORCHESTRATOR — PHASE 19 IGNITION");
+    console.log("? OMNI-PRIME DEV ORCHESTRATOR ï¿½ PHASE 19 IGNITION");
     console.log("==========================================");
     console.log("   Engine     : Native Rust Core (JIT Hot-Swap)");
     console.log("   Vite HMR   : Synced via Universal Bridge");
@@ -50,7 +50,7 @@ async function startDevServer() {
         viteProcess = spawn('npm', ['run', 'dev'], {
             cwd: uiDir,
             stdio: 'inherit',
-            shell: true, // WAJIB di Windows — npm adalah .cmd batch file
+            shell: true, // WAJIB di Windows ï¿½ npm adalah .cmd batch file
         });
 
         viteProcess.on('error', (err) => {
@@ -73,7 +73,7 @@ async function startDevServer() {
     console.log("==========================================");
     console.log("Tekan CTRL+C untuk mematikan semua mesin.\\n");
 
-    // GRACEFUL SHUTDOWN — Matikan semua mesin sekaligus
+    // GRACEFUL SHUTDOWN ï¿½ Matikan semua mesin sekaligus
     const shutdown = () => {
         console.log("\\n?? [SHUTDOWN] Mematikan OMNI-PRIME dan semua subsystem...");
         if (rustProcess) rustProcess.kill();
@@ -85,7 +85,7 @@ async function startDevServer() {
     process.on('SIGINT', shutdown);
     process.on('SIGTERM', shutdown);
 }
-\
+`;
 
 const targetStart = /^async function startDevServer\(\) \{/m;
 const matchStart = content.match(targetStart);

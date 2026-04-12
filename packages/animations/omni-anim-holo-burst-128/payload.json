@@ -1,0 +1,9 @@
+{
+    "id": "omni-anim-holo-burst-128",
+    "supported": [
+        "web",
+        "ios",
+        "flutter"
+    ],
+    "intensity": 5.247276729808571
+}

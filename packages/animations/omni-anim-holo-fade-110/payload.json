@@ -1,0 +1,9 @@
+{
+    "id": "omni-anim-holo-fade-110",
+    "supported": [
+        "web",
+        "ios",
+        "flutter"
+    ],
+    "intensity": 7.206431275781885
+}

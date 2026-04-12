@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Framework Control Panel</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <div class="glass-panel">
+        <header>
+            <div class="logo-circle"></div>
+            <h1>OMNI SINGULARITY</h1>
+        </header>
+        
+        <main>
+            <div class="status-cards">
+                <div class="card">
+                    <h3>Engine C++ Core</h3>
+                    <div class="status-indicator online">ONLINE</div>
+                    <p>Latency: 0.001ms</p>
+                </div>
+                <div class="card">
+                    <h3>Go TCP Bridge</h3>
+                    <div class="status-indicator online">ONLINE</div>
+                    <p>Sockets: Active</p>
+                </div>
+                <div class="card">
+                    <h3>Python AI Predictor</h3>
+                    <div class="status-indicator online">SYNCED</div>
+                    <p>Models Loaded</p>
+                </div>
+            </div>
+
+            <div class="telemetry-console">
+                <div class="console-header">Live Telemetry (UAST)</div>
+                <div class="console-body" id="console-output">
+                    <!-- Logs injected via JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

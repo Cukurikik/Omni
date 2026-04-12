@@ -1,0 +1,39 @@
+{
+  "name": "omni-intellisense",
+  "displayName": "OMNI Framework Language Protocol",
+  "description": "Enterprise-grade LSP extension for the OMNI Universal AST (15 Languages)",
+  "version": "1.0.0",
+  "publisher": "antigravity-nexus",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onLanguage:omni",
+    "onLanguage:typescript",
+    "onLanguage:rust",
+    "onLanguage:go"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "omni",
+        "extensions": [
+          ".omni"
+        ]
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/vscode": "^1.115.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  }
+}

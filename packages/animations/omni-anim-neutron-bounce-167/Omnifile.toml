@@ -1,0 +1,11 @@
+[package]
+name        = "omni-anim-neutron-bounce-167"
+version     = "1.0.0"
+authors     = ["OMNI Singularity Engine"]
+description = "Premium Neutron Bounce Animation Package"
+license     = "OMNI-Commercial"
+tier        = "premium"
+price_usd   = 49
+
+[dependencies]
+omni-motion-sdk = "^2.0"

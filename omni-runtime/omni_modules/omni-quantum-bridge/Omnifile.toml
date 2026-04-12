@@ -5,7 +5,6 @@ authors     = ["ANTIGRAVITY <hyper-architect@omni.dev>"]
 description = "Quantum Assembly Language Bridge for Qubits computation"
 license     = "OMNI-Community"
 tier        = "free"
-price_usd   = 0
 
 [permissions]
 allow_net   = ["qpu.quantum-compute.ibm.com"] # Interface ke QPU 

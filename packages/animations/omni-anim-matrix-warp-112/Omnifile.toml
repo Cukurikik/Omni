@@ -1,0 +1,11 @@
+[package]
+name        = "omni-anim-matrix-warp-112"
+version     = "1.0.0"
+authors     = ["OMNI Singularity Engine"]
+description = "Premium Matrix Warp Animation Package"
+license     = "OMNI-Commercial"
+tier        = "premium"
+price_usd   = 49
+
+[dependencies]
+omni-motion-sdk = "^2.0"

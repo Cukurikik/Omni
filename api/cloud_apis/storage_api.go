@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/storage"
+	"google.golang.org/api/iterator"
 )
 
 // ==========================================
@@ -72,3 +73,79 @@ func (s *OmniStorageClient) UploadDirectStream(bucketName, objectName string, da
 	
 	return written, nil
 }
+
+// ==========================================
+// EXPANSION: BUCKET MANAGEMENT (Wave 13)
+// ==========================================
+
+// ListBuckets mengambil daftar seluruh bucket yang dimiliki sebuah project
+func (s *OmniStorageClient) ListBuckets(projectID string) ([]*storage.BucketAttrs, error) {
+	if s.client == nil {
+		return nil, fmt.Errorf("OMNI-GCS uninitialized")
+	}
+
+	it := s.client.Buckets(s.ctx, projectID)
+	var buckets []*storage.BucketAttrs
+	for {
+		attrs, err := it.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return nil, fmt.Errorf("OMNI-GCS: gagal iterasi buckets: %v", err)
+		}
+		buckets = append(buckets, attrs)
+	}
+	log.Printf("☁️ [API GCS] Ditemukan %d buckets di project %s", len(buckets), projectID)
+	return buckets, nil
+}
+
+// CreateBucket membuat bucket baru di region tertentu
+func (s *OmniStorageClient) CreateBucket(projectID, bucketName, location string) error {
+	if s.client == nil {
+		return fmt.Errorf("OMNI-GCS uninitialized")
+	}
+
+	bucket := s.client.Bucket(bucketName)
+	attrs := &storage.BucketAttrs{
+		Location: location,
+	}
+
+	if err := bucket.Create(s.ctx, projectID, attrs); err != nil {
+		return fmt.Errorf("OMNI-GCS: gagal membuat bucket '%s': %v", bucketName, err)
+	}
+
+	log.Printf("☁️ [API GCS] Bucket '%s' berhasil diciptakan di region %s", bucketName, location)
+	return nil
+}
+
+// DeleteBucket menghapus sebuah bucket (harus kosong terlebih dahulu)
+func (s *OmniStorageClient) DeleteBucket(bucketName string) error {
+	if s.client == nil {
+		return fmt.Errorf("OMNI-GCS uninitialized")
+	}
+
+	bucket := s.client.Bucket(bucketName)
+	if err := bucket.Delete(s.ctx); err != nil {
+		return fmt.Errorf("OMNI-GCS: gagal menghapus bucket '%s': %v", bucketName, err)
+	}
+
+	log.Printf("☁️ [API GCS] Bucket '%s' berhasil dihancurkan", bucketName)
+	return nil
+}
+
+// DeleteObject menghapus satu objek dari bucket
+func (s *OmniStorageClient) DeleteObject(bucketName, objectName string) error {
+	if s.client == nil {
+		return fmt.Errorf("OMNI-GCS uninitialized")
+	}
+
+	obj := s.client.Bucket(bucketName).Object(objectName)
+	if err := obj.Delete(s.ctx); err != nil {
+		return fmt.Errorf("OMNI-GCS: gagal menghapus objek '%s/%s': %v", bucketName, objectName, err)
+	}
+
+	log.Printf("☁️ [API GCS] Objek '%s/%s' berhasil dihapus", bucketName, objectName)
+	return nil
+}
+

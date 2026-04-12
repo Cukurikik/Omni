@@ -1,0 +1,9 @@
+[package]
+name = "omni-math"
+version = "2.1.0"
+authors = ["Omni Nexus <bot@nexus.dev>"]
+description = "Auto-Downloaded Standard Library Component"
+tier = "free"
+
+[permissions]
+allow_thread = true

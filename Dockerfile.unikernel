@@ -1,0 +1,9 @@
+# ==========================================
+# 🌪️ OMNI UNIKERNEL — ZERO-OS CONTAINER
+# ==========================================
+FROM scratch
+WORKDIR /
+COPY release/bin/omni_gateway /omni_kernel_init
+COPY release/public /var/www/omni
+EXPOSE 8080
+ENTRYPOINT ["/omni_kernel_init"]

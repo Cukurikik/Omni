@@ -11,5 +11,4 @@ omni-crypto-hash = "^1.0"
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "system"
-price_usd    = 0
+tier         = "system"

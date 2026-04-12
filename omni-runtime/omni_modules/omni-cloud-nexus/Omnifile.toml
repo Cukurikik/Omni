@@ -12,5 +12,4 @@ omni-runtime = "^2.0"
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "enterprise"
-price_usd    = 0
+tier         = "enterprise"

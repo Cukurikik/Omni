@@ -149,3 +149,47 @@ func (c *CloudRunBridge) ListRevisions(ctx context.Context, serviceName string) 
 	log.Printf("🚀 [OMNI CLOUD RUN] Ditemukan %d revisions untuk '%s'", len(revisions), serviceName)
 	return revisions, nil
 }
+
+// CreateService membuat Cloud Run service baru secara otonom (OMNI PaaS Bridge)
+func (c *CloudRunBridge) CreateService(ctx context.Context, serviceName, imageURI string, port int32) error {
+	client, err := run.NewServicesClient(ctx)
+	if err != nil {
+		return fmt.Errorf("OMNI_CLOUDRUN_ERROR: gagal membuat client: %v", err)
+	}
+	defer client.Close()
+
+	// Mengamankan port agar OMNI Cloud selalu kompatibel dengan Zero-Trust architecture
+	if port == 0 {
+		port = 8080
+	}
+
+	req := &runpb.CreateServiceRequest{
+		Parent:    c.locationPath(),
+		ServiceId: serviceName,
+		Service: &runpb.Service{
+			Template: &runpb.RevisionTemplate{
+				Containers: []*runpb.Container{
+					{
+						Image: imageURI,
+						Ports: []*runpb.ContainerPort{
+							{ContainerPort: port},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	op, err := client.CreateService(ctx, req)
+	if err != nil {
+		return fmt.Errorf("OMNI_CLOUDRUN_ERROR: gagal mengirim command CreateService '%s': %v", serviceName, err)
+	}
+
+	_, err = op.Wait(ctx)
+	if err != nil {
+		return fmt.Errorf("OMNI_CLOUDRUN_ERROR: gagal menunggu pembuatan service '%s': %v", serviceName, err)
+	}
+
+	log.Printf("🚀 [OMNI CLOUD RUN] Service '%s' (Image: %s) berhasil di-deploy ke PaaS!", serviceName, imageURI)
+	return nil
+}
