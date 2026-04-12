@@ -1,205 +1,308 @@
 import time
-import json
 import copy
-from enum import Enum
+import operator
 from typing import Any
 
 # ==========================================
-# 🔀 OMNI MULTI-AGENT: LangGraph Engine (Phase 145)
+# 🔀 OMNI MULTI-AGENT: LangGraph — REWRITE MENDALAM (Phase 150)
 # ==========================================
-# Framework 1: LangGraph (LangChain)
-#   - Stateful graph workflows (StateGraph)
-#   - Nodes = Agent/Action, Edges = Flow
-#   - Branching, looping, conditional edges
-#   - Checkpointing & durable execution
-#   - Human-in-the-loop (HITL)
-#   - Sub-graphs & deep agents
-#   - Memory: short-term + long-term
+#
+# PROSES BELAJAR JUJUR:
+# ──────────────────────
+# Versi sebelumnya SALAH. Saya hanya membuat chain fungsi biasa.
+# Setelah membaca dokumentasi resmi LangGraph, saya menyadari bahwa
+# INTI SEBENARNYA dari LangGraph adalah:
+#
+# 1. STATE SCHEMA dengan REDUCERS — bukan dict biasa.
+#    Setiap field di state punya "reducer function" yang menentukan
+#    BAGAIMANA state di-update ketika node mengembalikan partial update.
+#    Contoh: `messages: Annotated[list, operator.add]` berarti messages
+#    DITAMBAHKAN (append), bukan di-overwrite.
+#    TANPA reducer, nilai baru MENIMPA nilai lama (last-write-wins).
+#
+# 2. PARTIAL STATE UPDATES — setiap node BUKAN mengembalikan seluruh
+#    state, tapi hanya {key: value} yang berubah. Reducer lah yang
+#    menentukan bagaimana value baru di-merge ke state existing.
+#
+# 3. CONDITIONAL EDGES — bukan if-else sederhana, tapi fungsi yang
+#    menerima state dan mengembalikan NAMA NODE tujuan berikutnya.
+#
+# 4. CHECKPOINTING — state disimpan SETELAH setiap node, sehingga
+#    jika crash, bisa di-resume dari node terakhir.
+#
+# 5. INTERRUPT — node bisa menghentikan eksekusi untuk menunggu
+#    input manusia (Human-in-the-Loop), lalu dilanjutkan.
 
-class AgentState:
-    """Shared state yang mengalir di seluruh graph (LangGraph StateGraph)."""
+# ─────────────────────────────────────────────────
+# KOMPONEN 1: State Schema + Reducer System
+# ─────────────────────────────────────────────────
+
+class ReducerSpec:
+    """Spesifikasi reducer untuk satu field di state."""
+    def __init__(self, default_value, reducer_fn=None):
+        self.default_value = default_value
+        self.reducer_fn = reducer_fn  # None = overwrite (default behavior)
+
+    def apply(self, current_value, new_value):
+        """Gabungkan current & new value menggunakan reducer."""
+        if self.reducer_fn is None:
+            # Default: overwrite (last-write-wins)
+            return new_value
+        return self.reducer_fn(current_value, new_value)
+
+
+class StateSchema:
+    """
+    LangGraph State Schema dengan Reducer Annotations.
+
+    PELAJARAN PENTING:
+    - Tanpa reducer → field di-overwrite (last-write-wins).
+    - Dengan operator.add pada list → list di-APPEND, bukan di-timpa.
+    - Dengan operator.add pada int → integer di-JUMLAHKAN.
+    - Custom reducer → developer bisa definisi merge logic sendiri.
+    """
+
+    def __init__(self, fields: dict):
+        """
+        fields = {
+            "messages": ReducerSpec([], operator.add),       # APPEND
+            "iteration_count": ReducerSpec(0, operator.add),  # SUM
+            "status": ReducerSpec("", None),                  # OVERWRITE
+            "data": ReducerSpec({}, lambda old, new: {**old, **new}), # MERGE DICT
+        }
+        """
+        self.fields = fields
+        self.state = {}
+        self._initialize()
+
+    def _initialize(self):
+        for key, spec in self.fields.items():
+            self.state[key] = copy.deepcopy(spec.default_value)
+
+    def apply_partial_update(self, partial: dict):
+        """
+        INI YANG SEBENARNYA TERJADI DI LANGGRAPH:
+        Node mengembalikan partial dict, dan setiap field
+        di-merge ke state menggunakan reducer masing-masing.
+        """
+        for key, new_value in partial.items():
+            if key in self.fields:
+                current = self.state[key]
+                merged = self.fields[key].apply(current, new_value)
+                self.state[key] = merged
+            else:
+                # Field tidak terdaftar di schema — error di LangGraph asli
+                print(f"      ⚠️ [REDUCER] Key '{key}' tidak ada di schema, dilewati.")
+
+    def get(self, key, default=None):
+        return self.state.get(key, default)
+
+    def snapshot(self) -> dict:
+        return copy.deepcopy(self.state)
+
+
+# ─────────────────────────────────────────────────
+# KOMPONEN 2: Checkpoint Store (Durable Execution)
+# ─────────────────────────────────────────────────
+class CheckpointStore:
+    """
+    PELAJARAN: LangGraph menyimpan seluruh state SETELAH setiap node.
+    Jika terjadi crash, eksekusi bisa dilanjutkan dari node terakhir.
+    Ini yang disebut "durable execution".
+    """
     def __init__(self):
-        self.messages = []
-        self.data = {}
-        self.current_node = ""
-        self.iteration = 0
-        self.checkpoints = []
-        self.metadata = {"created_at": time.time()}
+        self.checkpoints = []  # [(node_name, state_snapshot, timestamp)]
 
-    def add_message(self, role: str, content: str):
-        self.messages.append({"role": role, "content": content, "timestamp": time.time()})
+    def save(self, node_name: str, state_snapshot: dict):
+        self.checkpoints.append((node_name, state_snapshot, time.time()))
 
-    def checkpoint(self):
-        """Durable execution: simpan state untuk recovery."""
-        snap = {"messages": copy.deepcopy(self.messages), "data": copy.deepcopy(self.data),
-                "node": self.current_node, "iteration": self.iteration}
-        self.checkpoints.append(snap)
-        return len(self.checkpoints) - 1
+    def get_last(self):
+        return self.checkpoints[-1] if self.checkpoints else None
 
-    def restore(self, checkpoint_id: int):
-        """Restore dari checkpoint (crash recovery)."""
-        snap = self.checkpoints[checkpoint_id]
-        self.messages = copy.deepcopy(snap["messages"])
-        self.data = copy.deepcopy(snap["data"])
-        self.current_node = snap["node"]
-        self.iteration = snap["iteration"]
+    def restore(self, index: int) -> dict:
+        return copy.deepcopy(self.checkpoints[index][1])
+
+    def count(self):
+        return len(self.checkpoints)
 
 
-class ConditionalEdge:
-    """Edge dengan kondisi (branching logic)."""
-    def __init__(self, condition_fn, true_target: str, false_target: str):
-        self.condition_fn = condition_fn
-        self.true_target = true_target
-        self.false_target = false_target
-
-    def evaluate(self, state: AgentState) -> str:
-        return self.true_target if self.condition_fn(state) else self.false_target
-
-
+# ─────────────────────────────────────────────────
+# KOMPONEN 3: Graph Nodes & Edges
+# ─────────────────────────────────────────────────
 class StateGraph:
     """
-    LangGraph StateGraph: DAG berbasis state yang mengatur alur multi-agent.
-    - add_node(): Tambah agent/action sebagai node
-    - add_edge(): Hubungkan node secara sequential
-    - add_conditional_edge(): Branching berdasarkan kondisi state
-    - compile() + invoke(): Jalankan graph
+    LangGraph StateGraph — VERSI YANG BENAR.
+    Setiap node adalah fungsi yang menerima state dan mengembalikan
+    PARTIAL UPDATE (bukan seluruh state).
     """
 
-    def __init__(self, name: str = "omni_graph"):
+    END = "__END__"
+
+    def __init__(self, schema: StateSchema, name: str = "graph"):
+        self.schema = schema
         self.name = name
-        self.nodes = {}          # {name: callable}
-        self.edges = {}          # {source: target_or_ConditionalEdge}
+        self.nodes = {}
+        self.edges = {}
+        self.conditional_edges = {}
         self.entry_point = None
-        self.end_node = "__END__"
-        print(f"🔀 [LANGGRAPH] StateGraph '{name}' diinisiasi.")
+        self.interrupt_before = set()  # Nodes yang perlu HITL
+        self.checkpoint_store = CheckpointStore()
+        print(f"🔀 [LANGGRAPH] StateGraph '{name}' dengan {len(schema.fields)} field schema.")
+        for key, spec in schema.fields.items():
+            reducer_name = spec.reducer_fn.__name__ if spec.reducer_fn else "overwrite"
+            print(f"   📋 {key}: reducer={reducer_name}, default={type(spec.default_value).__name__}")
 
     def add_node(self, name: str, fn):
+        """fn(state_dict) -> partial_update_dict"""
         self.nodes[name] = fn
-        if self.entry_point is None:
-            self.entry_point = name
 
     def add_edge(self, source: str, target: str):
         self.edges[source] = target
 
-    def add_conditional_edge(self, source: str, condition_fn, true_target: str, false_target: str):
-        self.edges[source] = ConditionalEdge(condition_fn, true_target, false_target)
+    def add_conditional_edges(self, source: str, condition_fn, mapping: dict):
+        """
+        condition_fn(state) -> string_key
+        mapping = {"approved": "publish", "revision": "writer", ...}
+        """
+        self.conditional_edges[source] = (condition_fn, mapping)
 
     def set_entry_point(self, name: str):
         self.entry_point = name
 
+    def set_interrupt_before(self, node_names: list):
+        """Human-in-the-Loop: pause sebelum node tertentu."""
+        self.interrupt_before = set(node_names)
+
     def compile(self):
-        print(f"   ⚙️ Compiling graph: {len(self.nodes)} nodes, {len(self.edges)} edges")
+        n_nodes = len(self.nodes)
+        n_edges = len(self.edges) + len(self.conditional_edges)
+        print(f"   ⚙️ Graph compiled: {n_nodes} nodes, {n_edges} edges, {len(self.interrupt_before)} interrupts")
         return self
 
-    def invoke(self, state: AgentState, max_iterations: int = 10) -> AgentState:
-        """Eksekusi graph dari entry point hingga END."""
-        current = self.entry_point
-        iteration = 0
+    def invoke(self, initial_state: dict = None, max_steps: int = 15) -> dict:
+        """Eksekusi graph."""
+        if initial_state:
+            self.schema.apply_partial_update(initial_state)
 
-        while current != self.end_node and iteration < max_iterations:
-            state.current_node = current
-            state.iteration = iteration
-            iteration += 1
+        current = self.entry_point
+        step = 0
+
+        while current != self.END and step < max_steps:
+            step += 1
+
+            # Check interrupt (HITL)
+            if current in self.interrupt_before:
+                print(f"\n   ⏸️ [INTERRUPT] Node '{current}' membutuhkan persetujuan manusia...")
+                print(f"      👤 [HITL] Persetujuan diberikan (simulasi). Melanjutkan.")
 
             if current not in self.nodes:
-                print(f"   ❌ Node '{current}' tidak ditemukan!")
+                print(f"   ❌ Node '{current}' tidak ditemukan! Berhenti.")
                 break
 
-            print(f"\n   📍 Node [{iteration}]: {current}")
-            # Execute node
-            self.nodes[current](state)
+            print(f"\n   ── Step {step}: [{current}] ──")
 
-            # Checkpoint setelah setiap node (durable execution)
-            cp_id = state.checkpoint()
+            # Eksekusi node → mendapat PARTIAL UPDATE
+            node_fn = self.nodes[current]
+            partial_update = node_fn(self.schema.state)
 
-            # Navigate to next node
-            if current in self.edges:
-                edge = self.edges[current]
-                if isinstance(edge, ConditionalEdge):
-                    next_node = edge.evaluate(state)
-                    print(f"   🔀 Conditional → {next_node}")
-                else:
-                    next_node = edge
+            # Terapkan partial update menggunakan REDUCERS
+            if partial_update:
+                print(f"      🔄 [REDUCER] Applying partial update: {list(partial_update.keys())}")
+                self.schema.apply_partial_update(partial_update)
+
+            # Checkpoint SETELAH setiap node
+            self.checkpoint_store.save(current, self.schema.snapshot())
+
+            # Tentukan node berikutnya
+            if current in self.conditional_edges:
+                cond_fn, mapping = self.conditional_edges[current]
+                decision = cond_fn(self.schema.state)
+                next_node = mapping.get(decision, self.END)
+                print(f"      🔀 Condition → '{decision}' → next: {next_node}")
                 current = next_node
+            elif current in self.edges:
+                current = self.edges[current]
             else:
-                current = self.end_node
+                current = self.END
 
-        print(f"\n   🏁 Graph selesai: {iteration} langkah, {len(state.checkpoints)} checkpoints")
-        return state
+        print(f"\n   🏁 Graph selesai: {step} steps, {self.checkpoint_store.count()} checkpoints")
+        return self.schema.state
 
 
 # ─────────────────────────────────────────────────
-# AGENT NODES (Researcher → Analyst → Writer → Reviewer)
+# IMPLEMENTASI: Research Report Pipeline
 # ─────────────────────────────────────────────────
-def researcher_node(state: AgentState):
-    """Node 1: Researcher — Kumpulkan data."""
-    print("      🔍 [Researcher] Mengumpulkan data tentang topik...")
-    topic = state.data.get("topic", "OMNI Framework")
+
+def researcher_node(state: dict) -> dict:
+    """Mengembalikan PARTIAL UPDATE, bukan seluruh state."""
+    topic = state.get("topic", "AI")
     findings = [
-        f"{topic} mendukung 15 bahasa pemrograman",
-        f"{topic} menggunakan LLVM compiler",
-        f"{topic} memiliki arsitektur polylingual",
+        f"Fakta 1: {topic} menggunakan graph-based orchestration",
+        f"Fakta 2: {topic} mendukung durable execution dengan checkpoints",
+        f"Fakta 3: {topic} menggunakan reducer untuk state management",
     ]
-    state.data["research_findings"] = findings
-    state.add_message("researcher", f"Menemukan {len(findings)} fakta tentang {topic}")
-    print(f"      -> {len(findings)} findings dikumpulkan")
-
-def analyst_node(state: AgentState):
-    """Node 2: Analyst — Analisis data."""
-    print("      📊 [Analyst] Menganalisis temuan peneliti...")
-    findings = state.data.get("research_findings", [])
-    analysis = {
-        "total_findings": len(findings),
-        "key_insight": "Arsitektur polylingual adalah keunggulan utama",
-        "confidence": 0.92,
-        "recommendation": "Fokus pada integrasi LLVM untuk performa"
+    print(f"      🔍 Researcher menemukan {len(findings)} fakta")
+    # PARTIAL UPDATE: hanya kembalikan field yang berubah
+    return {
+        "messages": [{"role": "researcher", "content": f"Ditemukan {len(findings)} fakta"}],
+        "findings": findings,
+        "iteration_count": 1,  # +1 ke counter (reducer SUM)
+        "status": "researched",
     }
-    state.data["analysis"] = analysis
-    state.add_message("analyst", f"Analisis selesai: confidence {analysis['confidence']:.0%}")
-    print(f"      -> Insight: {analysis['key_insight']}")
 
-def writer_node(state: AgentState):
-    """Node 3: Writer — Tulis laporan."""
-    print("      ✍️ [Writer] Menulis laporan berdasarkan analisis...")
-    analysis = state.data.get("analysis", {})
-    findings = state.data.get("research_findings", [])
-    draft = f"# Laporan: {state.data.get('topic', 'N/A')}\n\n"
-    draft += f"## Temuan\n"
+def analyst_node(state: dict) -> dict:
+    findings = state.get("findings", [])
+    insight = f"Insight utama dari {len(findings)} fakta: arsitektur reducer adalah kunci"
+    print(f"      📊 Analyst menghasilkan insight")
+    return {
+        "messages": [{"role": "analyst", "content": insight}],
+        "analysis": {"insight": insight, "confidence": 0.91},
+        "iteration_count": 1,
+        "status": "analyzed",
+    }
+
+def writer_node(state: dict) -> dict:
+    analysis = state.get("analysis", {})
+    findings = state.get("findings", [])
+    draft = f"# Laporan\n\n"
     for f in findings:
         draft += f"- {f}\n"
-    draft += f"\n## Analisis\n{analysis.get('key_insight', 'N/A')}\n"
-    draft += f"\n## Rekomendasi\n{analysis.get('recommendation', 'N/A')}\n"
+    draft += f"\n## Kesimpulan\n{analysis.get('insight', 'N/A')}\n"
+    draft += f"\nKepercayaan: {analysis.get('confidence', 0):.0%}\n"
+    print(f"      ✍️ Writer menulis draft ({len(draft)} chars)")
+    return {
+        "messages": [{"role": "writer", "content": f"Draft selesai ({len(draft)} chars)"}],
+        "draft": draft,
+        "draft_word_count": len(draft.split()),
+        "iteration_count": 1,
+        "status": "drafted",
+    }
 
-    state.data["draft"] = draft
-    state.data["draft_version"] = state.data.get("draft_version", 0) + 1
-    state.add_message("writer", f"Draft v{state.data['draft_version']} selesai ({len(draft)} karakter)")
-    print(f"      -> Draft v{state.data['draft_version']}: {len(draft)} karakter")
-
-def reviewer_node(state: AgentState):
-    """Node 4: Reviewer — Review dan beri feedback."""
-    print("      🔎 [Reviewer] Mereview draft...")
-    draft = state.data.get("draft", "")
-    version = state.data.get("draft_version", 1)
-
-    if len(draft) < 200 and version < 3:
-        state.data["review_passed"] = False
-        feedback = "Draft terlalu pendek. Tambahkan detail lebih."
-        print(f"      -> ❌ REVISI: {feedback}")
+def reviewer_node(state: dict) -> dict:
+    word_count = state.get("draft_word_count", 0)
+    iteration = state.get("iteration_count", 0)
+    if word_count < 10 and iteration < 5:
+        decision = "revision"
+        feedback = f"Draft terlalu pendek ({word_count} kata). Perbaiki."
+        print(f"      🔎 Reviewer: ❌ REVISI ({word_count} kata)")
     else:
-        state.data["review_passed"] = True
-        feedback = "Draft approved! Kualitas baik."
-        print(f"      -> ✅ APPROVED")
+        decision = "approved"
+        feedback = f"Draft disetujui ({word_count} kata). Kualitas baik."
+        print(f"      🔎 Reviewer: ✅ APPROVED ({word_count} kata)")
+    return {
+        "messages": [{"role": "reviewer", "content": feedback}],
+        "review_decision": decision,
+        "iteration_count": 1,
+        "status": f"review_{decision}",
+    }
 
-    state.data["feedback"] = feedback
-    state.add_message("reviewer", feedback)
-
-def human_approval_node(state: AgentState):
-    """Node 5: Human-in-the-Loop (simulasi)."""
-    print("      👤 [HITL] Menunggu persetujuan manusia...")
-    # Simulasi: auto-approve
-    state.data["human_approved"] = True
-    state.add_message("human", "Disetujui oleh Tuan Ikky")
-    print("      -> ✅ Disetujui oleh manusia (Human-in-the-Loop)")
+def publisher_node(state: dict) -> dict:
+    print(f"      📢 Publisher: Laporan dipublikasikan!")
+    return {
+        "messages": [{"role": "publisher", "content": "Laporan berhasil dipublikasikan"}],
+        "status": "published",
+        "iteration_count": 1,
+    }
 
 
 # ==========================================
@@ -209,55 +312,68 @@ if __name__ == "__main__":
     import sys
     sys.stdout.reconfigure(encoding='utf-8')
 
-    print("=" * 65)
-    print("🔀 OMNI LANGGRAPH — Stateful Graph Multi-Agent Workflow")
-    print("=" * 65)
+    print("=" * 70)
+    print("🔀 OMNI LANGGRAPH v2 — REWRITE MENDALAM (State + Reducers + HITL)")
+    print("=" * 70)
+    print()
+    print("📖 PROSES PEMBELAJARAN:")
+    print("   Versi lama: State hanya dict biasa, TANPA reducer.")
+    print("   SALAH karena: 2 node yang update 'messages' akan saling TIMPA.")
+    print("   Versi baru: Setiap field punya REDUCER yang menentukan merge.")
+    print("   messages → operator.add (APPEND)")
+    print("   iteration_count → operator.add (SUM)")
+    print("   status → None (OVERWRITE, last-write-wins)")
+    print("   data → lambda merge (DEEP MERGE)")
+    print()
 
-    # Build graph
-    graph = StateGraph("research_report_pipeline")
+    # Definisikan schema DENGAN REDUCERS
+    schema = StateSchema({
+        "messages":         ReducerSpec([], operator.add),                      # APPEND
+        "iteration_count":  ReducerSpec(0, operator.add),                       # SUM
+        "status":           ReducerSpec("", None),                              # OVERWRITE
+        "topic":            ReducerSpec("", None),                              # OVERWRITE
+        "findings":         ReducerSpec([], operator.add),                      # APPEND
+        "analysis":         ReducerSpec({}, lambda o, n: {**o, **n}),           # MERGE
+        "draft":            ReducerSpec("", None),                              # OVERWRITE
+        "draft_word_count": ReducerSpec(0, None),                               # OVERWRITE
+        "review_decision":  ReducerSpec("", None),                              # OVERWRITE
+    })
+
+    graph = StateGraph(schema, "research_pipeline_v2")
     graph.add_node("researcher", researcher_node)
     graph.add_node("analyst", analyst_node)
     graph.add_node("writer", writer_node)
     graph.add_node("reviewer", reviewer_node)
-    graph.add_node("human_approval", human_approval_node)
+    graph.add_node("publisher", publisher_node)
 
-    # Sequential edges
     graph.add_edge("researcher", "analyst")
     graph.add_edge("analyst", "writer")
     graph.add_edge("writer", "reviewer")
 
-    # Conditional: jika review gagal → kembali ke writer (LOOP!)
-    graph.add_conditional_edge(
+    # Conditional edge: reviewer decision → "revision" loops back, "approved" goes forward
+    graph.add_conditional_edges(
         "reviewer",
-        lambda state: state.data.get("review_passed", False),
-        true_target="human_approval",
-        false_target="writer"
+        lambda state: state.get("review_decision", "revision"),
+        {"approved": "publisher", "revision": "writer"}
     )
-    graph.add_edge("human_approval", "__END__")
+    graph.add_edge("publisher", StateGraph.END)
+
+    # HITL: pause sebelum publish untuk persetujuan manusia
+    graph.set_interrupt_before(["publisher"])
 
     graph.set_entry_point("researcher")
     graph.compile()
 
-    # Run
-    state = AgentState()
-    state.data["topic"] = "OMNI Framework Multi-Agent"
-    result = graph.invoke(state, max_iterations=10)
+    # Jalankan dengan initial state
+    final_state = graph.invoke({"topic": "Multi-Agent Systems"})
 
-    # Summary
-    print(f"\n{'='*65}")
-    print("📋 CONVERSATION LOG")
-    for msg in result.messages:
-        print(f"   [{msg['role']}]: {msg['content']}")
-
-    print(f"\n📊 STATE:")
-    print(f"   Topic: {result.data.get('topic')}")
-    print(f"   Findings: {result.data.get('research_findings', [])[:2]}...")
-    print(f"   Draft Version: {result.data.get('draft_version')}")
-    print(f"   Review: {'PASSED' if result.data.get('review_passed') else 'FAILED'}")
-    print(f"   Human Approved: {result.data.get('human_approved')}")
-    print(f"   Checkpoints: {len(result.checkpoints)}")
-
-    print(f"\n{'='*65}")
-    print("✅ LangGraph: StateGraph ✓ | Conditional Edges ✓ | Loop ✓")
-    print("   Checkpointing ✓ | HITL ✓ | Durable Execution ✓")
-    print(f"{'='*65}")
+    # Bukti bahwa REDUCER bekerja
+    print(f"\n{'='*70}")
+    print("📊 BUKTI REDUCER BEKERJA:")
+    print(f"   messages (operator.add): {len(final_state['messages'])} messages TERAKUMULASI:")
+    for msg in final_state["messages"]:
+        print(f"      [{msg['role']}] {msg['content'][:60]}")
+    print(f"   iteration_count (operator.add): {final_state['iteration_count']} (SUM dari setiap node)")
+    print(f"   status (overwrite): '{final_state['status']}' (hanya nilai TERAKHIR)")
+    print(f"   checkpoints: {graph.checkpoint_store.count()} state snapshots tersimpan")
+    print(f"{'='*70}")
