@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <cstdint>
 
 // ==========================================
 // 📉 OMNI HFT ORDERBOOK (Phase 48)

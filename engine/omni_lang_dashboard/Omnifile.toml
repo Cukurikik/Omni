@@ -1,0 +1,39 @@
+[package]
+name        = "omni-majestic-dashboard"
+version     = "2.0.0-NEXUS-ULTRA"
+authors     = ["IKYY <architect@omnivision.dev>"]
+description = "Sovereign Web Target. Antarmuka Maha Megah 11 Pilar Ilmu dalam OMNI Language Murni."
+license     = "OMNI-Enterprise"
+homepage    = "https://omnivision.dev/dashboard"
+edition     = "omni-2026"
+
+[license.enterprise]
+type          = "OMNI-Enterprise"
+request_limit = "unlimited"
+sla           = "100%"
+support       = "dedicated-engineer"
+on_premise    = true
+custom_llvm   = true
+white_label   = true
+
+[dependencies]
+omni-std     = "^2.0"
+omni-net     = "^1.5"
+omni-ui      = "^3.0"
+
+[permissions]
+allow_net    = ["0.0.0.0/0"]
+allow_fs     = ["/system/omni_kernel/"]
+allow_ebpf   = true 
+allow_thread = true
+allow_sidecar = ["browser-chromium-omni"]
+
+[build]
+target       = ["wasm32", "x86_64-windows", "aarch64-apple"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll", "ui-glassmorphism-render"]
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+tier         = "premium"
+price_usd    = 50000     # Enterprise Targeting $1,000,000 ARR

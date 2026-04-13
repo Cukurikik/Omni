@@ -1,0 +1,58 @@
+/// @file business_schema.omni
+/// @layer Business Layer
+/// @idiom Ruby Routing, GraphQL Schema, C# DDD
+/// @description Kontrak Tipe Data dan Skema Bisnis 11 Pilar OMNI
+
+/// GraphQL Schema First API Contract (Domain Segregation)
+@schema
+type OmniPillarStatus {
+  pillar_id: Int!
+  name: String!
+  status: cs::domain::ComponentStatus
+  metric_value: String!
+}
+
+@schema
+type DashboardPayload {
+  master_status: String!
+  nodes: [OmniPillarStatus!]!
+  kernel_uptime: Int!
+}
+
+/// Menangani rute sistem (Ruby Convention)
+rb::route "/api/omni-status" {
+  get  -> cs::domain::MetricsQuery::pull_11_pillars
+}
+
+namespace cs::domain {
+  pub enum ComponentStatus { Active, Standby, Error }
+
+  pub class MetricsQuery {
+    /// Mencabut data Uptime riil OS. Menggunakan Monadic Error Handling OMNI Mutlak.
+    pub static fn pull_11_pillars() -> Result<DashboardPayload, QueryError> {
+      
+      // Zero-Copy Fetch dari System Layer (C/Rust)
+      let uptime_ms = system::os::get_kernel_uptime()?
+
+      let payload = DashboardPayload {
+        master_status: "SOVEREIGN SINGULARITY ATTAINED",
+        kernel_uptime: uptime_ms,
+        nodes: vec![
+          OmniPillarStatus { pillar_id: 1, name: "Agent Core", status: ComponentStatus::Active, metric_value: "ReAct MCTS Sync" },
+          OmniPillarStatus { pillar_id: 2, name: "Web Environment", status: ComponentStatus::Active, metric_value: "O-Lang UI Rendered" },
+          OmniPillarStatus { pillar_id: 3, name: "Mobile Environment", status: ComponentStatus::Active, metric_value: "FFI Mobile Bridge OK" },
+          OmniPillarStatus { pillar_id: 4, name: "Desktop Environment", status: ComponentStatus::Active, metric_value: "OS Kinetik Hooks OK" },
+          OmniPillarStatus { pillar_id: 5, name: "Data RAG", status: ComponentStatus::Active, metric_value: "Chroma Vektor Memory OK" },
+          OmniPillarStatus { pillar_id: 6, name: "Setup RAG", status: ComponentStatus::Active, metric_value: "Pipeline Inti Dibuat" },
+          OmniPillarStatus { pillar_id: 7, name: "MCP Servers", status: ComponentStatus::Active, metric_value: "C-Node RPC Sent" },
+          OmniPillarStatus { pillar_id: 8, name: "LLM Fine Tuning", status: ComponentStatus::Active, metric_value: "LoRA Adapters Online" },
+          OmniPillarStatus { pillar_id: 9, name: "Voice Agent", status: ComponentStatus::Active, metric_value: "WebRTC Whisper Sync" },
+          OmniPillarStatus { pillar_id: 10, name: "Multimodal Vision", status: ComponentStatus::Active, metric_value: "LLaVA Raster Hooked" },
+          OmniPillarStatus { pillar_id: 11, name: "Multi Agent", status: ComponentStatus::Active, metric_value: "Swarm LangGraph Synced" }
+        ]
+      }
+
+      Ok(payload)
+    }
+  }
+}

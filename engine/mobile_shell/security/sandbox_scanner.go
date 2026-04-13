@@ -1,4 +1,4 @@
-package main
+package security
 
 import (
 	"fmt"
@@ -59,6 +59,6 @@ func scanAllRuntimes() {
 	fmt.Println("✅ Tantangan 'Hacker punya lebih banyak pintu masuk' TERTAKLUKKAN!")
 }
 
-func main() {
+func SandboxScannerMain() {
 	scanAllRuntimes()
 }

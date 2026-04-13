@@ -1,4 +1,4 @@
-package main
+package desktop_env
 
 import (
 	"log"
@@ -20,6 +20,6 @@ func DumpCOMTree() {
 	log.Println("✅ Visual Computer Vision Bypassed! Memakai Aksesibilitas Node Semantik Sempurna.")
 }
 
-func main() {
+func WindowsUiAutoMain() {
 	DumpCOMTree()
 }

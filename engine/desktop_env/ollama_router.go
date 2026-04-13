@@ -1,4 +1,4 @@
-package main
+package desktop_env
 
 import (
 	"log"
@@ -26,7 +26,7 @@ func StreamInference(prompt string) {
 	log.Println("🎓 Akses memori eksternal 0%. Sepenuhnya dijalankan oleh Silicon Chip PC Tuan.")
 }
 
-func main() {
+func OllamaRouterMain() {
 	PingLocalOllama()
 	StreamInference("Hapus Cache Direktori")
 }

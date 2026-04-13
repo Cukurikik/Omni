@@ -1,4 +1,5 @@
-package main
+package desktop_env
+import "C"
 
 import (
 	"log"
@@ -21,6 +22,6 @@ func StartFSNotifyListener() {
 	log.Println("🤖 Memicu Agen Aider/OpenDevin untuk menganalisa perubahan kode yang disengaja Tuan.")
 }
 
-func main() {
+func FileWatchdogMain() {
 	StartFSNotifyListener()
 }

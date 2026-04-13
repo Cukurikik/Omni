@@ -18,7 +18,7 @@ type GraphState struct {
 
 func NodeRouter(state GraphState) GraphState {
 	log.Println("🔄 [LANGGRAPH-GO] Meneruskan State ke Node Router Cerdas...")
-	time.sleep(100 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	state.NextNode = "ExecuteAction"
 	return state
 }

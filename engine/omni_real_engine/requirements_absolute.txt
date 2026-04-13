@@ -1,0 +1,47 @@
+# =======================================================
+# OMNI GRAND UNIFIED ENGINE - ABSOLUTE DEPENDENCIES
+# =======================================================
+# File persyaratan mutlak untuk menjalankan OMNI tanpa simulasi di Alam Semesta Nyata.
+# Menggabungkan 11 Pilar Ilmu Tuan Ikky dalam satu nafas komputasi.
+# =======================================================
+
+# [1] Agent Core & [11] Multi-Agent
+langchain>=0.1.0
+langgraph>=0.0.21
+crewai>=0.22.0
+pyautogen>=0.2.14
+
+# [2] Web Environment
+playwright>=1.41.0
+beautifulsoup4>=4.12.3
+
+# [3] Mobile & [7] MCP (Diakses via RPC/Subprocess)
+grpcio>=1.62.0
+requests>=2.31.0
+fastapi>=0.110.0
+uvicorn>=0.27.1
+
+# [4] Desktop Environment
+pyautogui>=0.9.54
+keyboard>=0.13.5
+mouse>=0.7.1
+
+# [5] Data / RAG & [6] Tutorial
+llama-index>=0.10.15
+chromadb>=0.4.24
+qdrant-client>=1.8.0
+
+# [8] LLM & Fine-Tuning (Sovereign Local)
+llama-cpp-python>=0.2.56
+peft>=0.9.0
+torch>=2.2.1
+
+# [9] Voice Agent
+SpeechRecognition>=3.10.1
+pyttsx3>=2.90
+aiortc>=1.8.0  # WebRTC Real-time
+
+# [10] Multimodal & Vision
+opencv-python>=4.9.0
+Pillow>=10.2.0
+transformers>=4.38.2

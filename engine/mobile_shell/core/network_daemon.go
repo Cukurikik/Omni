@@ -1,4 +1,5 @@
-package main
+package core
+import "C"
 
 import (
 	"log"
@@ -41,6 +42,6 @@ func simulateMobileAPIBurst() {
 	log.Println("✅ Smartphone OMNI berkomunikasi secepat kilat tanpa menguras baterai!")
 }
 
-func main() {
+func NetworkDaemonMain() {
 	simulateMobileAPIBurst()
 }

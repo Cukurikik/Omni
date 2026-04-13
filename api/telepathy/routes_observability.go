@@ -2,7 +2,6 @@ package telepathy
 
 import (
 	"context"
-	"log"
 
 	"omnitools/services"
 )
@@ -60,7 +59,4 @@ func RoutesObservability(ctx context.Context, method string, args map[string]int
 	default:
 		return OmniResponse{}, false
 	}
-
-	log.Println("📊 [TELEMETRY ROUTE] Permintaan observasi selesai diproses")
-	return OmniResponse{}, false
 }

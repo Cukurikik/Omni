@@ -1,0 +1,40 @@
+/// @file telepathy_gateway.omni
+/// @layer Concurrency Layer
+/// @idiom Golang HTTP/3 & JavaScript EventLoop
+/// @description Mengendalikan Server Web Asli dan WebRTC tanpa Flask/HTTP.server
+
+import { OmniNet } from "omni-std/net"
+import { MetricsQuery } from "@omni-bridge/domain/business_schema"
+
+/// Menyatukan 11 Pilar Ilmu ke Saluran Socket
+/// @returns Result<(), NetworkError>
+pub fn serve_metrics_socket(port: u16) -> Result<(), NetworkError> {
+  // Golang idiom: spawner
+  go spawn start_http3_server(port)?
+  
+  // Immutability strictness
+  immutable val ws_cluster = OmniNet::WebSocket::new("/api/omni-status")
+  
+  // JavaScript idiom: event loop non-blocking
+  async evloop ws_cluster.on_connect(|client| {
+    loop {
+      // Monadic Fetch Data 11 Pilar via Domain Bridge
+      match MetricsQuery::pull_11_pillars() {
+        Ok(data) => client.emit("status_sync", data),
+        Err(e)   => client.emit("error", e.message),
+      }
+      async evloop wait("1s")
+    }
+  })
+  
+  Ok(())
+}
+
+unsafe_zone "network_buffer_zero_copy" {
+  /// Transfer payload raksasa via pointer untuk WebRTC Stream
+  fn transfer_dashboard_stream(data: *const u8, len: usize) -> Result<(), IOError> {
+      let slice = rust::slice::from_raw_parts(data, len)
+      write_to_kernel_buffer(slice.toPointer())
+      Ok(())
+  }
+}

@@ -1,4 +1,5 @@
-package main
+package kernel
+import "C"
 
 import (
 	"log"
@@ -24,6 +25,6 @@ func ReadDirectMemory() {
 	log.Println("✅ [SUCCESS] Agent AI membaca Data Aplikasi murni tanpa memerlukan Interface GUI!")
 }
 
-func main() {
+func MemoryScannerMain() {
 	ReadDirectMemory()
 }

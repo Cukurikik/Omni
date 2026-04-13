@@ -3,6 +3,8 @@ package hft
 /*
 #cgo CXXFLAGS: -std=c++17 -O3
 #include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 #include <stdlib.h>
 
 struct Order {

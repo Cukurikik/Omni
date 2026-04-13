@@ -1,4 +1,4 @@
-package main
+package streaming
 
 import (
 	"fmt"
@@ -173,7 +173,7 @@ func WebRTCTransport(audioOut <-chan TTSChunk, wg *sync.WaitGroup) {
 	log.Printf("   ✅ [WEBRTC] Total %d audio chunks dikirim ke speaker.", totalChunks)
 }
 
-func main() {
+func RealtimePipelineMain() {
 	fmt.Println("=================================================================")
 	fmt.Println("⚡ OMNI STREAMING VOICE — Pipecat + Voice SDK Real-Time Pipeline")
 	fmt.Println("=================================================================")

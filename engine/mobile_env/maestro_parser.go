@@ -1,4 +1,4 @@
-package main
+package mobile_env
 
 import (
 	"log"
@@ -34,7 +34,7 @@ func ExecuteMaestroYaml(yamlContext string) {
 	log.Println("🎓 [SUCCESS] Alur kerja Maestro BDD selesai dikompilasi Native!")
 }
 
-func main() {
+func MaestroParserMain() {
 	sampleFlow := `
 - tapOn: "Login Button"
 - inputText: "omni_enterprise@ai.com"

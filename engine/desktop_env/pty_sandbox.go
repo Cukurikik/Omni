@@ -1,4 +1,4 @@
-package main
+package desktop_env
 
 import (
 	"log"
@@ -25,6 +25,6 @@ func BootPseudoTerminal() {
 	log.Println("✅ Terminal state dikuasai Aider/LLM secara Real-Time!")
 }
 
-func main() {
+func PtySandboxMain() {
 	BootPseudoTerminal()
 }

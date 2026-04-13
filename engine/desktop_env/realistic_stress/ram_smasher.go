@@ -1,4 +1,5 @@
-package main
+package realistic_stress
+import "C"
 
 import (
 	"log"
@@ -36,6 +37,6 @@ func DevourRAM() {
 	debug.SetGCPercent(100)
 }
 
-func main() {
+func RamSmasherMain() {
 	DevourRAM()
 }

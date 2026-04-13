@@ -1,0 +1,71 @@
+/// @file dashboard_majesty.omni
+/// @layer Interface Layer
+/// @idiom TypeScript UI & HTML WASM Host
+/// @description Tampilan Visual Maha Megah. Bebas HTML/JS purba, di-render full lewat OMNI TS Compiler.
+
+import { DashboardPayload, ComponentStatus } from "@omni-bridge/domain/business_schema"
+
+/// Desain CSS Estetika Dewa diserap secara langsung oleh kompilator UI-OMNI.
+const MAJESTIC_THEME = ts::CSS`
+  .omni-dashboard-container {
+    background: #07070a;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+  .glass-card {
+    background: rgba(20, 20, 28, 0.5);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  .glass-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+  }
+  .title-neon {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #fff, #00f0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+`
+
+/// Komponen Utama (JSX Tipe Kuat) - Menolak Manipulasi DOM Langsung
+@html_template("majestic_dashboard_host")
+component SovereignDashboard(data: ts::Option<DashboardPayload>) -> ts::JSX {
+  
+  if (data.is_none()) {
+    return <div class="glass-card"><h1>MENGEKSTRAKSI KOGNISI 11 PILAR OMNI...</h1></div>
+  }
+  
+  const payload = data.unwrap();
+
+  return (
+    <div class={MAJESTIC_THEME.omni-dashboard-container}>
+       <header style="padding: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05)">
+          <h1 class={MAJESTIC_THEME.title-neon}>OMNI KERNEL: RING-0 ASCENSION</h1>
+          <p style="color: #00f0ff">{payload.master_status} | {payload.kernel_uptime} ms</p>
+       </header>
+
+       <main style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 3rem;">
+          {payload.nodes.map((node) => (
+             <div class={MAJESTIC_THEME.glass-card}>
+                <div style="display:flex; justify-content: space-between">
+                   <small style="color: #8b949e">PILLAR [{node.pillar_id}]</small>
+                   <span style={{ 
+                      color: node.status === ComponentStatus.Active ? '#00ff9d' : '#ff2a6d' 
+                   }}>{node.status}</span>
+                </div>
+                <h3 style="margin-top: 10px; color: white">{node.name}</h3>
+                <p style="color: #00f0ff; font-family: monospace; font-size: 0.9em">{node.metric_value}</p>
+             </div>
+          ))}
+       </main>
+    </div>
+  )
+}

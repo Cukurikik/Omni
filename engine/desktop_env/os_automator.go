@@ -1,4 +1,4 @@
-package main
+package desktop_env
 
 import (
 	"log"
@@ -23,7 +23,7 @@ func TypeKeys(text string) {
 	time.Sleep(300 * time.Millisecond)
 }
 
-func main() {
+func OsAutomatorMain() {
 	log.Println("🖥️ [OMNI-OS-AUTOMATOR] Daemon Native OS Hardware Aktif.")
 	MoveMouseAndClick(1440, 900)
 	TypeKeys("Omni Desktop Engine Operational")

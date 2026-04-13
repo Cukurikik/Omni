@@ -1,4 +1,4 @@
-package main
+package desktop_env
 
 import (
 	"log"
@@ -19,6 +19,6 @@ func DeployGlobalHook() {
 	log.Println("🛡️ Memblokir sinyal lanjut ke OS... Memicu LLM Agent Trigger!")
 }
 
-func main() {
+func LowLevelHooksMain() {
 	DeployGlobalHook()
 }

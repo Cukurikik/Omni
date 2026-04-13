@@ -1,4 +1,4 @@
-package main
+package pipeline
 
 import (
 	"fmt"
@@ -117,7 +117,7 @@ func (d *DAGScheduler) Run() {
 	}
 }
 
-func main() {
+func OmniDagPipelineMain() {
 	fmt.Println("=" + fmt.Sprintf("%59s", "") + "=")
 	fmt.Println("🔄 OMNI DATA PIPELINE — MENGUASAI Airflow + Prefect + Dagster + Airbyte")
 	fmt.Println("=" + fmt.Sprintf("%59s", "") + "=")

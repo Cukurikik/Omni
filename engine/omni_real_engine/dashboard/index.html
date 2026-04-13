@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Sovereign Dashboard | Field-Executable</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bg-pulse"></div>
+
+    <header class="master-header">
+        <div class="logo">
+            <span class="pulse-dot"></span>
+            OMNI KERNEL <span class="ring-status">RING 0</span>
+        </div>
+        <div class="sys-status" id="masterStatus">MENGINISIALISASI FIELD KONEKSI...</div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- Center Core / Singularity -->
+        <div class="core-hologram">
+            <div class="hologram-rings">
+                <div class="ring r1"></div>
+                <div class="ring r2"></div>
+                <div class="ring r3"></div>
+            </div>
+            <h2 class="core-title">11-PILLAR HIVE MIND</h2>
+            <p class="core-subtitle" id="timeDisplay">Sovereign Mode</p>
+        </div>
+
+        <!-- Metric Nodes Container -->
+        <div class="nodes-container" id="nodesContainer">
+            <!-- Injected dynamically via JS -->
+            <div class="loading-data">Mengesktrak Kognisi OMNI...</div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

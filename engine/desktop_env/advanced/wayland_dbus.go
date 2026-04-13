@@ -1,4 +1,5 @@
-package main
+package advanced
+import "C"
 
 import (
 	"log"
@@ -21,6 +22,6 @@ func ConnectToDBus() {
 	log.Println("✅ [SUCCESS] OMNI Agent sekarang sanggup menembus sistem Operasi Ubuntu/Arch Linux secara native.")
 }
 
-func main() {
+func WaylandDbusMain() {
 	ConnectToDBus()
 }

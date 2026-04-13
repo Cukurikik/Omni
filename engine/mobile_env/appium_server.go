@@ -1,4 +1,4 @@
-package main
+package mobile_env
 
 import (
 	"log"
@@ -12,7 +12,7 @@ import (
 // Menyatukan STF (Smartphone Test Farm), Detox, Maestro, dan Calabash
 // dalam eksekusi pararel yang ringan!
 
-func main() {
+func AppiumServerMain() {
 	log.Println("🚀 [OMNI-APPIUM] Membuka Socket Kejut untuk Android (ADB) dan iOS (XCUITest)...")
 
 	// Eksekusi ala MAESTRO (Declarative BDD YAML)

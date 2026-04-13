@@ -1,4 +1,5 @@
 package singularity
+import "C"
 
 import (
 	"log"

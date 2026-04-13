@@ -1,4 +1,4 @@
-package main
+package vault
 
 import (
 	"log"
@@ -22,7 +22,7 @@ func parseWikilinks(content string) []string {
 	return []string{"[[Blueprint 2.0]]", "[[$1M ARR Strategy]]"}
 }
 
-func main() {
+func ObsidianParserMain() {
 	log.Println("📓 [OMNI-OBSIDIAN] Memindai direktori lokal 'Vault/Omni_Notes'...")
 	
 	// Simulasi membaca isi file
