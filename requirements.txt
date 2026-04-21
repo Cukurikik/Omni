@@ -1,0 +1,72 @@
+# ===========================================================================
+# OMNI FRAMEWORK — Python Dependencies
+# ===========================================================================
+# Production dependencies for the OMNI Compute Layer (224+ engines).
+# Install via: pip install -r requirements.txt
+# ===========================================================================
+
+# --- Core ML Frameworks ---
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+tensorflow>=2.14.0
+jax[cpu]>=0.4.0
+flax>=0.7.0
+
+# --- NLP & Transformers ---
+transformers>=4.35.0
+tokenizers>=0.15.0
+datasets>=2.15.0
+sentencepiece>=0.1.99
+spacy>=3.7.0
+
+# --- Computer Vision ---
+opencv-python>=4.8.0
+Pillow>=10.0.0
+albumentations>=1.3.0
+kornia>=0.7.0
+supervision>=0.16.0
+ultralytics>=8.0.0
+
+# --- Speech & Audio ---
+librosa>=0.10.0
+soundfile>=0.12.0
+torchaudio>=2.0.0
+pydub>=0.25.0
+webrtcvad>=2.0.10
+
+# --- Data Science & Tabular ---
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+lightgbm>=4.0.0
+catboost>=1.2.0
+
+# --- MLOps & Serving ---
+mlflow>=2.7.0
+wandb>=0.15.0
+bentoml>=1.1.0
+clearml>=1.13.0
+
+# --- Generative AI ---
+diffusers>=0.25.0
+accelerate>=0.24.0
+safetensors>=0.4.0
+
+# --- Utilities ---
+pyyaml>=6.0
+pydantic>=2.5.0
+httpx>=0.25.0
+aiohttp>=3.9.0
+rich>=13.0.0
+click>=8.1.0
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+loguru>=0.7.0
+
+# --- Testing ---
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.23.0

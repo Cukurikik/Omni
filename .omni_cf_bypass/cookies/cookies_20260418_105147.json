@@ -1,0 +1,12 @@
+{
+  "url": "https://test.cloudflare-protected.example.com",
+  "cookies": {
+    "cf_clearance": "30f5ebf326bfcef68c2d0da81c285bc8164a3fa55c809e1fe7c6b8c9b0ce9ee3",
+    "__cf_bm": "ef1dc5fdec549cab6f09447ba1253370",
+    "__cflb": "37f16fde6571c2c0"
+  },
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "cf_clearance": "30f5ebf326bfcef68c2d0da81c285bc8164a3fa55c809e1fe7c6b8c9b0ce9ee3",
+  "timestamp": "20260418_105147",
+  "challenge_type": "turnstile"
+}

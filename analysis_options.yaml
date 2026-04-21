@@ -1,0 +1,9 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  exclude:
+    - "node_modules/**"
+    - "build/**"
+    - "**.g.dart"
+    - "**.freezed.dart"
+    - "**.mocks.dart"

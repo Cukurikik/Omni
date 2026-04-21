@@ -1,0 +1,11 @@
+# ==========================================
+# ⚙️ OMNI DATA CONNECT CONNECTOR
+# ==========================================
+connectorId: "omni-agent-connector"
+generate:
+  dartSdk:
+    outputDir: "../../mobile_sdk/lib/generated"
+    package: "omni_dataconnect"
+  javascriptSdk:
+    outputDir: "../../engine/ui/generated"
+    package: "@omni/dataconnect"

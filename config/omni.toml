@@ -1,0 +1,63 @@
+# ===========================================================================
+# OMNI FRAMEWORK — Central Configuration
+# ===========================================================================
+# All runtime configuration loaded from environment variables.
+# See .env.example for available variables.
+# ===========================================================================
+
+[omni]
+name = "OMNI Framework"
+version = "5.0.0-semester5"
+edition = "omni-2026"
+description = "Polylingual AI/ML Production Framework"
+
+[engine]
+root = "./src/compute/python_core"
+auto_scan = true
+lazy_load = true
+max_concurrent_engines = 50
+health_check_interval_seconds = 300
+
+[registry]
+version = "2.0.0"
+total_expected_engines = 224
+scan_on_startup = true
+export_catalog_json = true
+catalog_output_path = "./docs/api/engine_catalog.json"
+
+[gateway]
+host = "0.0.0.0"
+port = 8080
+workers = 4
+cors_origins = ["http://localhost:3000"]
+rate_limit_per_minute = 100
+
+[logging]
+level = "INFO"
+format = "json"
+output = "stdout"
+file_path = "./logs/omni.log"
+
+[security]
+enable_auth = true
+jwt_algorithm = "HS256"
+token_expiry_hours = 24
+allowed_ips = ["*"]
+
+[mlops]
+enable_tracking = true
+experiment_prefix = "omni-s5"
+auto_log_metrics = true
+checkpoint_dir = "./checkpoints"
+
+[cloud]
+provider = "gcp"
+region = "asia-southeast2"
+auto_scale = false
+min_instances = 1
+max_instances = 100
+
+[deployment]
+target = ["x86_64-linux", "aarch64-apple", "wasm32"]
+optimize = "release"
+unikernel_enabled = false

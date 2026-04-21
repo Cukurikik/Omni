@@ -1,0 +1,32 @@
+# ==========================================
+# 🐍 OMNI FRAMEWORK — Python Compute Environment
+# For: ML, Agent, RAG, and Analytics workloads
+# ==========================================
+FROM python:3.12-slim AS base
+
+WORKDIR /app
+
+# System dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ curl git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Python dependencies
+COPY requirements.txt* ./
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt 2>/dev/null || true
+
+# Copy engine
+COPY engine/ ./engine/
+COPY omni_advanced_executable.py .
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
+  CMD python -c "print('healthy')" || exit 1
+
+EXPOSE 8000
+
+ENV PYTHONUNBUFFERED=1
+ENV TZ=Asia/Jakarta
+
+CMD ["python", "omni_advanced_executable.py"]

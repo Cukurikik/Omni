@@ -1,0 +1,183 @@
+{
+  "Result Function": {
+    "prefix": "result",
+    "body": [
+      "/// ${1:Description of function}",
+      "///",
+      "/// @param ${2:param} - ${3:param description}",
+      "/// @returns Result<${4:T}, ${5:E}>",
+      "pub fn ${6:function_name}(${2:param}: ${7:Type}) -> Result<${4:T}, ${5:E}> {",
+      "\tlet validated = ${8:validate}(${2:param})?",
+      "\tOk(${9:result})",
+      "}"
+    ],
+    "description": "OMNI function with monadic Result<T, E> return type"
+  },
+  "Service Block": {
+    "prefix": "service",
+    "body": [
+      "service ${1:ServiceName} {",
+      "\tgo spawn ${2:handle_request}(${3:id}: UUID) -> Result<${4:Response}, ${5:Error}>",
+      "\tasync evloop emit(\"${6:event.name}\", payload)",
+      "}"
+    ],
+    "description": "OMNI service definition with goroutine and event loop"
+  },
+  "Unsafe Zone": {
+    "prefix": "unsafe",
+    "body": [
+      "unsafe_zone \"${1:zone_name}\" {",
+      "\tlet ptr: *mut u8 = c::malloc(${2:size})",
+      "\tdefer c::free(ptr)",
+      "\trust::slice::from_raw_parts(ptr, ${2:size})",
+      "\t$0",
+      "}"
+    ],
+    "description": "OMNI unsafe memory access zone with guaranteed deallocation"
+  },
+  "Bridge Import": {
+    "prefix": "bridge",
+    "body": [
+      "import { ${1:Name} } from \"@omni-bridge/${2|system,compute,network,domain,ui|}/${3:module}\""
+    ],
+    "description": "OMNI interface bridge import"
+  },
+  "Component": {
+    "prefix": "component",
+    "body": [
+      "@html_template(\"${1:template_name}\")",
+      "component ${2:ComponentName}(${3:props}: ts::${4:PropsType}) -> ts::JSX {",
+      "\treturn <${5:Element} ${6:attr}={${3:props}} />",
+      "}"
+    ],
+    "description": "OMNI UI component with HTML template"
+  },
+  "Schema Type": {
+    "prefix": "schema",
+    "body": [
+      "@schema",
+      "type ${1:TypeName} {",
+      "\tid: UUID!",
+      "\t${2:field}: ${3:Type}!",
+      "\tstatus: cs::domain::${4:StatusEnum}",
+      "}"
+    ],
+    "description": "OMNI GraphQL schema type with decorators"
+  },
+  "Route Block": {
+    "prefix": "route",
+    "body": [
+      "rb::route \"${1:/api/resource}\" {",
+      "\tget  -> cs::domain::${2:ResourceQuery}::list_all",
+      "\tpost -> cs::domain::${2:ResourceQuery}::create_new",
+      "\tput  -> cs::domain::${2:ResourceQuery}::update",
+      "}"
+    ],
+    "description": "OMNI Ruby route block with CQRS domain handlers"
+  },
+  "Go Spawn": {
+    "prefix": "spawn",
+    "body": [
+      "go spawn ${1:task_name}(${2:args}) -> Result<${3:T}, ${4:E}>"
+    ],
+    "description": "Spawn a Go goroutine"
+  },
+  "Julia SIMD": {
+    "prefix": "simd",
+    "body": [
+      "@julia_simd",
+      "fn ${1:compute_function}(${2:data}: Vec<f64>) -> f64 {",
+      "\tr::stat::mean(${2:data}) - py::np::median(${2:data}.toPointer())",
+      "}"
+    ],
+    "description": "Julia SIMD vector operation with R/Python interop"
+  },
+  "Match Result": {
+    "prefix": "matchr",
+    "body": [
+      "match ${1:result} {",
+      "\tOk(${2:value}) => {",
+      "\t\t$0",
+      "\t},",
+      "\tErr(${3:error}) => {",
+      "\t\thandle_error(${3:error})",
+      "\t},",
+      "}"
+    ],
+    "description": "Match on Result<T, E>"
+  },
+  "Immutable Binding": {
+    "prefix": "immutable",
+    "body": [
+      "immutable val ${1:name}: ${2:Type} = ${3:value}"
+    ],
+    "description": "Immutable value binding (OMNI default)"
+  },
+  "Mutable Binding": {
+    "prefix": "mutable",
+    "body": [
+      "mutable var ${1:name}: ${2:AtomicU64} = ${2:AtomicU64}::new(${3:0})"
+    ],
+    "description": "Explicitly mutable variable binding"
+  },
+  "Extern C Function": {
+    "prefix": "externc",
+    "body": [
+      "extern \"omni-c\" fn ${1:function_name}(",
+      "\t${2:param}: ${3:*const u8},",
+      "\t${4:len}: usize",
+      ") -> Result<${5:T}, ${6:FFIError}>"
+    ],
+    "description": "C FFI function binding"
+  },
+  "Omnifile Package": {
+    "prefix": "omnifile",
+    "body": [
+      "[package]",
+      "name        = \"${1:package-name}\"",
+      "version     = \"${2:1.0.0}\"",
+      "authors     = [\"${3:Dev} <${4:dev@email.com}>\"]",
+      "description = \"${5:Package description}\"",
+      "license     = \"MIT\"",
+      "edition     = \"omni-2025\"",
+      "",
+      "[dependencies]",
+      "omni-std = \"^2.0\"",
+      "",
+      "[permissions]",
+      "allow_net    = [\"${6:api.example.com}\"]",
+      "allow_fs     = [\"/tmp/${1:package-name}/\"]",
+      "allow_thread = true",
+      "",
+      "[build]",
+      "target  = [\"wasm32\", \"x86_64-linux\", \"aarch64-apple\"]",
+      "optimize = \"release\""
+    ],
+    "description": "Full Omnifile.toml package manifest"
+  },
+  "Doc Comment": {
+    "prefix": "doc",
+    "body": [
+      "/// ${1:Brief description}",
+      "///",
+      "/// @param ${2:param} - ${3:Parameter description}",
+      "/// @returns ${4:Return description}",
+      "/// @example",
+      "///   ${5:usage_example}",
+      "/// @since ${6:1.0.0}",
+      "/// @tags [\"${7:tag}\"]"
+    ],
+    "description": "OMNI standard doc comment block"
+  },
+  "Permissions Block": {
+    "prefix": "permissions",
+    "body": [
+      "[permissions]",
+      "allow_net    = [\"${1:api.example.com}\"]",
+      "allow_fs     = [\"${2:/tmp/app/}\"]",
+      "allow_env    = [\"${3:API_KEY}\", \"${4:DB_URL}\"]",
+      "allow_thread = ${5|true,false|}"
+    ],
+    "description": "Omnifile.toml permissions block"
+  }
+}

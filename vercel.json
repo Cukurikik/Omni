@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "omni-framework",
+  "builds": [
+    { "src": "api/**/*.py", "use": "@vercel/python" },
+    { "src": "ui/dist/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/ui/dist/$1" }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "TZ": "Asia/Jakarta"
+  },
+  "regions": ["sin1", "hnd1"],
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.12",
+      "maxDuration": 60
+    }
+  }
+}

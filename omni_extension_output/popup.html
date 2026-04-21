@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Edge Agent</title>
+    <style>
+        body { width: 350px; font-family: 'Inter', sans-serif; background: #0b0c10; color: #c5c6c7; margin: 0; padding: 15px; }
+        h2 { color: #66fcf1; text-align: center; border-bottom: 1px solid #1f2833; padding-bottom: 10px; }
+        #app { display: flex; flex-direction: column; gap: 10px; }
+        .box { background: #1f2833; padding: 10px; border-radius: 6px; font-size: 13px; }
+        button { background: #45a29e; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        button:hover { background: #66fcf1; color: black; }
+        #status { font-style: italic; color: #f5a623; }
+    </style>
+</head>
+<body>
+    <h2>OMNI Edge AI</h2>
+    <div id="app">
+        <div class="box">Status Hardware: <span id="status">Scanning NPU...</span></div>
+        <textarea id="prompt" rows="4" placeholder="Masukkan instruksi OMNI di sini..."></textarea>
+        <!-- AI Security Guard (Poin 1) -->
+        <button id="firewallBtn">1. Scan Security</button>
+        <!-- Edge AI On-Device (Poin 5) -->
+        <button id="execBtn" disabled>2. Execute Nano NPU</button>
+        <div class="box" id="output">Output akan muncul di sini.</div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
