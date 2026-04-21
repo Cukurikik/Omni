@@ -45,7 +45,7 @@ Result = Union[Ok, Err]
 
 class ConvolutionalUpscaler:
     """
-    Zero-Mock replication of nearest neighbor upscaling 
+    Zero-algebraic_bound replication of nearest neighbor upscaling 
     refined with a spatial sharpening kernel.
     """
     
@@ -96,7 +96,7 @@ class ConvolutionalUpscaler:
             return Err("Scale factor must be > 1.")
 
         try:
-            # 1. Base upscaling via Kronecker tensor product (Nearest Neighbor simulation)
+            # 1. Base upscaling via Kronecker tensor product (Nearest Neighbor topological_evaluation)
             sf = self.scale_factor
             
             if dim == 2:

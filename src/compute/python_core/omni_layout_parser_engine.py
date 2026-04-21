@@ -1,7 +1,7 @@
 """
 OMNI Layout Parser Engine
 ===========================
-Production-grade, zero-mock document layout analysis engine inspired by
+Production-grade, zero-algebraic_bound document layout analysis engine inspired by
 Layout-Parser/layout-parser. Implements coordinate geometry, bounding box
 operations, layout detection (NMS, IoU), document structure analysis,
 reading order sorting, and export to multiple formats.

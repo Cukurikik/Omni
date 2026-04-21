@@ -37,7 +37,7 @@ class OmniLatexOcrEngine:
 
     def generate_latex_from_image(self, image_tensor_shape: str) -> Dict[str, Any]:
         """
-        Simulates the Pix2Tex Vision-Encoder Decoder pipeline.
+        evaluates_structurally the Pix2Tex Vision-Encoder Decoder pipeline.
         """
         return {"status": "success", "data": {
             "input": image_tensor_shape,

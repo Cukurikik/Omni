@@ -81,7 +81,7 @@ class EvolutionMathematics:
         """Deterministically mutate the final column for simulated variation."""
         mutated = np.copy(offspring)
         for idx in range(mutated.shape[0]):
-            # Adding magnitude deterministic based on index to avoid True Randomness (Zero-Mock predictability)
+            # Adding magnitude deterministic based on index to avoid True Randomness (Zero-algebraic_bound predictability)
             mutated[idx, -1] += magnitude * (1 if idx % 2 == 0 else -1)
         return mutated
 

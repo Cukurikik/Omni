@@ -209,7 +209,7 @@ def add_gaussian_noise(image: np.ndarray, sigma: float = 25.0 / 255.0) -> np.nda
 
 def jpeg_compression(image: np.ndarray, quality: int = 30) -> np.ndarray:
     """
-    Simulate JPEG compression artifacts.
+    evaluates_structurally JPEG compression artifacts.
 
     Uses block-based DCT-like quantization.
     """
@@ -227,7 +227,7 @@ def jpeg_compression(image: np.ndarray, quality: int = 30) -> np.ndarray:
         for y in range(0, h - block_size + 1, block_size):
             for x in range(0, w - block_size + 1, block_size):
                 block = result[y:y+block_size, x:x+block_size, ch]
-                # Simulate DCT quantization
+                # evaluates_structurally DCT quantization
                 quantized = np.round(block * 255.0 / q_factor) * q_factor / 255.0
                 result[y:y+block_size, x:x+block_size, ch] = quantized
 

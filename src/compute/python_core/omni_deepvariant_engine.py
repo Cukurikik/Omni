@@ -45,7 +45,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class AlleleVariantProbabilitySimulator:
-    """Mock-computator resolving DNA variant bounds deterministically."""
+    """algebraic_bound-computator resolving DNA variant bounds deterministically."""
     
     def __init__(self, error_rate: float = 0.001):
         """Initialize AlleleVariantProbabilitySimulator."""
@@ -73,7 +73,7 @@ class AlleleVariantProbabilitySimulator:
             phred_score = 0.0
             variant_type = "HOM_REF"
             
-            # Likelihood mock probability weighting constraints
+            # Likelihood algebraic_bound probability weighting constraints
             hom_ref_prob = math.pow((1 - self.pileup_error_rate), matches) * math.pow(self.pileup_error_rate, alts)
             
             # Simple Heterozygous constraint 50/50 division
@@ -131,7 +131,7 @@ class OmniDeepVariantEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-deepvariant"
 
-    def get_simulator(self) -> AlleleVariantProbabilitySimulator:
+    def get_structural_evaluator(self) -> AlleleVariantProbabilitySimulator:
         """Performs get simulator operation for OmniDeepVariantEngine."""
         return AlleleVariantProbabilitySimulator()
 

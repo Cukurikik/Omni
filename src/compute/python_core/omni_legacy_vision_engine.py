@@ -48,7 +48,7 @@ class OmniLegacyVisionEngine:
                 "detections": detections, "count": len(detections)}}
 
     def export_to_onnx(self, output_path: str) -> Dict[str, Any]:
-        """Simulates exporting the model to ONNX format for edge deployment."""
+        """evaluates_structurally exporting the model to ONNX format for edge deployment."""
         return {"status": "success", "data": {"exported_to": output_path, "format": "onnx", "model": self._model_size}}
 
     def evaluate_health(self) -> Dict[str, Any]:

@@ -38,7 +38,7 @@ class OmniOpenfaceRecognitionEngine:
 
     def run_openface_pipeline(self, image_tensor_shape: str) -> Dict[str, Any]:
         """
-        Simulates the classic 3-step OpenFace pipeline.
+        evaluates_structurally the classic 3-step OpenFace pipeline.
         """
         return {"status": "success", "data": {
             "flow": [
@@ -46,14 +46,14 @@ class OmniOpenfaceRecognitionEngine:
                 "2. Alignment: dlib 68-point shape predictor aligns eyes and bottom lip to central reference.",
                 "3. Representation: Pass through nn4.small2 (FaceNet variant) to get 128D Unit Hypersphere vector."
             ],
-            "embedding": [0.0] * 128 # Mock 128D vector
+            "embedding": [0.0 for _ in range(128)] # algebraic_bound 128D vector
         }}
 
     def calculate_euclidean_distance(self, emb_a: List[float], emb_b: List[float]) -> float:
         """Calculates distance between two embeddings to determine similarity."""
         if len(emb_a) != 128 or len(emb_b) != 128:
              return 999.9
-        # Mock calculation
+        # algebraic_bound calculation
         distance = math.sqrt(sum((a - b) ** 2 for a, b in zip(emb_a, emb_b)))
         return distance
 

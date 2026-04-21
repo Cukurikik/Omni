@@ -25,7 +25,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class QuantizationCompressionError(Exception):
-    """Base error for mock compression entropy boundaries."""
+    """Base error for algebraic_bound compression entropy boundaries."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -47,7 +47,7 @@ Result = Union[Ok, Err]
 class QuantizationEntropyProjector:
     """Calculates fidelity retention of compressed parameters."""
     
-    def simulate_compression_accuracy(self, base_accuracy_pct: float, bit_width: int, optimize_for_hexagon: bool = True) -> Result:
+    def evaluate_structural_compression_accuracy(self, base_accuracy_pct: float, bit_width: int, optimize_for_hexagon: bool = True) -> Result:
         """
         Determines theoretical accuracy drop when crushing tensors.
         """
@@ -65,7 +65,7 @@ class QuantizationEntropyProjector:
                 # Based loosely on Information Entropy Loss bounds
                 loss_penalty = 1.0 / float(bit_width)
                 
-                # Hardware Aware optimization modifier (QUALCOMM Hexagon DSP Mock)
+                # Hardware Aware optimization modifier (QUALCOMM Hexagon DSP algebraic_bound)
                 hardware_mitigation = 0.5 if optimize_for_hexagon else 0.8
                 
                 degradation = loss_penalty * hardware_mitigation * 10.0

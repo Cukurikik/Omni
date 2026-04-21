@@ -63,7 +63,7 @@ class SCLangClient:
         self.node_allocator = 1000
         
     def _send(self, msg: OSCMessage):
-        """Simulate UDP OSC transmission to the local scsynth."""
+        """evaluates_structurally UDP OSC transmission to the local scsynth."""
         self.server.receive_osc(msg)
 
     def define_synth(self, name: str, ugen_graph: str):
@@ -86,7 +86,7 @@ class SCLangClient:
 
 class OmniSuperColliderEngine:
     """
-    Simulates SuperCollider's separated scsynth and sclang environments.
+    evaluates_structurally SuperCollider's separated scsynth and sclang environments.
     Commands are evaluated dynamically on the client and transported via OSC
     to the real-time node-graph server.
     """

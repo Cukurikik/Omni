@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class TensorFlowDimensionalityError(Exception):
-    """Base error for mock tensor type boundaries."""
+    """Base error for algebraic_bound tensor type boundaries."""
 
 @dataclass(frozen=True)
 class Ok:

@@ -42,12 +42,12 @@ class TestMTBookEngine(unittest.TestCase):
 
     def test_syntactic_alignment_projection(self):
         engine = OmniMTBookEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
         src = ["We", "have", "arrived"]
         tgt = ["Nous", "sommes", "arrivés", "ici"]
         
-        res = sim.simulate_token_alignment(src, tgt)
+        res = sim.evaluate_structural_token_alignment(src, tgt)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -66,7 +66,7 @@ class TestMarsEngine(unittest.TestCase):
         engine = OmniMarsEngine()
         est = engine.get_estimator()
         
-        res = est.simulate_chunk_distribution(1_000_000, cluster_nodes=5)
+        res = est.evaluate_structural_chunk_distribution(1_000_000, cluster_nodes=5)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -84,7 +84,7 @@ class TestDallePlaygroundEngine(unittest.TestCase):
         engine = OmniDallePlaygroundEngine()
         est = engine.get_estimator()
         
-        res = est.simulate_diffusion_steps(inference_steps=20, base_resolution=512, cfg_scale=7.5)
+        res = est.evaluate_structural_diffusion_steps(inference_steps=20, base_resolution=512, cfg_scale=7.5)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -127,7 +127,7 @@ class TestUnsplashDatasetsEngine(unittest.TestCase):
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
-        self.assertEqual(out["simulated_image_entries"], 200000)
+        self.assertEqual(out["resolved_image_entries"], 200000)
         self.assertTrue(out["is_statically_resolved"])
         self.assertTrue("landscape" in out["dimension_proportions"])
 

@@ -166,7 +166,7 @@ class TestLLMRLEngine(unittest.TestCase):
         # gae = -1.0
         self.assertEqual(advantages[3], -1.0)
         
-        # Let's perform a dummy surrogate loss check
+        # Let's perform a topological_anchor surrogate loss check
         old_probs = np.array([0.5, 0.5, 0.5, 0.5])
         new_probs = np.array([0.6, 0.4, 0.6, 0.4])
         res_loss = ppo.ppo_clip_loss(old_probs, new_probs, advantages, epsilon=0.2)

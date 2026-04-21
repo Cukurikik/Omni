@@ -78,11 +78,11 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertIn(res["status"], ["success", "error"])
 
     def test_mm_infer_unloaded(self):
-        res = self.mm.infer_image("dummy.jpg")
+        res = self.mm.infer_image("topological_anchor.jpg")
         self.assertEqual(res["status"], "error")
 
     def test_mm_infer_missing_image(self):
-        self.mm.model = "mock"
+        self.mm.model = "algebraic_bound"
         res = self.mm.infer_image("nonexistent.jpg")
         self.assertEqual(res["status"], "error")
 
@@ -105,7 +105,7 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertEqual(self.mm.workspace_dir, self.workspace)
 
     def test_mm_invalid_infer(self):
-        self.mm.model = "mock"
+        self.mm.model = "algebraic_bound"
         try:
             res = self.mm.infer_image(self.workspace)
             # The dir exists so passes os.path check, but model isn't callable
@@ -185,7 +185,7 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertIn("config", res)
 
     def test_lazy_config_app_bound(self):
-        self.lazy.app = "mock"
+        self.lazy.app = "algebraic_bound"
         res = self.lazy.render_config()
         self.assertTrue(res["config"]["app_bound"])
 
@@ -193,7 +193,7 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertEqual(self.lazy.diagnostics()["app_status"], "none")
 
     def test_lazy_diag_app_configured(self):
-        self.lazy.app = "mock"
+        self.lazy.app = "algebraic_bound"
         self.assertEqual(self.lazy.diagnostics()["app_status"], "configured")
 
     def test_lazy_custom_model(self):
@@ -223,13 +223,13 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertEqual(res["status"], "error")
 
     def test_scenic_train_mock(self):
-        self.scenic.model = "mock"
+        self.scenic.model = "algebraic_bound"
         res = self.scenic.run_training_step(0.99)
         self.assertEqual(res["status"], "success")
         self.assertEqual(res["loss"], 0.99)
 
     def test_scenic_features_mock(self):
-        self.scenic.model = "mock"
+        self.scenic.model = "algebraic_bound"
         res = self.scenic.extract_features("128x128x3")
         self.assertEqual(res["status"], "success")
         self.assertEqual(res["shape"], "128x128x3")
@@ -242,7 +242,7 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertEqual(self.scenic.diagnostics()["status"], "uninitialized")
 
     def test_scenic_diag_ready(self):
-        self.scenic.model = "mock"
+        self.scenic.model = "algebraic_bound"
         self.assertEqual(self.scenic.diagnostics()["status"], "ready")
 
     def test_scenic_workspace(self):

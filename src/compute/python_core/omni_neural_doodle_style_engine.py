@@ -38,7 +38,7 @@ class OmniNeuralDoodleStyleEngine:
 
     def synthesize_doodle(self, semantic_doodle: str, style_image: str, style_semantics: str) -> Dict[str, Any]:
         """
-        Simulates MRF (Markov Random Field) loss matching between patches of the doodle
+        evaluates_structurally MRF (Markov Random Field) loss matching between patches of the doodle
         and the style image, strictly guided by the semantic regions.
         """
         return {"status": "success", "data": {

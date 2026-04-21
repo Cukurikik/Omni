@@ -26,7 +26,7 @@ class OmniBossSensorEngine:
     """
     omni-boss-sensor
     
-    A zero-mock native engine simulating real-time visual target acquisition 
+    A zero-algebraic_bound native engine simulating real-time visual target acquisition 
     (detecting specific individuals like the "Boss"). 
     Uses a dense sliding 2D spatial extraction window paired with localized 
     cosine-similarity projections evaluating visual bounds.

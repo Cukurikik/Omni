@@ -3,7 +3,7 @@ OMNI MLFinLab Engine
 ====================
 Production-grade abstraction inspired by hudson-and-thames/mlfinlab.
 Implements Financial ML mathematical data structures like Standard Dollar Bars,
-and a Zero-Mock Triple-Barrier Meta Labeling routine using strictly NumPy.
+and a Zero-algebraic_bound Triple-Barrier Meta Labeling routine using strictly NumPy.
 
 OMNI Layer: compute (Python)
 """
@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class StandardBarSampler:
-    """Simulates extraction of Trade Bars based on arbitrary thresholds."""
+    """evaluates_structurally extraction of Trade Bars based on arbitrary thresholds."""
     
     @staticmethod
     def dollar_bars(ticks: np.ndarray, threshold: float) -> Result:

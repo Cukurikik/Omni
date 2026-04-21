@@ -167,7 +167,7 @@ class OmniDARTSEngine:
         return Ok(result)
 
     # -----------------------------------------------------------------
-    # 3. OPERATIONS (Pure NumPy simulation)
+    # 3. OPERATIONS (Pure NumPy topological_evaluation)
     # -----------------------------------------------------------------
 
     def op_zero(self, x: np.ndarray) -> Result:

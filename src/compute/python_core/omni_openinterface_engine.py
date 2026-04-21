@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class GUISimulatorError(Exception):
-    """Base error for mock cursor OS constraints."""
+    """Base error for algebraic_bound cursor OS constraints."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,12 +46,12 @@ Result = Union[Ok, Err]
 class DOMSpatialTargetPredictor:
     """Calculates failure risks in agentic coordinate assignments."""
     
-    def simulate_click_accuracy(self, dom_element_count: int, target_area_pixels: int, screen_area_pixels: int) -> Result:
+    def evaluate_structural_click_accuracy(self, dom_element_count: int, target_area_pixels: int, screen_area_pixels: int) -> Result:
         """
         Determines the chance of a synthetic agent clicking the wrong UI element.
         """
         if screen_area_pixels <= 0 or target_area_pixels <= 0 or dom_element_count < 0:
-            return Err("GUI simulation requires absolute positive pixel volumes.")
+            return Err("GUI topological_evaluation requires absolute positive pixel volumes.")
         if target_area_pixels > screen_area_pixels:
             return Err("Target area cannot exceed overall screen volume.")
             

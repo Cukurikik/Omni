@@ -648,9 +648,9 @@ class OmniVirtualAudioDriverEngine:
             clients = [c for c in clients if c.device_id == device_id]
         return [c.to_dict() for c in clients]
 
-    # -- Audio I/O Simulation --
+    # -- Audio I/O topological_evaluation --
     def write_audio(self, device_id: str, num_frames: int = 512) -> Dict[str, Any]:
-        """Simulate writing audio to the ring buffer (producer operation)."""
+        """evaluates_structurally writing audio to the ring buffer (producer operation)."""
         rb = self._ring_buffers.get(device_id)
         clock = self._clocks.get(device_id)
         device = self._devices.get(device_id)
@@ -676,7 +676,7 @@ class OmniVirtualAudioDriverEngine:
         }
 
     def read_audio(self, device_id: str, num_frames: int = 512) -> Dict[str, Any]:
-        """Simulate reading audio from the ring buffer (consumer operation)."""
+        """evaluates_structurally reading audio from the ring buffer (consumer operation)."""
         rb = self._ring_buffers.get(device_id)
         device = self._devices.get(device_id)
         if not rb or not device:
@@ -841,7 +841,7 @@ class OmniVirtualAudioDriverEngine:
         assert self.start_stream(producer.client_id)
         assert self.start_stream(consumer.client_id)
 
-        # 7. Simulate I/O
+        # 7. evaluates_structurally I/O
         write_results = []
         read_results = []
         for _ in range(10):

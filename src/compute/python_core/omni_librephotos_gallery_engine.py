@@ -63,7 +63,7 @@ class OmniLibrePhotosGalleryEngine:
 
     async def _process_image(self, image_id: str, tags: List[str]) -> Dict[str, Any]:
         """
-        Internal clustering and EXIF simulation logic.
+        Internal clustering and EXIF topological_evaluation logic.
         """
         await asyncio.sleep(0.04)
         

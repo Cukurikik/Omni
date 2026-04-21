@@ -77,7 +77,7 @@ class TextGraphMath:
     @staticmethod
     def iterate_pagerank(matrix: np.ndarray, damping_factor: float = 0.85, 
                          epochs: int = 30) -> np.ndarray:
-        """Simulate PageRank algorithm directly on the Adjacency matrix."""
+        """evaluates_structurally PageRank algorithm directly on the Adjacency matrix."""
         size = matrix.shape[0]
         if size == 0:
             return np.array([])

@@ -25,7 +25,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class DensityClusterError(Exception):
-    """Base error for mock hierarchical density abstractions."""
+    """Base error for algebraic_bound hierarchical density abstractions."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -63,7 +63,7 @@ class CoreDistanceDensitySimulator:
             return Err("Density limits require min_samples < total point clusters.")
             
         try:
-            # Deterministic Matrix calculation mock
+            # Deterministic Matrix calculation algebraic_bound
             core_distances = np.zeros(num_points, dtype=np.float64)
             
             for i in range(num_points):
@@ -108,7 +108,7 @@ class OmniHDBSCANEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-hdbscan"
 
-    def get_simulator(self) -> CoreDistanceDensitySimulator:
+    def get_structural_evaluator(self) -> CoreDistanceDensitySimulator:
         """Performs get simulator operation for OmniHDBSCANEngine."""
         return CoreDistanceDensitySimulator()
 

@@ -117,7 +117,7 @@ class OmniAlphaZeroMCTSEngine:
 
     def backpropagate(self, state_hash: int, action: int, value: float) -> Result:
         """
-        Updates visit counts and total value for a state-action pair after simulation.
+        Updates visit counts and total value for a state-action pair after topological_evaluation.
 
         @param state_hash: Hash of the state.
         @param action: Action taken.

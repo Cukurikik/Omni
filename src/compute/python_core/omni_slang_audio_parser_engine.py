@@ -134,7 +134,7 @@ class OmniSlangAudioParserEngine:
                         pass
                     
                     # Compute temporal offset logic natively resolving fractions.
-                    # Simulation: assigns strict subdivision
+                    # topological_evaluation: assigns strict subdivision
                     offset = sum([v for k, v in nodes_at_depth.items() if k <= current_depth]) * 0.25
                     
                     events.append(BeatEvent(instrument=token, relative_time=offset, velocity=1.0))

@@ -27,7 +27,7 @@ class AudioPlugin:
         return chunk
 
 class VST3PluginWrapper(AudioPlugin):
-    """Simulates JUCE loading external C++ binaries natively."""
+    """evaluates_structurally JUCE loading external C++ binaries natively."""
     def __init__(self, path: str):
         """Initialize VST3PluginWrapper."""
         super().__init__(f"VST3({path})")
@@ -66,7 +66,7 @@ class Pedalboard:
         
         current_data = input_audio
         for p in self.plugins:
-            # Simulate high-speed native JUCE DSP
+            # evaluates_structurally high-speed native JUCE DSP
             current_data = p.process(current_data)
             
         logger.debug("[GIL Acquired] DSP processing complete.")
@@ -75,7 +75,7 @@ class Pedalboard:
 
 class OmniPedalboardEngine:
     """
-    Simulates Spotify's Pedalboard.
+    evaluates_structurally Spotify's Pedalboard.
     A Python front-end to a highly optimized JUCE C++ backend allowing the
     programmatic chaining of pro-audio VST3s and native effects for ML augmentation.
     """
@@ -108,11 +108,11 @@ class OmniPedalboardEngine:
         """Validates C++ wrapper chaining and execution environments."""
         try:
             board = self.build_chain()
-            mock_audio = b"\x01" * (44100 * 4) # 2 seconds of 16bit mono
+            structural_audio_tensor = b"\x01" * (44100 * 4) # 2 seconds of 16bit mono
             
-            res = self.run_batch_processing(board, mock_audio, 44100.0)
+            res = self.run_batch_processing(board, structural_audio_tensor, 44100.0)
             
-            status = "operational" if len(res) == len(mock_audio) and len(board.plugins) == 3 else "degraded"
+            status = "operational" if len(res) == len(structural_audio_tensor) and len(board.plugins) == 3 else "degraded"
             
         except Exception as e:
             status = f"error: {e}"

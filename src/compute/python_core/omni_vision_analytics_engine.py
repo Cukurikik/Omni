@@ -34,7 +34,7 @@ class OmniVisionAnalyticsEngine:
         logger.info(f"[OmniVisionAnalytics] YOLO-style detector online. Threshold: {self.confidence_threshold}")
 
     def detect_objects(self, frame_id: str, frame_width: int, frame_height: int) -> Dict[str, Any]:
-        """Simulates object detection on a video/camera frame."""
+        """evaluates_structurally object detection on a video/camera frame."""
         if frame_width <= 0 or frame_height <= 0:
             return {"status": "error", "error": "Invalid frame dimensions."}
         import random

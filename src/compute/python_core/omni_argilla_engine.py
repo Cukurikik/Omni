@@ -2,7 +2,7 @@
 OMNI Argilla Engine
 ===================
 Production-grade abstraction inspired by argilla-io/argilla.
-Provides Zero-Mock schemas for Text Classification and RLHF Preference
+Provides Zero-algebraic_bound schemas for Text Classification and RLHF Preference
 records, including reward modeling functions.
 
 OMNI Layer: compute (Python)

@@ -26,7 +26,7 @@ class OmniSmileMlEngine:
     """
     omni-smile-ml
     
-    A zero-mock native engine simulating core Statistical Machine Intelligence.
+    A zero-algebraic_bound native engine simulating core Statistical Machine Intelligence.
     Focuses on a pure implementation of a Support Vector Machine (SVM) using 
     Sequential Minimal Optimization (SMO) traversing structural margin limits.
     """

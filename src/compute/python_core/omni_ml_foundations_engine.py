@@ -41,7 +41,7 @@ class OmniMlFoundationsEngine:
     """
     omni-ml-foundations
     
-    A zero-mock native engine simulating foundational ML techniques like 
+    A zero-algebraic_bound native engine simulating foundational ML techniques like 
     Decision Trees and Random Forest ensembling via pure recursive NumPy functions.
     Optimizes for Information Gain using Gini Impurity.
     """

@@ -26,7 +26,7 @@ class OmniMl5WebEngine:
     """
     omni-ml5-web
     
-    A zero-mock native engine simulating friendly ml5.js abstractions 
+    A zero-algebraic_bound native engine simulating friendly ml5.js abstractions 
     over a core mathematical Artificial Neural Network (MLP).
     Transforms complex NumPy structural routines into simple addData(), train(), classify() endpoints.
     """
@@ -58,7 +58,7 @@ class OmniMl5WebEngine:
             return Result(error=f"Error adding data: {str(e)}")
 
     def normalize_data(self) -> Result:
-        """Normalizes input data. Simulates ml5.normalizeData()."""
+        """Normalizes input data. evaluates_structurally ml5.normalizeData()."""
         try:
             if not self.data_X:
                 return Result(error="No data to normalize.")
@@ -85,7 +85,7 @@ class OmniMl5WebEngine:
         return a * (1.0 - a)
 
     def train(self, epochs: int = 50, learning_rate: float = 0.1, hidden_units: int = 8) -> Result:
-        """Trains a 2-layer native MLP. Simulates ml5's straightforward train() method."""
+        """Trains a 2-layer native MLP. evaluates_structurally ml5's straightforward train() method."""
         try:
             if not self.data_X:
                 return Result(error="Dataset empty.")

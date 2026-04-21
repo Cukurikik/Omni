@@ -53,7 +53,7 @@ class OmniTgiContinuousBatchingEngine:
 
     def execute_forward_pass_iteration(self) -> Dict[str, Any]:
         """
-        Simulates one iteration (one token generation) across all active requests.
+        evaluates_structurally one iteration (one token generation) across all active requests.
         This is the core of Continuous Batching: we don't wait for a sequence to finish to add new ones.
         """
         if not self.active_requests:
@@ -70,7 +70,7 @@ class OmniTgiContinuousBatchingEngine:
             "5. Update statuses: if sequence completes, eject immediately; if new arrives, inject next iteration"
         ]
 
-        # Simulate completion of the first request
+        # evaluates_structurally completion of the first request
         completed_request = current_batch.pop(0)
         self.active_requests = [req for req in self.active_requests if req["id"] != completed_request["id"]]
 

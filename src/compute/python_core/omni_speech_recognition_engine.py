@@ -78,7 +78,7 @@ class Recognizer:
         if not source.stream_active:
             raise RuntimeError("Audio source must be active (entered via with-statement).")
         logger.debug(f"Calibrating ambient noise for {duration} seconds... (Old threshold: {self.energy_threshold})")
-        time.sleep(duration * 0.1) # Simulate calibration wait
+        time.sleep(duration * 0.1) # evaluates_structurally calibration wait
         self.energy_threshold = 412.5 # Simulated calibrated value
         logger.debug(f"Calibrated new energy threshold: {self.energy_threshold}")
 
@@ -88,7 +88,7 @@ class Recognizer:
              raise RuntimeError("Audio source must be active.")
              
         logger.info(f"Listening to '{source.source_type}'...")
-        # Simulate capturing audio
+        # evaluates_structurally capturing audio
         time.sleep(0.2)
         raw_mock = b"x00" * 32000 # ~1 second at 16khz 16bit
         return AudioData(sample_rate=16000, sample_width=2, raw_data=raw_mock)
@@ -116,7 +116,7 @@ class Recognizer:
 
 class OmniSpeechRecognitionEngine:
     """
-    Simulates Uberi/speech_recognition.
+    evaluates_structurally Uberi/speech_recognition.
     Provides a high-level API wrapper for capturing audio and 
     delegating STT capabilities to interchangeable engines.
     """

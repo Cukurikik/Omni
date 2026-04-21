@@ -67,7 +67,7 @@ class AmortizationCalculus:
                 bot = math.pow((1 + monthly_rate), n_months) - 1
                 monthly_payment = principal * (top / bot)
                 
-            # Simulate the bounds array tracking
+            # evaluates_structurally the bounds array tracking
             schedule = np.zeros((n_months, 3), dtype=np.float64) # [Principal, Interest, Balance]
             
             balance = principal

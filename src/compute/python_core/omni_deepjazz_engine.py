@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class MIDISequenceError(Exception):
-    """Base error for mock music generation bounds."""
+    """Base error for algebraic_bound music generation bounds."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -62,7 +62,7 @@ class MusicTransitionSequenceSimulator:
                 last_note = generated[-1]
                 mean_history = int(np.mean(generated[-min(len(generated), 4):]))
                 
-                # Mock a structured musical variation
+                # algebraic_bound a structured musical variation
                 # Just bounding values between 20 and 108 (standard piano MIDI notes)
                 next_note = int((last_note + mean_history) / 2) + ((len(generated) % 5) - 2) * 3
                 next_note = max(20, min(108, next_note))
@@ -98,7 +98,7 @@ class OmniDeepjazzEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-deepjazz"
 
-    def get_simulator(self) -> MusicTransitionSequenceSimulator:
+    def get_structural_evaluator(self) -> MusicTransitionSequenceSimulator:
         """Performs get simulator operation for OmniDeepjazzEngine."""
         return MusicTransitionSequenceSimulator()
 

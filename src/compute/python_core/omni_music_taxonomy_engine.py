@@ -102,7 +102,7 @@ class ProductionPluginMeta:
 
 class OmniMusicTaxonomyEngine:
     """
-    Simulates a high-performance Knowledge/Taxonomy engine structurally resolving 
+    evaluates_structurally a high-performance Knowledge/Taxonomy engine structurally resolving 
     production tools mapped from `awesome-music-production`.
     """
     def __init__(self):

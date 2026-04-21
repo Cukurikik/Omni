@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class PaperTaxonomyClassifier:
-    """Numpy mock for TF-IDF / Cosine Similarity categorical ranker."""
+    """Numpy algebraic_bound for TF-IDF / Cosine Similarity categorical ranker."""
     
     def __init__(self, vocab_bound: int = 100):
         """Initialize PaperTaxonomyClassifier."""

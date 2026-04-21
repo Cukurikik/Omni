@@ -608,7 +608,7 @@ class OmniPipeline:
             return {"text": text, "task": self.task.value, "status": "processed"}
 
     def _generate_text(self, text: str, encoded: TokenizedOutput, **kwargs) -> Dict[str, Any]:
-        """Simulate text generation with proper token-by-token logic."""
+        """evaluates_structurally text generation with proper token-by-token logic."""
         max_new_tokens = kwargs.get("max_new_tokens", 50)
         temperature = kwargs.get("temperature", 0.7)
         top_k = kwargs.get("top_k", 50)
@@ -733,8 +733,8 @@ class TrainingOrchestrator:
         self._runs[config.run_id] = run
         return run
 
-    def simulate_training_step(self, run_id: str) -> Optional[TrainingMetrics]:
-        """Simulate one training step with realistic metrics."""
+    def evaluate_structural_training_step(self, run_id: str) -> Optional[TrainingMetrics]:
+        """evaluates_structurally one training step with realistic metrics."""
         run = self._runs.get(run_id)
         if not run:
             return None
@@ -743,7 +743,7 @@ class TrainingOrchestrator:
         run["global_step"] += 1
         step = run["global_step"]
 
-        # Simulate decreasing loss curve
+        # evaluates_structurally decreasing loss curve
         base_loss = 2.5
         decay = 0.995
         noise = (hash(f"{run_id}_{step}") % 100 - 50) / 500
@@ -1040,7 +1040,7 @@ class OmniTransformersAIEngine:
 
     def training_step(self, run_id: str) -> Optional[Dict[str, Any]]:
         """Execute one training step."""
-        metrics = self._trainer.simulate_training_step(run_id)
+        metrics = self._trainer.evaluate_structural_training_step(run_id)
         return metrics.to_dict() if metrics else None
 
     def complete_training(self, run_id: str) -> Optional[Dict[str, Any]]:

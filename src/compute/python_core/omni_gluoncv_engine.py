@@ -64,7 +64,7 @@ class TensorOps:
     @staticmethod
     def zeros_2d(h: int, w: int) -> Tensor2D:
         """Execute zeros 2d operation for TensorOps."""
-        return [[0.0] * w for _ in range(h)]
+        return [[0.0 for _ in range(w)] for _ in range(h)]
 
     @staticmethod
     def zeros_3d(c: int, h: int, w: int) -> Tensor3D:
@@ -124,7 +124,7 @@ class Conv2D:
             ]
             for _ in range(out_channels)
         ]
-        self.bias: List[float] = [0.0] * out_channels
+        self.bias: List[float] = [0.0 for _ in range(out_channels)]
 
     def forward(self, x: Tensor3D) -> Tensor3D:
         """Forward pass of Conv2D.
@@ -214,8 +214,8 @@ class BatchNorm2D:
         self.eps = eps
         self.momentum = momentum
         self.gamma: List[float] = [1.0] * num_features
-        self.beta: List[float] = [0.0] * num_features
-        self.running_mean: List[float] = [0.0] * num_features
+        self.beta: List[float] = [0.0 for _ in range(num_features)]
+        self.running_mean: List[float] = [0.0 for _ in range(num_features)]
         self.running_var: List[float] = [1.0] * num_features
 
     def forward(self, x: Tensor3D, training: bool = False) -> Tensor3D:

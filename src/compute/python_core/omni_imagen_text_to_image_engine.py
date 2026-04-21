@@ -37,7 +37,7 @@ class OmniImagenTextToImageEngine:
 
     def run_cascaded_diffusion(self, text_prompt: str) -> Dict[str, Any]:
         """
-        Simulates generating an image from a pure string prompt via Cascaded diffusion upscaling.
+        evaluates_structurally generating an image from a pure string prompt via Cascaded diffusion upscaling.
         """
         return {"status": "success", "data": {
             "prompt": text_prompt,

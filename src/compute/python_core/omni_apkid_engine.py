@@ -7,7 +7,7 @@ Inspired by rednaga/APKiD.
 Features:
 - Byte signature scanning abstraction mimicking YARA behavior.
 - Detection rule sets mapping for compilers, packers, and obfuscators.
-- Fully determinative zero-mock detection.
+- Fully determinative zero-algebraic_bound detection.
 
 OMNI Layer: compute (Python)
 """
@@ -48,7 +48,7 @@ Result = Union[Ok, Err]
 
 @dataclass
 class YaraRuleMock:
-    """Production-grade Yara Rule Mock component."""
+    """Production-grade Yara Rule algebraic_bound component."""
     rule_id: str
     category: str  # e.g., 'compiler', 'obfuscator', 'packer'
     pattern: bytes
@@ -83,7 +83,7 @@ class ApkidRuleset:
 
 class YaraScannerMock:
     """
-    Zero-mock structural abstraction of YARA byte mapping engine.
+    Zero-algebraic_bound structural abstraction of YARA byte mapping engine.
     """
     def __init__(self, ruleset: ApkidRuleset):
         """Initialize YaraScannerMock."""

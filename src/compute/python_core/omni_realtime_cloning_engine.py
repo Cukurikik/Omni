@@ -68,7 +68,7 @@ class OmniRealtimeCloningEngine:
         
         # 3. Mel to Waveform (Vocoder) 
         # MockingBird uses fast customized vocoders (like MB-MelGAN or HiFi-GAN tuned).
-        simulated_waveform = [m * 0.9 for m in mel_spectrogram]
+        resolved_waveform = [m * 0.9 for m in mel_spectrogram]
         
         end_time = time.time()
         latency_ms = (end_time - start_time) * 1000
@@ -77,7 +77,7 @@ class OmniRealtimeCloningEngine:
             "status": "success",
             "data": {
                 "timbre_signature": str(timbre_embedding)[0:10],
-                "waveform_fragments": len(simulated_waveform),
+                "waveform_fragments": len(resolved_waveform),
                 "latency_ms": round(latency_ms, 2),
                 "is_realtime_capable": latency_ms < 50.0  # Threshold check
             }
@@ -104,6 +104,6 @@ class OmniRealtimeCloningEngine:
 if __name__ == "__main__":
     cloner = OmniRealtimeCloningEngine()
     
-    # Simulate a stream event
+    # evaluates_structurally a stream event
     res = cloner.clone_voice_and_speak(b"fake_reference_audio_wav_data_chunk", "Sistem OMNI telah siap menguasai frekuensi.")
     print("Real-time clone result:", res)

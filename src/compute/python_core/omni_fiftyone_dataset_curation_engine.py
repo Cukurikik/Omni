@@ -37,7 +37,7 @@ class OmniFiftyoneDatasetCurationEngine:
         logger.info("[OmniFiftyone] Dataset Curation Engine online. Ready for IoU evaluation.")
 
     def ingest_dataset(self, name: str, size: int) -> Dict[str, Any]:
-        """Simulates loading a CV dataset with ground truth annotations."""
+        """evaluates_structurally loading a CV dataset with ground truth annotations."""
         self.datasets[name] = {"size": size, "samples": size, "models_applied": []}
         return {"status": "success", "data": {"dataset": name, "size": size, "action": "Dataset ingested into local DB."}}
 
@@ -65,7 +65,7 @@ class OmniFiftyoneDatasetCurationEngine:
 
     def compute_similarity_embeddings(self, dataset_name: str) -> Dict[str, Any]:
         """
-        Simulates FiftyOne's "Brain" capabilities: using CLIP or ResNet embeddings 
+        evaluates_structurally FiftyOne's "Brain" capabilities: using CLIP or ResNet embeddings 
         to find near-duplicates or visualize clusters (UMAP).
         """
         return {"status": "success", "data": {

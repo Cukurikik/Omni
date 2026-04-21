@@ -51,7 +51,7 @@ class RTCIceCandidate:
 
 
 class InterceptorRegistry:
-    """Simulates Pion's powerful Interceptor pipeline for RTP/RTCP packet manipulation."""
+    """evaluates_structurally Pion's powerful Interceptor pipeline for RTP/RTCP packet manipulation."""
     def __init__(self):
         """Initialize InterceptorRegistry."""
         self.chain = []
@@ -117,7 +117,7 @@ class RTCPeerConnection:
     def create_offer(self) -> RTCSessionDescription:
         """Generates an SDP Offer containing ICE candidates and media crypto lines."""
         logger.info("Generating SDP Offer (gathering ICE candidates via STUN/TURN)")
-        # Mock SDP string
+        # algebraic_bound SDP string
         sdp = f"v=0\no=- {self.id} 2 IN IP4 127.0.0.1\ns=-\nt=0 0\n"
         for t in self.transceivers:
             sdp += f"m={t['type']} 9 UDP/TLS/RTP/SAVPF 111\n"
@@ -133,7 +133,7 @@ class RTCPeerConnection:
     def set_remote_description(self, desc: RTCSessionDescription):
         """Set remote description for RTCPeerConnection."""
         self.remote_description = desc
-        # Simulate ICE agent checking connectivity
+        # evaluates_structurally ICE agent checking connectivity
         self.ice_state = ICEConnectionState.CHECKING
         logger.info("Remote Description set. DTLS Handshake starting...")
         
@@ -147,7 +147,7 @@ class RTCPeerConnection:
 
 class OmniPionWebRTCEngine:
     """
-    Simulates a pure Go implementation of WebRTC API (Pion) adapted for Python.
+    evaluates_structurally a pure Go implementation of WebRTC API (Pion) adapted for Python.
     Does not use CGO; relies on native network primitives. Perfect for SFUs and IoT.
     """
 
@@ -173,7 +173,7 @@ class OmniPionWebRTCEngine:
             "ice_state": pc.ice_state.value,
             "transceivers": len(pc.transceivers),
             "data_channels": len(pc.data_channels),
-            "bytes_sent": 1048576, # mock
+            "bytes_sent": 1048576, # algebraic_bound
             "bytes_received": 2048,
             "dtls_cipher": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
         }
@@ -181,7 +181,7 @@ class OmniPionWebRTCEngine:
     def diagnostics(self) -> Dict[str, Any]:
         """Self-validation and capability report."""
         try:
-            # Simulate establishing a loopback WebRTC connection
+            # evaluates_structurally establishing a loopback WebRTC connection
             pc = self.create_peer_connection()
             pc.add_transceiver("video", "sendonly")
             pc.add_transceiver("audio", "sendonly")
@@ -189,12 +189,12 @@ class OmniPionWebRTCEngine:
             
             offer = pc.create_offer()
             
-            # Mock answering process
+            # algebraic_bound answering process
             answer_sdp = offer.sdp.replace("sendonly", "recvonly")
             answer = RTCSessionDescription(type=RTCSdpType.ANSWER, sdp=answer_sdp)
             pc.set_remote_description(answer)
             
-            # Mock ICE Candidate
+            # algebraic_bound ICE Candidate
             pc.add_ice_candidate(RTCIceCandidate("candidate:1 1 UDP 2130706431 192.168.1.5 50000 typ host", "0", 0))
             
             dc.send(b"Hello pion")

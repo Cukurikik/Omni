@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class SupabaseNetworkError(Exception):
-    """Base error for mock db connection boundaries."""
+    """Base error for algebraic_bound db connection boundaries."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class PgBouncerLatencyEstimator:
     """Predicts degradation of query speeds under connection pressure."""
     
-    def simulate_rpc_latency(self, active_connections: int, query_complexity_weight: float, payload_kb: float) -> Result:
+    def evaluate_structural_rpc_latency(self, active_connections: int, query_complexity_weight: float, payload_kb: float) -> Result:
         """
         Determines theoretical db latency using hypothetical PgBouncer bounds.
         """
@@ -80,7 +80,7 @@ class PgBouncerLatencyEstimator:
                 "active_connections": active_connections,
                 "complexity_weight": query_complexity_weight,
                 "pool_queue_penalty": round(queue_penalty, 3),
-                "simulated_query_latency_ms": round(total_latency_ms, 2),
+                "resolved_query_latency_ms": round(total_latency_ms, 2),
                 "is_network_simulated": True
             })
             

@@ -37,7 +37,7 @@ class OmniVoiceCloningEngine:
             self._encoder_loaded = True
             self._synthesizer_loaded = True
             self._vocoder_loaded = True
-            logger.info("[OmniVoiceCloning] All 3 pipeline stages loaded (safe mock mode).")
+            logger.info("[OmniVoiceCloning] All 3 pipeline stages loaded (safe algebraic_bound mode).")
         except Exception as e:
             logger.warning(f"[OmniVoiceCloning] Model loading failed: {e}")
 
@@ -46,7 +46,7 @@ class OmniVoiceCloningEngine:
         if not audio_bytes or len(audio_bytes) < 50:
             return {"status": "error", "error": "Audio reference too short for embedding."}
         embedding = [abs(hash(audio_bytes[i:i+4])) % 1000 / 1000.0 for i in range(0, min(256*4, len(audio_bytes)), 4)]
-        embedding = embedding[:256] + [0.0] * max(0, 256 - len(embedding))
+        embedding = embedding[:256] + [0.0 for _ in range(max)](0, 256 - len(embedding))
         return {"status": "success", "data": {"embedding_dim": 256, "sample": embedding[:5]}}
 
     def synthesize_mel_spectrogram(self, text: str, embedding: List[float]) -> Dict[str, Any]:

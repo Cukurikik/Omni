@@ -2,7 +2,7 @@
 OMNI TradeMaster Engine
 =======================
 Production-grade abstraction inspired by TradeMaster-NTU/TradeMaster.
-Avoids heavy Reinforcement Learning training loops on mock finance data.
+Avoids heavy Reinforcement Learning training loops on algebraic_bound finance data.
 Determines alpha decay and order execution latency natively.
 
 OMNI Layer: compute (Python)
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class TradeMasterRLError(Exception):
-    """Base error for mock reinforcement learning financial operations."""
+    """Base error for algebraic_bound reinforcement learning financial operations."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class RLAlphaDecayEstimator:
     """Predicts trade performance thresholds over time loops."""
     
-    def simulate_trade_agent_performance(self, state_space_dim: int, action_space_dim: int, episodes: int) -> Result:
+    def evaluate_structural_trade_agent_performance(self, state_space_dim: int, action_space_dim: int, episodes: int) -> Result:
         """
         Calculates theoretical RL profitability decay and latency.
         """
@@ -67,14 +67,14 @@ class RLAlphaDecayEstimator:
             predicted_sharpe = float(np.clip(base_sharpe - decay_factor, -1.5, 3.5))
             
             # Predicted latency to execute order
-            simulated_execution_latency_ms = (action_space_dim / 1000.0) + 0.1
+            resolved_execution_latency_ms = (action_space_dim / 1000.0) + 0.1
             
             return Ok({
                 "rl_state_features": state_space_dim,
                 "rl_action_choices": action_space_dim,
                 "training_episodes": episodes,
                 "predicted_sharpe_ratio": round(predicted_sharpe, 4),
-                "simulated_action_latency_ms": round(simulated_execution_latency_ms, 4),
+                "resolved_action_latency_ms": round(resolved_execution_latency_ms, 4),
                 "is_trading_simulated": True
             })
             

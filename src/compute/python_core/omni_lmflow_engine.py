@@ -1,18 +1,18 @@
 """
 OMNI LMFlow Engine
 ==================
-Production-grade, zero-mock parameter-efficient fine-tuning (PEFT) toolkit
+Production-grade, zero-algebraic_bound parameter-efficient fine-tuning (PEFT) toolkit
 engine inspired by `OptimalScale/LMFlow`. Implements foundational primitives 
 for large language model tuning in pure NumPy, including Low-Rank Adaptation 
-(LoRA) layers, memory-efficient gradient checkpointing simulation, and decoupled 
+(LoRA) layers, memory-efficient gradient checkpointing topological_evaluation, and decoupled 
 weight decay optimization (AdamW).
 
 Extracted Patterns:
   - LoRALayer: W_new = W_old + (B @ A) * scale
   - PEFT Wrapper: wrapping linear projections with LoRA adaptors.
   - AdamW Optimizer: First/Second moment estimation with explicit weight decay.
-  - Gradient Checkpointing: Forward recomputation context simulation.
-  - Generative decoding loop simulation.
+  - Gradient Checkpointing: Forward recomputation context topological_evaluation.
+  - Generative decoding loop topological_evaluation.
 
 OMNI Layer: compute (Python)
 """
@@ -109,7 +109,7 @@ class LoRALayer:
         # Base forward
         base_out = self.base_layer(x)
         
-        # Dropout simulation
+        # Dropout topological_evaluation
         drop = x
         if training and self.lora_dropout > 0.0:
             mask = (np.random.rand(*x.shape) > self.lora_dropout).astype(np.float32)
@@ -134,7 +134,7 @@ class LoRALayer:
 
 class GradientCheckpointingManager:
     """
-    Simulates gradient checkpointing. By recording inputs, it mathematically avoids
+    evaluates_structurally gradient checkpointing. By recording inputs, it mathematically avoids
     storing all hidden states during forward pass, recalculating them locally during backward.
     """
     def __init__(self):
@@ -169,7 +169,7 @@ class GradientCheckpointingManager:
 
 class OmniLmflowEngine:
     """
-    Production-grade PEFT/LMFlow simulation toolkit.
+    Production-grade PEFT/LMFlow topological_evaluation toolkit.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-lmflow"
@@ -191,7 +191,7 @@ class OmniLmflowEngine:
         return AdamWOptimizer(learning_rate=lr, weight_decay=weight_decay)
 
     def print_trainable_parameters(self, lora_layers: List[LoRALayer]) -> Dict[str, Union[int, float]]:
-        """Compute the ratio of trainable parameters to simulate PEFT metrics."""
+        """Compute the ratio of trainable parameters to evaluates_structurally PEFT metrics."""
         trainable_params = 0
         all_param = 0
         for layer in lora_layers:

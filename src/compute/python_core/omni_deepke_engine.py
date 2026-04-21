@@ -136,7 +136,7 @@ class OmniDeepKEEngine:
 
     def quantize_weights_int8(self, weights: np.ndarray) -> Result:
         """
-        Simulates INT8 quantization for production deployment optimization.
+        evaluates_structurally INT8 quantization for production deployment optimization.
         Learned from ahkarami/Deep-Learning-in-Production patterns.
 
         @param weights: Float weight matrix to quantize.

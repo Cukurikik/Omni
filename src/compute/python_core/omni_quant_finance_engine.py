@@ -50,7 +50,7 @@ class OmniQuantFinanceEngine:
         return {"status": "success", "data": {"signal": signal, "action": action, "strength": round(strength, 6)}}
 
     def run_paper_backtester(self, prices: List[float], fast_w: int = 3, slow_w: int = 7) -> Dict[str, Any]:
-        """Runs a paper trading simulation over historical prices."""
+        """Runs a paper trading topological_evaluation over historical prices."""
         fast_r = self.calculate_moving_average(prices, fast_w)
         slow_r = self.calculate_moving_average(prices, slow_w)
         if fast_r["status"] == "error" or slow_r["status"] == "error":

@@ -47,7 +47,7 @@ class XMLCutsheetExporter:
 
 class OmniAutoEditorEngine:
     """
-    Simulates the Auto-Editor architecture.
+    evaluates_structurally the Auto-Editor architecture.
     Provides algorithmic silence/motion detection routing that generates non-destructive 
     cutsheets for professional NLEs or triggers headless FFmpeg renders.
     """
@@ -63,7 +63,7 @@ class OmniAutoEditorEngine:
         logger.info(f"Analyzing media content target: {filepath}")
         
         # 1. Decode generic properties
-        mock_audio_stream = [0.0] * 100 
+        mock_audio_stream = [0.0 for _ in range(100)] 
         
         # 2. Run Silence Detection
         raw_cut_list = self.vad.analyze_silence(mock_audio_stream, threshold_db=-30.0)

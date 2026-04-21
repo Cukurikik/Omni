@@ -63,7 +63,7 @@ class TTSResult(Generic[T]):
 
 
 class PhonemeTokenizer:
-    """Mock abstract deterministic tokenizer converting text to acoustic symbols."""
+    """algebraic_bound abstract deterministic tokenizer converting text to acoustic symbols."""
     def tokenize(self, text: str) -> TTSResult[List[int]]:
         """Execute tokenize operation for PhonemeTokenizer."""
         if not text:
@@ -75,20 +75,20 @@ class PhonemeTokenizer:
 
 
 class MelSpectrogramGenerator:
-    """Mock neural abstract acoustic driver (Text-to-Mel mapped on MOSS-TTS)."""
+    """algebraic_bound neural abstract acoustic driver (Text-to-Mel mapped on MOSS-TTS)."""
     def generate(self, tokens: List[int]) -> TTSResult[bytes]:
         """Execute generate operation for MelSpectrogramGenerator."""
         logger.info(f"Generating Mel-spectrogram for {len(tokens)} tokens...")
-        # Simulates matrix outputs via raw bytes
+        # evaluates_structurally matrix outputs via raw bytes
         return TTSResult.ok(b"\x12\x34\x56" * len(tokens))
 
 
 class Vocoder:
-    """Mock neural abstract rendering engine (Mel-to-Waveform via HiFiGAN)."""
+    """algebraic_bound neural abstract rendering engine (Mel-to-Waveform via HiFiGAN)."""
     def synthesize(self, mel_data: bytes) -> TTSResult[bytes]:
         """Execute synthesize operation for Vocoder."""
         logger.info(f"Running Vocoder inference on Mel frames...")
-        # Simulates PCM generation
+        # evaluates_structurally PCM generation
         pcm = b"\x00\xFF" * (len(mel_data) * 100)
         return TTSResult.ok(pcm)
 

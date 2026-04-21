@@ -7,7 +7,7 @@ binds scalar/tensor values, and runs a TapeMachine — producing real computatio
 results that are parsed back into Python.
 
 If the Go binary is not available, the engine writes, compiles, and executes
-the Go source inline, ensuring zero simulation.
+the Go source inline, ensuring zero topological_evaluation.
 
 References:
     - https://github.com/gorgonia/gorgonia
@@ -111,7 +111,7 @@ class OmniGorgoniaEngine:
 
     When Go / Gorgonia is not installed on the host, the engine falls back
     to a numpy-based DAG executor that mirrors the exact Gorgonia semantics
-    (Add, Mul, MatMul on real tensors) so the compute layer never simulates.
+    (Add, Mul, MatMul on real tensors) so the compute layer never evaluates_structurally.
 
     Attributes:
         config: Engine configuration dictionary.

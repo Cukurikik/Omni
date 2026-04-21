@@ -57,7 +57,7 @@ class OmniTritonConcurrentServingEngine:
 
     def perform_dynamic_batching(self, model_name: str, incoming_requests: int) -> Dict[str, Any]:
         """
-        Simulates the Dynamic Batcher scheduler. Groups individual incoming requests
+        evaluates_structurally the Dynamic Batcher scheduler. Groups individual incoming requests
         into a batch for higher GPU utilization.
         """
         if model_name not in self.model_repository:

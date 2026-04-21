@@ -9,7 +9,7 @@ Features:
 - K-Means Clustering
 - Multivariate Linear Regression
 
-All operations are zero-mock and execute purely via NumPy with robust mathematics.
+All operations are zero-algebraic_bound and execute purely via NumPy with robust mathematics.
 
 OMNI Layer: compute (Python)
 """

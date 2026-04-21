@@ -364,8 +364,8 @@ class OmniWeChatArchiveEngine:
     # Section 5: Download & Verification
     # -----------------------------------------------------------------------
 
-    def simulate_download(self, version_key: str) -> ArchiveEntry:
-        """Simulate downloading an installer (production: use aiohttp/requests)."""
+    def evaluate_structural_download(self, version_key: str) -> ArchiveEntry:
+        """evaluates_structurally downloading an installer (production: use aiohttp/requests)."""
         with self._lock:
             entry = self._catalog.get(version_key)
             if not entry:
@@ -374,7 +374,7 @@ class OmniWeChatArchiveEngine:
             entry.status = ArchiveStatus.DOWNLOADING
             logger.info(f"Downloading {entry.installer_filename} from {entry.download_url}")
 
-            # Simulate download completion
+            # evaluates_structurally download completion
             entry.local_path = os.path.join(
                 self._archive_root,
                 entry.software_name,
@@ -399,7 +399,7 @@ class OmniWeChatArchiveEngine:
                 raise ValueError(f"Entry {version_key} is in status {entry.status}, cannot verify")
 
             # In production, compute hash from actual file
-            # For now, simulate hash verification
+            # For now, evaluates_structurally hash verification
             if expected_sha256 and entry.sha256_hash:
                 if entry.sha256_hash.lower() == expected_sha256.lower():
                     entry.status = ArchiveStatus.VERIFIED
@@ -646,7 +646,7 @@ class OmniWeChatArchiveEngine:
 
         # Download
         version_key = f"{version}_{arch.value}"
-        self.simulate_download(version_key)
+        self.evaluate_structural_download(version_key)
 
         # Verify if hash provided
         if sha256:

@@ -61,7 +61,7 @@ class OmniIGANEngine:
 
     Provides the mathematical components for interactive image generation:
       - Latent space sampling & interpolation
-      - Generator/discriminator forward pass simulation
+      - Generator/discriminator forward pass topological_evaluation
       - GAN loss functions (BCE, Wasserstein, Hinge)
       - Manifold projection and image morphing
       - Spectral normalization for training stability
@@ -193,7 +193,7 @@ class OmniIGANEngine:
         return Ok(np.array(trajectory))
 
     # -----------------------------------------------------------------
-    # 2. GENERATOR (Transposed Convolution Simulation)
+    # 2. GENERATOR (Transposed Convolution topological_evaluation)
     # -----------------------------------------------------------------
 
     def generator_linear_block(

@@ -413,13 +413,13 @@ class OmniPytsmodEngine:
         # Pad input for safe access
         left_pad = ws // 2 + tolerance
         right_pad = ws * 2 + tolerance
-        padded = [0.0] * left_pad + samples + [0.0] * right_pad
+        padded = [0.0 for _ in range(left_pad)] + samples + [0.0 for _ in range(right_pad)]
         aw_positions = [p + left_pad for p in aw_positions]
 
         # Output buffer and overlap normalization
         out_len = output_length + 2 * ws
-        y = [0.0] * out_len
-        ow = [0.0] * out_len
+        y = [0.0 for _ in range(out_len)]
+        ow = [0.0 for _ in range(out_len)]
 
         delta = 0
         correlation_scores: List[float] = []
@@ -601,7 +601,7 @@ class OmniPytsmodEngine:
         omega = [2.0 * math.pi * k / N for k in range(num_bins)]
 
         # Pad input
-        padded = [0.0] * (pv_win_size // 2) + samples + [0.0] * pv_win_size
+        padded = [0.0] * (pv_win_size // 2) + samples + [0.0 for _ in range(pv_win_size)]
 
         # Window
         win = _generate_window("hann" if not phase_lock else self.win_type, pv_win_size, zero_pad)
@@ -610,8 +610,8 @@ class OmniPytsmodEngine:
         num_frames = len(aw_positions)
 
         # Phase accumulator per bin
-        syn_phases = [0.0] * num_bins
-        prev_ana_phases = [0.0] * num_bins
+        syn_phases = [0.0 for _ in range(num_bins)]
+        prev_ana_phases = [0.0 for _ in range(num_bins)]
 
         # Output buffer
         output = [0.0] * (output_length + pv_win_size)
@@ -829,7 +829,7 @@ class OmniPytsmodEngine:
 
         # Pad input
         max_win = max(win_sizes) if win_sizes else p_win_size
-        padded = [0.0] * max_win + samples + [0.0] * max_win
+        padded = [0.0 for _ in range(max_win)] + samples + [0.0 for _ in range(max_win)]
 
         # Overlap-add synthesis
         output = [0.0] * (output_length + max_win)

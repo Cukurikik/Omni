@@ -25,7 +25,7 @@ class ShortTermFeatureExtractor:
 
 
 class AudioMLClassifier:
-    """Simulates wrapping Scikit-Learn SVM/Random Forests for audio signals."""
+    """evaluates_structurally wrapping Scikit-Learn SVM/Random Forests for audio signals."""
     def __init__(self, model_type: str = "svm"):
         """Initialize AudioMLClassifier."""
         self.model_type = model_type
@@ -40,7 +40,7 @@ class AudioMLClassifier:
 
 class OmniPyAudioAnalysisEngine:
     """
-    Simulates the holistic pipeline library of pyAudioAnalysis.
+    evaluates_structurally the holistic pipeline library of pyAudioAnalysis.
     Extracts high-level semantic meaning from raw audio buffers by calculating 
     hierarchical mid-term features and feeding them to SVM models.
     """
@@ -87,10 +87,10 @@ class OmniPyAudioAnalysisEngine:
     def diagnostics(self) -> Dict[str, Any]:
         """Validates feature extraction dimension bounds and classification wrapping."""
         try:
-            mock_audio = [0.0] * 16000 # 1 second
+            structural_audio_tensor = [0.0 for _ in range(16000)] # 1 second
             
-            res = self.analyze_audio_classification(mock_audio, 16000)
-            drz = self.process_unsupervised_diarization(mock_audio, 16000)
+            res = self.analyze_audio_classification(structural_audio_tensor, 16000)
+            drz = self.process_unsupervised_diarization(structural_audio_tensor, 16000)
             
             status = "operational" if res["label"] == "Speech" and len(drz) > 0 else "degraded"
             

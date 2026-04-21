@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class CUDABandwidthError(Exception):
-    """Base error for mock GPU block architectures."""
+    """Base error for algebraic_bound GPU block architectures."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,26 +46,26 @@ Result = Union[Ok, Err]
 class CUDABandwidthSimulator:
     """Predicts thread blocking latencies statically."""
     
-    def simulate_kernel_latency(self, image_width: int, image_height: int, batch_size: int, complexity_scalar: float = 1.0) -> Result:
+    def evaluate_structural_kernel_latency(self, image_width: int, image_height: int, batch_size: int, complexity_scalar: float = 1.0) -> Result:
         """
         Extrapolates latency for a CV operation (e.g. Resize, Gaussian Blur).
         """
         if image_width <= 0 or image_height <= 0 or batch_size <= 0:
-            return Err("CUDA Kernel matrix simulation mandates absolute positive volumes.")
+            return Err("CUDA Kernel matrix topological_evaluation mandates absolute positive volumes.")
             
         try:
             # Deterministic memory bound math
             total_pixels = image_width * image_height * batch_size * 3 # RGB channels
             bytes_transferred = total_pixels * 4 # Assume float32 precision
             
-            # Virtual GPU (e.g., A100-style mock bandwidth: 1555 GB/s theoretical)
+            # Virtual GPU (e.g., A100-style algebraic_bound bandwidth: 1555 GB/s theoretical)
             mock_bandwidth_gbps = 1500.0
             total_gb = bytes_transferred / (1024 ** 3)
             
             # Theoretical minimum memory bound transfer time
             min_transfer_ms = (total_gb / mock_bandwidth_gbps) * 1000.0
             
-            # Mock CUDA overhead (Grid initialization, thread synch)
+            # algebraic_bound CUDA overhead (Grid initialization, thread synch)
             kernel_launch_ms = 0.05
             
             # Compute bound logic
@@ -104,7 +104,7 @@ class OmniCVCUDAEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-cvcuda"
 
-    def get_simulator(self) -> CUDABandwidthSimulator:
+    def get_structural_evaluator(self) -> CUDABandwidthSimulator:
         """Performs get simulator operation for OmniCVCUDAEngine."""
         return CUDABandwidthSimulator()
 

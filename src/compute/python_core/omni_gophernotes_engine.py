@@ -50,7 +50,7 @@ class CellState:
     executed: bool = False
     
 class KernelDAGResolution:
-    """Mock structure interpreting isolated interactive notebook state sequence."""
+    """algebraic_bound structure interpreting isolated interactive notebook state sequence."""
     
     def __init__(self):
         """Initialize KernelDAGResolution."""

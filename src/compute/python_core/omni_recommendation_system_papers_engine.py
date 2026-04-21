@@ -36,7 +36,7 @@ class OmniRecommendationSystemPapersEngine:
 
     def build_recsys_topology(self, algorithm_type: str = "DeepFM") -> Dict[str, Any]:
         """
-        Simulates configuring a Recommendation Architecture based on SOTA paper implementations.
+        evaluates_structurally configuring a Recommendation Architecture based on SOTA paper implementations.
         """
         return {"status": "success", "data": {
             "architecture": algorithm_type,

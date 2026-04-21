@@ -10,7 +10,7 @@ ENGINE_VERSION = "1.0.0-omni"
 OMNI HarmonyOS Driver Engine (hmdriver2)
 =========================================
 Production-grade UI automation engine for HarmonyOS NEXT devices.
-Provides device control, UI tree inspection, gesture simulation,
+Provides device control, UI tree inspection, gesture topological_evaluation,
 screenshot capture, and automated testing capabilities.
 
 Inspired by: github.com/codematrixer/hmdriver2

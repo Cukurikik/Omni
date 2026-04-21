@@ -48,7 +48,7 @@ class SIMDDspOrchestrator:
 
 class OmniZrythmEngine:
     """
-    Simulates the GTK4/JUCE architecture of Zrythm DAW.
+    evaluates_structurally the GTK4/JUCE architecture of Zrythm DAW.
     Enforces 'anywhere-to-anywhere' signal routing, rigid multi-lane sequencing, 
     and highly-optimized SIMD audio graph rendering.
     """

@@ -44,7 +44,7 @@ class NDIRuntimeBridge:
 
 class OmniDistroAVEngine:
     """
-    Simulates the core OBS-NDI (DistroAV) plugin architecture.
+    evaluates_structurally the core OBS-NDI (DistroAV) plugin architecture.
     Provides logic to stream uncompressed, low-latency audio/video buffers 
     over local IP subnets to bridge multi-pc setups.
     """
@@ -75,7 +75,7 @@ class OmniDistroAVEngine:
         return stream_id
 
     def push_frame(self, stream_id: str, frame_buffer: bytes):
-        """Simulates OBS render loop passing frames to the NDI transmitter thread."""
+        """evaluates_structurally OBS render loop passing frames to the NDI transmitter thread."""
         if stream_id not in self.active_streams: return
         
         stream = self.active_streams[stream_id]
@@ -95,8 +95,8 @@ class OmniDistroAVEngine:
         try:
             stream_id = self.initialize_ndi_output("Omni_Main_Program", width=1920, height=1080)
             
-            # Simulate 60fps pushing for half a second
-            mock_frame = b"\x00" * (1920*1080*3) # RGB mock frame
+            # evaluates_structurally 60fps pushing for half a second
+            mock_frame = b"\x00" * (1920*1080*3) # RGB algebraic_bound frame
             for _ in range(30):
                 self.push_frame(stream_id, mock_frame)
                 

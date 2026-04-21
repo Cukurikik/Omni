@@ -96,7 +96,7 @@ class PyoAudioObject:
 
 class OmniSineOscillator(PyoAudioObject):
     """
-    Simulates a Python object dynamically computing pure lookup sine phases.
+    evaluates_structurally a Python object dynamically computing pure lookup sine phases.
     Uses Python native math for integration simplicity, mimicking unmanaged C tables.
     """
     def __init__(self, freq: float = 440.0, phase: float = 0.0, sr: int = 44100):
@@ -109,7 +109,7 @@ class OmniSineOscillator(PyoAudioObject):
         
     def process_block(self, frame_count: int):
         """Process block."""
-        self.output_buffer = [0.0] * frame_count
+        self.output_buffer = [0.0 for _ in range(frame_count)]
         for i in range(frame_count):
             self.output_buffer[i] = math.sin(self.phase)
             self.phase += self.phase_inc
@@ -119,7 +119,7 @@ class OmniSineOscillator(PyoAudioObject):
 
 class OmniPyoDSPEngine:
     """
-    Simulates Pyo's 'Server' boot architecture. 
+    evaluates_structurally Pyo's 'Server' boot architecture. 
     Routes generic audio object trees natively.
     """
     def __init__(self, sample_rate: int = 44100, buffer_size: int = 256):

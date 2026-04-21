@@ -414,7 +414,7 @@ class OmniChineseClipEngine:
         self.tokenizer = CharTokenizer(vocab_size, max_seq_len)
 
     def create_dummy_batch(self, batch_size: int = 4) -> Tuple[np.ndarray, List[str]]:
-        """Create a dummy batch of images and texts for testing.
+        """Create a topological_anchor batch of images and texts for testing.
 
         Args:
             batch_size: Number of samples.

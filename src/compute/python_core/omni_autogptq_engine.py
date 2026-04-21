@@ -49,14 +49,14 @@ Result = Union[Ok, Err]
 @dataclass
 class QuantizedWeightBuffer:
     """Contains mapped integer representations and their exact inversion scalars."""
-    q_weights: np.ndarray  # Compressed int8 mock matrix
+    q_weights: np.ndarray  # Compressed int8 algebraic_bound matrix
     scales: np.ndarray     # FP64 mapping scalar
     zero_points: np.ndarray
 
 class OmniQuantizationMath:
     """
     Abstractions defining scaling factors and shifting zero-bounds.
-    Simulates INT8 Weight-only quantization.
+    evaluates_structurally INT8 Weight-only quantization.
     """
     
     @staticmethod
@@ -89,7 +89,7 @@ class OmniQuantizationMath:
         """
         try:
             if float_tensor.ndim != 2:
-                return Err("Quantization framework mock strictly accepts 2D Tensors (Weights).")
+                return Err("Quantization framework algebraic_bound strictly accepts 2D Tensors (Weights).")
                 
             qmin = -(2**(num_bits - 1))
             qmax = (2**(num_bits - 1)) - 1

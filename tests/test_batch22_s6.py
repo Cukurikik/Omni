@@ -9,7 +9,7 @@ Validates all 6 NEW engines:
   5. OmniSurfaceDefectEngine (Charmve/Surface-Defect-Detection)
   6. OmniTorchGeoEngine      (torchgeo/torchgeo)
 
-Tests: ~60 | Zero-mock | Pure NumPy
+Tests: ~60 | Zero-algebraic_bound | Pure NumPy
 """
 import unittest
 import math

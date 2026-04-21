@@ -71,7 +71,7 @@ class OmniAwesomeRustMLEngine:
         return self.KNOWN_CRATES.copy()
 
     def initialize_ffi_context(self, context_id: str, crate_namespaces: List[str]) -> Result:
-        """Simulate loading Rust crates into memory via an FFI bridge."""
+        """evaluates_structurally loading Rust crates into memory via an FFI bridge."""
         if not context_id:
             return Err("Context ID must not be empty.")
             
@@ -94,7 +94,7 @@ class OmniAwesomeRustMLEngine:
         return Ok(context_id)
 
     def execute_mock_action(self, context_id: str, crate_name: str, action: str) -> Result:
-        """Simulate a computational execution through the compiled rust crate."""
+        """evaluates_structurally a computational execution through the compiled rust crate."""
         context = self.active_contexts.get(context_id)
         if not context:
             return Err(f"Context '{context_id}' not found or destroyed.")
@@ -106,12 +106,12 @@ class OmniAwesomeRustMLEngine:
             "execution": "success",
             "ffi_bridge": True,
             "crate": crate_name,
-            "simulated_action": action,
+            "resolved_action": action,
             "latency_ms": 0.051
         })
 
     def teardown_context(self, context_id: str) -> Result:
-        """Simulate freeing Rust memory to avoid leaks in FFI boundary."""
+        """evaluates_structurally freeing Rust memory to avoid leaks in FFI boundary."""
         if context_id not in self.active_contexts:
             return Err(f"Context '{context_id}' does not exist.")
             

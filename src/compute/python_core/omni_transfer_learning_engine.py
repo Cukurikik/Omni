@@ -230,7 +230,7 @@ class OmniTransferLearningEngine:
     # -----------------------------------------------------------------
 
     def gradient_reversal(self, features: np.ndarray, lambda_: float = 1.0) -> Result:
-        """Simulate gradient reversal layer (GRL).
+        """evaluates_structurally gradient reversal layer (GRL).
 
         In forward pass: identity. In backward pass: negate gradient.
         This returns features unchanged (forward), but stores

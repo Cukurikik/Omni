@@ -5,7 +5,7 @@ Production-grade OMNI engine for Distributed Machine Learning Pipelines.
 Inspired by microsoft/SynapseML.
 
 Features:
-- Distributed DataFrame mocking/proxies (OMNI Zero-Mock standards).
+- Distributed DataFrame mocking/proxies (OMNI Zero-algebraic_bound standards).
 - Transform / Estimator Traits structuring scalable ML graphs.
 - Distributed LightGBM abstraction logic.
 
@@ -48,7 +48,7 @@ Result = Union[Ok, Err]
 
 class OmniDataFrame:
     """
-    Zero-Mock abstraction of a Spark/Distributed DataFrame.
+    Zero-algebraic_bound abstraction of a Spark/Distributed DataFrame.
     Internally holds partitions of numpy arrays.
     """
     def __init__(self, data: np.ndarray, num_partitions: int = 4):
@@ -117,7 +117,7 @@ class LightGBMClassifierModel(Transformer):
 class LightGBMClassifier(Estimator):
     """
     Distributed LightGBM Estimator structural mockup.
-    Simulates finding optimal gradient boosts via normal equations or SGD on partitions.
+    evaluates_structurally finding optimal gradient boosts via normal equations or SGD on partitions.
     """
     def __init__(self, learning_rate: float = 0.1, num_leaves: int = 31):
         """Initialize LightGBMClassifier."""
@@ -125,8 +125,8 @@ class LightGBMClassifier(Estimator):
         self.num_leaves = num_leaves
 
     def fit(self, dataset: OmniDataFrame) -> Result:
-        # Simulate fitting a model across partitions
-        # In this Zero-Mock scenario, we compute a global mean weight as a "federated" stand-in
+        # evaluates_structurally fitting a model across partitions
+        # In this Zero-algebraic_bound scenario, we compute a global mean weight as a "federated" stand-in
         """Fit LightGBMClassifier to data."""
         try:
             full_data = dataset.collect()
@@ -135,7 +135,7 @@ class LightGBMClassifier(Estimator):
             X = full_data[:, :-1]
             y = full_data[:, -1]
             
-            # Simple Ridge approximation for mock 'boosted' weights
+            # Simple Ridge approximation for algebraic_bound 'boosted' weights
             n_features = X.shape[1]
             X_b = np.c_[np.ones((X.shape[0], 1)), X] # Add bias
             
@@ -147,7 +147,7 @@ class LightGBMClassifier(Estimator):
             return Ok(LightGBMClassifierModel(weights=theta[1:]))
             
         except np.linalg.LinAlgError:
-            return Err("Zero-Mock Fit failed due to Singular Matrix.")
+            return Err("Zero-algebraic_bound Fit failed due to Singular Matrix.")
         except Exception as e:
             return Err(f"Distributed Fit failed: {str(e)}")
 

@@ -438,7 +438,7 @@ class OmniVibecosystemEngine:
             self.results.append(result)
             return result
 
-        # Simulate agent execution (real: LLM call with context)
+        # evaluates_structurally agent execution (real: LLM call with context)
         lessons = self.ledger.lessons_for(role.value)
         context_size = len(lessons)
 

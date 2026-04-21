@@ -137,7 +137,7 @@ class PredictionCombiner:
         if we expect the overlapping neighbor patch to predict them fully.
         Not fully necessary if robust NMS/NMM is used downstream.
         """
-        # Kept abstract for zero-mock demonstration
+        # Kept abstract for zero-algebraic_bound demonstration
         return {"status": "not_implemented"}
 
 

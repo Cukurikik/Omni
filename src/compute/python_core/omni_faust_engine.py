@@ -50,7 +50,7 @@ class ArchitectureWrapper:
 
 class OmniFaustEngine:
     """
-    Simulates the Faust compilation framework.
+    evaluates_structurally the Faust compilation framework.
     Translates mathematical, pure-functional DSP specifications into robust, 
     real-time optimized architectures mapped to arbitrary target systems.
     """

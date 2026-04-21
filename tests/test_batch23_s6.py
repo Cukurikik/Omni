@@ -9,7 +9,7 @@ Validates all 6 NEW engines:
   5. OmniTransferLearningEngine (thuml/Transfer-Learning-Library)
   6. OmniSatelliteImageryEngine (chrieke/awesome-satellite-imagery-datasets)
 
-Tests: ~60 | Zero-mock | Pure NumPy
+Tests: ~60 | Zero-algebraic_bound | Pure NumPy
 """
 import unittest
 import math
@@ -335,7 +335,7 @@ class TestFSRSEngine(unittest.TestCase):
 
     def test_simulate_reviews(self):
         grades = [GOOD, GOOD, GOOD, EASY, GOOD]
-        res = self.e.simulate_reviews(grades)
+        res = self.e.evaluate_structural_reviews(grades)
         self.assertEqual(res.__class__.__name__, "Ok")
         self.assertEqual(len(res.value), 5)
         # Stability should increase with successive GOOD grades

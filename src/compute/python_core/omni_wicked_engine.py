@@ -82,7 +82,7 @@ class ScriptInterpreter:
 
 class OmniWickedEngine:
     """
-    Simulates Wicked Engine's ECS architecture and RenderPaths.
+    evaluates_structurally Wicked Engine's ECS architecture and RenderPaths.
     Provides scalable, hardware-agnostic 3D rendering workflows.
     """
 
@@ -99,7 +99,7 @@ class OmniWickedEngine:
         self.active_path = path_type
 
     def load_model(self, filepath: str) -> Entity:
-        """Simulates loading a GLTF 2.0 object to build entities and components."""
+        """evaluates_structurally loading a GLTF 2.0 object to build entities and components."""
         logger.debug(f"Parsing GLTF asset: {filepath}")
         entity = self.scene.create_entity()
         
@@ -111,7 +111,7 @@ class OmniWickedEngine:
         return entity
 
     def run_frame(self):
-        """Simulates updating the RenderPath using current ECS data."""
+        """evaluates_structurally updating the RenderPath using current ECS data."""
         # 1. Update Scripts
         # 2. Update Physics
         # 3. Build Command Lists

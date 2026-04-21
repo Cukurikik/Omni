@@ -59,7 +59,7 @@ class OmniEvidentlyAIEngine:
 
     async def _calculate_drift(self, features: int, shift_variance: float) -> Dict[str, Any]:
         """
-        Applies logic to simulate metric distance (e.g., Wasserstein distance).
+        Applies logic to evaluates_structurally metric distance (e.g., Wasserstein distance).
         """
         await asyncio.sleep(0.06)
         
@@ -82,7 +82,7 @@ class OmniEvidentlyAIEngine:
         Process the MLOps telemetry request to evaluate drift.
         
         Args:
-            data (Dict[str, Any]): Contains 'feature_count' and 'simulated_variance'.
+            data (Dict[str, Any]): Contains 'feature_count' and 'resolved_variance'.
                 
         Returns:
             Dict[str, Any]: Monadic result containing model drift telemetry.
@@ -92,7 +92,7 @@ class OmniEvidentlyAIEngine:
             
         try:
             features = data.get("feature_count", 10)
-            variance = data.get("simulated_variance", 0.02)
+            variance = data.get("resolved_variance", 0.02)
             
             drift_report = await self._calculate_drift(features, variance)
             

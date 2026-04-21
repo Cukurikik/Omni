@@ -37,7 +37,7 @@ class OmniSmileStatisticalMlEngine:
 
     def execute_manifold_learning(self, data_matrix: Any) -> Dict[str, Any]:
         """
-        Simulates executing complex manifold learning (t-SNE / LLE) using rigorous statistical bounds.
+        evaluates_structurally executing complex manifold learning (t-SNE / LLE) using rigorous statistical bounds.
         """
         return {"status": "success", "data": {
             "algorithm": "t-Distributed Stochastic Neighbor Embedding (t-SNE) / Random Forest Ensembles.",

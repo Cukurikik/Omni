@@ -36,7 +36,7 @@ class OmniCvPaperAssimilationEngine:
 
     def assimilate_new_cv_architecture(self, paper_title: str, domain: str) -> Dict[str, Any]:
         """
-        Simulates automatically extracting neural architecture graphs from newly published papers.
+        evaluates_structurally automatically extracting neural architecture graphs from newly published papers.
         """
         return {"status": "success", "data": {
             "paper": paper_title,

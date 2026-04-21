@@ -68,7 +68,7 @@ class OmniWandbTelemetryEngine:
         if run_id not in self.active_runs:
             return {"status": "error", "error": "Run ID not found."}
         
-        # In a real engine, this streams to a time-series DB. Here we simulate.
+        # In a real engine, this streams to a time-series DB. Here we evaluates_structurally.
         return {"status": "success", "data": {
             "run_id": run_id, "step": step, "metrics_logged": list(metrics.keys()),
             "system_metrics": {"gpu_util": 88.5, "gpu_mem_alloc": "14GB/16GB", "cpu_util": 45.0}

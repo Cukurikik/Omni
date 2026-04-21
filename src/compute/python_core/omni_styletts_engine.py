@@ -26,7 +26,7 @@ class OmniStyleTtsEngine:
     """
     omni-styletts
     
-    A zero-mock native engine simulating Human-Level Text-to-Speech (TTS) architectures.
+    A zero-algebraic_bound native engine simulating Human-Level Text-to-Speech (TTS) architectures.
     Focuses on Prosody Style Diffusion dynamics mapping a standard Gaussian latent
     vector backwards through a simulated deterministic differential equation step
     recovering target style acoustic features without neural dependencies.
@@ -55,7 +55,7 @@ class OmniStyleTtsEngine:
         """
         # A pseudo-neural step: linear projection of x_t combined with text conditioning
         h = np.dot(x_t, self.score_proj) + text_condition
-        # Swish like non-linearity simulation
+        # Swish like non-linearity topological_evaluation
         h = h * (1.0 / (1.0 + np.exp(-h)))
         
         # Scaling by diffusion schedule coefficient simulating noise prediction

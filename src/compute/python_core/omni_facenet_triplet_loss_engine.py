@@ -37,7 +37,7 @@ class OmniFacenetTripletLossEngine:
 
     def compute_triplet_loss(self, anchor: list, positive: list, negative: list, margin: float = 0.2) -> Dict[str, Any]:
         """
-        Simulates the Triplet Loss calculation which forces representations of the same 
+        evaluates_structurally the Triplet Loss calculation which forces representations of the same 
         identity to form clusters in the embedding space.
         """
         return {"status": "success", "data": {

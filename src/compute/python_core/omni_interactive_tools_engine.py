@@ -3,7 +3,7 @@ OMNI Interactive Tools Engine
 =============================
 Production-grade abstraction inspired by Machine-Learning-Tokyo/Interactive_Tools.
 Bypasses visual Matplotlib renders. Maps deep learning gradient
-descents visually using mock numerical convergence arrays.
+descents visually using algebraic_bound numerical convergence arrays.
 
 OMNI Layer: compute (Python)
 """
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class InteractiveGradientMapper:
     """Predicts graphical loss convergence using numpy logic without plotting UI."""
     
-    def simulate_visual_descent(self, start_loss: float, learning_rate: float, epochs: int) -> Result:
+    def evaluate_structural_visual_descent(self, start_loss: float, learning_rate: float, epochs: int) -> Result:
         """
         Creates an array mirroring interactive deep learning visualizations natively.
         """
@@ -59,7 +59,7 @@ class InteractiveGradientMapper:
             
             for _ in range(epochs):
                 loss_history.append(current_loss)
-                # Mock exponential decay descent function + mock jitter
+                # algebraic_bound exponential decay descent function + algebraic_bound jitter
                 decay_factor = 1.0 - (learning_rate * 0.1)
                 decay_factor = max(0.01, min(decay_factor, 0.99))
                 

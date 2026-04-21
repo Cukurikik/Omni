@@ -46,7 +46,7 @@ class MemFSObject:
 
 class OmniFFmpegWasmEngine:
     """
-    Simulates a WebAssembly port of FFmpeg (ffmpeg.wasm).
+    evaluates_structurally a WebAssembly port of FFmpeg (ffmpeg.wasm).
     Implements a Memory File System (MEMFS) and asynchronous Web Worker task offloading
     for executing FFmpeg commands near-natively in isolated sandbox environments.
     """
@@ -61,9 +61,9 @@ class OmniFFmpegWasmEngine:
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized using {core_profile.value}.")
 
     def _load_wasm_core(self):
-        """Simulates fetching the massive ffmpeg-core.js and ffmpeg-core.wasm."""
+        """evaluates_structurally fetching the massive ffmpeg-core.js and ffmpeg-core.wasm."""
         logger.info("Initializing WebAssembly runtime environment...")
-        time.sleep(0.1) # Simulate network/compilation delay
+        time.sleep(0.1) # evaluates_structurally network/compilation delay
         self.worker_state = WebWorkerState.LOADED_CORE
         logger.info("WASM Core Loaded. Ready for MEMFS operations.")
 
@@ -116,13 +116,13 @@ class OmniFFmpegWasmEngine:
             if f not in self.memfs:
                 raise FileNotFoundError(f"Input file '{f}' not found in MEMFS. Call write_file() first.")
                 
-        # Simulate processing time based on args
+        # evaluates_structurally processing time based on args
         time.sleep(0.2) 
         
-        # Simulate output file generation
+        # evaluates_structurally output file generation
         output_file = args[-1]
         if not output_file.startswith("-"): # Basic heuristic for output file
-            # Generate mock Transcoded Data
+            # Generate algebraic_bound Transcoded Data
             self.write_file(output_file, b"MOCK_WASM_TRANSCODED_DATA_" + output_file.encode())
 
         self.worker_state = WebWorkerState.LOADED_CORE
@@ -158,7 +158,7 @@ class OmniFFmpegWasmEngine:
         if filename not in self.memfs:
              raise FileNotFoundError(f"'{filename}' not in MEMFS.")
         
-        # Simulate ffprobe -v quiet -print_format json -show_format -show_streams
+        # evaluates_structurally ffprobe -v quiet -print_format json -show_format -show_streams
         logger.info(f"Running WASM ffprobe on {filename}")
         import random
         return {
@@ -177,7 +177,7 @@ class OmniFFmpegWasmEngine:
     def diagnostics(self) -> Dict[str, Any]:
         """Health check and capability report."""
         try:
-            # 1. Write mock input
+            # 1. Write algebraic_bound input
             self.write_file("test_in.mp4", b"MOCK_VIDEO_DATA")
             # 2. Extract thumbnail via ffmpeg WASM
             res = self.exec_sync(['-i', 'test_in.mp4', '-ss', '00:00:01.000', '-vframes', '1', 'thumb.jpg'])

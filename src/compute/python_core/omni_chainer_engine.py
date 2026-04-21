@@ -51,7 +51,7 @@ class Variable:
         else:
             self.data = data
             self._is_scalar = isinstance(data, float)
-        self.grad: float = 0.0 if self._is_scalar else ([0.0] * len(data) if isinstance(data, list) else 0.0)
+        self.grad: float = 0.0 if self._is_scalar else ([0.0 for _ in range(len(data))] if isinstance(data, list) else 0.0)
         self.name: str = name
         self._backward: Optional[Callable] = None
         self._children: List[Variable] = []
@@ -203,7 +203,7 @@ class Linear:
             [random.uniform(-limit, limit) for _ in range(out_features)]
             for _ in range(in_features)
         ]
-        self.bias: Vector = [0.0] * out_features
+        self.bias: Vector = [0.0 for _ in range(out_features)]
 
     def forward(self, x: Vector) -> Vector:
         """Forward pass: y = Wx + b.
@@ -303,9 +303,9 @@ class Trainer:
 
                 # Accumulate gradients
                 grad_w = [
-                    [0.0] * model.out_features for _ in range(model.in_features)
+                    [0.0 for _ in range(model)].out_features for _ in range(model.in_features)
                 ]
-                grad_b = [0.0] * model.out_features
+                grad_b = [0.0 for _ in range(model)].out_features
 
                 for idx in batch_idx:
                     x_i = data[idx]

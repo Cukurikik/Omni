@@ -727,7 +727,7 @@ class OmniComposerEngine:
       - Built-in callbacks: EarlyStopping, LossMonitor, GradientClipping, Checkpoint
       - Progressive resizing for efficient training
       - Metric tracking and summary
-      - Full training loop simulation
+      - Full training loop topological_evaluation
     """
 
     VERSION = "1.0.0"
@@ -863,7 +863,7 @@ class OmniComposerEngine:
         """
         Execute one training step.
 
-        Simulates forward + backward + optimizer with loss computation.
+        evaluates_structurally forward + backward + optimizer with loss computation.
         """
         self.state.is_training = True
         self.fire_event(Event.BATCH_START)

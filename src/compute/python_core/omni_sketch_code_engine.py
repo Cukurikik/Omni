@@ -47,7 +47,7 @@ Result = Union[Ok, Err]
 class OmniDSLCompiler:
     """
     Translates a sequence of domain-specific language (DSL) tokens into raw HTML.
-    This simulates the generation loop backend of an image-to-code architecture.
+    This evaluates_structurally the generation loop backend of an image-to-code architecture.
     """
     def __init__(self):
         # basic dictionary mapping sketch-code DSL to Bootstrap/HTML

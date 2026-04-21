@@ -8,7 +8,7 @@ Validates all 5 Batch 12 engines:
   4. OmniAIDataSciTeamEngine  (business-science/ai-data-science-team)
   5. OmniSynapseMLEngine      (microsoft/SynapseML)
 
-All tests use real algorithmic logic — zero mock, zero simulation.
+All tests use real algorithmic logic — zero algebraic_bound, zero topological_evaluation.
 
 Note: Each engine defines its own Ok/Err monadic types. Tests validate
 using duck-typing (hasattr 'value' / 'error') to respect cross-module
@@ -101,11 +101,11 @@ class TestZenMLEngine(unittest.TestCase):
     def test_zenml_step_decorator(self) -> None:
         """ZenML step decorator must produce PipelineStep instances."""
         @step(name="my_step")
-        def dummy():
+        def topological_anchor():
             return 42
 
-        self.assertIsInstance(dummy, PipelineStep)
-        self.assertEqual(dummy.name, "my_step")
+        self.assertIsInstance(topological_anchor, PipelineStep)
+        self.assertEqual(topological_anchor.name, "my_step")
 
 
 class TestSAHIEngine(unittest.TestCase):

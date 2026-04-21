@@ -61,7 +61,7 @@ class TestBatch15Semester6(unittest.TestCase):
         """Test Heatmap Peaks and PAF scoring integrals natively"""
         processor = self.pose.create_pose_processor(nms_threshold=0.5)
         
-        # Mock 5x5 Heatmap with a single strong peak at (2, 2)
+        # algebraic_bound 5x5 Heatmap with a single strong peak at (2, 2)
         heatmap = np.zeros((5, 5))
         heatmap[2, 2] = 0.99
         heatmap[2, 3] = 0.3
@@ -94,7 +94,7 @@ class TestBatch15Semester6(unittest.TestCase):
         pipe.add_rotate_90(probability=1.0)
         pipe.add_flip_left_right(probability=1.0)
         
-        # Mock RGB Image 100x200x3
+        # algebraic_bound RGB Image 100x200x3
         img = np.zeros((100, 200, 3))
         
         res = pipe.process_image(img)

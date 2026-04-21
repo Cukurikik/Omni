@@ -26,7 +26,7 @@ class OmniNyuDlEngine:
     """
     omni-nyu-dl
     
-    A zero-mock native engine capturing advanced Deep Learning mechanisms from the 
+    A zero-algebraic_bound native engine capturing advanced Deep Learning mechanisms from the 
     NYU Deep Learning course, focusing specifically on Energy-Based Models (EBMs)
     and Langevin Dynamics sampling.
     """

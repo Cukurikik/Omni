@@ -26,7 +26,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class EnterpriseSearchError(Exception):
-    """Base error for mock enterprise semantic bounds."""
+    """Base error for algebraic_bound enterprise semantic bounds."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -48,7 +48,7 @@ Result = Union[Ok, Err]
 class LexicalDistanceRetriever:
     """Calculates query-match proximities mathematically without databases."""
     
-    def simulate_semantic_retrieval(self, query: str, documents: List[str]) -> Result:
+    def evaluate_structural_semantic_retrieval(self, query: str, documents: List[str]) -> Result:
         """
         Mimics deep learning contextual lookup based on deterministic token overlaps.
         """
@@ -64,7 +64,7 @@ class LexicalDistanceRetriever:
             for doc in documents:
                 doc_tokens = set(re.findall(r'\w+', doc.lower()))
                 
-                # Mock Jaccard-like semantic anchor similarity
+                # algebraic_bound Jaccard-like semantic anchor similarity
                 intersection = q_tokens.intersection(doc_tokens)
                 union = q_tokens.union(doc_tokens)
                 

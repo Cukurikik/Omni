@@ -41,7 +41,7 @@ class OmniCaffeLegacyBridgeEngine:
 
     def parse_prototxt_mock(self, prototxt_content: str) -> Dict[str, Any]:
         """
-        Simulates scanning a prototxt file for layer definitions.
+        evaluates_structurally scanning a prototxt file for layer definitions.
         Normally requires Google Protobuf `caffe_pb2`, but OMNI handles it purely 
         via monadic string dissection to prevent dependency bloat.
         """

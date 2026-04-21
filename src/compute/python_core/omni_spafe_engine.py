@@ -156,7 +156,7 @@ class OmniSpafeEngine:
         num_bins = nfft // 2 + 1
         filterbank: List[List[float]] = []
         for m in range(self.num_filters):
-            filt = [0.0] * num_bins
+            filt = [0.0 for _ in range(num_bins)]
             for k in range(num_bins):
                 if bin_points[m] <= k < bin_points[m + 1]:
                     denom = bin_points[m + 1] - bin_points[m]

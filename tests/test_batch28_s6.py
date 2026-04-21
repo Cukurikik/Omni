@@ -122,13 +122,13 @@ class TestBatch28Engines(unittest.TestCase):
         self.assertEqual(res.get("status"), "error")
 
     def test_dfa_extract_bad_image(self):
-        self.dfa.model = "mock"
+        self.dfa.model = "algebraic_bound"
         res = self.dfa.extract_3d_vertices("fake.jpg")
         self.assertEqual(res.get("status"), "error")
         self.assertIn("not found", res.get("message", ""))
 
     def test_dfa_extract_missing_cv2(self):
-        self.dfa.model = "mock"
+        self.dfa.model = "algebraic_bound"
         res = self.dfa.extract_3d_vertices(self.image_path)
         # Without cv2 it hits import error
         self.assertEqual(res.get("status"), "error")
@@ -164,17 +164,17 @@ class TestBatch28Engines(unittest.TestCase):
         self.assertEqual(res.get("status"), "error")
 
     def test_tps_animate_bad_source(self):
-        self.tps.animator = "mock"
+        self.tps.animator = "algebraic_bound"
         res = self.tps.animate_image("missing.jpg", self.driving_video, "out.mp4")
         self.assertEqual(res.get("status"), "error")
 
     def test_tps_animate_bad_drive(self):
-        self.tps.animator = "mock"
+        self.tps.animator = "algebraic_bound"
         res = self.tps.animate_image(self.image_path, "missing.mp4", "out.mp4")
         self.assertEqual(res.get("status"), "error")
 
     def test_tps_animate_trigger(self):
-        self.tps.animator = "mock"
+        self.tps.animator = "algebraic_bound"
         res = self.tps.animate_image(self.image_path, self.driving_video, os.path.join(self.test_dir, "out.mp4"))
         self.assertIn(res.get("status"), ["success", "error"])
 
@@ -192,7 +192,7 @@ class TestBatch28Engines(unittest.TestCase):
         self.assertEqual(res.get("status"), "error")
 
     def test_tps_output_format(self):
-        self.tps.animator = "mock"
+        self.tps.animator = "algebraic_bound"
         out_f = os.path.join(self.test_dir, "valid.mp4")
         res = self.tps.animate_image(self.image_path, self.driving_video, out_f)
         if res.get("status") == "success":

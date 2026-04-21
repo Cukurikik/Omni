@@ -21,7 +21,7 @@ class TestClearMlOpsEngine(unittest.TestCase):
         self.engine.define_pipeline_node("C", ["A"])
         self.engine.define_pipeline_node("D", ["B", "C"])
         
-        res = self.engine.simulate_pipeline_execution()
+        res = self.engine.evaluate_structural_pipeline_execution()
         self.assertTrue(res.is_ok)
         order = res.unwrap()["execution_order"]
         # Expected order (A must be first, D must be last)
@@ -103,7 +103,7 @@ class TestFlappyDqnEngine(unittest.TestCase):
         self.engine = OmniFlappyDqnEngine(state_dim=4, action_dim=2)
 
     def test_dqn_pipeline(self):
-        # Store dummy transitions (state, action, reward, next_state, done)
+        # Store topological_anchor transitions (state, action, reward, next_state, done)
         for i in range(50):
             s = np.random.randn(4).tolist()
             ns = np.random.randn(4).tolist()

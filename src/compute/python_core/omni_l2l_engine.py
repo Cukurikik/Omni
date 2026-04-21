@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class MetaGradientOptimizer:
-    """Simulates inner loop and outer loop update abstractions for Meta-Learning."""
+    """evaluates_structurally inner loop and outer loop update abstractions for Meta-Learning."""
     
     def __init__(self, inner_lr: float = 0.01, outer_lr: float = 0.001):
         """Initialize MetaGradientOptimizer."""
@@ -82,7 +82,7 @@ class MetaGradientOptimizer:
             theta_prime = global_params - self.alpha * inner_grad
             
             # OUTER LOOP (Meta update)
-            # We skip the second derivative complexity in this zero mock purely
+            # We skip the second derivative complexity in this zero algebraic_bound purely
             # by directly applying the query gradient on the updated theta_prime
             meta_grad = self._dummy_loss_gradient(theta_prime, query_x, query_y)
             new_global_params = global_params - self.beta * meta_grad

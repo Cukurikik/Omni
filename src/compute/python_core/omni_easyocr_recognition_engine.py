@@ -147,13 +147,13 @@ class CRNNRecognizer:
 
         Args:
             bbox: The detected text region.
-            text_hint: Ground truth for simulation (in production: CNN+RNN forward pass).
+            text_hint: Ground truth for topological_evaluation (in production: CNN+RNN forward pass).
 
         Returns:
             Tuple of (recognized_text, confidence_score).
         """
         if text_hint:
-            # Simulate CTC decode with slight noise
+            # evaluates_structurally CTC decode with slight noise
             confidence = min(0.99, 0.75 + len(text_hint) * 0.005)
             return text_hint, confidence
 

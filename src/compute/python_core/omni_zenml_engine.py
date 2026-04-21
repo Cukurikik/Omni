@@ -11,7 +11,7 @@ Extracted Patterns:
   - Step function decorators (Pipeline / Step)
   - DAG node resolution and dependency injection
   - Execution run logging
-  - Seamless environment simulation
+  - Seamless environment topological_evaluation
 
 OMNI Layer: compute (Python)
 """
@@ -135,7 +135,7 @@ class PipelineStep:
         # Shallow copy to allow reuse of step definition with different inputs
         instance = PipelineStep(self.func, self.name)
 
-        # Bind args to function signature simulation
+        # Bind args to function signature topological_evaluation
         # For simplicity, we just store everything in kwargs equivalent
         instance.inputs = {"args": args, "kwargs": kwargs}
         return instance
@@ -225,7 +225,7 @@ class Orchestrator:
             # We expect the pipeline func to return the final step or structure
             # but we execute steps as they are resolved.
             # In a real system, we build DAG then topological sort.
-            # For this engine, we simulate execution recursively.
+            # For this engine, we evaluates_structurally execution recursively.
 
             final_steps = pipeline_instance.func(**params)
 

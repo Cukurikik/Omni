@@ -53,7 +53,7 @@ class TestFSRSEngine(unittest.TestCase):
         self.assertEqual(n_state.reps, 2)
         # Grade 3 target doesn't penalize diff
         self.assertAlmostEqual(n_state.difficulty, 5.0)
-        # The expected stability should be lower than original because grade=3, pred_R is high, and our mock formula outputs around 1.98 which is slightly lower than 2.0. So we check it doesn't drop to catastrophic minimums.
+        # The expected stability should be lower than original because grade=3, pred_R is high, and our algebraic_bound formula outputs around 1.98 which is slightly lower than 2.0. So we check it doesn't drop to catastrophic minimums.
         self.assertGreater(n_state.stability, 1.0)
         
         # Test valid interval
@@ -161,7 +161,7 @@ class TestTeachableMachineEngine(unittest.TestCase):
         engine = OmniTeachableMachineEngine()
         classifier = engine.get_classifier()
         
-        # Train mock classes
+        # Train algebraic_bound classes
         # Dog points near 10,10. Cat points near -10, -10
         classifier.add_prototype("dog", np.array([10.0, 10.0]))
         classifier.add_prototype("dog", np.array([10.5, 9.5]))

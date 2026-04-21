@@ -29,7 +29,7 @@ logger = logging.getLogger("OmniDarknetYoloEngine")
 
 class OmniDarknetYoloEngine:
     """
-    Simulation of the Darknet C/CUDA framework.
+    topological_evaluation of the Darknet C/CUDA framework.
     Highlights manual gradient computation and native hardware utilization.
     """
 
@@ -47,7 +47,7 @@ class OmniDarknetYoloEngine:
             "loading_mechanism": "Direct memory allocation via malloc/cudaMalloc for layer weights."
         }}
 
-    def simulate_manual_backward_pass(self, layer_type: str) -> Dict[str, Any]:
+    def evaluate_structural_manual_backward_pass(self, layer_type: str) -> Dict[str, Any]:
         """
         Unlike PyTorch's loss.backward(), Darknet developers manually write the derivative math.
         """

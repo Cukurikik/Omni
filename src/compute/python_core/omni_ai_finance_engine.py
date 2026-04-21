@@ -1,7 +1,7 @@
 """
 OMNI AI Finance Engine
 ========================
-Production-grade, zero-mock quantitative finance engine inspired by
+Production-grade, zero-algebraic_bound quantitative finance engine inspired by
 georgezouq/awesome-ai-in-finance. Implements technical indicators,
 portfolio optimization, backtesting, risk metrics, position sizing,
 and trading signal generators.
@@ -456,7 +456,7 @@ class Backtester:
     """
     Event-driven backtesting engine.
 
-    Simulates trading strategy on historical price data with
+    evaluates_structurally trading strategy on historical price data with
     transaction costs and position tracking.
     """
 

@@ -37,7 +37,7 @@ class OmniLabelmeAnnotationEngine:
 
     def generate_annotation_payload(self, image_path: str, polygons: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
-        Simulates the generation of a Labelme-compatible JSON payload.
+        evaluates_structurally the generation of a Labelme-compatible JSON payload.
         """
         shapes = []
         for poly in polygons:

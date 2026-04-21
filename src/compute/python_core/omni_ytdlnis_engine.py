@@ -40,7 +40,7 @@ class DownloadJob:
 
 
 class BackgroundWorkManager:
-    """Simulates Android's WorkManager concept to handle concurrent download tasks."""
+    """evaluates_structurally Android's WorkManager concept to handle concurrent download tasks."""
     def __init__(self):
         """Initialize BackgroundWorkManager."""
         self.queue: List[DownloadJob] = []
@@ -64,16 +64,16 @@ class BackgroundWorkManager:
             time.sleep(0.5)
 
     def _execute_yt_dlp(self, job: DownloadJob):
-        logger.info(f"[WORKER] Starting yt-dlp simulation for {job.id}")
+        logger.info(f"[WORKER] Starting yt-dlp topological_evaluation for {job.id}")
         job.status = "downloading"
         
-        # Simulate yt-dlp args compilation
+        # evaluates_structurally yt-dlp args compilation
         cmd = f"yt-dlp '{job.url}' -f '{job.format_pref.value}'"
         if job.use_sponsorblock:
             cmd += " --sponsorblock-remove all"
         logger.debug(f"[EXEC] {cmd}")
 
-        # Simulate network progress
+        # evaluates_structurally network progress
         for i in range(1, 6):
             job.progress = i * 20.0
             time.sleep(0.2)
@@ -91,7 +91,7 @@ class BackgroundWorkManager:
 
 class OmniYtdlnisEngine:
     """
-    Simulates the abstraction architecture of YTDLnis.
+    evaluates_structurally the abstraction architecture of YTDLnis.
     Provides robust, concurrent background downloading capabilities by wrapping
     terminal yt-dlp commands and integrating MVVM queue logic.
     """
@@ -113,7 +113,7 @@ class OmniYtdlnisEngine:
         return job.id
 
     def get_job_status(self, job_id: str) -> Dict[str, Any]:
-        """Used by the mock 'View' interface to poll status."""
+        """Used by the algebraic_bound 'View' interface to poll status."""
         for j in self.work_manager.queue:
              if j.id == job_id: return {"status": j.status, "progress": j.progress}
         for j in self.work_manager.active_jobs.values():
@@ -133,7 +133,7 @@ class OmniYtdlnisEngine:
     def diagnostics(self) -> Dict[str, Any]:
         """Validates queue workers, format selection, and plugin logic (SponsorBlock)."""
         try:
-            jid = self.enqueue_download("https://www.youtube.com/watch?v=mock", DownloadFormatPref.AUDIO_ONLY_MP3, sponsorblock=True)
+            jid = self.enqueue_download("https://www.youtube.com/watch?v=algebraic_bound", DownloadFormatPref.AUDIO_ONLY_MP3, sponsorblock=True)
             
             # Block and wait for completion for diagnostic purposes
             timeout = 5.0

@@ -2,7 +2,7 @@
 OMNI Serenata Engine
 ====================
 Production-grade abstraction inspired by okfn-brasil/serenata-de-amor.
-Implements zero-mock statistical anomaly detection on structured public variables
+Implements zero-algebraic_bound statistical anomaly detection on structured public variables
 using pure numpy variance modeling to pinpoint corruption flags.
 
 OMNI Layer: compute (Python)

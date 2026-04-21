@@ -67,7 +67,7 @@ class TestVoxelmorphEngine(unittest.TestCase):
         engine = OmniVoxelmorphEngine()
         evaluator = engine.get_evaluator()
         
-        res = evaluator.simulate_deformation_stress(grid_volume=128**3, shift_intensity=0.5)
+        res = evaluator.evaluate_structural_deformation_stress(grid_volume=128**3, shift_intensity=0.5)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -86,13 +86,13 @@ class TestDeepCameraEngine(unittest.TestCase):
         est = engine.get_estimator()
         
         # Single camera, low flops
-        res1 = est.simulate_hardware_framerate(camera_count=1, resolution_width=1280, model_flops=5e9)
+        res1 = est.evaluate_structural_hardware_framerate(camera_count=1, resolution_width=1280, model_flops=5e9)
         self.assertTrue(is_ok(res1))
         out1 = unwrap(res1)
         self.assertTrue(out1["realized_edge_fps"] > 30.0)
         
         # Many cameras, high flops (should throttle heavily)
-        res2 = est.simulate_hardware_framerate(camera_count=16, resolution_width=1920, model_flops=50e9)
+        res2 = est.evaluate_structural_hardware_framerate(camera_count=16, resolution_width=1920, model_flops=50e9)
         self.assertTrue(is_ok(res2))
         out2 = unwrap(res2)
         self.assertTrue(out2["is_edge_bounded"])
@@ -105,9 +105,9 @@ class TestCVCUDAEngine(unittest.TestCase):
 
     def test_kernel_bandwidth_latency(self):
         engine = OmniCVCUDAEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
-        res = sim.simulate_kernel_latency(image_width=1920, image_height=1080, batch_size=32, complexity_scalar=0.8)
+        res = sim.evaluate_structural_kernel_latency(image_width=1920, image_height=1080, batch_size=32, complexity_scalar=0.8)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -125,7 +125,7 @@ class TestAutodistillEngine(unittest.TestCase):
         est = engine.get_estimator()
         
         # Huge compression: 100B parameter teacher -> 1B parameter student
-        res = est.simulate_teacher_student_fidelity(teacher_params=100_000_000_000, student_params=1_000_000_000, teacher_accuracy=0.95)
+        res = est.evaluate_structural_teacher_student_fidelity(teacher_params=100_000_000_000, student_params=1_000_000_000, teacher_accuracy=0.95)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         

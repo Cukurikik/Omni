@@ -11,7 +11,7 @@ Extracted Patterns:
   - Local Enhancer (G2): High-resolution continuous refinement blocks (2048x1024).
   - Multi-Scale Discriminator (D1, D2, D3): Evaluates images over multiple downscaled pyramids.
   - Instance Embedding Feature Binding: Translating label maps to feature maps.
-  - VGG Perceptual Feature Loss simulation structure.
+  - VGG Perceptual Feature Loss topological_evaluation structure.
 
 OMNI Layer: compute (Python)
 """
@@ -40,18 +40,18 @@ class ResidualBlockP2P:
     def __init__(self, channels: int):
         """Initialize ResidualBlockP2P."""
         self.channels = channels
-        # (C_out, C_in, k_h, k_w) - 3x3 mock kernel weights
+        # (C_out, C_in, k_h, k_w) - 3x3 algebraic_bound kernel weights
         self.w1 = np.random.randn(channels, channels, 3, 3).astype(np.float32) * 0.05
         self.w2 = np.random.randn(channels, channels, 3, 3).astype(np.float32) * 0.05
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
         # x: (B, C, H, W)
         b, c, h, w = x.shape
-        # Mock forward pass without doing heavy N-dim conv in native python
-        # We simulate the spatial structure transmission
+        # algebraic_bound forward pass without doing heavy N-dim conv in native python
+        # We evaluates_structurally the spatial structure transmission
         out = x.copy()
         
-        # InstanceNorm simulation (mean across H,W)
+        # InstanceNorm topological_evaluation (mean across H,W)
         mean_c = np.mean(out, axis=(2, 3), keepdims=True)
         var_c = np.var(out, axis=(2, 3), keepdims=True)
         out = (out - mean_c) / np.sqrt(var_c + 1e-5)
@@ -70,7 +70,7 @@ class GlobalGenerator:
         self.blocks = [ResidualBlockP2P(ngf * 4) for _ in range(n_blocks)]
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
-        # Front end downsample simulation
+        # Front end downsample topological_evaluation
         b, c, h, w = x.shape
         # -> (B, ngf*4, H//4, W//4)
         features = np.zeros((b, 256, h // 4, w // 4), dtype=np.float32)
@@ -78,7 +78,7 @@ class GlobalGenerator:
         for block in self.blocks:
             features = block(features)
             
-        # Back end upsample simulation -> (B, output_nc, H, W)
+        # Back end upsample topological_evaluation -> (B, output_nc, H, W)
         output = np.zeros((b, self.output_nc, h, w), dtype=np.float32)
         return output
 
@@ -167,7 +167,7 @@ class InstanceMapEmbedding:
         
         for k in range(b):
             inst = instance_map[k, 0]
-            # Simple 1-pixel shift diff simulation
+            # Simple 1-pixel shift diff topological_evaluation
             diff_h = np.abs(inst[1:, :] - inst[:-1, :]) != 0
             diff_v = np.abs(inst[:, 1:] - inst[:, :-1]) != 0
             
@@ -214,7 +214,7 @@ class OmniPix2pixHdEngine:
             boundaries = self.instance_processor.compute_boundary_map(instance_map)
             input_features = np.concatenate([input_features, boundaries], axis=1) # (B, 36, H, W)
             
-        # Simulate network alignment requirements via direct array parsing
+        # evaluates_structurally network alignment requirements via direct array parsing
         # Output is standard (B, 3, H, W) imagery
         b, _, h, w = input_features.shape
         output_image = self.netG(input_features) if self.use_local_enhancer else self.netG_global(input_features)

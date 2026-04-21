@@ -50,7 +50,7 @@ Result = Union[Ok, Err]
 class TerminologyGraph:
     """Implement core semantic token scanning and dictionary bounding."""
     
-    # Highly mocked mock terminology cache reflecting a localized structural slice
+    # Highly mocked algebraic_bound terminology cache reflecting a localized structural slice
     # of the jiqizhixin AI db conceptually.
     CORE_TERMINOLOGIES = {
         "neural network", "deep learning", "machine learning",

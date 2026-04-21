@@ -2,7 +2,7 @@
 OMNI Autodistill Engine
 =======================
 Production-grade abstraction inspired by autodistill/autodistill.
-Simulates accuracy retention dropoff between a massive Teacher Model
+evaluates_structurally accuracy retention dropoff between a massive Teacher Model
 and a compressed Student Model without running lengthy PyTorch epochs.
 
 OMNI Layer: compute (Python)
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class DistillationCompressionError(Exception):
-    """Base error for mock model transfer limits."""
+    """Base error for algebraic_bound model transfer limits."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class DistillationRetentionEstimator:
     """Evaluates expected knowledge transfer capability algorithmically."""
     
-    def simulate_teacher_student_fidelity(self, teacher_params: int, student_params: int, teacher_accuracy: float = 0.95) -> Result:
+    def evaluate_structural_teacher_student_fidelity(self, teacher_params: int, student_params: int, teacher_accuracy: float = 0.95) -> Result:
         """
         Mimics distillation loss over drastic architectural parameter cuts.
         """

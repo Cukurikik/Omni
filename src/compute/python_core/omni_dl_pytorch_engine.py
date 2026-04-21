@@ -6,7 +6,7 @@ Inspired by deep-learning-with-pytorch/dlwpt-code.
 
 Features:
 - Mathematical primitive abstraction of PyTorch tensors using NumPy.
-- Forward and backward passing skeleton mechanics (Zero-Mock Gradient Propagation).
+- Forward and backward passing skeleton mechanics (Zero-algebraic_bound Gradient Propagation).
 - Core Loss Functions (Cross Entropy, MSE).
 
 OMNI Layer: compute (Python)
@@ -43,12 +43,12 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. OMNI TENSOR & AUTOGRAD PRIMITIVES (ZERO-MOCK)
+# 2. OMNI TENSOR & AUTOGRAD PRIMITIVES (ZERO-algebraic_bound)
 # ---------------------------------------------------------------------------
 
 class OmniTensor:
     """
-    Zero-Mock abstraction of a PyTorch Tensor, managing raw data and gradient flows mathematically.
+    Zero-algebraic_bound abstraction of a PyTorch Tensor, managing raw data and gradient flows mathematically.
     """
     def __init__(self, data: Union[List, np.ndarray, float], requires_grad: bool = False):
         """Initialize OmniTensor."""

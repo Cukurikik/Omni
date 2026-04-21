@@ -11,7 +11,7 @@ Implements inference serving building blocks:
   - Request queue management with timeout
   - Health check and readiness probes
   - Load metrics (latency, throughput, queue depth)
-  - Model worker pool simulation
+  - Model worker pool topological_evaluation
   - Request validation and preprocessing pipeline
 
 OMNI Domain: compute/ (Python)
@@ -240,7 +240,7 @@ class OmniLitServeEngine:
         self, initial_state: np.ndarray, n_steps: int,
         W_proj: np.ndarray, temperature: float = 1.0, seed: int = 0
     ) -> Result:
-        """Simulate streaming token generation (autoregressive).
+        """evaluates_structurally streaming token generation (autoregressive).
 
         For each step, projects state through W_proj, samples next token,
         and yields incremental output.

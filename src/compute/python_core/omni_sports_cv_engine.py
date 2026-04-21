@@ -28,7 +28,7 @@ class Err(Result):
 
 class OmniSportsCVEngine:
     """
-    Abstracts Roboflow Sports tracking kinematics into pure zero-mock mathematical NumPy operations natively.
+    Abstracts Roboflow Sports tracking kinematics into pure zero-algebraic_bound mathematical NumPy operations natively.
     Calculates velocity and Euclidean spatial distances across frames.
     """
     def __init__(self):

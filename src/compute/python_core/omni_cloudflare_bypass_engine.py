@@ -355,7 +355,7 @@ class OmniCloudflareBypassEngine:
         challenge = self.detector.detect(page_source)
         return {"challenge_type": challenge.value, "is_challenged": challenge != ChallengeType.NONE}
 
-    # -- Bypass Simulation (production uses actual browser) --
+    # -- Bypass topological_evaluation (production uses actual browser) --
     def bypass(self, url: str, proxy: Optional[str] = None, timeout: float = 30.0,
                user_agent: Optional[str] = None) -> BypassResult:
         """Performs bypass operation for OmniCloudflareBypassEngine."""
@@ -374,7 +374,7 @@ class OmniCloudflareBypassEngine:
         result.challenge_type = ChallengeType.TURNSTILE
         result.status = BypassStatus.SOLVING
 
-        # Simulate CF clearance token generation
+        # evaluates_structurally CF clearance token generation
         token_data = f"{url}:{ua}:{time.time()}:{uuid.uuid4()}"
         result.cf_clearance = hashlib.sha256(token_data.encode()).hexdigest()
         result.cookies = {

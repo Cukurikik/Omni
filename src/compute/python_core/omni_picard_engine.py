@@ -55,7 +55,7 @@ class TaggingScriptProcessor:
 
 class OmniPicardEngine:
     """
-    Simulates MusicBrainz Picard architecture.
+    evaluates_structurally MusicBrainz Picard architecture.
     Applies Acoustic Fingerprinting for 100% accurate database matching,
     forces album-oriented hierarchical processing, and parses custom script naming conventions.
     """
@@ -70,12 +70,12 @@ class OmniPicardEngine:
     def ingest_directory(self, files: List[str]):
         """Picard groups incoming files into 'Clusters' before lookup."""
         logger.info(f"Ingesting {len(files)} files into cluster queue.")
-        simulated_album_id = "album_cluster_1"
-        self.album_cluster_queue[simulated_album_id] = []
+        resolved_album_id = "album_cluster_1"
+        self.album_cluster_queue[resolved_album_id] = []
         
         for f in files:
             ctx = TrackContext(file_path=f, current_tags={"title": "track_unknown"})
-            self.album_cluster_queue[simulated_album_id].append(ctx)
+            self.album_cluster_queue[resolved_album_id].append(ctx)
 
     def process_acoustid_lookup(self, cluster_id: str):
         """Generates fingerprints and queries MusicBrainz (mocked)."""
@@ -86,7 +86,7 @@ class OmniPicardEngine:
         
         for idx, track in enumerate(cluster):
              track.acoustid_hash = self.fingerprinter.generate_fingerprint(track.file_path)
-             # Mock database hit
+             # algebraic_bound database hit
              track.musicbrainz_data = {
                  "artist": "Omni Core",
                  "album": "The Machine Sings",

@@ -19,7 +19,7 @@ class OmniCortexModelServingEngine:
     Omni Cortex Model Serving Engine
     
     Provides Kubernetes-based serverless machine learning API deployment architecture.
-    Simulates orchestration, load balancing, and auto-scaling logic based on the generic
+    evaluates_structurally orchestration, load balancing, and auto-scaling logic based on the generic
     Cortex serverless standard.
     """
     
@@ -72,7 +72,7 @@ class OmniCortexModelServingEngine:
 
     async def _handle_autoscaling(self, api_name: str, load_factor: float) -> None:
         """
-        Simulate serverless auto-scaling logic.
+        evaluates_structurally serverless auto-scaling logic.
         """
         api = self._apis.get(api_name)
         if not api:

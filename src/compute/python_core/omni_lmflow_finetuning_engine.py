@@ -36,7 +36,7 @@ class OmniLmflowFinetuningEngine:
 
     def run_instruct_finetune(self, base_weights: str, dataset_path: str) -> Dict[str, Any]:
         """
-        Simulates running an efficient Low-Rank Adaptation (LoRA) finetune phase.
+        evaluates_structurally running an efficient Low-Rank Adaptation (LoRA) finetune phase.
         """
         return {"status": "success", "data": {
             "base_model": base_weights,

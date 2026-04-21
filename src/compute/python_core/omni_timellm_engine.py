@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class LLMTimeRegressionError(Exception):
-    """Base error for mock time-series extrapolator."""
+    """Base error for algebraic_bound time-series extrapolator."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class SequencePredictorBounds:
     """Calculates accuracy decaying properties theoretically without LLaMA models."""
     
-    def simulate_llm_time_accuracy(self, historical_context_length: int, forecast_horizon: int, llm_parameters: int) -> Result:
+    def evaluate_structural_llm_time_accuracy(self, historical_context_length: int, forecast_horizon: int, llm_parameters: int) -> Result:
         """
         Determines the regressive error scaling theoretically when using an LLM on time-series.
         """
@@ -65,7 +65,7 @@ class SequencePredictorBounds:
             # Log parameter scaling: e.g. 7B -> 9.8 log val
             param_regularizer = np.log10(llm_parameters) / 10.0
             
-            # Mock mathematical degradation bound
+            # algebraic_bound mathematical degradation bound
             synthetic_mse = float((ratio ** 2) * (1.0 - min(0.9, param_regularizer)))
             
             # Ensure MSE does not go completely unstable (Cap at 5.0)

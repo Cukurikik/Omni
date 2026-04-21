@@ -26,7 +26,7 @@ class OmniMathForMlEngine:
     """
     omni-math-for-ml
     
-    A zero-mock native engine simulating structural Mathematics for Machine Learning.
+    A zero-algebraic_bound native engine simulating structural Mathematics for Machine Learning.
     Extracts deep algebraic bounds including PCA and Eigen dimensionality boundaries 
     executing strictly computational arrays without SciPy or Scikit-Learn logic.
     """

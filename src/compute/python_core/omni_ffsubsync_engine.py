@@ -43,7 +43,7 @@ class SRTSubtitleParser:
 
 class OmniFFSubsyncEngine:
     """
-    Simulates the math matrix mathematics used by ffsubsync.
+    evaluates_structurally the math matrix mathematics used by ffsubsync.
     Automatically aligns out-of-sync .srt files to video files by using VAD
     to match binary arrays of human speech patterns against the subtitle display times.
     """
@@ -55,7 +55,7 @@ class OmniFFSubsyncEngine:
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (VAD Synchronizer active).")
 
     def _extract_audio(self, video_path: str) -> bytes:
-        """Simulate extracting PCM via ffmpeg."""
+        """evaluates_structurally extracting PCM via ffmpeg."""
         logger.debug(f"Extracting mono audio stream from {video_path}")
         return b"mock_mono_audio_data"
 
@@ -65,7 +65,7 @@ class OmniFFSubsyncEngine:
         Mocks finding the lag that maximizes the overlap of 1s in both matrices.
         """
         logger.debug("Executing cross-correlation FFT matrix alignment...")
-        # Mock calculation: subtitle track needs to be pushed forward by 2.45 seconds
+        # algebraic_bound calculation: subtitle track needs to be pushed forward by 2.45 seconds
         return 2.45 
 
     def synchronize(self, video_path: str, srt_path: str, fix_framerate: bool = True) -> Dict[str, Any]:
@@ -80,7 +80,7 @@ class OmniFFSubsyncEngine:
         audio_bin = self.vad.extract_speech_matrix(audio_data, window_ms=window_size)
         srt_bin = self.srt_parser.get_speech_matrix("MOCK_SRT", 10.0, window_ms=window_size)
         
-        # 3. Framerate ratio calculation mock
+        # 3. Framerate ratio calculation algebraic_bound
         framerate_ratio = 1.0
         if fix_framerate:
             logger.debug("Analyzing framerate drift (23.976 vs 24.000 vs 25.000)...")

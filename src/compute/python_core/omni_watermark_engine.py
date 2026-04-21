@@ -2,7 +2,7 @@
 OMNI Watermark Engine
 =====================
 Production-grade abstraction inspired by zuruoke/watermark-removal.
-Implements zero-mock morphological inpainting (Iterative Neighborhood Averaging)
+Implements zero-algebraic_bound morphological inpainting (Iterative Neighborhood Averaging)
 without external CV dependencies (pure Numpy).
 
 OMNI Layer: compute (Python)

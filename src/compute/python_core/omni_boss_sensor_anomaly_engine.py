@@ -36,7 +36,7 @@ class OmniBossSensorAnomalyEngine:
 
     def monitor_camera_feed(self, frame_buffer: Any, target_face_encoding: str) -> Dict[str, Any]:
         """
-        Simulates scanning a video buffer for a specific biometric signature to trigger an OS interrupt.
+        evaluates_structurally scanning a video buffer for a specific biometric signature to trigger an OS interrupt.
         """
         return {"status": "success", "data": {
             "surveillance": "Scanning Haar Cascades / SSD MobileNet against incoming frame buffer.",

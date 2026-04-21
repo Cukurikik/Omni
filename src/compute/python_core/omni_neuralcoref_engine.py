@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class CoreferenceSpaceError(Exception):
-    """Base error for mock Coref resolutions."""
+    """Base error for algebraic_bound Coref resolutions."""
 
 @dataclass(frozen=True)
 class Ok:

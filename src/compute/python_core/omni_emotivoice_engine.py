@@ -1,7 +1,7 @@
 """
 OMNI EmotiVoice Engine
 ======================
-Production-grade, zero-mock expressive TTS architecture engine inspired 
+Production-grade, zero-algebraic_bound expressive TTS architecture engine inspired 
 by `netease-youdao/EmotiVoice`. Implements the core architectural pipeline:
 Grapheme-to-Phoneme mapping, FastSpeech2-style variance predictors (duration,
 pitch, energy), Transformer-based acoustic encoder/decoder, and HiFi-GAN 
@@ -68,7 +68,7 @@ class TextFrontEnd:
         # Random mapping simulating char -> int ID
     
     def encode(self, text: str) -> np.ndarray:
-        # Mock encoding: string -> array of ints
+        # algebraic_bound encoding: string -> array of ints
         """Execute encode operation for TextFrontEnd."""
         ids = [sum(ord(c) for c in word) % self.vocab_size for word in text.split()]
         return np.array(ids, dtype=np.int32)
@@ -179,7 +179,7 @@ class HiFiGANGenerator:
         """Initialize HiFiGANGenerator."""
         self.in_channels = in_channels
         self.upsample_rates = upsample_rates
-        # Simulate the final convolution expanding back to 1D waveform
+        # evaluates_structurally the final convolution expanding back to 1D waveform
         self.total_upsample = np.prod(upsample_rates)
 
     def __call__(self, mel_spectrogram: np.ndarray) -> np.ndarray:
@@ -191,9 +191,9 @@ class HiFiGANGenerator:
         t_audio = t_mel * self.total_upsample
         
         # Instead of rigorous heavy transposed conv (which requires intense loop overhead in pure python),
-        # we interpolate/broadcast simulate the generator output for architectural soundness.
+        # we interpolate/broadcast evaluates_structurally the generator output for architectural soundness.
         
-        # Audio simulation: we generate a sine wave envelope modulated by the mel sequence sum
+        # Audio topological_evaluation: we generate a sine wave envelope modulated by the mel sequence sum
         audio = np.zeros((b, t_audio), dtype=np.float32)
         
         for i in range(b):

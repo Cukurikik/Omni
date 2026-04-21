@@ -7,7 +7,7 @@ Inspired by tensorspace-team/tensorspace.
 Features:
 - Dynamically extracts architectural boundaries and structural 3D topologies.
 - Computes Layer Geometry (Width, Height, Depth projection boundaries).
-- Maps raw neural configurations into web-ready layout vertices (Zero-Mock spatial math).
+- Maps raw neural configurations into web-ready layout vertices (Zero-algebraic_bound spatial math).
 
 OMNI Layer: compute (Python)
 """

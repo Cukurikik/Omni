@@ -2,7 +2,7 @@
 OMNI Semester 9 — Batch 9 Integration Test Suite
 ===================================================
 Comprehensive integration tests validating all 5 engines from
-Semester 9 Batch 9 for array math simulation, generative NLP abstraction,
+Semester 9 Batch 9 for array math topological_evaluation, generative NLP abstraction,
 and bounded numeric filtering.
 
 Engines Under Test:
@@ -87,7 +87,7 @@ try:
     suite.assert_true("ChatgptJs: diagnostics operational", diag.get("status") == "operational")
 
     res = engine.parse_and_append_prompt("Hello there my friend", "Greetings.")
-    suite.assert_ok("ChatgptJs: Routed matrix conversational simulation mappings natively", res)
+    suite.assert_ok("ChatgptJs: Routed matrix conversational topological_evaluation mappings natively", res)
     
     # Intentionally overflow bounds limit
     # The message is ~10 words, ~13 tokens, which > 10. The system pops old limits.

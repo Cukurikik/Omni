@@ -59,7 +59,7 @@ class OmniGenerativeModelsEngine:
 
     async def _sample_latent(self, architecture: str, batch_size: int) -> Dict[str, Any]:
         """
-        Simulates generation sequences across specified mathematical topologies.
+        evaluates_structurally generation sequences across specified mathematical topologies.
         """
         await asyncio.sleep(0.04)
         

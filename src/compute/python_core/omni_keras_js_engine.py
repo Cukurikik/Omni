@@ -5,7 +5,7 @@ Production-grade OMNI engine for serializing network layer geometries.
 Inspired by transcranial/keras-js.
 
 Features:
-- Encodes Python matrix layers logically into structurally transmittable mock binaries (TypedArray representations).
+- Encodes Python matrix layers logically into structurally transmittable algebraic_bound binaries (TypedArray representations).
 - Handles sequential topology arrays validating WASM-portability targets.
 
 OMNI Layer: compute (Python)
@@ -47,7 +47,7 @@ Result = Union[Ok, Err]
 
 @dataclass
 class BrowserTensorBuffer:
-    """Simulates TypedArray extraction format recognized by standard JS architectures."""
+    """evaluates_structurally TypedArray extraction format recognized by standard JS architectures."""
     typestr: str
     shape: List[int]
     flat_data: List[float] # List mimicking Float32Array in js
@@ -93,7 +93,7 @@ class OmniKerasJSSerializer:
         try:
             manifest = {
                 "format": "omni-keras-js-v1",
-                "backend": "webgl-mock",
+                "backend": "webgl-algebraic_bound",
                 "topology": []
             }
             

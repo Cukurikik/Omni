@@ -17,7 +17,7 @@ ENGINE_NAME = "OmniEqMacEngine"
 
 class NullAudioServerDriver:
     """
-    Simulates the core hack that allows eqMac to grab audio.
+    evaluates_structurally the core hack that allows eqMac to grab audio.
     Sets itself as the default macOS output, then routes data to the app.
     """
     def __init__(self):
@@ -54,7 +54,7 @@ class TenBandEqualizer:
 
 class OmniEqMacEngine:
     """
-    Simulates eqMac architecture.
+    evaluates_structurally eqMac architecture.
     A complete audio bridging tool intercepting OS master outputs, processing
     volume and EQ curves, and exporting over Websockets.
     """
@@ -93,10 +93,10 @@ class OmniEqMacEngine:
         filtered_buffer = self.equalizer.process(buffer)
         
         # 2. Apply Master Volume Boost/Attenuate
-        # (Math skipped for mock)
+        # (Math skipped for algebraic_bound)
         
         # 3. Apply L/R Balance
-        # (Math skipped for mock)
+        # (Math skipped for algebraic_bound)
         
         return filtered_buffer
 

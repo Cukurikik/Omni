@@ -9,7 +9,7 @@ class OmniDiffgramEngine:
     Domain: Training Data Platform
     Role: Parsing, validating, and formatting complex annotation models (bounding boxes, polygons).
     
-    Adheres to OMNI Zero-Mock and Monadic Error Handling Standards.
+    Adheres to OMNI Zero-algebraic_bound and Monadic Error Handling Standards.
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):

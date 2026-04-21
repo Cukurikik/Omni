@@ -160,13 +160,13 @@ class TestOmniFluxJLEngine(unittest.TestCase):
 
     def test_train_invalid_params(self):
         self.engine._is_initialized = True
-        self.engine._model = "mock"
+        self.engine._model = "algebraic_bound"
         res = self.engine.train_model(epochs=0)
         self.assertEqual(res["status"], "error")
 
     def test_export_empty_path(self):
         self.engine._is_initialized = True
-        self.engine._model = "mock"
+        self.engine._model = "algebraic_bound"
         res = self.engine.export_model_params(output_path="")
         self.assertEqual(res["status"], "error")
 

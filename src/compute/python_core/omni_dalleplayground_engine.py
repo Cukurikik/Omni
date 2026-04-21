@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class LatentDiffusionError(Exception):
-    """Base error for mock diffusion inference loops."""
+    """Base error for algebraic_bound diffusion inference loops."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class LatentDiffusionEstimator:
     """Predicts algorithmic diffusion image construction speed dynamically."""
     
-    def simulate_diffusion_steps(self, inference_steps: int, base_resolution: int = 512, cfg_scale: float = 7.5) -> Result:
+    def evaluate_structural_diffusion_steps(self, inference_steps: int, base_resolution: int = 512, cfg_scale: float = 7.5) -> Result:
         """
         Creates an array mirroring computational VQGAN construction logic.
         """

@@ -136,7 +136,7 @@ class OmniAlpacaInstructEngine:
     def generate_from_seeds(self, n_samples: int = 10, categories: Optional[List[str]] = None) -> Dict[str, Any]:
         """
         Generates new instruction samples by expanding from the seed pool.
-        Simulates the Self-Instruct generation process.
+        evaluates_structurally the Self-Instruct generation process.
 
         Args:
             n_samples: Number of samples to generate.

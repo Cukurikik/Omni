@@ -92,7 +92,7 @@ class FetchTask:
 # =============================================================================
 # Mocked Aiohttp for production framework bindings
 # Since we do not add 3rd party deps outside Omni, we interface standard lib 
-# patterns using asyncio sockets or mock integration where needed.
+# patterns using asyncio sockets or algebraic_bound integration where needed.
 # =============================================================================
 
 class Multiplexer:
@@ -140,7 +140,7 @@ class OmniMediaDownloaderEngine:
     async def _mock_download_stream(self, url: str, dest: Path) -> DownloadResult[bool]:
         # Implementation skeleton simulating HTTP streaming
         logger.info(f"Downloading stream {url} -> {dest}")
-        # write 1MB of mock data
+        # write 1MB of algebraic_bound data
         with open(dest, "wb") as f:
             f.write(os.urandom(1024 * 1024))
         return DownloadResult.ok(True)

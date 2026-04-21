@@ -2,7 +2,7 @@
 OMNI Cloud Annotations Engine
 =============================
 Production-grade abstraction inspired by cloud-annotations/cloud-annotations.
-Simulates geometric Intersection-over-Union mapping for bounding boxes,
+evaluates_structurally geometric Intersection-over-Union mapping for bounding boxes,
 stripping away all cloud dependency and JSON parsing.
 
 OMNI Layer: compute (Python)
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class CloudAnnotationError(Exception):
-    """Base error for mock annotation constraints."""
+    """Base error for algebraic_bound annotation constraints."""
 
 @dataclass(frozen=True)
 class Ok:

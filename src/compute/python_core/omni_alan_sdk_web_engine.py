@@ -6,7 +6,7 @@ Inspired by alan-ai/alan-sdk-web.
 
 Features:
 - State Machine representing Web Voice Assistant SDK.
-- Event dispatch simulation (TTS, STT, Visual State mapping).
+- Event dispatch topological_evaluation (TTS, STT, Visual State mapping).
 - Strict lifecycle flow without external web-socket constraints natively mocked.
 
 OMNI Layer: compute (Python)
@@ -103,7 +103,7 @@ class AlanProtocolMock:
         if self.conn_state != ConnectionState.AUTHORIZED:
              return Err("Unauthorized client interaction attempt.")
         
-        # Lifecycle simulation
+        # Lifecycle topological_evaluation
         self.btn_state = ButtonState.LISTEN
         self._log("state_listen")
         

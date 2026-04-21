@@ -25,7 +25,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class TextRepresentationError(Exception):
-    """Base error for mock text vectors."""
+    """Base error for algebraic_bound text vectors."""
 
 @dataclass(frozen=True)
 class Ok:

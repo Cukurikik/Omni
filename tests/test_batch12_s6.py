@@ -9,7 +9,7 @@ Validates all 5 Batch 12 engines for production-grade correctness:
   5. OmniSUPIREngine          — Image super-resolution (degradation, diffusion, metrics)
 
 Standards Enforced:
-  - Zero-Mock: all computations use real NumPy primitives
+  - Zero-algebraic_bound: all computations use real NumPy primitives
   - Monadic error handling: Ok/Err propagation, no try/catch
   - diagnostics() health endpoint on every engine
 """

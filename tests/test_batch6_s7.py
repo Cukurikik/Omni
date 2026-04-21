@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 OMNI SEMESTER 7 — BATCH 6 INTEGRATION TESTS
-Validating 6 New Omni Engines against Zero-Mock Monadic constraints.
+Validating 6 New Omni Engines against Zero-algebraic_bound Monadic constraints.
 Contains 60 comprehensive unit tests (10 per engine).
 """
 
@@ -385,19 +385,19 @@ class TestBatch6Semester7(unittest.TestCase):
     def test_openvino_inference_success(self):
         eng = self.setUp_openvino()
         comp = eng.compile_ir_model("resnet_ov", "NPU")
-        res = eng.simulate_inference(comp["compiled_id"], batch_size=4)
+        res = eng.evaluate_structural_inference(comp["compiled_id"], batch_size=4)
         self.assertEqual(res["status"], "success")
         self.assertEqual(res["inference_report"]["batch_size"], 4)
 
     def test_openvino_inference_invalid_id(self):
         eng = self.setUp_openvino()
-        res = eng.simulate_inference("missing")
+        res = eng.evaluate_structural_inference("missing")
         self.assertEqual(res["status"], "error")
 
     def test_openvino_inference_zero_batch(self):
         eng = self.setUp_openvino()
         comp = eng.compile_ir_model("resnet_ov", "CPU")
-        res = eng.simulate_inference(comp["compiled_id"], batch_size=0)
+        res = eng.evaluate_structural_inference(comp["compiled_id"], batch_size=0)
         self.assertEqual(res["status"], "error")
 
     def test_openvino_inference_quantized_speedup(self):
@@ -405,9 +405,9 @@ class TestBatch6Semester7(unittest.TestCase):
         comp = eng.compile_ir_model("resnet_ov", "CPU")
         cid = comp["compiled_id"]
         
-        res1 = eng.simulate_inference(cid, batch_size=1)
+        res1 = eng.evaluate_structural_inference(cid, batch_size=1)
         eng.quantize_to_int8(cid)
-        res2 = eng.simulate_inference(cid, batch_size=1)
+        res2 = eng.evaluate_structural_inference(cid, batch_size=1)
         
         self.assertEqual(res1["status"], "success")
         self.assertEqual(res2["status"], "success")

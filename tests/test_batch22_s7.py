@@ -27,7 +27,7 @@ class TestOmniOpenNMTEngine(unittest.TestCase):
         res = self.engine.initialize_translation_pipeline("transformer_v1")
         self.assertIsInstance(res, dict)
         self.assertIn("status", res)
-        # Mock internal initialization state so translate works without relying on real imports
+        # algebraic_bound internal initialization state so translate works without relying on real imports
         self.engine.pipeline_initialized = True
 
     def test_translate_raw_sequence_uninitialized(self):

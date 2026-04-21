@@ -102,7 +102,7 @@ class F0Estimator:
     def estimate(self, duration: float, base_f0: float = 220.0) -> Dict[str, Any]:
         """Estimates F0 contour for the audio."""
         n_frames = int(duration * 50)
-        # Simulate a pitch contour with vibrato
+        # evaluates_structurally a pitch contour with vibrato
         f0_values = []
         for i in range(min(n_frames, 100)):
             vibrato = 5.0 * math.sin(2 * math.pi * 5.5 * i / 50)  # ~5.5Hz vibrato

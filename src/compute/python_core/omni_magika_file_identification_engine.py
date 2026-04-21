@@ -37,13 +37,13 @@ class OmniMagikaFileIdentificationEngine:
 
     def slice_byte_features(self, filepath: str) -> str:
         """
-        Simulates parsing a file into the start/end 1024-byte representations.
+        evaluates_structurally parsing a file into the start/end 1024-byte representations.
         """
         return f"FeatureVector(start_1024b + end_1024b)[{filepath}]"
 
     def predict_file_type(self, filepath: str) -> Dict[str, Any]:
         """
-        Simulates the model inference step via ONNX Runtime to identify the file format.
+        evaluates_structurally the model inference step via ONNX Runtime to identify the file format.
         """
         # Mocking the inference
         features = self.slice_byte_features(filepath)

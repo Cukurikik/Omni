@@ -8,7 +8,7 @@ Validates all 5 NEW engines:
   4. OmniLazyLLMEngine           (LazyAGI/LazyLLM)
   5. OmniScenicEngine            (google-research/scenic)
 
-Tests: 50 | Zero-mock | Pure NumPy
+Tests: 50 | Zero-algebraic_bound | Pure NumPy
 """
 import unittest
 import math

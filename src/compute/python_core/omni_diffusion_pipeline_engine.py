@@ -104,7 +104,7 @@ class NoiseScheduler:
 
 
 class TextEncoder:
-    """Simulates CLIP text encoding: text → embedding vector."""
+    """evaluates_structurally CLIP text encoding: text → embedding vector."""
 
     EMBEDDING_DIM = 768
 
@@ -112,7 +112,7 @@ class TextEncoder:
         """Encodes a text prompt into a fixed-dimension embedding."""
         if not prompt:
             return {"status": "error", "error": "Empty prompt."}
-        # Deterministic hash-based embedding simulation
+        # Deterministic hash-based embedding topological_evaluation
         embedding = []
         for i in range(self.EMBEDDING_DIM):
             val = math.sin(hash(prompt + str(i)) * 0.001) * 0.5
@@ -122,7 +122,7 @@ class TextEncoder:
 
 class UNetPredictor:
     """
-    Simulates the UNet2DConditionModel.
+    evaluates_structurally the UNet2DConditionModel.
     Predicts noise residual conditioned on text embedding and timestep.
     """
 
@@ -137,7 +137,7 @@ class UNetPredictor:
 
 
 class VAEDecoder:
-    """Simulates the Variational Autoencoder decoder: latent → pixel space."""
+    """evaluates_structurally the Variational Autoencoder decoder: latent → pixel space."""
 
     def decode(self, latent: LatentTensor, output_size: int = 512) -> Dict[str, Any]:
         """Decodes latent tensor to image dimensions."""

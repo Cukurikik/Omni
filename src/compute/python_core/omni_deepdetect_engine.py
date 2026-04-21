@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class InferenceServerThroughputError(Exception):
-    """Base error for mock ML inference server operations."""
+    """Base error for algebraic_bound ML inference server operations."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class DeepLearningThroughputMapper:
     """Predicts maximum queries per second utilizing parallel limitations."""
     
-    def simulate_inference_qps(self, parallel_workers: int, single_inference_ms: float, payload_mb: float) -> Result:
+    def evaluate_structural_inference_qps(self, parallel_workers: int, single_inference_ms: float, payload_mb: float) -> Result:
         """
         Determines theoretical capacity bounds of deep learning backends.
         """
@@ -72,14 +72,14 @@ class DeepLearningThroughputMapper:
             total_effective_latency_ms = effective_ms_per_request + network_penalty_ms
             
             # QPS = 1000ms / latency
-            simulated_qps = 1000.0 / total_effective_latency_ms
+            resolved_qps = 1000.0 / total_effective_latency_ms
             
             return Ok({
                 "nodes": parallel_workers,
                 "base_latency_ms": single_inference_ms,
                 "payload_size_mb": payload_mb,
                 "theoretical_amdahl_speedup": round(speedup, 2),
-                "predicted_max_qps": round(simulated_qps, 2),
+                "predicted_max_qps": round(resolved_qps, 2),
                 "is_server_simulated": True
             })
             

@@ -47,7 +47,7 @@ class TestTFOnSparkEngine(unittest.TestCase):
         data = np.arange(10, dtype=np.float64) # 10 elements
         # 10 / 4 executors = sizes [3, 3, 2, 2]
         
-        res = balancer.simulate_map_reduce_reduction(data, map_factor=2.0)
+        res = balancer.evaluate_structural_map_reduce_reduction(data, map_factor=2.0)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -90,7 +90,7 @@ class TestSwanMonitorEngine(unittest.TestCase):
         engine = OmniSwanMonitorEngine()
         tracker = engine.get_tracker()
         
-        # Simulate loss dropping and then stabilizing
+        # evaluates_structurally loss dropping and then stabilizing
         tracker.log_metric("loss", 1.0)
         tracker.log_metric("loss", 0.5)
         tracker.log_metric("loss", 0.2)

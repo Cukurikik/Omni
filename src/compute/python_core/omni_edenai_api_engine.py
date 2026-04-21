@@ -23,7 +23,7 @@ class OmniEdenAiApiEngine:
         }
 
     def predict_multiplex_schema_bounds(self, payload_length_chars: int, nested_providers: int, response_depth: int) -> Dict[str, Any]:
-        """Monadically simulates serialization/deserialization load mapping logic exactly natively."""
+        """Monadically evaluates_structurally serialization/deserialization load mapping logic exactly natively."""
         if not self.is_active:
             return {"status": "error", "message": "Engine inactive"}
             

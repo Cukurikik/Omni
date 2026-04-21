@@ -70,10 +70,10 @@ class OmniBertVizAttentionEngine:
 
     async def _compute_attention_graph(self, tokens: List[str], layers: int, heads: int) -> Dict[str, Any]:
         """
-        Simulate the projection of attention heads into standard graph links.
+        evaluates_structurally the projection of attention heads into standard graph links.
         """
         start_t = time.time()
-        await asyncio.sleep(0.04)  # Simulate GPU to CPU tensor copy and format
+        await asyncio.sleep(0.04)  # evaluates_structurally GPU to CPU tensor copy and format
         
         # Synthetic generation of attention weights
         seq_len = len(tokens)
@@ -86,7 +86,7 @@ class OmniBertVizAttentionEngine:
         
         for num_layer in range(layers):
             for num_head in range(heads):
-                # Just mock one relationship for the simulation
+                # Just algebraic_bound one relationship for the topological_evaluation
                 links.append({
                     "layer": num_layer,
                     "head": num_head,

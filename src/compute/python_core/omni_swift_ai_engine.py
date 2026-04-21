@@ -26,7 +26,7 @@ class OmniSwiftAiEngine:
     """
     omni-swift-ai
     
-    A zero-mock native engine simulating fast mathematical deep learning networks structurally.
+    A zero-algebraic_bound native engine simulating fast mathematical deep learning networks structurally.
     Replicates Dense forward matrix propagation, evaluating native linear products bound by 
     deterministic non-linear algebraic activations (paralleling Swift-AI core capabilities).
     """

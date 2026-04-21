@@ -1,7 +1,7 @@
 """
 OMNI SEMESTER 9 - BATCH 12
 Engine: Featureform Virtual Feature Store
-Description: Zero-Mock production engine abstracting feature group registration
+Description: Zero-algebraic_bound production engine abstracting feature group registration
 and virtual feature store state tracking using pure analytical mathematics.
 """
 
@@ -36,8 +36,8 @@ class VirtualFeatureMathematics:
         return feature_hash
 
     @staticmethod
-    def simulate_distributed_lookup(hash_value: float, index_range: int) -> int:
-        """Simulates distributed deterministic routing for feature memory."""
+    def evaluate_structural_distributed_lookup(hash_value: float, index_range: int) -> int:
+        """evaluates_structurally distributed deterministic routing for feature memory."""
         # Maps continuous hash into discrete lookup index
         normalized = np.abs(np.sin(hash_value * np.e))
         return int(np.floor(normalized * index_range))
@@ -66,7 +66,7 @@ class OmniFeatureformStoreEngine:
                 return Err(f"Feature group '{group_name}' is already registered.")
                 
             feature_hash = VirtualFeatureMathematics.calculate_feature_hash(group_name, schema_version, dimension)
-            routing_id = VirtualFeatureMathematics.simulate_distributed_lookup(feature_hash, 1024)
+            routing_id = VirtualFeatureMathematics.evaluate_structural_distributed_lookup(feature_hash, 1024)
             
             self.feature_registry[group_name] = {
                 "schema": schema_version,

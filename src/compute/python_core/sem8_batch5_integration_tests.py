@@ -74,7 +74,7 @@ class TestSem8Batch5Engines(unittest.IsolatedAsyncioTestCase):
     async def test_evidently_process(self):
         engine = OmniEvidentlyAIEngine()
         await engine.initialize()
-        res = await engine.process({"feature_count": 20, "simulated_variance": 0.3})
+        res = await engine.process({"feature_count": 20, "resolved_variance": 0.3})
         self.assertEqual(res["status"], "success")
         data = res["data"]["drift_report"]
         self.assertTrue(data["overall_drift_detected"])

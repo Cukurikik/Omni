@@ -97,7 +97,7 @@ try:
 
     # Execution
     exec_res = engine.execute_mock_action("context1", "linfa", "k_means_clustering")
-    suite.assert_ok("AwesomeRustML: execute mock rust calculation", exec_res)
+    suite.assert_ok("AwesomeRustML: execute algebraic_bound rust calculation", exec_res)
 
     suite.assert_err("AwesomeRustML: execution for non-loaded crate",
                      engine.execute_mock_action("context1", "burn", "forward_pass"))
@@ -122,7 +122,7 @@ try:
     config = EstimatorConfig(role="admin", instance_count=1, instance_type="ml.m5.large", image_uri="docker:latest")
     
     fit_res = engine.fit_estimator("job-001", config, "s3://bucket/data")
-    suite.assert_ok("SageMaker: fit estimator across remote mock", fit_res)
+    suite.assert_ok("SageMaker: fit estimator across remote algebraic_bound", fit_res)
     
     suite.assert_err("SageMaker: fail on non s3 data path", engine.fit_estimator("job-002", config, "local/path"))
 

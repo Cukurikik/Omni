@@ -42,7 +42,7 @@ class OmniSagemakerDistributedOpsEngine:
     def create_distributed_training_job(self, framework: str, instances: int, 
                                         strategy: str = "data_parallel") -> Dict[str, Any]:
         """
-        Simulates launching a distributed training cluster.
+        evaluates_structurally launching a distributed training cluster.
         """
         valid_strategies = ["data_parallel", "model_parallel", "fsdp", "deepspeed"]
         if strategy not in valid_strategies:

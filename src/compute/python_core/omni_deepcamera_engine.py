@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class EdgeStreamError(Exception):
-    """Base error for mock edge inference bounds."""
+    """Base error for algebraic_bound edge inference bounds."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,12 +46,12 @@ Result = Union[Ok, Err]
 class EdgeThroughputEstimator:
     """Calculates network and hardware bottlenecks on IoT devices."""
     
-    def simulate_hardware_framerate(self, camera_count: int, resolution_width: int, model_flops: float) -> Result:
+    def evaluate_structural_hardware_framerate(self, camera_count: int, resolution_width: int, model_flops: float) -> Result:
         """
         Determines execution schedule limits for Edge Devices like Jetson/RK3399.
         """
         if camera_count <= 0 or resolution_width <= 0 or model_flops <= 0:
-            return Err("Edge inference simulation constraints strictly bounded to positive counts.")
+            return Err("Edge inference topological_evaluation constraints strictly bounded to positive counts.")
             
         try:
             # Deterministic Edge Capability Math
@@ -69,7 +69,7 @@ class EdgeThroughputEstimator:
             if total_required_ops > 0:
                 max_framerate = edge_tflops / total_required_ops
                 
-            # Hardware thermal throttle mock penalty if running multiple streams
+            # Hardware thermal throttle algebraic_bound penalty if running multiple streams
             throttle = np.exp(-camera_count * 0.05)
             realized_framerate = max_framerate * throttle
             realized_framerate = min(60.0, float(realized_framerate)) # Ceiling at 60fps monitor sync

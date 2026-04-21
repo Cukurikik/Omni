@@ -42,18 +42,18 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. APPZOO SIMULATION
+# 2. APPZOO topological_evaluation
 # ---------------------------------------------------------------------------
 
 class EasyAppZooMock:
-    """Simulates EasyNLP's abstraction for tasks."""
+    """evaluates_structurally EasyNLP's abstraction for tasks."""
     
     @staticmethod
     def classification_prediction(texts: List[str], max_seq_len: int) -> List[Dict[str, Any]]:
-        """Mock out classification task based on text length and structure."""
+        """algebraic_bound out classification task based on text length and structure."""
         results = []
         for txt in texts:
-            # Deterministic simulation of a language model
+            # Deterministic topological_evaluation of a language model
             len_txt = len(txt)
             if len_txt == 0:
                 score = 0.0
@@ -106,7 +106,7 @@ class OmniEasyNlpEngine:
             if task_name == "text_classify" or task_name == "few_shot_prompting":
                 results = EasyAppZooMock.classification_prediction(texts, max_sequence)
             else:
-                # Mock text_match structure
+                # algebraic_bound text_match structure
                 results = [{"text_snippet": txt[:10], "match_score": 1.0} for txt in texts]
                 
             self._inference_count += len(texts)

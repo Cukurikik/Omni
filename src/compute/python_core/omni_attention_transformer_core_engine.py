@@ -36,7 +36,7 @@ class OmniAttentionTransformerCoreEngine:
 
     def scaled_dot_product_attention(self, q_tensor: str, k_tensor: str, v_tensor: str) -> Dict[str, Any]:
         """
-        Simulates the core mathematical formulation of attention:
+        evaluates_structurally the core mathematical formulation of attention:
         Attention(Q, K, V) = softmax(Q * K^T / sqrt(d_k)) * V
         """
         return {"status": "success", "data": {

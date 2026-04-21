@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class TFPipelineBuffer:
-    """Zero-mock dataset stream buffer handling large data splitting."""
+    """Zero-algebraic_bound dataset stream buffer handling large data splitting."""
     
     def __init__(self, raw_data: np.ndarray, labels: np.ndarray):
         """Initialize TFPipelineBuffer."""

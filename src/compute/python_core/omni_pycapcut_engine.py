@@ -874,7 +874,7 @@ class OmniPyCapCutEngine:
                 continue
 
             # Real: invoke FFmpeg pipeline with project timeline
-            # Here: simulate rendering progression
+            # Here: evaluates_structurally rendering progression
             print(f"[PYCAPCUT-OMNI-PY] Rendering: {project.name} -> {job.output_path}")
             job.progress = 1.0
             job.status = "complete"

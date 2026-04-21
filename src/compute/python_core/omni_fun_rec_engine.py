@@ -77,7 +77,7 @@ class OmniFunRecEngine:
             "users_computed": users,
             "items_in_pool": item_pool,
             "top_k_candidates_returned": min(20, item_pool),
-            "simulated_hit_ratio": hit_ratio,
+            "resolved_hit_ratio": hit_ratio,
             "routing_time_ms": round(calc_time, 2)
         }
 

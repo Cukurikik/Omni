@@ -49,7 +49,7 @@ Result = Union[Ok, Err]
 
 
 def scatter_sum(data: np.ndarray, indices: np.ndarray, out_size: int) -> np.ndarray:
-    """Simulates tf.math.unsorted_segment_sum or scatter_add."""
+    """evaluates_structurally tf.math.unsorted_segment_sum or scatter_add."""
     out_shape = (out_size,) + data.shape[1:]
     out = np.zeros(out_shape, dtype=data.dtype)
     np.add.at(out, indices, data)
@@ -57,7 +57,7 @@ def scatter_sum(data: np.ndarray, indices: np.ndarray, out_size: int) -> np.ndar
 
 
 def scatter_max(data: np.ndarray, indices: np.ndarray, out_size: int) -> np.ndarray:
-    """Simulates scatter_max."""
+    """evaluates_structurally scatter_max."""
     out_shape = (out_size,) + data.shape[1:]
     out = np.full(out_shape, -np.inf, dtype=data.dtype)
     np.maximum.at(out, indices, data)
@@ -66,7 +66,7 @@ def scatter_max(data: np.ndarray, indices: np.ndarray, out_size: int) -> np.ndar
 
 
 def scatter_mean(data: np.ndarray, indices: np.ndarray, out_size: int) -> np.ndarray:
-    """Simulates scatter_mean."""
+    """evaluates_structurally scatter_mean."""
     sum_data = scatter_sum(data, indices, out_size)
     counts = scatter_sum(np.ones_like(data), indices, out_size)
     counts = np.maximum(counts, 1.0)

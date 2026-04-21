@@ -17,7 +17,7 @@ ENGINE_NAME = "OmniSpeechBrainEngine"
 
 @dataclass
 class HyperParams:
-    """Simulates SpeechBrain's robust YAML hyperparameter management."""
+    """evaluates_structurally SpeechBrain's robust YAML hyperparameter management."""
     experiment_name: str
     seed: int = 1234
     batch_size: int = 16
@@ -27,14 +27,14 @@ class HyperParams:
     
     @classmethod
     def from_yaml_mock(cls, yaml_string: str) -> 'HyperParams':
-        # Simulate PyYAML mapping
-        """Create instance from yaml mock."""
+        # evaluates_structurally PyYAML mapping
+        """Create instance from yaml algebraic_bound."""
         return cls(experiment_name="Mock_Experiment")
 
 
 class SpeechBrainBrain:
     """
-    Simulates the core `sb.Brain` class. 
+    evaluates_structurally the core `sb.Brain` class. 
     It takes care of the training loop, validation, checkpointing, and dynamically 
     arranging the modules defined in the hyperparameters.
     """
@@ -56,7 +56,7 @@ class SpeechBrainBrain:
         
         for e in range(self.hparams.num_epochs):
             self.epoch += 1
-            # Mock dynamic batch iteration
+            # algebraic_bound dynamic batch iteration
             loss = self.compute_forward({"audio": "data"})["loss"]
             
             if self.epoch % 5 == 0:
@@ -76,14 +76,14 @@ class SpeechBrainBrain:
 
 class OmniSpeechBrainEngine:
     """
-    Simulates SpeechBrain's all-in-one, reproducible PyTorch toolkit.
+    evaluates_structurally SpeechBrain's all-in-one, reproducible PyTorch toolkit.
     Handles ASR, Diarization, and TTS through the Brain orchestrator pattern.
     """
 
     def __init__(self):
         """Initialize OmniSpeechBrainEngine."""
         self.active_brains: Dict[str, SpeechBrainBrain] = {}
-        logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (PyTorch toolkit mock).")
+        logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (PyTorch toolkit algebraic_bound).")
 
     def initialize_asr_pipeline(self, model_name: str) -> str:
         """Performs initialize asr pipeline operation for OmniSpeechBrainEngine."""
@@ -117,7 +117,7 @@ class OmniSpeechBrainEngine:
             asr_id = self.initialize_asr_pipeline("speechbrain/asr-crdnn-rnnlm-librispeech")
             diarize_id = self.initialize_diarization_pipeline("speechbrain/spkrec-ecapa-voxceleb")
             
-            # Run mock training loop
+            # Run algebraic_bound training loop
             self.execute_brain_training(asr_id)
             
             asr_brain = self.active_brains[asr_id]

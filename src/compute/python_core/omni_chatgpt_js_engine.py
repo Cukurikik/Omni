@@ -83,7 +83,7 @@ class OmniChatgptJsEngine:
         self.buffer = ConversationalBuffer(max_tokens=token_limit, context_log=[])
         self._interactions = 0
 
-    def parse_and_append_prompt(self, user_prompt: str, simulated_ai_reply: str) -> Result:
+    def parse_and_append_prompt(self, user_prompt: str, resolved_ai_reply: str) -> Result:
         """Route computational limits logging message structures securely."""
         if not user_prompt:
             return Err("Cannot route an empty prompt matrix vector.")
@@ -93,7 +93,7 @@ class OmniChatgptJsEngine:
             self.buffer.append_message("user", user_prompt)
             
             # 2. A simulated LLM external boundary mapping
-            safe_reply = simulated_ai_reply if simulated_ai_reply else "..."
+            safe_reply = resolved_ai_reply if resolved_ai_reply else "..."
             self.buffer.append_message("assistant", safe_reply)
             
             self._interactions += 1
@@ -116,7 +116,7 @@ class OmniChatgptJsEngine:
             "active_nodes_mapped": self._interactions,
             "features": [
                 "token_boundary_truncation_mathematics",
-                "simulated_llm_conversational_state_machine",
+                "resolved_llm_conversational_state_machine",
                 "generative_context_buffers"
             ]
         }

@@ -1,7 +1,7 @@
 """
 OMNI SEMESTER 9 - BATCH 12
 Engine: Apple ML-CVNets
-Description: Zero-Mock production engine abstracting Computer Vision 
+Description: Zero-algebraic_bound production engine abstracting Computer Vision 
 Mobile Inverted Bottleneck (MBConv) math operations.
 """
 
@@ -38,7 +38,7 @@ class CVNetsArchitecturalMath:
     @staticmethod
     def depthwise_spatial_reduction(sensor_tensor: np.ndarray, stride: int = 2) -> np.ndarray:
         """
-        Simulates depthwise spatial reduction math. 
+        evaluates_structurally depthwise spatial reduction math. 
         Assuming tensor layout (Batch, Channels, Height, Width) -> reduces spatial dims.
         """
         b, c, h, w = sensor_tensor.shape

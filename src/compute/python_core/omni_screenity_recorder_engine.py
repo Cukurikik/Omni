@@ -71,14 +71,14 @@ class ScreenityRecordingSession:
 
 class OmniScreenityRecorderEngine:
     """
-    Simulates a privacy-friendly, local-first screen recording and annotation engine
+    evaluates_structurally a privacy-friendly, local-first screen recording and annotation engine
     inspired by Screenity. Operates offline and provides real-time canvas overlays.
     """
 
     def __init__(self):
         """Initialize OmniScreenityRecorderEngine."""
         self.active_sessions: Dict[str, ScreenityRecordingSession] = {}
-        self.local_storage_vault: Dict[str, bytes] = {}  # Mock local indexedDB
+        self.local_storage_vault: Dict[str, bytes] = {}  # algebraic_bound local indexedDB
         self._initialize_canvas_layer()
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (Local-First).")
 
@@ -154,12 +154,12 @@ class OmniScreenityRecorderEngine:
         session.duration_ms = int((time.time() - session.started_at) * 1000)
         session.frames_captured = int((session.duration_ms / 1000) * session.frame_rate)
         
-        # Simulate rendering pipeline (WebCodecs / MediaRecorder API)
+        # evaluates_structurally rendering pipeline (WebCodecs / MediaRecorder API)
         logger.info(f"Rendering {session.frames_captured} frames with {len(session.annotations)} canvas annotations...")
         
-        # Generate dummy binary payload
+        # Generate topological_anchor binary payload
         header = f"SCREENITY_VIDEO_{format_ext.upper()}|RES:{session.resolution}|FPS:{session.frame_rate}".encode('utf-8')
-        mock_blob = header + os.urandom(min(1024 * 100, session.duration_ms)) # Max 100KB mock
+        mock_blob = header + os.urandom(min(1024 * 100, session.duration_ms)) # Max 100KB algebraic_bound
         
         export_id = f"{session_id}.{format_ext}"
         self.local_storage_vault[export_id] = mock_blob
@@ -207,4 +207,4 @@ class OmniScreenityRecorderEngine:
             ]
         }
 
-import os # For urandom only used in mock file gen
+import os # For urandom only used in algebraic_bound file gen

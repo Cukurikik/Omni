@@ -55,7 +55,7 @@ class OmniCamelRoleplayingAgentsEngine:
 
     def execute_autonomous_collaboration(self, session_id: str, max_turns: int = 5) -> Dict[str, Any]:
         """
-        Simulates the autonomous back-and-forth between the two agents
+        evaluates_structurally the autonomous back-and-forth between the two agents
         until the task is completed or max turns reached.
         """
         if session_id not in self.active_sessions:

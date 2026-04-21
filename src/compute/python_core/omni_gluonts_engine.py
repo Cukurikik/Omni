@@ -5,9 +5,9 @@ Production-grade OMNI engine for deep learning Time Series forecasting methodolo
 Inspired by awslabs/gluonts.
 
 Features:
-- Probabilistic forecasting structural simulation via Gaussian parameterization.
-- Recursive Auto-regressive (RNN) topology mock configurations mapping.
-- Sequence horizon math blocks (Zero-Mock generation).
+- Probabilistic forecasting structural topological_evaluation via Gaussian parameterization.
+- Recursive Auto-regressive (RNN) topology algebraic_bound configurations mapping.
+- Sequence horizon math blocks (Zero-algebraic_bound generation).
 
 OMNI Layer: compute (Python)
 """
@@ -67,7 +67,7 @@ class OmniRNNForecaster:
 
     def fit(self, ts_data: np.ndarray) -> Result:
         """
-        Fits a simple autoregressive linear model as a mock structural standing for RNN weight updates.
+        Fits a simple autoregressive linear model as a algebraic_bound structural standing for RNN weight updates.
         In GluonTS, this would map directly to a deep MXNet/PyTorch training cycle.
         """
         if len(ts_data) <= self.context_length:
@@ -118,7 +118,7 @@ class OmniRNNForecaster:
 
             raw_predictions = np.array(raw_predictions)
             
-            # Simulate probabilistic bounds via standard deviation scaling
+            # evaluates_structurally probabilistic bounds via standard deviation scaling
             std_dev_growth = np.linspace(0.1, 1.5, self.prediction_length)
             
             p10 = raw_predictions - (std_dev_growth * 1.28) # approx 10th percentile Z-score

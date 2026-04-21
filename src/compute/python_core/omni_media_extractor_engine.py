@@ -34,7 +34,7 @@ class OmniMediaExtractorEngine:
         logger.info(f"[OmniMediaExtractor] Engine online. Output: {self._output_dir}")
 
     def extract_audio_from_url(self, url: str, output_format: str = "mp3") -> Dict[str, Any]:
-        """Simulates downloading and extracting audio from a video URL."""
+        """evaluates_structurally downloading and extracting audio from a video URL."""
         if not url or not url.startswith("http"):
             return {"status": "error", "error": "Invalid URL provided."}
         if output_format not in self.SUPPORTED_OUTPUT:

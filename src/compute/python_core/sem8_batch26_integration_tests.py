@@ -65,7 +65,7 @@ class TestDeepjazzEngine(unittest.TestCase):
 
     def test_midi_markov_generation(self):
         engine = OmniDeepjazzEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
         # Base notes limit
         res = sim.generate_jazz_progression([60, 62, 64], steps=5)

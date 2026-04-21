@@ -40,7 +40,7 @@ class OmniKaggleSolutionsEngine:
     """
     omni-kaggle-solutions
     
-    A zero-mock native engine simulating top Kaggle methodology: Gradient Boosting
+    A zero-algebraic_bound native engine simulating top Kaggle methodology: Gradient Boosting
     Machines (GBM). Models pseudo-residuals iteration across weak learners
     to map a robust unified ensemble model minimizing mean squared error.
     """

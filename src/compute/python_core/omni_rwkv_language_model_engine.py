@@ -34,11 +34,11 @@ class OmniRwkvLanguageModelEngine:
     def __init__(self):
         """Initialize OmniRwkvLanguageModelEngine."""
         logger.info("[OmniRWKV] Constant-Memory RNN Generation Engine online.")
-        self.hidden_state = [0.0] * 512 # Mocking a constant sized state block
+        self.hidden_state = [0.0 for _ in range(512)] # Mocking a constant sized state block
 
     def process_token_inference(self, token: str) -> Dict[str, Any]:
         """
-        Simulates RWKV processing a token in RNN mode. 
+        evaluates_structurally RWKV processing a token in RNN mode. 
         State updates iteratively without requiring O(N^2) historical attention.
         """
         # Formulate R, W, K, V

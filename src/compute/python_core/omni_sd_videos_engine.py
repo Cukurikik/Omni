@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class LatentInterpolator:
-    """Zero-mock math container for generating latent transitions."""
+    """Zero-algebraic_bound math container for generating latent transitions."""
     
     @staticmethod
     def slerp(val: float, low: np.ndarray, high: np.ndarray) -> np.ndarray:

@@ -44,13 +44,13 @@ class TestTradeMasterEngine(unittest.TestCase):
         engine = OmniTradeMasterEngine()
         est = engine.get_estimator()
         
-        res = est.simulate_trade_agent_performance(state_space_dim=100, action_space_dim=50, episodes=100)
+        res = est.evaluate_structural_trade_agent_performance(state_space_dim=100, action_space_dim=50, episodes=100)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
         self.assertTrue(out["is_trading_simulated"])
         self.assertTrue(out["predicted_sharpe_ratio"] < 1.5) # Complexity decayed the return
-        self.assertTrue(out["simulated_action_latency_ms"] > 0.0)
+        self.assertTrue(out["resolved_action_latency_ms"] > 0.0)
 
 
 class TestAimetEngine(unittest.TestCase):
@@ -63,7 +63,7 @@ class TestAimetEngine(unittest.TestCase):
         proj = engine.get_projector()
         
         # Test 8-bit quantization with Hexagon DSP optimization
-        res = proj.simulate_compression_accuracy(base_accuracy_pct=95.0, bit_width=8, optimize_for_hexagon=True)
+        res = proj.evaluate_structural_compression_accuracy(base_accuracy_pct=95.0, bit_width=8, optimize_for_hexagon=True)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -82,7 +82,7 @@ class TestDeepDetectEngine(unittest.TestCase):
         mapper = engine.get_mapper()
         
         # 16 Workers scaling a 50ms inference payload
-        res = mapper.simulate_inference_qps(parallel_workers=16, single_inference_ms=50.0, payload_mb=2.5)
+        res = mapper.evaluate_structural_inference_qps(parallel_workers=16, single_inference_ms=50.0, payload_mb=2.5)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -101,8 +101,8 @@ class TestSupabasePyEngine(unittest.TestCase):
         est = engine.get_estimator()
         
         # Overloaded pool (300 active) vs calm pool (50 active)
-        res_calm = est.simulate_rpc_latency(active_connections=50, query_complexity_weight=1.5, payload_kb=10.0)
-        res_heavy = est.simulate_rpc_latency(active_connections=300, query_complexity_weight=1.5, payload_kb=10.0)
+        res_calm = est.evaluate_structural_rpc_latency(active_connections=50, query_complexity_weight=1.5, payload_kb=10.0)
+        res_heavy = est.evaluate_structural_rpc_latency(active_connections=300, query_complexity_weight=1.5, payload_kb=10.0)
         
         self.assertTrue(is_ok(res_calm))
         self.assertTrue(is_ok(res_heavy))
@@ -112,7 +112,7 @@ class TestSupabasePyEngine(unittest.TestCase):
         
         self.assertEqual(out_calm["pool_queue_penalty"], 1.0)
         self.assertTrue(out_heavy["pool_queue_penalty"] > 1.0)
-        self.assertTrue(out_heavy["simulated_query_latency_ms"] > out_calm["simulated_query_latency_ms"])
+        self.assertTrue(out_heavy["resolved_query_latency_ms"] > out_calm["resolved_query_latency_ms"])
 
 
 class TestCausalNexEngine(unittest.TestCase):
@@ -124,7 +124,7 @@ class TestCausalNexEngine(unittest.TestCase):
         engine = OmniCausalNexEngine()
         b_eval = engine.get_evaluator()
         
-        res = b_eval.simulate_causal_confidence_bounds(node_count=10, edge_density_pct=50.0, observation_samples=500)
+        res = b_eval.evaluate_structural_causal_confidence_bounds(node_count=10, edge_density_pct=50.0, observation_samples=500)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         

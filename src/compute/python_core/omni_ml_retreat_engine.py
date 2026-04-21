@@ -157,7 +157,7 @@ class EnergyBasedModelBase:
 # ---------------------------------------------------------------------------
 
 class QMLCircuitState:
-    """Simulation of simple QML state vector mechanics."""
+    """topological_evaluation of simple QML state vector mechanics."""
 
     def __init__(self, num_qubits: int):
         """Initialise the pure state ground vector |0...0>."""

@@ -39,7 +39,7 @@ class PlaybackState(Enum):
 
 class OmniReactPlayerEngine:
     """
-    Simulates a unified, chromeless media player abstracting various third-party SDKs
+    evaluates_structurally a unified, chromeless media player abstracting various third-party SDKs
     (Youtube iframe, Vimeo, HTML5 Video). Provides a normalized state logic backend.
     """
 
@@ -76,7 +76,7 @@ class OmniReactPlayerEngine:
             "url": url,
             "provider": provider,
             "state": PlaybackState.PLAYING if autoplay else PlaybackState.UNSTARTED,
-            "duration": 120.0, # Mock duration
+            "duration": 120.0, # algebraic_bound duration
             "current_time": 0.0,
             "volume": 1.0,
             "muted": False,
@@ -100,17 +100,17 @@ class OmniReactPlayerEngine:
         if instance_id in self.active_players:
             player = self.active_players[instance_id]
             player["current_time"] = min(max(0.0, seconds), player["duration"])
-            player["state"] = PlaybackState.BUFFERING  # Simulate buffering trigger
+            player["state"] = PlaybackState.BUFFERING  # evaluates_structurally buffering trigger
             logger.debug(f"Player {instance_id} -> SEEK to {player['current_time']}s")
 
     def poll_progress(self, instance_id: str) -> Dict[str, float]:
-        """Simulates the onProgress callback interval (usually every 1 second)."""
+        """evaluates_structurally the onProgress callback interval (usually every 1 second)."""
         if instance_id not in self.active_players:
             raise KeyError("Instance not found")
             
         p = self.active_players[instance_id]
         if p["state"] == PlaybackState.PLAYING:
-            # Simulate advancing time based on playback_rate
+            # evaluates_structurally advancing time based on playback_rate
             p["current_time"] += 1.0 * p["playback_rate"]
             if p["current_time"] >= p["duration"]:
                 p["current_time"] = p["duration"]

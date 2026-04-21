@@ -43,7 +43,7 @@ class TestDeepVariantEngine(unittest.TestCase):
 
     def test_allele_probability(self):
         engine = OmniDeepVariantEngine()
-        val = engine.get_simulator()
+        val = engine.get_structural_evaluator()
         
         ref = "A"
         # 4 A's, 1 T -> possible error or Het
@@ -87,13 +87,13 @@ class TestOpenVINOEngine(unittest.TestCase):
 
     def test_quantization_latency(self):
         engine = OmniOpenVINOEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
-        res_fp32 = sim.simulate_quantized_inference(num_parameters_millions=5.0, is_int8=False)
+        res_fp32 = sim.evaluate_structural_quantized_inference(num_parameters_millions=5.0, is_int8=False)
         self.assertTrue(is_ok(res_fp32))
         ms_fp32 = unwrap(res_fp32)["latency_ms"]
         
-        res_int8 = sim.simulate_quantized_inference(num_parameters_millions=5.0, is_int8=True)
+        res_int8 = sim.evaluate_structural_quantized_inference(num_parameters_millions=5.0, is_int8=True)
         self.assertTrue(is_ok(res_int8))
         ms_int8 = unwrap(res_int8)["latency_ms"]
         
@@ -128,7 +128,7 @@ class TestHDBSCANEngine(unittest.TestCase):
 
     def test_density_core_distance(self):
         engine = OmniHDBSCANEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
         spatial_data = np.array([
             [1.0, 1.0], [1.1, 1.1], [0.9, 1.0], [1.0, 0.9],

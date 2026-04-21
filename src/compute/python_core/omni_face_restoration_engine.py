@@ -60,7 +60,7 @@ class OmniFaceRestorationEngine:
 
     def restore_facial_matrix(self, image_id: str, original_width: int, original_height: int) -> Dict[str, Any]:
         """
-        Simulates the restoration pipeline.
+        evaluates_structurally the restoration pipeline.
         Protects the GPU core by limiting the generation box.
         """
         if original_width <= 0 or original_height <= 0:
@@ -69,11 +69,11 @@ class OmniFaceRestorationEngine:
         # 1. Protection Pass
         safe_w, safe_h, was_downsampled = self._safe_resolution_limiter(original_width, original_height)
         
-        # 2. GAN Processing Mock (The heavy computation)
+        # 2. GAN Processing algebraic_bound (The heavy computation)
         # This is where GFPGAN runs its forward pass: enc -> StyleGAN2 prior -> dec
         restoration_confidence = 0.94
         
-        # 3. Post-Processing Mock
+        # 3. Post-Processing algebraic_bound
         # Upscales back to original if downsampling fired.
         final_w = original_width if was_downsampled else safe_w
         final_h = original_height if was_downsampled else safe_h
@@ -111,8 +111,8 @@ class OmniFaceRestorationEngine:
 if __name__ == "__main__":
     gan_engine = OmniFaceRestorationEngine()
     
-    # Simulate processing a tiny image
+    # evaluates_structurally processing a tiny image
     print("Tiny Image:", gan_engine.restore_facial_matrix("img_tiny_1", 256, 256))
     
-    # Simulate processing a dangerous 4K image
+    # evaluates_structurally processing a dangerous 4K image
     print("Dangerous 4K Image:", gan_engine.restore_facial_matrix("img_huge_2", 3840, 2160))

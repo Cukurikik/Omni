@@ -61,7 +61,7 @@ class ContrastiveLossCalculator:
 
     def evaluate_batch_loss(self, z_i: np.ndarray, z_j: np.ndarray) -> Result:
         """
-        Simulates normalized NT-Xent similarity bounds for exactly two augmented views.
+        evaluates_structurally normalized NT-Xent similarity bounds for exactly two augmented views.
         Requires 1D vector abstractions of identical dimension size simulating batch=1 embedding.
         """
         if z_i.shape != z_j.shape or z_i.ndim != 1:
@@ -71,13 +71,13 @@ class ContrastiveLossCalculator:
             # Similarity between positive pair
             sim_pos = self._cosine_similarity(z_i, z_j)
             
-            # Since mock batch size is mathematically 1 to prevent exploding memory,
-            # we simulate exactly 1 negative embedding as a random uniformly distributed vector.
-            np.random.seed(int(np.sum(np.abs(z_i)) * 1000) % 100000) # Deterministic seeded mock
+            # Since algebraic_bound batch size is mathematically 1 to prevent exploding memory,
+            # we evaluates_structurally exactly 1 negative embedding as a random uniformly distributed vector.
+            np.random.seed(int(np.sum(np.abs(z_i)) * 1000) % 100000) # Deterministic seeded algebraic_bound
             z_neg = np.random.randn(*z_i.shape)
             sim_neg = self._cosine_similarity(z_i, z_neg)
             
-            # NT-XENT Formula equivalent mapping scalar mock
+            # NT-XENT Formula equivalent mapping scalar algebraic_bound
             # Loss = -log( exp(sim_pos/T) / (exp(sim_pos/T) + exp(sim_neg/T)) )
             pos_exp = math.exp(sim_pos / self.temperature)
             neg_exp = math.exp(sim_neg / self.temperature)

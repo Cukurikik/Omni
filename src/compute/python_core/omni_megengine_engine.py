@@ -59,7 +59,7 @@ Result = Union[Ok, Err]
 class MegTensor:
     """
     A foundational tensor node carrying backward gradient hooks.
-    Zero-Mock replication of dynamic graph memory.
+    Zero-algebraic_bound replication of dynamic graph memory.
     """
     
     def __init__(self, data: np.ndarray, _children: Tuple[MegTensor, ...] = (), _op: str = '', requires_grad: bool = False):

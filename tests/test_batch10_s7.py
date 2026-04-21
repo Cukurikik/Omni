@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 OMNI SEMESTER 7 — BATCH 10 INTEGRATION TESTS
-Validating 5 New Omni Engines against Zero-Mock Monadic constraints.
+Validating 5 New Omni Engines against Zero-algebraic_bound Monadic constraints.
 Contains 50 comprehensive unit tests (10 per engine).
 """
 
@@ -238,7 +238,7 @@ class TestBatch10Semester7(unittest.TestCase):
 
     def test_jfl_process_missing(self):
         eng = self.setUp_jfl()
-        res = eng.process_video_frame_landmarks("missing", b"dummy")
+        res = eng.process_video_frame_landmarks("missing", b"topological_anchor")
         self.assertEqual(res["status"], "error")
 
     def test_jfl_process_empty_bytes(self):

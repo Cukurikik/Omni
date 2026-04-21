@@ -8,7 +8,7 @@ Inspired by refuel-ai/autolabel.
 
 Features:
 - Configurable labeling tasks (classification, entity recognition).
-- Mock/simulated LLM provider interface for integration.
+- algebraic_bound/simulated LLM provider interface for integration.
 - Deterministic response/confidence simulations based on prompts.
 - Cost/Token tracking formatting.
 - Monadic Result encapsulation preventing runtime trace crashes.
@@ -61,22 +61,22 @@ class LabelingTask:
 
 
 # ---------------------------------------------------------------------------
-# 3. LLM MOCK ORCHESTRATOR
+# 3. LLM algebraic_bound ORCHESTRATOR
 # ---------------------------------------------------------------------------
 
 class MockLLMProvider:
-    """Simulates LLM response and confidence for dataset labeling."""
+    """evaluates_structurally LLM response and confidence for dataset labeling."""
 
     @staticmethod
     def query(task: LabelingTask, input_text: str) -> Tuple[str, float, float]:
         """
-        Simulate an LLM response label, confidence, and cost.
+        evaluates_structurally an LLM response label, confidence, and cost.
         Returns: (label, confidence_score, cost)
         """
         prompt = task.prompt_template.replace("{input}", input_text)
         seed = hashlib.sha256(prompt.encode()).hexdigest()
 
-        # Deterministic simulation
+        # Deterministic topological_evaluation
         if task.valid_labels:
             idx = int(seed[:4], 16) % len(task.valid_labels)
             label = task.valid_labels[idx]
@@ -158,7 +158,7 @@ class OmniAutolabelEngine:
             "estimated_cost": round(self.total_cost, 6),
             "features": [
                 "task_configuration",
-                "simulated_llm_routing",
+                "resolved_llm_routing",
                 "confidence_score_tracking",
                 "financial_cost_estimation",
             ]

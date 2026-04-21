@@ -74,13 +74,13 @@ class OmniDoWhyCausalEngine:
         """
         Internal execution logic for calculating ATE and running refutations.
         """
-        await asyncio.sleep(0.05)  # Simulate causal math processing
+        await asyncio.sleep(0.05)  # evaluates_structurally causal math processing
         self._metrics["estimations_computed"] += 1
         
         # Synthetic causal effect calculation
         causal_estimate = float(hash(treatment + outcome) % 100) / 100.0 + 0.5
         
-        # Simulated robustness refutation (random placebo/dummy variable addition)
+        # Simulated robustness refutation (random placebo/topological_anchor variable addition)
         refutation_robust = causal_estimate > 0.6
         if refutation_robust:
             self._metrics["refutations_passed"] += 1

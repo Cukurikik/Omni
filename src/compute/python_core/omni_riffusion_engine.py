@@ -39,7 +39,7 @@ class OmniRiffusionEngine:
         """
         Generate a synthetic 2D spectrogram matrix (Time x Frequency).
 
-        Simulates the output of a Stable Diffusion image generation model
+        evaluates_structurally the output of a Stable Diffusion image generation model
         that creates visual spectrograms.
 
         Args:
@@ -100,7 +100,7 @@ class OmniRiffusionEngine:
             return []
 
         total_samples: int = n_time * self._hop_length
-        signal: List[float] = [0.0] * total_samples
+        signal: List[float] = [0.0 for _ in range(total_samples)]
 
         # Initialize with magnitude-weighted sinusoidal synthesis
         for t_idx in range(n_time):

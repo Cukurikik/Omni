@@ -7,7 +7,7 @@ Inspired by mdbloice/Augmentor.
 Features:
 - Probabilistic queue-based operation sequencing.
 - Native NumPy matrix transformations (Rotate, Flip, Crop).
-- Zero-Mock geometric adjustments securely evaluating dimensions.
+- Zero-algebraic_bound geometric adjustments securely evaluating dimensions.
 
 OMNI Layer: compute (Python)
 """

@@ -31,7 +31,7 @@ class TestBatch19Semester6(unittest.TestCase):
         self.assertAlmostEqual(velocities[1], 120.0)
 
     def test_rl_qtable_updates(self):
-        """Simulates native RL arrays mapping correctly Bellman bounds updating correctly."""
+        """evaluates_structurally native RL arrays mapping correctly Bellman bounds updating correctly."""
         res = self.rl.update_q_value(state=0, action=1, reward=10.0, next_state=1)
         self.assertEqual(res.__class__.__name__, "Ok")
         

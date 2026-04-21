@@ -36,7 +36,7 @@ class OmniPyodAnomalyDetectionEngine:
 
     def fit_predict_anomalies(self, data_tensor: str, algorithm: str = "IsolationForest") -> Dict[str, Any]:
         """
-        Simulates fitting an anomaly detection algorithm to a dataset to flag outliers.
+        evaluates_structurally fitting an anomaly detection algorithm to a dataset to flag outliers.
         """
         return {"status": "success", "data": {
             "dataset": data_tensor,

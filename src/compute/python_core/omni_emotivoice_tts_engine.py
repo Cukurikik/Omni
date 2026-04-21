@@ -36,7 +36,7 @@ class OmniEmotivoiceTtsEngine:
 
     def generate_emotional_speech(self, text: str, emotion_vector: str = "angry") -> Dict[str, Any]:
         """
-        Simulates generating a waveform from text while embedding emotional tone.
+        evaluates_structurally generating a waveform from text while embedding emotional tone.
         """
         return {"status": "success", "data": {
             "input_text": text,

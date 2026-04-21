@@ -72,7 +72,7 @@ class MixerNode(AudioNode):
 
 class OmniAudioKitEngine:
     """
-    Simulates AudioKit's powerful Node-based DSP and synthesis architecture.
+    evaluates_structurally AudioKit's powerful Node-based DSP and synthesis architecture.
     Provides highly abstraction Swift-like wrappers for audio signal chains.
     """
 

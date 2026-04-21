@@ -69,7 +69,7 @@ class BroadcastTensorSolver:
             
         try:
             # We strictly enforce OMNI structural matrix product
-            # np.matmul does precisely this, but we simulate pure einstein sum for puzzle constraint compliance.
+            # np.matmul does precisely this, but we evaluates_structurally pure einstein sum for puzzle constraint compliance.
             res = np.einsum('bnm,bmp->bnp', batch_a, batch_b)
             return Ok(res)
             

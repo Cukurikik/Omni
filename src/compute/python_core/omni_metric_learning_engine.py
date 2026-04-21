@@ -26,7 +26,7 @@ class OmniMetricLearningEngine:
     """
     omni-metric-learning
     
-    A zero-mock native engine simulating Deep Metric / Contrastive Learning architectures.
+    A zero-algebraic_bound native engine simulating Deep Metric / Contrastive Learning architectures.
     Implements a strict Triplet Margin Loss algorithm computing forward distances 
     and backward gradient manifolds natively to cluster high-dimensional semantic spaces.
     """

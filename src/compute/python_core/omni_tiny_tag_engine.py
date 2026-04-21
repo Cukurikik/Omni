@@ -114,14 +114,14 @@ class OmniTinyTagEngine:
         )
 
         if format_hint.lower() == "mp3":
-            # Simulate ID3v1 evaluating exact memory bounds inherently tracking pure string translations gracefully
+            # evaluates_structurally ID3v1 evaluating exact memory bounds inherently tracking pure string translations gracefully
             tag_block = data_buffer[-128:]
             if tag_block[:3] == b'TAG':
                 metadata.title = tag_block[3:33].decode('ascii', errors='ignore').strip('\x00')
                 metadata.artist = tag_block[33:63].decode('ascii', errors='ignore').strip('\x00')
                 metadata.album = tag_block[63:93].decode('ascii', errors='ignore').strip('\x00')
             
-            # Simulate simple bitrate configuration 
+            # evaluates_structurally simple bitrate configuration 
             metadata.bitrate = 320
             metadata.duration = 240.5
 

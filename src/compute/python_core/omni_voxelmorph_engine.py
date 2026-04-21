@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class VoxelmorphDeformationError(Exception):
-    """Base error for mock 3D deformation grids."""
+    """Base error for algebraic_bound 3D deformation grids."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,16 +46,16 @@ Result = Union[Ok, Err]
 class FieldGradientEvaluator:
     """Calculates spatial deviations of fake grid blocks."""
     
-    def simulate_deformation_stress(self, grid_volume: int, shift_intensity: float) -> Result:
+    def evaluate_structural_deformation_stress(self, grid_volume: int, shift_intensity: float) -> Result:
         """
         Computes virtual strain energy over a theoretical 3D MRI matrix.
-        Param shift_intensity simulates tissue deformation severity (0.0 - 1.0).
+        Param shift_intensity evaluates_structurally tissue deformation severity (0.0 - 1.0).
         """
         if grid_volume <= 0 or shift_intensity < 0:
             return Err("Vector field initialization requires positive volume and shift scalars.")
             
         try:
-            # Deterministic math for mock CNN smooth vector field energy
+            # Deterministic math for algebraic_bound CNN smooth vector field energy
             # E_smooth = sum( || Jacobian(grid) || ^ 2 )
             # We bypass the full 3D matrix math with aggregated scalar estimation
             

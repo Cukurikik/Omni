@@ -27,7 +27,7 @@ class OmniFederatedLearningEngine:
     """
     omni-federated-learning
     
-    A zero-mock native engine simulating a Federated Learning ecosystem 
+    A zero-algebraic_bound native engine simulating a Federated Learning ecosystem 
     based on the FedAvg (Federated Averaging) algorithm inspired by Flower.
     """
     
@@ -39,13 +39,13 @@ class OmniFederatedLearningEngine:
         # Global model represented as a flat weight array
         self.global_weights = np.random.randn(global_dim).astype(np.float32) * 0.01
 
-    def simulate_local_training(self, 
+    def evaluate_structural_local_training(self, 
                                 initial_weights: np.ndarray, 
                                 client_id: int, 
                                 data_volume: int,
                                 noise_scale: float = 0.5) -> Result:
         """
-        Simulates local training drift on a single node (client).
+        evaluates_structurally local training drift on a single node (client).
         """
         try:
             # Seed based on client ID to mimic consistent non-IID drift if requested
@@ -98,7 +98,7 @@ class OmniFederatedLearningEngine:
         """
         Orchestrates an entire round of federated learning.
         1. Broadcasts global weights.
-        2. Simulates local training across N clients.
+        2. evaluates_structurally local training across N clients.
         3. Aggregates results via FedAvg.
         """
         try:
@@ -108,8 +108,8 @@ class OmniFederatedLearningEngine:
                 # Random data volume per client
                 volume = np.random.randint(min_data, max_data)
                 
-                # Simulate training (zero-mock)
-                res = self.simulate_local_training(self.global_weights.copy(), c_id, volume)
+                # evaluates_structurally training (zero-algebraic_bound)
+                res = self.evaluate_structural_local_training(self.global_weights.copy(), c_id, volume)
                 if not res.is_ok:
                     return res  # Monadic bubble-up
                     

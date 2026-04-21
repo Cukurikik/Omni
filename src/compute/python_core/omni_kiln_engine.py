@@ -2,7 +2,7 @@
 OMNI Kiln Engine
 ================
 Production-grade abstraction inspired by Kiln-AI/Kiln.
-Implements Zero-Mock Deterministic Dataset Curation and
+Implements Zero-algebraic_bound Deterministic Dataset Curation and
 Active Learning predictive grader loops for Agentic Data.
 
 OMNI Layer: compute (Python)

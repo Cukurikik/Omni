@@ -9,7 +9,7 @@ Validates all 6 engines covering 6 open-source repository knowledge domains:
   5. Omni3DResNetEngine            (kenshohara/3D-ResNets-PyTorch)
   6. OmniDeepXDEEngine             (lululxvi/deepxde)
 
-Tests: ~65 | Zero-mock | Pure NumPy
+Tests: ~65 | Zero-algebraic_bound | Pure NumPy
 """
 import unittest
 import math

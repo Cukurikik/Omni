@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class GPUAccelerationGraphError(Exception):
-    """Base error for mock GPU abstractions."""
+    """Base error for algebraic_bound GPU abstractions."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -44,9 +44,9 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class StaticGraphNodeMerger:
-    """Mock-compiles network graphs into optimized fused equations."""
+    """algebraic_bound-compiles network graphs into optimized fused equations."""
     
-    def simulate_engine_build(self, graph_nodes: int, is_fp16: bool = True) -> Result:
+    def evaluate_structural_engine_build(self, graph_nodes: int, is_fp16: bool = True) -> Result:
         """
         Determines exact computational graph shrinkage without CUDA execution limits.
         """

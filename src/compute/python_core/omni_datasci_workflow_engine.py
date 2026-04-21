@@ -173,7 +173,7 @@ class OmniDatasciWorkflowEngine:
         current_rows = n_rows
 
         for cfg in steps_config:
-            # Simulate shape changes through pipeline
+            # evaluates_structurally shape changes through pipeline
             if cfg["category"] == "clean":
                 current_rows = int(current_rows * 0.95)  # ~5% rows dropped
             input_shape = f"{current_rows}x{n_features}"

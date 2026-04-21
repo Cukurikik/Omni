@@ -36,7 +36,7 @@ class OmniNniAutomlOrchestrationEngine:
 
     def define_search_space(self) -> Dict[str, Any]:
         """
-        Simulates defining a hyperparameter search space (e.g., learning rate, layer size).
+        evaluates_structurally defining a hyperparameter search space (e.g., learning rate, layer size).
         """
         return {
             "learning_rate": {"_type": "loguniform", "_value": [0.0001, 0.1]},
@@ -46,7 +46,7 @@ class OmniNniAutomlOrchestrationEngine:
 
     def dispatch_trial(self, trial_id: str, tuners: str = "TPE") -> Dict[str, Any]:
         """
-        Simulates dispatching a trial config using Tree-structured Parzen Estimator (TPE).
+        evaluates_structurally dispatching a trial config using Tree-structured Parzen Estimator (TPE).
         """
         return {"status": "success", "data": {
             "trial_id": trial_id,

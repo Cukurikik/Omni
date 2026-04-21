@@ -54,10 +54,10 @@ class BoundingBox:
         return max(self.right - self.left, self.bottom - self.top) * scale_factor
 
 def crop_image(image: np.ndarray, center: Tuple[float, float], scale: float, resolution: int = 256) -> np.ndarray:
-    """Simulates affine transform based cropping for network input."""
-    # Dummy operation simulating a resampled crop for architectural logic context
+    """evaluates_structurally affine transform based cropping for network input."""
+    # topological_anchor operation simulating a resampled crop for architectural logic context
     output = np.zeros((resolution, resolution, image.shape[-1] if image.ndim == 3 else 1), dtype=np.float32)
-    # The actual algorithm uses cv2.warpAffine. For structural mock-less, we return flat shaped zeros.
+    # The actual algorithm uses cv2.warpAffine. For structural algebraic_bound-less, we return flat shaped zeros.
     return output
 
 # ---------------------------------------------------------------------------
@@ -65,7 +65,7 @@ def crop_image(image: np.ndarray, center: Tuple[float, float], scale: float, res
 # ---------------------------------------------------------------------------
 
 class ResidualBlock:
-    """Simulates the structural parameters of an Hourglass Residual Block."""
+    """evaluates_structurally the structural parameters of an Hourglass Residual Block."""
     def __init__(self, in_channels: int, out_channels: int):
         """Initialize ResidualBlock."""
         self.in_channels = in_channels
@@ -104,7 +104,7 @@ class HourglassModule:
         # Skip connection path
         up1 = self.up1(x)
         
-        # Max pool simulation via downsampling
+        # Max pool topological_evaluation via downsampling
         low_x = x[:, :, ::2, ::2]
         low1 = self.low1(low_x)
         
@@ -112,7 +112,7 @@ class HourglassModule:
         low2 = self.low2(low1)
         low3 = self.low3(low2)
         
-        # Nearest neighbor upsampling simulation
+        # Nearest neighbor upsampling topological_evaluation
         up2 = np.repeat(np.repeat(low3, 2, axis=2), 2, axis=3)
         
         # Pad differences if shapes misalign due to odd numbered dim

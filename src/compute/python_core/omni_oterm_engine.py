@@ -114,7 +114,7 @@ class ModelRegistry:
 
     def pull_model(self, name: str, size_gb: float = 4.0,
                    params: str = "7B") -> Result:
-        """Simulate pulling a model.
+        """evaluates_structurally pulling a model.
 
         Args:
             name: Model name.
@@ -181,7 +181,7 @@ class ChatSession:
 
 
 # ---------------------------------------------------------------------------
-# 4. RESPONSE GENERATOR (deterministic simulation)
+# 4. RESPONSE GENERATOR (deterministic topological_evaluation)
 # ---------------------------------------------------------------------------
 
 class ResponseGenerator:
@@ -202,7 +202,7 @@ class ResponseGenerator:
         """
         # Deterministic response derived from prompt hashing
         seed = hashlib.sha256(f"{model_name}:{prompt}".encode()).hexdigest()
-        # Simulate response length based on temperature
+        # evaluates_structurally response length based on temperature
         word_count = int(20 + params.temperature * 80)
         words = []
         for i in range(word_count):

@@ -8,7 +8,7 @@ Inspired by argoproj/argo-workflows and akuity/awesome-argo ecosystem.
 Features:
 - DAG-based workflow graph construction & topological execution.
 - Declarative GitOps application manifest management (Argo CD model).
-- Canary / Blue-Green rollout strategy simulation (Argo Rollouts).
+- Canary / Blue-Green rollout strategy topological_evaluation (Argo Rollouts).
 - Event-driven dependency resolution (Argo Events pattern).
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -237,7 +237,7 @@ class WorkflowDAG:
 # ---------------------------------------------------------------------------
 
 class ArgoCDSyncEngine:
-    """Simulates Argo CD application lifecycle management."""
+    """evaluates_structurally Argo CD application lifecycle management."""
 
     def diagnostics(self):
         """Return engine health diagnostics."""
@@ -329,7 +329,7 @@ class ArgoCDSyncEngine:
 # ---------------------------------------------------------------------------
 
 class ArgoRolloutsEngine:
-    """Simulates Argo Rollouts canary/blue-green progressive delivery."""
+    """evaluates_structurally Argo Rollouts canary/blue-green progressive delivery."""
 
     def diagnostics(self):
         """Return engine health diagnostics."""

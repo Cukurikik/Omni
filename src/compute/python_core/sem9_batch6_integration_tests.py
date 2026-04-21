@@ -115,7 +115,7 @@ try:
     suite.assert_true("RubyInterop: Verify known gems available", "rumale" in cat)
 
     launch_res = engine.launch_ruby_vm_context("ctx-ruby-1", ["rumale"])
-    suite.assert_ok("RubyInterop: Spin up VM context via FFI mock", launch_res)
+    suite.assert_ok("RubyInterop: Spin up VM context via FFI algebraic_bound", launch_res)
     
     suite.assert_err("RubyInterop: Fail if unknown gem requested", engine.launch_ruby_vm_context("ctx-ruby-2", ["fake-gem"]))
 

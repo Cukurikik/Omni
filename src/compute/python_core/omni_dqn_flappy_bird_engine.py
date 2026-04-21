@@ -36,7 +36,7 @@ class OmniDqnFlappyBirdEngine:
 
     def run_q_learning_step(self, state_pixels: str, reward: float) -> Dict[str, Any]:
         """
-        Simulates a single step of Q-Learning given raw pixel state and environment reward.
+        evaluates_structurally a single step of Q-Learning given raw pixel state and environment reward.
         """
         return {"status": "success", "data": {
             "input_state": "4 stacked greyscale frames (capturing motion velocity).",

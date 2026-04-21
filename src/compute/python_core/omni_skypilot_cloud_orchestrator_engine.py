@@ -36,7 +36,7 @@ class OmniSkypilotCloudOrchestratorEngine:
 
     def provision_and_launch(self, job_name: str, hardware_req: str) -> Dict[str, Any]:
         """
-        Simulates parsing a sky task and querying the global cloud catalog for the cheapest
+        evaluates_structurally parsing a sky task and querying the global cloud catalog for the cheapest
         available GPU instances (AWS/GCP/Azure/Lambda/RunPod).
         """
         return {"status": "success", "data": {

@@ -42,9 +42,9 @@ class TestStemrollerEngine(unittest.TestCase):
 
     def test_vocal_isolation(self):
         engine = OmniStemrollerEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
-        # Audio bounds Mock: combination of loud (vocal) and soft (instrumental)
+        # Audio bounds algebraic_bound: combination of loud (vocal) and soft (instrumental)
         audio_array = np.array([0.1, -0.2, 0.9, -0.8, 0.05, -0.1], dtype=np.float64)
         
         res = sim.separate_stems_deterministically(audio_array)
@@ -82,7 +82,7 @@ class TestTensorRTEngine(unittest.TestCase):
         engine = OmniTensorRTEngine()
         merger = engine.get_merger()
         
-        res = merger.simulate_engine_build(graph_nodes=100, is_fp16=True)
+        res = merger.evaluate_structural_engine_build(graph_nodes=100, is_fp16=True)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         

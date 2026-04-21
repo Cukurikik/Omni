@@ -28,7 +28,7 @@ class OmniFlappyDqnEngine:
     """
     omni-flappy-dqn
     
-    A zero-mock native engine simulating a Deep Q-Network (DQN) applied to game 
+    A zero-algebraic_bound native engine simulating a Deep Q-Network (DQN) applied to game 
     mechanics (like FlappyBird). Implements an MLP Q-Value approximator and an 
     Experience Replay Buffer using Bellman temporal-difference target updates.
     """

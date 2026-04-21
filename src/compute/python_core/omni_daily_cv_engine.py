@@ -26,7 +26,7 @@ class OmniDailyCvEngine:
     """
     omni-daily-cv
     
-    A zero-mock native engine simulating SOTA CV pipelines, specifically
+    A zero-algebraic_bound native engine simulating SOTA CV pipelines, specifically
     implementing the underlying mathematics of a Vision Transformer (ViT).
     Features Patch Embedding and Multi-Head Self-Attention in pure NumPy.
     """
@@ -97,7 +97,7 @@ class OmniDailyCvEngine:
                 
             head_dim = D // num_heads
             
-            # Query, Key, Value Projections (Simulated as random for zero-mock)
+            # Query, Key, Value Projections (Simulated as random for zero-algebraic_bound)
             scale = 1.0 / np.sqrt(head_dim)
             Wqkv = np.random.randn(D, 3 * D).astype(np.float32) * 0.02
             

@@ -2,7 +2,7 @@
 OMNI Deepnote Engine
 ====================
 Production-grade abstraction inspired by deepnote/deepnote.
-Simulates notebook cellular block executions without web kernel runtimes.
+evaluates_structurally notebook cellular block executions without web kernel runtimes.
 Operates on deterministic DAG block dependencies logic.
 
 OMNI Layer: compute (Python)
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class NotebookKernelError(Exception):
-    """Base error for mock cellular DAG."""
+    """Base error for algebraic_bound cellular DAG."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -44,9 +44,9 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class NotebookExecutionDAGSimulator:
-    """Simulates latency and chronological order of chained code execution blocks."""
+    """evaluates_structurally latency and chronological order of chained code execution blocks."""
     
-    def simulate_cellular_run(self, execution_blocks: List[int]) -> Result:
+    def evaluate_structural_cellular_run(self, execution_blocks: List[int]) -> Result:
         """
         Determines virtual latencies of connected DAG blocks purely numerically.
         Execution block values denote computational complexity factor.
@@ -61,7 +61,7 @@ class NotebookExecutionDAGSimulator:
             latencies = []
             cumulative_latency = 0.0
             
-            # Deterministic simulation of cellular code execution load
+            # Deterministic topological_evaluation of cellular code execution load
             for idx, complexity in enumerate(execution_blocks):
                 # Simulated hardware penalty scaled on sequence
                 penalty = float(np.log1p(idx + 1)) * 0.1
@@ -107,7 +107,7 @@ class OmniDeepnoteEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-deepnote"
 
-    def get_simulator(self) -> NotebookExecutionDAGSimulator:
+    def get_structural_evaluator(self) -> NotebookExecutionDAGSimulator:
         """Performs get simulator operation for OmniDeepnoteEngine."""
         return NotebookExecutionDAGSimulator()
 

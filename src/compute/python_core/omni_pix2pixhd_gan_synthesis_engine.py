@@ -36,7 +36,7 @@ class OmniPix2pixhdGanSynthesisEngine:
 
     def synthesize_from_label(self, semantic_map: str) -> Dict[str, Any]:
         """
-        Simulates translating a flat color-coded segmentation map into a photorealistic street scene.
+        evaluates_structurally translating a flat color-coded segmentation map into a photorealistic street scene.
         """
         return {"status": "success", "data": {
             "input_semantic": semantic_map,

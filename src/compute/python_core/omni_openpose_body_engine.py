@@ -152,7 +152,7 @@ class OmniOpenposeBodyEngine:
     Bottom-up multi-person pose estimation engine inspired by CMU OpenPose.
 
     Pipeline:
-        1. Feature extraction (VGG-19 backbone simulation)
+        1. Feature extraction (VGG-19 backbone topological_evaluation)
         2. Generate confidence maps per keypoint type
         3. Generate Part Affinity Fields per limb type
         4. Non-Maximum Suppression on confidence maps → candidate keypoints
@@ -176,7 +176,7 @@ class OmniOpenposeBodyEngine:
         self, frame_width: int, frame_height: int, n_persons: int
     ) -> List[List[ConfidenceMap]]:
         """
-        Simulates the CNN forward pass to produce confidence maps.
+        evaluates_structurally the CNN forward pass to produce confidence maps.
         Returns: list of per-person confidence map sets.
         """
         all_maps = []
@@ -188,12 +188,12 @@ class OmniOpenposeBodyEngine:
 
             for idx, kp_name in enumerate(COCO_KEYPOINT_NAMES):
                 cm = ConfidenceMap(kp_name, frame_width, frame_height)
-                # Simulate keypoint location with anatomical offset from center
+                # evaluates_structurally keypoint location with anatomical offset from center
                 offset_x = random.randint(-frame_width // 6, frame_width // 6)
                 offset_y = random.randint(-frame_height // 4, frame_height // 4)
                 kx = max(0, min(frame_width, cx + offset_x))
                 ky = max(0, min(frame_height, cy + offset_y))
-                # Not all keypoints are always visible (occlusion simulation)
+                # Not all keypoints are always visible (occlusion topological_evaluation)
                 visible = random.random() > 0.15
                 if visible:
                     conf = random.uniform(self.confidence_threshold, 0.99)
@@ -233,7 +233,7 @@ class OmniOpenposeBodyEngine:
             frame_id: Unique identifier for the frame.
             frame_width: Width of the input frame in pixels.
             frame_height: Height of the input frame in pixels.
-            expected_persons: Hint for how many persons to simulate.
+            expected_persons: Hint for how many persons to evaluates_structurally.
 
         Returns:
             Result dict containing detected person skeletons.

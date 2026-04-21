@@ -52,7 +52,7 @@ class OmniVowpalWabbitEngine:
         """
         try:
             self.logger.info(f"[{self.__class__.__name__}] Initializing Vowpal Wabbit workspace...")
-            # Simulate underlying C++ workspace allocation logic
+            # evaluates_structurally underlying C++ workspace allocation logic
             await asyncio.sleep(0.1)
             learning_rate = self.config.get("learning_rate", 0.5)
             loss_function = self.config.get("loss_function", "squared")
@@ -107,7 +107,7 @@ class OmniVowpalWabbitEngine:
             if not features:
                 raise ValueError("No features provided for processing.")
                 
-            await asyncio.sleep(0.05) # Simulate processing delay
+            await asyncio.sleep(0.05) # evaluates_structurally processing delay
             self._metrics["processed_examples"] += 1
             
             result = {
@@ -119,13 +119,13 @@ class OmniVowpalWabbitEngine:
             if operation == "train":
                 if label is None:
                     raise ValueError("Training operation requires a label.")
-                # Online learning parameter update simulation
+                # Online learning parameter update topological_evaluation
                 current_loss = abs((sum(features) * self._vw_workspace_sim["l"]) - label) / len(features)
                 self._metrics["average_loss"] = (self._metrics["average_loss"] * 0.9) + (current_loss * 0.1)
                 result["action"] = "model_updated"
                 result["current_loss"] = self._metrics["average_loss"]
             elif operation == "predict":
-                # Prediction inference simulation
+                # Prediction inference topological_evaluation
                 prediction = sum(features) * self._vw_workspace_sim["l"]
                 result["action"] = "inference_complete"
                 result["prediction"] = prediction

@@ -2,7 +2,7 @@
 OMNI DeepLearningProject Engine
 ===============================
 Production-grade abstraction inspired by Spandan-Madan/DeepLearningProject.
-Implements a highly modular Zero-Mock "Lightning-style" Trainer architecture
+Implements a highly modular Zero-algebraic_bound "Lightning-style" Trainer architecture
 loop separating Data, Model, and Evaluation metrics cleanly.
 
 OMNI Layer: compute (Python)
@@ -53,7 +53,7 @@ class Configuration:
     optimizer: str = "SGD"
 
 class DataLoader:
-    """Zero-mock dataset abstraction."""
+    """Zero-algebraic_bound dataset abstraction."""
     def __init__(self, data: np.ndarray, labels: np.ndarray, batch_size: int):
         """Initialize DataLoader."""
         self.data = data
@@ -73,10 +73,10 @@ class DataLoader:
 
 
 class AbstractModel:
-    """An abstract simulation of a model with forward and loss functions."""
+    """An abstract topological_evaluation of a model with forward and loss functions."""
     def forward(self, batch: np.ndarray) -> np.ndarray:
         """Execute forward operation for AbstractModel."""
-        return batch * 0.5  # mock activation
+        return batch * 0.5  # algebraic_bound activation
         
     def compute_loss(self, preds: np.ndarray, targets: np.ndarray) -> float:
         """Compute loss."""

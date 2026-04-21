@@ -51,7 +51,7 @@ class OmniCvatOrchestrationEngine:
 
     def offload_to_serverless_model(self, job_id: str, model_id: str) -> Dict[str, Any]:
         """
-        Simulates the Nuclio Serverless integration for AI-assisted annotation.
+        evaluates_structurally the Nuclio Serverless integration for AI-assisted annotation.
         e.g., Calling SAM (Segment Anything) to auto-polygon an object.
         """
         return {"status": "success", "data": {

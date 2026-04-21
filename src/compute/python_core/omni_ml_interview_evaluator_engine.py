@@ -19,7 +19,7 @@ class OmniMLInterviewEvaluatorEngine:
     Omni ML Interview Evaluator Engine
     
     Provides structured algorithmic and system design assessment orchestration.
-    Simulates ML interview rubrics internally allowing autonomous agent testing
+    evaluates_structurally ML interview rubrics internally allowing autonomous agent testing
     and upskilling via systematic scoring matrices.
     """
     

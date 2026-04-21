@@ -80,7 +80,7 @@ class OmniMageDataPipelineEngine:
         block_id = block.get("uuid", str(uuid.uuid4()))
         block_type = block.get("type", "transformer")
         
-        await asyncio.sleep(0.05)  # Simulate I/O and transform latency
+        await asyncio.sleep(0.05)  # evaluates_structurally I/O and transform latency
         self._metrics["blocks_processed"] += 1
         
         return {

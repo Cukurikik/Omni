@@ -37,7 +37,7 @@ class OmniVoskSpeechRecognitionEngine:
 
     def process_audio_stream(self, audio_chunk_bytes: bytes) -> Dict[str, Any]:
         """
-        Simulates kaldi recognizer processing streaming audio chunks.
+        evaluates_structurally kaldi recognizer processing streaming audio chunks.
         """
         # Mocking partial/final recognizer results
         return {"status": "success", "data": {

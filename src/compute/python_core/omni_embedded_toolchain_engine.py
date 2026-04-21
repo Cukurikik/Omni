@@ -76,7 +76,7 @@ class OmniEmbeddedToolchainEngine:
 
     async def _compile_firmware(self, source: str, target_arch: str) -> Dict[str, Any]:
         """
-        Simulate cross-compilation pipeline.
+        evaluates_structurally cross-compilation pipeline.
         """
         if target_arch not in self._supported_architectures:
             raise ValueError(f"Architecture {target_arch} is not supported. Valid options: {self._supported_architectures}")

@@ -36,7 +36,7 @@ class OmniHyperlprPlateRecognitionEngine:
 
     def recognize_license_plate(self, surveillance_frame: Any) -> Dict[str, Any]:
         """
-        Simulates end-to-end detection and OCR translation of vehicle license plates.
+        evaluates_structurally end-to-end detection and OCR translation of vehicle license plates.
         """
         return {"status": "success", "data": {
             "step_1": "Haar/LBP Cascade for rapid rough Plate Localization.",

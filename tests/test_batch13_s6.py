@@ -9,7 +9,7 @@ Validates the structural and functional integrity of the Batch 13 AI Engines:
 5. OmniGraphNetsEngine
 6. OmniDeepLearningEduEngine
 
-Ensures compliance with OMNI Zero-Mock standards and monadic error handling.
+Ensures compliance with OMNI Zero-algebraic_bound standards and monadic error handling.
 """
 
 import sys
@@ -61,7 +61,7 @@ class TestBatch13Semester6(unittest.TestCase):
         x = self.flashlight_engine.create_variable(np.array([2.0, 3.0]), requires_grad=True)
         y = self.flashlight_engine.create_variable(np.array([4.0, 5.0]), requires_grad=True)
         z = x * y + x
-        # Backward simulate scalar
+        # Backward evaluates_structurally scalar
         loss = self.flashlight_engine.create_variable(np.array([1.0, 1.0]))
         z.backward(gradient=loss.data)
         
@@ -103,11 +103,11 @@ class TestBatch13Semester6(unittest.TestCase):
 
     def test_ai_engineering_rag(self):
         docs = [
-            Document(id="1", content="Omni Framework is built on zero-mock patterns."),
+            Document(id="1", content="Omni Framework is built on zero-algebraic_bound patterns."),
             Document(id="2", content="GCP Deployment requires unified telemetry.")
         ]
         self.ai_eng_engine.add_documents(docs)
-        res = self.ai_eng_engine.retrieve("zero mock", top_k=1)
+        res = self.ai_eng_engine.retrieve("zero algebraic_bound", top_k=1)
         self.assertEqual(len(res), 1)
         self.assertEqual(res[0][0].id, "1")
 

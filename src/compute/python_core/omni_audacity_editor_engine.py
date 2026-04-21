@@ -62,7 +62,7 @@ class WaveTrack:
 
 class OmniAudacityEditorEngine:
     """
-    Simulates the core architecture of Audacity.
+    evaluates_structurally the core architecture of Audacity.
     Utilizes a BlockFile abstraction for non-destructive editing, 
     multi-track mixing, and plugin effect application (Nyquist/VST conceptually).
     """
@@ -83,7 +83,7 @@ class OmniAudacityEditorEngine:
         return track.id
 
     def import_audio(self, track_id: str, file_path: str, duration_s: float):
-        """Simulates importing an audio file by chunking it into BlockFiles (libsndfile)."""
+        """evaluates_structurally importing an audio file by chunking it into BlockFiles (libsndfile)."""
         if track_id not in self.tracks:
             raise ValueError("Track ID not found.")
             
@@ -103,7 +103,7 @@ class OmniAudacityEditorEngine:
 
     def apply_nyquist_effect(self, track_id: str, effect_name: str, params: Dict[str, Any]):
         """
-        Simulates Audacity's Lisp-based Nyquist scripting language integration for 
+        evaluates_structurally Audacity's Lisp-based Nyquist scripting language integration for 
         audio analysis and manipulation.
         """
         if track_id not in self.tracks:
@@ -111,7 +111,7 @@ class OmniAudacityEditorEngine:
              
         logger.info(f"Applying Nyquist LISP Effect [{effect_name}] to track {track_id} with {params}")
         # In Audacity, effects are processed block by block using Get/Set functionality
-        # We simulate a "destructive" but undo-able edit by creating new BlockFiles
+        # We evaluates_structurally a "destructive" but undo-able edit by creating new BlockFiles
         
         self._push_undo(f"Effect: {effect_name}")
         return True

@@ -45,7 +45,7 @@ class TestHoraEngine(unittest.TestCase):
         est = engine.get_estimator()
         
         # Huge DB: 10 Million points, 768 dimensions (like BERT)
-        res = est.simulate_ann_query(database_size=10_000_000, vector_dimension=768, top_k=10)
+        res = est.evaluate_structural_ann_query(database_size=10_000_000, vector_dimension=768, top_k=10)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -63,7 +63,7 @@ class TestOpenInterfaceEngine(unittest.TestCase):
         pred = engine.get_predictor()
         
         # Crowded 1080p screen, very small target area
-        res = pred.simulate_click_accuracy(dom_element_count=5000, target_area_pixels=100, screen_area_pixels=1920*1080)
+        res = pred.evaluate_structural_click_accuracy(dom_element_count=5000, target_area_pixels=100, screen_area_pixels=1920*1080)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -81,7 +81,7 @@ class TestSecretFlowEngine(unittest.TestCase):
         est = engine.get_estimator()
         
         # 10ms operation over 3 parties using SPDZ
-        res = est.simulate_mpc_overhead(plaintext_compute_ms=10.0, total_parties=3, protocol="SPDZ")
+        res = est.evaluate_structural_mpc_overhead(plaintext_compute_ms=10.0, total_parties=3, protocol="SPDZ")
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -121,7 +121,7 @@ class TestTimeLLMEngine(unittest.TestCase):
         pred = engine.get_predictor()
         
         # 7B param LLM, 1024 context, 100 forecast points
-        res = pred.simulate_llm_time_accuracy(historical_context_length=1024, forecast_horizon=100, llm_parameters=7_000_000_000)
+        res = pred.evaluate_structural_llm_time_accuracy(historical_context_length=1024, forecast_horizon=100, llm_parameters=7_000_000_000)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         

@@ -36,7 +36,7 @@ class OmniClearmlMlopsTrackerEngine:
 
     def auto_log_experiment(self, experiment_name: str, config_dict: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Simulates automatically intercepting and tracking entire experimental state.
+        evaluates_structurally automatically intercepting and tracking entire experimental state.
         """
         return {"status": "success", "data": {
             "task_id": f"CML-{hash(experiment_name)}",

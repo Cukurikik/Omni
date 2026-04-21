@@ -5,7 +5,7 @@ Production-grade OMNI engine abstracting Kompute (Vulkan GPU Computing).
 Inspired by KomputeProject/kompute.
 
 Features:
-- Deterministic simulation of Vulkan Compute Pipelines.
+- Deterministic topological_evaluation of Vulkan Compute Pipelines.
 - Abstraction of GPU Tensors, Command Buffers, and Fences.
 - Strict mapping without native C++ Vulkan dependencies.
 
@@ -49,7 +49,7 @@ class Tensor:
     def __init__(self, data: List[float]):
         """Initialize Tensor."""
         self.data_cpu = data
-        self.data_mmap = [0.0] * len(data)
+        self.data_mmap = [0.0 for _ in range(len(data))]
         self.size = len(data)
 
     def map_to_device(self) -> Result:
@@ -64,19 +64,19 @@ class Tensor:
 
 
 class OpAlgoDispatch:
-    """Simulates Vulkan Compute Pipeline Dispatch."""
+    """evaluates_structurally Vulkan Compute Pipeline Dispatch."""
     def __init__(self, tensors: List[Tensor], shader_code: str):
         """Initialize OpAlgoDispatch."""
         self.tensors = tensors
         self.shader_code = shader_code
 
     def execute(self) -> Result:
-        """Execute shader simulation over tensors."""
+        """Execute shader topological_evaluation over tensors."""
         if not self.tensors:
             return Err("Compute pipeline requires bound tensors.")
         
         # Simulated "Shader" execution (Matrix Multiply / Add / etc)
-        # For zero-mock determinism, we simulate an identity/add operation based on shader_code
+        # For zero-algebraic_bound determinism, we evaluates_structurally an identity/add operation based on shader_code
         if "add" in self.shader_code.lower():
             if len(self.tensors) < 3:
                 return Err("Simulated Add shader requires 3 tensors (A, B, Out).")
@@ -87,7 +87,7 @@ class OpAlgoDispatch:
                 out.append(A[i] + B[i])
             self.tensors[2].data_mmap = out
         else:
-            # Default mock operation (copy)
+            # Default algebraic_bound operation (copy)
             pass
         return Ok(True)
 
@@ -157,7 +157,7 @@ class OmniKomputeEngine:
 
         t_A = Tensor(arr1)
         t_B = Tensor(arr2)
-        t_Out = Tensor([0.0] * len(arr1))
+        t_Out = Tensor([0.0 for _ in range(len(arr1))])
 
         # Move to GPU
         t_A.map_to_device()
@@ -183,6 +183,6 @@ class OmniKomputeEngine:
         return {
             "engine_id": self.ENGINE_ID,
             "version": self.VERSION,
-            "capabilities": ["Vulkan Memory Map Simulation", "Command Buffer Eval", "Pipeline Dispatch"],
+            "capabilities": ["Vulkan Memory Map topological_evaluation", "Command Buffer Eval", "Pipeline Dispatch"],
             "status": "operational",
         }

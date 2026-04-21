@@ -59,7 +59,7 @@ class OmniDeepmindLabEngine:
 
     async def _step_agent(self, action_vector: List[float], intensity: int) -> Dict[str, Any]:
         """
-        Simulates navigation iterations to compute dynamic reward tensors.
+        evaluates_structurally navigation iterations to compute dynamic reward tensors.
         """
         await asyncio.sleep(0.04)
         

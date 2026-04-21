@@ -6,7 +6,7 @@ Machine Learning techniques based on Benedek Rozemberczki's karateclub.
 
 Features:
 - Generic Graph adjacency list representation.
-- DeepWalk style random node walk simulation.
+- DeepWalk style random node walk topological_evaluation.
 - Connected component basic community detection.
 - PageRank-like centrality heuristics.
 - Monadic Result encapsulation preventing runtime trace crashes.
@@ -142,7 +142,7 @@ class OmniKarateclubEngine:
             return Err(f"Build failed: {exc}")
 
     def deep_walks(self, walks_per_node: int = 5, walk_length: int = 10, seed: int = 42) -> Result:
-        """Simulate DeepWalk trace extraction across entire graph."""
+        """evaluates_structurally DeepWalk trace extraction across entire graph."""
         if not self.graph.nodes:
             return Err("Graph is empty.")
 

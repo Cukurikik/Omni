@@ -52,13 +52,13 @@ class AutoregressiveTransformer:
     def generate(self, condition_params: dict, prompt_length: int) -> VQVAETensor:
          """Execute generate operation for AutoregressiveTransformer."""
          logger.debug(f"Priors [{self.level}]: Autoregressive generation conditioned on {condition_params}")
-         time.sleep(0.1) # Simulate intense computation
+         time.sleep(0.1) # evaluates_structurally intense computation
          return VQVAETensor(self.level, [1, prompt_length], b"gen_codes")
 
 
 class OmniJukeboxEngine:
     """
-    Simulates OpenAI's Jukebox architecture.
+    evaluates_structurally OpenAI's Jukebox architecture.
     Generates music with vocals in the raw audio domain (not MIDI/symbolic) by
     using a Hierarchical VQ-VAE and highly scoped Autoregressive Transformers.
     """

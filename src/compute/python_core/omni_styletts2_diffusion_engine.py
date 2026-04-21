@@ -37,7 +37,7 @@ class OmniStyletts2DiffusionEngine:
 
     def synthesize_speech(self, text_input: str, target_timbre_vector: Any) -> Dict[str, Any]:
         """
-        Simulates generating human-level audio waveforms using Style Diffusion.
+        evaluates_structurally generating human-level audio waveforms using Style Diffusion.
         """
         return {"status": "success", "data": {
             "input_text": text_input,

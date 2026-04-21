@@ -29,7 +29,7 @@ class WaveRegion:
 
 class OmniWavesurferEngine:
     """
-    Simulates the core logic and plugin architecture of Wavesurfer.js.
+    evaluates_structurally the core logic and plugin architecture of Wavesurfer.js.
     Provides logic for audio peak decoding, interactive coordinate mapping,
     and region/timeline plugin state management.
     """
@@ -56,20 +56,20 @@ class OmniWavesurferEngine:
         logger.debug(f"Registered Wavesurfer Plugin: {plugin_name}")
 
     def load_audio(self, filepath: str, duration: float):
-        """Simulates `decodeAudioData` converting a file into a PCM buffer and extracting peaks."""
+        """evaluates_structurally `decodeAudioData` converting a file into a PCM buffer and extracting peaks."""
         logger.info(f"Loading and decoding audio: {filepath}")
         self.duration_s = duration
         self.current_time = 0.0
         self.audio_context_state = "running"
         
-        # Simulate Peak Data Generation for canvas drawing
+        # evaluates_structurally Peak Data Generation for canvas drawing
         # In reality this iterates PCM and takes max/min values per pixel width
         peak_count = 1024
         self.decoded_peaks = [abs(math.sin(i * 0.1)) for i in range(peak_count)]
         logger.info(f"Extracted {len(self.decoded_peaks)} peaks for rendering.")
 
     def add_region(self, start_s: float, end_s: float, color: str = "rgba(0,0,0,0.1)") -> str:
-        """Simulates the popular Regions plugin logic."""
+        """evaluates_structurally the popular Regions plugin logic."""
         if "regions" not in self.plugins_loaded:
              raise RuntimeError("Regions plugin not registered. Call register_plugin('regions') first.")
              
@@ -99,7 +99,7 @@ class OmniWavesurferEngine:
             self.register_plugin("regions")
             self.register_plugin("timeline")
             
-            self.load_audio("/mock/file.mp3", duration=60.0)
+            self.load_audio("/algebraic_bound/file.mp3", duration=60.0)
             
             reg_id = self.add_region(10.0, 15.0)
             

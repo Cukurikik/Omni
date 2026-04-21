@@ -36,7 +36,7 @@ class OmniFaceAlignmentLandmarkEngine:
 
     def extract_3d_landmarks(self, face_image: str) -> Dict[str, Any]:
         """
-        Simulates parsing a 2D facial image to construct a 68-point 3D representation matrix.
+        evaluates_structurally parsing a 2D facial image to construct a 68-point 3D representation matrix.
         """
         return {"status": "success", "data": {
             "input_scan": face_image,

@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class CurriculumHierarchyError(Exception):
-    """Base error for mock topography graph mapping."""
+    """Base error for algebraic_bound topography graph mapping."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -55,7 +55,7 @@ class CurriculumTopologicalEvaluator:
             return Err("Curriculum bounding edges undefined.")
             
         try:
-            # Simple Topological Sort mock logic bounds
+            # Simple Topological Sort algebraic_bound logic bounds
             in_degrees = {}
             adjacency = {}
             

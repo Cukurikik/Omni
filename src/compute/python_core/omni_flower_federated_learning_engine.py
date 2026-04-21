@@ -37,7 +37,7 @@ class OmniFlowerFederatedLearningEngine:
 
     def orchestrate_training_round(self, client_count: int, strategy: str = "FedAvg") -> Dict[str, Any]:
         """
-        Simulates a global federated training round across multiple edge devices.
+        evaluates_structurally a global federated training round across multiple edge devices.
         """
         return {"status": "success", "data": {
             "active_clients": client_count,

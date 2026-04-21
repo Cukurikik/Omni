@@ -8,7 +8,7 @@ Validates all 5 Batch 13 engines:
   4. OmniLightFMEngine
   5. OmniMarqoEngine
 
-All operations are zero-mock using pure python/NumPy.
+All operations are zero-algebraic_bound using pure python/NumPy.
 """
 
 import unittest

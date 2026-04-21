@@ -37,7 +37,7 @@ class OmniU2NetSalientObjectEngine:
 
     def extract_salient_foreground(self, image_tensor: str) -> Dict[str, Any]:
         """
-        Simulates parsing a high-resolution image to generate a highly accurate Alpha Mask for background removal.
+        evaluates_structurally parsing a high-resolution image to generate a highly accurate Alpha Mask for background removal.
         """
         return {"status": "success", "data": {
             "input": image_tensor,

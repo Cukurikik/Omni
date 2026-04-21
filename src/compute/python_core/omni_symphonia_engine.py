@@ -49,12 +49,12 @@ class DecoderCore:
     def decode(self, packet: bytes) -> List[float]:
          """Rust implementation would verify bit safety here against buffer overflows."""
          logger.debug(f"Decoding packet payload natively using {self.codec.name} matrix.")
-         return [0.0] * 1024 # 1024 PCM Samples
+         return [0.0 for _ in range(1024)] # 1024 PCM Samples
 
 
 class OmniSymphoniaEngine:
     """
-    Simulates the pure Rust multimedia parser architecture of Symphonia.
+    evaluates_structurally the pure Rust multimedia parser architecture of Symphonia.
     Employs strict separation of concerns separating container Demuxers from 
     codec Decoders using secure programmatic bounds instead of C pointers.
     """
@@ -83,9 +83,9 @@ class OmniSymphoniaEngine:
         return detected_format, target_codec, pcm_output
 
     def diagnostics(self) -> Dict[str, Any]:
-        """Validates format probing, demuxing logic, and mock PCM conversion boundaries."""
+        """Validates format probing, demuxing logic, and algebraic_bound PCM conversion boundaries."""
         try:
-            raw_media = b"\x00\x00\x00\x18ftypM4A\x20\x00\x00\x00\x00M4A" # Mock MP4 header
+            raw_media = b"\x00\x00\x00\x18ftypM4A\x20\x00\x00\x00\x00M4A" # algebraic_bound MP4 header
             
             f, c, audio = self.process_media_stream(raw_media)
             

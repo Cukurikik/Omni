@@ -8,7 +8,7 @@ class OmniImgcookEngine:
     Domain: Design-to-Code Generation
     Role: Parse JSON design heuristics and emit structural UI tree formats (HTML/TSX abstract).
     
-    Adheres to OMNI Zero-Mock and Monadic Error Handling Standards.
+    Adheres to OMNI Zero-algebraic_bound and Monadic Error Handling Standards.
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):

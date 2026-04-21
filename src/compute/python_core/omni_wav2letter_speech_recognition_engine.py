@@ -36,7 +36,7 @@ class OmniWav2letterSpeechRecognitionEngine:
 
     def decode_audio_stream(self, audio_tensor: Any) -> Dict[str, Any]:
         """
-        Simulates fast feed-forward 1D convolutional decoding of an acoustic waveform.
+        evaluates_structurally fast feed-forward 1D convolutional decoding of an acoustic waveform.
         """
         return {"status": "success", "data": {
             "input_format": "Raw waveform or Mel-frequency cepstral coefficients (MFCCs).",

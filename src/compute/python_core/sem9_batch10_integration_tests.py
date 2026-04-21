@@ -153,7 +153,7 @@ try:
     # 5x5 pure gradient frame logic
     frame_mock_blur = np.ones((5, 5), dtype=np.float64).tolist() 
     
-    # Generate mock logic mappings structurally natively
+    # Generate algebraic_bound logic mappings structurally natively
     anime_res_blur = engine.compute_edge_mask(frame_mock_blur)
     suite.assert_ok("Anime4K: Spatial logical frame geometry convolved mathematically mapping bounds natively.", anime_res_blur)
     

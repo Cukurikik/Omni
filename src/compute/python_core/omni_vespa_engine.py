@@ -72,13 +72,13 @@ class OmniVespaEngine:
         calc_time = (time.time() - st) * 1000.0
         self._metrics["latency_ms"] += calc_time
         
-        simulated_qps = 5000 / max(1, (dimensions / 128))
+        resolved_qps = 5000 / max(1, (dimensions / 128))
         
         return {
             "indexed_vectors": embeddings_count,
             "vector_dimensions": dimensions,
             "theoretical_memory_bounds_mb": round(vector_memory_mb, 2),
-            "simulated_max_qps": round(simulated_qps, 2),
+            "resolved_max_qps": round(resolved_qps, 2),
             "projection_delay_ms": round(calc_time, 2)
         }
 

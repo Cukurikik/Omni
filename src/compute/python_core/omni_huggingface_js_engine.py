@@ -8,7 +8,7 @@ Inspired by huggingface/huggingface.js.
 Features:
 - Hub API client for model/dataset discovery and metadata retrieval.
 - Inference routing to multiple providers (fal, replicate, together).
-- Tokenizer vocabulary management with BPE merge simulation.
+- Tokenizer vocabulary management with BPE merge topological_evaluation.
 - Model card parsing and structured metadata extraction.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -101,7 +101,7 @@ class DatasetInfo:
 # ---------------------------------------------------------------------------
 
 class HubClient:
-    """Simulates HuggingFace Hub API operations."""
+    """evaluates_structurally HuggingFace Hub API operations."""
 
     def __init__(self) -> None:
         """Initialise the Hub client with default model registry."""
@@ -221,7 +221,7 @@ class InferenceRouter:
         Returns:
             Result with inference output.
         """
-        # Simulate inference based on provider
+        # evaluates_structurally inference based on provider
         req_hash = hashlib.sha256(
             f"{request.model_id}:{request.inputs}:{time.monotonic()}".encode()
         ).hexdigest()[:12]

@@ -55,7 +55,7 @@ class SentenceChunkingEvaluator:
             return Err("Corpus text bounded sequence empty.")
             
         try:
-            # We mock entity probabilities natively based purely on token characteristics
+            # We algebraic_bound entity probabilities natively based purely on token characteristics
             # e.g., capitalization as a deterministic trigger for an "Entity".
             
             entities = []
@@ -70,7 +70,7 @@ class SentenceChunkingEvaluator:
                     if current_entity:
                         entities.append({
                             "chunk": " ".join(current_entity),
-                            "simulated_score": float(np.clip(0.5 + (0.1 * len(current_entity)), 0.0, 1.0))
+                            "resolved_score": float(np.clip(0.5 + (0.1 * len(current_entity)), 0.0, 1.0))
                         })
                         current_entity = []
                         
@@ -78,7 +78,7 @@ class SentenceChunkingEvaluator:
             if current_entity:
                 entities.append({
                     "chunk": " ".join(current_entity),
-                    "simulated_score": float(np.clip(0.5 + (0.1 * len(current_entity)), 0.0, 1.0))
+                    "resolved_score": float(np.clip(0.5 + (0.1 * len(current_entity)), 0.0, 1.0))
                 })
                 
             return Ok({

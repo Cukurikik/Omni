@@ -26,7 +26,7 @@ class OmniWav2LetterEngine:
     """
     omni-wav2letter
     
-    A zero-mock native engine simulating Facebook's wav2letter architecture.
+    A zero-algebraic_bound native engine simulating Facebook's wav2letter architecture.
     Focuses on projecting sequence data (e.g., audio MFCCs) via 1D convolutions 
     and evaluating pseudo-CTC alignment probability maps.
     """

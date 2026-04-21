@@ -36,7 +36,7 @@ class OmniNyuDlEnergyBasedEngine:
 
     def compute_energy_state(self, input_x: Any, output_y: Any) -> Dict[str, Any]:
         """
-        Simulates computing the scalar energy of an (x, y) configuration. Lower energy -> more compatible.
+        evaluates_structurally computing the scalar energy of an (x, y) configuration. Lower energy -> more compatible.
         """
         return {"status": "success", "data": {
             "configuration": "(x, y)",

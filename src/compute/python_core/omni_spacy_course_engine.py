@@ -6,7 +6,7 @@ token analysis, entity recognition, and linguistic pattern matching.
 Inspired by explosion/spacy-course and spaCy v3 architecture.
 
 Features:
-- Tokenisation, POS tagging and dependency parse simulation.
+- Tokenisation, POS tagging and dependency parse topological_evaluation.
 - Named Entity Recognition (NER) via rule-based pattern matchers.
 - Custom pipeline component registration & execution.
 - Linguistic pattern matching with token-level predicates.

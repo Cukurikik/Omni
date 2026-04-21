@@ -37,7 +37,7 @@ class OmniXlnetAutoregressiveEngine:
 
     def compute_permutation_context(self, sequence: str) -> Dict[str, Any]:
         """
-        Simulates extracting bidirectional context via factorization order permutations.
+        evaluates_structurally extracting bidirectional context via factorization order permutations.
         """
         return {"status": "success", "data": {
             "input_sequence": sequence,

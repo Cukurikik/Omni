@@ -31,7 +31,7 @@ class LoudnessEqualizer:
         """Execute process operation for LoudnessEqualizer."""
         target_db = -14.0 # Standard LUFS
         if db_level > target_db:
-            # Compress (soft-knee mock)
+            # Compress (soft-knee algebraic_bound)
             return db_level - ((db_level - target_db) * 0.4)
         elif db_level < target_db - 10:
              # Boost
@@ -49,7 +49,7 @@ class FletcherMunsonCurve:
 
 class OmniFineTuneEngine:
     """
-    Simulates the macOS FineTune application architecture.
+    evaluates_structurally the macOS FineTune application architecture.
     Provides per-app audio routing matrices and advanced DSP leveling 
     (Fletcher-Munson & K-Weighted RMS).
     """

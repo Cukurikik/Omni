@@ -37,7 +37,7 @@ class OmniLamaInpaintingEngine:
 
     def heal_image_mask(self, image_tensor: str, occlusion_mask: str) -> Dict[str, Any]:
         """
-        Simulates the inpainting passing through a Fast Fourier Convolution residual block.
+        evaluates_structurally the inpainting passing through a Fast Fourier Convolution residual block.
         """
         return {"status": "success", "data": {
             "input_resolution": "High-Res (e.g., 2K/4K scaling)",

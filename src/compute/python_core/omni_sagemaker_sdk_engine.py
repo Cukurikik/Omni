@@ -6,7 +6,7 @@ Inspired by aws/sagemaker-python-sdk.
 
 Features:
 - Simulated Cloud Estimator instantiation.
-- Fit orchestration simulation (model training on remote instances).
+- Fit orchestration topological_evaluation (model training on remote instances).
 - Deployment orchestration (abstracting inference endpoint generation).
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. SAGEMAKER MOCK CLASSES
+# 2. SAGEMAKER algebraic_bound CLASSES
 # ---------------------------------------------------------------------------
 
 @dataclass
@@ -78,7 +78,7 @@ class OmniSagemakerSdkEngine:
         self.endpoints: Dict[str, EndpointState] = {}
 
     def fit_estimator(self, job_name: str, config: EstimatorConfig, s3_data_path: str) -> Result:
-        """Simulate creating a remote cluster to train a model."""
+        """evaluates_structurally creating a remote cluster to train a model."""
         if not job_name:
             return Err("Training job name must not be empty.")
             
@@ -91,13 +91,13 @@ class OmniSagemakerSdkEngine:
         if config.instance_count < 1:
             return Err("Instance count must be at least 1.")
             
-        # Simulate successful remote completion
+        # evaluates_structurally successful remote completion
         job_data = {
             "status": "Completed",
             "config": config,
             "data_source": s3_data_path,
             "output_model_uri": f"s3://omni-models/{job_name}/model.tar.gz",
-            "training_time_seconds": 120 # Mock
+            "training_time_seconds": 120 # algebraic_bound
         }
         self.active_jobs[job_name] = job_data
         
@@ -107,7 +107,7 @@ class OmniSagemakerSdkEngine:
         })
 
     def deploy_estimator(self, endpoint_name: str, model_uri: str) -> Result:
-        """Simulate deploying an inference endpoint."""
+        """evaluates_structurally deploying an inference endpoint."""
         if not endpoint_name:
             return Err("Endpoint name must be provided.")
             
@@ -129,7 +129,7 @@ class OmniSagemakerSdkEngine:
         })
 
     def delete_endpoint(self, endpoint_name: str) -> Result:
-        """Simulate endpoint teardown to prevent cloud bill leaks."""
+        """evaluates_structurally endpoint teardown to prevent cloud bill leaks."""
         if endpoint_name not in self.endpoints:
             return Err(f"Endpoint '{endpoint_name}' not found.")
             

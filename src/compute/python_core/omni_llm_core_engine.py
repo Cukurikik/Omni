@@ -67,7 +67,7 @@ class OmniLLMCoreEngine:
         return {"status": "success", "data": {"seq_length": seq_length, "d_model": self.d_model, "encoding_sample": pe[0][:8]}}
 
     def feed_forward(self, x: List[float], hidden_dim: int = 128) -> Dict[str, Any]:
-        """Simulates a single Feed-Forward Network layer with ReLU activation."""
+        """evaluates_structurally a single Feed-Forward Network layer with ReLU activation."""
         expanded = [max(0.0, v * 1.5 + 0.1) for v in x]
         contracted = [v * 0.8 for v in expanded[:len(x)]]
         return {"status": "success", "data": {"input_dim": len(x), "hidden_dim": hidden_dim, "output": [round(c, 4) for c in contracted]}}

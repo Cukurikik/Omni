@@ -8,7 +8,7 @@ highly optimized NumPy primitives for educational and production use.
 
 Extracted Patterns:
   - Weight Initialization (Xavier, He)
-  - Regularization (Dropout, L2 Simulation)
+  - Regularization (Dropout, L2 topological_evaluation)
   - Normalization (Batch Normalization)
   - Advanced Optimizers (Adam, RMSprop, Momentum)
   - Clear, mathematical formulation of forward and backward passes

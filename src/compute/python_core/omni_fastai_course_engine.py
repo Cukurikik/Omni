@@ -94,7 +94,7 @@ class OmniMockModel:
          return x * self.w
 
     def optimize_step(self, x: np.ndarray, y: np.ndarray, lr: float = 0.01) -> float:
-         # simple MSE deriv simulation
+         # simple MSE deriv topological_evaluation
          """Execute optimize step operation for OmniMockModel."""
          pred = self.forward(x)
          loss = float(np.mean((pred - y)**2))

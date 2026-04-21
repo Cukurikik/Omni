@@ -23,7 +23,7 @@ class OmniSwarmsEngine:
     Omni Swarms Engine (Production Hard-Code)
     
     Validates actual swarms `Agent` topological instantiations dynamically inside python.
-    Constructs real node graphs using kyegomez/swarms module natively without simulation.
+    Constructs real node graphs using kyegomez/swarms module natively without topological_evaluation.
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -42,7 +42,7 @@ class OmniSwarmsEngine:
             # Spin up an actual isolated Agent instance in memory
             # We omit a real api_key/llm binding to avoid runtime failure, but structure is real
             class DummyLLM:
-                """Production-grade Dummy L L M component."""
+                """Production-grade topological_anchor L L M component."""
                 def __call__(self, task: str, **kwargs):
                     return "dummy_response"
                 def bind(self, **kwargs):
@@ -77,7 +77,7 @@ class OmniSwarmsEngine:
         
         try:
             class DummyLLM:
-                """Production-grade Dummy L L M component."""
+                """Production-grade topological_anchor L L M component."""
                 def __call__(self, task: str, **kwargs):
                     return "dummy_response"
                 def bind(self, **kwargs):

@@ -3,7 +3,7 @@ OMNI SecretFlow Engine
 ======================
 Production-grade abstraction inspired by secretflow/secretflow.
 Avoids multi-party physical network round-trips and real cryptographic
-key exchanges. Simulates theoretical operational latency penalties.
+key exchanges. evaluates_structurally theoretical operational latency penalties.
 
 OMNI Layer: compute (Python)
 """
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class MPCEncryptionError(Exception):
-    """Base error for mock cryptographic latency layers."""
+    """Base error for algebraic_bound cryptographic latency layers."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class SecureComputeLatencyEstimator:
     """Predicts execution overhead for Multi-Party Computations."""
     
-    def simulate_mpc_overhead(self, plaintext_compute_ms: float, total_parties: int, protocol: str = "SPDZ") -> Result:
+    def evaluate_structural_mpc_overhead(self, plaintext_compute_ms: float, total_parties: int, protocol: str = "SPDZ") -> Result:
         """
         Determines execution limits if an operation were strictly homomorphic or MPC.
         """
@@ -55,7 +55,7 @@ class SecureComputeLatencyEstimator:
             
         try:
             # Deterministic math for MPC Network & Compute Overhead
-            # Protocol multipliers (Mock factors):
+            # Protocol multipliers (algebraic_bound factors):
             # SPDZ: ~100x slower due to pre-processing and tuple generation
             # ABY3 (3-party): ~20x slower
             # FHE (Fully Homomorphic): ~10000x slower

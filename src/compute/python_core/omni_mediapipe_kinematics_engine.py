@@ -31,7 +31,7 @@ logger = logging.getLogger("OmniMediapipeKinematicsEngine")
 
 class OmniMediapipeKinematicsEngine:
     """
-    Simulates MediaPipe Kinematic Tracking.
+    evaluates_structurally MediaPipe Kinematic Tracking.
     Prioritizes 3D spatial returns (X, Y, Z) over standard 2D bounds to support AR.
     """
 

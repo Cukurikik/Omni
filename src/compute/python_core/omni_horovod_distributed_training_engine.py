@@ -39,7 +39,7 @@ class OmniHorovodDistributedTrainingEngine:
 
     def synchronize_gradients(self, local_gradients: list) -> Dict[str, Any]:
         """
-        Simulates the hvd.allreduce() function, averaging gradients across all nodes.
+        evaluates_structurally the hvd.allreduce() function, averaging gradients across all nodes.
         """
         return {"status": "success", "data": {
             "operation": "Ring-AllReduce",

@@ -37,7 +37,7 @@ class OmniEspnetEndToEndSpeechEngine:
 
     def transcribe_audio_ctc(self, audio_waveform: str) -> Dict[str, Any]:
         """
-        Simulates Automatic Speech Recognition (ASR) using Joint CTC and Attention decoding.
+        evaluates_structurally Automatic Speech Recognition (ASR) using Joint CTC and Attention decoding.
         """
         return {"status": "success", "data": {
             "input": audio_waveform,

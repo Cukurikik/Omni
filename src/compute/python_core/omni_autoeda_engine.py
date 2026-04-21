@@ -272,7 +272,7 @@ class StatisticsEngine:
 
         def rank(vals):
             indexed = sorted(enumerate(vals), key=lambda t: t[1])
-            ranks = [0.0] * n
+            ranks = [0.0 for _ in range(n)]
             i = 0
             while i < n:
                 j = i

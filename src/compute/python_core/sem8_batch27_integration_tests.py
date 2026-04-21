@@ -40,10 +40,10 @@ class TestDeepnoteEngine(unittest.TestCase):
 
     def test_notebook_dag_simulation(self):
         engine = OmniDeepnoteEngine()
-        sim = engine.get_simulator()
+        sim = engine.get_structural_evaluator()
         
         # Simulated complexity load blocks
-        res = sim.simulate_cellular_run([2, 5, 1])
+        res = sim.evaluate_structural_cellular_run([2, 5, 1])
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -81,7 +81,7 @@ class TestInteractiveToolsEngine(unittest.TestCase):
         mapper = engine.get_mapper()
         
         # Start loss 1.5, LR 0.05, 50 epochs
-        res = mapper.simulate_visual_descent(1.5, 0.05, 50)
+        res = mapper.evaluate_structural_visual_descent(1.5, 0.05, 50)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         
@@ -105,7 +105,7 @@ class TestGerevEngine(unittest.TestCase):
             "The quick search algorithm retrieves user payment data well."
         ]
         
-        res = retriever.simulate_semantic_retrieval("user payments", docs)
+        res = retriever.evaluate_structural_semantic_retrieval("user payments", docs)
         self.assertTrue(is_ok(res))
         out = unwrap(res)
         

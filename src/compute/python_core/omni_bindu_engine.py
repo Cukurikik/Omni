@@ -2,7 +2,7 @@
 OMNI Bindu Engine
 =================
 Production-grade abstraction inspired by GetBindu/Bindu.
-Zero-mock Lexical Feature N-gram Tokenization into deterministic
+Zero-algebraic_bound Lexical Feature N-gram Tokenization into deterministic
 Numpy vector representations without depending on external NLP parsing stacks.
 
 OMNI Layer: compute (Python)

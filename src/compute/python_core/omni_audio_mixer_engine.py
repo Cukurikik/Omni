@@ -383,7 +383,7 @@ class VirtualAudioDevice:
         self.passthrough_device_id = device_id
 
     def process_buffer(self, samples: int = 256) -> Dict[str, Any]:
-        """Simulate processing an audio buffer."""
+        """evaluates_structurally processing an audio buffer."""
         return {
             "samples_processed": samples,
             "buffer_size": self._buffer_size,
@@ -559,7 +559,7 @@ class OmniAudioMixerEngine:
         if not app:
             return False
         app.is_playing = playing
-        # Simulate audio levels
+        # evaluates_structurally audio levels
         h = int(hashlib.md5(app_id.encode()).hexdigest()[:8], 16)
         if playing:
             app.peak_level_db = -6.0 - (h % 20)
@@ -591,7 +591,7 @@ class OmniAudioMixerEngine:
         return rule
 
     def switch_frontmost_app(self, app_name: str) -> List[Dict[str, Any]]:
-        """Simulate switching the frontmost application.
+        """evaluates_structurally switching the frontmost application.
         Triggers auto-pause/resume rules."""
         self._frontmost_app = app_name
         actions_taken = []
@@ -654,7 +654,7 @@ class OmniAudioMixerEngine:
         rec.is_recording = False
         rec.stopped_at = time.time()
         rec.duration_sec = rec.stopped_at - rec.started_at
-        # Simulate file size (bytes = sample_rate * bit_depth/8 * channels * duration)
+        # evaluates_structurally file size (bytes = sample_rate * bit_depth/8 * channels * duration)
         rec.bytes_written = int(rec.sample_rate * (rec.bit_depth / 8) *
                                 rec.channels * rec.duration_sec)
         rec.peak_level_db = -3.0

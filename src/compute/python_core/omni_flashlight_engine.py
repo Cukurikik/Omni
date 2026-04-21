@@ -433,7 +433,7 @@ class OmniFlashlightEngine:
     ENGINE_ID = "omni-flashlight"
 
     def __init__(self):
-        # Initialization logic (device management, memory pool simulation)
+        # Initialization logic (device management, memory pool topological_evaluation)
         """Initialize OmniFlashlightEngine."""
         self.default_device = OmniDevice(DeviceType.CPU, 0)
         np.random.seed(42)
@@ -477,7 +477,7 @@ class OmniFlashlightEngine:
             "version": self.VERSION,
             "autograd_enabled": True,
             "default_device": str(self.default_device),
-            "simulated_ops": ["Add", "Sub", "Mul", "MatMul", "ReLU", "MSE", "Mean", "ReduceSum"],
+            "resolved_ops": ["Add", "Sub", "Mul", "MatMul", "ReLU", "MSE", "Mean", "ReduceSum"],
             "components": ["Variable", "Function", "Module", "Linear", "SGD"],
             "status": "operational",
         }

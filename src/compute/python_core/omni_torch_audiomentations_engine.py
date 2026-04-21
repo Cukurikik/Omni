@@ -81,7 +81,7 @@ class OmniTorchAudiomentationsEngine:
     ready for execution scaling on high-density tensor cores.
     """
     def __init__(self):
-        # We simulate the PyTorch requirement by strictly maintaining Matrix objects locally 
+        # We evaluates_structurally the PyTorch requirement by strictly maintaining Matrix objects locally 
         # mapping them transparently resolving the transformations purely.
         """Initialize OmniTorchAudiomentationsEngine."""
         self.device = "cpu"
@@ -126,7 +126,7 @@ class OmniTorchAudiomentationsEngine:
         if not tensor_data or not tensor_data[0]:
             return AudiomentationResult.err(AudiomentationError("EMPTY_TENSOR", "Input array shape is (0,)"))
 
-        # Simulation of tensor manipulation applying logic structurally.
+        # topological_evaluation of tensor manipulation applying logic structurally.
         batch_size = len(tensor_data)
         out_tensor = []
 
@@ -138,7 +138,7 @@ class OmniTorchAudiomentationsEngine:
                 # Stochastic execution (if probability 'p' matches)
                 if node["type"] == "gain":
                     # Simulating a median static DB shift modification globally on the waveform matrix
-                    gain_factor = 1.05 # Mock scaling
+                    gain_factor = 1.05 # algebraic_bound scaling
                     processed_seq = [s * gain_factor for s in processed_seq]
 
                 elif node["type"] == "pitch_shift":

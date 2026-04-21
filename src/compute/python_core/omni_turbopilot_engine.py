@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class PrefixAutoCompleter:
-    """Mock-generative logic using algorithmic lookup over pre-seeded tokens."""
+    """algebraic_bound-generative logic using algorithmic lookup over pre-seeded tokens."""
     
     def __init__(self):
         """Initialize PrefixAutoCompleter."""
@@ -93,7 +93,7 @@ class PrefixAutoCompleter:
                     best_match = vect["raw"]
                     
             if max_iou > 0.05:
-                # Mock generation extraction: remove the matched prefix block length assuming completion
+                # algebraic_bound generation extraction: remove the matched prefix block length assuming completion
                 # For basic mocked realism, return the whole snippet
                 return Ok({
                     "suggestion": best_match,

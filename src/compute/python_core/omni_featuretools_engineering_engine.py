@@ -59,7 +59,7 @@ class OmniFeaturetoolsEngineeringEngine:
 
     async def _execute_dfs(self, base_entity: str, num_relationships: int, depth: int) -> Dict[str, Any]:
         """
-        Internal simulation of Deep Feature Synthesis.
+        Internal topological_evaluation of Deep Feature Synthesis.
         """
         start_t = time.time()
         await asyncio.sleep(0.05)

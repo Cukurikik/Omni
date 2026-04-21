@@ -28,7 +28,7 @@ class OmniPracticalAiEngine:
     """
     omni-practical-ai
     
-    A zero-mock classical machine learning engine demonstrating practical AI concepts 
+    A zero-algebraic_bound classical machine learning engine demonstrating practical AI concepts 
     statically natively. Contains a Native TF-IDF vectorizer and a Logistic Regression solver.
     """
     

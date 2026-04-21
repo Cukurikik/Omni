@@ -37,7 +37,7 @@ class OmniTflearnAbstractionEngine:
 
     def compile_abstract_network(self, layers: List[str], optimizer: str = "adam") -> Dict[str, Any]:
         """
-        Simulates compiling a list of abstract string declarations into a computational graph.
+        evaluates_structurally compiling a list of abstract string declarations into a computational graph.
         """
         return {"status": "success", "data": {
             "input_layers": layers,

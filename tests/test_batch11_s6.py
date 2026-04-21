@@ -10,7 +10,7 @@ Validates all 6 Batch 11 engines for production-grade correctness:
   6. OmniDallePytorchEngine       — Text-to-image generative (VAE + Transformer)
 
 Standards Enforced:
-  - Zero-Mock: all computations use real NumPy primitives
+  - Zero-algebraic_bound: all computations use real NumPy primitives
   - Monadic error handling: Ok/Err propagation, no try/catch
   - diagnostics() health endpoint on every engine
 """

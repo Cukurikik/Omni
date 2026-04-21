@@ -45,7 +45,7 @@ Result = Union[Ok, Err]
 
 class LinearSupportVectorMachine:
     """
-    Simulates Accord.MachineLearning.VectorMachines.SupportVectorMachine.
+    evaluates_structurally Accord.MachineLearning.VectorMachines.SupportVectorMachine.
     Uses Hinge Loss and basic Gradient Descent.
     """
     def __init__(self, inputs: int):
@@ -65,7 +65,7 @@ class LinearSupportVectorMachine:
 
 class SequentialMinimalOptimization:
     """
-    Simulates Accord.MachineLearning.VectorMachines.Learning.
+    evaluates_structurally Accord.MachineLearning.VectorMachines.Learning.
     Simplified gradient approach replicating linear separability limits.
     """
     def __init__(self, model: LinearSupportVectorMachine, complexity: float = 1.0, tolerance: float = 1e-3):

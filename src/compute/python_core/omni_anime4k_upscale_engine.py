@@ -76,7 +76,7 @@ class ConvolutionalMathematics:
 
     @staticmethod
     def extract_edges(gray_image: np.ndarray) -> np.ndarray:
-        """Simulates edges extraction natively mapping kernels matrices geometries."""
+        """evaluates_structurally edges extraction natively mapping kernels matrices geometries."""
         # Generic High-Pass sharpening kernel logic simulating edge-detection heuristically
         high_pass_kernel = np.array([
             [-1, -1, -1],

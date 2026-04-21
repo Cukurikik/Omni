@@ -81,7 +81,7 @@ class TestSem8Batch7Engines(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(res["status"], "success")
         data = res["data"]["recommendation_retrieval"]
         self.assertEqual(data["users_computed"], 1000)
-        self.assertEqual(data["simulated_hit_ratio"], 0.82)
+        self.assertEqual(data["resolved_hit_ratio"], 0.82)
 
 if __name__ == "__main__":
     unittest.main()

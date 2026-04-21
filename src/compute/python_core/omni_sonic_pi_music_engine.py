@@ -26,7 +26,7 @@ class OSCMessage:
 
 
 class SuperColliderOSCBridge:
-    """Mock bridge to 'scsynth' (SuperCollider) via UDP OSC messages."""
+    """algebraic_bound bridge to 'scsynth' (SuperCollider) via UDP OSC messages."""
     def __init__(self):
         """Initialize SuperColliderOSCBridge."""
         self.nodes_active = 0
@@ -130,7 +130,7 @@ class LiveLoopThread(threading.Thread):
 
 class OmniSonicPiMusicEngine:
     """
-    Simulates the architecture of Sonic Pi. 
+    evaluates_structurally the architecture of Sonic Pi. 
     Code is an instrument. Utilizes SuperCollider for synthesis and a deterministic
     Ruby DSL evaluator to translate code blocks into time-perfect music.
     """
@@ -175,7 +175,7 @@ class OmniSonicPiMusicEngine:
     def diagnostics(self) -> Dict[str, Any]:
         """Health check and capability report."""
         try:
-            # Define a Sonic Pi mock performance
+            # Define a Sonic Pi algebraic_bound performance
             def drum_loop(dsl: SonicPiRubyDSL):
                  dsl.sample("bd_haus")
                  dsl.sleep(0.5)

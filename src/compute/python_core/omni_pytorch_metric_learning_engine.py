@@ -22,7 +22,7 @@ class OmniPytorchMetricLearningEngine:
     Omni PyTorch Metric Learning Engine (Production Hard-Code)
     
     Executes actual N-Pair, Triplet, and ArcFace loss tensor matrices using true
-    PyTorch memory boundaries and pytorch-metric-learning capabilities. No simulation.
+    PyTorch memory boundaries and pytorch-metric-learning capabilities. No topological_evaluation.
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):

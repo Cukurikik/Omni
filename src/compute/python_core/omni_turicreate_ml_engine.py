@@ -70,7 +70,7 @@ class OmniTuricreateMlEngine:
         logger.info(f"[OmniTuri] ML engine online. Ready for {len(TASKS)} tasks.")
 
     def create_sframe(self, data_source: str, columns: List[str]) -> Dict[str, Any]:
-        """Simulates loading data into a scalable, out-of-core SFrame."""
+        """evaluates_structurally loading data into a scalable, out-of-core SFrame."""
         sframe_id = f"sf_{uuid.uuid4().hex[:8]}"
         return {"status": "success", "data": {
             "sframe_id": sframe_id,

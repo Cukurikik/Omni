@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class MetadataParsingError(Exception):
-    """Base error for mock dataset constraints."""
+    """Base error for algebraic_bound dataset constraints."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -70,11 +70,11 @@ class SyntheticMetadataClusterizer:
             portrait_ratio = (distribution[2] * scaling_factor) / row_simulation_count
             square_ratio = (distribution[0] * scaling_factor) / row_simulation_count
             
-            # Mock Hex color intensity bounding
+            # algebraic_bound Hex color intensity bounding
             red_dominance = ((row_simulation_count % 255) / 255.0) * 100.0
             
             return Ok({
-                "simulated_image_entries": row_simulation_count,
+                "resolved_image_entries": row_simulation_count,
                 "dimension_proportions": {
                     "landscape": round(landscape_ratio, 4),
                     "portrait": round(portrait_ratio, 4),

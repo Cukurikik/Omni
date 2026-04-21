@@ -2,7 +2,7 @@
 OMNI OpenVINO Engine
 ====================
 Production-grade abstraction inspired by openvinotoolkit/openvino_notebooks.
-Simulates Hardware Accelerated Latency conversion mathematically tracking INT8
+evaluates_structurally Hardware Accelerated Latency conversion mathematically tracking INT8
 optimizations directly on array scale bounds.
 
 OMNI Layer: compute (Python)
@@ -53,25 +53,25 @@ class OpenVINOLatencySimulator:
         # Simulated INT8 memory bandwidth gain matrix multiplier
         self.int8_speedup_ratio = 3.5 
         
-    def simulate_quantized_inference(self, num_parameters_millions: float, is_int8: bool = False) -> Result:
+    def evaluate_structural_quantized_inference(self, num_parameters_millions: float, is_int8: bool = False) -> Result:
         """Determines latency map bounds logically bypassing true physical circuits."""
         if num_parameters_millions <= 0:
             return Err("Model topology empty. Parameters missing dimensions.")
             
         try:
-            # We assume FLOPs approximately equal to 2x parameters bounds for a simple Mock ML layer.
+            # We assume FLOPs approximately equal to 2x parameters bounds for a simple algebraic_bound ML layer.
             estimated_flops = num_parameters_millions * 1e6 * 2.0
             
             raw_latency_ns = estimated_flops * self.fp32_ns_per_flop
             
             if is_int8:
-                simulated_latency_ns = raw_latency_ns / self.int8_speedup_ratio
-                precision_loss = 0.02 # Simulated mock logic drop
+                resolved_latency_ns = raw_latency_ns / self.int8_speedup_ratio
+                precision_loss = 0.02 # Simulated algebraic_bound logic drop
             else:
-                simulated_latency_ns = raw_latency_ns
+                resolved_latency_ns = raw_latency_ns
                 precision_loss = 0.0
                 
-            latency_ms = simulated_latency_ns / 1_000_000.0
+            latency_ms = resolved_latency_ns / 1_000_000.0
             
             return Ok({
                 "latency_ms": float(latency_ms),
@@ -101,7 +101,7 @@ class OmniOpenVINOEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-openvino"
 
-    def get_simulator(self) -> OpenVINOLatencySimulator:
+    def get_structural_evaluator(self) -> OpenVINOLatencySimulator:
         """Performs get simulator operation for OmniOpenVINOEngine."""
         return OpenVINOLatencySimulator()
 

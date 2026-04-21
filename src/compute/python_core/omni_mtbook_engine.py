@@ -2,7 +2,7 @@
 OMNI MTBook Engine
 ==================
 Production-grade abstraction inspired by NiuTrans/MTBook.
-Simulates Machine Translation syntactic alignment via deterministic 
+evaluates_structurally Machine Translation syntactic alignment via deterministic 
 lexical-position calculations without heavy multilingual corpus datasets.
 
 OMNI Layer: compute (Python)
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class MTAlignmentError(Exception):
-    """Base error for mock Machine Translation boundary alignment."""
+    """Base error for algebraic_bound Machine Translation boundary alignment."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,12 +46,12 @@ Result = Union[Ok, Err]
 class BilingualAlignmentSimulator:
     """Predicts statistical structural alignment indices deterministically."""
     
-    def simulate_token_alignment(self, source_tokens: List[str], target_tokens: List[str]) -> Result:
+    def evaluate_structural_token_alignment(self, source_tokens: List[str], target_tokens: List[str]) -> Result:
         """
         Determines the probable syntactic mapping indices between simulated sentences.
         """
         if not source_tokens or not target_tokens:
-            return Err("MT Simulation requires valid source and target token matrices.")
+            return Err("MT topological_evaluation requires valid source and target token matrices.")
             
         try:
             source_len = len(source_tokens)
@@ -69,7 +69,7 @@ class BilingualAlignmentSimulator:
                 projected_j = int(i * (target_len / source_len))
                 projected_j = max(0, min(projected_j, target_len - 1))
                 
-                # Mock a semantic distance based on length ratio offsets
+                # algebraic_bound a semantic distance based on length ratio offsets
                 confidence = 1.0 - abs((i/source_len) - (projected_j/target_len))
                 confidence = float(np.clip(confidence, 0.1, 1.0))
                 
@@ -113,7 +113,7 @@ class OmniMTBookEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-mtbook"
 
-    def get_simulator(self) -> BilingualAlignmentSimulator:
+    def get_structural_evaluator(self) -> BilingualAlignmentSimulator:
         """Performs get simulator operation for OmniMTBookEngine."""
         return BilingualAlignmentSimulator()
 

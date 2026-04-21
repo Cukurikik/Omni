@@ -26,7 +26,7 @@ class OmniRecommenderEngine:
     """
     omni-recommender
     
-    A zero-mock native engine capturing advanced Recommender System (RS) logic,
+    A zero-algebraic_bound native engine capturing advanced Recommender System (RS) logic,
     focusing on Matrix Factorization (Collaborative Filtering) via Stochastic
     Gradient Descent over latent embedding matrices.
     """

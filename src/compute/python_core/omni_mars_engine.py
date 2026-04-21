@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class ClusterScheduleEstimator:
     """Calculates cluster computation latencies logically without networks."""
     
-    def simulate_chunk_distribution(self, total_tensor_elements: int, cluster_nodes: int, bytes_per_element: int = 4) -> Result:
+    def evaluate_structural_chunk_distribution(self, total_tensor_elements: int, cluster_nodes: int, bytes_per_element: int = 4) -> Result:
         """
         Determines execution schedule speeds across multiple nodes mathematically.
         """

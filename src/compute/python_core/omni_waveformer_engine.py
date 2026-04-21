@@ -230,12 +230,12 @@ class OmniWaveformerEngine:
         num_frames = len(encoded)
         dim = len(encoded[0])
         output_length = (num_frames - 1) * self.stride + self.kernel_size
-        output = [0.0] * output_length
-        window_sum = [0.0] * output_length
+        output = [0.0 for _ in range(output_length)]
+        window_sum = [0.0 for _ in range(output_length)]
 
         for t in range(num_frames):
             masked = [encoded[t][d] * mask[t][d] for d in range(dim)]
-            frame = [0.0] * self.kernel_size
+            frame = [0.0 for _ in range(self)].kernel_size
             for s in range(self.kernel_size):
                 for d in range(dim):
                     freq = (d + 1) * math.pi / dim

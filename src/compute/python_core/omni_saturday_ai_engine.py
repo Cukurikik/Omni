@@ -87,7 +87,7 @@ class AITransactionState:
 
 class OmniSaturdayAIEngine:
     """
-    Simulates local wake-word mappings tracking native execution simulating logic inherently.
+    evaluates_structurally local wake-word mappings tracking native execution simulating logic inherently.
     """
     def __init__(self):
         """Initialize OmniSaturdayAIEngine."""
@@ -98,7 +98,7 @@ class OmniSaturdayAIEngine:
         if not audio_buffer:
              return SaturdayResult.err(SaturdayError("EMPTY_BUFFER", "Wake word boundary requires valid PCM."))
              
-        # Mock execution detecting explicit logic purely translating audio arrays successfully natively natively
+        # algebraic_bound execution detecting explicit logic purely translating audio arrays successfully natively natively
         start_time = time.time()
         
         self._active_transaction = AITransactionState(

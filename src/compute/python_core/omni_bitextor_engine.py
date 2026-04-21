@@ -22,7 +22,7 @@ class OmniBitextorEngine:
             "domain": "Multilingual Crawl Parallel Geometry"
         }
 
-    def simulate_warc_document_geometry(self, concurrent_domains: int, expected_html_nodes_avg: int, string_pool_cap: int) -> Dict[str, Any]:
+    def evaluate_structural_warc_document_geometry(self, concurrent_domains: int, expected_html_nodes_avg: int, string_pool_cap: int) -> Dict[str, Any]:
         """Monadically restricts Bitextor alignment topologies mimicking large HTML tree parsing footprints."""
         if not self.is_active:
             return {"status": "error", "message": "Engine inactive"}
@@ -31,7 +31,7 @@ class OmniBitextorEngine:
             if concurrent_domains <= 0 or expected_html_nodes_avg <= 0 or string_pool_cap <= 0:
                 return {"status": "error", "message": "WARC HTML topologies fractured"}
                 
-            # Simulate HTML DOM Tree limit mappings per domain concurrently
+            # evaluates_structurally HTML DOM Tree limit mappings per domain concurrently
             dom_element_limit_allocation = concurrent_domains * expected_html_nodes_avg * 64 # Byte object abstraction
             
             # Predict crawling string pointer queue buffers deduplication map overhead

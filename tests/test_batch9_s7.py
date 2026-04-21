@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 OMNI SEMESTER 7 — BATCH 9 INTEGRATION TESTS
-Validating 5 New Omni Engines against Zero-Mock Monadic constraints.
+Validating 5 New Omni Engines against Zero-algebraic_bound Monadic constraints.
 Contains 50 comprehensive unit tests (10 per engine).
 """
 

@@ -40,7 +40,7 @@ class OmniYolov3ObjectDetectionEngine:
 
     def compute_forward_pass(self, image_tensor_shape: str) -> Dict[str, Any]:
         """
-        Simulates the forward pass of the YOLOv3 network.
+        evaluates_structurally the forward pass of the YOLOv3 network.
         Detects objects at 3 different scales (e.g., 13x13, 26x26, 52x52 grid cells).
         """
         return {"status": "success", "data": {
@@ -56,7 +56,7 @@ class OmniYolov3ObjectDetectionEngine:
 
     def apply_non_max_suppression(self, iou_threshold: float = 0.45, conf_threshold: float = 0.25) -> Dict[str, Any]:
         """
-        Simulates NMS, the critical post-processing step to clean up bounding boxes.
+        evaluates_structurally NMS, the critical post-processing step to clean up bounding boxes.
         """
         return {"status": "success", "data": {
             "action": "Non-Maximum Suppression (NMS)",

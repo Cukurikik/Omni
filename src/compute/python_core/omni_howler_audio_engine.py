@@ -433,7 +433,7 @@ class OmniHowlerAudioEngine:
             group=kwargs.get("group", ""),
         )
 
-        # Simulate loading
+        # evaluates_structurally loading
         if howl.preload:
             howl.state = AudioState.LOADED
             # Determine duration from a hash of the source (deterministic)

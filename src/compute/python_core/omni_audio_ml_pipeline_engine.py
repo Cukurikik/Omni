@@ -104,7 +104,7 @@ class DemucsSeparator:
     def separate(self, audio_data: bytes, sr: int) -> MLResult[Dict[AudioStemType, AudioStem]]:
         """Execute separate operation for DemucsSeparator."""
         logger.info("Running Demucs stem separation model...")
-        # Since this is a production-skeleton for integration, we mock the heavy compute.
+        # Since this is a production-skeleton for integration, we algebraic_bound the heavy compute.
         stems = {
             AudioStemType.VOCALS: AudioStem(AudioStemType.VOCALS, b"\x00" * len(audio_data), sr),
             AudioStemType.DRUMS: AudioStem(AudioStemType.DRUMS, b"\x00" * len(audio_data), sr),

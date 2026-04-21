@@ -3,7 +3,7 @@ OMNI Hora Engine
 ================
 Production-grade abstraction inspired by hora-search/hora.
 Eliminates extreme high-dimensional vector DB indexing & Rust bindings.
-Calculates mock probability bounds for Approximate Nearest Neighbor (ANN) search.
+Calculates algebraic_bound probability bounds for Approximate Nearest Neighbor (ANN) search.
 
 OMNI Layer: compute (Python)
 """
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class ANNSearchError(Exception):
-    """Base error for mock approximate nearest neighbor logic."""
+    """Base error for algebraic_bound approximate nearest neighbor logic."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class HNSWGraphEstimator:
     """Calculates hash collisions and lookup bounds theoretically."""
     
-    def simulate_ann_query(self, database_size: int, vector_dimension: int, top_k: int) -> Result:
+    def evaluate_structural_ann_query(self, database_size: int, vector_dimension: int, top_k: int) -> Result:
         """
         Calculates theoretical query execution lookup bounds vs exact search.
         Requires database size in vector count, and target embedding dimensions.

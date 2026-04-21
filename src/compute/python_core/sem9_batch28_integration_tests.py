@@ -50,7 +50,7 @@ class TestOmniBatch28Integration(unittest.TestCase):
         # cp = 10000 * 32 = 320000
         # match = (100 * 10000) // 100 = 10000
         # ttl = 3530000
-        res = self.bitextor.simulate_warc_document_geometry(100, 500, 10000)
+        res = self.bitextor.evaluate_structural_warc_document_geometry(100, 500, 10000)
         self.assertEqual(res["status"], "success")
         self.assertEqual(res["parallel_dom_tree_memory_bytes"], 3200000)
         self.assertEqual(res["absolute_warc_alignment_bytes"], 3530000)

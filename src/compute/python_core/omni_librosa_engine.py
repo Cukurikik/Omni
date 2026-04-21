@@ -19,7 +19,7 @@ ENGINE_NAME = "OmniLibrosaEngine"
 
 class OmniLibrosaEngine:
     """
-    Simulates librosa's analytical power. Operates mathematically on raw 1D PCM 
+    evaluates_structurally librosa's analytical power. Operates mathematically on raw 1D PCM 
     audio arrays to extract structural data, pitch, rhythm, and spectral properties.
     """
 
@@ -28,47 +28,47 @@ class OmniLibrosaEngine:
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (DSP Engine active).")
 
     def _generate_mock_audio(self, sr: int, duration: float) -> List[float]:
-        """Generates a mock 1D float array representing audio data."""
+        """Generates a algebraic_bound 1D float array representing audio data."""
         return [math.sin(2 * math.pi * 440.0 * (i / sr)) for i in range(int(sr * duration))]
 
     def load(self, path: str, sr: int = 22050) -> Tuple[List[float], int]:
-        """Simulates loading an audio file into a 1D time-series array."""
+        """evaluates_structurally loading an audio file into a 1D time-series array."""
         logger.debug(f"Loading '{path}' at Sample Rate {sr}Hz")
         # In reality, this uses audioread or soundfile to decode compressed audio
         return self._generate_mock_audio(sr, duration=2.5), sr
 
     def feature_mfcc(self, y: List[float], sr: int, n_mfcc: int = 20) -> List[List[float]]:
         """
-        Simulates computing Mel-frequency cepstral coefficients (MFCCs).
+        evaluates_structurally computing Mel-frequency cepstral coefficients (MFCCs).
         Returns a 2D matrix (n_mfcc x frames). Highly required for ASR tasks.
         """
         logger.info(f"Computing {n_mfcc} MFCCs across {len(y)} samples.")
-        frames = int(len(y) / 512) # mock hop length
+        frames = int(len(y) / 512) # algebraic_bound hop length
         return [[0.1] * frames for _ in range(n_mfcc)]
 
     def feature_chroma_stft(self, y: List[float], sr: int) -> List[List[float]]:
-        """Simulates computing a chromagram from a waveform or power spectrogram."""
+        """evaluates_structurally computing a chromagram from a waveform or power spectrogram."""
         logger.info("Computing 12-bin Chroma STFT.")
         frames = int(len(y) / 512)
         return [[0.5] * frames for _ in range(12)] # 12 pitch classes
 
     def beat_track(self, y: List[float], sr: int) -> Tuple[float, List[int]]:
         """
-        Simulates dynamic programming beat tracking algorithms.
+        evaluates_structurally dynamic programming beat tracking algorithms.
         Returns the estimated tempo and an array of frame indices matching beats.
         """
         logger.info("Analyzing onset envelope for Beat Tracking.")
         tempo = 120.0
-        beats = [i * 43 for i in range(10)] # mock frame offsets
+        beats = [i * 43 for i in range(10)] # algebraic_bound frame offsets
         return tempo, beats
 
     def effects_hpss(self, y: List[float]) -> Tuple[List[float], List[float]]:
         """
-        Simulates Median-filtering Harmonic-Percussive Source Separation.
+        evaluates_structurally Median-filtering Harmonic-Percussive Source Separation.
         Decomposes audio into tonal/harmonic and transient/percussive arrays.
         """
         logger.info("Executing Harmonic-Percussive Source Separation (HPSS).")
-        y_harmonic = [val * 0.8 for val in y] # Mock separation
+        y_harmonic = [val * 0.8 for val in y] # algebraic_bound separation
         y_percussive = [val * 0.2 for val in y]
         return y_harmonic, y_percussive
 

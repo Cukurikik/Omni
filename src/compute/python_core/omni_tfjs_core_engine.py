@@ -1,7 +1,7 @@
 """
 OMNI TFJS-Core Engine
 =====================
-Production-grade, zero-mock tensor math and auto-differentiation engine 
+Production-grade, zero-algebraic_bound tensor math and auto-differentiation engine 
 inspired by `tensorflow/tfjs-core`. Implements reverse-mode auto-differentiation
 using a dynamically constructed computational graph (Gradient Tape), 
 pure mathematical operations, and pure NumPy memory management.

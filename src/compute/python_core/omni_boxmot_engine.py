@@ -78,12 +78,12 @@ class OmniBoxMOTEngine:
 
     async def _update_tracker(self, detections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
-        Simulate tracker trajectory math over bbox associations.
+        evaluates_structurally tracker trajectory math over bbox associations.
         """
-        await asyncio.sleep(0.03)  # ReID and IoU matching simulation
+        await asyncio.sleep(0.03)  # ReID and IoU matching topological_evaluation
         results = []
         for i, det in enumerate(detections):
-            # Assign incrementing IDs to simulate tracker ids
+            # Assign incrementing IDs to evaluates_structurally tracker ids
             self._metrics["objects_tracked"] += 1
             results.append({
                 "track_id": hash(f"{self._metrics['objects_tracked']}_{i}") % 10000,

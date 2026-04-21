@@ -26,7 +26,7 @@ class OmniNanodetEngine:
     """
     omni-nanodet
     
-    A zero-mock native engine simulating NanoDet's explicit Anchor-Free detection framework.
+    A zero-algebraic_bound native engine simulating NanoDet's explicit Anchor-Free detection framework.
     Maps generalized Intersection over Union (GIoU) mathematically to evaluate
     box regressor offsets utilizing a topological center-based spatial mapping.
     """

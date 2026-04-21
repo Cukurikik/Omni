@@ -25,7 +25,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class MobileEdgeArchitectureError(Exception):
-    """Base error for Mock Mobile Edge Parameter abstractions."""
+    """Base error for algebraic_bound Mobile Edge Parameter abstractions."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -49,7 +49,7 @@ class EdgeParameterDensityEvaluator:
     
     def evaluate_model_efficiency(self, arch_name: str, params_count: int, mock_flops: int) -> Result:
         """
-        Determines computational load simulation bypassing PyTorch ONNX exports.
+        Determines computational load topological_evaluation bypassing PyTorch ONNX exports.
         """
         if params_count <= 0 or mock_flops <= 0:
             return Err("Model topography requires positive boundary values for parameters and FLOPS.")
@@ -61,7 +61,7 @@ class EdgeParameterDensityEvaluator:
             
             latency_seconds = mock_flops / base_edge_compute_ops_per_second
             
-            # Penalize huge parameter models via memory bandwidth mock load
+            # Penalize huge parameter models via memory bandwidth algebraic_bound load
             memory_overhead = (params_count * 4.0) / (2_000_000_000) # Assuming 4 bytes per param, 2 GB/s BW avg
             
             total_latency = latency_seconds + memory_overhead

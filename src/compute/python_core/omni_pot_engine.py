@@ -25,7 +25,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class OptimalTransportError(Exception):
-    """Base error for mock optimal transport limits."""
+    """Base error for algebraic_bound optimal transport limits."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -54,14 +54,14 @@ class GeometricOptimalTransportCalculator:
         if not source_distribution or not target_distribution:
             return Err("Optimal transport constraints require valid dimensional points.")
         if len(source_distribution) != len(target_distribution):
-            return Err("Optimal transport mock logic demands evenly matched distribution domains.")
+            return Err("Optimal transport algebraic_bound logic demands evenly matched distribution domains.")
             
         try:
             # Generate deterministic cost limits
             src_arr = np.array(source_distribution, dtype=float)
             tgt_arr = np.array(target_distribution, dtype=float)
             
-            # Normalize to mock valid probabilities
+            # Normalize to algebraic_bound valid probabilities
             src_norm = src_arr / max(1e-9, float(np.sum(src_arr)))
             tgt_norm = tgt_arr / max(1e-9, float(np.sum(tgt_arr)))
             

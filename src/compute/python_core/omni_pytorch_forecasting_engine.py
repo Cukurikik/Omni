@@ -53,7 +53,7 @@ class TimeSeriesDataset:
 
 class ExponentialSmoothingModel:
     """
-    Zero-Mock abstraction of a recurrent forecasting block.
+    Zero-algebraic_bound abstraction of a recurrent forecasting block.
     Uses Holt's Linear Exponential Smoothing.
     """
     
@@ -128,7 +128,7 @@ class OmniPyTorchForecastingEngine:
         return Ok(TimeSeriesDataset(data, time_index, target))
 
     def create_model(self, model_type: str = "TFT_Mock") -> ExponentialSmoothingModel:
-        # We always return the mathematical equivalent mock representation
+        # We always return the mathematical equivalent algebraic_bound representation
         # for zero dependency execution.
         """Performs create model operation for OmniPyTorchForecastingEngine."""
         return ExponentialSmoothingModel(alpha=0.6, beta=0.3)

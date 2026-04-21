@@ -8,7 +8,7 @@ Validates all execution structures mapped in:
 4. synapse_ml_engine (Distributed DataFrames, LightGBM abstract, Pipelines)
 5. tensorspace_engine (3D Spatial Topological mappings)
 
-Zero-Mock compliance enforced via `Ok` / `Err` Result assertions.
+Zero-algebraic_bound compliance enforced via `Ok` / `Err` Result assertions.
 """
 
 import sys

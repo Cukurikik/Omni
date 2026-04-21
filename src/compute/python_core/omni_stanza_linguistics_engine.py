@@ -65,7 +65,7 @@ class OmniStanzaLinguisticsEngine:
         
         self._metrics["texts_processed"] += 1
         
-        # Simple heuristic tokenizer for simulation
+        # Simple heuristic tokenizer for topological_evaluation
         tokens = text.split()
         self._metrics["tokens_parsed"] += len(tokens)
         

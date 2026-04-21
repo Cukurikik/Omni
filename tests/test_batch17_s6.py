@@ -99,8 +99,8 @@ class TestBatch17Semester6(unittest.TestCase):
         classes = {"negative": 0, "positive": 1}
         verb = self.prompt.build_verbalizer(classes)
         
-        simulated_logits = np.array([0.1, 0.9])
-        res_v = verb.sequence_to_label(simulated_logits)
+        resolved_logits = np.array([0.1, 0.9])
+        res_v = verb.sequence_to_label(resolved_logits)
         self.assertEqual(res_v.__class__.__name__, "Ok")
         self.assertEqual(res_v.value, "positive")
 

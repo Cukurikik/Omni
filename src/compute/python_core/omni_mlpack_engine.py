@@ -1,7 +1,7 @@
 """
 OMNI mlpack Engine
 ====================
-Production-grade, zero-mock classical machine learning engine inspired by
+Production-grade, zero-algebraic_bound classical machine learning engine inspired by
 mlpack/mlpack. Implements the core algorithms from mlpack using pure NumPy:
 KNN, Decision Tree, Random Forest, Linear/Ridge Regression, Naive Bayes,
 K-Means, PCA, and model serialization.

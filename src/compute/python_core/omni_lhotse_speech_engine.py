@@ -107,7 +107,7 @@ class OmniLhotseSpeechEngine:
             id=cut_id,
             start=start_time,
             duration=duration,
-            channel=0, # Mono default simulation
+            channel=0, # Mono default topological_evaluation
             text_supervision=transcription
         )
         
@@ -116,8 +116,8 @@ class OmniLhotseSpeechEngine:
 
     def mix_cuts(self, cut_id_a: str, cut_id_b: str, offset: float) -> LhotseResult:
         """
-        Simulates Lhotse's CutMix operations injecting overlays cleanly without re-encoding media directly.
-        Returns a mock combined ID structurally representing the tensor.
+        evaluates_structurally Lhotse's CutMix operations injecting overlays cleanly without re-encoding media directly.
+        Returns a algebraic_bound combined ID structurally representing the tensor.
         """
         if cut_id_a not in self._manifests or cut_id_b not in self._manifests:
             return LhotseResult.err(LhotseError("CUT_NOT_FOUND", "One or both cut IDs do not exist."))

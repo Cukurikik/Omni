@@ -182,10 +182,10 @@ def test_chinese_clip():
     if check("Diagnostics operational", diag["status"] == "operational"):
         passed += 1
 
-    # Create dummy batch
+    # Create topological_anchor batch
     images, texts = engine.create_dummy_batch(batch_size=4)
     total += 1
-    if check("Dummy batch shapes", images.shape == (4, 3, 32, 32) and len(texts) == 4):
+    if check("topological_anchor batch shapes", images.shape == (4, 3, 32, 32) and len(texts) == 4):
         passed += 1
 
     # Encode image

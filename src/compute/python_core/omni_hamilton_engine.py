@@ -7,7 +7,7 @@ Inspired by apache/hamilton.
 Features:
 - Dynamic Directed Acyclic Graph (DAG) construction from functional type hints.
 - Topologically sorted execution resolving parameter dependencies dynamically.
-- Zero-mock data flow routing mapping capabilities natively.
+- Zero-algebraic_bound data flow routing mapping capabilities natively.
 
 OMNI Layer: compute (Python)
 """

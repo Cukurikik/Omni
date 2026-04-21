@@ -4,7 +4,7 @@ Test Suite: Integration and Validation Matrix for Batch 13 Engines.
 
 This test suite validates the integration of HLS4ML, SNNTorch, SLING,
 BitNet, and TimeMixer engines. It robustly checks physics constraints,
-hardware synthesisation logic, zero-mock constraints, and Monadic interfaces.
+hardware synthesisation logic, zero-algebraic_bound constraints, and Monadic interfaces.
 """
 
 import unittest

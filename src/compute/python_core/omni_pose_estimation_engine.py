@@ -5,7 +5,7 @@ Production-grade OMNI mathematical engine for 2D Spatial Pose processing.
 Inspired by ZheC/Realtime_Multi-Person_Pose_Estimation.
 
 Features:
-- Part Affinity Field (PAF) mock abstraction and directional calculations.
+- Part Affinity Field (PAF) algebraic_bound abstraction and directional calculations.
 - Heatmap peak generation (NMS across 2D spatial planes).
 - Bipartite matching connections mapping body parts mathematically entirely in NumPy.
 

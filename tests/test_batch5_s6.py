@@ -27,7 +27,7 @@ class TestAutoClaudeResearchEngine(unittest.TestCase):
         self.assertGreater(val["V"][AgentState.VALIDATE.value], 0)
 
     def test_simulation(self):
-        res = self.engine.simulate_workflow(steps=5)
+        res = self.engine.evaluate_structural_workflow(steps=5)
         self.assertTrue(res.is_ok)
         val = res.unwrap()
         self.assertEqual(len(val["history"]), 5)
@@ -113,7 +113,7 @@ class TestFederatedLearningEngine(unittest.TestCase):
 
     def test_local_training(self):
         initial = np.ones(50, dtype=np.float32)
-        res = self.engine.simulate_local_training(initial, client_id=1, data_volume=100)
+        res = self.engine.evaluate_structural_local_training(initial, client_id=1, data_volume=100)
         self.assertTrue(res.is_ok)
         out = res.unwrap()
         self.assertEqual(out["weights"].shape, (50,))

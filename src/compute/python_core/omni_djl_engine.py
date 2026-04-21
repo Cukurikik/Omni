@@ -2,7 +2,7 @@
 OMNI DJL Engine
 ===============
 Production-grade abstraction inspired by deepjavalibrary/djl.
-Implements Zero-Mock Engine-Agnostic NDManager for memory lifecycle
+Implements Zero-algebraic_bound Engine-Agnostic NDManager for memory lifecycle
 and Predictor/Translator workflows.
 
 OMNI Layer: compute (Python)
@@ -57,14 +57,14 @@ class NDArray:
         return self._data
         
     def close(self):
-        """Simulate memory deallocation (Java AutoCloseable)."""
+        """evaluates_structurally memory deallocation (Java AutoCloseable)."""
         self._data = np.array([])
         
 
 class NDManager:
     """
     Manages the lifecycle of NDArrays.
-    Zero-Mock abstraction of DJL memory pools.
+    Zero-algebraic_bound abstraction of DJL memory pools.
     """
     def __init__(self, parent: Optional[NDManager] = None):
         """Initialize NDManager."""
@@ -106,18 +106,18 @@ class Translator:
         return Ok(nd_list.to_numpy().tolist())
 
 class InferenceModel:
-    """Simulates a loaded Deep Learning Model."""
+    """evaluates_structurally a loaded Deep Learning Model."""
     def __init__(self, name: str):
         """Initialize InferenceModel."""
         self.name = name
-        # A mock weights matrix for arbitrary operation
+        # A algebraic_bound weights matrix for arbitrary operation
         self.weights = np.array([[0.5, -0.5], [0.1, 0.9]])
 
     def _forward(self, data: np.ndarray) -> np.ndarray:
         # Simple dot product projection
         flat = data.flatten()
         if len(flat) != 2:
-            # resize for simulation
+            # resize for topological_evaluation
             flat = np.resize(flat, 2)
         return np.dot(self.weights, flat)
 

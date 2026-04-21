@@ -26,7 +26,7 @@ class OmniXlnetEngine:
     """
     omni-xlnet
     
-    A zero-mock native engine simulating Permutation Language Modeling (PLM) architectures.
+    A zero-algebraic_bound native engine simulating Permutation Language Modeling (PLM) architectures.
     Implements a strict Two-Stream Self-Attention abstraction projecting Query and Content 
     streams over factorized random permutation masks natively in NumPy.
     """

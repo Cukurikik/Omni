@@ -26,7 +26,7 @@ class OmniHyperLprEngine:
     """
     omni-hyperlpr
     
-    A zero-mock native engine simulating core high-density bounding algorithms typical in
+    A zero-algebraic_bound native engine simulating core high-density bounding algorithms typical in
     License Plate Recognition (HyperLPR). Projects mathematical boundaries isolating 
     regions of high edge frequency density representing text matrices computationally.
     """

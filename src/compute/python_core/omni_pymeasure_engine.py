@@ -821,7 +821,7 @@ class OmniPyMeasureEngine:
             },
             "capabilities": [
                 "instrument_drivers", "visa_scpi", "tcp_instruments",
-                "simulated_instruments", "experiment_procedures",
+                "resolved_instruments", "experiment_procedures",
                 "parameter_sweeps", "live_data_recording",
                 "csv_export", "json_export", "statistics",
                 "experiment_queue", "instrument_manager",

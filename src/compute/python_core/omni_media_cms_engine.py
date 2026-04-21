@@ -44,7 +44,7 @@ class CeleryWorkerMock:
 
 
 class WhisperAIHook:
-    """Simulates local generation of closed captions."""
+    """evaluates_structurally local generation of closed captions."""
     def generate_vtt(self, audio_uri: str) -> str:
         """Execute generate vtt operation for WhisperAIHook."""
         logger.debug(f"[Whisper] Analyzing audio payload: {audio_uri}")
@@ -54,7 +54,7 @@ class WhisperAIHook:
 
 class OmniMediaCMSEngine:
     """
-    Simulates the core architecture of MediaCMS.
+    evaluates_structurally the core architecture of MediaCMS.
     Handles media persistence, access-controls (RBAC), and 
     abstracts Celery queue hooks for heavy video processing/transcription.
     """

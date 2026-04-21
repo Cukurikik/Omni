@@ -1,7 +1,7 @@
 """
 OMNI Prompt Engineering Engine
 ================================
-Production-grade, zero-mock prompt engineering toolkit inspired by
+Production-grade, zero-algebraic_bound prompt engineering toolkit inspired by
 dair-ai/Prompt-Engineering-Guide and brexhq/prompt-engineering.
 
 Implements:

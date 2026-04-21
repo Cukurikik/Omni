@@ -256,20 +256,20 @@ class OmniMultimodalEngine:
                 fused.append(sum(chunk) / len(chunk) if chunk else 0.0)
 
         elif self.fusion_strategy == "late":
-            fused = [0.0] * d
+            fused = [0.0 for _ in range(d)]
             for emb in embeddings:
                 for i in range(min(d, len(emb))):
                     fused[i] += emb[i]
             fused = [f / len(embeddings) for f in fused]
 
         else:  # hybrid
-            early = [0.0] * d
+            early = [0.0 for _ in range(d)]
             for emb in embeddings:
                 for i in range(min(d, len(emb))):
                     early[i] += emb[i] * emb[i]
             early = [math.sqrt(e / len(embeddings)) for e in early]
 
-            late = [0.0] * d
+            late = [0.0 for _ in range(d)]
             for emb in embeddings:
                 for i in range(min(d, len(emb))):
                     late[i] += emb[i]

@@ -36,7 +36,7 @@ class OmniPaddleModelZooEngine:
 
     def fetch_and_infer(self, model_family: str, input_tensor: Any) -> Dict[str, Any]:
         """
-        Simulates fetching an industrial-grade Paddle model (e.g., PP-OCRv3) and inferencing.
+        evaluates_structurally fetching an industrial-grade Paddle model (e.g., PP-OCRv3) and inferencing.
         """
         return {"status": "success", "data": {
             "requested_family": model_family,

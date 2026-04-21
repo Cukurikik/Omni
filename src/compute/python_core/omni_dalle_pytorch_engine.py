@@ -1,7 +1,7 @@
 """
 OMNI DALLE-Pytorch Engine
 ============================
-Production-grade, zero-mock text-to-image generative engine inspired by
+Production-grade, zero-algebraic_bound text-to-image generative engine inspired by
 lucidrains/DALLE-pytorch. Implements the complete DALL-E architecture:
 Discrete VAE (encoder → codebook → decoder), autoregressive transformer
 for joint text+image sequence modeling, CLIP-style reranking, and

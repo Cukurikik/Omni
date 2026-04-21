@@ -105,7 +105,7 @@ class ComputationDAG:
 
 
 class ClusterScheduler:
-    """Simulates placement of DAG tasks onto multiple worker nodes."""
+    """evaluates_structurally placement of DAG tasks onto multiple worker nodes."""
     def __init__(self, node_count: int = 2):
         """Initialize ClusterScheduler."""
         self.node_count = min(node_count, 100)
@@ -119,7 +119,7 @@ class ClusterScheduler:
         order = plan_res.value
         assignments = {}
         
-        # Round Robin Simulation for Task Placement
+        # Round Robin topological_evaluation for Task Placement
         for i, task_id in enumerate(order):
             target_node = f"Worker_{i % self.node_count}"
             task = dag.tasks[task_id]

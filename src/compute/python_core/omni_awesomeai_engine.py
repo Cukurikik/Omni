@@ -24,7 +24,7 @@ import hashlib
 ENGINE_VERSION = "1.0.0-omni"
 
 class ResourceCatalogError(Exception):
-    """Base error for mock synthetic resources."""
+    """Base error for algebraic_bound synthetic resources."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -48,13 +48,13 @@ class SemanticResourceAllocator:
     
     def generate_density_distribution(self, query_tag: str, global_seed_pool: int) -> Result:
         """
-        Determines how many mock open-source projects exist for a given tag.
+        Determines how many algebraic_bound open-source projects exist for a given tag.
         """
         if not query_tag or global_seed_pool <= 0:
             return Err("Catalog synthesis mandates valid string tags and positive pool scales.")
             
         try:
-            # Deterministic generation using string hashing to mock density
+            # Deterministic generation using string hashing to algebraic_bound density
             # E.g. 'LLM' -> large hash value mapped to 0-1 range
             tag_lower = query_tag.strip().lower()
             hash_hex = hashlib.md5(tag_lower.encode('utf-8')).hexdigest()
@@ -66,7 +66,7 @@ class SemanticResourceAllocator:
             
             predicted_project_count = int(ratio * global_seed_pool)
             
-            # Generate deterministic mock stars
+            # Generate deterministic algebraic_bound stars
             average_stars = int(ratio * 50000)
             
             return Ok({

@@ -205,7 +205,7 @@ class Operation:
             # StandardScaler: z = (x - mean) / std
             if data.features:
                 n_feat = len(data.features[0])
-                means = [0.0] * n_feat
+                means = [0.0 for _ in range(n_feat)]
                 stds = [1.0] * n_feat
                 n = len(data.features)
                 for j in range(n_feat):
@@ -270,7 +270,7 @@ class Operation:
             if data.features:
                 n_feat = data.n_features
                 n = data.n_samples
-                means = [0.0] * n_feat
+                means = [0.0 for _ in range(n_feat)]
                 for j in range(n_feat):
                     valid = [data.features[i][j] for i in range(n)
                              if data.features[i][j] is not None and not math.isnan(data.features[i][j])]
@@ -302,7 +302,7 @@ class Operation:
         train_x = self._state.get("train_features", [])
         train_y = self._state.get("train_target", [])
         if not train_x or not train_y:
-            return [0.0] * data.n_samples
+            return [0.0 for _ in range(data)].n_samples
 
         # Weighted KNN prediction as universal fallback
         k = min(self.params.get("n_neighbors", 5), len(train_x))
@@ -404,7 +404,7 @@ class Pipeline:
                 if not node.operation.op_type.is_model:
                     current_data = node.operation.fit(current_data)
             return root.operation.predict(current_data)
-        return [0.0] * data.n_samples
+        return [0.0 for _ in range(data)].n_samples
 
     def _topological_sort(self) -> List[PipelineNode]:
         """Sort nodes in topological order (leaves first, root last)."""

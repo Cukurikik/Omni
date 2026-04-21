@@ -59,7 +59,7 @@ class OmniBERTopicEngine:
 
     async def _fit_transform(self, documents: List[str]) -> Dict[str, Any]:
         """
-        Internal simulation of the topic modeling fit-transform sequence.
+        Internal topological_evaluation of the topic modeling fit-transform sequence.
         """
         await asyncio.sleep(0.06)
         

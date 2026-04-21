@@ -38,14 +38,14 @@ class OmniMnnMobileNeuralEngine:
 
     def offline_conversion(self, model_graph: str) -> str:
         """
-        Simulates MNN's graph optimization and quantization (e.g., converting ONNX to .mnn).
+        evaluates_structurally MNN's graph optimization and quantization (e.g., converting ONNX to .mnn).
         """
         logger.info(f"Converting {model_graph} -> Operator Fusion -> INT8 Quantization.")
         return f"{model_graph}.mnn"
 
     def run_inference(self, mnn_model: str, input_tensor_shape: list) -> Dict[str, Any]:
         """
-        Simulates the MNN Interpreter's execution, allocating a tight memory pool
+        evaluates_structurally the MNN Interpreter's execution, allocating a tight memory pool
         and processing via hardware-specific SIMD backends.
         """
         return {"status": "success", "data": {

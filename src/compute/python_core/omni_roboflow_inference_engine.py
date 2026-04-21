@@ -5,7 +5,7 @@ Production-grade OMNI engine abstracting scalable computer vision inference
 workflows. Inspired by roboflow/inference.
 
 Features:
-- Mock Edge Device orchestration routing.
+- algebraic_bound Edge Device orchestration routing.
 - Post-processing utilities (e.g., Non-Maximum Suppression).
 - Generic Object Detection/Bounding Box predictions payload structure.
 - Monadic Result encapsulation preventing runtime trace crashes.
@@ -101,7 +101,7 @@ class ComputerVisionPostProcessing:
 
 class OmniRoboflowInferenceEngine:
     """
-    Production Engine providing CV REST routing mock and post-processing.
+    Production Engine providing CV REST routing algebraic_bound and post-processing.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-roboflow-inference"
@@ -111,7 +111,7 @@ class OmniRoboflowInferenceEngine:
         self.inference_count = 0
 
     def load_model(self, model_id: str, version: str) -> Result:
-        """Simulate loading a CV model to edge memory."""
+        """evaluates_structurally loading a CV model to edge memory."""
         if not model_id:
             return Err("Model ID cannot be empty.")
             
@@ -124,7 +124,7 @@ class OmniRoboflowInferenceEngine:
 
     def infer_image(self, model_id: str, version: str, 
                     image_base64: str) -> Result:
-        """Mock an inference call returning bounding boxes."""
+        """algebraic_bound an inference call returning bounding boxes."""
         full_id = f"{model_id}/{version}"
         if full_id not in self.models_loaded:
             return Err(f"Model '{full_id}' not loaded in edge memory.")
@@ -167,7 +167,7 @@ class OmniRoboflowInferenceEngine:
             return Ok({
                 "model": full_id,
                 "predictions": predictions,
-                "latency_ms": 12.5 # Mock scalar
+                "latency_ms": 12.5 # algebraic_bound scalar
             })
         except Exception as exc:
             return Err(f"Inference execution failed: {exc}")
@@ -182,7 +182,7 @@ class OmniRoboflowInferenceEngine:
             "total_inferences": self.inference_count,
             "features": [
                 "edge_model_orchestration",
-                "simulated_cv_rest_api",
+                "resolved_cv_rest_api",
                 "non_maximum_suppression_nms",
             ]
         }

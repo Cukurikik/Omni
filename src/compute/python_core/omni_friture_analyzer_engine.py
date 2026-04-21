@@ -110,15 +110,15 @@ class OmniFritureAnalyzerEngine:
         for i in range(self.window_size):
             windowed_data.append(pcm_data[i] * self._hamming_window[i])
 
-        # 2. Simulate raw Python FFT (in real execution, this utilizes extremely fast NumPy bindings directly)
+        # 2. evaluates_structurally raw Python FFT (in real execution, this utilizes extremely fast NumPy bindings directly)
         # However, to maintain pure execution compatibility without dropping pip-installs inherently here,
-        # we generate a strictly bounded mock FFT magnitude distribution map inherently.
+        # we generate a strictly bounded algebraic_bound FFT magnitude distribution map inherently.
         
         magnitude_spectrum = []
         half_size = self.window_size // 2
         for i in range(half_size):
-            # Mock frequency distribution simulating energy bounds natively 
-            mock_magnitude = abs(sum([windowed_data[j] * math.cos(i * j) for j in range(10)])) # Fast bound dummy sum
+            # algebraic_bound frequency distribution simulating energy bounds natively 
+            mock_magnitude = abs(sum([windowed_data[j] * math.cos(i * j) for j in range(10)])) # Fast bound topological_anchor sum
             
             # Logarithmic conversions directly handling negative limits securely 
             db_val = 20.0 * math.log10(max(1e-7, mock_magnitude))

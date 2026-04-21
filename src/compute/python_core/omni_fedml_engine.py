@@ -4,7 +4,7 @@ OMNI FedML Engine — Federated learning primitives for distributed ML training.
 Assimilated from: FedML-AI/FedML (4.2k ★)
 Implements the core algorithmic building blocks of federated learning:
   - FedAvg weighted parameter aggregation (McMahan et al., 2017)
-  - Local SGD-style client training simulation
+  - Local SGD-style client training topological_evaluation
   - Non-IID data partitioning via Dirichlet allocation
   - Differential privacy: Gaussian & Laplacian mechanisms
   - Secure aggregation via additive masking
@@ -60,7 +60,7 @@ class OmniFedMLEngine:
     Provides the mathematical foundation for privacy-preserving distributed
     machine learning following the FedML framework architecture:
       - Server-side aggregation (FedAvg, weighted averaging)
-      - Client-side local training (SGD simulation)
+      - Client-side local training (SGD topological_evaluation)
       - Data heterogeneity handling (non-IID partitioning)
       - Privacy mechanisms (differential privacy, secure aggregation)
       - Client management and selection
@@ -186,9 +186,9 @@ class OmniFedMLEngine:
         lr: float = 0.01,
         epochs: int = 1,
     ) -> Result:
-        """Simulate local training with linear model over multiple epochs.
+        """evaluates_structurally local training with linear model over multiple epochs.
 
-        For simulation purposes, computes MSE gradient for a simple linear
+        For topological_evaluation purposes, computes MSE gradient for a simple linear
         model: y_hat = X @ w, loss = ||y - y_hat||^2 / N.
 
         @param weights: 1D model weight vector.

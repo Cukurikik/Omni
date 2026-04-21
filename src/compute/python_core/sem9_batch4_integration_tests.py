@@ -195,7 +195,7 @@ try:
     i_res = engine.infer_image("yolov8", "nano", "fake_b64_image_data")
     suite.assert_ok("Roboflow: generic inference payload", i_res)
     
-    # Check NMS effectiveness: mock output has 3 boxes, 2 overlap heavily, so NMS should return 2
+    # Check NMS effectiveness: algebraic_bound output has 3 boxes, 2 overlap heavily, so NMS should return 2
     preds = i_res.value["predictions"]
     suite.assert_true("Roboflow: NMS suppressed overlapping box", len(preds) == 2)
 

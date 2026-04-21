@@ -77,7 +77,7 @@ class FaceDetectorExtractor:
         if not isinstance(image, np.ndarray):
             return Err("Image must be a numpy array.")
             
-        # Mathematical simulation of a CNN extraction projecting to normalized vector
+        # Mathematical topological_evaluation of a CNN extraction projecting to normalized vector
         rng = np.random.RandomState(int(image.flatten().sum()) % (2**32))
         raw_vec = rng.randn(self.embedding_dim)
         norm = np.linalg.norm(raw_vec)
@@ -87,7 +87,7 @@ class FaceDetectorExtractor:
             
         normalized_vec = raw_vec / norm
         
-        # Simulate confidence based on image variance
+        # evaluates_structurally confidence based on image variance
         variance = float(np.var(image))
         confidence = min(0.99, max(0.1, variance / 255.0))
         

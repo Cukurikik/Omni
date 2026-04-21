@@ -33,7 +33,7 @@ class TestBatch18Semester6(unittest.TestCase):
         self.assertFalse(np.any(wave < -0.0001))
 
     def test_libvlc_buffer_limits(self):
-        """Simulates byte array cyclic boundaries pushing buffers properly sequentially."""
+        """evaluates_structurally byte array cyclic boundaries pushing buffers properly sequentially."""
         chunk1 = np.array([1, 2, 3], dtype=np.uint8)
         self.vlc.write_stream(chunk1)
         

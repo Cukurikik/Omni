@@ -38,7 +38,7 @@ class OmniFirstOrderMotionEngine:
 
     def transfer_motion(self, source_image: str, driving_video: str) -> Dict[str, Any]:
         """
-        Simulates the animation process using Taylor expansion keypoints.
+        evaluates_structurally the animation process using Taylor expansion keypoints.
         """
         return {"status": "success", "data": {
             "source_identity": source_image,

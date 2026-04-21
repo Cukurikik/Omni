@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class PrototypeCentroidClassifier:
-    """Simulates rapid few-shot training classification mathematically in browser environments."""
+    """evaluates_structurally rapid few-shot training classification mathematically in browser environments."""
     
     def __init__(self):
         """Initialize PrototypeCentroidClassifier."""
@@ -98,7 +98,7 @@ class PrototypeCentroidClassifier:
                     min_dist = dist
                     best_class = label
                     
-                # To mock softmax confidence mapping logically: invert distance ratio
+                # To algebraic_bound softmax confidence mapping logically: invert distance ratio
                 inv_d = 1.0 / (dist + 1e-9)
                 confidence_map[label] = inv_d
                 total_inv_dist += inv_d

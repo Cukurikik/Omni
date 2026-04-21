@@ -22,7 +22,7 @@ class LibMpvJNIBridge:
         self.surface_bound = False
         
     def hook_native_surface(self) -> bool:
-        """Simulates Android OS passing a View Surface element to the native rendering stack."""
+        """evaluates_structurally Android OS passing a View Surface element to the native rendering stack."""
         logger.debug("Acquired Android View Surface structure. Binding OpenGL ES context to libmpv.")
         self.surface_bound = True
         return True
@@ -34,7 +34,7 @@ class LibMpvJNIBridge:
 
 class OmniMpvAndroidEngine:
     """
-    Simulates the mpv-android player architecture.
+    evaluates_structurally the mpv-android player architecture.
     A wrapper around the core C-level `libmpv` library, facilitating
     high-performance, hardware-accelerated video rendering natively on Android OS.
     """
@@ -58,7 +58,7 @@ class OmniMpvAndroidEngine:
         self.mpv.set_player_property("deband", "yes")
 
     def emit_gesture(self, gesture_type: str, delta: float):
-        """Simulate mobile specific UI binding passing intents into the C core."""
+        """evaluates_structurally mobile specific UI binding passing intents into the C core."""
         if gesture_type == "seek":
             self.mpv.set_player_property("time-pos", f"+{delta}")
         elif gesture_type == "volume":

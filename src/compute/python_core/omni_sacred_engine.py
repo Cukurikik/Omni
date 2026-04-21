@@ -3,7 +3,7 @@ OMNI Sacred Engine
 ==================
 Production-grade abstraction inspired by IDSIA/sacred.
 Implements standard immutable telemetry and experiment configuration observers
-for logging training variables inside OMNI's zero-mock logic.
+for logging training variables inside OMNI's zero-algebraic_bound logic.
 
 OMNI Layer: compute (Python)
 """

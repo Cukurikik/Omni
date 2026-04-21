@@ -37,7 +37,7 @@ class OmniNanodetObjectDetectionEngine:
 
     def execute_edge_detection(self, image_tensor: Any) -> Dict[str, Any]:
         """
-        Simulates lightning-fast object detection designed for ARM/Mobile CPUs.
+        evaluates_structurally lightning-fast object detection designed for ARM/Mobile CPUs.
         """
         return {"status": "success", "data": {
             "architecture": "Anchor-Free single stage detector.",

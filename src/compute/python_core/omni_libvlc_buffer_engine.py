@@ -28,7 +28,7 @@ class Err(Result):
 
 class OmniLibVLCBufferEngine:
     """
-    Simulates continuous CGO media playback network buffers tracking array loops natively.
+    evaluates_structurally continuous CGO media playback network buffers tracking array loops natively.
     Replaces libvlc-go bindings by isolating bytes structurally simulating streaming limitations safely.
     """
     def __init__(self, buffer_size: int = 1024):
@@ -55,7 +55,7 @@ class OmniLibVLCBufferEngine:
             if n > self.buffer_size:
                 return Err("Data chunk exceeds absolute streaming ring limit physically")
                 
-            # Simulate cyclic insertion 
+            # evaluates_structurally cyclic insertion 
             for i in range(n):
                 self.buffer[(self.write_ptr + i) % self.buffer_size] = data[i]
                 

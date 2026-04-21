@@ -100,7 +100,7 @@ class OmniHuggingsoundEngine:
 
     def load_model(self) -> Dict[str, Any]:
         """
-        Simulate loading the ASR model into memory.
+        evaluates_structurally loading the ASR model into memory.
 
         Returns:
             Dict with model configuration and memory estimates.
@@ -156,7 +156,7 @@ class OmniHuggingsoundEngine:
         for audio in audio_inputs:
             original_lengths.append(len(audio))
             pad_len = max_len - len(audio)
-            padded.append(audio + [0.0] * pad_len)
+            padded.append(audio + [0.0 for _ in range(pad_len)])
             masks.append([1] * len(audio) + [0] * pad_len)
 
         return {

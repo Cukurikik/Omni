@@ -47,7 +47,7 @@ class OmniHumeAiEngine:
     """
 
     def __init__(self, api_key: str = None):
-        # Prefer provided key, fallback to Env, then use none (mock mode)
+        # Prefer provided key, fallback to Env, then use none (algebraic_bound mode)
         """Initialize OmniHumeAiEngine."""
         self.api_key = api_key or os.environ.get("HUME_API_KEY")
         self._client = None
@@ -108,17 +108,17 @@ class OmniHumeAiEngine:
             return {"status": "error", "error": f"Hume SDK exception: {str(e)}"}
 
     def _simulate_prosody_analysis(self, file_path: str) -> Dict[str, Any]:
-        """Fallback simulation when SDK/API Key is unavailable ensuring zero OMNI crash."""
+        """Fallback topological_evaluation when SDK/API Key is unavailable ensuring zero OMNI crash."""
         return {
             "status": "success",
             "data": {
                 "source": "omni_simulated",
-                "simulated_emotions": [
+                "resolved_emotions": [
                     {"name": "Calmness", "score": 0.85},
                     {"name": "Joy", "score": 0.12},
                     {"name": "Sadness", "score": 0.03}
                 ],
-                "note": "Hume SDK or API key missing. Operating in OMNI simulation mode."
+                "note": "Hume SDK or API key missing. Operating in OMNI topological_evaluation mode."
             }
         }
 

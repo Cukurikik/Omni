@@ -143,14 +143,14 @@ class OmniDeepTextRecogEngine:
         return Ok(transformed)
 
     # -----------------------------------------------------------------
-    # 2. FEATURE EXTRACTION (CNN simulation)
+    # 2. FEATURE EXTRACTION (CNN topological_evaluation)
     # -----------------------------------------------------------------
 
     def cnn_feature_extract(
         self, image: np.ndarray, W1: np.ndarray, b1: np.ndarray,
         W2: np.ndarray, b2: np.ndarray
     ) -> Result:
-        """Two-layer fully-connected CNN feature simulation.
+        """Two-layer fully-connected CNN feature topological_evaluation.
 
         layer1 = ReLU(x @ W1^T + b1)
         layer2 = ReLU(layer1 @ W2^T + b2)

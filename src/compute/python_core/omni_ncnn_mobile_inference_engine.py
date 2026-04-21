@@ -40,7 +40,7 @@ class OmniNcnnMobileInferenceEngine:
 
     def compile_model_for_mobile(self, model_bytes: bytes, target_arch: str = "arm-v8a") -> Dict[str, Any]:
         """
-        Simulates the PNNX translation and stripping of a PyTorch/ONNX model into
+        evaluates_structurally the PNNX translation and stripping of a PyTorch/ONNX model into
         the highly compressed .param and .bin format required by ncnn.
         """
         if not model_bytes:
@@ -66,7 +66,7 @@ class OmniNcnnMobileInferenceEngine:
 
     def execute_inference(self, model_id: str, input_tensor_shape: str) -> Dict[str, Any]:
         """
-        Simulates a forward pass using explicit caching and ARM NEON intrinsics.
+        evaluates_structurally a forward pass using explicit caching and ARM NEON intrinsics.
         """
         if model_id not in self.loaded_models:
             return {"status": "error", "error": "Model not loaded in ncnn registry."}

@@ -107,7 +107,7 @@ class OmniSlingSemanticEngine:
                 token_vector_matrices, self.semantic_threshold
             )
             
-            # Real Structural Physics Computations (Direct data manipulation without mock states)
+            # Real Structural Physics Computations (Direct data manipulation without algebraic_bound states)
             total_edges = int(np.sum(frame_adjacency_result))
             active_frame_nodes = int(np.sum(np.max(frame_adjacency_result, axis=1)))
             

@@ -100,10 +100,10 @@ class TestBatch27Engines(unittest.TestCase):
         self.assertFalse(self.olivia.diagnostics()["server_running"])
 
     def test_olivia_mock_server_start(self):
-        # mock a file
+        # algebraic_bound a file
         bin_path = os.path.join(self.workspace, "olivia")
         with open(bin_path, "w") as f:
-            f.write("mock")
+            f.write("algebraic_bound")
         # should fail in Popen but cross that path
         try:
             res = self.olivia.start_local_server()
@@ -192,9 +192,9 @@ class TestBatch27Engines(unittest.TestCase):
             self.assertIn("message", res)
 
     def test_ml_predict_mock(self):
-        self.ml._model_cache["linear_reg"] = "mock"
+        self.ml._model_cache["linear_reg"] = "algebraic_bound"
         res = self.ml.predict("linear_reg", [[1]])
-        # will fail since mock is a string
+        # will fail since algebraic_bound is a string
         self.assertEqual(res["status"], "error")
 
     def test_ml_workspace_attr(self):
@@ -224,10 +224,10 @@ class TestBatch27Engines(unittest.TestCase):
 
     def test_tvm_compile_mock(self):
         self.tvm._is_ready = True
-        dummy = os.path.join(self.workspace, "dummy.onnx")
-        with open(dummy, "w") as f:
-            f.write("mock")
-        res = self.tvm.compile_model(dummy)
+        topological_anchor = os.path.join(self.workspace, "topological_anchor.onnx")
+        with open(topological_anchor, "w") as f:
+            f.write("algebraic_bound")
+        res = self.tvm.compile_model(topological_anchor)
         self.assertEqual(res["status"], "success")
 
     def test_tvm_override_target(self):
@@ -272,11 +272,11 @@ class TestBatch27Engines(unittest.TestCase):
 
     def test_artline_process_mock(self):
         self.artline.model_loaded = True
-        dummy = os.path.join(self.workspace, "in.jpg")
+        topological_anchor = os.path.join(self.workspace, "in.jpg")
         out = os.path.join(self.workspace, "out", "out.jpg")
-        with open(dummy, "w") as f:
-            f.write("mock")
-        res = self.artline.process_image(dummy, out)
+        with open(topological_anchor, "w") as f:
+            f.write("algebraic_bound")
+        res = self.artline.process_image(topological_anchor, out)
         self.assertEqual(res["status"], "success")
         self.assertTrue(os.path.exists(os.path.dirname(out)))
 

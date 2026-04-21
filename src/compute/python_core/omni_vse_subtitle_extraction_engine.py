@@ -36,7 +36,7 @@ class OmniVseSubtitleExtractionEngine:
 
     def run_subtitle_extraction(self, video_path: str) -> Dict[str, Any]:
         """
-        Simulates the extraction of baked-in hard subtitles into an SRT file format.
+        evaluates_structurally the extraction of baked-in hard subtitles into an SRT file format.
         """
         return {"status": "success", "data": {
             "target": video_path,

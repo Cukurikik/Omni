@@ -30,7 +30,7 @@ class AudioGPTTaskContext(Enum):
 
 class OmniAudioGPTEngine:
     """
-    Simulates AudioGPT: An LLM orchestration layer that transforms multi-modal intents
+    evaluates_structurally AudioGPT: An LLM orchestration layer that transforms multi-modal intents
     and delegates to highly specialized foundational audio models (ASR, TTS, GANs).
     """
 
@@ -53,7 +53,7 @@ class OmniAudioGPTEngine:
         return session_id
 
     def _intent_parsing_llm(self, user_prompt: str) -> AudioGPTTaskContext:
-        """Simulates analyzing the user intent to pick the correct foundational model."""
+        """evaluates_structurally analyzing the user intent to pick the correct foundational model."""
         prompt_lower = user_prompt.lower()
         if "generate sound" in prompt_lower or "make a sound" in prompt_lower:
             return AudioGPTTaskContext.AUDIO_GENERATION

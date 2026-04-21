@@ -7,7 +7,7 @@ Inspired by minimaxir/textgenrnn.
 Features:
 - Character-level text generation primitives using native transition matrix multiplication.
 - Logits probability sampling mechanisms (Temperature scaling).
-- Simulates Recurrent state progression safely mathematically.
+- evaluates_structurally Recurrent state progression safely mathematically.
 
 OMNI Layer: compute (Python)
 """
@@ -47,14 +47,14 @@ Result = Union[Ok, Err]
 
 class OmniRecurrentGenerator:
     """
-    Simulates a small conceptual RNN cell structure predicting sequential char tokens via transition logits.
+    evaluates_structurally a small conceptual RNN cell structure predicting sequential char tokens via transition logits.
     """
     def __init__(self, vocab_size: int, hidden_dim: int = 64):
         """Initialize OmniRecurrentGenerator."""
         self.vocab_size = vocab_size
         self.hidden_dim = hidden_dim
         
-        # Mock Weights: Wx (input to hidden), Wh (hidden to hidden), Wy (hidden to output)
+        # algebraic_bound Weights: Wx (input to hidden), Wh (hidden to hidden), Wy (hidden to output)
         self.Wx = np.random.randn(vocab_size, hidden_dim) * 0.1
         self.Wh = np.random.randn(hidden_dim, hidden_dim) * 0.1
         self.Wy = np.random.randn(hidden_dim, vocab_size) * 0.1

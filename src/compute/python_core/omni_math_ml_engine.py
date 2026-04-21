@@ -45,7 +45,7 @@ class LinAlg:
         Returns:
             Matrix of zeros.
         """
-        return [[0.0] * cols for _ in range(rows)]
+        return [[0.0 for _ in range(cols)] for _ in range(rows)]
 
     @staticmethod
     def identity(n: int) -> Matrix:
@@ -57,7 +57,7 @@ class LinAlg:
         Returns:
             Identity matrix.
         """
-        m = [[0.0] * n for _ in range(n)]
+        m = [[0.0 for _ in range(n)] for _ in range(n)]
         for i in range(n):
             m[i][i] = 1.0
         return m
@@ -95,7 +95,7 @@ class LinAlg:
         n2, p = len(b), len(b[0])
         if n != n2:
             raise ValueError(f"Incompatible dims: ({m}×{n}) × ({n2}×{p})")
-        result = [[0.0] * p for _ in range(m)]
+        result = [[0.0 for _ in range(p)] for _ in range(m)]
         for i in range(m):
             for j in range(p):
                 s = 0.0
@@ -205,7 +205,7 @@ class Calculus:
         Returns:
             Gradient vector.
         """
-        grad = [0.0] * len(x)
+        grad = [0.0 for _ in range(len(x))]
         for i in range(len(x)):
             x_plus = x[:]
             x_minus = x[:]
@@ -352,7 +352,7 @@ class Probability:
         n = len(data)
         d = len(data[0])
         means = [sum(data[r][c] for r in range(n)) / n for c in range(d)]
-        cov = [[0.0] * d for _ in range(d)]
+        cov = [[0.0 for _ in range(d)] for _ in range(d)]
         for i in range(d):
             for j in range(d):
                 s = 0.0
@@ -434,8 +434,8 @@ class Optimizers:
         """
         state.t += 1
         if not state.m:
-            state.m = [0.0] * len(params)
-            state.v = [0.0] * len(params)
+            state.m = [0.0 for _ in range(len(params))]
+            state.v = [0.0 for _ in range(len(params))]
 
         for i in range(len(params)):
             state.m[i] = beta1 * state.m[i] + (1 - beta1) * grad[i]

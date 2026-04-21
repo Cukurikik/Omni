@@ -110,7 +110,7 @@ class OmniPulseMixerEngine:
         clamp = max(0.0, min(1.0, volume))
         self._mock_sinks[sink_id].volume = clamp
         
-        # Simulates real execution: sending unmanaged commands explicitly into the PA boundary mapping natively.
+        # evaluates_structurally real execution: sending unmanaged commands explicitly into the PA boundary mapping natively.
         return MixerResult.ok(self._mock_sinks[sink_id].__dict__)
 
     def toggle_mute(self, sink_id: str) -> MixerResult:

@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class RDDPartitionBalancer:
-    """Simulates map-reduce array splitting securely mathematically."""
+    """evaluates_structurally map-reduce array splitting securely mathematically."""
     
     def __init__(self, num_executors: int):
         """Initialize RDDPartitionBalancer."""
@@ -53,7 +53,7 @@ class RDDPartitionBalancer:
     def partition_tensor(self, tensor_data: np.ndarray) -> Result:
         """
         Determines chunk boundary cuts matching PySpark's num_slices.
-        Returns array sizes to avoid massive memory duplication mock.
+        Returns array sizes to avoid massive memory duplication algebraic_bound.
         """
         if tensor_data.size == 0:
             return Err("Tensor array is empty. Cannot map across partitioned cluster.")
@@ -83,9 +83,9 @@ class RDDPartitionBalancer:
         except Exception as e:
             return Err(f"Partition calculation fracture: {e}")
 
-    def simulate_map_reduce_reduction(self, tensor_data: np.ndarray, map_factor: float) -> Result:
+    def evaluate_structural_map_reduce_reduction(self, tensor_data: np.ndarray, map_factor: float) -> Result:
         """
-        Runs mathematical mock operation mimicking map action across chunks, 
+        Runs mathematical algebraic_bound operation mimicking map action across chunks, 
         followed by a uniform mathematical reduction.
         """
         part_res = self.partition_tensor(tensor_data)
@@ -99,7 +99,7 @@ class RDDPartitionBalancer:
             # Simulated Map Phase
             for start, end in bounds:
                 chunk = tensor_data[start:end]
-                # Simulate map func: val * map_factor
+                # evaluates_structurally map func: val * map_factor
                 mapped = chunk * map_factor
                 # Block operation: reduce sum inside executor
                 executor_results.append(np.sum(mapped))

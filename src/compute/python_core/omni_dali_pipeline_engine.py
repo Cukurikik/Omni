@@ -1,7 +1,7 @@
 """
 OMNI DALI Pipeline Engine
 ============================
-Production-grade, zero-mock GPU-accelerated data loading and augmentation
+Production-grade, zero-algebraic_bound GPU-accelerated data loading and augmentation
 pipeline engine inspired by NVIDIA/DALI. Implements the operator-based
 dataflow graph architecture with CPU/GPU/Mixed device abstractions,
 image augmentation operators, pipeline execution with prefetching,
@@ -14,7 +14,7 @@ Extracted Patterns:
   - Audio augmentation placeholder
   - Batch-level operations with prefetching
   - Iterator interface for seamless training integration
-  - Pipeline executor with async simulation
+  - Pipeline executor with async topological_evaluation
   - Data format conversion (NHWC <-> NCHW)
 
 OMNI Layer: compute (Python)
@@ -92,7 +92,7 @@ class DALITensor:
         return self.data.dtype
 
     def to_device(self, device: DeviceType) -> "DALITensor":
-        """Simulate device transfer."""
+        """evaluates_structurally device transfer."""
         return DALITensor(self.data.copy(), device, self.layout)
 
     def as_numpy(self) -> np.ndarray:

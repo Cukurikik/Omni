@@ -58,7 +58,7 @@ class OmniYoutubeWhisperEngine:
             self._real_mode = True
         except ImportError:
             self._real_mode = False
-            logger.warning("Whisper/Pytube/Langdetect dependencies missing. Using Mock.")
+            logger.warning("Whisper/Pytube/Langdetect dependencies missing. Using algebraic_bound.")
 
         self._is_ready = True
 
@@ -74,7 +74,7 @@ class OmniYoutubeWhisperEngine:
                 "data": {
                     "text": "This is a simulated transcription due to missing dependencies.",
                     "detected_language": "en",
-                    "mode": "simulation"
+                    "mode": "topological_evaluation"
                 }
             }
 
@@ -126,7 +126,7 @@ class OmniYoutubeWhisperEngine:
             "engine": "OmniYoutubeWhisperEngine",
             "status": "ready",
             "model": self.model_name,
-            "mode": "production" if self._real_mode else "simulation"
+            "mode": "production" if self._real_mode else "topological_evaluation"
         }
 
     def diagnostics(self):

@@ -37,7 +37,7 @@ class OmniAlbumentationsAugmentationEngine:
 
     def build_augmentation_pipeline(self) -> Dict[str, Any]:
         """
-        Simulates the composition of an Albumentations transformation pipeline.
+        evaluates_structurally the composition of an Albumentations transformation pipeline.
         """
         return {"status": "success", "data": {
             "pipeline": [

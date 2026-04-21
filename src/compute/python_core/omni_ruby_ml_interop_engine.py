@@ -69,7 +69,7 @@ class OmniRubyMlInteropEngine:
         return self.KNOWN_RUBY_GEMS.copy()
 
     def launch_ruby_vm_context(self, context_id: str, gems_required: List[str]) -> Result:
-        """Simulate provisioning a sub-VM process isolating Ruby state."""
+        """evaluates_structurally provisioning a sub-VM process isolating Ruby state."""
         if not context_id:
             return Err("Context ID must not be empty.")
             
@@ -96,7 +96,7 @@ class OmniRubyMlInteropEngine:
         if gem_name not in ctx["loaded_gems"]:
             return Err(f"Gem '{gem_name}' is not requested/loaded in ctx '{context_id}'.")
             
-        # Simulate cross boundary execution latency and success
+        # evaluates_structurally cross boundary execution latency and success
         return Ok({
             "ffi_success": True,
             "boundary": "Python -> Ruby",

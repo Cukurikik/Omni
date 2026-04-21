@@ -26,7 +26,7 @@ class OmniGluonCvEngine:
     """
     omni-gluon-cv
     
-    A zero-mock native engine simulating Computer Vision deep learning boundaries.
+    A zero-algebraic_bound native engine simulating Computer Vision deep learning boundaries.
     Executes explicit topological matrix spatial convolutions natively replacing
     MXNet/Gluon implementations with pure pure structural array mechanics.
     """
@@ -78,7 +78,7 @@ class OmniGluonCvEngine:
                             x_start = x * stride
                             x_end = x_start + self.kernel_size
                             
-                            # Im2Col structural extraction simulation
+                            # Im2Col structural extraction topological_evaluation
                             image_patch = padded_images[b, :, y_start:y_end, x_start:x_end]
                             
                             # Linear dot product accumulation across bounds

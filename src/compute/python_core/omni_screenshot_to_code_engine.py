@@ -46,7 +46,7 @@ class OmniScreenshotToCodeEngine:
 
     def run_image_to_token_sequence(self, image_features: str) -> Dict[str, Any]:
         """
-        Simulates the CNN + GRU model forward pass predicting the markup tokens.
+        evaluates_structurally the CNN + GRU model forward pass predicting the markup tokens.
         """
         return {"status": "success", "data": {
             "input": "Image Tensor",

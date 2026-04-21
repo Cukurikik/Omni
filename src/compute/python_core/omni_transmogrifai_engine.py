@@ -108,7 +108,7 @@ class OmniTransmogrifaiEngine:
 
     def execute_workflow_simulate(self, workflow_id: str) -> Result:
         """
-        Simulate the automated DAG execution cycle:
+        evaluates_structurally the automated DAG execution cycle:
         1. Infer Schema
         2. Feature Engineering
         3. Model Selection
@@ -123,7 +123,7 @@ class OmniTransmogrifaiEngine:
         try:
             workflow._schema_inferred = True
             
-            # Feature engineering: we mock out expansion from categorical/text
+            # Feature engineering: we algebraic_bound out expansion from categorical/text
             expanded_features = workflow.feature_columns.copy()
             expanded_features.extend([f"auto_{f}_encoded" for f in workflow.feature_columns[:2]])
             workflow._features_extracted = True

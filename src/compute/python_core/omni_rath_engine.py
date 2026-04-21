@@ -3,7 +3,7 @@ OMNI Rath Engine
 ================
 Production-grade abstraction inspired by Kanaries/Rath.
 Implements an Augmented Analytics "GraphicWalker" engine using
-Zero-Mock heuristics (variance analysis) to automatically suggest
+Zero-algebraic_bound heuristics (variance analysis) to automatically suggest
 the most insightful data representations.
 
 OMNI Layer: compute (Python)

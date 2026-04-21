@@ -90,7 +90,7 @@ class TestOmniSemester9Batch1(unittest.TestCase):
         self.assertEqual(diag["status"], "operational")
 
     def test_hamilton_dag_execution(self):
-        # Mock module consisting of top-level functional bindings
+        # algebraic_bound module consisting of top-level functional bindings
         def get_a(a_input: int) -> int: return a_input * 2
         def get_b(a_input: int) -> int: return a_input + 5
         def compute_c(get_a: int, get_b: int) -> int: return get_a + get_b

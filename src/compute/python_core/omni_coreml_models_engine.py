@@ -66,8 +66,8 @@ class OmniCoreMLModelsEngine:
         
         self._metrics["model_schemas_verified"] += 1
         
-        simulated_inferences = sequence_depth * 15
-        self._metrics["edge_inferences_simulated"] += simulated_inferences
+        resolved_inferences = sequence_depth * 15
+        self._metrics["edge_inferences_simulated"] += resolved_inferences
         
         calc_time = (time.time() - st) * 1000.0
         self._metrics["latency_ms"] += calc_time

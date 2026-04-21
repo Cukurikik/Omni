@@ -45,7 +45,7 @@ class OmniAutoClaudeResearchEngine:
     """
     omni-auto-claude-research
     
-    A zero-mock mathematical engine modeling an autonomous AI agent's 
+    A zero-algebraic_bound mathematical engine modeling an autonomous AI agent's 
     research and coding workflow as a Markov Decision Process (MDP).
     Computes Q-Learning/Value Iteration optimized policies.
     """
@@ -147,9 +147,9 @@ class OmniAutoClaudeResearchEngine:
         except Exception as e:
             return Result(error=f"Optimization exception: {str(e)}")
 
-    def simulate_workflow(self, steps: int = 10) -> Result:
+    def evaluate_structural_workflow(self, steps: int = 10) -> Result:
         """
-        Simulate an automated flow using the optimized policy.
+        evaluates_structurally an automated flow using the optimized policy.
         """
         try:
             self.optimize_policy()
@@ -176,7 +176,7 @@ class OmniAutoClaudeResearchEngine:
                 
             return Result(value={"history": history, "total_reward": total_reward})
         except Exception as e:
-            return Result(error=f"Simulation exception: {str(e)}")
+            return Result(error=f"topological_evaluation exception: {str(e)}")
 
     def diagnostics(self) -> Dict[str, Any]:
         """OMNI Registry compliance."""

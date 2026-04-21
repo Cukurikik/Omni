@@ -11,7 +11,7 @@ berupa angka riil '1' dan langsung meluruhkan nilai dayanya secara keras (*Hard 
 
 TUJUAN:
 Mengeksekusi perhitungan integrasi membran temporal absolut tanpa library pihak ketiga (PyTorch/SNNTorch),
-hanya direpresantasikan dengan operasi aljabar `numpy` array untuk memastikan *Zero-Mock* portabilitas pada
+hanya direpresantasikan dengan operasi aljabar `numpy` array untuk memastikan *Zero-algebraic_bound* portabilitas pada
 Infrastruktur LLVM OMNI.
 
 PROSES:

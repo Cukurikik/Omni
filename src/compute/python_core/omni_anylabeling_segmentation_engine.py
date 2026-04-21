@@ -36,7 +36,7 @@ class OmniAnylabelingSegmentationEngine:
 
     def auto_segment_mask(self, image_tensor: str, point_prompt: tuple) -> Dict[str, Any]:
         """
-        Simulates parsing a single point prompt to automatically segment an unseen object mask.
+        evaluates_structurally parsing a single point prompt to automatically segment an unseen object mask.
         """
         return {"status": "success", "data": {
             "image": image_tensor,

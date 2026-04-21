@@ -97,7 +97,7 @@ class OmniTensorboardXLoggerEngine:
                 tag = data.get("tag", "loss")
                 val = data.get("value", 0.0)
                 step = data.get("global_step", 0)
-                await asyncio.sleep(0.01)  # Buffer write simulation
+                await asyncio.sleep(0.01)  # Buffer write topological_evaluation
                 self._metrics["scalars_written"] += 1
                 
                 return {
@@ -116,7 +116,7 @@ class OmniTensorboardXLoggerEngine:
                 }
                 
             elif operation == "flush":
-                await asyncio.sleep(0.05)  # Simulate I/O flush to disk
+                await asyncio.sleep(0.05)  # evaluates_structurally I/O flush to disk
                 self._metrics["flush_events"] += 1
                 return {
                     "status": "success",

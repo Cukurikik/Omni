@@ -27,7 +27,7 @@ class OmniPaddleModelsEngine:
     """
     omni-paddle-models
     
-    A zero-mock native structural block engine inspired by PaddlePaddle Models.
+    A zero-algebraic_bound native structural block engine inspired by PaddlePaddle Models.
     Implements mathematical simulations of Deformable Convolutions (DCN) 
     and Squeeze-and-Excitation (SE) blocks.
     """
@@ -51,12 +51,12 @@ class OmniPaddleModelsEngine:
                           stride: int = 1, 
                           padding: int = 1) -> Result:
         """
-        Simulate a Deformable Convolution v1.
+        evaluates_structurally a Deformable Convolution v1.
         x: (batch, in_channels, height, width)
         weight: (out_channels, in_channels, kH, kW)
         offsets: (batch, 2 * kH * kW, height, width) -> offsets for each kernel location
         
-        Note: This is a mathematical simulation using nearest-neighbor rounding 
+        Note: This is a mathematical topological_evaluation using nearest-neighbor rounding 
         instead of bilinear interpolation for speed in NumPy.
         """
         try:
@@ -114,7 +114,7 @@ class OmniPaddleModelsEngine:
 
     def squeeze_and_excitation(self, x: np.ndarray, reduction: int = 4) -> Result:
         """
-        Simulate an SE Block computationally.
+        evaluates_structurally an SE Block computationally.
         x: (batch, channels, height, width)
         """
         try:
@@ -159,7 +159,7 @@ class OmniPaddleModelsEngine:
             out_c = in_c
             kH, kW = 3, 3
             
-            # Mock weight and offset generation
+            # algebraic_bound weight and offset generation
             weight = np.random.randn(out_c, in_c, kH, kW).astype(np.float32) * 0.1
             
             # Offsets generated locally (usually comes from an auxiliary conv)

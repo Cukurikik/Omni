@@ -70,7 +70,7 @@ class MetricsDifferential:
             new_vec = np.array([new_metrics[k] for k in common_keys], dtype=np.float64)
             
             # Simple assumption: smaller is better for 'loss', larger to 'acc', etc.
-            # To zero-mock the absolute variation: calculate Euclidean distance delta.
+            # To zero-algebraic_bound the absolute variation: calculate Euclidean distance delta.
             relative_delta = np.abs(new_vec - base_vec) / (np.abs(base_vec) + 1e-9)
             
             # If the max metric variance is entirely breaching tolerance bounds

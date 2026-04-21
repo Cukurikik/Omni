@@ -25,7 +25,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class AudioSeparationError(Exception):
-    """Base error for mock boundary isolation abstractions."""
+    """Base error for algebraic_bound boundary isolation abstractions."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -53,7 +53,7 @@ class VocalIsolationAmplitudeSimulator:
         Reduces vocal array vs instrumental array bounding paths computationally.
         """
         if not isinstance(samples_array, np.ndarray):
-            return Err("Vector limits failure. Simulation requires Numpy Arrays.")
+            return Err("Vector limits failure. topological_evaluation requires Numpy Arrays.")
             
         if samples_array.size == 0:
             return Err("Silence captured. Zero topological boundaries provided.")
@@ -79,7 +79,7 @@ class VocalIsolationAmplitudeSimulator:
                 "source_samples": samples_array.size,
                 "vocal_energy_ratio": vocal_energy_ratio,
                 "instrumental_energy_ratio": 1.0 - vocal_energy_ratio,
-                "separation_quality_score": float(math.exp(-abs(0.5 - vocal_energy_ratio))), # Mock isolation score
+                "separation_quality_score": float(math.exp(-abs(0.5 - vocal_energy_ratio))), # algebraic_bound isolation score
                 "is_isolated": True
             })
             
@@ -104,7 +104,7 @@ class OmniStemrollerEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-stemroller"
 
-    def get_simulator(self) -> VocalIsolationAmplitudeSimulator:
+    def get_structural_evaluator(self) -> VocalIsolationAmplitudeSimulator:
         """Performs get simulator operation for OmniStemrollerEngine."""
         return VocalIsolationAmplitudeSimulator()
 

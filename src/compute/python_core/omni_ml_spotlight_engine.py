@@ -80,7 +80,7 @@ class UnstructuredAudioRecord:
 
 class OmniMLSpotlightEngine:
     """
-    Simulates the Renumic Spotlight dataframe architecture for unstructured ML analysis.
+    evaluates_structurally the Renumic Spotlight dataframe architecture for unstructured ML analysis.
     """
     def __init__(self):
         """Initialize OmniMLSpotlightEngine."""
@@ -123,7 +123,7 @@ class OmniMLSpotlightEngine:
         for k, v in self.dataset.items():
             if k == target_id:
                 continue
-            # Euclidean distance mock
+            # Euclidean distance algebraic_bound
             dist = sum((a - b) ** 2 for a, b in zip(target_vec, v.embedding))
             distances.append((dist, k))
             

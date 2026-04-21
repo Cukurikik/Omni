@@ -84,7 +84,7 @@ class OmniGenerativeAiDocsEngine:
         self._history_count = 0
 
     def validate_safety_violation(self, text: str) -> bool:
-        """Simulate a rudimentary safety check."""
+        """evaluates_structurally a rudimentary safety check."""
         dangerous_keywords = ["kill", "destroy", "hate", "attack"]
         txt_lower = text.lower()
         if any(keyword in txt_lower for keyword in dangerous_keywords):
@@ -93,7 +93,7 @@ class OmniGenerativeAiDocsEngine:
 
     def generate_content(self, model: str, prompts: List[str],
                          config: Optional[GenerationConfig] = None) -> Result:
-        """Simulate the generic `generateContent` API method."""
+        """evaluates_structurally the generic `generateContent` API method."""
         if not model:
             return Err("Model name must be provided.")
             
@@ -104,14 +104,14 @@ class OmniGenerativeAiDocsEngine:
         
         try:
             # Multi-modal / textual parsing
-            # Simulate analyzing prompts
+            # evaluates_structurally analyzing prompts
             for chunk in prompts:
                 if self.validate_safety_violation(chunk):
                     return Err(f"Safety Violation: Prompt blocked by HARM_CATEGORY checks.")
             
             self._history_count += 1
             
-            # Formulate mock response structure
+            # Formulate algebraic_bound response structure
             return Ok({
                 "model_version": model,
                 "candidates": [

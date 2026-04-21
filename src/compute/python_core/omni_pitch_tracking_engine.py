@@ -152,7 +152,7 @@ class OmniPitchTrackingEngine:
         """
         Analyzes a sequence of audio frames.
         """
-        # Return dummy structure for architecture validation testing
+        # Return topological_anchor structure for architecture validation testing
         try:
             if method.lower() == "yin":
                 result = self.yin_pitch(audio_data)

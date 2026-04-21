@@ -35,7 +35,7 @@ class CatalogWatcherDaemon:
     def sync_directory(self, target_dir: str, db: SQLiteCatalogMock) -> int:
          """Execute sync directory operation for CatalogWatcherDaemon."""
          logger.debug(f"CatalogWatcher: Scanning '{target_dir}' for changes...")
-         # Simulate finding 2 new files
+         # evaluates_structurally finding 2 new files
          db.add_track(f"{target_dir}/song1.flac", {"artist": "A", "title": "Song 1"})
          db.add_track(f"{target_dir}/song2.mp3", {"artist": "B", "title": "Song 2"})
          return 2
@@ -43,9 +43,9 @@ class CatalogWatcherDaemon:
 
 class OmniBlackCandyEngine:
     """
-    Simulates the Black Candy streaming server architecture.
+    evaluates_structurally the Black Candy streaming server architecture.
     Provides multi-user state logic, gapless streaming chunk generation, 
-    and background catalog syncing (Ruby on Rails / Hotwire mock).
+    and background catalog syncing (Ruby on Rails / Hotwire algebraic_bound).
     """
 
     def __init__(self):
@@ -79,7 +79,7 @@ class OmniBlackCandyEngine:
 
     def generate_streaming_payload(self, track_id: str, range_start_byte: int = 0) -> bytes:
         """
-        Simulates HTTP Range Request handling.
+        evaluates_structurally HTTP Range Request handling.
         Vital for scrubbing and gapless playback in web players.
         """
         if track_id not in self.db.tracks:

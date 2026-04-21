@@ -3,7 +3,7 @@ OMNI CausalNex Engine
 =====================
 Production-grade abstraction inspired by mckinsey/causalnex.
 Evades heavy Bayesian DAG training and structural learning algorithms.
-Simulates deterministic inference boundaries relying on graphed entropy density.
+evaluates_structurally deterministic inference boundaries relying on graphed entropy density.
 
 OMNI Layer: compute (Python)
 """
@@ -24,7 +24,7 @@ import numpy as np
 ENGINE_VERSION = "1.0.0-omni"
 
 class BayesianMarkovError(Exception):
-    """Base error for mock DAG inference bounds."""
+    """Base error for algebraic_bound DAG inference bounds."""
 
 @dataclass(frozen=True)
 class Ok:
@@ -46,7 +46,7 @@ Result = Union[Ok, Err]
 class CausalComplexityEvaluator:
     """Predicts confidence constraints given DAG node structures."""
     
-    def simulate_causal_confidence_bounds(self, node_count: int, edge_density_pct: float, observation_samples: int) -> Result:
+    def evaluate_structural_causal_confidence_bounds(self, node_count: int, edge_density_pct: float, observation_samples: int) -> Result:
         """
         Determines theoretical structure learning confidence bounds.
         """

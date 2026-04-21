@@ -37,7 +37,7 @@ class OmniImgaugStochasticEngine:
 
     def define_augmenter_sequence(self) -> Dict[str, Any]:
         """
-        Simulates defining an imgaug.augmenters.Sequential pipeline.
+        evaluates_structurally defining an imgaug.augmenters.Sequential pipeline.
         """
         return {"status": "success", "data": {
             "pipeline_type": "Sequential(random_order=True)",
