@@ -1,0 +1,249 @@
+-- ===========================================================================
+-- OMNI GRAPH QUERY ENGINE (SEMESTER 3 REMEDIATION — BATCH 38.1)
+-- ===========================================================================
+-- Absorbed From  : GraphQL spec + Apollo Server + Relay concepts
+-- Logic Inherited: GraphQL / Domain Layer (Schema-First Query Resolution)
+-- Domain Layer   : Domain (GraphQL Core)
+-- ===========================================================================
+--
+-- By studying the GraphQL specification and Apollo Server, Mother
+-- learned that GraphQL is a strongly-typed query language where:
+--   1. Schema defines types, queries, mutations, subscriptions
+--   2. Resolvers map each field to a data-fetching function
+--   3. Query validation happens BEFORE execution
+--   4. DataLoader pattern batches N+1 queries into single lookups
+--   5. Introspection allows clients to discover the schema at runtime
+--
+-- GraphQL IS the language for schema-first API contracts in OMNI.
+
+# --------------------------------------------------------------------------
+# OMNI GraphQL Schema Definition
+# --------------------------------------------------------------------------
+
+# ---- Scalar Types ----
+scalar DateTime
+scalar UUID
+scalar JSON
+
+# ---- Enums ----
+
+enum EngineStatus {
+  ACTIVE
+  INACTIVE
+  ERROR
+  MAINTENANCE
+}
+
+enum EngineLayer {
+  SYSTEM
+  NETWORK
+  COMPUTE
+  UI
+  DOMAIN
+  FUNCTIONAL
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+# ---- Input Types (for mutations and filters) ----
+
+input EngineFilterInput {
+  """Filter by programming language."""
+  language: String
+  """Filter by domain layer."""
+  layer: EngineLayer
+  """Filter by status."""
+  status: EngineStatus
+  """Text search across engine names."""
+  searchQuery: String
+}
+
+input PaginationInput {
+  """Number of items per page."""
+  limit: Int = 20
+  """Offset for pagination."""
+  offset: Int = 0
+  """Sort field."""
+  sortBy: String = "name"
+  """Sort direction."""
+  sortOrder: SortOrder = ASC
+}
+
+input RegisterEngineInput {
+  """Unique engine name."""
+  name: String!
+  """Programming language."""
+  language: String!
+  """Domain layer classification."""
+  layer: EngineLayer!
+  """Human-readable description."""
+  description: String!
+  """Source file path."""
+  sourcePath: String!
+  """List of absorbed GitHub repos."""
+  absorbedFrom: [String!]!
+  """List of core logic patterns learned."""
+  learnedLogic: [String!]!
+}
+
+input UpdateEngineStatusInput {
+  """Engine UUID."""
+  id: UUID!
+  """New status."""
+  status: EngineStatus!
+  """Reason for status change."""
+  reason: String
+}
+
+# ---- Core Types ----
+
+"""Represents an OMNI engine module registered in the ecosystem."""
+type Engine {
+  """Unique identifier."""
+  id: UUID!
+  """Engine name (e.g., OmniMemoryPoolEngine)."""
+  name: String!
+  """Programming language."""
+  language: String!
+  """Domain layer."""
+  layer: EngineLayer!
+  """Human-readable description."""
+  description: String!
+  """Source file path relative to workspace root."""
+  sourcePath: String!
+  """Current operational status."""
+  status: EngineStatus!
+  """GitHub repositories this engine absorbed logic from."""
+  absorbedFrom: [String!]!
+  """Core logic patterns learned and implemented."""
+  learnedLogic: [String!]!
+  """Engine diagnostics output."""
+  diagnostics: JSON
+  """When this engine was registered."""
+  registeredAt: DateTime!
+  """When this engine was last updated."""
+  updatedAt: DateTime!
+}
+
+"""Aggregated statistics about the OMNI engine ecosystem."""
+type EcosystemStats {
+  """Total number of registered engines."""
+  totalEngines: Int!
+  """Engines grouped by programming language."""
+  byLanguage: [LanguageCount!]!
+  """Engines grouped by domain layer."""
+  byLayer: [LayerCount!]!
+  """Engines grouped by status."""
+  byStatus: [StatusCount!]!
+  """Total number of unique learned logic patterns."""
+  totalLearnedPatterns: Int!
+  """Last time the ecosystem was scanned."""
+  lastScanAt: DateTime
+}
+
+type LanguageCount {
+  language: String!
+  count: Int!
+  percentage: Float!
+}
+
+type LayerCount {
+  layer: EngineLayer!
+  count: Int!
+  percentage: Float!
+}
+
+type StatusCount {
+  status: EngineStatus!
+  count: Int!
+}
+
+"""Paginated list of engines."""
+type EngineConnection {
+  """List of engines in this page."""
+  edges: [Engine!]!
+  """Total count (before pagination)."""
+  totalCount: Int!
+  """Whether more pages exist."""
+  hasNextPage: Boolean!
+  """Whether previous pages exist."""
+  hasPreviousPage: Boolean!
+}
+
+"""Result of a mutation operation."""
+type MutationResult {
+  """Whether the operation succeeded."""
+  success: Boolean!
+  """Human-readable message."""
+  message: String!
+  """The affected engine (if applicable)."""
+  engine: Engine
+}
+
+# ---- Queries ----
+
+type Query {
+  """Get a single engine by UUID."""
+  engine(id: UUID!): Engine
+
+  """Get a single engine by name."""
+  engineByName(name: String!): Engine
+
+  """List engines with filtering and pagination."""
+  engines(
+    filter: EngineFilterInput
+    pagination: PaginationInput
+  ): EngineConnection!
+
+  """Get ecosystem statistics."""
+  ecosystemStats: EcosystemStats!
+
+  """Search engines by learned logic pattern."""
+  enginesByPattern(pattern: String!): [Engine!]!
+
+  """Get all unique programming languages in the ecosystem."""
+  languages: [String!]!
+
+  """Health check for the OMNI Engine Registry."""
+  health: JSON!
+}
+
+# ---- Mutations ----
+
+type Mutation {
+  """Register a new engine in the ecosystem."""
+  registerEngine(input: RegisterEngineInput!): MutationResult!
+
+  """Update an engine's operational status."""
+  updateEngineStatus(input: UpdateEngineStatusInput!): MutationResult!
+
+  """Trigger a full ecosystem scan."""
+  scanEcosystem: MutationResult!
+
+  """Remove an engine from the registry."""
+  deregisterEngine(id: UUID!): MutationResult!
+}
+
+# ---- Subscriptions ----
+
+type Subscription {
+  """Subscribe to engine status changes."""
+  engineStatusChanged(layer: EngineLayer): Engine!
+
+  """Subscribe to new engine registrations."""
+  engineRegistered: Engine!
+
+  """Subscribe to ecosystem scan results."""
+  ecosystemScanCompleted: EcosystemStats!
+}
+
+# ---- Schema Root ----
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}

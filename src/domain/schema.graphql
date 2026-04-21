@@ -1,0 +1,176 @@
+# ===========================================================================
+# OMNI DOMAIN LAYER — UNIFIED GRAPHQL API CONTRACT
+# ===========================================================================
+# This schema defines the type-safe API contract for all domain entities
+# exposed by the OMNI Domain Layer engines.
+# ===========================================================================
+
+# ---- Scalar Types ----------------------------------------------------------
+
+scalar UUID
+scalar DateTime
+scalar Money
+scalar URL
+
+# ---- Enums -----------------------------------------------------------------
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum MediaType {
+  VIDEO
+  AUDIO
+  SUBTITLE
+  IMAGE
+  DOCUMENT
+}
+
+enum DevicePlatform {
+  ANDROID
+  IOS
+  HARMONY
+  SWITCH
+  DESKTOP
+}
+
+enum ReviewSeverity {
+  INFO
+  WARNING
+  CRITICAL
+  BLOCKER
+}
+
+# ---- Domain Types ----------------------------------------------------------
+
+"""Order Aggregate Root (cs::domain::OrderAggregate)"""
+type Order {
+  id: UUID!
+  total: Money!
+  status: OrderStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Pull Request Code Review Comment (java::spring AutoCommenter)"""
+type ReviewComment {
+  id: UUID!
+  lineNumber: Int!
+  suggestion: String!
+  severity: ReviewSeverity!
+  ruleId: String!
+}
+
+"""Media Asset tracked by the domain (php::web comic_dl + rb::route anime)"""
+type MediaAsset {
+  id: UUID!
+  title: String!
+  mediaType: MediaType!
+  seasonNumber: Int
+  episodeNumber: Int
+  originalFilename: String!
+  normalizedPath: String!
+  subtitleLanguage: String
+  sizeKb: Int!
+}
+
+"""App Store Release (rb::route app_store_connect)"""
+type AppRelease {
+  id: UUID!
+  appName: String!
+  version: String!
+  buildNumber: Int!
+  platform: DevicePlatform!
+  status: String!
+  submittedAt: DateTime!
+}
+
+"""Remote Device Bot Session (cs::domain SysBot)"""
+type BotSession {
+  id: UUID!
+  deviceIp: String!
+  port: Int!
+  platform: DevicePlatform!
+  routineId: String!
+  isActive: Boolean!
+  startedAt: DateTime!
+}
+
+"""WordPress Deployment Record (rb::route wordmove)"""
+type Deployment {
+  id: UUID!
+  source: String!
+  destination: String!
+  status: String!
+  filesTransferred: Int!
+  deployedAt: DateTime!
+}
+
+# ---- Input Types -----------------------------------------------------------
+
+input CreateOrderInput {
+  total: Money!
+}
+
+input ReviewPullRequestInput {
+  diff: String!
+}
+
+input OrganizeMediaInput {
+  filenames: [String!]!
+  outputRoot: String!
+}
+
+input StartBotSessionInput {
+  deviceIp: String!
+  port: Int
+  routineId: String!
+}
+
+# ---- Queries ---------------------------------------------------------------
+
+type Query {
+  """Retrieve an order by ID"""
+  order(id: UUID!): Order
+
+  """List all orders with optional status filter"""
+  orders(status: OrderStatus): [Order!]!
+
+  """List all media assets"""
+  mediaAssets(mediaType: MediaType): [MediaAsset!]!
+
+  """List all app releases"""
+  appReleases(platform: DevicePlatform): [AppRelease!]!
+
+  """List active bot sessions"""
+  activeBotSessions: [BotSession!]!
+
+  """List deployment history"""
+  deployments(limit: Int = 20): [Deployment!]!
+}
+
+# ---- Mutations -------------------------------------------------------------
+
+type Mutation {
+  """Create a new order"""
+  createOrder(input: CreateOrderInput!): Order!
+
+  """Review a pull request diff and return comments"""
+  reviewPullRequest(input: ReviewPullRequestInput!): [ReviewComment!]!
+
+  """Organize media files into season/episode structure"""
+  organizeMedia(input: OrganizeMediaInput!): [MediaAsset!]!
+
+  """Start a remote device bot session"""
+  startBotSession(input: StartBotSessionInput!): BotSession!
+
+  """Stop a running bot session"""
+  stopBotSession(sessionId: UUID!): BotSession!
+
+  """Deploy WordPress site"""
+  deployWordPress(source: String!, destination: String!): Deployment!
+}
