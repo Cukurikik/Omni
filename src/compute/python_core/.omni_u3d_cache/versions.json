@@ -1,0 +1,57 @@
+{
+  "2022.3.10f1": {
+    "version": "2022.3.10f1",
+    "major": 2022,
+    "minor": 3,
+    "patch": 10,
+    "release_type": "f",
+    "release_num": 1,
+    "build_hash": "",
+    "packages": [],
+    "size_mb": 0.0
+  },
+  "2023.1.0f1": {
+    "version": "2023.1.0f1",
+    "major": 2023,
+    "minor": 1,
+    "patch": 0,
+    "release_type": "f",
+    "release_num": 1,
+    "build_hash": "",
+    "packages": [],
+    "size_mb": 0.0
+  },
+  "2023.2.0b1": {
+    "version": "2023.2.0b1",
+    "major": 2023,
+    "minor": 2,
+    "patch": 0,
+    "release_type": "b",
+    "release_num": 1,
+    "build_hash": "",
+    "packages": [],
+    "size_mb": 0.0
+  },
+  "6000.0.0f1": {
+    "version": "6000.0.0f1",
+    "major": 6000,
+    "minor": 0,
+    "patch": 0,
+    "release_type": "f",
+    "release_num": 1,
+    "build_hash": "",
+    "packages": [],
+    "size_mb": 0.0
+  },
+  "6000.0.1p1": {
+    "version": "6000.0.1p1",
+    "major": 6000,
+    "minor": 0,
+    "patch": 1,
+    "release_type": "p",
+    "release_num": 1,
+    "build_hash": "",
+    "packages": [],
+    "size_mb": 0.0
+  }
+}

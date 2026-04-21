@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Antigravity Phone Connect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Security: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self';">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>
+            <span>Antigravity Phone Connect</span>
+        </h1>
+
+        <div class="header-controls">
+            <button class="new-chat-btn" id="newChatBtn" aria-label="New Chat" title="New Chat (Ctrl+Shift+L)">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+            <button class="history-btn" id="historyBtn" aria-label="Chat History" title="Past Conversations">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </button>
+            <button class="stop-btn" id="stopBtn" aria-label="STOP">
+                <span>STOP</span>
+            </button>
+            <button class="refresh-btn" id="refreshBtn" aria-label="Refresh">
+                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M1 20v-6h6"></path>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+            </button>
+            <div class="status-badge">
+                <div class="status-dot disconnected" id="statusDot"></div>
+                <span id="statusText">Connecting...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Settings Bar -->
+    <div class="settings-bar">
+        <div class="setting-chip" id="modeBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            <span id="modeText">Fast</span>
+        </div>
+        <div class="setting-chip" id="modelBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <path d="M12 8h.01" />
+            </svg>
+            <span id="modelText">Select Model</span>
+        </div>
+        <div class="setting-chip" id="syncStats" style="cursor: default; border: none; background: transparent;">
+            <span id="statsText" style="font-size: 10px; opacity: 0.6;">Syncing...</span>
+        </div>
+        <div class="setting-chip" id="supportBtn"
+            style="cursor: pointer; border: none; background: transparent; padding-left: 0; padding-right: 0;"
+            aria-label="Support">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"
+                style="fill: #ef4444; filter: drop-shadow(0 0 8px var(--accent)); transition: all 0.3s; margin-left: 4px;">
+                <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- SSL Banner (shown when running HTTP) -->
+    <div class="ssl-banner" id="sslBanner" style="display: none;">
+        <span>⚠️ Not Secure - Running on HTTP</span>
+        <button id="enableHttpsBtn">Enable HTTPS</button>
+        <button class="dismiss-btn">×</button>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-content" id="chatContent">
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Waiting for snapshot...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Bottom FAB -->
+    <button class="fab" id="scrollToBottom" aria-label="Scroll to bottom">
+        <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M19 12l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <div class="action-chip">Continue</div>
+        <div class="action-chip">Explain Code</div>
+        <div class="action-chip">Fix Bugs</div>
+        <div class="action-chip">Create Docs</div>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-section">
+        <div class="input-wrapper">
+            <textarea id="messageInput" placeholder="Message..." rows="1"></textarea>
+
+
+
+            <button class="send-btn" id="sendBtn" aria-label="Send">
+                <svg viewBox="0 0 24 24">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"
+                        style="fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-panel" id="modalPanel">
+            <div class="modal-title" id="modalTitle">Select Option</div>
+            <div id="modalList"></div>
+            <div style="margin-top:20px; text-align:center;">
+                <button id="closeModalBtn"
+                    style="background:transparent; border:none; color:var(--text-muted); padding:10px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div class="modal-overlay" id="supportOverlay">
+        <div class="modal-panel" style="text-align: center; padding: 30px 20px;">
+            <div class="modal-title" style="margin-bottom: 10px; font-size: 18px;">Support the Developer 💖</div>
+            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 14px; line-height: 1.5;">If you find
+                <b>Antigravity Phone Connect</b> useful, <br>please consider supporting the Project and the Developer!
+            </p>
+            <a href="https://krishnakanthb13.github.io/S/PLPm.html" target="_blank"
+                style="display: inline-block; background: var(--accent-gradient); color: white; padding: 12px 28px; border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px var(--accent-glow); margin-bottom: 20px;">Support</a>
+            <div>
+                <button id="closeSupportBtn"
+                    style="background:transparent; border:none; color:var(--text-muted); padding:10px; cursor: pointer; font-size: 14px;">Maybe
+                    Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Layer (Full Screen) -->
+    <div class="history-layer" id="historyLayer">
+        <div class="history-header">
+            <button class="icon-btn" aria-label="Back">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <h2>Conversations</h2>
+            <div style="width: 24px;"></div> <!-- Spacer -->
+        </div>
+        <div class="history-content" id="historyList">
+            <!-- Items injected here -->
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
