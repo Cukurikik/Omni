@@ -1,83 +1,51 @@
-# ===========================================================================
-# OMNI JINA SERVE ENGINE (SEMESTER 5 — BATCH 21)
-# ===========================================================================
-# Absorbed From  : jina-ai/serve
-# Logic Inherited: Network & Orchestration Layer (MLOps Microservices)
-# ===========================================================================
-#
-# DEEP LEARNING ABSORBED:
-#   Jina Serve allows deployment of multimodal AI into scalable microservices.
-#     - Executor: Smallest logic unit (Python class).
-#     - Flow: DAG pipeline chaining Executors.
-#     - Deployment: Orchestrates replicas/sharding of a single Executor.
-#     - Protocol: Default gRPC for heavily efficient tensor transfer.
-#
-"""
-OMNI Jina Serve Engine
-======================
-Production-grade engine for the OMNI Framework.
+"""OmniJinaServeEngine.
 
-OMNI Layer: compute (Python)
+Provides programmatic builder and dispatcher for Jina Flows,
+enabling cloud-native multimodal AI applications.
 """
-import logging
-import uuid
 from typing import Dict, Any, List
-
-
-ENGINE_VERSION = "1.0.0-omni"
 from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
-logger = logging.getLogger("OmniJinaServeEngine")
-
 class OmniJinaServeEngine:
-    """
-    MLOps Orchestration engine inspired by jina-ai/serve.
-    Manages Executor microservices inside a gRPC-powered Flow.
-    """
+    """OMNI Engine for Jina AI Serve."""
 
-    def __init__(self):
-        """Initialize OmniJinaServeEngine."""
-        self.active_flows: Dict[str, Any] = {}
-        logger.info("[OmniJinaServe] MLOps Orchestration Engine online. gRPC backend ready.")
+    def __init__(self, host: str = "0.0.0.0", port: int = 54321):
+        """Initialize the Jina Serve orchestration engine."""
+        self.host = host
+        self.port = port
+        self._client = None
 
-    def deploy_executor(self, name: str, replicas: int = 1) -> Dict[str, Any]:
-        """
-        Deploys an ML algorithm (Executor) as a scalable containerized service.
-        """
-        exe_id = f"exec_{uuid.uuid4().hex[:6]}"
-        return {"status": "success", "data": {
-            "executor_id": exe_id,
-            "name": name,
-            "replicas": replicas,
-            "state": "Running in isolated process space",
-            "communication": "Listening on internal gRPC port"
-        }}
+    def diagnostics(self) -> Dict[str, Any]:
+        """Returns engine diagnostic metadata."""
+        return {
+            "engine": "OmniJinaServeEngine",
+            "status": "ready" if self._client else "uninitialized",
+            "host": self.host,
+            "port": self.port
+        }
 
-    def compose_flow_dag(self, flow_name: str, executors: List[str]) -> Dict[str, Any]:
-        """
-        Chains multiple Executors into an end-to-end processing pipeline (Flow).
-        """
-        self.active_flows[flow_name] = executors
+    def execute_flow_request(self, payload: Dict[str, Any]) -> Result[Dict[str, Any], Exception]:
+        """Executes a multimodal request against a running Jina flow.
         
-        return {"status": "success", "data": {
-            "flow_name": flow_name,
-            "gateway": "Exposed via HTTP/gRPC/Websockets",
-            "directed_acyclic_graph": f"Gateway -> {' -> '.join(executors)}",
-            "data_structure": "Routing DocArray (tensors, texts, images) between nodes natively via gRPC."
-        }}
-
-    def evaluate_health(self) -> Dict[str, Any]:
-        """Performs evaluate health operation for OmniJinaServeEngine."""
-        return {
-            "engine": "OmniJinaServeEngine", "layer": "Network/Orchestration", "status": "healthy",
-            "active_flows": len(self.active_flows),
-            "learned_from": "jina-ai/serve"
-        }
-
-    def diagnostics(self):
-        """Return engine health diagnostics."""
-        return {
-            "engine_id": "omni-jina-serve",
-            "version": getattr(self, "VERSION", "1.0.0"),
-            "status": "operational",
-        }
+        Args:
+            payload: Standard dictionary representing document tags or input.
+            
+        Returns:
+            Result wrapping the response document tags from Jina framework.
+        """
+        try:
+            from jina import Client, Document, DocumentArray
+            if self._client is None:
+                self._client = Client(host=f"grpc://{self.host}:{self.port}")
+            
+            docs = DocumentArray([Document(tags=payload)])
+            response = self._client.post("/", docs)
+            
+            if len(response) > 0:
+                tags = getattr(response[0], "tags", {})
+                return Ok({"result": tags})
+            return Ok({"result": {}})
+        except ImportError:
+            return Err(Exception("Jina AI library not installed. Please install 'jina' package."))
+        except Exception as e:
+            return Err(e)
