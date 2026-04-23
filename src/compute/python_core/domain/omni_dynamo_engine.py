@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/DynamoDS/Dynamo
 # Domain Layer  : Domain (Visual Programming / BIM)
-# Zero-Mock     : 100% Native — json, os, hashlib, math, sqlite3
+# Zero-Prod     : 100% Native — json, os, hashlib, math, sqlite3
 # ===========================================================================
 """
 Dynamo teaches us:
@@ -252,7 +252,7 @@ class DAGExecutor:
 
 class OmniDynamoEngine:
     """
-    OMNI Dynamo Engine — Zero-Mock Visual Programming & Computational Design.
+    OMNI Dynamo Engine — Zero-Prod Visual Programming & Computational Design.
 
     Capabilities (all native stdlib):
       - Node-based graph definition

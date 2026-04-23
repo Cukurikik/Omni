@@ -78,7 +78,7 @@ class OmniSonobusEngine:
 if __name__ == "__main__":
     eng = OmniSonobusEngine()
     
-    # Fake PCM buffer of 5 Megabytes (simulating 10 seconds of raw uncompressed audio)
+    # Fake PCM buffer of 5 Megabytes (execute 10 seconds of raw uncompressed audio)
     simulated_pcm_burst = b"\\x01\\x02\\x03\\x04" * 1250000 
     
     print(json.dumps(eng.slice_and_packetize_buffer(simulated_pcm_burst, mtu_size=1200), indent=2))

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/rushindrasinha/youtube-shorts-pipeline
 # Domain Layer  : Compute (Video Content Pipeline)
-# Zero-Mock     : 100% Native — subprocess, json, os, re, hashlib
+# Zero-Prod     : 100% Native — subprocess, json, os, re, hashlib
 # ===========================================================================
 """
 youtube-shorts-pipeline teaches us:
@@ -239,7 +239,7 @@ class ProjectStore:
 
 class OmniShortsPipelineEngine:
     """
-    OMNI Shorts Pipeline Engine — Zero-Mock Video Content Pipeline.
+    OMNI Shorts Pipeline Engine — Zero-Prod Video Content Pipeline.
 
     Capabilities (all native ffmpeg subprocess):
       - Video inspection (codec, resolution, duration, bitrate)

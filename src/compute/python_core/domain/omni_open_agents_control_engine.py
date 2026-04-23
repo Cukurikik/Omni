@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/darrenhinde/OpenAgentsControl
 # Domain Layer  : AI Agents
-# Zero-Mock     : 100% Native — json, os, sqlite3, hashlib
+# Zero-Prod     : 100% Native — json, os, sqlite3, hashlib
 # ===========================================================================
 """
 OpenAgentsControl teaches us:

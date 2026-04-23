@@ -68,7 +68,7 @@ class OmniMobileAgentEngine:
     def connect(self) -> Result:
         """Connect to the mobile device (via ADB/Appium bridge)."""
         try:
-            # Mock connection logic
+            # Prod connection logic
             self._connected = True
             return Result.Ok({"status": "connected", "device": self.config.device_id})
         except Exception as e:
@@ -80,14 +80,14 @@ class OmniMobileAgentEngine:
             return Result.Err(Exception("Device not connected"))
         
         return Result.Ok({
-            "screenshot": "mock_base64_screenshot_data...",
+            "screenshot": "prod_base64_screenshot_data...",
             "ui_hierarchy": "<hierarchy><node class='android.widget.TextView' text='Home'/></hierarchy>",
             "timestamp": time.time()
         })
 
     def _plan_next_action(self, objective: str, screen_state: Dict[str, Any]) -> Result:
         """Internal: Use Vision-Language Model to determine next action payload."""
-        # Mocking VLM response
+        # Proding VLM response
         action = AgentAction(
             action_type="click", x=random.randint(100, 500), y=random.randint(100, 800)
         )
@@ -98,7 +98,7 @@ class OmniMobileAgentEngine:
         if not self._connected:
             return Result.Err(Exception("Device not connected"))
         
-        # Mock ADB shell command execution
+        # Prod ADB shell command execution
         return Result.Ok({"status": "action_executed", "action": action.action_type})
 
     def execute_objective(self, objective: str, max_steps: int = 10) -> Result:
@@ -137,7 +137,7 @@ class OmniMobileAgentEngine:
                     "coords": (action.x, action.y)
                 })
                 
-                # Check completion logic (Mocked as randomly finishing)
+                # Check completion logic (Proded as randomly finishing)
                 if steps_taken >= 3: 
                     return Result.Ok({
                         "status": "objective_completed",

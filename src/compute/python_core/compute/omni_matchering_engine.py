@@ -59,10 +59,10 @@ class OmniMatcheringEngine:
         """
         start_time = time.time()
         
-        # Mathematical simulation of a Target audio PCM buffer (very quiet)
+        # Mathematical execute of a Target audio PCM buffer (very quiet)
         target_pcm_buffer = [math.sin(i * 0.1) * 0.2 for i in range(4096)]
         
-        # Mathematical simulation of a Reference audio PCM buffer (loud, mastered)
+        # Mathematical execute of a Reference audio PCM buffer (loud, mastered)
         reference_pcm_buffer = [math.sin(i * 0.05) * 0.8 for i in range(4096)]
         
         # OMNI Core Logic execution

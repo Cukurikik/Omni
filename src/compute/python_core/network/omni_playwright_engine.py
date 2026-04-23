@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/playwright-community/playwright-go
 # Domain Layer  : Network (Browser Automation)
-# Zero-Mock     : 100% Native — subprocess, urllib, json, CDP
+# Zero-Prod     : 100% Native — subprocess, urllib, json, CDP
 # ===========================================================================
 """
 Playwright-Go teaches us:
@@ -207,7 +207,7 @@ class NetworkProbe:
 
 class OmniPlaywrightEngine:
     """
-    OMNI Playwright Engine — Zero-Mock Cross-Browser Automation & Testing.
+    OMNI Playwright Engine — Zero-Prod Cross-Browser Automation & Testing.
 
     Capabilities (all native — urllib, subprocess):
       - Multi-browser discovery (Chrome, Firefox, Edge)

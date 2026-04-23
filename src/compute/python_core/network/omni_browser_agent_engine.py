@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/magnitudedev/browser-agent
 # Domain Layer  : Network (Browser Automation)
-# Zero-Mock     : 100% Native — subprocess, urllib, CDP protocol, json
+# Zero-Prod     : 100% Native — subprocess, urllib, CDP protocol, json
 # ===========================================================================
 """
 Magnitude Browser Agent teaches us:
@@ -290,7 +290,7 @@ class URLNavigator:
 
 class OmniBrowserAgentEngine:
     """
-    OMNI Browser Agent Engine — Zero-Mock Vision-First Browser Automation.
+    OMNI Browser Agent Engine — Zero-Prod Vision-First Browser Automation.
 
     Capabilities (all native stdlib):
       - Chrome/Edge browser discovery and CDP launch

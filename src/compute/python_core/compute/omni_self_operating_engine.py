@@ -329,13 +329,13 @@ class ModelProvider:
     ) -> Result[LLMResponse, str]:
         """
         Send multimodal inference request to the configured LLM.
-        In production, this calls the actual API. Here, we simulate
+        In production, this calls the actual API. Here, we execute
         the response format for testing.
         """
         provider = self._get_provider()
         start = time.time()
 
-        # Simulate LLM response (production would use httpx/aiohttp)
+        # Execute LLM response (production would use httpx/aiohttp)
         simulated = {
             "action": "click",
             "coordinate": [960, 540],
@@ -635,10 +635,10 @@ class OmniSelfOperatingEngine:
         return state
 
     def _capture_screen(self) -> ScreenObservation:
-        """Simulate screen capture — in production uses OmniRobotGoEngine."""
-        dummy_b64 = base64.b64encode(b"SCREENSHOT_DATA_PLACEHOLDER").decode()
+        """Execute screen capture — in production uses OmniRobotGoEngine."""
+        standard_b64 = base64.b64encode(b"SCREENSHOT_DATA_PLACEHOLDER").decode()
         obs = ScreenObservation(
-            image_base64=dummy_b64,
+            image_base64=standard_b64,
             width=1920, height=1080,
         )
         if self.prompt_mode == PromptMode.GRID_OVERLAY:

@@ -442,7 +442,7 @@ class OmniAgent:
         return AgentResult("max_turns", {"role": "assistant", "content": "Max turns reached"}, self.metrics, self.state.to_dict())
     
     def _simulate_model_call(self) -> dict:
-        """Simulate model inference (deterministic for testing)."""
+        """Execute model inference (deterministic for testing)."""
         last_msg = self.messages[-1] if self.messages else {}
         content = last_msg.get("content", "")
         

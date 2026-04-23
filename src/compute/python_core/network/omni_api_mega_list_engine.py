@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/cporter202/API-mega-list
 # Domain Layer  : Network (API Directory)
-# Zero-Mock     : 100% Native — urllib, json, sqlite3, real HTTP probing
+# Zero-Prod     : 100% Native — urllib, json, sqlite3, real HTTP probing
 # ===========================================================================
 """
 API-mega-list teaches us:
@@ -214,7 +214,7 @@ class APICatalogDB:
 
 class OmniApiMegaListEngine:
     """
-    OMNI API Mega List Engine — Zero-Mock Public API Catalog & Health Prober.
+    OMNI API Mega List Engine — Zero-Prod Public API Catalog & Health Prober.
 
     Capabilities (all native stdlib):
       - 25+ built-in API entries across 10 categories

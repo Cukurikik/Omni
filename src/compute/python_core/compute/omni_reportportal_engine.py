@@ -21,7 +21,7 @@ def Err(reason: str) -> Dict:
 
 
 class AIMetricsAnalyzer:
-    """Simulates AI heuristics applied to raw testing logs."""
+    """Execute AI heuristics applied to raw testing logs."""
     
     @staticmethod
     def classify_failure(log_trace: str) -> str:

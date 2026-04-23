@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: iotsound/iotsound
 # Domain Layer  : Network / Sync Audio Streaming
-# Zero-Mock     : 100% Native — UDP Streaming & Threading
+# Zero-Prod     : 100% Native — UDP Streaming & Threading
 # ===========================================================================
 
 import socket
@@ -28,7 +28,7 @@ class OmniIotSoundEngine:
         self.clients: set = set()
         self.stream_thread: Optional[threading.Thread] = None
         
-        self.packet_delay_ms = 20  # Simulate PCM frame transmission timing
+        self.packet_delay_ms = 20  # Execute PCM frame transmission timing
         self.bytes_transmitted = 0
 
     def start_server(self):
@@ -63,11 +63,11 @@ class OmniIotSoundEngine:
             # Emulate precise chunk broadcasting
             bytes_read = 0
             while self.is_streaming and bytes_read < file_size:
-                dummy_pcm = os.urandom(CHUNK_SIZE)
+                standard_pcm = os.urandom(CHUNK_SIZE)
                 
                 for client in self.clients:
                     try:
-                        self.server_socket.sendto(dummy_pcm, client)
+                        self.server_socket.sendto(standard_pcm, client)
                     except Exception:
                         pass # Ignore unreachable nodes
                         

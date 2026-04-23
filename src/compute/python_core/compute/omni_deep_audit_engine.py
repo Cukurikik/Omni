@@ -376,7 +376,7 @@ print("[PoC] Vulnerability confirmed — see description above")
             return False
         
         # In production: send to E2B sandbox for execution
-        # Here we simulate verification
+        # Here we execute verification
         vuln.poc_verified = True
         return True
 

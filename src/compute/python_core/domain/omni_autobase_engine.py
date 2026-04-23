@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/autobase-tech/autobase
 # Domain Layer  : Domain (Database Infrastructure)
-# Zero-Mock     : 100% Native — subprocess, socket, sqlite3, os
+# Zero-Prod     : 100% Native — subprocess, socket, sqlite3, os
 # ===========================================================================
 """
 Autobase (formerly postgresql_cluster) teaches us:
@@ -395,7 +395,7 @@ backend pg_nodes
 
 class OmniAutobaseEngine:
     """
-    OMNI Autobase Engine — Zero-Mock PostgreSQL HA Cluster Automation.
+    OMNI Autobase Engine — Zero-Prod PostgreSQL HA Cluster Automation.
 
     Capabilities (all native stdlib):
       - PostgreSQL instance probing (TCP + psql subprocess)

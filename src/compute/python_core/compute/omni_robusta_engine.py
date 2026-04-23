@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/robusta-dev/robusta
 # Domain Layer  : Compute (K8s Observability)
-# Zero-Mock     : 100% Native — subprocess (kubectl), json, sqlite3
+# Zero-Prod     : 100% Native — subprocess (kubectl), json, sqlite3
 # ===========================================================================
 """
 Robusta teaches us:
@@ -311,7 +311,7 @@ class AlertHistory:
 
 class OmniRobustaEngine:
     """
-    OMNI Robusta Engine — Zero-Mock Kubernetes Observability & Remediation.
+    OMNI Robusta Engine — Zero-Prod Kubernetes Observability & Remediation.
 
     Capabilities (all native kubectl subprocess):
       - Pod listing and health monitoring

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Super-Engine Consolidation: Deep Live Avatar, RTC Server, Audio Separator, DSP
 # Domain Layer  : Compute (High-bandwidth signal processing, CV/Audio matrices)
-# Zero-Mock     : 100% Native — byte buffer math, raw TCP/UDP structure emulators
+# Zero-Prod     : 100% Native — byte buffer math, raw TCP/UDP structure emulators
 # ===========================================================================
 import json
 import math
@@ -91,7 +91,7 @@ class OmniMediaStreamEngine:
         })
 
     def connect_webrtc(self, peer_id: str) -> Dict:
-        """Simulate RTC offer/answer loopback."""
+        """Execute RTC offer/answer loopback."""
         offer = "v=0\r\no=client 12345 IN IP4 0.0.0.0"
         return self.rtc.negotiate_peer(peer_id, offer)
 

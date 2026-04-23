@@ -294,7 +294,7 @@ class TestReport:
 class ImageRecognitionEngine:
     """
     Template matching engine — mirrors Airtest's cvlib module.
-    In production uses OpenCV (cv2.matchTemplate). Here we simulate.
+    In production uses OpenCV (cv2.matchTemplate). Here we execute.
     """
 
     SUPPORTED_METHODS: Final[List[MatchMethod]] = [

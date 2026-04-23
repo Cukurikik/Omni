@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/frain-dev/convoy
 # Domain Layer  : Network (Webhook Infrastructure)
-# Zero-Mock     : 100% Native — http.server, urllib, json, sqlite3, hashlib
+# Zero-Prod     : 100% Native — http.server, urllib, json, sqlite3, hashlib
 # ===========================================================================
 """
 Convoy teaches us:
@@ -238,7 +238,7 @@ class EventStore:
 
 class OmniConvoyEngine:
     """
-    OMNI Convoy Engine — Zero-Mock Webhook Gateway & Event Routing.
+    OMNI Convoy Engine — Zero-Prod Webhook Gateway & Event Routing.
 
     Capabilities (all native stdlib):
       - Webhook delivery with exponential backoff retry

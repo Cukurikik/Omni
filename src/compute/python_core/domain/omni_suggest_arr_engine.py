@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/giuseppe99barchetta/SuggestArr
 # Domain Layer  : Domain (Media Recommendations)
-# Zero-Mock     : 100% Native — json, os, re, hashlib, sqlite3, urllib
+# Zero-Prod     : 100% Native — json, os, re, hashlib, sqlite3, urllib
 # ===========================================================================
 """
 SuggestArr teaches us:
@@ -173,7 +173,7 @@ class MediaStore:
 
 class OmniSuggestArrEngine:
     """
-    OMNI SuggestArr Engine — Zero-Mock Media Recommendation System.
+    OMNI SuggestArr Engine — Zero-Prod Media Recommendation System.
 
     Capabilities (all native stdlib):
       - Genre/cast/keyword similarity scoring

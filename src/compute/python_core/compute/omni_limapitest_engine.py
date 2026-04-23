@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: qu-niao/LimApiTest
 # Domain Layer  : Compute (High-concurrency analysis & Test matrices)
-# Zero-Mock     : 100% Native — asyncio, aiohttp (if installed) or urllib
+# Zero-Prod     : 100% Native — asyncio, aiohttp (if installed) or urllib
 # ===========================================================================
 """
 LimApiTest Engine constructs distributed API load-testing matrices,

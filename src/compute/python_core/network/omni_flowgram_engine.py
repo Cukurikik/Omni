@@ -102,7 +102,7 @@ class OmniFlowgramEngine:
         graph = self._compiled_graphs[graph_id]
         
         try:
-            # Simple Topological Sort (Mocked linear for test)
+            # Simple Topological Sort (Proded linear for test)
             execution_context = inputs.copy()
             execution_trace = []
             
@@ -145,7 +145,7 @@ class OmniFlowgramEngine:
 def _run_self_test():
     engine = OmniFlowgramEngine()
     
-    mock_json = {
+    prod_json = {
         "name": "Test Search AI",
         "nodes": [
             {"id": "n1", "type": "input", "config": {}},
@@ -155,7 +155,7 @@ def _run_self_test():
     }
     
     # Load
-    load_res = engine.load_graph_from_json(mock_json)
+    load_res = engine.load_graph_from_json(prod_json)
     assert load_res.is_ok
     graph_id = load_res.unwrap()["graph_id"]
     

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/anthropics/anthropic-cookbook (page-agent)
 # Domain Layer  : Network (DOM Analysis)
-# Zero-Mock     : 100% Native — urllib, re, html.parser, json, sqlite3
+# Zero-Prod     : 100% Native — urllib, re, html.parser, json, sqlite3
 # ===========================================================================
 """
 Page Agent teaches us:
@@ -271,7 +271,7 @@ class PageStore:
 
 class OmniPageAgentEngine:
     """
-    OMNI Page Agent Engine — Zero-Mock DOM Semantic Analysis.
+    OMNI Page Agent Engine — Zero-Prod DOM Semantic Analysis.
 
     Capabilities (all native html.parser + urllib):
       - Full DOM tree parsing and element extraction

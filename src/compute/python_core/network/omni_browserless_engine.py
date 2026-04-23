@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/microlinkhq/browserless
 # Domain Layer  : Network (Headless Browser Service)
-# Zero-Mock     : 100% Native — urllib, subprocess, json, hashlib
+# Zero-Prod     : 100% Native — urllib, subprocess, json, hashlib
 # ===========================================================================
 """
 Browserless teaches us:
@@ -203,7 +203,7 @@ class PerformanceAnalyzer:
 
 class OmniBrowserlessEngine:
     """
-    OMNI Browserless Engine — Zero-Mock Headless Browser-as-a-Service.
+    OMNI Browserless Engine — Zero-Prod Headless Browser-as-a-Service.
 
     Capabilities (all native stdlib):
       - Content fetching (browserless /content style)

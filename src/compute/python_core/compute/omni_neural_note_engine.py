@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: DamRsn/NeuralNote
 # Domain Layer  : Compute / Neural Synthesis
-# Zero-Mock     : 100% Native — Data structuring mapping representation
+# Zero-Prod     : 100% Native — Data structuring mapping representation
 # ===========================================================================
 
 import os
@@ -17,7 +17,7 @@ class OmniNeuralNoteEngine:
     """
     OMNI Engine abstracting the complex audio-to-MIDI capabilities of NeuralNote.
     Interfaces natively with local `basic-pitch` command line utilities to generate
-    MIDI structures, or simulates structural generation if isolated.
+    MIDI structures, or execute structural generation if isolated.
     """
 
     def __init__(self, output_dir: str = ".omni_midi"):

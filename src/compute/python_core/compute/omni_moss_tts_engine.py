@@ -18,7 +18,7 @@ class OmniMossTTSEngine:
     transforms phoneme tokens into a multi-dimensional array representing Mel-spectograms, 
     which are then decoded to audio waves by a Vocoder (like HiFi-GAN).
     
-    Omni proves this native comprehension by simulating the tensor mathematical 
+    Omni proves this native comprehension by execute the tensor mathematical 
     vector projection matrix natively via purely logical array loops!
     """
 
@@ -28,13 +28,13 @@ class OmniMossTTSEngine:
 
     def _simulate_mel_spectrogram_inference(self, tokens: List[str]) -> List[List[float]]:
         """
-        Natively simulates an acoustic model generating a 2D Mel-Spectrogram Array. 
+        Natively execute an acoustic model generating a 2D Mel-Spectrogram Array. 
         Each token produces a 3-frame mel output (dimension: N x 3 arrays).
         """
         simulated_mel_matrix = []
         for token in tokens:
             weight = self.phoneme_dictionary.get(token, 0.1) * self.vocal_energy
-            # Simulate a 3-frame time step projection for each token!
+            # Execute a 3-frame time step projection for each token!
             frames = [
                 [weight * 0.1, weight * 0.5, weight * 0.2],
                 [weight * 0.3, weight * 0.8, weight * 0.4],
@@ -47,10 +47,10 @@ class OmniMossTTSEngine:
     def generate_speech_matrix(self, text_prompt: str) -> Dict[str, Any]:
         start_time = time.time()
         
-        # Tokenizer simulation
+        # Tokenizer execute
         tokens = list(text_prompt.replace(" ", ""))
         
-        # Acoustic Model Inference simulation
+        # Acoustic Model Inference execute
         mel_spectrogram_2d = self._simulate_mel_spectrogram_inference(tokens)
         
         return {
@@ -66,7 +66,7 @@ class OmniMossTTSEngine:
         return {
             "engine": "OmniMossTTSEngine",
             "layer": "Python Compute & ML Array Projection",
-            "learned_logic": ["text-to-phoneme-tokenization", "mel-spectrogram-2d-matrix-inference", "acoustic-to-vocoder-simulation"]
+            "learned_logic": ["text-to-phoneme-tokenization", "mel-spectrogram-2d-matrix-inference", "acoustic-to-vocoder-execute"]
         }
 
 

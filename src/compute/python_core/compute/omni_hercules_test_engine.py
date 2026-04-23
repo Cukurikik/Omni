@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/test-zeus-ai/testzeus-hercules
 # Domain Layer  : Compute (AI Test Framework)
-# Zero-Mock     : 100% Native — json, os, re, hashlib, sqlite3, urllib
+# Zero-Prod     : 100% Native — json, os, re, hashlib, sqlite3, urllib
 # ===========================================================================
 """
 TestZeus Hercules teaches us:
@@ -244,7 +244,7 @@ class TestStore:
 
 class OmniHerculesTestEngine:
     """
-    OMNI Hercules Test Engine — Zero-Mock AI Test Generation & Execution.
+    OMNI Hercules Test Engine — Zero-Prod AI Test Generation & Execution.
 
     Capabilities (all native stdlib):
       - Requirement → test case generation

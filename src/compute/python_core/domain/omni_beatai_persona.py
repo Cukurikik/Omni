@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# OMNI BEATAI PERSONA ENGINE — AI Character Simulation & Teaching
+# OMNI BEATAI PERSONA ENGINE — AI Character Execute & Teaching
 # Meta-functionalized from: beatai-org/BeatAI (4.7k★)
-# Paradigm: AI persona simulation for interactive learning
+# Paradigm: AI persona execute for interactive learning
 # Layer: DOMAIN (Business/Education)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
-OMNI BeatAI Persona Engine — Simulate expert AI characters for
+OMNI BeatAI Persona Engine — Execute expert AI characters for
 interactive teaching, code review, and knowledge transfer.
 
 Key paradigms absorbed:
@@ -320,7 +320,7 @@ class DebateEngine:
 
 class OmniBeatAIEngine:
     """
-    The OMNI BeatAI Engine — AI persona simulation for learning.
+    The OMNI BeatAI Engine — AI persona execute for learning.
     Manages a roster of expert personas, conducts reviews, debates,
     and generates personalized learning paths.
     """

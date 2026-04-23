@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Super-Engine Consolidation: CrewAI, Langgraph Supervisor, Ray Deep Orchestrator
 # Domain Layer  : Compute (Agentic Swarms, DAG Workflows, Distributed compute)
-# Zero-Mock     : 100% Native — asyncio, ThreadPoolExecutor, multiprocessing
+# Zero-Prod     : 100% Native — asyncio, ThreadPoolExecutor, multiprocessing
 # ===========================================================================
 import asyncio
 import concurrent.futures
@@ -35,7 +35,7 @@ class AgentDagNode:
 class OmniSwarmOrchestratorEngine:
     """
     Highly parallel DAG-based swarm engine mimicking Langgraph/Ray but 
-    executed locally via Python Futures and asyncio queues. No 'time.sleep' mocks.
+    executed locally via Python Futures and asyncio queues. No 'time.sleep' implementations.
     """
     def __init__(self):
         self.nodes = {}

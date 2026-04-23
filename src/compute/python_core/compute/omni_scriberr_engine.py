@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: rishikanthc/Scriberr
 # Domain Layer  : Compute / AI Audio Transcription
-# Zero-Mock     : 100% Native — Subprocess Whisper bridging & HTTP wrapping
+# Zero-Prod     : 100% Native — Subprocess Whisper bridging & HTTP wrapping
 # ===========================================================================
 
 import os
@@ -97,7 +97,7 @@ class OmniScriberrEngine:
         
         if not os.path.exists(filepath):
             # Create a dummy to prevent total pipeline crash if fed bad links
-            filepath = "dummy_audio.wav"
+            filepath = "standard_audio.wav"
 
         start_time = time.time()
         

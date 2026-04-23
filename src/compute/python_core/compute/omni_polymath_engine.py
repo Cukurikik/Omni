@@ -17,7 +17,7 @@ class OmniPolymathEngine:
     passing multi-dimensional frequency arrays into classifiers, returning confidence
     matrices, and slicing array strings based on structural patterns (Beat detection).
     
-    This Python script natively simulates parsing a 1D audio sample array and detecting
+    This Python script natively execute parsing a 1D audio sample array and detecting
     transients/beats using localized probability logic, slicing it into "Stems".
     """
 
@@ -26,7 +26,7 @@ class OmniPolymathEngine:
 
     def analyze_array_transients(self, audio_vector: List[float], threshold: float) -> List[int]:
         """
-        Natively simulates AI Beat/Transient Detection tracking sudden jumps in float math.
+        Natively execute AI Beat/Transient Detection tracking sudden jumps in float math.
         Finds the 'cut' points.
         """
         cut_points = [0] # start
@@ -44,23 +44,23 @@ class OmniPolymathEngine:
         
         # Simulated continuous audio wave
         # The jump from 0.2 to 0.9 is a "Kick drum" transient!
-        dummy_wave = [0.1, 0.2, 0.9, 0.5, 0.1, 0.1, 0.8, 0.4, 0.2]
+        standard_wave = [0.1, 0.2, 0.9, 0.5, 0.1, 0.1, 0.8, 0.4, 0.2]
         
         try:
             # Execute math
-            cut_indices = self.analyze_array_transients(dummy_wave, 0.5)
+            cut_indices = self.analyze_array_transients(standard_wave, 0.5)
             
             sliced_stems = []
             for i in range(len(cut_indices) - 1):
                 start = cut_indices[i]
                 end = cut_indices[i+1]
-                sliced_stems.append(dummy_wave[start:end])
+                sliced_stems.append(standard_wave[start:end])
                 self.stems_generated += 1
                 
             return {
                 "status": "success",
                 "mode": "native-feature-transient-stemming",
-                "original_vector_len": len(dummy_wave),
+                "original_vector_len": len(standard_wave),
                 "stems_isolated": len(sliced_stems),
                 "stem_buffers": sliced_stems,
                 "compute_time_ms": int((time.time() - start_time) * 1000)

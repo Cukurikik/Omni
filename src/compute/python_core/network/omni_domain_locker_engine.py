@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/Lissy93/domain-locker
 # Domain Layer  : Network (Domain Management)
-# Zero-Mock     : 100% Native — socket, ssl, urllib, json, sqlite3
+# Zero-Prod     : 100% Native — socket, ssl, urllib, json, sqlite3
 # ===========================================================================
 """
 Domain Locker teaches us:
@@ -181,7 +181,7 @@ class PortfolioStore:
 
 class OmniDomainLockerEngine:
     """
-    OMNI Domain Locker Engine — Zero-Mock Domain Portfolio Management.
+    OMNI Domain Locker Engine — Zero-Prod Domain Portfolio Management.
 
     Capabilities (all native socket + ssl + subprocess):
       - DNS resolution (A, AAAA, MX, NS, TXT)

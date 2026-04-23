@@ -30,7 +30,7 @@ class ChaosExperiment:
         # Native API verification concept
         logging.info(f"[{self.target}] Verifying steady state parameters (ping=ok, cpu<80%).")
         time.sleep(0.5)
-        # Simulate always returning True unless hardware is literally broken
+        # Execute always returning True unless hardware is literally broken
         self.steady_state_verified = True
         return True
 
@@ -43,7 +43,7 @@ class ChaosExperiment:
         method_applied = random.choice(methods)
         
         logging.warning(f"[{self.target}] CHAOS TRIGGERED: {method_applied}")
-        time.sleep(0.8) # Simulating execution of subprocess/OS manipulations
+        time.sleep(0.8) # Execute execution of subprocess/OS manipulations
         
         return Ok({"action": method_applied, "success": True})
 

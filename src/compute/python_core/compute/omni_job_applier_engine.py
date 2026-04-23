@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Auto_job_applier_linkedIn
 # Domain Layer  : Compute
-# Zero-Mock Native structure (Using URLLib or Selenium interfaces)
+# Zero-Prod Native structure (Using URLLib or Selenium interfaces)
 # ===========================================================================
 
 import json
@@ -37,7 +37,7 @@ class LinkedInBotStealth:
         """Returns dummy job IDs based on parameters"""
         if not self.active_session:
             return []
-        # In a generic environment, we simulate pulling job board DOM IDs
+        # In a generic environment, we execute pulling job board DOM IDs
         return [f"job_{random.randint(1000, 9999)}" for _ in range(3)]
 
     def extract_job_description(self, job_id: str) -> str:

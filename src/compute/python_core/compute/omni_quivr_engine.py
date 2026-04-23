@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/QuivrHQ/quivr
 # Domain Layer  : Compute (RAG / Knowledge Management)
-# Zero-Mock     : 100% Native — os, json, re, hashlib, sqlite3, math
+# Zero-Prod     : 100% Native — os, json, re, hashlib, sqlite3, math
 # ===========================================================================
 """
 Quivr teaches us:
@@ -235,7 +235,7 @@ class KnowledgeStore:
 
 class OmniQuivrEngine:
     """
-    OMNI Quivr Engine — Zero-Mock RAG Knowledge Base & Semantic Search.
+    OMNI Quivr Engine — Zero-Prod RAG Knowledge Base & Semantic Search.
 
     Capabilities (all native stdlib):
       - Document ingestion with multiple chunking strategies

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/n8n-io/n8n
 # Domain Layer  : Network (Workflow Automation)
-# Zero-Mock     : 100% Native — json, os, time, hashlib, sqlite3, urllib
+# Zero-Prod     : 100% Native — json, os, time, hashlib, sqlite3, urllib
 # ===========================================================================
 """
 n8n teaches us:
@@ -411,7 +411,7 @@ class WorkflowStore:
 
 class OmniN8NEngine:
     """
-    OMNI n8n Engine — Zero-Mock Visual Workflow Automation.
+    OMNI n8n Engine — Zero-Prod Visual Workflow Automation.
 
     Capabilities (all native stdlib):
       - Workflow builder with 14 node types

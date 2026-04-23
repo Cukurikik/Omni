@@ -402,7 +402,7 @@ class TestRun:
 
 class LoadSimulator:
     """
-    Simulates virtual user traffic — mirrors Artillery's execution engine.
+    Execute virtual user traffic — mirrors Artillery's execution engine.
     Generates synthetic response metrics for testing without real HTTP calls.
     """
 
@@ -410,8 +410,8 @@ class LoadSimulator:
         self.base_latency = base_latency_ms
         self.error_rate = error_rate
 
-    def simulate_request(self, step: RequestStep) -> ResponseMetrics:
-        """Simulate a single request execution."""
+    def execute_request(self, step: RequestStep) -> ResponseMetrics:
+        """Execute a single request execution."""
         # Latency model: base + random jitter + occasional spikes
         latency = self.base_latency + random.gauss(0, 10)
         if random.random() < 0.05:  # 5% chance of slow request
@@ -437,10 +437,10 @@ class LoadSimulator:
             error=error_msg,
         )
 
-    def simulate_phase(self, phase: LoadPhase, scenarios: List[Scenario], metrics: AggregatedMetrics):
-        """Simulate an entire load phase."""
+    def execute_phase(self, phase: LoadPhase, scenarios: List[Scenario], metrics: AggregatedMetrics):
+        """Execute an entire load phase."""
         total_vus = phase.total_vus_estimate
-        # Cap simulation to reasonable numbers for testing
+        # Cap execute to reasonable numbers for testing
         simulated_vus = min(total_vus, 500)
         metrics.vus_max = max(metrics.vus_max, phase.arrival_rate)
 
@@ -448,7 +448,7 @@ class LoadSimulator:
             # Pick a scenario (weighted)
             scenario = random.choices(scenarios, weights=[s.weight for s in scenarios])[0]
             for step in scenario.steps:
-                resp = self.simulate_request(step)
+                resp = self.execute_request(step)
                 metrics.add_response(resp)
 
 
@@ -572,7 +572,7 @@ class OmniArtilleryEngine:
     - Real-time metrics (RPS, p50/p95/p99, error rate)
     - SLI/SLO threshold-based pass/fail
     - Distributed worker orchestration
-    - Virtual user flow simulation
+    - Virtual user flow execute
     """
 
     ENGINE_VERSION: Final[str] = "1.0.0-omni"
@@ -602,7 +602,7 @@ class OmniArtilleryEngine:
 
         # Execute each phase
         for phase in config.phases:
-            self.simulator.simulate_phase(phase, config.scenarios, test_run.metrics)
+            self.simulator.execute_phase(phase, config.scenarios, test_run.metrics)
 
         test_run.metrics.end_time = time.time()
 

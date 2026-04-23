@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: umputun/ralphex
 # Domain Layer  : Domain (Business logic, pattern filtering & semantic rules)
-# Zero-Mock     : 100% Native — re, json, datetime, sqlite3
+# Zero-Prod     : 100% Native — re, json, datetime, sqlite3
 # ===========================================================================
 """
 Ralphex Engine processes high-volume log and feed data through 

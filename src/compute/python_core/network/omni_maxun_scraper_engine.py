@@ -103,7 +103,7 @@ class RobotRecorder:
 class AIExtractor:
     """LLM-powered extraction from natural language descriptions."""
     def extract(self, url: str, prompt: str, html_content: str = "") -> List[Dict]:
-        # Simulate AI extraction based on prompt keywords
+        # Execute AI extraction based on prompt keywords
         fields = re.findall(r'\b(name|title|price|rating|description|url|image|email|phone)\b',
                             prompt.lower())
         results = []

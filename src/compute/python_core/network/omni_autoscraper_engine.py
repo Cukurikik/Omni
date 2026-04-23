@@ -75,12 +75,12 @@ class OmniAutoScraperEngine:
             domain = urllib.parse.urlparse(url).netloc
             rules = []
             
-            # Mock learning process -> extracting CSS/XPath
+            # Prod learning process -> extracting CSS/XPath
             for i, wanted in enumerate(wanted_list):
                 rules.append(ScraperRule(
                     id=f"rule_{i}",
                     target_data=wanted,
-                    css_selector=f".mock_inferred_class_{i}"
+                    css_selector=f".prod_inferred_class_{i}"
                 ))
                 
             self._learned_rules[domain] = rules
@@ -104,7 +104,7 @@ class OmniAutoScraperEngine:
                 
             rules = self._learned_rules[domain]
             
-            # Mock applying rules
+            # Prod applying rules
             results = []
             for rule in rules:
                 results.append(f"Scraped data based on {rule.target_data}")

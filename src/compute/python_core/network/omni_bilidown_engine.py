@@ -17,7 +17,7 @@ class OmniBilidownEngine:
     segmented VOD streams (like Bilibili uses) requires asynchronous Chunk downloading
     and sequential appending to avoid RAM overflow.
     
-    Omni natively simulates streaming a massive segmented file over standard
+    Omni natively execute streaming a massive segmented file over standard
     Python Generator logic, appending to a mocked IO buffer structurally reflecting 
     the core network flow algorithm!
     """
@@ -28,7 +28,7 @@ class OmniBilidownEngine:
 
     def virtual_m3u8_stream_generator(self, total_virtual_mb: int) -> Generator[bytes, None, None]:
         """
-        Natively simulates a network stream yielding video binary chunks lazily.
+        Natively execute a network stream yielding video binary chunks lazily.
         """
         for i in range(total_virtual_mb):
             # Simulated byte segment downloading 

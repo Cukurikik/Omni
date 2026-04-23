@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/jimmy201602/webterminal
 # Domain Layer  : Network (Web Terminal / SSH)
-# Zero-Mock     : 100% Native — subprocess, socket, os, json, sqlite3
+# Zero-Prod     : 100% Native — subprocess, socket, os, json, sqlite3
 # ===========================================================================
 """
 Webterminal teaches us:
@@ -198,7 +198,7 @@ class CommandAudit:
 
 class OmniWebterminalEngine:
     """
-    OMNI Webterminal Engine — Zero-Mock Web Terminal & Shell Management.
+    OMNI Webterminal Engine — Zero-Prod Web Terminal & Shell Management.
 
     Capabilities (all native subprocess + socket):
       - Local shell execution with timeout

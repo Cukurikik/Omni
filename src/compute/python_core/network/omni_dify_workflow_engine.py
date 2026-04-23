@@ -111,7 +111,7 @@ class StartNode(WorkflowNode):
 
 
 class LLMNode(WorkflowNode):
-    """Simulates LLM call with provider abstraction."""
+    """Execute LLM call with provider abstraction."""
     def __init__(self, config: NodeConfig):
         self.config = config
         self.provider = config.config.get("provider", "gemini")

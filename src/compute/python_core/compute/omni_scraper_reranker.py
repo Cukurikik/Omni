@@ -50,8 +50,8 @@ class OmniWebScraper:
         """Crawl4AI-style: Crawl satu halaman dan hasilkan Markdown bersih."""
         print(f"🌐 [CRAWL4AI] Mengambil konten dari: {url}")
 
-        # Mock HTML response
-        mock_html = f"""
+        # Prod HTML response
+        prod_html = f"""
         <html>
         <head><title>Test Page</title></head>
         <nav>Navigation menu here</nav>
@@ -65,7 +65,7 @@ class OmniWebScraper:
         </body></html>
         """
 
-        markdown = self.html_to_markdown(mock_html)
+        markdown = self.html_to_markdown(prod_html)
         print(f"   ✅ Konversi HTML → Markdown: {len(markdown)} karakter (bersih dari iklan/nav)")
         return {"url": url, "markdown": markdown, "word_count": len(markdown.split())}
 

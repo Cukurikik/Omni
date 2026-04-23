@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Global resource download orchestration system in Python.
 # Implements Source Providers (URL crawling) and Download Providers (aria2 emulation)
-# Zero-Mock Native HTTP parsing and aria2c subprocess triggering.
+# Zero-Prod Native HTTP parsing and aria2c subprocess triggering.
 # ===========================================================================
 
 import json

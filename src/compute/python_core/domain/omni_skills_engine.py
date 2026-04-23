@@ -267,7 +267,7 @@ class OmniSkillsEngine:
             return SkillExecution(skill_id, tool_name, False, None, 0, "Tool not found")
 
         t0 = time.time()
-        # Execute handler or simulate
+        # Execute handler or execute
         if tool.handler:
             try:
                 result = tool.handler(params)

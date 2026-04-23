@@ -73,7 +73,7 @@ class OmniMatrixDeployEngine:
             return Result.Err(e)
 
     def generate_inventory_yaml(self, matrix_domain: str, admin_user: str) -> Result:
-        """Writes real configuration YAML payload to disk unconditionally without mocks."""
+        """Writes real configuration YAML payload to disk unconditionally without implementations."""
         inv_path = os.path.join(self.workspace_path, "inventory.yml")
         
         yaml_content = f"""

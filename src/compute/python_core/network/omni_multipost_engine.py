@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/leaperone/MultiPost-Extension
 # Domain Layer  : Network (Content Distribution)
-# Zero-Mock     : 100% Native — urllib, json, os, sqlite3, hashlib
+# Zero-Prod     : 100% Native — urllib, json, os, sqlite3, hashlib
 # ===========================================================================
 """
 MultiPost teaches us:
@@ -229,7 +229,7 @@ class PostStore:
 
 class OmniMultipostEngine:
     """
-    OMNI MultiPost Engine — Zero-Mock Multi-Platform Content Publishing.
+    OMNI MultiPost Engine — Zero-Prod Multi-Platform Content Publishing.
 
     Capabilities (all native stdlib):
       - Content adaptation per platform (10+ platforms)

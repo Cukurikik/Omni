@@ -90,7 +90,7 @@ class OmniSoloudEngine:
 if __name__ == "__main__":
     eng = OmniSoloudEngine()
     
-    # Simulating 3 mathematical sounds triggering at once at various volumes
+    # Execute 3 mathematical sounds triggering at once at various volumes
     fake_voice_1 = {"volume": 0.8, "pcm_samples": [0.5, 0.6, 0.4, 0.8, 0.1]}
     fake_voice_2 = {"volume": 1.5, "pcm_samples": [0.1, -0.4, 0.7, 0.5, 0.0]} # the 1.5 vol forces a clip deliberately
     fake_voice_3 = {"volume": 0.5, "pcm_samples": [0.0, 0.0, 0.0, -0.9, -0.2]}

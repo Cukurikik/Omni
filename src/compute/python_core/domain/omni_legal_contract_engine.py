@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/AlexAnys/awesome-openclaw-usecases-zh
 # Domain Layer  : Domain (Legal / Contract Intelligence)
-# Zero-Mock     : 100% Native — json, os, re, hashlib, real text processing
+# Zero-Prod     : 100% Native — json, os, re, hashlib, real text processing
 # ===========================================================================
 """
 awesome-openclaw-usecases teaches us:
@@ -250,7 +250,7 @@ class ContractComparator:
 
 class OmniLegalContractEngine:
     """
-    OMNI Legal Contract Engine — Zero-Mock Contract Analysis & Risk Assessment.
+    OMNI Legal Contract Engine — Zero-Prod Contract Analysis & Risk Assessment.
 
     Capabilities (all native stdlib — regex NLP):
       - Contract type detection (NDA, SLA, MSA, etc.)

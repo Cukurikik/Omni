@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Taiko2k/Tauon
 # Domain Layer  : Compute / Local Media Playback
-# Zero-Mock     : 100% Native — Subprocess delegation representing GStreamer bind
+# Zero-Prod     : 100% Native — Subprocess delegation representing GStreamer bind
 # ===========================================================================
 
 import os
@@ -31,7 +31,7 @@ class OmniTauonPlayerEngine:
     def scan_library(self) -> Dict[str, Any]:
         """
         Natively walks the local directory, extracting raw metadata bounds.
-        (Simulates GStreamer/Mutagen ID3 extraction logic natively)
+        (Execute GStreamer/Mutagen ID3 extraction logic natively)
         """
         scanned = 0
         formats = (".mp3", ".flac", ".ogg", ".wav", ".m4a")
@@ -42,7 +42,7 @@ class OmniTauonPlayerEngine:
                     filepath = os.path.join(root, file)
                     file_id = hashlib.md5(filepath.encode()).hexdigest()[:8]
                     
-                    # Simulating deep ID3 extraction logic naturally
+                    # Execute deep ID3 extraction logic naturally
                     file_size = os.path.getsize(filepath)
                     self.library_index[file_id] = {
                         "path": filepath,

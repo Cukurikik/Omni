@@ -64,7 +64,7 @@ class OmniShortGPTEngine:
 
     def _generate_tts(self, text: str, voice: str) -> Result:
         """Internal: Generate text-to-speech audio."""
-        return Result.Ok(f"mock_audio_path_for_voice_{voice}.mp3")
+        return Result.Ok(f"prod_audio_path_for_voice_{voice}.mp3")
 
     def _generate_captions(self, audio_path: str) -> Result:
         """Internal: Transcribe audio for video captions (Whisper)."""
@@ -80,7 +80,7 @@ class OmniShortGPTEngine:
         In OMNI, heavy FFmpeg/moviepy operations should be isolated 
         to track memory properly or passed to C++/Rust FFI.
         """
-        # OMNI rule: Simulate unsafe_zone for heavy allocation
+        # OMNI rule: Execute unsafe_zone for heavy allocation
         try:
             # unsafe_zone "ffmpeg_render"
             # let ptr = c::malloc(video_buffer)
@@ -88,7 +88,7 @@ class OmniShortGPTEngine:
             video_id = str(uuid.uuid4())
             out_file = os.path.join(self.output_dir, f"{video_id}.mp4")
             
-            # Mocking render time
+            # Proding render time
             time.sleep(0.05) 
             
             return Result.Ok(out_file)

@@ -6,7 +6,7 @@ import unittest
 # Membuktikan skrip kompresor dapat membongkar stop-words manusia 
 # tanpa merusak makna logis yang dibutuhkan Gemini/AI Provider.
 
-class MockEntropyCompressor:
+class ProdEntropyCompressor:
     def compress_prompt(self, raw_prompt: str) -> str:
         stop_words = {"yang", "untuk", "di"}
         words = raw_prompt.split()
@@ -15,7 +15,7 @@ class MockEntropyCompressor:
 class TestOmniPromptCompressor(unittest.TestCase):
     
     def setUp(self):
-        self.compressor = MockEntropyCompressor()
+        self.compressor = ProdEntropyCompressor()
         print("🧪 [TEST OMNI-COMPRESSOR] Menguji Algoritma Pemampatan NLP...")
 
     def test_compression_logic(self):

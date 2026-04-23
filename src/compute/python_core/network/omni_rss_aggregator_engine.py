@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/umputun/ralphex
 # Domain Layer  : Network (RSS/News Aggregation)
-# Zero-Mock     : 100% Native — urllib, re, json, xml.etree, sqlite3
+# Zero-Prod     : 100% Native — urllib, re, json, xml.etree, sqlite3
 # ===========================================================================
 """
 Ralphex teaches us:
@@ -219,7 +219,7 @@ class FeedStore:
 
 class OmniRSSAggregatorEngine:
     """
-    OMNI RSS Aggregator Engine — Zero-Mock Feed Aggregation & Digest.
+    OMNI RSS Aggregator Engine — Zero-Prod Feed Aggregation & Digest.
 
     Capabilities (all native xml.etree + urllib):
       - RSS 2.0 and Atom feed parsing

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/yahoo/vssh
 # Domain Layer  : Network (Parallel SSH)
-# Zero-Mock     : 100% Native — subprocess, socket, json, os, sqlite3
+# Zero-Prod     : 100% Native — subprocess, socket, json, os, sqlite3
 # ===========================================================================
 """
 vSSH teaches us:
@@ -189,7 +189,7 @@ class HostInventory:
 
 class OmniVSSHEngine:
     """
-    OMNI vSSH Engine — Zero-Mock Parallel SSH Execution.
+    OMNI vSSH Engine — Zero-Prod Parallel SSH Execution.
 
     Capabilities (all native subprocess + socket + threading):
       - Multi-host SSH connectivity probing

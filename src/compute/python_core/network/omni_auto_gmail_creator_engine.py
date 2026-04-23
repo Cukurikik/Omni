@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: ai-to-ai/Auto-Gmail-Creator
 # Domain Layer  : Network (Scraping, Headless Browsers & Webhooks)
-# Zero-Mock     : 100% Native — subprocess, sqlite3, requests integration
+# Zero-Prod     : 100% Native — subprocess, sqlite3, requests integration
 # ===========================================================================
 """
 Engine to handle automated bulk email creation via headless Chromium,

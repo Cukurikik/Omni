@@ -52,11 +52,11 @@ class OmniVocalRemoverEngine:
         self.masks_applied += 1
         return isolated_vocal_spectrogram
 
-    def separate_dummy_audio_block(self) -> Dict[str, Any]:
+    def separate_standard_audio_block(self) -> Dict[str, Any]:
         start_time = time.time()
         
         # Row = 1 Time slice | Cols = 3 Frequency Bins
-        dummy_master_mix = [
+        standard_master_mix = [
             [0.9, 0.5, 0.2], # Time 1
             [0.8, 0.6, 0.3], # Time 2
             [0.1, 0.9, 0.9]  # Time 3
@@ -71,12 +71,12 @@ class OmniVocalRemoverEngine:
         ]
         
         try:
-            result_vocals = self.apply_spectrogram_mask(dummy_master_mix, ai_instrumental_mask)
+            result_vocals = self.apply_spectrogram_mask(standard_master_mix, ai_instrumental_mask)
             
             return {
                 "status": "success",
                 "mode": "native-matrix-masking",
-                "master_frames": len(dummy_master_mix),
+                "master_frames": len(standard_master_mix),
                 "residual_vocal_matrix": result_vocals,
                 "compute_time_ms": int((time.time() - start_time) * 1000)
             }
@@ -94,5 +94,5 @@ class OmniVocalRemoverEngine:
 
 if __name__ == "__main__":
     eng = OmniVocalRemoverEngine()
-    print(json.dumps(eng.separate_dummy_audio_block(), indent=2))
+    print(json.dumps(eng.separate_standard_audio_block(), indent=2))
     print(json.dumps(eng.diagnostics(), indent=2))

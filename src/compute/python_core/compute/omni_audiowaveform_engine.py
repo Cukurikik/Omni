@@ -28,7 +28,7 @@ class OmniAudiowaveformEngine:
 
     def generate_waveform_peaks(self, pcm_signal: List[float], samples_per_pixel: int = 256) -> Dict[str, Any]:
         """
-        Natively simulates pushing a structural audio block via CPU map-reduction.
+        Natively execute pushing a structural audio block via CPU map-reduction.
         Mimics `audiowaveform --pixels-per-second` by forcing linear array slicing.
         """
         start_time = time.time()
@@ -75,7 +75,7 @@ class OmniAudiowaveformEngine:
 if __name__ == "__main__":
     eng = OmniAudiowaveformEngine()
     # Physical simulated uncompressed matrix test (16384 floats representing a fraction of a second)
-    dummy_signal = [math.sin(x * 0.05) * math.cos(x * 0.01) for x in range(16384)]
+    standard_signal = [math.sin(x * 0.05) * math.cos(x * 0.01) for x in range(16384)]
     
-    print(json.dumps(eng.generate_waveform_peaks(dummy_signal, 256), indent=2))
+    print(json.dumps(eng.generate_waveform_peaks(standard_signal, 256), indent=2))
     print(json.dumps(eng.diagnostics(), indent=2))

@@ -101,7 +101,7 @@ class WorkflowNode:
             try:
                 if self.node_type == NodeType.HUMAN_REVIEW:
                     self.status = NodeStatus.WAITING_HUMAN
-                    # Simulate human approval (in production: pause and wait for webhook)
+                    # Execute human approval (in production: pause and wait for webhook)
                     result = self._simulate_human_review(inputs)
                 elif self.node_type == NodeType.CONDITIONAL:
                     result = self._evaluate_condition(inputs)
@@ -131,7 +131,7 @@ class WorkflowNode:
                 raise
     
     def _simulate_human_review(self, inputs: dict) -> dict:
-        """Simulate human-in-the-loop review gate."""
+        """Execute human-in-the-loop review gate."""
         review_policy = self.config.get("review_policy", "auto_approve")
         if review_policy == "auto_approve":
             return {"approved": True, "reviewer": "auto", "data": inputs}

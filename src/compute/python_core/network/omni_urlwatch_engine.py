@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/thp/urlwatch
 # Domain Layer  : Network (Web Monitoring)
-# Zero-Mock     : 100% Native — urllib, hashlib, sqlite3, difflib, re
+# Zero-Prod     : 100% Native — urllib, hashlib, sqlite3, difflib, re
 # ===========================================================================
 """
 urlwatch teaches us:
@@ -225,7 +225,7 @@ class WatchHistory:
 
 class OmniUrlwatchEngine:
     """
-    OMNI URLWatch Engine — Zero-Mock URL Change Monitoring.
+    OMNI URLWatch Engine — Zero-Prod URL Change Monitoring.
 
     Capabilities (all native stdlib):
       - HTTP content fetching with custom headers

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/qu-niao/LimApiTest
 # Domain Layer  : Compute (API Testing)
-# Zero-Mock     : 100% Native — urllib, json, time, sqlite3, re
+# Zero-Prod     : 100% Native — urllib, json, time, sqlite3, re
 # ===========================================================================
 """
 LimApiTest teaches us:
@@ -270,7 +270,7 @@ class TestStore:
 
 class OmniApiTestEngine:
     """
-    OMNI API Test Engine — Zero-Mock HTTP API Testing Platform.
+    OMNI API Test Engine — Zero-Prod HTTP API Testing Platform.
 
     Capabilities (all native urllib):
       - HTTP request execution (GET/POST/PUT/PATCH/DELETE)

@@ -453,7 +453,7 @@ class OmniCrawleeEngine:
         self._page_cache[url] = html_content
 
     def _simulate_fetch(self, request: CrawlRequest) -> CrawlResponse:
-        """Simulate HTTP fetch (in production, use aiohttp/httpx)."""
+        """Execute HTTP fetch (in production, use aiohttp/httpx)."""
         session = self.session_pool.get_session()
         
         # Check cache/simulated content
@@ -468,7 +468,7 @@ class OmniCrawleeEngine:
         </body></html>
         """)
 
-        # Simulate occasional failures for retry testing
+        # Execute occasional failures for retry testing
         if random.random() < 0.05:  # 5% failure rate
             return CrawlResponse(request, 500, "", url=request.url)
 

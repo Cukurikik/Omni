@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Super-Engine Consolidation: Episodic Memory, Guardrails, Liquid NN, Tokenizer
 # Domain Layer  : Compute (Core ML memory management & heuristic layers)
-# Zero-Mock     : 100% Native — sqlite3 Vector DB sim, RegEx semantic guards
+# Zero-Prod     : 100% Native — sqlite3 Vector DB sim, RegEx semantic guards
 # ===========================================================================
 import json
 import os

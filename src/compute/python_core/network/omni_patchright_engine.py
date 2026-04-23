@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/Kaliiiiiiiiii-Vinyzu/patchright
 # Domain Layer  : Network (Stealth Browser)
-# Zero-Mock     : 100% Native — urllib, subprocess, json, hashlib, re
+# Zero-Prod     : 100% Native — urllib, subprocess, json, hashlib, re
 # ===========================================================================
 """
 Patchright teaches us:
@@ -226,7 +226,7 @@ class BotDetectionTester:
 
 class OmniPatchrightEngine:
     """
-    OMNI Patchright Engine — Zero-Mock Stealth Browser Automation.
+    OMNI Patchright Engine — Zero-Prod Stealth Browser Automation.
 
     Capabilities (all native stdlib):
       - Realistic browser fingerprint generation

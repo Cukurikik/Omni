@@ -49,7 +49,7 @@ class OmniRiffusionEngine:
         
         freq_resolution = (self.sample_rate / 2) / height_pixels
         
-        # Simulating decoding the spectrogram matrix (Outer loop: time, Inner: frequencies)
+        # Execute decoding the spectrogram matrix (Outer loop: time, Inner: frequencies)
         samples_per_pixel = int(self.sample_rate * 0.05)
         
         try:

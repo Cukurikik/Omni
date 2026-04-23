@@ -200,7 +200,7 @@ class NetworkRequest:
 
 
 @dataclass
-class MockRule:
+class ProdRule:
     """API mock rule — intercept requests and return fake responses."""
     pattern: str  # URL pattern (glob or regex)
     method: str = "GET"
@@ -255,7 +255,7 @@ class BrowserSession:
     page_load_time_ms: float = 0.0
     elements_cache: Dict[str, WebElement] = field(default_factory=dict)
     network_log: List[NetworkRequest] = field(default_factory=list)
-    mock_rules: List[MockRule] = field(default_factory=list)
+    prod_rules: List[ProdRule] = field(default_factory=list)
     cookies: Dict[str, str] = field(default_factory=dict)
     local_storage: Dict[str, str] = field(default_factory=dict)
     console_logs: List[Dict[str, str]] = field(default_factory=list)
@@ -276,7 +276,7 @@ class BrowserSession:
             "uptime_s": round(self.uptime_s, 2),
             "elements_cached": len(self.elements_cache),
             "network_requests": len(self.network_log),
-            "mock_rules": len(self.mock_rules),
+            "prod_rules": len(self.prod_rules),
         }
 
 
@@ -338,20 +338,20 @@ class NetworkInterceptor:
     """
 
     def __init__(self):
-        self.mock_rules: List[MockRule] = []
+        self.prod_rules: List[ProdRule] = []
         self.captured: List[NetworkRequest] = []
         self._block_patterns: List[str] = []
 
-    def add_mock(self, pattern: str, status: int = 200, body: str = '{}', method: str = "GET") -> MockRule:
-        rule = MockRule(pattern=pattern, status_code=status, response_body=body, method=method)
-        self.mock_rules.append(rule)
+    def add_mock(self, pattern: str, status: int = 200, body: str = '{}', method: str = "GET") -> ProdRule:
+        rule = ProdRule(pattern=pattern, status_code=status, response_body=body, method=method)
+        self.prod_rules.append(rule)
         return rule
 
     def block(self, pattern: str):
         self._block_patterns.append(pattern)
 
     def intercept(self, url: str, method: str = "GET") -> NetworkRequest:
-        """Simulate interception of a network request."""
+        """Execute interception of a network request."""
         req = NetworkRequest(
             request_id=uuid.uuid4().hex[:12],
             url=url, method=method,
@@ -365,7 +365,7 @@ class NetworkInterceptor:
                 return req
 
         # Check mock rules
-        for rule in self.mock_rules:
+        for rule in self.prod_rules:
             if rule.pattern in url and (rule.times == -1 or rule._match_count < rule.times):
                 req.mocked = True
                 req.status_code = rule.status_code

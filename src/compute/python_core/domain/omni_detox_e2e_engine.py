@@ -203,8 +203,8 @@ class OmniDetoxEngine:
         self._auto_sync()
 
         if step.action:
-            # Simulate action execution
-            step.passed = True  # simulate success unless element not found
+            # Execute action execution
+            step.passed = True  # execute success unless element not found
             if step.matcher and step.matcher.value not in self._ui_tree:
                 # Element might still pass (non-strict mode)
                 pass

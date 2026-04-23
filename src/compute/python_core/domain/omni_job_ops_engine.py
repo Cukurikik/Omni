@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/DaKheera47/job-ops
 # Domain Layer  : Domain (Job Application Management)
-# Zero-Mock     : 100% Native — sqlite3, json, os, hashlib, re
+# Zero-Prod     : 100% Native — sqlite3, json, os, hashlib, re
 # ===========================================================================
 """
 job-ops teaches us:
@@ -224,7 +224,7 @@ class ApplicationDB:
 
 class OmniJobOpsEngine:
     """
-    OMNI JobOps Engine — Zero-Mock Job Application Pipeline Tracker.
+    OMNI JobOps Engine — Zero-Prod Job Application Pipeline Tracker.
 
     Capabilities (all native stdlib):
       - Job description NLP analysis (skills, experience, education)

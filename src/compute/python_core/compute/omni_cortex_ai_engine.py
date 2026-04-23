@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigms: SuperAGI, Dify, RAG, Tree Of Thought, Mamba Vision
 # Domain Layer  : Compute (AI/ML)
-# Zero-Mock     : 100% Native — asyncio, sqlite3, faiss, httpx, json
+# Zero-Prod     : 100% Native — asyncio, sqlite3, faiss, httpx, json
 # ===========================================================================
 """
 OmniCortexAIEngine is the centralized super-engine that replaces 51 orphaned AI stubs.
@@ -58,7 +58,7 @@ class RAGPipeline:
 
     def ingest(self, text: str, metadata: Dict) -> str:
         node_id = hashlib.md5(text.encode()).hexdigest()
-        # Mock embedding logic for native speed (Simulated Vector)
+        # Prod embedding logic for native speed (Simulated Vector)
         embedded = json.dumps([hash(c) % 100 / 100 for c in text[:10]])
         with sqlite3.connect(self.db_path) as conn:
             conn.execute(

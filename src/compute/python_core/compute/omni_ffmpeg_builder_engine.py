@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/rendi-api/ffmpeg-cheatsheet
 # Domain Layer  : Compute (FFmpeg Command Construction)
-# Zero-Mock     : 100% Native — subprocess, json, os, re
+# Zero-Prod     : 100% Native — subprocess, json, os, re
 # ===========================================================================
 """
 ffmpeg-cheatsheet teaches us:
@@ -236,7 +236,7 @@ class FFmpegExecutor:
 
 class OmniFFmpegBuilderEngine:
     """
-    OMNI FFmpeg Builder Engine — Zero-Mock Video Processing Command Builder.
+    OMNI FFmpeg Builder Engine — Zero-Prod Video Processing Command Builder.
 
     Capabilities (all native subprocess):
       - Fluent FFmpeg command builder API

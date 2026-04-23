@@ -4,13 +4,13 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/AmberSahdev/Open-Interface
 # Domain Layer  : AI Agents (Computer Control)
-# Zero-Mock     : 100% Native — ctypes, subprocess, os, json
+# Zero-Prod     : 100% Native — ctypes, subprocess, os, json
 # ===========================================================================
 """
 Open-Interface teaches us:
   1. Natural language → computer action translation
   2. Screenshot-based screen observation for course correction
-  3. Mouse/keyboard simulation for task execution
+  3. Mouse/keyboard execute for task execution
   4. Cross-platform input control (Windows/Mac/Linux)
   5. Step-by-step task decomposition
   6. Error recovery via visual feedback loop
@@ -138,7 +138,7 @@ class ScreenController:
 # ── Keyboard Controller ────────────────────────────────────────────────────
 
 class KeyboardController:
-    """Native keyboard input simulation."""
+    """Native keyboard input execute."""
 
     KEYMAP = {
         "enter": 0x0D, "tab": 0x09, "escape": 0x1B, "space": 0x20,
@@ -297,7 +297,7 @@ class ActionExecutor:
 
 class OmniOpenInterfaceEngine:
     """
-    OMNI Open Interface Engine — Zero-Mock AI Desktop Computer Control.
+    OMNI Open Interface Engine — Zero-Prod AI Desktop Computer Control.
 
     Capabilities (all native ctypes + subprocess):
       - Mouse click/double-click/scroll at coordinates

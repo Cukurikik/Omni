@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/InstaPy/instagram-profilecrawl
 # Domain Layer  : Network (Social Profile Scraping)
-# Zero-Mock     : 100% Native — urllib, re, json, hashlib, sqlite3
+# Zero-Prod     : 100% Native — urllib, re, json, hashlib, sqlite3
 # ===========================================================================
 """
 instagram-profilecrawl teaches us:
@@ -183,7 +183,7 @@ class ProfileStore:
 
 class OmniProfileCrawlEngine:
     """
-    OMNI ProfileCrawl Engine — Zero-Mock Social Profile Scraping.
+    OMNI ProfileCrawl Engine — Zero-Prod Social Profile Scraping.
 
     Capabilities (all native urllib):
       - GitHub profile API scraping (full metadata)

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/heilcheng/awesome-agent-skills
 # Domain Layer  : AI Agents
-# Zero-Mock     : 100% Native — os, json, hashlib, real file I/O
+# Zero-Prod     : 100% Native — os, json, hashlib, real file I/O
 # ===========================================================================
 """
 awesome-agent-skills teaches us:
@@ -303,7 +303,7 @@ class SkillRegistry:
 
 class OmniAgentSkillsEngine:
     """
-    OMNI Agent Skills Engine — Zero-Mock Dynamic Skill Catalog & Loader.
+    OMNI Agent Skills Engine — Zero-Prod Dynamic Skill Catalog & Loader.
 
     Capabilities (all native stdlib):
       - Built-in skill library (8 production skills)

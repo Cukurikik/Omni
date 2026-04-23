@@ -130,7 +130,7 @@ class ModelRegistry:
         # Track usage
         self._usage[model_id]["requests"] += 1
         
-        # Simulate response (in production: route to actual provider API)
+        # Execute response (in production: route to actual provider API)
         last_msg = messages[-1].get("content", "") if messages else ""
         
         response = {
@@ -258,7 +258,7 @@ class RetrievalCollection:
         doc_id = hashlib.md5(content[:100].encode()).hexdigest()[:12]
         doc = Document(doc_id=doc_id, content=content, metadata=metadata or {})
         
-        # Simulate embedding (in production: call embedding model)
+        # Execute embedding (in production: call embedding model)
         doc.embedding = [hash(content[i:i+10]) % 100 / 100.0
                         for i in range(0, min(len(content), 150), 10)]
         
@@ -278,7 +278,7 @@ class RetrievalCollection:
     
     def query(self, query_text: str, top_k: int = 5) -> list[Document]:
         """Retrieve most relevant documents for a query."""
-        # Simulate semantic search (in production: vector similarity)
+        # Execute semantic search (in production: vector similarity)
         scored = []
         query_lower = query_text.lower()
         

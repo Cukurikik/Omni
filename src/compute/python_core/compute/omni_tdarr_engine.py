@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/HaveAGitGat/Tdarr
 # Domain Layer  : Compute (Media Processing)
-# Zero-Mock     : 100% Native — subprocess (ffmpeg/ffprobe), os, sqlite3
+# Zero-Prod     : 100% Native — subprocess (ffmpeg/ffprobe), os, sqlite3
 # ===========================================================================
 """
 Tdarr teaches us:
@@ -389,7 +389,7 @@ class JobHistory:
 
 class OmniTdarrEngine:
     """
-    OMNI Tdarr Engine — Zero-Mock Distributed Media Transcoding Automation.
+    OMNI Tdarr Engine — Zero-Prod Distributed Media Transcoding Automation.
 
     Capabilities (all via native ffmpeg/ffprobe subprocess):
       - Media file probing (codec, resolution, bitrate, duration)
