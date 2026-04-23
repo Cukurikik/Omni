@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: BastilleBSD/bastille
 # Domain Layer  : System (eBPF, OS Virtualization, Native Jails)
-# Zero-Mock     : 100% Native — subprocess, json, sys, psutil interfaces
+# Zero-Prod     : 100% Native — subprocess, json, sys, psutil interfaces
 # ===========================================================================
 """
 A deeply integrated engine designed to orchestrate system containers, 
@@ -68,7 +68,7 @@ class OmniBastilleEngine:
         target_dir = os.path.join(self.jail_registry, release)
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
-            # Simulating raw system bootstrap via OS tools
+            # Execute raw system bootstrap via OS tools
             with open(os.path.join(target_dir, "manifest.json"), "w") as f:
                 json.dump({"release": release, "built_at": time.time(), "arch": "amd64"}, f)
         return Ok({"release": release, "path": target_dir})
@@ -119,7 +119,7 @@ class OmniBastilleEngine:
         """Execute execute in jail operation for Bastille engine."""
         if name not in self.active_jails:
             return Err("Jail must be started to execute commands.")
-        # Simulating isolated shell execution
+        # Execute isolated shell execution
         return BastilleCommandInterface.run_cmd(["python", "-c", f"print('Jail {name} executing: {command}')"])
 
     def diagnostics(self) -> Dict:

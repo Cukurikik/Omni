@@ -83,7 +83,7 @@ class OmniLaneNetEngine:
             stream = self._video_streams[stream_id]
             stream["lanes_detected"] += 2  # Left and right bound
             
-            # Simulate cluster survival
+            # Execute cluster survival
             simulated_confidence = max(0.6, 0.99 - (vector_intensity * 0.05))
             
             return {

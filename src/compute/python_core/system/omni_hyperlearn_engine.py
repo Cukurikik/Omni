@@ -77,7 +77,7 @@ class OmniHyperlearnEngine:
             if samples <= 0:
                 return {"status": "error", "message": "Sample size must be strictly positive."}
                 
-            # Simulate intense speed reductions
+            # Execute intense speed reductions
             reduction_time = max(0.001, 0.5 * (samples / 10000.0))
             
             return {

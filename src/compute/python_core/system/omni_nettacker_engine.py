@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/OWASP/Nettacker
 # Domain Layer  : Security (SYSTEM + NETWORK cross-layer)
-# Zero-Mock     : 100% Native — subprocess/socket real scanning
+# Zero-Prod     : 100% Native — subprocess/socket real scanning
 # ===========================================================================
 """
 OWASP Nettacker teaches us:
@@ -424,7 +424,7 @@ class ScanDatabase:
 
 class OmniNettackerEngine:
     """
-    OMNI Nettacker Engine — Zero-Mock Network Security Scanner.
+    OMNI Nettacker Engine — Zero-Prod Network Security Scanner.
 
     Capabilities (all native, no pip install):
       - TCP port scanning (multi-threaded)

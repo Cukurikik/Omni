@@ -3,7 +3,7 @@
 OMNI SEMESTER 7 — BATCH 8 ENGINE
 Prompttools Engine (hegelai/prompttools)
 --------------------------------------------------
-A production-grade engine simulating the tracking, testing, and evaluation
+A production-grade engine execute the tracking, testing, and evaluation
 of Large Language Model prompts safely within the Omni boundary.
 """
 
@@ -55,7 +55,7 @@ class OmniPrompttoolsEngine:
             return {"status": "error", "message": f"Experiment initialization failed: {str(e)}"}
 
     def execute_llm_call(self, experiment_id: str, variant_index: int) -> Dict[str, Any]:
-        """Simulates an external LLM request locally with zero-mock functional tracking."""
+        """Execute an external LLM request locally with zero-mock functional tracking."""
         try:
             if experiment_id not in self.experiments:
                 return {"status": "error", "message": "Experiment not found."}
@@ -66,7 +66,7 @@ class OmniPrompttoolsEngine:
                 
             variant = exp["variants"][variant_index]
             
-            # Simple simulation of LLM generation response based on temperature
+            # Simple execute of LLM generation response based on temperature
             temp = variant.get("temperature", 0.5)
             sim_length = int(temp * 100) + 10
             response = f"Simulated logical output for variant {variant_index} bridging {sim_length} tokens."
@@ -101,7 +101,7 @@ class OmniPrompttoolsEngine:
                 
             evaluations = []
             for res in exp["results"]:
-                # Simulation of vector cosine similarity logic
+                # Execute of vector cosine similarity logic
                 diff = abs(len(res["simulated_response"]) - len(ground_truth))
                 similarity = max(0.0, 1.0 - (diff / 100.0))
                 

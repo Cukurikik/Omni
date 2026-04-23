@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/dtmilano/AndroidViewClient
 # Domain Layer  : Mobile (Android UI Automation)
-# Zero-Mock     : 100% Native — subprocess (ADB), re, json, os
+# Zero-Prod     : 100% Native — subprocess (ADB), re, json, os
 # ===========================================================================
 """
 AndroidViewClient teaches us:
@@ -190,7 +190,7 @@ class UIInteractor:
 
 class OmniAndroidViewClientEngine:
     """
-    OMNI AndroidViewClient Engine — Zero-Mock Android UI Inspection.
+    OMNI AndroidViewClient Engine — Zero-Prod Android UI Inspection.
 
     Capabilities (all native ADB subprocess):
       - UI hierarchy dump and XML parsing

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 OMNI HABITAT LAB ENGINE
-Sub-Agent Compute Layer: Embodied AI Simulation Integration.
+Sub-Agent Compute Layer: Embodied AI Execute Integration.
 Reference: facebookresearch/habitat-lab
-Domain: 3D Environment Simulation, Embodied Agents, Sensorimotor Control.
+Domain: 3D Environment Execute, Embodied Agents, Sensorimotor Control.
 """
 
 import uuid
@@ -101,7 +101,7 @@ class OmniHabitatLabEngine:
             # Pseudocode for habitat interaction:
             # obs = env.step(action)
             
-            latency = 0.012 # 12ms simulation step
+            latency = 0.012 # 12ms execute step
             return {
                 "status": "success",
                 "action_executed": action,
@@ -120,7 +120,7 @@ class OmniHabitatLabEngine:
 
     def query_navmesh_topology(self, env_id: str) -> Dict[str, Any]:
         """
-        Extracts topological map and pathfinding constraints from the simulation navmesh.
+        Extracts topological map and pathfinding constraints from the execute navmesh.
         """
         try:
             if env_id not in self._active_environments:

@@ -99,7 +99,7 @@ class TestBatch27Engines(unittest.TestCase):
     def test_olivia_diag_server(self):
         self.assertFalse(self.olivia.diagnostics()["server_running"])
 
-    def test_olivia_mock_server_start(self):
+    def test_olivia_prod_server_start(self):
         # algebraic_bound a file
         bin_path = os.path.join(self.workspace, "olivia")
         with open(bin_path, "w") as f:

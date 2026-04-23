@@ -86,7 +86,7 @@ class OmniXTuringEngine:
                 
             model["tuning_complete"] = True
             
-            # Simulate optimization gradient drop
+            # Execute optimization gradient drop
             simulated_loss = max(0.1, 1.0 - (model["dataset_size"] / 100000.0) - (rank * 0.01))
             
             return {

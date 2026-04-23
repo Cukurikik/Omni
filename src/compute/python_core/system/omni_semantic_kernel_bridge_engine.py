@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Microsoft Semantic Kernel (https://github.com/microsoft/semantic-kernel)
 # Domain Layer  : Core Runtime / System
-# Zero-Mock     : 100% Native — inspect, json, importlib
+# Zero-Prod     : 100% Native — inspect, json, importlib
 # ===========================================================================
 """
 Semantic Kernel Paradigm:
@@ -174,7 +174,7 @@ class OmniSemanticKernelBridgeEngine:
         }
 
 
-# Dummy function for self-test
+# Standard function for self-test
 def sample_file_writer(filename: str, content: str) -> bool:
     """
     Writes content to a file.

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/BastilleBSD/bastille
 # Domain Layer  : System (Container/Sandbox Management)
-# Zero-Mock     : 100% Native — subprocess, os, json, sqlite3
+# Zero-Prod     : 100% Native — subprocess, os, json, sqlite3
 # ===========================================================================
 """
 Bastille teaches us:
@@ -267,7 +267,7 @@ class ContainerStore:
 
 class OmniContainerJailEngine:
     """
-    OMNI Container Jail Engine — Zero-Mock Container & Sandbox Management.
+    OMNI Container Jail Engine — Zero-Prod Container & Sandbox Management.
 
     Capabilities (all native subprocess):
       - System resource monitoring (CPU/mem/disk)

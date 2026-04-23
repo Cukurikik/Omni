@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: CopilotKit (https://github.com/CopilotKit/CopilotKit)
 # Domain Layer  : UI / Agent
-# Zero-Mock     : 100% Native — ast, re, os, socket
+# Zero-Prod     : 100% Native — ast, re, os, socket
 # ===========================================================================
 """
 CopilotKit Paradigm:

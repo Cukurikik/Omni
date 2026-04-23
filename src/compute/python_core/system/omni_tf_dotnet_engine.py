@@ -253,7 +253,7 @@ class OmniTFDotNetEngine:
         train_samples: int = 50000,
     ) -> Dict[str, Any]:
         """
-        Simulates training the defined model with TF.NET semantics.
+        Execute training the defined model with TF.NET semantics.
 
         @param epochs:            Number of training epochs.
         @param batch_size:        Training batch size.

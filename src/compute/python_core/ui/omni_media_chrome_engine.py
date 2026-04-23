@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: muxinc/media-chrome
 # Domain Layer  : UI / Frontend Component Generation
-# Zero-Mock     : 100% Native — Generates physical static HTML artifacts
+# Zero-Prod     : 100% Native — Generates physical static HTML artifacts
 # ===========================================================================
 
 import os

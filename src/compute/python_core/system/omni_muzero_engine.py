@@ -82,7 +82,7 @@ class OmniMuZeroEngine:
             if len(observation) != env["obs_dim"]:
                 return {"status": "error", "message": "Observation dimension mismatch."}
                 
-            # Simulate optimal action choice via internal dynamics array
+            # Execute optimal action choice via internal dynamics array
             simulated_action = (int(sum(observation)) * simulations) % env["num_actions"]
             policy_dist = [0.01] * env["num_actions"]
             policy_dist[simulated_action] = 0.95

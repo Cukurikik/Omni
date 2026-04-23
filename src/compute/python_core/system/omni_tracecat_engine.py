@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/TracecatHQ/tracecat
 # Domain Layer  : Security
-# Zero-Mock     : 100% Native — subprocess, json, sqlite3, urllib, socket
+# Zero-Prod     : 100% Native — subprocess, json, sqlite3, urllib, socket
 # ===========================================================================
 """
 Tracecat teaches us:
@@ -406,7 +406,7 @@ class CaseManager:
 
 class OmniTracecatEngine:
     """
-    OMNI Tracecat Engine — Zero-Mock Security Orchestration & Response (SOAR).
+    OMNI Tracecat Engine — Zero-Prod Security Orchestration & Response (SOAR).
 
     Capabilities (all native stdlib):
       - Threat intelligence enrichment (IP geo, DNS, port check)

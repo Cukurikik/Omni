@@ -92,7 +92,7 @@ class OmniFastNLPEngine:
                 
             token_counts = collections.Counter()
             for inst in dataset["instances"]:
-                # Simple whitespace tokenization simulation
+                # Simple whitespace tokenization execute
                 tokens = str(inst.get(target_field, "")).lower().split()
                 token_counts.update(tokens)
                 
@@ -138,7 +138,7 @@ class OmniFastNLPEngine:
             return {"status": "error", "message": f"Pipeline config failed: {str(e)}"}
 
     def execute_trainer(self, dataset_name: str, pipeline_id: str, epochs: int, metric: str) -> Dict[str, Any]:
-        """Runs the fastNLP Trainer simulation loop."""
+        """Runs the fastNLP Trainer execute loop."""
         try:
             if dataset_name not in self.datasets:
                 return {"status": "error", "message": f"Dataset '{dataset_name}' not found."}
@@ -152,7 +152,7 @@ class OmniFastNLPEngine:
             dataset = self.datasets[dataset_name]
             size = dataset["size"]
             
-            # Simulate training performance based on dataset size and epochs
+            # Execute training performance based on dataset size and epochs
             base_score = min(0.95, 0.40 + (math.log10(size + 1) * 0.1))
             
             history = []

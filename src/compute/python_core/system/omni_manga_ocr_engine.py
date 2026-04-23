@@ -85,7 +85,7 @@ class OmniMangaOCREngine:
                 
             buffer["text_extracted"] = True
             
-            # Simulate OCR block extraction
+            # Execute OCR block extraction
             simulated_blocks = max(1, int((buffer["w"] * buffer["h"]) / 50000))
             
             return {

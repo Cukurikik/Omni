@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/lindell/multi-gitter
 # Domain Layer  : System (Multi-Repo Git Management)
-# Zero-Mock     : 100% Native — subprocess, os, json, re, sqlite3
+# Zero-Prod     : 100% Native — subprocess, os, json, re, sqlite3
 # ===========================================================================
 """
 multi-gitter teaches us:
@@ -237,7 +237,7 @@ class RepoStore:
 
 class OmniMultiGitterEngine:
     """
-    OMNI MultiGitter Engine — Zero-Mock Multi-Repository Git Operations.
+    OMNI MultiGitter Engine — Zero-Prod Multi-Repository Git Operations.
 
     Capabilities (all native git subprocess):
       - Multi-repo discovery and scanning

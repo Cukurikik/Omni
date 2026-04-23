@@ -61,7 +61,7 @@ class OmniMITDeepLearningEngine:
 
     def evaluate_driving_scene(self, parameters: List[float]) -> Dict[str, Any]:
         """
-        Statistically reports final model velocities based strictly on simulation runs.
+        Statistically reports final model velocities based strictly on execute runs.
         
         @param parameters: Realtime tracking variables outputted from DeepTraffic node grids.
         @returns Dict detailing evaluation MPH velocity.

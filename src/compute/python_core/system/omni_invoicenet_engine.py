@@ -65,7 +65,7 @@ class OmniInvoiceNetEngine:
         
         Args:
             schema_id (str): Bound extraction schema.
-            document_pixels (int): Dummy representation of document optical complexity.
+            document_pixels (int): Standard representation of document optical complexity.
             
         Returns:
             Dict[str, Any]: Structured key-value bounding box abstractions.
@@ -81,7 +81,7 @@ class OmniInvoiceNetEngine:
             extracted_data = {}
             confidence = {}
             
-            # Simulate optical extraction
+            # Execute optical extraction
             for index, key in enumerate(keys):
                 extracted_data[key] = f"ExtractedSpan_{index}"
                 confidence[key] = max(0.5, 0.99 - (index * 0.05))

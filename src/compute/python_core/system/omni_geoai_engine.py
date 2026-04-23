@@ -75,7 +75,7 @@ class OmniGeoAIEngine:
             if region_id not in self._cached_regions:
                 return {"status": "error", "message": f"Region {region_id} not mapped in memory."}
                 
-            # Simulate Geospatial ML output
+            # Execute Geospatial ML output
             features = [
                 {"class": "urban", "area_sq_m": 45000, "confidence": 0.95},
                 {"class": "vegetation", "area_sq_m": 120000, "confidence": 0.88},

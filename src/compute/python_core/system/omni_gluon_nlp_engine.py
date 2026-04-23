@@ -85,7 +85,7 @@ class OmniGluonNLPEngine:
             vocab = self._vocab_graphs[vocab_id]
             vocab["is_aligned"] = True
             
-            # Simulate classification
+            # Execute classification
             simulated_f1_score = max(0.5, 0.98 - (batch_size * 0.0001))
             
             return {

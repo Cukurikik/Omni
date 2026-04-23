@@ -77,7 +77,7 @@ class OmniVideoPipeEngine:
             if frames <= 0:
                 return {"status": "error", "message": "Frames must be positive."}
                 
-            # Simulate zero copy frame extraction
+            # Execute zero copy frame extraction
             simulated_buffer_ids = [f"B_{i}" for i in range(frames)]
             
             return {

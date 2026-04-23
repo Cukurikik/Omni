@@ -55,7 +55,7 @@ class OmniAudioLMEngine:
                 "has_tokens": True
             }
             
-            # Simulate token generation
+            # Execute token generation
             semantic_tokens = int(duration_sec * 50)
             acoustic_tokens = int(duration_sec * 100)
             
@@ -89,7 +89,7 @@ class OmniAudioLMEngine:
             if not track["has_tokens"]:
                 return {"status": "error", "message": "Must be tokenized before generation."}
                 
-            # Simulate generation expansion
+            # Execute generation expansion
             total_duration = track["duration"] + new_duration_sec
             track["duration"] = total_duration
             

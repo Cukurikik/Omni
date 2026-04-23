@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/rudrankriyam/App-Store-Connect-CLI
 # Domain Layer  : Mobile (iOS Publishing)
-# Zero-Mock     : 100% Native — subprocess, json, os, urllib
+# Zero-Prod     : 100% Native — subprocess, json, os, urllib
 # ===========================================================================
 """
 App Store Connect CLI teaches us:
@@ -266,7 +266,7 @@ class ASCStoreListingManager:
 
 class OmniAppStoreConnectEngine:
     """
-    OMNI App Store Connect Engine — Zero-Mock iOS Publishing Automation.
+    OMNI App Store Connect Engine — Zero-Prod iOS Publishing Automation.
 
     Capabilities (all native stdlib):
       - JWT token structure generation for ASC API

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/ovh/cds
 # Domain Layer  : Deploy (NETWORK layer)
-# Zero-Mock     : 100% Native — subprocess execution, real process management
+# Zero-Prod     : 100% Native — subprocess execution, real process management
 # ===========================================================================
 """
 OVH CDS teaches us:
@@ -341,7 +341,7 @@ class RunHistory:
 
 class OmniCdsEngine:
     """
-    OMNI CDS Engine — Zero-Mock CI/CD Workflow Orchestrator.
+    OMNI CDS Engine — Zero-Prod CI/CD Workflow Orchestrator.
 
     Capabilities (all native stdlib):
       - Define multi-stage pipelines with conditional steps

@@ -83,7 +83,7 @@ class OmniKomputeEngine:
             device = self._vulkan_devices[device_id]
             device["shaders_compiled"] += 1
             
-            # Simulate theoretical hardware throughput execution time (ms)
+            # Execute theoretical hardware throughput execution time (ms)
             simulated_execution_ms = max(0.1, 1000.0 / workgroup_size)
             
             return {

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/ai-to-ai/Auto-Gmail-Creator
 # Domain Layer  : Automation (Email Management)
-# Zero-Mock     : 100% Native — smtplib, imaplib, email, json, sqlite3
+# Zero-Prod     : 100% Native — smtplib, imaplib, email, json, sqlite3
 # ===========================================================================
 """
 Auto-Gmail-Creator teaches us:
@@ -273,7 +273,7 @@ class EmailLog:
 
 class OmniEmailAutoEngine:
     """
-    OMNI Email Automation Engine — Zero-Mock SMTP/IMAP Management.
+    OMNI Email Automation Engine — Zero-Prod SMTP/IMAP Management.
 
     Capabilities (all native smtplib + socket):
       - Email address validation (format + MX)

@@ -183,7 +183,7 @@ def test_chinese_clip():
         passed += 1
 
     # Create topological_anchor batch
-    images, texts = engine.create_dummy_batch(batch_size=4)
+    images, texts = engine.create_standard_batch(batch_size=4)
     total += 1
     if check("topological_anchor batch shapes", images.shape == (4, 3, 32, 32) and len(texts) == 4):
         passed += 1

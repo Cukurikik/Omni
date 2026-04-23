@@ -26,7 +26,7 @@ from compute.python_core.omni_synapse_ml_engine import OmniSynapseMLEngine, Esti
 from compute.python_core.omni_tensorspace_engine import OmniTensorSpaceEngine
 
 
-class DummyTransformer(Transformer):
+class StandardTransformer(Transformer):
     def transform(self, dataset: OmniDataFrame):
         return Ok(dataset.map_partitions(lambda x: x * 2))
 
@@ -147,7 +147,7 @@ class TestBatch14Semester6(unittest.TestCase):
         df = self.synapse.create_dataframe(data, partitions=2)
         
         estimator = self.synapse.create_lightgbm_classifier()
-        pipeline = self.synapse.create_pipeline([DummyTransformer(), estimator])
+        pipeline = self.synapse.create_pipeline([StandardTransformer(), estimator])
         
         fit_res = pipeline.fit(df)
         self.assertEqual(fit_res.__class__.__name__, "Ok", fit_res.error if fit_res.__class__.__name__ == "Err" else "")
@@ -158,7 +158,7 @@ class TestBatch14Semester6(unittest.TestCase):
         
         out_df = trans_res.value
         out_data = out_df.collect()
-        # Features modified by DummyTransformer (x2), then augmented with prediction prob target column
+        # Features modified by StandardTransformer (x2), then augmented with prediction prob target column
         self.assertEqual(out_data.shape[1], 4)
 
     # ---------------------------------------------------------

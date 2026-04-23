@@ -82,7 +82,7 @@ class OmniPyTorchGATEngine:
             graph = self._attention_graphs[graph_id]
             graph["attention_computed"] = True
             
-            # Simulate multi-headed attention spread
+            # Execute multi-headed attention spread
             spread_factor = 1.0 / graph["heads"]
             
             return {

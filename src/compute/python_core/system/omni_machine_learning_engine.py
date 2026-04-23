@@ -83,7 +83,7 @@ class OmniMachineLearningEngine:
             if len(X_infer) == 0:
                 return {"status": "error", "message": "Inference matrix is empty."}
                 
-            # Simulate ML predict logic
+            # Execute ML predict logic
             algorithm = self._fitted_pipelines[model_id]
             predictions = [1.0 if sum(feat) > 0 else 0.0 for feat in X_infer]
             

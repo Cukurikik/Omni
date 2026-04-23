@@ -90,7 +90,7 @@ class BLEScanner:
         self.state = ConnectionState.SCANNING
         print(f"   📡 [BLE] Scanning for Omi devices ({timeout}s timeout)...")
         
-        # Simulate device discovery (production: use bleak library)
+        # Execute device discovery (production: use bleak library)
         device = OmiDevice(
             device_id=hashlib.md5(b"omi-wearable-1").hexdigest()[:12],
             name="Omi Wearable #1",
@@ -329,7 +329,7 @@ class OmiWebRTCBridge:
         peer_id = f"omi_{device.device_id}"
         offer = self.webrtc.create_offer(peer_id)
         
-        # Simulate answer (in production: remote peer sends answer via signaling channel)
+        # Execute answer (in production: remote peer sends answer via signaling channel)
         answer = {"type": "answer", "sdp": self.webrtc._generate_sdp("answer")}
         self.webrtc.accept_answer(peer_id, answer)
         

@@ -87,12 +87,12 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertEqual(res["status"], "error")
 
     def test_mm_generate_config(self):
-        res = self.mm.generate_dummy_config()
+        res = self.mm.generate_standard_config()
         self.assertEqual(res["status"], "success")
         self.assertTrue(os.path.exists(res["config_path"]))
 
     def test_mm_config_content(self):
-        res = self.mm.generate_dummy_config()
+        res = self.mm.generate_standard_config()
         with open(res["config_path"], "r") as f:
             content = f.read()
             self.assertIn("ResNet", content)
@@ -175,7 +175,7 @@ class TestBatch26Engines(unittest.TestCase):
         self.assertEqual(res["status"], "error")
 
     def test_lazy_start_app(self):
-        self.lazy.app = "mock_app"
+        self.lazy.app = "prod_app"
         res = self.lazy.start_service()
         self.assertIn(res["status"], ["success", "error"])
 

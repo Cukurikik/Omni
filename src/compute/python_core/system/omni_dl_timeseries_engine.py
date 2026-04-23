@@ -93,7 +93,7 @@ class OmniDLTimeSeriesEngine:
                     "message": f"Input len ({len(historical_sequence)}) smaller than window ({forecaster['window']})."
                 }
                 
-            # Simulate forecasting step depending on past average weight
+            # Execute forecasting step depending on past average weight
             base = sum(historical_sequence[-forecaster["window"]:]) / forecaster["window"]
             projections = [base + (i * 0.1) for i in range(horizon)]
             

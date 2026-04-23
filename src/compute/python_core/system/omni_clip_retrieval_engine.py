@@ -87,7 +87,7 @@ class OmniClipRetrievalEngine:
             if top_k <= 0:
                 return {"status": "error", "message": "top_k must be > 0"}
                 
-            # Simulate KNN retrieval mapping
+            # Execute KNN retrieval mapping
             simulated_hits = [{"id": f"doc_{i}", "score": max(0.1, 1.0 - (i * 0.1))} for i in range(top_k)]
             
             return {

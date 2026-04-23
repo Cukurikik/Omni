@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/wasp-lang/open-saas
 # Domain Layer  : System (SaaS Project Generator)
-# Zero-Mock     : 100% Native — os, json, hashlib, time, sqlite3
+# Zero-Prod     : 100% Native — os, json, hashlib, time, sqlite3
 # ===========================================================================
 """
 Open-SaaS teaches us:
@@ -499,7 +499,7 @@ class ProjectStore:
 
 class OmniOpenSaaSEngine:
     """
-    OMNI OpenSaaS Engine — Zero-Mock SaaS Project Generator.
+    OMNI OpenSaaS Engine — Zero-Prod SaaS Project Generator.
 
     Capabilities (all native os + json + sqlite3):
       - Full-stack SaaS project scaffolding

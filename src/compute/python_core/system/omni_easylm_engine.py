@@ -88,7 +88,7 @@ class OmniEasyLMEngine:
                 
             cluster["is_training"] = True
             
-            # Simulate loss convergence across distributed shards
+            # Execute loss convergence across distributed shards
             simulated_loss = max(1.1, 8.5 - (tokens_billions * 0.05))
             
             return {

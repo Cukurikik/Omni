@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/alexellis/arkade
 # Domain Layer  : System / Kubernetes Cluster
-# Zero-Mock     : 100% Native — subprocess, urllib, os filesystem operations
+# Zero-Prod     : 100% Native — subprocess, urllib, os filesystem operations
 # ===========================================================================
 """
 Arkade teaches us:
@@ -353,7 +353,7 @@ class K8sAppDeployer:
 
 class OmniArkadeEngine:
     """
-    OMNI Arkade Engine — Zero-Mock Kubernetes Marketplace & Tool Installer.
+    OMNI Arkade Engine — Zero-Prod Kubernetes Marketplace & Tool Installer.
 
     Capabilities (all native stdlib):
       - Cross-platform tool detection (kubectl, helm, k9s, etc.)

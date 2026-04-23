@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/Planetary-Computers/autotab-starter
 # Domain Layer  : Automation (Browser Workflow Automation)
-# Zero-Mock     : 100% Native — json, os, hashlib, sqlite3, time, urllib
+# Zero-Prod     : 100% Native — json, os, hashlib, sqlite3, time, urllib
 # ===========================================================================
 """
 Autotab teaches us:
@@ -298,7 +298,7 @@ class WorkflowStore:
 
 class OmniAutotabEngine:
     """
-    OMNI Autotab Engine — Zero-Mock Browser Workflow Automation.
+    OMNI Autotab Engine — Zero-Prod Browser Workflow Automation.
 
     Capabilities (all native stdlib):
       - Programmatic workflow building

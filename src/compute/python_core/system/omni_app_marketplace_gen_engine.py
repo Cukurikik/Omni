@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Awesome-AI-Apps / Marketplace Builders
 # Domain Layer  : Automation / Cloud
-# Zero-Mock     : 100% Native — os, json, string templating, packaging
+# Zero-Prod     : 100% Native — os, json, string templating, packaging
 # ===========================================================================
 """
 App Marketplace Gen Paradigm:

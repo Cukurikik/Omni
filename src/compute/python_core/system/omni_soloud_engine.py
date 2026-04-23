@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: jarikomppa/soloud
 # Domain Layer  : System / C++ Audio Game Mixing Matrix
-# Zero-Mock     : 100% Native — Architectural Memory Allocation Mapping
+# Zero-Prod     : 100% Native — Architectural Memory Allocation Mapping
 # ===========================================================================
 
 import time

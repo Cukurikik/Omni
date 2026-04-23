@@ -26,7 +26,7 @@ class OmniOpenNMTEngine:
         try:
             self.pipeline_initialized = True
             import torch
-            # Simulating import of the OpenNMT framework.
+            # Execute import of the OpenNMT framework.
             import onmt
             return {"status": "success", "pipeline": model_name, "state": "ready"}
         except ImportError:

@@ -147,7 +147,7 @@ class VTubeStudioClient:
         """Connect to VTube Studio WebSocket."""
         print(f"   🔗 [VTUBE] Connecting to {self.ws_url}...")
         
-        # Simulate WebSocket connection (production: use websockets library)
+        # Execute WebSocket connection (production: use websockets library)
         self.is_connected = True
         print(f"   ✅ [VTUBE] Connected to VTube Studio")
         

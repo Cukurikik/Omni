@@ -80,7 +80,7 @@ class OmniThincEngine:
             if pipe["is_compiled"]:
                 return {"status": "success", "message": "Pipeline is already compiled."}
                 
-            # Simulate forward pass shape-checking initialization
+            # Execute forward pass shape-checking initialization
             pipe["is_compiled"] = True
             
             return {

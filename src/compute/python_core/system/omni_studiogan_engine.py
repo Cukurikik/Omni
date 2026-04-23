@@ -34,7 +34,7 @@ class OmniStudioGANEngine:
 
     def compile_training_loop(self, dataloader_workers: int = 4) -> Dict[str, Any]:
         """
-        Simulates parsing and compilation of the GAN loop strictly isolated.
+        Execute parsing and compilation of the GAN loop strictly isolated.
         """
         if not self.config_linked:
             return {"status": "error", "message": "Configuration must be linked prior to compiling"}

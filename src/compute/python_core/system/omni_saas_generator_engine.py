@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Wasp-lang / Open-SaaS (https://github.com/wasp-lang/open-saas)
 # Domain Layer  : Automation / Web
-# Zero-Mock     : 100% Native — os, json, string templating
+# Zero-Prod     : 100% Native — os, json, string templating
 # ===========================================================================
 """
 Open-SaaS Paradigm:

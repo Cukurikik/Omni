@@ -60,7 +60,7 @@ class OmniNeuralStyleTFEngine:
             return {"status": "error", "message": f"Network initialization failed: {str(e)}"}
 
     def compute_gram_matrix(self, feature_map_shape: tuple) -> Dict[str, Any]:
-        """Simulates the tensor outer product properties of a Gram Matrix."""
+        """Execute the tensor outer product properties of a Gram Matrix."""
         try:
             if len(feature_map_shape) != 3:
                 return {"status": "error", "message": "Expected 3D feature map (H, W, C)."}

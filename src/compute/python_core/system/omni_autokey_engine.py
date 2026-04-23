@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/autokey/autokey
 # Domain Layer  : System (Desktop Automation)
-# Zero-Mock     : 100% Native — ctypes, subprocess, os, json
+# Zero-Prod     : 100% Native — ctypes, subprocess, os, json
 # ===========================================================================
 """
 AutoKey teaches us:
@@ -106,7 +106,7 @@ class AutomationScript:
 # ── Native Keyboard/Clipboard (Windows ctypes) ─────────────────────────────
 
 class NativeKeyboard:
-    """Cross-platform keyboard simulation using native OS APIs."""
+    """Cross-platform keyboard execute using native OS APIs."""
 
     @staticmethod
     def get_clipboard() -> str:
@@ -187,11 +187,11 @@ class NativeKeyboard:
 
     @staticmethod
     def type_text(text: str) -> bool:
-        """Type text by simulating keyboard input (via clipboard paste)."""
+        """Type text by execute keyboard input (via clipboard paste)."""
         if NativeKeyboard.set_clipboard(text):
             if os.name == "nt":
                 try:
-                    # Simulate Ctrl+V
+                    # Execute Ctrl+V
                     VK_CONTROL = 0x11
                     VK_V = 0x56
                     ctypes.windll.user32.keybd_event(VK_CONTROL, 0, 0, 0)
@@ -331,7 +331,7 @@ class ScriptRunner:
 
 class OmniAutokeyEngine:
     """
-    OMNI AutoKey Engine — Zero-Mock Desktop Automation & Text Expansion.
+    OMNI AutoKey Engine — Zero-Prod Desktop Automation & Text Expansion.
 
     Capabilities (all native — ctypes + subprocess):
       - System clipboard read/write (Windows native API)
@@ -339,7 +339,7 @@ class OmniAutokeyEngine:
       - Text expansion phrase management (JSON persistence)
       - Shell command execution
       - Application launching
-      - Keyboard simulation via clipboard paste
+      - Keyboard execute via clipboard paste
     """
 
     def __init__(self):

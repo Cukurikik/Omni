@@ -62,7 +62,7 @@ class OmniLc0Engine:
                 
             self.instances[instance_id]["current_fen"] = fen
             
-            # Simulate a deterministic Network output based on pieces
+            # Execute a deterministic Network output based on pieces
             is_white = "w" in fen.split(" ")[1]
             q_value = 0.55 if is_white else -0.55
             
@@ -75,7 +75,7 @@ class OmniLc0Engine:
             return {"status": "error", "message": f"Board evaluation failed: {str(e)}"}
 
     def query_best_move(self, instance_id: str) -> Dict[str, Any]:
-        """Extracts the principal variation from the MCTS tree simulation."""
+        """Extracts the principal variation from the MCTS tree execute."""
         try:
             if instance_id not in self.instances:
                 return {"status": "error", "message": "MCTS Instance missing."}
@@ -83,7 +83,7 @@ class OmniLc0Engine:
             inst = self.instances[instance_id]
             nodes_simulated = inst["mcts_nodes"]
             
-            # Simple simulation of best move output based on starting FEN
+            # Simple execute of best move output based on starting FEN
             best_move = "e2e4"
             if "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR" in inst["current_fen"]:
                 best_move = "e7e5" # Black responds

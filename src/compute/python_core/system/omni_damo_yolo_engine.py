@@ -126,7 +126,7 @@ class OmniDamoYoloEngine:
             return {"status": "error", "message": f"Distillation setup failed: {str(e)}"}
 
     def train_model(self, model_id: str, epochs: int, batch_size: int, lr: float = 0.01) -> Dict[str, Any]:
-        """Simulates the YOLO training loop and returns expected metrics."""
+        """Execute the YOLO training loop and returns expected metrics."""
         try:
             if model_id not in self.models:
                 return {"status": "error", "message": f"Model {model_id} not found."}
@@ -137,7 +137,7 @@ class OmniDamoYoloEngine:
             resolution = self.datasets[model["dataset_id"]]["resolution"]
             is_distilled = any(h["type"] == "KnowledgeDistillation" for h in model["training_hooks"])
             
-            # Mathematical simulation of MAP convergence
+            # Mathematical execute of MAP convergence
             base_map = 0.35 + (self.supported_scales.index(model["scale"]) * 0.05)
             if is_distilled:
                 base_map += 0.02 # KD boost

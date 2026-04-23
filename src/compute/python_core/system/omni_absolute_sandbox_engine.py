@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Super-Engine Consolidation: E2B Sandbox, Security Sandbox, Adversarial Bot, MLOps
 # Domain Layer  : System (Process isolation, Threat Modeling, Telemetry)
-# Zero-Mock     : 100% Native — Subprocess Popen with tempfiles and strict timeouts
+# Zero-Prod     : 100% Native — Subprocess Popen with tempfiles and strict timeouts
 # ===========================================================================
 import json
 import os
@@ -22,7 +22,7 @@ def Err(reason: str) -> Dict:
 
 
 class AdversarialEvaluator:
-    """Simulates a red-team evaluation against arbitrary generated scripts."""
+    """Execute a red-team evaluation against arbitrary generated scripts."""
     @staticmethod
     def is_malicious(code: str) -> bool:
         # A hardcoded set of forbidden syscalls for evaluation

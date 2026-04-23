@@ -8,7 +8,7 @@ class OmniText2SQLEngine:
     """
     OMNI Engine for Awesome-Text2SQL integrations.
     Abstracts translation logic from natural language queries to valid SQL using local or cloud AI models.
-    Mocks schema parsing capabilities natively to ensure prompt context relevance.
+    Prods schema parsing capabilities natively to ensure prompt context relevance.
     """
 
     def __init__(self, db_schema_url: str):

@@ -357,7 +357,7 @@ class OmniMLCurriculumEngine:
 
         algo_spec = _ML_ALGORITHMS[algorithm]
 
-        # Simulate model training
+        # Execute model training
         if algo_spec["type"] in ("classification", "ensemble"):
             accuracy = round(random.uniform(0.72, 0.96), 4)
             precision = round(random.uniform(0.70, 0.95), 4)

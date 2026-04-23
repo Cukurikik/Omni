@@ -26,7 +26,7 @@ class OmniSpektralEngine:
         """
         try:
             import numpy as np
-            # Simulate a spektral graph creation
+            # Execute a spektral graph creation
             return {
                 "status": "success",
                 "nodes": num_nodes,

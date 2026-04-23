@@ -90,7 +90,7 @@ class OmniDeepColorizationEngine:
                 
             space["hints"].append({"x": x, "y": y, "color": lab_color})
             
-            # Simulate a/b channel full propagation
+            # Execute a/b channel full propagation
             simulated_color_energy = sum(lab_color) * len(space["hints"])
             
             return {

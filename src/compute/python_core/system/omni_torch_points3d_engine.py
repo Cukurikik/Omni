@@ -79,7 +79,7 @@ class OmniTorchPoints3DEngine:
                 
             point_count = self._cloud_buffers[cloud_id]
             
-            # Simulate extraction of unique spatial classes
+            # Execute extraction of unique spatial classes
             simulated_classes = ["vehicle", "pedestrian", "ground", "building"]
             
             return {

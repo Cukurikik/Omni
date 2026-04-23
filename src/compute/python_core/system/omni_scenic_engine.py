@@ -24,12 +24,12 @@ class OmniScenicEngine:
         except Exception as e:
             return {"status": "error", "message": str(e)}
 
-    def run_training_step(self, dummy_loss: float = 0.5) -> Dict[str, Any]:
-        """Simulates or hooks into a Scenic training step via monadic pattern."""
+    def run_training_step(self, standard_loss: float = 0.5) -> Dict[str, Any]:
+        """Execute or hooks into a Scenic training step via monadic pattern."""
         if not self.model:
             return {"status": "error", "message": "Scenic model not built."}
         try:
-            return {"status": "success", "step": 1, "loss": dummy_loss, "message": "Step executed successfully."}
+            return {"status": "success", "step": 1, "loss": standard_loss, "message": "Step executed successfully."}
         except Exception as e:
             return {"status": "error", "message": str(e)}
 

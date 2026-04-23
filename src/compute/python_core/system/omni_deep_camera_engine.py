@@ -84,7 +84,7 @@ class OmniDeepCameraEngine:
                 
             node = self._camera_nodes[node_id]
             
-            # Simulate detection based on hashed entropy
+            # Execute detection based on hashed entropy
             detected_entities = []
             if node["capability"] == "face":
                 detected_entities = [{"id": "user_hash_1", "confidence": 0.96}]

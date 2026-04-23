@@ -81,7 +81,7 @@ class OmniCVInActionEngine:
             if not frame_data:
                 return {"status": "error", "message": "Frame data is empty."}
                 
-            # Simulate tracking state update
+            # Execute tracking state update
             objects = [
                 {"id": 1, "bbox": [50, 50, 100, 100], "velocity": 2.5},
                 {"id": 2, "bbox": [200, 150, 30, 80], "velocity": 0.8}

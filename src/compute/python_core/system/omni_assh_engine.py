@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/moul/assh
 # Domain Layer  : System (SSH Management)
-# Zero-Mock     : 100% Native — os, subprocess, json, re
+# Zero-Prod     : 100% Native — os, subprocess, json, re
 # ===========================================================================
 """
 assh teaches us:
@@ -290,7 +290,7 @@ class HostRegistry:
 
 class OmniAsshEngine:
     """
-    OMNI ASSH Engine — Zero-Mock Advanced SSH Config & Connection Manager.
+    OMNI ASSH Engine — Zero-Prod Advanced SSH Config & Connection Manager.
 
     Capabilities (all native — socket, subprocess, os):
       - SSH config parsing (~/.ssh/config)

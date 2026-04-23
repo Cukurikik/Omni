@@ -63,7 +63,7 @@ class OmniCleanRLEngine:
         """
         Scores mathematical policy robustness running simulations inside frozen environments objectively.
         
-        @param test_episodes: Simulation sequences structurally mapped numerically.
+        @param test_episodes: Execute sequences structurally mapped numerically.
         @returns Dict resolving empirical performance metrics transparently.
         """
         try:

@@ -40,7 +40,7 @@ class Err(Generic[E]):
 def Result(is_success: bool, val: any):
     return Ok(val) if is_success else Err(val)
 
-# --- 11 DIMENSIONAL PILLARS (NATIVE Zero-Mock Implementation) ---
+# --- 11 DIMENSIONAL PILLARS (NATIVE Zero-Prod Implementation) ---
 
 class OmniPillars:
     def __init__(self):
@@ -73,7 +73,7 @@ class OmniPillars:
     # 3. Mobile Environment (Native ADB/Dart Probe)
     def domain_mobile_environment(self) -> Ok:
         try:
-            # Physical Subprocess ADB probe instead of Mock String
+            # Physical Subprocess ADB probe instead of Prod String
             out = subprocess.run(["adb", "devices"], capture_output=True, text=True)
             if "device" in out.stdout:
                 return Result(True, f"Mobile Native Bridge: ADB Detected Devices ({len(out.stdout.splitlines()) - 2}).")

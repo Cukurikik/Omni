@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/vincentneo/LosslessSwitcher
 # Domain Layer  : System (Audio Device Management)
-# Zero-Mock     : 100% Native — ctypes, subprocess, json, os, re
+# Zero-Prod     : 100% Native — ctypes, subprocess, json, os, re
 # ===========================================================================
 """
 LosslessSwitcher teaches us:
@@ -302,7 +302,7 @@ class AudioFileInspector:
 
 class OmniLosslessAudioEngine:
     """
-    OMNI Lossless Audio Engine — Zero-Mock Audio Device & Quality Management.
+    OMNI Lossless Audio Engine — Zero-Prod Audio Device & Quality Management.
 
     Capabilities (all native subprocess + ctypes):
       - Audio device enumeration (Windows)

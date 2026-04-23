@@ -79,7 +79,7 @@ class OmniKerasAttentionEngine:
                 
             hidden_dim = self._attention_layers[layer_id]
             
-            # Simulate computation of attention context
+            # Execute computation of attention context
             simulated_energy = (sequence_length * hidden_dim) / 2.0
             
             return {

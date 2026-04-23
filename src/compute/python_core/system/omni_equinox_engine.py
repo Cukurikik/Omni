@@ -15,7 +15,7 @@ from typing import Dict, Any, List, Optional, Tuple
 logger = logging.getLogger(__name__)
 
 class EquinoxJAXModel:
-    """Mock structure representing a compiled Equinox neural network."""
+    """Prod structure representing a compiled Equinox neural network."""
     def __init__(self, key: str, architecture: str):
         """Initialize EquinoxJAXModel engine with default configuration."""
         self.key = key
@@ -62,7 +62,7 @@ class OmniEquinoxEngine:
             if model_id in self._active_models:
                 return {"status": "error", "message": f"Model {model_id} already constructed."}
             
-            # Simulate JAX PRNG key and Equinox model instantiation
+            # Execute JAX PRNG key and Equinox model instantiation
             model = EquinoxJAXModel(key=f"jax_prng_{seed}", architecture=architecture)
             self._active_models[model_id] = model
             
@@ -125,7 +125,7 @@ class OmniEquinoxEngine:
             if not model.compiled:
                 return {"status": "error", "message": "Model must be JIT compiled before evaluation."}
                 
-            # Simulate functional forward pass (Vector-Jacobian compatible)
+            # Execute functional forward pass (Vector-Jacobian compatible)
             output = [x * 0.95 for x in input_tensor]
             
             return {

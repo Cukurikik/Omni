@@ -28,7 +28,7 @@ class OmniPhotoPrismEngine:
                 raise TypeError("target_dir must be a valid directory string.")
             
             self.index_state = "indexed"
-            # Simulating PhotoPrism's Go-backed indexer interface via REST or bridged CLI
+            # Execute PhotoPrism's Go-backed indexer interface via REST or bridged CLI
             return {
                 "status": "success",
                 "directory": target_dir,

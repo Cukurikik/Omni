@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/Nonchalant/AppIcon
 # Domain Layer  : Mobile (iOS/Android App Icon Management)
-# Zero-Mock     : 100% Native — os, json, subprocess, hashlib
+# Zero-Prod     : 100% Native — os, json, subprocess, hashlib
 # ===========================================================================
 """
 AppIcon teaches us:
@@ -218,7 +218,7 @@ class SourceValidator:
 
 class OmniAppIconEngine:
     """
-    OMNI AppIcon Engine — Zero-Mock App Icon Generation Pipeline.
+    OMNI AppIcon Engine — Zero-Prod App Icon Generation Pipeline.
 
     Capabilities (all native subprocess + json):
       - Source image validation (dimensions, format)

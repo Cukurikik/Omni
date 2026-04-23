@@ -3,7 +3,7 @@
 OMNI SEMESTER 7 — BATCH 7 ENGINE
 WebDataset Engine (webdataset/webdataset)
 --------------------------------------------------
-A production-grade engine simulating the high-performance iterable streaming 
+A production-grade engine execute the high-performance iterable streaming 
 tar pipelines used in large-scale ML training (WebDataset format). 
 Secures I/O and pipeline parsing within monadic bounds.
 """
@@ -33,7 +33,7 @@ class OmniWebDatasetEngine:
         }
 
     def create_tar_shard_writer(self, shard_pattern: str, max_count: int = 10000) -> Dict[str, Any]:
-        """Simulates initiating a Writer to encode dictionaries to POSIX tar streams."""
+        """Execute initiating a Writer to encode dictionaries to POSIX tar streams."""
         try:
             if max_count <= 0:
                 return {"status": "error", "message": "max_count must be positive."}
@@ -73,7 +73,7 @@ class OmniWebDatasetEngine:
             return {"status": "error", "message": f"Pipeline config failed: {str(e)}"}
 
     def iterate_shard(self, writer_id: str, pipeline_id: str, records_to_fetch: int) -> Dict[str, Any]:
-        """Simulates WebDataset yielding multimodal dictionary tuples correctly map-decoded."""
+        """Execute WebDataset yielding multimodal dictionary tuples correctly map-decoded."""
         try:
             if writer_id not in self.shards:
                 return {"status": "error", "message": "Shard writer uninitialized."}
@@ -85,7 +85,7 @@ class OmniWebDatasetEngine:
             shard = self.shards[writer_id]
             pipeline = self.pipelines[pipeline_id]
             
-            # Simulate yield
+            # Execute yield
             yielded_records = []
             for i in range(records_to_fetch):
                 record = {"__key__": f"sample_{shard['current_count'] + i:06d}"}

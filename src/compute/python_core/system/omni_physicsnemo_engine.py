@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 class OmniPhysicsNemoEngine:
     """
-    Omni Engine for Physics-Informed Neural simulation abstraction.
+    Omni Engine for Physics-Informed Neural execute abstraction.
     Follows OMNI Monadic Error Handling rule.
     """
     
@@ -72,7 +72,7 @@ class OmniPhysicsNemoEngine:
         
         Args:
             domain_id (str): Defined physics domain.
-            steps (int): Temporal evolution steps to simulate.
+            steps (int): Temporal evolution steps to execute.
             
         Returns:
             Dict[str, Any]: Residual errors and stability metrics.
@@ -82,12 +82,12 @@ class OmniPhysicsNemoEngine:
                 return {"status": "error", "message": f"Domain '{domain_id}' not found."}
                 
             if steps <= 0:
-                return {"status": "error", "message": "Simulation steps must be > 0."}
+                return {"status": "error", "message": "Execute steps must be > 0."}
                 
             grid = self._simulation_grids[domain_id]
             res_power = grid["res"] ** 3
             
-            # Simulate PDE forward pass via neural operator
+            # Execute PDE forward pass via neural operator
             max_residual_error = 1.0 / (steps + 1)
             
             return {

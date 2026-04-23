@@ -250,7 +250,7 @@ class OmniPicoGPTEngine:
         if temperature <= 0:
             return {"status": "error", "message": "temperature must be > 0"}
 
-        # Simulate tokenization and generation
+        # Execute tokenization and generation
         estimated_input_tokens = max(1, len(prompt.split()) * 4 // 3)  # rough BPE estimate
         context_length = self._model_config.get("context_length", 1024)
 

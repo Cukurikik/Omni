@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/autobrr/autobrr
 # Domain Layer  : Automation (Download/Release Filtering)
-# Zero-Mock     : 100% Native — os, re, json, sqlite3, urllib
+# Zero-Prod     : 100% Native — os, re, json, sqlite3, urllib
 # ===========================================================================
 """
 autobrr teaches us:
@@ -330,7 +330,7 @@ class ReleaseHistory:
 
 class OmniAutobrEngine:
     """
-    OMNI Autobrr Engine — Zero-Mock Release Filtering & Download Automation.
+    OMNI Autobrr Engine — Zero-Prod Release Filtering & Download Automation.
 
     Capabilities (all native stdlib):
       - RSS feed parsing and monitoring

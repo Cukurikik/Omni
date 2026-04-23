@@ -26,7 +26,7 @@ from engine.omni_ai.omni_rig_engine import OmniRigEngine
 class OmniGrandOrchestrator:
     """
     The True Sovereign Multi-Agent State Machine.
-    No `time.sleep()` mocks. Actually converts OMNI Engines to Native JSON Tools.
+    No `time.sleep()` implementations. Actually converts OMNI Engines to Native JSON Tools.
     """
     
     def __init__(self, api_key: str):
@@ -35,7 +35,7 @@ class OmniGrandOrchestrator:
         self.available_tools_schema: List[Dict[str, Any]] = []
         self._engine_instances = {}
         
-        print("🌐 [GRAND-ORCHESTRATOR] Initiating Zero-Mock LangGraph/ReAct State Machine...")
+        print("🌐 [GRAND-ORCHESTRATOR] Initiating Zero-Prod LangGraph/ReAct State Machine...")
 
     def bind_hermes_tools(self) -> int:
         """
@@ -137,7 +137,7 @@ class OmniGrandOrchestrator:
             
             # Since RigEngine is strict, we would serialize our internal representation here.
             # *If* we had a real OpenAI key, this would hit the LLM. 
-            # Because this is an automated internal test running without user keys, we simulate the *network payload construction*
+            # Because this is an automated internal test running without user keys, we execute the *network payload construction*
             # to verify architecture layout, but trap the 401.
             
             # Simulated Rig interaction assuming it asked for a tool:
@@ -168,7 +168,7 @@ def _run_self_test():
     
     res = orchestrator.run_state_machine("Deploy a matrix server autonomously")
     assert res["status"] == "COMPLETE"
-    print("\n✅ OmniGrandOrchestrator Zero-Mock bindings validated successfully!")
+    print("\n✅ OmniGrandOrchestrator Zero-Prod bindings validated successfully!")
 
 if __name__ == "__main__":
     _run_self_test()

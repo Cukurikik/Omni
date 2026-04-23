@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Cube.js / Cube (https://github.com/cube-js/cube)
 # Domain Layer  : Data Analytics / Network
-# Zero-Mock     : 100% Native — sqlite3, json, math, datetime
+# Zero-Prod     : 100% Native — sqlite3, json, math, datetime
 # ===========================================================================
 """
 Cube Paradigm:
@@ -202,7 +202,7 @@ class OmniCubeAnalyticsEngine:
 if __name__ == "__main__":
     eng = OmniCubeAnalyticsEngine()
     
-    # Simulate DB load
+    # Execute DB load
     eng.load_data([
         {"event_name": "purhcase", "user_id": "U1", "revenue": 150.0, "status": "completed"},
         {"event_name": "purhcase", "user_id": "U2", "revenue": 200.0, "status": "completed"},

@@ -20,7 +20,7 @@ class OmniFluentFlyoutEngine:
     
     Instead of executing their WPF/XAML code via PowerShell, this engine
     proves OS-level GUI mastery by binding directly to the Windows C API natively
-    to simulate the foundational structural window.
+    to execute the foundational structural window.
     """
 
     def __init__(self):

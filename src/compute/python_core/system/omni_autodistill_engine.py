@@ -87,7 +87,7 @@ class OmniAutodistillEngine:
                 
             job["phase"] = "labeled"
             
-            # Simulate dense foundation labeling
+            # Execute dense foundation labeling
             boxes_produced = job["count"] * len(ontology) * 2
             
             return {

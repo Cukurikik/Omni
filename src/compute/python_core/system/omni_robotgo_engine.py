@@ -796,12 +796,12 @@ class WindowsAdapter:
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 6. Cross-Platform Stub Adapter (for non-Windows simulation/testing)
+# 6. Cross-Platform Stub Adapter (for non-Windows execute/testing)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
 class StubAdapter:
-    """Simulation adapter for testing on any platform without native calls."""
+    """Execute adapter for testing on any platform without native calls."""
 
     def __init__(self):
         """Initialize StubAdapter engine with default configuration."""
@@ -1099,7 +1099,7 @@ class OmniRobotGoEngine:
         """Execute mouse drag operation for RobotGo engine."""
         self.mouse_move(x1, y1)
         time.sleep(0.02)
-        # Simulate drag with smooth move while holding
+        # Execute drag with smooth move while holding
         if self._use_native and CURRENT_PLATFORM == OsPlatform.WINDOWS:
             events = {MouseButton.LEFT: (0x0002, 0x0004), MouseButton.RIGHT: (0x0008, 0x0010)}
             down, up = events.get(button, (0x0002, 0x0004))

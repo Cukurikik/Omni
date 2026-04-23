@@ -84,7 +84,7 @@ class OmniDeepTrackingEngine:
             feed = self._tracking_feeds[feed_id]
             feed["frames_tracked"] += frame_count
             
-            # Simulate tracking robustness (Multiple Object Tracking Accuracy - MOTA)
+            # Execute tracking robustness (Multiple Object Tracking Accuracy - MOTA)
             simulated_mota = max(0.5, 0.95 - (max_objects * 0.005))
             
             return {

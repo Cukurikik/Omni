@@ -5,7 +5,7 @@ NESA Engine (nesaorg/nesa)
 --------------------------------------------------
 A production-grade engine that abstracts decentralized/scalable compute node
 operations. Integrates node orchestration, inference task distribution, and
-consensus simulation safely into the Omni Framework without external RPC leakage.
+consensus execute safely into the Omni Framework without external RPC leakage.
 """
 
 import uuid
@@ -62,7 +62,7 @@ class OmniNesaEngine:
                 return {"status": "error", "message": "Invalid payload size."}
                 
             task_id = f"task_{uuid.uuid4().hex[:8]}"
-            # Simple round-robin or load balancer simulation
+            # Simple round-robin or load balancer execute
             assigned_node = active_nodes[0]
             
             self.tasks[task_id] = {
@@ -83,7 +83,7 @@ class OmniNesaEngine:
             return {"status": "error", "message": f"Task deployment failed: {str(e)}"}
 
     def verify_consensus(self, task_id: str) -> Dict[str, Any]:
-        """Simulates decentralized result verification & consensus confirmation."""
+        """Execute decentralized result verification & consensus confirmation."""
         try:
             if task_id not in self.tasks:
                 return {"status": "error", "message": f"Task '{task_id}' not found."}

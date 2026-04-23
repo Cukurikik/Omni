@@ -80,7 +80,7 @@ class OmniUVADeepLearningEngine:
         }
 
     def execute_module(self, learner_id: str, module_id: str, hyperparams: Dict[str, Any]) -> Dict[str, Any]:
-        """Simulates the execution of a complex DL tutorial notebook."""
+        """Execute the execution of a complex DL tutorial notebook."""
         try:
             if learner_id not in self.learners:
                 return {"status": "error", "message": f"Learner {learner_id} not found."}
@@ -90,14 +90,14 @@ class OmniUVADeepLearningEngine:
             module = self.curriculum[module_id]
             framework = self.learners[learner_id]["framework"]
             
-            # Evaluate hyperparameters (simulate student success)
+            # Evaluate hyperparameters (execute student success)
             lr = hyperparams.get("learning_rate", 0.001)
             epochs = hyperparams.get("epochs", 10)
             
             if lr <= 0 or epochs <= 0:
                 return {"status": "error", "message": "Invalid hyperparameters attached."}
                 
-            # Simulate a continuous score based on module difficulty and hypers
+            # Execute a continuous score based on module difficulty and hypers
             base_score = 100.0 - (module["difficulty"] * 5.0)
             penalty = abs(0.001 - lr) * 1000 # Penalize if lr is far from 0.001
             

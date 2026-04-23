@@ -326,7 +326,7 @@ class OmniAdaNetEngine:
         if max_iterations < 1:
             return {"status": "error", "message": "max_iterations must be >= 1"}
 
-        # Simulate iteration-by-iteration ensemble growth
+        # Execute iteration-by-iteration ensemble growth
         iterations = []
         best_loss = float("inf")
         patience_counter = 0

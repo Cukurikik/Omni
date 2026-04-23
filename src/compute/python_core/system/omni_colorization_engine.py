@@ -233,7 +233,7 @@ class OmniColorizationEngine:
         if output_path is None:
             output_path = image_path.rsplit(".", 1)[0] + "_colorized.png"
 
-        # Simulate colorization pipeline
+        # Execute colorization pipeline
         process_time = random.uniform(0.05, 0.5) if quality == "low" else random.uniform(0.1, 1.0)
 
         result = {

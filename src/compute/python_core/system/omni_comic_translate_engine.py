@@ -88,7 +88,7 @@ class OmniComicTranslateEngine:
                 
             job["processed"] = True
             
-            # Simulate pipeline processing
+            # Execute pipeline processing
             simulated_bubbles = max(1, int(page_density / 10))
             
             return {

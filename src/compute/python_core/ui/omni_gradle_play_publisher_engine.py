@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/Triple-T/gradle-play-publisher
 # Domain Layer  : Mobile
-# Zero-Mock     : 100% Native — subprocess, os, json, real file operations
+# Zero-Prod     : 100% Native — subprocess, os, json, real file operations
 # ===========================================================================
 """
 Gradle Play Publisher (GPP) teaches us:
@@ -288,7 +288,7 @@ class StoreListingManager:
 
 class OmniGradlePlayPublisherEngine:
     """
-    OMNI Gradle Play Publisher Engine — Zero-Mock Android Publishing Automation.
+    OMNI Gradle Play Publisher Engine — Zero-Prod Android Publishing Automation.
 
     Capabilities (all native stdlib):
       - Gradle task execution (assembleRelease, bundleRelease)

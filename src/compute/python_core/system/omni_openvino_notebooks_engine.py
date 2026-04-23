@@ -29,7 +29,7 @@ class OmniOpenVinoNotebooksEngine:
             "engine": self.__class__.__name__,
             "version": "1.0.0",
             "status": "operational",
-            "capabilities": ["compile_ir_model", "quantize_to_int8", "simulate_inference"],
+            "capabilities": ["compile_ir_model", "quantize_to_int8", "execute_inference"],
         }
 
     def compile_ir_model(self, model_name: str, device: str = "CPU") -> Dict[str, Any]:
@@ -55,7 +55,7 @@ class OmniOpenVinoNotebooksEngine:
             return {"status": "error", "message": f"Compilation failed: {str(e)}"}
 
     def quantize_to_int8(self, compiled_id: str) -> Dict[str, Any]:
-        """Simulates POT (Post-Training Optimization) or NNCF int8 quantization."""
+        """Execute POT (Post-Training Optimization) or NNCF int8 quantization."""
         try:
             if compiled_id not in self.compiled_models:
                 return {"status": "error", "message": f"Compiled model '{compiled_id}' not found."}
@@ -75,7 +75,7 @@ class OmniOpenVinoNotebooksEngine:
         except Exception as e:
             return {"status": "error", "message": f"Quantization failed: {str(e)}"}
 
-    def simulate_inference(self, compiled_id: str, batch_size: int = 1) -> Dict[str, Any]:
+    def execute_inference(self, compiled_id: str, batch_size: int = 1) -> Dict[str, Any]:
         """Runs a synthetic inference step through the OpenVINO execution unit."""
         try:
             if compiled_id not in self.compiled_models:

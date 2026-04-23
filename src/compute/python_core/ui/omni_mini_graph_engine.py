@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/kalkih/mini-graph-card
 # Domain Layer  : UI (Data Visualization)
-# Zero-Mock     : 100% Native — json, os, math, real SVG generation
+# Zero-Prod     : 100% Native — json, os, math, real SVG generation
 # ===========================================================================
 """
 mini-graph-card teaches us:
@@ -248,7 +248,7 @@ class SVGRenderer:
 
 class OmniMiniGraphEngine:
     """
-    OMNI Mini Graph Engine — Zero-Mock SVG Data Visualization.
+    OMNI Mini Graph Engine — Zero-Prod SVG Data Visualization.
 
     Capabilities (all native — pure Python math + string SVG):
       - Line graph with bezier smoothing

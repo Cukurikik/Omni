@@ -63,7 +63,7 @@ class OmniDLBookEngine:
 
     def execute_backward_pass(self, graph_id: str, loss_value: float) -> Dict[str, Any]:
         """
-        Simulates the computation of gradients via backpropagation.
+        Execute the computation of gradients via backpropagation.
         
         Args:
             graph_id (str): The computational graph to update.

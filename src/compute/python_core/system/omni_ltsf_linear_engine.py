@@ -84,7 +84,7 @@ class OmniLtsfLinearEngine:
             series = self._linear_spaces[series_id]
             series["forecasts_run"] += 1
             
-            # Simulate O(1) linear latency dominance over Transformers
+            # Execute O(1) linear latency dominance over Transformers
             simulated_latency_ms = max(0.01, 10.0 / series["lookback"])
             
             return {

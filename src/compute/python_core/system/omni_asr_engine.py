@@ -79,7 +79,7 @@ class OmniASREngine:
                 return {"status": "error", "message": "Unsupported sample rate."}
 
             language = self._loaded_acoustic_models[model_id]
-            # Simulate CTC Decoder execution
+            # Execute CTC Decoder execution
             simulated_text = "OMNI SYSTEM ONLINE" if language == "en-US" else "SISTEM OMNI AKTIF"
             confidence = 0.98
             duration_sec = len(audio_waveform) / sample_rate

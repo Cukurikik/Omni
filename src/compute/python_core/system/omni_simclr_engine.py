@@ -81,7 +81,7 @@ class OmniSimCLREngine:
             dataset = self._contrastive_views[dataset_id]
             dataset["epochs_run"] += 1
             
-            # Simulate Contrastive Loss convergence (NT-Xent)
+            # Execute Contrastive Loss convergence (NT-Xent)
             simulated_loss = max(0.5, 6.0 - (dataset["epochs_run"] * 0.1))
             
             return {

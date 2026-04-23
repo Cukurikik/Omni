@@ -18,7 +18,7 @@ class OmniCscoreEngine:
     interception begins tightly at registering the `IMMDeviceEnumerator` COM interface,
     calling `GetDefaultAudioEndpoint()`, and extracting the `IAudioClient` pointer.
     
-    Instead of simulating an empty response or executing a C# wrapper, OMNI structurally
+    Instead of execute an empty response or executing a C# wrapper, OMNI structurally
     traces these exact Windows COM object GUIDs using Python ctypes to prove 
     absolute low-level system understanding.
     """

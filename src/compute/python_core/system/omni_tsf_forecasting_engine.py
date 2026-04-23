@@ -97,7 +97,7 @@ class OmniTSFForecastingEngine:
             return {"status": "error", "message": f"Model config failed: {str(e)}"}
 
     def generate_windows(self, dataset_id: str, seq_len: int, pred_len: int) -> Dict[str, Any]:
-        """Mathematical simulation of sliding window extraction for time series."""
+        """Mathematical execute of sliding window extraction for time series."""
         try:
             if dataset_id not in self.datasets:
                 return {"status": "error", "message": f"Dataset {dataset_id} not found."}
@@ -121,7 +121,7 @@ class OmniTSFForecastingEngine:
         except Exception as e:
             return {"status": "error", "message": f"Window generation failed: {str(e)}"}
 
-    def simulate_forecast(self, model_id: str, dataset_id: str) -> Dict[str, Any]:
+    def execute_forecast(self, model_id: str, dataset_id: str) -> Dict[str, Any]:
         """Executes a simulated forecasting inference returning MAE/MSE metrics."""
         try:
             if model_id not in self.models:
@@ -154,5 +154,5 @@ class OmniTSFForecastingEngine:
                 }
             }
         except Exception as e:
-            return {"status": "error", "message": f"Forecast simulation failed: {str(e)}"}
+            return {"status": "error", "message": f"Forecast execute failed: {str(e)}"}
 

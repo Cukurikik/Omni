@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/mono0926/LicensePlist
 # Domain Layer  : Mobile (iOS/Package License Management)
-# Zero-Mock     : 100% Native — os, json, re, urllib, xml.etree
+# Zero-Prod     : 100% Native — os, json, re, urllib, xml.etree
 # ===========================================================================
 """
 LicensePlist teaches us:
@@ -248,7 +248,7 @@ class ReportGenerator:
 
 class OmniLicensePlistEngine:
     """
-    OMNI LicensePlist Engine — Zero-Mock Dependency License Management.
+    OMNI LicensePlist Engine — Zero-Prod Dependency License Management.
 
     Capabilities (all native stdlib):
       - Auto-scan: package.json, requirements.txt, go.mod, Podfile.lock

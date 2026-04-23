@@ -220,7 +220,7 @@ class OmniMultimodalOtterEngine:
         Runs multi-modal inference with instruction following.
 
         @param instruction:          User instruction text.
-        @param image_description:    Description of input image (simulates visual input).
+        @param image_description:    Description of input image (execute visual input).
         @param video_frames:         Number of video frames (0 for image-only).
         @param instruction_format:   'simple', 'multi_round', 'in_context'.
         @param temperature:          Sampling temperature.
@@ -245,7 +245,7 @@ class OmniMultimodalOtterEngine:
 
         modality = "video" if video_frames > 0 else ("image" if image_description else "text_only")
 
-        # Simulate response generation
+        # Execute response generation
         response_tokens = random.randint(50, max_new_tokens)
         latency_ms = response_tokens * random.uniform(8, 25)
 

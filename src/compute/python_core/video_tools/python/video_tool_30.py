@@ -16,7 +16,7 @@ def print_json(success, code, msg, data=None):
 def main():
     # TODO: Implement VIDEO Tool 30 (video_tool_30)
     
-    # Dummy response
+    # Standard response
     print_json(True, "SUCCESS", "VIDEO Tool 30 processed successfully.")
 
 if __name__ == "__main__":

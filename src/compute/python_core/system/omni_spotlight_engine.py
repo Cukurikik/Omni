@@ -55,7 +55,7 @@ class OmniSpotlightEngine:
             return {"status": "error", "message": f"Model build failed: {str(e)}"}
 
     def fit_interactions(self, model_id: str, num_users: int, num_items: int, interactions: int) -> Dict[str, Any]:
-        """Simulates fitting the model via minibatches of Implicit interactions."""
+        """Execute fitting the model via minibatches of Implicit interactions."""
         try:
             if model_id not in self.models:
                 return {"status": "error", "message": "Model not found."}

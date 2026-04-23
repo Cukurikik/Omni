@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/allinssl/allinssl
 # Domain Layer  : Security (SSL/TLS Management)
-# Zero-Mock     : 100% Native — ssl, socket, subprocess, sqlite3
+# Zero-Prod     : 100% Native — ssl, socket, subprocess, sqlite3
 # ===========================================================================
 """
 AllinSSL teaches us:
@@ -311,7 +311,7 @@ class CertDatabase:
 
 class OmniAllinSSLEngine:
     """
-    OMNI AllInSSL Engine — Zero-Mock SSL Certificate Lifecycle Management.
+    OMNI AllInSSL Engine — Zero-Prod SSL Certificate Lifecycle Management.
 
     Capabilities (all native — ssl, socket, subprocess):
       - Live SSL certificate inspection (subject, issuer, SAN, expiry)

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/pipelight/pipelight
 # Domain Layer  : System (CI/CD Pipeline)
-# Zero-Mock     : 100% Native — subprocess, json, os, time, sqlite3
+# Zero-Prod     : 100% Native — subprocess, json, os, time, sqlite3
 # ===========================================================================
 """
 Pipelight teaches us:
@@ -302,7 +302,7 @@ class PipelineStore:
 
 class OmniPipelightEngine:
     """
-    OMNI Pipelight Engine — Zero-Mock CI/CD Pipeline Automation.
+    OMNI Pipelight Engine — Zero-Prod CI/CD Pipeline Automation.
 
     Capabilities (all native subprocess):
       - Pipeline definition and building

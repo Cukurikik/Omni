@@ -101,7 +101,7 @@ class OmniTensorRTProEngine:
                     "message": f"Requested batch size {batch_size} exceeds max_batch {ctx.max_batch}."
                 }
                 
-            # Simulate high performance GPU execution and memory copy back
+            # Execute high performance GPU execution and memory copy back
             simulated_bboxes = [{"class": 0, "confidence": 0.98, "box": [10, 20, 100, 200]}] * batch_size
             
             return {

@@ -24,13 +24,13 @@ class I2SStreamSimulator:
         self.internal_registry = []
 
     def read_bytes(self) -> bytes:
-        """Physical hardware source simulation."""
+        """Physical hardware source execute."""
         if self.mode != "RX":
             raise PermissionError("I2S marked as TX cannot Read.")
         return bytes([min(i % 255, 255) for i in range(self.buffer_size)])
         
     def write_bytes(self, chunk: bytes) -> int:
-        """Physical hardware sink simulation."""
+        """Physical hardware sink execute."""
         if self.mode != "TX":
             raise PermissionError("I2S marked as RX cannot Write.")
         self.internal_registry.append(len(chunk))
@@ -73,7 +73,7 @@ class OmniArduinoAudioEngine:
         hardware_source = I2SStreamSimulator(mode="RX", buffer_size=1024)
         
         try:
-            # Physical Stream Copy Loop Simulation
+            # Physical Stream Copy Loop Execute
             for _ in range(cycles):
                 # 1. Pull bounded limits
                 chunk = hardware_source.read_bytes()

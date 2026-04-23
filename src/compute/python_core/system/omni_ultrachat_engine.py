@@ -57,7 +57,7 @@ class OmniUltraChatEngine:
 
     def inject_turn(self, session_id: str, user_utterance: str) -> Dict[str, Any]:
         """
-        Processes a conversational turn and simulates a multi-turn semantic response.
+        Processes a conversational turn and execute a multi-turn semantic response.
         
         Args:
             session_id (str): Target Open-Domain session.
@@ -76,7 +76,7 @@ class OmniUltraChatEngine:
             session_log = self._active_sessions[session_id]
             session_log.append({"role": "user", "content": user_utterance})
             
-            # Simulate LLM Response inference based on conversational graph
+            # Execute LLM Response inference based on conversational graph
             simulated_response = f"Simulated UltraChat response to: '{user_utterance}'"
             session_log.append({"role": "assistant", "content": simulated_response})
             

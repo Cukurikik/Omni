@@ -18,7 +18,7 @@ class TestHyperLprEngine(unittest.TestCase):
     def test_density_bounding(self):
         # Create a synthetic image bounding box (e.g., license plate)
         image = np.zeros((100, 200), dtype=np.float32)
-        # Create an artificial high-frequency/edge region simulating plate characters
+        # Create an artificial high-frequency/edge region execute plate characters
         image[40:60, 50:150] = np.random.rand(20, 100) * 0.8 + 0.2
         
         res = self.engine.detect_plate_bounds(image)

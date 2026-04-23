@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/FlaUI/FlaUI
 # Domain Layer  : System (Windows Desktop Automation)
-# Zero-Mock     : 100% Native — ctypes, subprocess, comtypes/UIAutomation
+# Zero-Prod     : 100% Native — ctypes, subprocess, comtypes/UIAutomation
 # ===========================================================================
 """
 FlaUI teaches us:
@@ -288,7 +288,7 @@ class ProcessManager:
 
 class OmniFlaUIEngine:
     """
-    OMNI FlaUI Engine — Zero-Mock Windows UI Automation.
+    OMNI FlaUI Engine — Zero-Prod Windows UI Automation.
 
     Capabilities (all native ctypes + subprocess):
       - Window enumeration and discovery

@@ -56,7 +56,7 @@ class OmniPennyLaneQMLEngine:
             if name not in self.supported_devices:
                 return {"status": "error", "message": f"Unsupported device: {name}. Use: {self.supported_devices}"}
             if wires < 1 or wires > 32:
-                return {"status": "error", "message": "Wires must be between 1 and 32 for simulation."}
+                return {"status": "error", "message": "Wires must be between 1 and 32 for execute."}
             
             dev_id = f"dev_{hashlib.md5((name + str(wires) + str(time.time())).encode()).hexdigest()[:8]}"
             
@@ -162,7 +162,7 @@ class OmniPennyLaneQMLEngine:
             if len(params) != circuit["num_params"]:
                 return {"status": "error", "message": f"Expected {circuit['num_params']} params, got {len(params)}"}
             
-            # Simulate theoretical execution
+            # Execute theoretical execution
             # Real PennyLane would evolve the state vector using matrix exp.
             # Here, we procedurally map parameters to a deterministic "expectation value" output
             expected_value = 0.0

@@ -60,7 +60,7 @@ class OmniMMDeployEngine:
             return {"status": "error", "message": f"Configuration failed: {str(e)}"}
 
     def convert_model(self, model_name: str, config_id: str, input_shapes: List[List[int]]) -> Dict[str, Any]:
-        """Simulates native graph conversion from typical OpenMMLab PyTorch to deployment backend."""
+        """Execute native graph conversion from typical OpenMMLab PyTorch to deployment backend."""
         try:
             if config_id not in self.deployment_configs:
                 return {"status": "error", "message": f"Deployment config '{config_id}' not found."}

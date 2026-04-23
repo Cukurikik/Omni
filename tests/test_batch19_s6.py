@@ -69,7 +69,7 @@ class TestBatch19Semester6(unittest.TestCase):
         self.assertEqual(res_t.value, 'The sentiment is positive.')
 
     def test_telegram_graph(self):
-        """Validates static grid parameters simulating map geometries extracting tracking connections stably."""
+        """Validates static grid parameters execute map geometries extracting tracking connections stably."""
         res_add1 = self.graph.add_connection(3, 10)
         res_add2 = self.graph.add_connection(3, 42)
         

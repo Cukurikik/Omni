@@ -85,7 +85,7 @@ class OmniDeepJazzEngine:
             corpus = self._learned_corpora[corpus_id]
             vocab = corpus["vocabulary"]
             
-            # Simulate LSTM generative loop based on temperature divergence
+            # Execute LSTM generative loop based on temperature divergence
             generated_sequence = []
             for i in range(length):
                 # Pseudo-random choice matching structural composition

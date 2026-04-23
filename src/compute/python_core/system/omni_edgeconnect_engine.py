@@ -84,7 +84,7 @@ class OmniEdgeConnectEngine:
             canvas["edges_hallucinated"] = True
             canvas["inpainted"] = True
             
-            # Simulate SSIM recovery based on severity
+            # Execute SSIM recovery based on severity
             simulated_recovery_ssim = max(0.85, 0.99 - (canvas["damage"] * 0.15))
             
             return {

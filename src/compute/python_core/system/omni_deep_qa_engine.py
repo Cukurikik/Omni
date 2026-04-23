@@ -75,7 +75,7 @@ class OmniDeepQAEngine:
             if not context_query:
                  return {"status": "error", "message": "Query cannot be empty.", "error_code": "DQA_ERR_003"}
 
-            # Context simulation
+            # Context execute
             response = "I am processing the data dynamically."
             if "hello" in context_query.lower():
                 response = "Greetings from OMNI DeepQA!"

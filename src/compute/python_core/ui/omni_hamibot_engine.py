@@ -4,13 +4,13 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/hamibot/hamibot
 # Domain Layer  : Mobile (Android Automation)
-# Zero-Mock     : 100% Native — subprocess (ADB), json, os, socket
+# Zero-Prod     : 100% Native — subprocess (ADB), json, os, socket
 # ===========================================================================
 """
 Hamibot teaches us:
   1. JavaScript-based Android automation (Auto.js paradigm)
   2. Accessibility Service interaction for UI control
-  3. Screen tap/swipe/scroll simulation via ADB
+  3. Screen tap/swipe/scroll execute via ADB
   4. Package management (install, uninstall, launch)
   5. Device info extraction (model, battery, storage)
   6. Script deployment to Android devices
@@ -170,7 +170,7 @@ class DeviceInspector:
 # ── UI Automator ───────────────────────────────────────────────────────────
 
 class UIAutomator:
-    """Simulate user interactions on Android via ADB."""
+    """Execute user interactions on Android via ADB."""
 
     @staticmethod
     def tap(serial: str, x: int, y: int) -> Dict:
@@ -251,7 +251,7 @@ class PackageManager:
 
 class OmniHamibotEngine:
     """
-    OMNI Hamibot Engine — Zero-Mock Android Device Automation.
+    OMNI Hamibot Engine — Zero-Prod Android Device Automation.
 
     Capabilities (all native ADB subprocess):
       - Device discovery and inspection

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/puppeteer/replay
 # Domain Layer  : Automation (Browser Replay)
-# Zero-Mock     : 100% Native — json, os, urllib, time, sqlite3
+# Zero-Prod     : 100% Native — json, os, urllib, time, sqlite3
 # ===========================================================================
 """
 Puppeteer Replay teaches us:
@@ -343,7 +343,7 @@ class FlowStore:
 
 class OmniReplayEngine:
     """
-    OMNI Replay Engine — Zero-Mock Browser Flow Recording & Replay.
+    OMNI Replay Engine — Zero-Prod Browser Flow Recording & Replay.
 
     Capabilities (all native stdlib):
       - Programmatic user flow building

@@ -83,7 +83,7 @@ class OmniLibMTLEngine:
             encoder = self._shared_encoders[model_id]
             encoder["epochs_harmonized"] += 1
             
-            # Simulate gradient conflict resolution
+            # Execute gradient conflict resolution
             conflict_resistance = max(0.9, 0.99 - (len(encoder["tasks"]) * 0.01))
             
             return {

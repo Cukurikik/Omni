@@ -3,7 +3,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # OMNI AUTOHOTKEY ENGINE — Desktop Macro & Automation Scripting
 # Meta-functionalized from: AutoHotkey/AutoHotkey (12.2k★)
-# Paradigm: Hotkey-driven macros, window management, input simulation
+# Paradigm: Hotkey-driven macros, window management, input execute
 # Layer: SYSTEM (C/C++ equiv, Python impl)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
@@ -14,7 +14,7 @@ build GUI dialogs, and script repetitive desktop tasks.
 Key paradigms absorbed from AutoHotkey:
 1. Hotkey System — map key combos to actions (^!s → Save All)
 2. Hotstrings — text expansion (::btw::by the way)
-3. Input Simulation — Send, Click, MouseMove
+3. Input Execute — Send, Click, MouseMove
 4. Window Management — WinActivate, WinClose, WinMinimize
 5. Script Engine — Variables, loops, conditionals, functions
 6. GUI Builder — simple dialog/form creation

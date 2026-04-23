@@ -19,7 +19,7 @@ class OmniStableBaselinesEngine:
 
     def initialize_gym_environment(self, environment_name: str) -> Dict[str, Any]:
         """
-        Locks a structured simulation environment for agent manipulation.
+        Locks a structured execute environment for agent manipulation.
         
         @param environment_name: String label identifying the gym domain (e.g. LunarLander).
         @returns Dict denoting structural state of environment loading.

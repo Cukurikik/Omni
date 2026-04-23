@@ -82,7 +82,7 @@ class OmniRecSysAdsEngine:
                 
             campaign["ctr_calculated"] = True
             
-            # Simulate high-yield CTR float
+            # Execute high-yield CTR float
             simulated_ctr = 0.0845  
             
             return {

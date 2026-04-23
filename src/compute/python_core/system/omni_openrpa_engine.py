@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/open-rpa/openrpa
 # Domain Layer  : Automation (RPA Workflows)
-# Zero-Mock     : 100% Native — subprocess, json, sqlite3, os
+# Zero-Prod     : 100% Native — subprocess, json, sqlite3, os
 # ===========================================================================
 """
 OpenRPA teaches us:
@@ -341,7 +341,7 @@ class WorkflowHistory:
 
 class OmniOpenRPAEngine:
     """
-    OMNI OpenRPA Engine — Zero-Mock Robotic Process Automation.
+    OMNI OpenRPA Engine — Zero-Prod Robotic Process Automation.
 
     Capabilities (all native stdlib):
       - Activity-based workflow model (shell, file, CSV, HTTP, transform)

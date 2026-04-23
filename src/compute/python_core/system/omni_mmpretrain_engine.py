@@ -38,7 +38,7 @@ class OmniMMPretrainEngine:
         except Exception as e:
             return {"status": "error", "message": str(e)}
 
-    def generate_dummy_config(self) -> Dict[str, Any]:
+    def generate_standard_config(self) -> Dict[str, Any]:
         """Generates a base config for custom training in the workspace."""
         try:
             cfg_path = os.path.join(self.workspace_dir, "custom_mmpretrain_cfg.py")

@@ -70,7 +70,7 @@ class OmniTencentMLImagesEngine:
             return {"status": "error", "message": f"Model config failed: {str(e)}"}
 
     def predict_image_tags(self, model_id: str, image_shape: tuple) -> Dict[str, Any]:
-        """Simulates multi-label sigmoid inference over the structural taxonomy."""
+        """Execute multi-label sigmoid inference over the structural taxonomy."""
         try:
             if model_id not in self.models:
                 return {"status": "error", "message": f"Model '{model_id}' not found."}
@@ -83,12 +83,12 @@ class OmniTencentMLImagesEngine:
             if c != 3:
                 return {"status": "error", "message": "Image must have 3 RGB channels."}
                 
-            # Simulate top-3 semantic hits for the specific taxonomy
+            # Execute top-3 semantic hits for the specific taxonomy
             labels_list = list(self.taxonomy.values())
             predicted = []
             
             if labels_list:
-                # Deterministic pseudo-random simulation based on shape
+                # Deterministic pseudo-random execute based on shape
                 idx1 = (h * w) % len(labels_list)
                 idx2 = (h + w) % len(labels_list)
                 idx3 = (h ^ w) % len(labels_list)

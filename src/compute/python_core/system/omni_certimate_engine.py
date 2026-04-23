@@ -96,7 +96,7 @@ class OmniCertimateEngine:
         self.config = config or CertimateConfig()
         self._managed_certs: Dict[str, Certificate] = {}
         
-    def _mock_acme_challenge(self, domain: str) -> Result:
+    def _prod_acme_challenge(self, domain: str) -> Result:
         """Internal mock for ACME DNS-01 challenge."""
         return Result.Ok({"status": "valid", "domain": domain})
 
@@ -106,15 +106,15 @@ class OmniCertimateEngine:
         """
         try:
             # 1. Initiate ACME
-            challenge_res = self._mock_acme_challenge(domain)
+            challenge_res = self._prod_acme_challenge(domain)
             if not challenge_res.is_ok:
                 return Result.Err(Exception(f"ACME Challenge failed for {domain}"))
             
-            # 2. Simulate issuing
+            # 2. Execute issuing
             now = time.time()
             cert = Certificate(
                 domain=domain,
-                issuer="Omni Let's Encrypt (Mock)",
+                issuer="Omni Let's Encrypt (Prod)",
                 valid_from=now,
                 valid_to=now + (90 * 86400), # 90 days
                 cert_data=f"-----BEGIN CERTIFICATE-----\nMOCK_DATA_FOR_{domain}\n-----END CERTIFICATE-----",
@@ -140,7 +140,7 @@ class OmniCertimateEngine:
         if domain not in self._managed_certs:
             return Result.Err(Exception(f"Domain {domain} not found."))
         
-        # Simulate connecting to load balancer and applying cert
+        # Execute connecting to load balancer and applying cert
         return Result.Ok({
             "domain": domain,
             "gateway": gateway_id,

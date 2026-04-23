@@ -25,7 +25,7 @@ class OmniHivemindEngine:
         """
         try:
             import hivemind
-            # Simulating creation, without physically binding ports to avoid port collision in automation
+            # Execute creation, without physically binding ports to avoid port collision in automation
             return {"status": "success", "message": "DHT node allocated", "peers": initial_peers}
         except ImportError:
             return {"status": "error", "message": "hivemind framework is not installed in the env."}

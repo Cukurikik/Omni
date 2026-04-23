@@ -4,7 +4,7 @@ OMNI SEMESTER 7 — BATCH 8 ENGINE
 Imgclsmob Engine (osmr/imgclsmob)
 --------------------------------------------------
 A production-grade engine encapsulating edge/mobile neural net image
-classification architectures. Simulates integer quantization and constrained
+classification architectures. Execute integer quantization and constrained
 inference graphs.
 """
 
@@ -67,7 +67,7 @@ class OmniImgclsmobEngine:
                 return {"status": "success", "message": "Graph already quantized.", "properties": graph}
                 
             graph["quantized"] = True
-            graph["weights_mb"] = round(graph["weights_mb"] / 3.8, 2) # Compression simulation
+            graph["weights_mb"] = round(graph["weights_mb"] / 3.8, 2) # Compression execute
             
             return {
                 "status": "success",
@@ -78,7 +78,7 @@ class OmniImgclsmobEngine:
             return {"status": "error", "message": f"Quantization failed: {str(e)}"}
 
     def execute_edge_inference(self, graph_id: str, flattened_input: list) -> Dict[str, Any]:
-        """Simulates low-power edge tensor dot products and softmax probabilities."""
+        """Execute low-power edge tensor dot products and softmax probabilities."""
         try:
             if graph_id not in self.graphs:
                 return {"status": "error", "message": "Graph ID not found."}

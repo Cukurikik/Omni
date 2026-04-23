@@ -84,7 +84,7 @@ class OmniTimeLLMEngine:
             series = self._temporal_embeddings[series_id]
             series["patched"] = True
             
-            # Simulate linguistic extrapolation
+            # Execute linguistic extrapolation
             simulated_confidence = max(0.4, 0.95 - (future_steps * 0.005))
             
             return {

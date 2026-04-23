@@ -36,7 +36,7 @@ class TestBatch15Semester6(unittest.TestCase):
         self.assertEqual(res_loss.__class__.__name__, "Ok")
         
     def test_gluonts_probabilistic_unroll(self):
-        """Test Recurrent Time Series Forecasting Mockup"""
+        """Test Recurrent Time Series Forecasting Produp"""
         # Linear sequence, prediction should follow trajectory
         ts_data = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=float)
         

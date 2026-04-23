@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/kalkih/mini-media-player
 # Domain Layer  : UI (Media Player Component)
-# Zero-Mock     : 100% Native — subprocess, json, os, re
+# Zero-Prod     : 100% Native — subprocess, json, os, re
 # ===========================================================================
 """
 mini-media-player teaches us:
@@ -218,7 +218,7 @@ class PlaylistGenerator:
 
 class OmniMiniMediaPlayerEngine:
     """
-    OMNI Mini Media Player Engine — Zero-Mock Media Playback & Metadata.
+    OMNI Mini Media Player Engine — Zero-Prod Media Playback & Metadata.
 
     Capabilities (all native subprocess):
       - Audio file metadata extraction via ffprobe

@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/vogler/free-games-claimer
 # Domain Layer  : Automation
-# Zero-Mock     : 100% Native — subprocess, urllib, json, sqlite3
+# Zero-Prod     : 100% Native — subprocess, urllib, json, sqlite3
 # ===========================================================================
 """
 free-games-claimer teaches us:
@@ -314,7 +314,7 @@ class ClaimHistory:
 
 class OmniFreeGamesClaimerEngine:
     """
-    OMNI Free Games Claimer Engine — Zero-Mock Digital Storefront Harvester.
+    OMNI Free Games Claimer Engine — Zero-Prod Digital Storefront Harvester.
 
     Capabilities (all native stdlib):
       - Epic Games Store free game polling (public API)

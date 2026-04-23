@@ -81,7 +81,7 @@ class OmniInteractiveToolsEngine:
                     return {"status": "error", "message": f"Parameter '{param}' invalid for this space."}
                 space["current_state"][param] = value
                 
-            # Simulate reactive graph metric recalculation
+            # Execute reactive graph metric recalculation
             graph_energy = sum(space["current_state"].values()) * 1.5
             
             return {

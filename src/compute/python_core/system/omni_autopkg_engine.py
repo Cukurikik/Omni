@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: https://github.com/autopkg/autopkg
 # Domain Layer  : System (Package Automation)
-# Zero-Mock     : 100% Native — subprocess, os, json, hashlib, sqlite3
+# Zero-Prod     : 100% Native — subprocess, os, json, hashlib, sqlite3
 # ===========================================================================
 """
 AutoPkg teaches us:
@@ -294,7 +294,7 @@ class PackageStore:
 
 class OmniAutoPkgEngine:
     """
-    OMNI AutoPkg Engine — Zero-Mock Software Package Automation.
+    OMNI AutoPkg Engine — Zero-Prod Software Package Automation.
 
     Capabilities (all native subprocess):
       - Installed software scanning (Windows registry)

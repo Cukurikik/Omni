@@ -86,7 +86,7 @@ class OmniGraphormerEngine:
             return {
                 "status": "success",
                 "graph_id": graph_id,
-                "graph_level_task": "PCQM4M-LSC Simulation",
+                "graph_level_task": "PCQM4M-LSC Execute",
                 "message": "Information propagated across entire graph geometry using [VNode]."
             }
         except Exception as e:

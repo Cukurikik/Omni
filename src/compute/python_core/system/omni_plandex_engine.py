@@ -4,7 +4,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # Source Paradigm: Plandex (https://github.com/plandex-ai/plandex)
 # Domain Layer  : Automation / Version Control
-# Zero-Mock     : 100% Native — difflib, os, shutil, sqlite3
+# Zero-Prod     : 100% Native — difflib, os, shutil, sqlite3
 # ===========================================================================
 """
 Plandex Paradigm:
