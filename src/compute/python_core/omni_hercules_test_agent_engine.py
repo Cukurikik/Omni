@@ -40,6 +40,7 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class StepType(Enum):
     """Type enumeration for StepType."""

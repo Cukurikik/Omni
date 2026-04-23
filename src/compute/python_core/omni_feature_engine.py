@@ -26,6 +26,7 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class FeatureEngineErr(Exception):
@@ -48,11 +49,13 @@ class FeatureEngineErr(Exception):
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -64,6 +67,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class MatrixTransformers:
+    """OMNI Zero-Prod Production Implementation for MatrixTransformers."""
     
     @staticmethod
     def impute_missing(data: np.ndarray, strategy: str = "mean") -> np.ndarray:

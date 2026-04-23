@@ -43,6 +43,7 @@ ENGINE_NAME: Final[str] = "OmniHowlerAudioEngine"
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AudioFormat(Enum):
     """Production-grade Audio Format component."""

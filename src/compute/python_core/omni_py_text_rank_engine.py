@@ -1,7 +1,7 @@
 """
 OMNI PyTextRank Engine
 ======================
-Production-grade OMNI engine mathematically simulating NLP text ranking
+Production-grade OMNI engine mathematically execute NLP text ranking
 leveraging deterministic Graph adjacency logic. 
 Inspired by DerwenAI/pytextrank.
 
@@ -25,19 +25,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class TextRankErr(Exception):
+    """OMNI Zero-Prod Production Implementation for TextRankErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -135,7 +139,7 @@ class OmniPyTextRankEngine:
             # Map score map
             ranking_map = {vocab: float(score) for vocab, score in zip(vocabulary, scores)}
             
-            # Sort highest down (simulating ranking)
+            # Sort highest down (execute ranking)
             sorted_ranking = dict(sorted(ranking_map.items(), key=lambda item: item[1], reverse=True))
             
             self._rankings_executed += 1

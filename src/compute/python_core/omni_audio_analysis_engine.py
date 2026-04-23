@@ -1,6 +1,7 @@
 import uuid
 import datetime
 from typing import Dict, Any, Optional
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class OmniAudioAnalysisEngine:
     """
@@ -25,7 +26,7 @@ class OmniAudioAnalysisEngine:
         }
 
     def bound_feature_extraction_matrix(self, total_frames: int, mfcc_coefficients: int, chroma_bins: int = 12) -> Dict[str, Any]:
-        """Monadically records DSP Numpy mapping limits simulating mathematical frequency abstractions identically."""
+        """Monadically records DSP Numpy mapping limits execute mathematical frequency abstractions identically."""
         if not self.is_active:
             return {"status": "error", "message": "Engine inactive"}
             

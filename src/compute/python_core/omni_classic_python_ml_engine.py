@@ -1,7 +1,7 @@
 """
 OMNI Classic Python ML Engine
 =============================
-Production-grade OMNI engine mathematically simulating basic
+Production-grade OMNI engine mathematically execute basic
 Classical Machine Learning architectures (K-Nearest Neighbors).
 Inspired by Tanu-N-Prabhu/Python.
 
@@ -25,19 +25,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class ClassicMLErr(Exception):
+    """OMNI Zero-Prod Production Implementation for ClassicMLErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 

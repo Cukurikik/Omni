@@ -22,6 +22,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AlanErr(Exception):
     """Base error for Alan Web engine."""
@@ -59,12 +60,12 @@ class ButtonState:
     SPEAK = "speak"
 
 
-class AlanProtocolMock:
+class AlanProtocolProd:
     """
     Determinative State Machine mimicking an Alan AI client-side lifecycle.
     """
     def __init__(self, key: str):
-        """Initialize AlanProtocolMock."""
+        """Initialize AlanProtocolProd."""
         self.key = key
         self.conn_state = ConnectionState.DISCONNECTED
         self.btn_state = ButtonState.IDLE
@@ -75,7 +76,7 @@ class AlanProtocolMock:
         self.event_log.append(evt)
 
     def connect(self) -> Result:
-        """Execute connect operation for AlanProtocolMock."""
+        """Execute connect operation for AlanProtocolProd."""
         if not self.key:
             return Err("Missing project key for secure handshake.")
         self.conn_state = ConnectionState.CONNECTED
@@ -83,7 +84,7 @@ class AlanProtocolMock:
         return Ok(True)
 
     def authorize(self) -> Result:
-        """Execute authorize operation for AlanProtocolMock."""
+        """Execute authorize operation for AlanProtocolProd."""
         if self.conn_state != ConnectionState.CONNECTED:
             return Err("Cannot authorize. Socket disconnected.")
         self.conn_state = ConnectionState.AUTHORIZED
@@ -91,7 +92,7 @@ class AlanProtocolMock:
         return Ok(True)
 
     def set_visual_state(self, state: Dict[str, Any]) -> Result:
-        """Execute set visual state operation for AlanProtocolMock."""
+        """Execute set visual state operation for AlanProtocolProd."""
         if self.conn_state != ConnectionState.AUTHORIZED:
             return Err("Must be authorized to synchronize graphical context.")
         self.visual_state = state
@@ -99,7 +100,7 @@ class AlanProtocolMock:
         return Ok(True)
 
     def emit_voice_command(self, payload: str) -> Result:
-        """Execute emit voice command operation for AlanProtocolMock."""
+        """Execute emit voice command operation for AlanProtocolProd."""
         if self.conn_state != ConnectionState.AUTHORIZED:
              return Err("Unauthorized client interaction attempt.")
         
@@ -115,7 +116,7 @@ class AlanProtocolMock:
         return Ok(True)
 
     def play_tts(self, text: str) -> Result:
-        """Execute play t t s operation for AlanProtocolMock."""
+        """Execute play t t s operation for AlanProtocolProd."""
         if self.conn_state != ConnectionState.AUTHORIZED:
              return Err("Unauthorized client TTS relay.")
         
@@ -138,13 +139,13 @@ class OmniAlanSdkWebEngine:
 
     def __init__(self):
         """Initialize OmniAlanSdkWebEngine."""
-        self.instances: Dict[str, AlanProtocolMock] = {}
+        self.instances: Dict[str, AlanProtocolProd] = {}
 
     def create_instance(self, key: str) -> Result:
         """Performs create instance operation for OmniAlanSdkWebEngine."""
         if key in self.instances:
             return Err(f"Instance with key {key} already mounted.")
-        protocol = AlanProtocolMock(key)
+        protocol = AlanProtocolProd(key)
         self.instances[key] = protocol
         return Ok(protocol)
 

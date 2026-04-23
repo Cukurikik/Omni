@@ -9,6 +9,7 @@ import uuid
 import datetime
 import json
 from typing import Dict, Any, Optional, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class OmniSpacyModelsEngine:

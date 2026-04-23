@@ -67,6 +67,7 @@ BLOCK_ELEMENTS: Final[set] = {
 # ============================================================================
 # 1. HTML Cleaner
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class HTMLCleaner:
     """

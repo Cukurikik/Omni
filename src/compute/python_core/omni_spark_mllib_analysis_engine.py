@@ -23,13 +23,16 @@ from typing import Dict, Any, Tuple
 from dataclasses import dataclass
 import numpy as np
 import time
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 @dataclass
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 Result = Ok | Err

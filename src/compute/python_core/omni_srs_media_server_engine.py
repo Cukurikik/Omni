@@ -41,6 +41,7 @@ ENGINE_NAME: Final[str] = "OmniSRSMediaServerEngine"
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class StreamProtocol(Enum):
     """Production-grade Stream Protocol component."""

@@ -49,6 +49,7 @@ ENGINE_NAME: Final[str] = "OmniVirtualAudioDriverEngine"
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ChannelConfig(Enum):
     """Configuration container for ChannelConfig."""

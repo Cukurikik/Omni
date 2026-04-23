@@ -35,6 +35,7 @@ from typing import Any, Dict, Final, List, Optional, Tuple
 
 ENGINE_VERSION: Final[str] = "1.0.0"
 ENGINE_NAME: Final[str] = "OmniSocialUploaderEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class Platform(Enum):

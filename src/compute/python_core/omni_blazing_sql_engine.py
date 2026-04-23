@@ -6,7 +6,7 @@ Inspired by BlazingDB/blazingsql.
 
 Features:
 - Pure Array bounding dictionary checks.
-- Compile string definitions extracting numerical filters simulating SQL Where evaluations.
+- Compile string definitions extracting numerical filters execute SQL Where evaluations.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
 OMNI Layer: compute (Python)
@@ -22,19 +22,23 @@ from typing import Any, Dict, List, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class BlazingSqlErr(Exception):
+    """OMNI Zero-Prod Production Implementation for BlazingSqlErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -51,7 +55,7 @@ class SqlLogicCompiler:
     @staticmethod
     def compile_query_filter(data_table: List[Dict[str, Any]], column_target: str, operator: str, comparative_value: float) -> List[Dict[str, Any]]:
         """
-        Geometrically assesses filters simulating blazingsql where operators.
+        Geometrically assesses filters execute blazingsql where operators.
         e.g: "x > 50" -> Evaluates matrix returning bounded true subset array.
         """
         results = []
@@ -92,7 +96,7 @@ class SqlLogicCompiler:
 
 class OmniBlazingSqlEngine:
     """
-    Production Engine mapping high velocity vector compilations simulating SQL filters.
+    Production Engine mapping high velocity vector compilations execute SQL filters.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-blazingsql"

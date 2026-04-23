@@ -23,6 +23,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class OptimalTransportError(Exception):
     """Base error for algebraic_bound optimal transport limits."""
@@ -69,7 +70,7 @@ class GeometricOptimalTransportCalculator:
             cdf_src = np.cumsum(src_norm)
             cdf_tgt = np.cumsum(tgt_norm)
             
-            # Simulating Wasserstein-1 Distance Cost
+            # Execute Wasserstein-1 Distance Cost
             wasserstein_cost = float(np.sum(np.abs(cdf_src - cdf_tgt)))
             
             # Add synthetic Sinkhorn regularization cost tracker

@@ -29,6 +29,7 @@ ENGINE_NAME: str = "OmniTfDeepLearningEngine"
 # ---------------------------------------------------------------------------
 # Monadic Result Types
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Ok:
     """Success result wrapper.

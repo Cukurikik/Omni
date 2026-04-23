@@ -45,6 +45,7 @@ COCO_KEYPOINT_NAMES: List[str] = [
 ]
 
 # Limb connections (pairs of keypoint indices that form bones)
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 SKELETON_PAIRS: List[Tuple[int, int]] = [
     (0, 1), (1, 2), (2, 3), (3, 4),       # Nose → Neck → RShoulder → RElbow → RWrist
     (1, 5), (5, 6), (6, 7),                 # Neck → LShoulder → LElbow → LWrist

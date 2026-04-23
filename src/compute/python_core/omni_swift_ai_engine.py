@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniSwiftAiEngine:
     """
     omni-swift-ai
     
-    A zero-algebraic_bound native engine simulating fast mathematical deep learning networks structurally.
+    A zero-algebraic_bound native engine execute fast mathematical deep learning networks structurally.
     Replicates Dense forward matrix propagation, evaluating native linear products bound by 
     deterministic non-linear algebraic activations (paralleling Swift-AI core capabilities).
     """

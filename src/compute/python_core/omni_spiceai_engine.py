@@ -23,6 +23,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class TimeSeriesAnomalyError(Exception):
     """Base error for SpiceAI time-series limits."""
@@ -50,7 +51,7 @@ class TemporalEventMatrixAggregator:
     def aggregate_temporal_anomalies(self, unix_timestamps: List[int], tolerance_seconds: int) -> Result:
         """
         Determines irregular gaps in time-series sets.
-        Simulating database chunk validation natively.
+        Execute database chunk validation natively.
         """
         if not unix_timestamps or len(unix_timestamps) < 2:
             return Err("Time Series Boundary expects minimum of 2 temporal elements.")

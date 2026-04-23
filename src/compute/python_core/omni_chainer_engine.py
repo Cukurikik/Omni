@@ -27,6 +27,7 @@ Vector = List[float]
 # ---------------------------------------------------------------------------
 # Autograd — Variable with operator overloading
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Variable:
     """Dynamic variable with automatic differentiation.

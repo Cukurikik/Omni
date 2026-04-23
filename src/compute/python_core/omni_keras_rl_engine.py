@@ -21,6 +21,7 @@ from rl.memory import SequentialMemory
 
 ENGINE_VERSION = "1.0.0-omni"
 ENGINE_NAME = "OmniKerasRlEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class OmniKerasRlEngine:

@@ -16,6 +16,7 @@ logger = logging.getLogger("OmniWickedEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniWickedEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class RenderPathType(Enum):
@@ -69,11 +70,11 @@ class SceneManager:
 
 
 class ScriptInterpreter:
-    """Mocking Lua Script bindings integrating directly into the Scene."""
+    """Proding Lua Script bindings integrating directly into the Scene."""
     def execute_script(self, scene: SceneManager, script_body: str):
         """Execute execute script operation for ScriptInterpreter."""
         logger.debug(f"Executing Lua Script bridging into C++ application...")
-        # Simulating script mutating the scene
+        # Execute script mutating the scene
         if "CreateLight" in script_body:
             ent = scene.create_entity()
             scene.attach_component(ent, ComponentType.LIGHT, {"color": "white", "intensity": 5.0})

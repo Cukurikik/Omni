@@ -8,6 +8,7 @@ OMNI Layer: compute (Python)
 import numpy as np
 from typing import Dict, Any, List, Optional
 from collections import Counter
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -41,7 +42,7 @@ class OmniMlFoundationsEngine:
     """
     omni-ml-foundations
     
-    A zero-algebraic_bound native engine simulating foundational ML techniques like 
+    A zero-algebraic_bound native engine execute foundational ML techniques like 
     Decision Trees and Random Forest ensembling via pure recursive NumPy functions.
     Optimizes for Information Gain using Gini Impurity.
     """

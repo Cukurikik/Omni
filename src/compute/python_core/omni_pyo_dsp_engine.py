@@ -29,6 +29,7 @@ from typing import Dict, List, Optional, Any
 logger = logging.getLogger("OmniPyoDSPEngine")
 
 # --- Monadic Error Definition ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class PyoDSPError:
@@ -84,7 +85,7 @@ class PyoDSPResult:
 
 
 class PyoAudioObject:
-    """Base generic simulating Pyo's c-extension audio matrices"""
+    """Base generic execute Pyo's c-extension audio matrices"""
     def __init__(self):
         """Initialize PyoAudioObject."""
         self.output_buffer: List[float] = []
@@ -115,6 +116,14 @@ class OmniSineOscillator(PyoAudioObject):
             self.phase += self.phase_inc
             if self.phase > 2.0 * math.pi:
                 self.phase -= 2.0 * math.pi
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniSineOscillator", "version": "1.0.0", "status": "operational"}
 
 
 class OmniPyoDSPEngine:

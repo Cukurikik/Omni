@@ -1,7 +1,7 @@
 """
 OMNI NannyML Engine
 ===================
-Production-grade OMNI engine mathematically simulating Data Drift tracking.
+Production-grade OMNI engine mathematically execute Data Drift tracking.
 Inspired by NannyML/nannyml.
 
 Features:
@@ -24,19 +24,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class NannyMLErr(Exception):
+    """OMNI Zero-Prod Production Implementation for NannyMLErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 

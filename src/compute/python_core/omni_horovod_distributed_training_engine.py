@@ -23,6 +23,7 @@ from typing import Dict, Any
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniHorovodDistributedTrainingEngine")
 
@@ -34,7 +35,7 @@ class OmniHorovodDistributedTrainingEngine:
     def __init__(self):
         """Initialize OmniHorovodDistributedTrainingEngine."""
         logger.info("[OmniHorovod] Distributed Ring-AllReduce Engine online. MPI initialized.")
-        self.world_size = 4 # Mocking 4 GPUs
+        self.world_size = 4 # Proding 4 GPUs
         self.rank = 0
 
     def synchronize_gradients(self, local_gradients: list) -> Dict[str, Any]:

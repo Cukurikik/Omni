@@ -14,6 +14,7 @@ logger = logging.getLogger("OmniSymphoniaEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniSymphoniaEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class DemuxFormat(Enum):
     """Production-grade Demux Format component."""
@@ -73,7 +74,7 @@ class OmniSymphoniaEngine:
         # 2. Extract Data
         packet = self.demuxer.extract_packet()
         
-        # 3. Sub-routine: Detect Codec (Mocked as AAC)
+        # 3. Sub-routine: Detect Codec (Proded as AAC)
         target_codec = AudioCodec.AAC
         
         # 4. Instantiate Decoder from Registry

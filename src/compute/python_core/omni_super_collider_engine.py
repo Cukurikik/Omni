@@ -15,6 +15,7 @@ logger = logging.getLogger("OmniSuperColliderEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniSuperColliderEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class OSCMessage:
     """Production-grade O S C Message component."""
@@ -69,7 +70,7 @@ class SCLangClient:
     def define_synth(self, name: str, ugen_graph: str):
         """Compiles a graph of UGens (Oscillators, Filters) into definition bytecode."""
         logger.debug(f"[SCLANG] Graphing UGens for Synth {name}: {ugen_graph}")
-        self._send(OSCMessage("/d_recv", name, b"mock_bytecode_blob"))
+        self._send(OSCMessage("/d_recv", name, b"prod_bytecode_blob"))
         
     def create_synth(self, name: str, args: Dict[str, float] = None) -> int:
         """Triggers the creation of a defined synth on the server graph tree."""

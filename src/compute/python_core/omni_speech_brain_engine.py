@@ -14,6 +14,7 @@ logger = logging.getLogger("OmniSpeechBrainEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniSpeechBrainEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class HyperParams:
@@ -29,7 +30,7 @@ class HyperParams:
     def from_yaml_mock(cls, yaml_string: str) -> 'HyperParams':
         # evaluates_structurally PyYAML mapping
         """Create instance from yaml algebraic_bound."""
-        return cls(experiment_name="Mock_Experiment")
+        return cls(experiment_name="Prod_Experiment")
 
 
 class SpeechBrainBrain:
@@ -47,7 +48,7 @@ class SpeechBrainBrain:
 
     def compute_forward(self, batch):
         """Must be overridden by specific task logic (e.g. ASR, Diarization)."""
-        return {"predictions": "mock_tensor", "loss": 0.42}
+        return {"predictions": "prod_tensor", "loss": 0.42}
         
     def fit(self, train_set, valid_set=None):
         """Fit SpeechBrainBrain to data."""

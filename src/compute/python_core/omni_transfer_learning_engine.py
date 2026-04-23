@@ -23,6 +23,7 @@ import numpy as np
 
 ENGINE_VERSION: str = "1.0.0-omni"
 ENGINE_NAME: str = "OmniTransferLearningEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class Result:

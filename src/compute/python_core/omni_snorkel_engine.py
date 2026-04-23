@@ -34,6 +34,7 @@ NEGATIVE = 0
 
 
 # ── Native Labeling Functions ────────────────────────────────────────
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 def _lf_keyword_positive(x: pd.Series) -> int:
     """Labels positive if feature_0 exceeds threshold."""
     return POSITIVE if x["feature_0"] > 0.5 else ABSTAIN

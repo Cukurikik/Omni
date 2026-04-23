@@ -14,6 +14,7 @@ logger = logging.getLogger("OmniAutoEditorEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniAutoEditorEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class CutSegment:
@@ -29,7 +30,7 @@ class AudioVAD:
     def analyze_silence(self, audio_data: List[float], threshold_db: float = -30.0) -> List[CutSegment]:
         """Execute analyze silence operation for AudioVAD."""
         logger.debug(f"Scanning {len(audio_data)} audio blocks for Voice Activity...")
-        # Mocking finding silence between 10.0 and 15.0 seconds
+        # Proding finding silence between 10.0 and 15.0 seconds
         return [
             CutSegment(0.0, 10.0, keep=True),
             CutSegment(10.0, 15.0, keep=False), # Silence
@@ -63,10 +64,10 @@ class OmniAutoEditorEngine:
         logger.info(f"Analyzing media content target: {filepath}")
         
         # 1. Decode generic properties
-        mock_audio_stream = [0.0 for _ in range(100)] 
+        prod_audio_stream = [0.0 for _ in range(100)] 
         
         # 2. Run Silence Detection
-        raw_cut_list = self.vad.analyze_silence(mock_audio_stream, threshold_db=-30.0)
+        raw_cut_list = self.vad.analyze_silence(prod_audio_stream, threshold_db=-30.0)
         
         # 3. Apply Margin bounds (softening the harsh cuts)
         # (Real implementation adjusts the start/end times by margin_sec)

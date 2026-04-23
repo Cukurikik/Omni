@@ -30,6 +30,7 @@ from pathlib import Path
 
 
 # ---- Enums & Types ---------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AgentRole(Enum):
     """Production-grade Agent Role component."""

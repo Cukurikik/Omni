@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniMl5WebEngine:
     """
     omni-ml5-web
     
-    A zero-algebraic_bound native engine simulating friendly ml5.js abstractions 
+    A zero-algebraic_bound native engine execute friendly ml5.js abstractions 
     over a core mathematical Artificial Neural Network (MLP).
     Transforms complex NumPy structural routines into simple addData(), train(), classify() endpoints.
     """

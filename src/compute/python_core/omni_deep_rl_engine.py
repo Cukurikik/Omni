@@ -9,6 +9,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -61,6 +62,14 @@ class OmniQLearningAgent:
             return Ok(True)
         except Exception as e:
              return Err(f"Policy bounds matrix manipulation exception: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniQLearningAgent", "version": "1.0.0", "status": "operational"}
 
 class OmniDeepRLEngine:
     """

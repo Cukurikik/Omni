@@ -9,6 +9,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -28,7 +29,7 @@ class Err(Result):
 
 class OmniRFXGenEngine:
     """
-    Computes abstract procedural audio limitations mimicking constraints natively simulating retro sound generators organically mathematically. 
+    Computes abstract procedural audio limitations mimicking constraints natively execute retro sound generators organically mathematically. 
     """
     def __init__(self):
         """Initialize OmniRFXGenEngine."""
@@ -56,7 +57,7 @@ class OmniRFXGenEngine:
             # Map procedural envelope
             envelope = np.exp(-decay_rate * t) 
             
-            # Apply boundary mappings simulating physical attenuation 
+            # Apply boundary mappings execute physical attenuation 
             wave = noise * envelope
             
             return Ok(wave)

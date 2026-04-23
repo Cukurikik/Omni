@@ -3,7 +3,7 @@ OMNI Image Super Resolution Engine
 ==================================
 Production-grade abstraction inspired by idealo/image-super-resolution (ISR).
 Implements a mathematical Kernel Convolution-based architecture
-simulating edge-preserving spatial upscaling via NumPy matrices.
+execute edge-preserving spatial upscaling via NumPy matrices.
 
 OMNI Layer: compute (Python)
 """
@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ISRError(Exception):
     """Base error for ISR engine."""

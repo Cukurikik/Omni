@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniXlnetEngine:
     """
     omni-xlnet
     
-    A zero-algebraic_bound native engine simulating Permutation Language Modeling (PLM) architectures.
+    A zero-algebraic_bound native engine execute Permutation Language Modeling (PLM) architectures.
     Implements a strict Two-Stream Self-Attention abstraction projecting Query and Content 
     streams over factorized random permutation masks natively in NumPy.
     """

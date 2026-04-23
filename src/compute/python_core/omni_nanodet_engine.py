@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniNanodetEngine:
     """
     omni-nanodet
     
-    A zero-algebraic_bound native engine simulating NanoDet's explicit Anchor-Free detection framework.
+    A zero-algebraic_bound native engine execute NanoDet's explicit Anchor-Free detection framework.
     Maps generalized Intersection over Union (GIoU) mathematically to evaluate
     box regressor offsets utilizing a topological center-based spatial mapping.
     """

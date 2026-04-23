@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniSmileMlEngine:
     """
     omni-smile-ml
     
-    A zero-algebraic_bound native engine simulating core Statistical Machine Intelligence.
+    A zero-algebraic_bound native engine execute core Statistical Machine Intelligence.
     Focuses on a pure implementation of a Support Vector Machine (SVM) using 
     Sequential Minimal Optimization (SMO) traversing structural margin limits.
     """

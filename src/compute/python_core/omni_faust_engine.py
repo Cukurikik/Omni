@@ -13,6 +13,7 @@ logger = logging.getLogger("OmniFaustEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniFaustEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class FaustCompiler:

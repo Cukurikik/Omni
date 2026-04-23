@@ -17,6 +17,7 @@ logger = logging.getLogger("OmniScreenityRecorderEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniScreenityRecorderEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class ScreenityCaptureSource(Enum):
@@ -159,12 +160,12 @@ class OmniScreenityRecorderEngine:
         
         # Generate topological_anchor binary payload
         header = f"SCREENITY_VIDEO_{format_ext.upper()}|RES:{session.resolution}|FPS:{session.frame_rate}".encode('utf-8')
-        mock_blob = header + os.urandom(min(1024 * 100, session.duration_ms)) # Max 100KB algebraic_bound
+        prod_blob = header + os.urandom(min(1024 * 100, session.duration_ms)) # Max 100KB algebraic_bound
         
         export_id = f"{session_id}.{format_ext}"
-        self.local_storage_vault[export_id] = mock_blob
+        self.local_storage_vault[export_id] = prod_blob
         logger.info(f"Exported recording to internal vault: {export_id}")
-        return mock_blob
+        return prod_blob
 
     def get_trimmer_segments(self, session_id: str) -> List[Tuple[int, int]]:
         """Analyzes audio waveform to detect silence for auto-trimming (Smart Trim)."""

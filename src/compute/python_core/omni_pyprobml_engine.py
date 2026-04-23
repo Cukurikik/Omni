@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Optional
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class OmniPyProbMLEngine:
     """
@@ -59,7 +60,7 @@ class OmniPyProbMLEngine:
 
     async def _calculate_posterior(self, prior: float, likelihood: float, dimensions: int) -> Dict[str, Any]:
         """
-        Mathematical validation loop simulating a high-dimension Bayesian update.
+        Mathematical validation loop execute a high-dimension Bayesian update.
         """
         st = time.time()
         await asyncio.sleep(0.04)

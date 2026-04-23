@@ -1,13 +1,13 @@
 # ===========================================================================
 # OMNI REALTIME CLONING ENGINE (SEMESTER 5 — BATCH 10)
 # ===========================================================================
-# Absorbed From  : babysor/MockingBird
+# Absorbed From  : babysor/ProdingBird
 # Logic Inherited: Compute Layer (Real-time sub-50ms voice cloning math)
 # ===========================================================================
 #
-# By studying MockingBird, Mother learned:
+# By studying ProdingBird, Mother learned:
 #   1. Classic TTS (like VITS or Tacotron) prioritizes extreme fidelity, which causes lag.
-#   2. "MockingBird" architecture is built for rapid inferencing (speaker adaptation) in under 5 seconds 
+#   2. "ProdingBird" architecture is built for rapid inferencing (speaker adaptation) in under 5 seconds 
 #      and instantaneous synthesis, heavily used in real-time streaming and VTubers.
 #   3. OMNI Architecture: Mimic extreme fast-path mel-spectrogram inversion.
 #
@@ -25,12 +25,13 @@ import time
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniRealtimeCloningEngine")
 
 class OmniRealtimeCloningEngine:
     """
-    Manages ultra-fast Voice Cloning algorithms (MockingBird style).
+    Manages ultra-fast Voice Cloning algorithms (ProdingBird style).
     Sacrifices <5% fidelity for sub-50ms initial audio packet latency.
     """
 
@@ -41,7 +42,7 @@ class OmniRealtimeCloningEngine:
         self._synthesizer_mock = "loaded_mockingbird_synthesizer"
         self._vocoder_mock = "loaded_mockingbird_vocoder"
         self.use_half_precision = use_half_precision
-        logger.info("[OmniRealtimeCloning] MockingBird Engine online. Modes: Half-precision={}".format(use_half_precision))
+        logger.info("[OmniRealtimeCloning] ProdingBird Engine online. Modes: Half-precision={}".format(use_half_precision))
 
     def _simulate_fast_melspectrogram(self, text: str) -> List[float]:
         """
@@ -67,7 +68,7 @@ class OmniRealtimeCloningEngine:
         mel_spectrogram = self._simulate_fast_melspectrogram(text_to_speak)
         
         # 3. Mel to Waveform (Vocoder) 
-        # MockingBird uses fast customized vocoders (like MB-MelGAN or HiFi-GAN tuned).
+        # ProdingBird uses fast customized vocoders (like MB-MelGAN or HiFi-GAN tuned).
         resolved_waveform = [m * 0.9 for m in mel_spectrogram]
         
         end_time = time.time()
@@ -90,7 +91,7 @@ class OmniRealtimeCloningEngine:
             "layer": "Compute",
             "status": "healthy",
             "capabilities": ["0-Shot Timbre Extraction", "Sub-50ms Mel Generation"],
-            "learned_from": "babysor/MockingBird"
+            "learned_from": "babysor/ProdingBird"
         }
 
     def diagnostics(self):

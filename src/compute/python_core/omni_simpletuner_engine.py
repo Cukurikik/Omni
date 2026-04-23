@@ -2,7 +2,7 @@
 OMNI SimpleTuner Engine
 =======================
 Production-grade abstraction inspired by bghira/SimpleTuner.
-Mocking stable diffusion / Lora fine-tuning memory boundaries.
+Proding stable diffusion / Lora fine-tuning memory boundaries.
 Uses purely mathematical geometric sequences instead of raw VRAM allocations.
 
 OMNI Layer: compute (Python)
@@ -23,6 +23,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class VRAMBoundaryError(Exception):
     """Base error for tensor allocation out of bindings."""

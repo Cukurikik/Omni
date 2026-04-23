@@ -24,19 +24,23 @@ from typing import Any, Dict, List, Optional, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class SageMakerErr(Exception):
+    """OMNI Zero-Prod Production Implementation for SageMakerErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -49,6 +53,7 @@ Result = Union[Ok, Err]
 
 @dataclass
 class EstimatorConfig:
+    """OMNI Zero-Prod Production Implementation for EstimatorConfig."""
     role: str
     instance_count: int
     instance_type: str
@@ -57,6 +62,7 @@ class EstimatorConfig:
 
 @dataclass
 class EndpointState:
+    """OMNI Zero-Prod Production Implementation for EndpointState."""
     endpoint_name: str
     model_s3_uri: str
     status: str = "InService"

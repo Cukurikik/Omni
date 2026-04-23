@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniDailyCvEngine:
     """
     omni-daily-cv
     
-    A zero-algebraic_bound native engine simulating SOTA CV pipelines, specifically
+    A zero-algebraic_bound native engine execute SOTA CV pipelines, specifically
     implementing the underlying mathematics of a Vision Transformer (ViT).
     Features Patch Embedding and Multi-Head Self-Attention in pure NumPy.
     """

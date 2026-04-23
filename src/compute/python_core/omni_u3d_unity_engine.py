@@ -39,6 +39,7 @@ ENGINE_NAME: Final[str] = "OmniU3DUnityEngine"
 # ============================================================================
 # 1. Unity Version Model
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ReleaseType(Enum):
     """Type enumeration for ReleaseType."""

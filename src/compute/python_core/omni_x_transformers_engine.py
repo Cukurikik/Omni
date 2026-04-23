@@ -28,6 +28,7 @@ ENGINE_NAME: str = "OmniXTransformersEngine"
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class NormType(Enum):
     """Normalization type selection."""

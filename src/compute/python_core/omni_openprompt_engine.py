@@ -10,6 +10,7 @@ import re
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -47,6 +48,14 @@ class OmniVerbalizer:
         except Exception as e:
             return Err(f"Failed decoding verbalization probabilities: {str(e)}")
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniVerbalizer", "version": "1.0.0", "status": "operational"}
+
 class OmniPromptTemplate:
     """Structures native string logic bypassing external graph allocations natively tracking token gaps."""
     def __init__(self, template_str: str):
@@ -64,6 +73,14 @@ class OmniPromptTemplate:
              return Ok(processed)
         except Exception as e:
              return Err(f"Text constraint formatting failed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniPromptTemplate", "version": "1.0.0", "status": "operational"}
 
 
 class OmniOpenPromptEngine:

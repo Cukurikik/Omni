@@ -16,6 +16,7 @@ from strands_agents import Thread, Message
 
 ENGINE_VERSION = "1.0.0-omni"
 ENGINE_NAME = "OmniStrandsAgentsEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class OmniStrandsAgentsEngine:

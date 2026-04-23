@@ -24,6 +24,7 @@ ENGINE_VERSION = "1.0.0-omni"
 logger = logging.getLogger("OmniMusicTaxonomyEngine")
 
 # --- Monadic Error Definition ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class TaxonomyError:

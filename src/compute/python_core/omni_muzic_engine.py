@@ -9,6 +9,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -57,6 +58,14 @@ class OmniMuzicSequenceMapper:
             return Ok(np.round(ticks).astype(int))
         except Exception as e:
             return Err(f"Alignment grid mapping constraint hit: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniMuzicSequenceMapper", "version": "1.0.0", "status": "operational"}
 
 class OmniMuzicEngine:
     """

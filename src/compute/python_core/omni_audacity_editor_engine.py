@@ -17,6 +17,7 @@ logger = logging.getLogger("OmniAudacityEditorEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniAudacityEditorEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AudioSampleFormat(Enum):
     """Production-grade Audio Sample Format component."""
@@ -33,7 +34,7 @@ class AudacityBlockFile:
     min_val: float = -1.0
     max_val: float = 1.0
     rms_val: float = 0.5
-    data_ref: str = "mock_disk_pointer" # Points to underlying AU file
+    data_ref: str = "prod_disk_pointer" # Points to underlying AU file
 
 
 @dataclass

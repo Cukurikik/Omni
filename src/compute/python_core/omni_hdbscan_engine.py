@@ -23,6 +23,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class DensityClusterError(Exception):
     """Base error for algebraic_bound hierarchical density abstractions."""

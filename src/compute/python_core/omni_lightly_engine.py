@@ -24,6 +24,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ContrastiveLearningError(Exception):
     """Base error for Self-Supervised metric abstractions."""
@@ -62,7 +63,7 @@ class ContrastiveLossCalculator:
     def evaluate_batch_loss(self, z_i: np.ndarray, z_j: np.ndarray) -> Result:
         """
         evaluates_structurally normalized NT-Xent similarity bounds for exactly two augmented views.
-        Requires 1D vector abstractions of identical dimension size simulating batch=1 embedding.
+        Requires 1D vector abstractions of identical dimension size execute batch=1 embedding.
         """
         if z_i.shape != z_j.shape or z_i.ndim != 1:
             return Err("Embedding bounds topology requires uniformly shaped 1D vectors.")

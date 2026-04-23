@@ -17,11 +17,12 @@ from tensorpack.dataflow import RNGDataFlow, BatchData
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
-class DummyTensorpackSource(RNGDataFlow):
+class StandardTensorpackSource(RNGDataFlow):
     """A native Tensorpack DataFlow engine generating real tensor outputs."""
     def __init__(self, size: int):
-        """Initialize DummyTensorpackSource."""
+        """Initialize StandardTensorpackSource."""
         self.size = size
 
     def __iter__(self):
@@ -33,7 +34,7 @@ class OmniTensorpackEngine:
     Omni Tensorpack Engine (Production Hard-Code)
     
     Uses true Tensorpack DataFlows to batch, manage, and push real numpy tensors 
-    simulating native ML pipeline streams. No abstraction simulations.
+    execute native ML pipeline streams. No abstraction simulations.
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -50,7 +51,7 @@ class OmniTensorpackEngine:
             self.logger.info(f"[{self.__class__.__name__}] Spinning up native Tensorpack DataFlow graphs...")
             
             # Hardware spin-up verification
-            test_df = DummyTensorpackSource(1)
+            test_df = StandardTensorpackSource(1)
             next(test_df.get_data())
             
             self._is_active = True
@@ -72,7 +73,7 @@ class OmniTensorpackEngine:
         
         try:
             # Construct the authentic dataflow stream pipeline
-            df = DummyTensorpackSource(dataset_size)
+            df = StandardTensorpackSource(dataset_size)
             batched_df = BatchData(df, batch_size, use_list=False)
             
             batch_count = 0

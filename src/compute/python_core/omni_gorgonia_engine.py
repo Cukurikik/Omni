@@ -32,6 +32,7 @@ ENGINE_VERSION = "1.0.0-omni"
 _GORGONIA_GO_SRC = r'''package main
 
 import (
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 	"encoding/json"
 	"fmt"
 	"log"

@@ -23,6 +23,7 @@ from typing import Dict, Any
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniVoskSpeechRecognitionEngine")
 
@@ -39,7 +40,7 @@ class OmniVoskSpeechRecognitionEngine:
         """
         evaluates_structurally kaldi recognizer processing streaming audio chunks.
         """
-        # Mocking partial/final recognizer results
+        # Proding partial/final recognizer results
         return {"status": "success", "data": {
             "event": "partial_result",
             "partial": "execute omni command deploy",

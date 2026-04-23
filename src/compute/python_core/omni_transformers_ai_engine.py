@@ -46,6 +46,7 @@ ENGINE_NAME: Final[str] = "OmniTransformersAIEngine"
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ModelArchitecture(Enum):
     """Production-grade Model Architecture component."""
@@ -535,6 +536,14 @@ class OmniTokenizer:
             "special_tokens": len(self._special_tokens),
         }
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniTokenizer", "version": "1.0.0", "status": "operational"}
+
 
 # ============================================================================
 # 4. Pipeline System
@@ -704,6 +713,14 @@ class OmniPipeline:
         """Convert to dict representation."""
         return {"task": self.task.value, "model": self.model_id,
                 "device": self.device.value, "calls": self._call_count}
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniPipeline", "version": "1.0.0", "status": "operational"}
 
 
 # ============================================================================

@@ -59,6 +59,7 @@ T = TypeVar("T")
 # =============================================================================
 # Section 1: Monadic Error Handling
 # =============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass(frozen=True)
 class SignalError:

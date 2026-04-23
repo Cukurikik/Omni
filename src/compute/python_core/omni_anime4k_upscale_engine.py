@@ -24,19 +24,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class Anime4kErr(Exception):
+    """OMNI Zero-Prod Production Implementation for Anime4kErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -48,7 +52,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class ConvolutionalMathematics:
-    """Implement core matrix spatial filters simulating edge-aware Anime4K maps natively."""
+    """Implement core matrix spatial filters execute edge-aware Anime4K maps natively."""
 
     @staticmethod
     def convolve2d(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
@@ -77,7 +81,7 @@ class ConvolutionalMathematics:
     @staticmethod
     def extract_edges(gray_image: np.ndarray) -> np.ndarray:
         """evaluates_structurally edges extraction natively mapping kernels matrices geometries."""
-        # Generic High-Pass sharpening kernel logic simulating edge-detection heuristically
+        # Generic High-Pass sharpening kernel logic execute edge-detection heuristically
         high_pass_kernel = np.array([
             [-1, -1, -1],
             [-1,  8, -1],

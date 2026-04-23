@@ -22,19 +22,23 @@ from typing import Any, Dict, List, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class ChatJsErr(Exception):
+    """OMNI Zero-Prod Production Implementation for ChatJsErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -47,7 +51,7 @@ Result = Union[Ok, Err]
 
 @dataclass
 class ConversationalBuffer:
-    """Manages string arrays simulating continuous chat boundaries safely."""
+    """Manages string arrays execute continuous chat boundaries safely."""
     max_tokens: int
     context_log: List[Dict[str, str]]
 

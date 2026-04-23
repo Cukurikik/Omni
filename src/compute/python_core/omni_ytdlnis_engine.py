@@ -18,6 +18,7 @@ logger = logging.getLogger("OmniYtdlnisEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniYtdlnisEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class DownloadFormatPref(Enum):
     """Production-grade Download Format Pref component."""
@@ -123,7 +124,7 @@ class OmniYtdlnisEngine:
         raise KeyError("Job not found")
 
     def validate_terminal_syntax(self, custom_command: str) -> bool:
-        """Terminal module simulating raw yt-dlp arg passing."""
+        """Terminal module execute raw yt-dlp arg passing."""
         if not custom_command.startswith("yt-dlp "):
             raise ValueError("Command must start with 'yt-dlp'")
         parsed_opts = custom_command.split(" ")

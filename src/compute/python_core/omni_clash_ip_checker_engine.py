@@ -40,6 +40,7 @@ from typing import Any, Dict, List, Optional, Tuple
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class IPType(Enum):
     """Type enumeration for IPType."""

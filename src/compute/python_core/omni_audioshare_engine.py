@@ -26,6 +26,7 @@ import logging
 from typing import Dict, Any, Callable, Awaitable, Optional
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniAudioShareEngine")
 
@@ -118,6 +119,7 @@ class OmniAudioShareEngine:
             await asyncio.sleep(2.0)
 
     async def start(self):
+        """Start the TCP audio server and UDP discovery broadcast loop."""
         self._is_running = True
         self._server = await asyncio.start_server(
             self._handle_client, '0.0.0.0', self.tcp_port
@@ -127,6 +129,7 @@ class OmniAudioShareEngine:
         logger.info(f"OmniAudioShare TCP Server listening on {addr}")
 
     async def stop(self):
+        """Stop the audio server and close all client connections."""
         self._is_running = False
         if self._server:
             self._server.close()

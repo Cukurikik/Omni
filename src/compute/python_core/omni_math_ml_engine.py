@@ -30,6 +30,7 @@ Vector = List[float]
 # ---------------------------------------------------------------------------
 # Linear Algebra Module
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class LinAlg:
     """Native linear algebra operations without numpy."""

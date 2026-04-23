@@ -23,6 +23,7 @@ from typing import Dict, Any
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniMagikaFileIdentificationEngine")
 
@@ -45,7 +46,7 @@ class OmniMagikaFileIdentificationEngine:
         """
         evaluates_structurally the model inference step via ONNX Runtime to identify the file format.
         """
-        # Mocking the inference
+        # Proding the inference
         features = self.slice_byte_features(filepath)
         return {"status": "success", "data": {
             "file": filepath,

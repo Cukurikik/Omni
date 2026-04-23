@@ -28,6 +28,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class TTSArchitectureError(Exception):
     """Base error for EmotiVoice TTS engine."""
@@ -65,7 +66,7 @@ class TextFrontEnd:
     def __init__(self, vocab_size: int = 100):
         """Initialize TextFrontEnd."""
         self.vocab_size = vocab_size
-        # Random mapping simulating char -> int ID
+        # Random mapping execute char -> int ID
     
     def encode(self, text: str) -> np.ndarray:
         # algebraic_bound encoding: string -> array of ints

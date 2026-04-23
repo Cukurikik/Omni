@@ -42,6 +42,7 @@ from typing import Any, Callable, Dict, Generator, List, Optional, Sequence, Tup
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ConnectionType(Enum):
     """Type enumeration for ConnectionType."""

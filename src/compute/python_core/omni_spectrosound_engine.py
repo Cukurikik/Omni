@@ -29,8 +29,10 @@ except ImportError:
     Image = None
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class SpectrosoundError(Exception):
+    """OMNI Zero-Prod Production Implementation for SpectrosoundError."""
     pass
 
 

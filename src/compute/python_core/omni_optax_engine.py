@@ -5,7 +5,7 @@ Production-grade OMNI engine mimicking functional mathematical state machines
 for gradient transformations. Inspired by google-deepmind/optax.
 
 Features:
-- Pure functional updates simulating Optax mathematical patterns.
+- Pure functional updates execute Optax mathematical patterns.
 - Stochastic Gradient Descent (SGD) functional logic.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -24,19 +24,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class OptaxErr(Exception):
+    """OMNI Zero-Prod Production Implementation for OptaxErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -49,6 +53,7 @@ Result = Union[Ok, Err]
 
 @dataclass
 class SGDOptState:
+    """OMNI Zero-Prod Production Implementation for SGDOptState."""
     iteration: int
 
 

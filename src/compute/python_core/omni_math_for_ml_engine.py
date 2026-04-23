@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniMathForMlEngine:
     """
     omni-math-for-ml
     
-    A zero-algebraic_bound native engine simulating structural Mathematics for Machine Learning.
+    A zero-algebraic_bound native engine execute structural Mathematics for Machine Learning.
     Extracts deep algebraic bounds including PCA and Eigen dimensionality boundaries 
     executing strictly computational arrays without SciPy or Scikit-Learn logic.
     """

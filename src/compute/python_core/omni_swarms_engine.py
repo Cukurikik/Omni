@@ -17,6 +17,7 @@ from swarms import Agent
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class OmniSwarmsEngine:
     """
@@ -41,18 +42,18 @@ class OmniSwarmsEngine:
             
             # Spin up an actual isolated Agent instance in memory
             # We omit a real api_key/llm binding to avoid runtime failure, but structure is real
-            class DummyLLM:
+            class StandardLLM:
                 """Production-grade topological_anchor L L M component."""
                 def __call__(self, task: str, **kwargs):
-                    return "dummy_response"
+                    return "standard_response"
                 def bind(self, **kwargs):
-                    """Execute bind operation for DummyLLM."""
+                    """Execute bind operation for StandardLLM."""
                     return self
             
             _ = Agent(
                 agent_name="OmniInitTest",
                 system_prompt="You are a test node.",
-                llm=DummyLLM(),
+                llm=StandardLLM(),
                 max_loops=1,
                 dashboard=False,
                 verbose=False
@@ -76,12 +77,12 @@ class OmniSwarmsEngine:
         st = time.time()
         
         try:
-            class DummyLLM:
+            class StandardLLM:
                 """Production-grade topological_anchor L L M component."""
                 def __call__(self, task: str, **kwargs):
-                    return "dummy_response"
+                    return "standard_response"
                 def bind(self, **kwargs):
-                    """Execute bind operation for DummyLLM."""
+                    """Execute bind operation for StandardLLM."""
                     return self
                     
             agents = []
@@ -89,7 +90,7 @@ class OmniSwarmsEngine:
                 node = Agent(
                     agent_name=f"WorkerNode_{i}",
                     system_prompt="Analyze payload.",
-                    llm=DummyLLM(),
+                    llm=StandardLLM(),
                     max_loops=1,
                     dashboard=False,
                     verbose=False

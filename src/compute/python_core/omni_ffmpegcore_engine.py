@@ -11,6 +11,7 @@
 from typing import Dict, Any, List, Optional
 
 ENGINE_VERSION: str = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class FFmpegArgsBuilder:

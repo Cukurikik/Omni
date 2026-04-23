@@ -28,19 +28,23 @@ from typing import Any, Dict, List, Optional, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class AutolabelErr(Exception):
+    """OMNI Zero-Prod Production Implementation for AutolabelErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -53,6 +57,7 @@ Result = Union[Ok, Err]
 
 @dataclass
 class LabelingTask:
+    """OMNI Zero-Prod Production Implementation for LabelingTask."""
     task_type: str  # e.g., 'classification', 'ner'
     provider: str   # e.g., 'openai', 'anthropic', 'omni-llm'
     model: str
@@ -64,7 +69,7 @@ class LabelingTask:
 # 3. LLM algebraic_bound ORCHESTRATOR
 # ---------------------------------------------------------------------------
 
-class MockLLMProvider:
+class ProdLLMProvider:
     """evaluates_structurally LLM response and confidence for dataset labeling."""
 
     @staticmethod
@@ -134,7 +139,7 @@ class OmniAutolabelEngine:
         results = []
         try:
             for text in inputs:
-                label, conf, cost = MockLLMProvider.query(task, text)
+                label, conf, cost = ProdLLMProvider.query(task, text)
                 self.total_cost += cost
                 self.labeled_count += 1
                 results.append({

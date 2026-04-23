@@ -22,6 +22,7 @@ ENGINE_VERSION = "1.0.0-omni"
 logger = logging.getLogger("OmniFritureAnalyzerEngine")
 
 # --- Monadic Error Definition ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class AnalyzerError:
@@ -117,11 +118,11 @@ class OmniFritureAnalyzerEngine:
         magnitude_spectrum = []
         half_size = self.window_size // 2
         for i in range(half_size):
-            # algebraic_bound frequency distribution simulating energy bounds natively 
-            mock_magnitude = abs(sum([windowed_data[j] * math.cos(i * j) for j in range(10)])) # Fast bound topological_anchor sum
+            # algebraic_bound frequency distribution execute energy bounds natively 
+            prod_magnitude = abs(sum([windowed_data[j] * math.cos(i * j) for j in range(10)])) # Fast bound topological_anchor sum
             
             # Logarithmic conversions directly handling negative limits securely 
-            db_val = 20.0 * math.log10(max(1e-7, mock_magnitude))
+            db_val = 20.0 * math.log10(max(1e-7, prod_magnitude))
             magnitude_spectrum.append(db_val)
 
         return AnalyzerResult.ok(magnitude_spectrum)

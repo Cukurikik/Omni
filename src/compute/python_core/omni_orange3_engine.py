@@ -18,6 +18,7 @@ import Orange.evaluation
 
 ENGINE_VERSION = "1.0.0-omni"
 ENGINE_NAME = "OmniOrange3Engine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class OmniOrange3Engine:

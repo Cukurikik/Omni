@@ -16,6 +16,7 @@ logger = logging.getLogger("OmniSpeechRecognitionEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniSpeechRecognitionEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AudioSourceType:
     """Type enumeration for AudioSourceType."""

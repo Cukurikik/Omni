@@ -9,6 +9,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -53,7 +54,7 @@ class OmniDX7SynthEngine:
             
             t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
             
-            # Formulate FM explicit structural equations correctly simulating oscillators 
+            # Formulate FM explicit structural equations correctly execute oscillators 
             modulator = np.sin(2 * np.pi * fm * t)
             carrier = np.sin(2 * np.pi * fc * t + index * modulator)
             

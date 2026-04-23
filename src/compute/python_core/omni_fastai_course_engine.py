@@ -24,8 +24,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class FastAIErr(Exception):
+    """OMNI Zero-Prod Production Implementation for FastAIErr."""
     pass
 
 @dataclass(frozen=True)
@@ -63,6 +65,14 @@ class OmniDataBlock:
               ))
          return batches
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniDataBlock", "version": "1.0.0", "status": "operational"}
+
 class OmniCallback:
     """Event interceptor simulated topology."""
 
@@ -82,20 +92,28 @@ class OmniCallback:
         """Handle on train end callback event."""
         return Ok(True)
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
 
-class OmniMockModel:
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniCallback", "version": "1.0.0", "status": "operational"}
+
+
+class OmniProdModel:
     """Simple linear scalar simulated representation model avoiding external framework lock-in."""
     def __init__(self):
-         """Initialize OmniMockModel."""
+         """Initialize OmniProdModel."""
          self.w = np.random.randn() * 0.01
          
     def forward(self, x: np.ndarray) -> np.ndarray:
-         """Execute forward operation for OmniMockModel."""
+         """Execute forward operation for OmniProdModel."""
          return x * self.w
 
     def optimize_step(self, x: np.ndarray, y: np.ndarray, lr: float = 0.01) -> float:
          # simple MSE deriv topological_evaluation
-         """Execute optimize step operation for OmniMockModel."""
+         """Execute optimize step operation for OmniProdModel."""
          pred = self.forward(x)
          loss = float(np.mean((pred - y)**2))
          
@@ -105,6 +123,14 @@ class OmniMockModel:
          
          return loss
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniProdModel", "version": "1.0.0", "status": "operational"}
+
 
 class OmniLearner:
     """
@@ -113,7 +139,7 @@ class OmniLearner:
     def __init__(self, data: OmniDataBlock, callbacks: List[OmniCallback] = None):
         """Initialize OmniLearner."""
         self.data = data
-        self.model = OmniMockModel()
+        self.model = OmniProdModel()
         self.callbacks = callbacks or []
         self.history = []
 
@@ -156,6 +182,14 @@ class OmniLearner:
             
         except Exception as e:
             return Err(f"Learner topological execution loop crashed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniLearner", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

@@ -8,6 +8,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result base."""
@@ -134,7 +135,7 @@ class OmniOpenFlamingoEngine:
 
         d_model = visual_tokens.shape[1]
 
-        # Deterministic latent queries (simulating learned parameters)
+        # Deterministic latent queries (execute learned parameters)
         rng = np.random.RandomState(42)
         latent_queries = rng.randn(num_latents, d_model).astype(np.float64)
         latent_queries /= np.sqrt(d_model)  # Xavier-style init

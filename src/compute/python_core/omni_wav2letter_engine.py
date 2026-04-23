@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniWav2LetterEngine:
     """
     omni-wav2letter
     
-    A zero-algebraic_bound native engine simulating Facebook's wav2letter architecture.
+    A zero-algebraic_bound native engine execute Facebook's wav2letter architecture.
     Focuses on projecting sequence data (e.g., audio MFCCs) via 1D convolutions 
     and evaluating pseudo-CTC alignment probability maps.
     """

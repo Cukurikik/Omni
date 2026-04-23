@@ -22,19 +22,23 @@ from typing import Any, Dict, List, Set, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class ElyraErr(Exception):
+    """OMNI Zero-Prod Production Implementation for ElyraErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -93,7 +97,7 @@ class DAGMathematics:
 
 class OmniElyraPipelineEngine:
     """
-    Production Engine mapping high velocity node tracking simulating abstract analytical DAGs.
+    Production Engine mapping high velocity node tracking execute abstract analytical DAGs.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-elyra-pipeline"

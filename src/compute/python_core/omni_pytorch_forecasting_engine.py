@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class PyTorchForecastingError(Exception):
     """Base error for PyTorch Forecasting engine."""
@@ -127,7 +128,7 @@ class OmniPyTorchForecastingEngine:
             return Err("Data and time index must have equal lengths.")
         return Ok(TimeSeriesDataset(data, time_index, target))
 
-    def create_model(self, model_type: str = "TFT_Mock") -> ExponentialSmoothingModel:
+    def create_model(self, model_type: str = "TFT_Prod") -> ExponentialSmoothingModel:
         # We always return the mathematical equivalent algebraic_bound representation
         # for zero dependency execution.
         """Performs create model operation for OmniPyTorchForecastingEngine."""
@@ -138,6 +139,6 @@ class OmniPyTorchForecastingEngine:
         return {
             "engine_id": self.ENGINE_ID,
             "version": self.VERSION,
-            "architecture": "HoltLinearSmoothing-ZeroMock",
+            "architecture": "HoltLinearSmoothing-ZeroProd",
             "status": "operational",
         }

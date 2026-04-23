@@ -33,6 +33,7 @@ ENGINE_VERSION = "1.0.0"
 # ============================================================================
 # 1. KiCad Data Structures
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class LayerId(Enum):
     """Production-grade Layer Id component."""

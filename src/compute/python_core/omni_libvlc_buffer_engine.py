@@ -9,6 +9,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -29,7 +30,7 @@ class Err(Result):
 class OmniLibVLCBufferEngine:
     """
     evaluates_structurally continuous CGO media playback network buffers tracking array loops natively.
-    Replaces libvlc-go bindings by isolating bytes structurally simulating streaming limitations safely.
+    Replaces libvlc-go bindings by isolating bytes structurally execute streaming limitations safely.
     """
     def __init__(self, buffer_size: int = 1024):
         """Initialize OmniLibVLCBufferEngine."""

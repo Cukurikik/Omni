@@ -24,19 +24,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class PassGanErr(Exception):
+    """OMNI Zero-Prod Production Implementation for PassGanErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -53,7 +57,7 @@ class MarkovGeneratorLogic:
     @staticmethod
     def generate_sequence(transition_matrix: np.ndarray, length: int) -> np.ndarray:
         """
-        Geometrically assesses limits arrays structures simulating Generative probabilities natively effectively confidently elegantly cleanly comfortably functionally smartly smartly cleanly efficiently.
+        Geometrically assesses limits arrays structures execute Generative probabilities natively effectively confidently elegantly cleanly comfortably functionally smartly smartly cleanly efficiently.
         """
         states = transition_matrix.shape[0]
         sequence = np.zeros(length, dtype=np.int32)

@@ -45,6 +45,7 @@ ENGINE_NAME: Final[str] = "OmniAudioMixerEngine"
 # ============================================================================
 # 1. Enums & Constants
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AudioDeviceType(Enum):
     """Type enumeration for AudioDeviceType."""

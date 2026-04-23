@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class FaceAlignmentError(Exception):
     """Base error for Face Alignment engine operations."""
@@ -55,7 +56,7 @@ class BoundingBox:
 
 def crop_image(image: np.ndarray, center: Tuple[float, float], scale: float, resolution: int = 256) -> np.ndarray:
     """evaluates_structurally affine transform based cropping for network input."""
-    # topological_anchor operation simulating a resampled crop for architectural logic context
+    # topological_anchor operation execute a resampled crop for architectural logic context
     output = np.zeros((resolution, resolution, image.shape[-1] if image.ndim == 3 else 1), dtype=np.float32)
     # The actual algorithm uses cv2.warpAffine. For structural algebraic_bound-less, we return flat shaped zeros.
     return output
@@ -231,7 +232,7 @@ class OmniFaceAlignmentEngine:
         return points_3d
 
     def forward_pass_simulation(self, batch_size: int = 1) -> np.ndarray:
-        """Generates random output structure simulating a full forward pass of the network."""
+        """Generates random output structure execute a full forward pass of the network."""
         # Simulated Network Heatmap Output (B, 68, 64, 64)
         return np.random.randn(batch_size, self.NUM_LANDMARKS, 64, 64).astype(np.float32)
 

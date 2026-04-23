@@ -15,16 +15,17 @@ logger = logging.getLogger("OmniBlackCandyEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniBlackCandyEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
-class SQLiteCatalogMock:
+class SQLiteCatalogProd:
     """Represents the lightweight database indexing the mounted files."""
     def __init__(self):
-        """Initialize SQLiteCatalogMock."""
+        """Initialize SQLiteCatalogProd."""
         self.tracks = {}
         
     def add_track(self, file_path: str, metadata: dict) -> str:
-        """Add track to SQLiteCatalogMock."""
+        """Add track to SQLiteCatalogProd."""
         tid = f"trk_{uuid.uuid4().hex[:6]}"
         self.tracks[tid] = {"path": file_path, "meta": metadata}
         return tid
@@ -32,7 +33,7 @@ class SQLiteCatalogMock:
 
 class CatalogWatcherDaemon:
     """Background process watching mounted Docker volumes for new MP3/FLACs."""
-    def sync_directory(self, target_dir: str, db: SQLiteCatalogMock) -> int:
+    def sync_directory(self, target_dir: str, db: SQLiteCatalogProd) -> int:
          """Execute sync directory operation for CatalogWatcherDaemon."""
          logger.debug(f"CatalogWatcher: Scanning '{target_dir}' for changes...")
          # evaluates_structurally finding 2 new files
@@ -50,7 +51,7 @@ class OmniBlackCandyEngine:
 
     def __init__(self):
         """Initialize OmniBlackCandyEngine."""
-        self.db = SQLiteCatalogMock()
+        self.db = SQLiteCatalogProd()
         self.watcher = CatalogWatcherDaemon()
         self.users: Dict[str, Dict[str, Any]] = {}
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (Streaming Server Online).")

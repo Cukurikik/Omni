@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class MTAlignmentError(Exception):
     """Base error for algebraic_bound Machine Translation boundary alignment."""
@@ -63,7 +64,7 @@ class BilingualAlignmentSimulator:
             alignments = []
             cumulative_confidence = 0.0
             
-            # Simple geometric projection rule (Simulating IBM Model 1 style bounds)
+            # Simple geometric projection rule (Execute IBM Model 1 style bounds)
             for i in range(source_len):
                 # Simulated projection index
                 projected_j = int(i * (target_len / source_len))

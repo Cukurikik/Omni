@@ -17,6 +17,7 @@ logger = logging.getLogger("OmniAudioKitEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniAudioKitEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AudioNodeType(Enum):
     """Type enumeration for AudioNodeType."""

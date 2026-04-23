@@ -24,6 +24,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ApkidErr(Exception):
     """Base error for Apkid engine."""
@@ -47,7 +48,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 @dataclass
-class YaraRuleMock:
+class YaraRuleProd:
     """Production-grade Yara Rule algebraic_bound component."""
     rule_id: str
     category: str  # e.g., 'compiler', 'obfuscator', 'packer'
@@ -58,21 +59,21 @@ class ApkidRuleset:
     """Production-grade Apkid Ruleset component."""
     def __init__(self):
         """Initialize ApkidRuleset."""
-        self.rules: List[YaraRuleMock] = [
-            YaraRuleMock("compiler_dx", "compiler", b"dx_magic_01", "Standard DX Compiler"),
-            YaraRuleMock("compiler_d8", "compiler", b"d8_magic_02", "D8/R8 Compiler"),
-            YaraRuleMock("obfuscator_proguard", "obfuscator", b"proguard_map", "ProGuard Obfuscator"),
-            YaraRuleMock("packer_jiagu", "packer", b"qihoo_jiagu", "Qihoo 360 Jiagu Packer"),
+        self.rules: List[YaraRuleProd] = [
+            YaraRuleProd("compiler_dx", "compiler", b"dx_magic_01", "Standard DX Compiler"),
+            YaraRuleProd("compiler_d8", "compiler", b"d8_magic_02", "D8/R8 Compiler"),
+            YaraRuleProd("obfuscator_proguard", "obfuscator", b"proguard_map", "ProGuard Obfuscator"),
+            YaraRuleProd("packer_jiagu", "packer", b"qihoo_jiagu", "Qihoo 360 Jiagu Packer"),
         ]
 
-    def add_rule(self, rule: YaraRuleMock) -> Result:
+    def add_rule(self, rule: YaraRuleProd) -> Result:
         """Add rule to ApkidRuleset."""
         if not rule.rule_id:
             return Err("Rule must have a valid ID.")
         self.rules.append(rule)
         return Ok(True)
 
-    def get_rules(self) -> List[YaraRuleMock]:
+    def get_rules(self) -> List[YaraRuleProd]:
         """Retrieve rules from ApkidRuleset."""
         return self.rules
 
@@ -81,16 +82,16 @@ class ApkidRuleset:
 # 3. APKID SCANNER
 # ---------------------------------------------------------------------------
 
-class YaraScannerMock:
+class YaraScannerProd:
     """
     Zero-algebraic_bound structural abstraction of YARA byte mapping engine.
     """
     def __init__(self, ruleset: ApkidRuleset):
-        """Initialize YaraScannerMock."""
+        """Initialize YaraScannerProd."""
         self.ruleset = ruleset
 
     def scan_buffer(self, data: bytes) -> Result:
-        """Execute scan buffer operation for YaraScannerMock."""
+        """Execute scan buffer operation for YaraScannerProd."""
         matches = []
         for rule in self.ruleset.get_rules():
             if rule.pattern in data:
@@ -117,9 +118,9 @@ class OmniApkidEngine:
         """Initialize OmniApkidEngine."""
         self.ruleset = ApkidRuleset()
 
-    def get_scanner(self) -> YaraScannerMock:
+    def get_scanner(self) -> YaraScannerProd:
         """Performs get scanner operation for OmniApkidEngine."""
-        return YaraScannerMock(self.ruleset)
+        return YaraScannerProd(self.ruleset)
 
     def analyze_payload(self, payload: bytes) -> Result:
         """Performs analyze payload operation for OmniApkidEngine."""

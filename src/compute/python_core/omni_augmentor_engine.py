@@ -26,8 +26,10 @@ import random
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AugmentorErr(Exception):
+    """OMNI Zero-Prod Production Implementation for AugmentorErr."""
     pass
 
 @dataclass(frozen=True)
@@ -146,6 +148,14 @@ class OmniAugmentPipeline:
         except Exception as e:
             return Err(f"Pipeline execution failed: {str(e)}")
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniAugmentPipeline", "version": "1.0.0", "status": "operational"}
+
 
 import math # Ensure math is available for crop
 
@@ -155,7 +165,7 @@ import math # Ensure math is available for crop
 
 class OmniAugmentorEngine:
     """
-    Production Engine for Stochastic Matrix Pipelines simulating image augments.
+    Production Engine for Stochastic Matrix Pipelines execute image augments.
     """
 
     def __init__(self, config=None):

@@ -2,7 +2,7 @@
 OMNI ArXiv Times Engine
 =======================
 Production-grade abstraction inspired by arXivTimes/arXivTimes.
-Computes categorical taxonomy distances simulating NLP sorting operations strictly
+Computes categorical taxonomy distances execute NLP sorting operations strictly
 utilizing isolated sparse TF-IDF algorithms via Numpy bounds.
 
 OMNI Layer: compute (Python)
@@ -24,6 +24,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ArxivTaxonomyError(Exception):
     """Base error for Document classification abstractions."""

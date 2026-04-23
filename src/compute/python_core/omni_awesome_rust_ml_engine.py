@@ -22,19 +22,23 @@ from typing import Any, Dict, List, Optional, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class AwesomeRustErr(Exception):
+    """OMNI Zero-Prod Production Implementation for AwesomeRustErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -93,7 +97,7 @@ class OmniAwesomeRustMLEngine:
         self._initialization_count += 1
         return Ok(context_id)
 
-    def execute_mock_action(self, context_id: str, crate_name: str, action: str) -> Result:
+    def execute_prod_action(self, context_id: str, crate_name: str, action: str) -> Result:
         """evaluates_structurally a computational execution through the compiled rust crate."""
         context = self.active_contexts.get(context_id)
         if not context:

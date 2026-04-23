@@ -38,6 +38,7 @@ logger = logging.getLogger("omni.wx4py")
 # ---------------------------------------------------------------------------
 # Section 1: Core Data Structures
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class TargetType(Enum):
     """Target type for message sending."""

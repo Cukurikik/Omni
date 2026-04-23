@@ -13,6 +13,7 @@ logger = logging.getLogger("OmniPyAudioAnalysisEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniPyAudioAnalysisEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class ShortTermFeatureExtractor:
@@ -29,7 +30,7 @@ class AudioMLClassifier:
     def __init__(self, model_type: str = "svm"):
         """Initialize AudioMLClassifier."""
         self.model_type = model_type
-        self.is_trained = True # Mocking a pre-trained state
+        self.is_trained = True # Proding a pre-trained state
         
     def classify(self, feature_matrix: List[List[float]]) -> Tuple[str, float]:
         """Takes mid-term aggregated features and outputs text classification."""

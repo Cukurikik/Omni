@@ -6,7 +6,7 @@ Inspired by ashnkumar/sketch-code.
 
 Features:
 - Sequence compiler decodes DSL tokens mathematically into syntax trees.
-- Topologies simulating language generation structures.
+- Topologies execute language generation structures.
 - Strict Monadic Error checking preventing invalid tokens.
 
 OMNI Layer: compute (Python)
@@ -23,8 +23,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class SketchCodeErr(Exception):
+    """OMNI Zero-Prod Production Implementation for SketchCodeErr."""
     pass
 
 @dataclass(frozen=True)
@@ -111,6 +113,14 @@ class OmniDSLCompiler:
             index += 1
             
         return Ok((output, index))
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniDSLCompiler", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

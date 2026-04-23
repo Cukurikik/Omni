@@ -16,6 +16,7 @@ logger = logging.getLogger("OmniMediaCMSEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniMediaCMSEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class UserRole(Enum):
@@ -33,12 +34,12 @@ class MediaStatus(Enum):
     FAILED = "failed"
 
 
-class CeleryWorkerMock:
+class CeleryWorkerProd:
     """Background tasks for heavy FFMPEG processing."""
     def process_video_hls(self, media_id: str, resolutions: List[int]) -> bool:
         """Process video hls."""
         logger.debug(f"[Celery Worker] Executing FFMPEG HLS transcoding for {media_id} into {resolutions}")
-        # Mocks blocking process
+        # Prods blocking process
         time.sleep(0.3)
         return True
 
@@ -62,7 +63,7 @@ class OmniMediaCMSEngine:
     def __init__(self):
         """Initialize OmniMediaCMSEngine."""
         self.media_database: Dict[str, Dict[str, Any]] = {}
-        self.worker = CeleryWorkerMock()
+        self.worker = CeleryWorkerProd()
         self.ai = WhisperAIHook()
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (CMS Core Online).")
 

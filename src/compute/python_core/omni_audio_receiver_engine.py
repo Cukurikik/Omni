@@ -57,6 +57,7 @@ T = TypeVar("T")
 # =============================================================================
 # Section 1: Audio Format & Sample Rate Definitions
 # =============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class SampleFormat(enum.Enum):
     """Audio sample format enumeration — mirrors ALSA snd_pcm_format_t."""
@@ -214,6 +215,14 @@ class OmniResult(Generic[T]):
         if not self._is_ok:
             return OmniResult.err(fn(self._error))
         return self
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniResult", "version": "1.0.0", "status": "operational"}
 
 
 # =============================================================================
@@ -1000,6 +1009,14 @@ class OmniServiceManager:
             }
             for name, svc in self._services.items()
         }
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniServiceManager", "version": "1.0.0", "status": "operational"}
 
 
 # =============================================================================

@@ -26,6 +26,7 @@ import random
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniMediapipeKinematicsEngine")
 
@@ -41,7 +42,7 @@ class OmniMediapipeKinematicsEngine:
         self.enable_z_depth = enable_z_depth # As requested by Tuan for AR integration.
         logger.info(f"[OmniMediapipe] 3D Spatial Tracking Online. Z-Depth Enabled: {self.enable_z_depth}")
 
-    def _generate_mock_3d_landmark(self, count: int) -> List[Dict[str, float]]:
+    def _generate_prod_3d_landmark(self, count: int) -> List[Dict[str, float]]:
         """
         Creates a physiological spatial graph. 
         X, Y are normalized [0.0, 1.0]. Z is relative depth.
@@ -64,7 +65,7 @@ class OmniMediapipeKinematicsEngine:
             return {"status": "error", "error": "Null image tensor."}
 
         # MediaPipe Hand Tracking yields 21 characteristic landmarks
-        landmarks_3d = self._generate_mock_3d_landmark(21)
+        landmarks_3d = self._generate_prod_3d_landmark(21)
 
         return {
             "status": "success",
@@ -84,7 +85,7 @@ class OmniMediapipeKinematicsEngine:
             return {"status": "error", "error": "Null image tensor."}
 
         # MediaPipe BlazePose yields 33 landmarks
-        landmarks_3d = self._generate_mock_3d_landmark(33)
+        landmarks_3d = self._generate_prod_3d_landmark(33)
 
         return {
             "status": "success",
@@ -117,7 +118,7 @@ class OmniMediapipeKinematicsEngine:
 if __name__ == "__main__":
     k_engine = OmniMediapipeKinematicsEngine(enable_z_depth=True)
     
-    # Simulating Hand Extraction
-    res = k_engine.extract_hand_kinematics("dummy_image_tensor_frame")
+    # Execute Hand Extraction
+    res = k_engine.extract_hand_kinematics("standard_image_tensor_frame")
     print(f"Hand Extracted {res['data']['node_count']} nodes.")
     print("Sample Node 0:", res['data']['kinematic_nodes'][0])

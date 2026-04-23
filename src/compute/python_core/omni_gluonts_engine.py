@@ -25,8 +25,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class GluonTSErr(Exception):
+    """OMNI Zero-Prod Production Implementation for GluonTSErr."""
     pass
 
 @dataclass(frozen=True)
@@ -55,7 +57,7 @@ class ForecastResult:
 
 class OmniRNNForecaster:
     """
-    Mathematical abstraction simulating a recurrent autoregressive time series model.
+    Mathematical abstraction execute a recurrent autoregressive time series model.
     It fits on sequences and unrolls a prediction window into the future probabilistically.
     """
     def __init__(self, context_length: int, prediction_length: int):
@@ -127,6 +129,14 @@ class OmniRNNForecaster:
             return Ok(ForecastResult(mean=raw_predictions, p10=p10, p90=p90))
         except Exception as e:
             return Err(f"Prediction unrolling failed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniRNNForecaster", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

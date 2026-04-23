@@ -8,6 +8,7 @@ OMNI Layer: compute (Python)
 import time
 from typing import Dict, Any, List, Optional
 import json
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -27,7 +28,7 @@ class OmniClearMlOpsEngine:
     """
     omni-clear-mlops
     
-    A zero-algebraic_bound native engine simulating ClearML's experiment tracking, 
+    A zero-algebraic_bound native engine execute ClearML's experiment tracking, 
     hyperparameter logging, and DAG-based pipeline execution.
     """
     

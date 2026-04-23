@@ -3,7 +3,7 @@ OMNI Turbopilot Engine
 ======================
 Production-grade abstraction inspired by ravenscroftj/turbopilot.
 LLM weight inferencing is replaced entirely by a fast Deterministic
-Prefix-Suffix Jaccard Matcher simulating intelligent prompt auto-completion.
+Prefix-Suffix Jaccard Matcher execute intelligent prompt auto-completion.
 
 OMNI Layer: compute (Python)
 """
@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class TurboPilotError(Exception):
     """Base error for Pilot completion abstractions."""

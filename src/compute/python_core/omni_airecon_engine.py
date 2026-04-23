@@ -55,6 +55,7 @@ CHECKPOINT_INTERVALS: Final[Dict[str, int]] = {
 # ============================================================================
 # 1. Pipeline Phases
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class PipelinePhase(Enum):
     """Production-grade Pipeline Phase component."""

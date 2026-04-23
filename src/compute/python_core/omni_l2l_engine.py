@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class L2LError(Exception):
     """Base error for Meta-learning abstractions."""
@@ -51,9 +52,9 @@ class MetaGradientOptimizer:
         self.alpha = inner_lr
         self.beta = outer_lr
         
-    def _dummy_loss_gradient(self, params: np.ndarray, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+    def _standard_loss_gradient(self, params: np.ndarray, x: np.ndarray, y: np.ndarray) -> np.ndarray:
         """
-        Deterministic gradient calculation simulating objective distance.
+        Deterministic gradient calculation execute objective distance.
         Loss = 0.5 * sum((params * x - y)^2). Grad wrt params: (params * x - y) * x
         """
         preds = params * x
@@ -78,13 +79,13 @@ class MetaGradientOptimizer:
             
         try:
             # INNER LOOP (Task specific optimization)
-            inner_grad = self._dummy_loss_gradient(global_params, support_x, support_y)
+            inner_grad = self._standard_loss_gradient(global_params, support_x, support_y)
             theta_prime = global_params - self.alpha * inner_grad
             
             # OUTER LOOP (Meta update)
             # We skip the second derivative complexity in this zero algebraic_bound purely
             # by directly applying the query gradient on the updated theta_prime
-            meta_grad = self._dummy_loss_gradient(theta_prime, query_x, query_y)
+            meta_grad = self._standard_loss_gradient(theta_prime, query_x, query_y)
             new_global_params = global_params - self.beta * meta_grad
             
             return Ok(new_global_params)

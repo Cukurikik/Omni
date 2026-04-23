@@ -27,6 +27,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AutoGradError(Exception):
     """Base error for TFJS-Core engine operations."""
@@ -195,6 +196,14 @@ class OmniTensor:
                 self.grad += np.ones_like(self.data) * out.grad
         out._backward = _backward
         return out
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniTensor", "version": "1.0.0", "status": "operational"}
 
 # ---------------------------------------------------------------------------
 # 3. GRADIENT TAPE (Autograd Manager)

@@ -35,6 +35,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ============================================================================
 # Error Hierarchy
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class TsmError(Exception):
     """Base error for all Time-Scale Modification operations."""

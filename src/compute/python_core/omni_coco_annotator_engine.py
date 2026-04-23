@@ -25,19 +25,23 @@ from typing import Any, Dict, List, Optional, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class COCOAnnotatorErr(Exception):
+    """OMNI Zero-Prod Production Implementation for COCOAnnotatorErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -49,6 +53,7 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class Geometry:
+    """OMNI Zero-Prod Production Implementation for Geometry."""
     @staticmethod
     def bbox_area(bbox: List[float]) -> float:
         """Compute area from COCO [x_min, y_min, width, height]."""

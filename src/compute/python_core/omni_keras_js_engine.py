@@ -24,8 +24,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class KerasJSErr(Exception):
+    """OMNI Zero-Prod Production Implementation for KerasJSErr."""
     pass
 
 @dataclass(frozen=True)
@@ -110,6 +112,14 @@ class OmniKerasJSSerializer:
             return Ok(manifest)
         except Exception as e:
              return Err(f"Topological manifest generation crashed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniKerasJSSerializer", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

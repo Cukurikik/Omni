@@ -24,9 +24,11 @@ from typing import List, Optional, Dict, Any, Tuple
 import math
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class ChromaprintError(Exception):
+    """OMNI Zero-Prod Production Implementation for ChromaprintError."""
     pass
 
 

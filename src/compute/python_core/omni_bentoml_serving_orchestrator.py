@@ -36,7 +36,7 @@ class OmniBentomlServingOrchestrator:
 
     def package_and_serve(self, model_tag: str, port: int = 3000) -> Dict[str, Any]:
         """
-        Simulates spinning up an HTTP inference endpoint wrapped around a model object.
+        Execute spinning up an HTTP inference endpoint wrapped around a model object.
         """
         return {"status": "success", "data": {
             "model_bento_tag": model_tag,

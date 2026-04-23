@@ -24,19 +24,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class StreamErr(Exception):
+    """OMNI Zero-Prod Production Implementation for StreamErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -48,12 +52,12 @@ Result = Union[Ok, Err]
 # ---------------------------------------------------------------------------
 
 class TemporalStreamMathematics:
-    """Implement exact condition mapping simulating Bytewax stream epochs arrays natively securely."""
+    """Implement exact condition mapping execute Bytewax stream epochs arrays natively securely."""
 
     @staticmethod
     def reduce_tumbling_window(stream_events: List[float], window_size: int) -> np.ndarray:
         """
-        Geometrically assesses limits arrays structures simulating temporal Tumbling windows functionally seamlessly natively efficiently mapped smoothly limits securely structurally.
+        Geometrically assesses limits arrays structures execute temporal Tumbling windows functionally seamlessly natively efficiently mapped smoothly limits securely structurally.
         """
         arr = np.array(stream_events, dtype=np.float64)
         total_len = len(arr)

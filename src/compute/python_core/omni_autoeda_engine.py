@@ -35,6 +35,7 @@ logger = logging.getLogger("omni.autoeda")
 # ─────────────────────────────────────────────
 # Section 1: Core Data Types
 # ─────────────────────────────────────────────
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ColumnType(Enum):
     """Type enumeration for ColumnType."""

@@ -9,6 +9,7 @@ import numpy as np
 import random
 from typing import Dict, Any, List, Tuple
 from collections import deque
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -28,7 +29,7 @@ class OmniFlappyDqnEngine:
     """
     omni-flappy-dqn
     
-    A zero-algebraic_bound native engine simulating a Deep Q-Network (DQN) applied to game 
+    A zero-algebraic_bound native engine execute a Deep Q-Network (DQN) applied to game 
     mechanics (like FlappyBird). Implements an MLP Q-Value approximator and an 
     Experience Replay Buffer using Bellman temporal-difference target updates.
     """

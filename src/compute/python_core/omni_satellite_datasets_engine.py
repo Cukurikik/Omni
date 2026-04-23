@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class SatelliteDataError(Exception):
     """Base error for Geospatial Bounds abstractions."""
@@ -69,7 +70,7 @@ class SpatialBoundValidator:
             if min_lat > max_lat:
                 return Err("Minimum latitude outpaces its maximum bounds. Topology inverted.")
                 
-            # Valid spatial box area mapping calculation (Mocking exact Earth sphere area mathematically)
+            # Valid spatial box area mapping calculation (Proding exact Earth sphere area mathematically)
             # Just calculating spherical representation scalar factor
             width = max_lon - min_lon
             height = max_lat - min_lat

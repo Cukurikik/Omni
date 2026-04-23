@@ -25,6 +25,7 @@ ENGINE_NAME: str = "OmniChineseClipEngine"
 # ---------------------------------------------------------------------------
 # Utility functions (module-level, importable)
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 def l2_normalize(x: np.ndarray, axis: int = -1, eps: float = 1e-8) -> np.ndarray:
     """L2-normalize along the given axis.
@@ -413,7 +414,7 @@ class OmniChineseClipEngine:
         )
         self.tokenizer = CharTokenizer(vocab_size, max_seq_len)
 
-    def create_dummy_batch(self, batch_size: int = 4) -> Tuple[np.ndarray, List[str]]:
+    def create_standard_batch(self, batch_size: int = 4) -> Tuple[np.ndarray, List[str]]:
         """Create a topological_anchor batch of images and texts for testing.
 
         Args:

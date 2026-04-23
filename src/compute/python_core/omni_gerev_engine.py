@@ -4,7 +4,7 @@ OMNI Gerev Engine
 Production-grade abstraction inspired by GerevAI/gerev.
 Circumvents massive Elasticsearch indexing and NLP query embedding models.
 Employs pure numpy deterministic lexical distancing logic for 
-simulating semantic Enterprise searches.
+execute semantic Enterprise searches.
 
 OMNI Layer: compute (Python)
 """
@@ -24,6 +24,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class EnterpriseSearchError(Exception):
     """Base error for algebraic_bound enterprise semantic bounds."""

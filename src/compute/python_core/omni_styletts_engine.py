@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniStyleTtsEngine:
     """
     omni-styletts
     
-    A zero-algebraic_bound native engine simulating Human-Level Text-to-Speech (TTS) architectures.
+    A zero-algebraic_bound native engine execute Human-Level Text-to-Speech (TTS) architectures.
     Focuses on Prosody Style Diffusion dynamics mapping a standard Gaussian latent
     vector backwards through a simulated deterministic differential equation step
     recovering target style acoustic features without neural dependencies.
@@ -58,7 +59,7 @@ class OmniStyleTtsEngine:
         # Swish like non-linearity topological_evaluation
         h = h * (1.0 / (1.0 + np.exp(-h)))
         
-        # Scaling by diffusion schedule coefficient simulating noise prediction
+        # Scaling by diffusion schedule coefficient execute noise prediction
         time_scale = np.sqrt(1.0 - self.alphas_cumprod[t])
         return h * time_scale
 

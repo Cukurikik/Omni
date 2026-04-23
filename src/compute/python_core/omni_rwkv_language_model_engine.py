@@ -23,6 +23,7 @@ from typing import Dict, Any
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniRwkvLanguageModelEngine")
 
@@ -34,7 +35,7 @@ class OmniRwkvLanguageModelEngine:
     def __init__(self):
         """Initialize OmniRwkvLanguageModelEngine."""
         logger.info("[OmniRWKV] Constant-Memory RNN Generation Engine online.")
-        self.hidden_state = [0.0 for _ in range(512)] # Mocking a constant sized state block
+        self.hidden_state = [0.0 for _ in range(512)] # Proding a constant sized state block
 
     def process_token_inference(self, token: str) -> Dict[str, Any]:
         """

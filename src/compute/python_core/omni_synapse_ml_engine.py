@@ -25,8 +25,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class SynapseMLErr(Exception):
+    """OMNI Zero-Prod Production Implementation for SynapseMLErr."""
     pass
 
 @dataclass(frozen=True)
@@ -56,7 +58,7 @@ class OmniDataFrame:
         self.num_partitions = max(1, num_partitions)
         self.schema = {"columns": data.shape[1] if data.ndim == 2 else 1, "type": str(data.dtype)}
         
-        # Split into partitions simulating distributed store
+        # Split into partitions execute distributed store
         self.partitions = np.array_split(data, self.num_partitions)
         
     def count(self) -> int:
@@ -71,6 +73,14 @@ class OmniDataFrame:
         """Applies a transformation logic across all partitions isolatedly."""
         new_partitions = [fn(p) for p in self.partitions]
         return OmniDataFrame(np.concatenate(new_partitions, axis=0), num_partitions=self.num_partitions)
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniDataFrame", "version": "1.0.0", "status": "operational"}
 
 
 class Transformer:

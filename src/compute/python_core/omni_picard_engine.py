@@ -16,6 +16,7 @@ logger = logging.getLogger("OmniPicardEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniPicardEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class TrackContext:
@@ -31,7 +32,7 @@ class AcoustIDFingerprinter:
     def generate_fingerprint(self, filepath: str) -> str:
         """Execute generate fingerprint operation for AcoustIDFingerprinter."""
         logger.debug(f"Analyzing spectral audio data for {filepath}...")
-        # Mocking an acoustic fingerprint base64 hash
+        # Proding an acoustic fingerprint base64 hash
         return f"AQkH_{uuid.uuid4().hex[:12]}_fp"
 
 

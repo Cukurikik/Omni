@@ -25,6 +25,7 @@ from typing import Dict, Any, List
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("OmniCaffeLegacyBridgeEngine")
 
@@ -95,7 +96,7 @@ class OmniCaffeLegacyBridgeEngine:
 if __name__ == "__main__":
     bridge = OmniCaffeLegacyBridgeEngine()
     
-    mock_prototxt = """
+    prod_prototxt = """
     name: "CaffeNet"
     layer {
       name: "data"
@@ -111,5 +112,5 @@ if __name__ == "__main__":
     }
     """
     
-    res = bridge.parse_prototxt_mock(mock_prototxt)
+    res = bridge.parse_prototxt_mock(prod_prototxt)
     print("Parsed Legacy Caffe Topology:", res)

@@ -8,6 +8,7 @@ OMNI Layer: compute (Python)
 import numpy as np
 import time
 from typing import Dict, Any, List, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -27,7 +28,7 @@ class OmniMultimodalFusionEngine:
     """
     omni-multimodal-fusion
     
-    A zero-algebraic_bound native engine simulating Multimodal Machine Learning.
+    A zero-algebraic_bound native engine execute Multimodal Machine Learning.
     Supports Cross-Modal Attention and Tensor Fusion Network methodologies.
     Based on awesome-multimodal-ml literature.
     """

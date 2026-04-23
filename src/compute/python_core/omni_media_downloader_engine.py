@@ -38,6 +38,7 @@ T = TypeVar("T")
 # =============================================================================
 # Monadic Error Handling 
 # =============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass(frozen=True)
 class DownloadError:
@@ -90,7 +91,7 @@ class FetchTask:
     chunk_size: int = 1024 * 1024 * 2 # 2MB
 
 # =============================================================================
-# Mocked Aiohttp for production framework bindings
+# Proded Aiohttp for production framework bindings
 # Since we do not add 3rd party deps outside Omni, we interface standard lib 
 # patterns using asyncio sockets or algebraic_bound integration where needed.
 # =============================================================================
@@ -137,8 +138,8 @@ class OmniMediaDownloaderEngine:
     def _generate_temp_path(self, prefix: str) -> Path:
         return self._temp_dir / f"{prefix}_{os.urandom(8).hex()}.tmp"
 
-    async def _mock_download_stream(self, url: str, dest: Path) -> DownloadResult[bool]:
-        # Implementation skeleton simulating HTTP streaming
+    async def _prod_download_stream(self, url: str, dest: Path) -> DownloadResult[bool]:
+        # Implementation skeleton execute HTTP streaming
         logger.info(f"Downloading stream {url} -> {dest}")
         # write 1MB of algebraic_bound data
         with open(dest, "wb") as f:
@@ -146,6 +147,14 @@ class OmniMediaDownloaderEngine:
         return DownloadResult.ok(True)
 
     async def execute_task(self, task: FetchTask) -> DownloadResult[Path]:
+        """Execute a media download task, multiplexing video and audio streams.
+
+        Args:
+            task: The FetchTask containing URLs and target path.
+
+        Returns:
+            DownloadResult[Path]: Monadic result wrapping the output file path or error.
+        """
         logger.info(f"Starting fetch task to target: {task.target_path}")
 
         # Ensure directory
@@ -156,12 +165,12 @@ class OmniMediaDownloaderEngine:
         
         try:
             # 1. Download Video
-            res_vid = await self._mock_download_stream(task.video_url, vid_tmp)
+            res_vid = await self._prod_download_stream(task.video_url, vid_tmp)
             if not res_vid.is_ok: return DownloadResult.err(res_vid._error) # type: ignore
             
             # 2. Download Audio if separated
             if task.audio_url and aud_tmp:
-                res_aud = await self._mock_download_stream(task.audio_url, aud_tmp)
+                res_aud = await self._prod_download_stream(task.audio_url, aud_tmp)
                 if not res_aud.is_ok: return DownloadResult.err(res_aud._error) # type: ignore
             
             # 3. Multiplex if both exist

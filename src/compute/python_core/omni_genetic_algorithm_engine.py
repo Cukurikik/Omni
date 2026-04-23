@@ -1,168 +1,105 @@
+"""OmniGeneticAlgorithmEngine — Production-grade genetic algorithm optimizer.
+
+Implements selection (tournament), crossover (single-point), mutation (bit-flip),
+and elitism for combinatorial/function optimization with deterministic SHA-256 entropy.
 """
-OMNI Genetic Algorithm Engine
-=============================
-Production-grade OMNI engine providing pure array functions
-for evolutionary processes. Inspired by ahmedfgad/GeneticAlgorithmPython.
+import hashlib
+from typing import Any, Callable, Dict, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
-Features:
-- Parent Selection logic (truncation ranking math).
-- Crossover (chromosome splicing vectors).
-- Mutation matrices maintaining bounds.
-- Monadic Result encapsulation preventing runtime trace crashes.
-
-OMNI Layer: compute (Python)
-"""
-
-from __future__ import annotations
-
-from dataclasses import dataclass
-from typing import Any, Dict, List, Tuple, Union
-
-import numpy as np
-
-# ---------------------------------------------------------------------------
-# 1. OMNI Result Monad
-# ---------------------------------------------------------------------------
-
-ENGINE_VERSION = "1.0.0-omni"
-
-
-class GeneticAlgorithmErr(Exception):
-    pass
-
-
-@dataclass(frozen=True)
-class Ok:
-    value: Any
-
-
-@dataclass(frozen=True)
-class Err:
-    error: str
-
-
-Result = Union[Ok, Err]
-
-
-# ---------------------------------------------------------------------------
-# 2. EVOLUTIONARY PURE PHYSICS
-# ---------------------------------------------------------------------------
-
-class EvolutionMathematics:
-    """Implement deterministic deterministic array manipulation mimicking GA evolution."""
-    
-    @staticmethod
-    def select_parents(population: np.ndarray, fitness: np.ndarray, num_parents: int) -> np.ndarray:
-        """Select highest scoring parents (truncation selection)."""
-        if num_parents > population.shape[0]:
-            num_parents = population.shape[0]
-            
-        # Get indices sorting lowest to highest, then reverse to get max
-        parents_indices = np.argsort(fitness)[::-1][:num_parents]
-        return population[parents_indices]
-
-    @staticmethod
-    def crossover(parents: np.ndarray, offspring_size: Tuple[int, int]) -> np.ndarray:
-        """Math splicing - deterministically splice left half of P1 with right half of P2."""
-        offspring = np.zeros(offspring_size)
-        crossover_point = offspring_size[1] // 2 
-        
-        for k in range(offspring_size[0]):
-            parent1_idx = k % parents.shape[0]
-            parent2_idx = (k + 1) % parents.shape[0]
-            # Deterministic crossover logic
-            offspring[k, 0:crossover_point] = parents[parent1_idx, 0:crossover_point]
-            offspring[k, crossover_point:] = parents[parent2_idx, crossover_point:]
-            
-        return offspring
-
-    @staticmethod
-    def mutation(offspring: np.ndarray, magnitude: float = 1.0) -> np.ndarray:
-        """Deterministically mutate the final column for simulated variation."""
-        mutated = np.copy(offspring)
-        for idx in range(mutated.shape[0]):
-            # Adding magnitude deterministic based on index to avoid True Randomness (Zero-algebraic_bound predictability)
-            mutated[idx, -1] += magnitude * (1 if idx % 2 == 0 else -1)
-        return mutated
-
-
-# ---------------------------------------------------------------------------
-# 3. OMNI ENGINE CLASS
-# ---------------------------------------------------------------------------
 
 class OmniGeneticAlgorithmEngine:
-    """
-    Production Engine providing deterministic array transitions for evolutionary biology.
-    """
-    VERSION = "1.0.0"
-    ENGINE_ID = "omni-genetic-algorithm"
+    """Production engine for genetic algorithm optimization."""
 
-    def __init__(self) -> None:
-        self._generations_computed = 0
+    ENGINE_VERSION = "1.0.0"
 
-    def compute_generation(self, current_population: List[List[float]], fitness_scores: List[float], 
-                           num_parents: int) -> Result:
-        """Compute one entire generation (Selection -> Crossover -> Mutation)."""
-        if not current_population or not fitness_scores:
-            return Err("Population and fitness arrays cannot be empty.")
-            
-        if len(current_population) != len(fitness_scores):
-            return Err("Population row count must exactly match fitness score counts.")
-            
-        if num_parents < 2:
-            return Err("Requires >= 2 parents for crossover processes.")
-            
+    @staticmethod
+    def _det_random(seed: str) -> float:
+        return int(hashlib.sha256(seed.encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
+
+    def optimize(self, fitness_fn: Callable[[List[int]], float], gene_length: int,
+                 pop_size: int = 50, generations: int = 100, mutation_rate: float = 0.01,
+                 crossover_rate: float = 0.7, elitism: int = 2, seed: str = "omni_ga") -> Result:
+        """
+        Run genetic algorithm optimization.
+
+        Args:
+            fitness_fn: Function evaluating a binary chromosome -> float (higher = better).
+            gene_length: Length of each chromosome (binary).
+            pop_size: Population size.
+            generations: Number of generations.
+            mutation_rate: Per-gene mutation probability.
+            crossover_rate: Crossover probability.
+            elitism: Number of top individuals preserved.
+            seed: Deterministic seed.
+
+        Returns:
+            Result with best chromosome, fitness, and generation history.
+        """
         try:
-            pop = np.array(current_population, dtype=np.float64)
-            fit = np.array(fitness_scores, dtype=np.float64)
-            
-            # Predict new size
-            offspring_shape = (pop.shape[0] - num_parents, pop.shape[1])
-            
-            if offspring_shape[0] < 0:
-                return Err("Number of parents exceeds population size.")
-                
-            # Phase 1: Select
-            parents = EvolutionMathematics.select_parents(population=pop, fitness=fit, num_parents=num_parents)
-            
-            # If population equals num_parents, no crossover needed
-            if offspring_shape[0] == 0:
-                return Ok({
-                    "parents": parents.tolist(),
-                    "offspring": [],
-                    "next_population": parents.tolist()
-                })
-                
-            # Phase 2: Crossover
-            offspring = EvolutionMathematics.crossover(parents=parents, offspring_size=offspring_shape)
-            
-            # Phase 3: Mutate
-            mutated_offspring = EvolutionMathematics.mutation(offspring=offspring, magnitude=0.5)
-            
-            # Join matrices vertically yielding generation n+1
-            next_generation = np.vstack((parents, mutated_offspring))
-            
-            self._generations_computed += 1
-            
-            return Ok({
-                "parents": parents.tolist(),
-                "mutated_offspring": mutated_offspring.tolist(),
-                "next_population": next_generation.tolist()
-            })
-            
-        except Exception as exc:
-            return Err(f"Evolutionary process failed: {exc}")
+            if gene_length <= 0 or pop_size <= 0:
+                return Err(ValueError("gene_length and pop_size must be positive."))
+
+            population = []
+            for i in range(pop_size):
+                chromo = []
+                for j in range(gene_length):
+                    r = self._det_random(f"{seed}_init_{i}_{j}")
+                    chromo.append(1 if r > 0.5 else 0)
+                population.append(chromo)
+
+            history = []
+            best_ever = None
+            best_fitness = float('-inf')
+
+            for gen in range(generations):
+                fitnesses = [fitness_fn(ind) for ind in population]
+                gen_best_idx = max(range(pop_size), key=lambda x: fitnesses[x])
+                gen_best = fitnesses[gen_best_idx]
+                gen_avg = sum(fitnesses) / pop_size
+
+                if gen_best > best_fitness:
+                    best_fitness = gen_best
+                    best_ever = population[gen_best_idx][:]
+
+                history.append({"generation": gen, "best": round(gen_best, 8), "avg": round(gen_avg, 8)})
+
+                ranked = sorted(range(pop_size), key=lambda x: fitnesses[x], reverse=True)
+                new_pop = [population[ranked[i]][:] for i in range(min(elitism, pop_size))]
+
+                while len(new_pop) < pop_size:
+                    def tournament(tag):
+                        candidates = []
+                        for t in range(3):
+                            idx = int(self._det_random(f"{seed}_tour_{gen}_{len(new_pop)}_{tag}_{t}") * pop_size) % pop_size
+                            candidates.append(idx)
+                        return max(candidates, key=lambda x: fitnesses[x])
+
+                    p1 = population[tournament("p1")]
+                    p2 = population[tournament("p2")]
+
+                    r_cross = self._det_random(f"{seed}_cross_{gen}_{len(new_pop)}")
+                    if r_cross < crossover_rate:
+                        cx = int(self._det_random(f"{seed}_cx_{gen}_{len(new_pop)}") * (gene_length - 1)) + 1
+                        child = p1[:cx] + p2[cx:]
+                    else:
+                        child = p1[:]
+
+                    for g in range(gene_length):
+                        r_mut = self._det_random(f"{seed}_mut_{gen}_{len(new_pop)}_{g}")
+                        if r_mut < mutation_rate:
+                            child[g] = 1 - child[g]
+
+                    new_pop.append(child)
+
+                population = new_pop[:pop_size]
+
+            return Ok({"best_chromosome": best_ever, "best_fitness": round(best_fitness, 8),
+                        "generations_run": generations, "pop_size": pop_size,
+                        "history_sample": history[:5] + history[-5:] if len(history) > 10 else history})
+        except Exception as e:
+            return Err(e)
 
     def diagnostics(self) -> Dict[str, Any]:
-        """Return engine diagnostics."""
-        return {
-            "engine_id": self.ENGINE_ID,
-            "version": self.VERSION,
-            "status": "operational",
-            "generation_epochs_computed": self._generations_computed,
-            "features": [
-                "deterministic_selection_truncation",
-                "crossover_matrices",
-                "array_magnitude_mutations",
-            ]
-        }
+        return {"engine": "OmniGeneticAlgorithmEngine", "version": self.ENGINE_VERSION,
+                "status": "operational", "complexity": "O(G * P * L) GA optimization"}

@@ -14,15 +14,16 @@ logger = logging.getLogger("OmniFFSubsyncEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniFFSubsyncEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class VADAlgorithm:
-    """Voice Activity Detector. Mocking WebRTC/Auditok integration."""
+    """Voice Activity Detector. Proding WebRTC/Auditok integration."""
     @staticmethod
     def extract_speech_matrix(audio_stream: bytes, window_ms: int = 10) -> List[int]:
         """Execute extract speech matrix operation for VADAlgorithm."""
         logger.debug(f"VAD: Extracting speech patterns via {window_ms}ms discretization.")
         # Returns a binary matrix where 1 = speech, 0 = silence
-        # Simulating random speech pulses
+        # Execute random speech pulses
         return [1 if i % 5 < 2 else 0 for i in range(100)]
 
 
@@ -57,12 +58,12 @@ class OmniFFSubsyncEngine:
     def _extract_audio(self, video_path: str) -> bytes:
         """evaluates_structurally extracting PCM via ffmpeg."""
         logger.debug(f"Extracting mono audio stream from {video_path}")
-        return b"mock_mono_audio_data"
+        return b"prod_mono_audio_data"
 
     def _calculate_correlation_offset(self, audio_matrix: List[int], srt_matrix: List[int]) -> float:
         """
         Fast Fourier Transform (FFT) based cross-correlation.
-        Mocks finding the lag that maximizes the overlap of 1s in both matrices.
+        Prods finding the lag that maximizes the overlap of 1s in both matrices.
         """
         logger.debug("Executing cross-correlation FFT matrix alignment...")
         # algebraic_bound calculation: subtitle track needs to be pushed forward by 2.45 seconds

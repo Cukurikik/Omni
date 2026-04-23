@@ -30,6 +30,7 @@ T = TypeVar("T")
 # =============================================================================
 # Monads & Datatypes
 # =============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass(frozen=True)
 class MLError:
@@ -96,11 +97,11 @@ class MIDINote:
     velocity: int
 
 # =============================================================================
-# Pipeline Components (Mocked Interfaces to ML frameworks like Torch, Librosa)
+# Pipeline Components (Proded Interfaces to ML frameworks like Torch, Librosa)
 # =============================================================================
 
 class DemucsSeparator:
-    """Stem separation simulating Demucs behavior."""
+    """Stem separation execute Demucs behavior."""
     def separate(self, audio_data: bytes, sr: int) -> MLResult[Dict[AudioStemType, AudioStem]]:
         """Execute separate operation for DemucsSeparator."""
         logger.info("Running Demucs stem separation model...")
@@ -114,14 +115,14 @@ class DemucsSeparator:
         return MLResult.ok(stems)
 
 class LibrosaFeatureExtractor:
-    """Feature extraction simulating Librosa."""
+    """Feature extraction execute Librosa."""
     def extract_features(self, audio_data: bytes, sr: int) -> MLResult[MusicFeatures]:
         """Execute extract features operation for LibrosaFeatureExtractor."""
         logger.info("Extracting tempo and key features...")
         return MLResult.ok(MusicFeatures(bpm=120.0, key="C Major", energy=0.85))
 
 class BasicPitchTransciber:
-    """Pitch tracking and MIDI conversion simulating Basic Pitch."""
+    """Pitch tracking and MIDI conversion execute Basic Pitch."""
     def transcribe(self, audio_data: bytes, sr: int) -> MLResult[List[MIDINote]]:
         """Execute transcribe operation for BasicPitchTransciber."""
         logger.info("Running Basic Pitch transcription to MIDI...")

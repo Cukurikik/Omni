@@ -29,6 +29,7 @@ ENGINE_NAME: str = "OmniLightLLMEngine"
 # ---------------------------------------------------------------------------
 # Monadic Result
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""

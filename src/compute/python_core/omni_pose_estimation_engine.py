@@ -26,8 +26,10 @@ import math
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class PoseEstimationErr(Exception):
+    """OMNI Zero-Prod Production Implementation for PoseEstimationErr."""
     pass
 
 @dataclass(frozen=True)
@@ -134,6 +136,14 @@ class OmniPoseProcessor:
             
         except Exception as e:
             return Err(f"PAF score computation failed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniPoseProcessor", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

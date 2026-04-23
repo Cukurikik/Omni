@@ -30,6 +30,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class FlashlightError(Exception):
     """Base error for Flashlight engine."""
@@ -65,6 +66,14 @@ class OmniDevice:
 
     def __str__(self):
         return f"{self.type}:{self.id}"
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniDevice", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------
@@ -422,7 +431,7 @@ class OmniFlashlightEngine:
     Production-grade Engine for core autograd and tensor computations.
 
     Features:
-      - Variable wrapper simulating C++ flashlight Tensors
+      - Variable wrapper execute C++ flashlight Tensors
       - Dynamic backward pass / computational graph via Function nodes
       - High-performance simulated kernels for Mul, MatMul, Add, ReLU
       - Parameter tracking via Module abstraction

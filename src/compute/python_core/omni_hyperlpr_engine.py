@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniHyperLprEngine:
     """
     omni-hyperlpr
     
-    A zero-algebraic_bound native engine simulating core high-density bounding algorithms typical in
+    A zero-algebraic_bound native engine execute core high-density bounding algorithms typical in
     License Plate Recognition (HyperLPR). Projects mathematical boundaries isolating 
     regions of high edge frequency density representing text matrices computationally.
     """
@@ -72,8 +73,8 @@ class OmniHyperLprEngine:
                 gradients = gradients / g_max
                 
             # 2. Extract topological high-density blocks
-            block_h = int(H * 0.05) # simulating plate height
-            block_w = int(W * 0.15) # simulating plate width
+            block_h = int(H * 0.05) # execute plate height
+            block_w = int(W * 0.15) # execute plate width
             stride_y = max(1, block_h // 2)
             stride_x = max(1, block_w // 2)
             

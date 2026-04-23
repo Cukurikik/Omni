@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniBossSensorEngine:
     """
     omni-boss-sensor
     
-    A zero-algebraic_bound native engine simulating real-time visual target acquisition 
+    A zero-algebraic_bound native engine execute real-time visual target acquisition 
     (detecting specific individuals like the "Boss"). 
     Uses a dense sliding 2D spatial extraction window paired with localized 
     cosine-similarity projections evaluating visual bounds.
@@ -46,7 +47,7 @@ class OmniBossSensorEngine:
             
         self.threshold = threshold
         
-        # Simulating a basic pseudo-CNN Feature Extractor projection matrix mapping 
+        # Execute a basic pseudo-CNN Feature Extractor projection matrix mapping 
         # (patch_height * patch_width * channels) -> 128
         self.patch_size = 8
         self.channels = 3

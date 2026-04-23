@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniGluonCvEngine:
     """
     omni-gluon-cv
     
-    A zero-algebraic_bound native engine simulating Computer Vision deep learning boundaries.
+    A zero-algebraic_bound native engine execute Computer Vision deep learning boundaries.
     Executes explicit topological matrix spatial convolutions natively replacing
     MXNet/Gluon implementations with pure pure structural array mechanics.
     """

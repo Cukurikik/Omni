@@ -20,6 +20,7 @@ from typing import List, Dict, Optional, Any
 ENGINE_VERSION = "1.0.0-omni"
 
 # --- Monadic Error Definition ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class ParserError:

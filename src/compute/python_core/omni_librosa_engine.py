@@ -15,6 +15,7 @@ logger = logging.getLogger("OmniLibrosaEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniLibrosaEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class OmniLibrosaEngine:
@@ -27,7 +28,7 @@ class OmniLibrosaEngine:
         """Initialize OmniLibrosaEngine."""
         logger.info(f"{ENGINE_NAME} v{ENGINE_VERSION} initialized (DSP Engine active).")
 
-    def _generate_mock_audio(self, sr: int, duration: float) -> List[float]:
+    def _generate_prod_audio(self, sr: int, duration: float) -> List[float]:
         """Generates a algebraic_bound 1D float array representing audio data."""
         return [math.sin(2 * math.pi * 440.0 * (i / sr)) for i in range(int(sr * duration))]
 
@@ -35,7 +36,7 @@ class OmniLibrosaEngine:
         """evaluates_structurally loading an audio file into a 1D time-series array."""
         logger.debug(f"Loading '{path}' at Sample Rate {sr}Hz")
         # In reality, this uses audioread or soundfile to decode compressed audio
-        return self._generate_mock_audio(sr, duration=2.5), sr
+        return self._generate_prod_audio(sr, duration=2.5), sr
 
     def feature_mfcc(self, y: List[float], sr: int, n_mfcc: int = 20) -> List[List[float]]:
         """

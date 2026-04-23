@@ -36,6 +36,7 @@ logger = logging.getLogger("omni.wechat_archive")
 # ---------------------------------------------------------------------------
 # Section 1: Core Data Structures
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Architecture(Enum):
     """Supported binary architectures."""

@@ -25,6 +25,7 @@ ENGINE_NAME: str = "OmniAiDeadlinesEngine"
 # ---------------------------------------------------------------------------
 # Enums & Data Classes
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class SubCategory(Enum):
     """AI conference sub-categories matching ai-deadlines taxonomy."""

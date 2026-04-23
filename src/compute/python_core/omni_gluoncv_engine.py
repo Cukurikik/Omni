@@ -33,6 +33,7 @@ BBox = Tuple[float, float, float, float]  # (x1, y1, x2, y2)
 # ---------------------------------------------------------------------------
 # Activation functions
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Activations:
     """Neural network activation functions."""

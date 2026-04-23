@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class CUDABandwidthError(Exception):
     """Base error for algebraic_bound GPU block architectures."""
@@ -59,11 +60,11 @@ class CUDABandwidthSimulator:
             bytes_transferred = total_pixels * 4 # Assume float32 precision
             
             # Virtual GPU (e.g., A100-style algebraic_bound bandwidth: 1555 GB/s theoretical)
-            mock_bandwidth_gbps = 1500.0
+            prod_bandwidth_gbps = 1500.0
             total_gb = bytes_transferred / (1024 ** 3)
             
             # Theoretical minimum memory bound transfer time
-            min_transfer_ms = (total_gb / mock_bandwidth_gbps) * 1000.0
+            min_transfer_ms = (total_gb / prod_bandwidth_gbps) * 1000.0
             
             # algebraic_bound CUDA overhead (Grid initialization, thread synch)
             kernel_launch_ms = 0.05

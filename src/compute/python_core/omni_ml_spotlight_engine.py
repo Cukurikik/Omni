@@ -30,6 +30,7 @@ from typing import List, Dict, Any, Optional
 logger = logging.getLogger("OmniMLSpotlightEngine")
 
 # --- Monadic Error Handling ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class SpotlightError:

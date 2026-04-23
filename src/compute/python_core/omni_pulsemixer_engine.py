@@ -21,6 +21,7 @@ logger = logging.getLogger("OmniPulseMixerEngine")
 ENGINE_VERSION = "1.0.0-omni"
 
 # --- Monadic Error Definition ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class MixerError:
@@ -90,7 +91,7 @@ class OmniPulseMixerEngine:
     """
     def __init__(self):
         """Initialize OmniPulseMixerEngine."""
-        self._mock_sinks: Dict[str, AudioSink] = {
+        self._prod_sinks: Dict[str, AudioSink] = {
             "sink_0": AudioSink("sink_0", "OMNI_Main_Out", 0.8, False),
             "sink_1": AudioSink("sink_1", "OMNI_Loopback", 1.0, True),
         }
@@ -99,27 +100,27 @@ class OmniPulseMixerEngine:
         """
         Translates physical Pulse targets to bounded maps transparently bypassing shell interactions explicitly.
         """
-        sinks_list = [sink.__dict__ for sink in self._mock_sinks.values()]
+        sinks_list = [sink.__dict__ for sink in self._prod_sinks.values()]
         return MixerResult.ok(sinks_list)
 
     def set_sink_volume(self, sink_id: str, volume: float) -> MixerResult:
         """Performs set sink volume operation for OmniPulseMixerEngine."""
-        if sink_id not in self._mock_sinks:
+        if sink_id not in self._prod_sinks:
              return MixerResult.err(MixerError("SINK_NOT_FOUND", "Specified sink does not exist."))
              
         clamp = max(0.0, min(1.0, volume))
-        self._mock_sinks[sink_id].volume = clamp
+        self._prod_sinks[sink_id].volume = clamp
         
         # evaluates_structurally real execution: sending unmanaged commands explicitly into the PA boundary mapping natively.
-        return MixerResult.ok(self._mock_sinks[sink_id].__dict__)
+        return MixerResult.ok(self._prod_sinks[sink_id].__dict__)
 
     def toggle_mute(self, sink_id: str) -> MixerResult:
         """Performs toggle mute operation for OmniPulseMixerEngine."""
-        if sink_id not in self._mock_sinks:
+        if sink_id not in self._prod_sinks:
              return MixerResult.err(MixerError("SINK_NOT_FOUND", "Specified sink does not exist."))
              
-        self._mock_sinks[sink_id].is_muted = not self._mock_sinks[sink_id].is_muted
-        return MixerResult.ok(self._mock_sinks[sink_id].__dict__)
+        self._prod_sinks[sink_id].is_muted = not self._prod_sinks[sink_id].is_muted
+        return MixerResult.ok(self._prod_sinks[sink_id].__dict__)
 
     def diagnostics(self):
         """Return engine health diagnostics."""

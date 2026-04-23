@@ -25,8 +25,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class MLCompleteErr(Exception):
+    """OMNI Zero-Prod Production Implementation for MLCompleteErr."""
     pass
 
 @dataclass(frozen=True)
@@ -99,6 +101,14 @@ class OmniLogisticRegression:
         except Exception as e:
             return Err(f"Prediction crashed: {str(e)}")
 
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniLogisticRegression", "version": "1.0.0", "status": "operational"}
+
 
 class OmniMetricsGrid:
     """Calculates Evaluation Metrics natively."""
@@ -130,6 +140,14 @@ class OmniMetricsGrid:
             })
         except Exception as e:
             return Err(f"Metrics evaluation failed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniMetricsGrid", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

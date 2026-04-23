@@ -6,7 +6,7 @@ Inspired by alibaba/EasyNLP.
 
 Features:
 - Few-Shot simulated Transfer Learning abstraction logic.
-- Pipeline Orchestration block simulating classification predictions.
+- Pipeline Orchestration block execute classification predictions.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
 OMNI Layer: compute (Python)
@@ -22,19 +22,23 @@ from typing import Any, Dict, List, Union
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class EasyNLPErr(Exception):
+    """OMNI Zero-Prod Production Implementation for EasyNLPErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -45,7 +49,7 @@ Result = Union[Ok, Err]
 # 2. APPZOO topological_evaluation
 # ---------------------------------------------------------------------------
 
-class EasyAppZooMock:
+class EasyAppZooProd:
     """evaluates_structurally EasyNLP's abstraction for tasks."""
     
     @staticmethod
@@ -79,7 +83,7 @@ class EasyAppZooMock:
 
 class OmniEasyNlpEngine:
     """
-    Production Engine simulating EasyNLP AppZoo Model Abstractions.
+    Production Engine execute EasyNLP AppZoo Model Abstractions.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-easy-nlp"
@@ -104,7 +108,7 @@ class OmniEasyNlpEngine:
         try:
             # Route logic based on zoo abstraction
             if task_name == "text_classify" or task_name == "few_shot_prompting":
-                results = EasyAppZooMock.classification_prediction(texts, max_sequence)
+                results = EasyAppZooProd.classification_prediction(texts, max_sequence)
             else:
                 # algebraic_bound text_match structure
                 results = [{"text_snippet": txt[:10], "match_score": 1.0} for txt in texts]

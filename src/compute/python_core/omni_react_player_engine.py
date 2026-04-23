@@ -16,6 +16,7 @@ logger = logging.getLogger("OmniReactPlayerEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniReactPlayerEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class PlayerProvider(Enum):
@@ -122,7 +123,7 @@ class OmniReactPlayerEngine:
         return {
             "playedSeconds": p["current_time"],
             "played_percent": p["current_time"] / p["duration"] if p["duration"] > 0 else 0,
-            "loadedSeconds": p["current_time"] + 15.0, # simulating buffered amount
+            "loadedSeconds": p["current_time"] + 15.0, # execute buffered amount
         }
 
     def diagnostics(self) -> Dict[str, Any]:

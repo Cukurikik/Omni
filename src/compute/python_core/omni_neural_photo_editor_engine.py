@@ -1,12 +1,12 @@
 """
 OMNI Neural Photo Editor Engine
 ===============================
-Production-grade OMNI engine mathematically simulating Latent Space semantics.
+Production-grade OMNI engine mathematically execute Latent Space semantics.
 Inspired by ajbrock/Neural-Photo-Editor.
 
 Features:
 - SLERP (Spherical Linear Interpolation) mathematical cross-mapping.
-- Vector arithmetic simulating deep neural generative distributions.
+- Vector arithmetic execute deep neural generative distributions.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
 OMNI Layer: compute (Python)
@@ -25,19 +25,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class NeuralPhotoErr(Exception):
+    """OMNI Zero-Prod Production Implementation for NeuralPhotoErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 

@@ -25,8 +25,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class DLPyTorchErr(Exception):
+    """OMNI Zero-Prod Production Implementation for DLPyTorchErr."""
     pass
 
 @dataclass(frozen=True)
@@ -81,6 +83,14 @@ class OmniTensor:
             
         self.grad += gradient
         return Ok(True)
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniTensor", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

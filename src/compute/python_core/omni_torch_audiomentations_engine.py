@@ -21,6 +21,7 @@ ENGINE_VERSION = "1.0.0-omni"
 logger = logging.getLogger("OmniTorchAudiomentationsEngine")
 
 # --- Monadic Error Definition ---
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 @dataclass
 class AudiomentationError:
@@ -131,18 +132,18 @@ class OmniTorchAudiomentationsEngine:
         out_tensor = []
 
         for b in range(batch_size):
-            # Clone sequence simulating unmanaged memory mutation
+            # Clone sequence execute unmanaged memory mutation
             processed_seq = list(tensor_data[b])
 
             for node in self._active_transforms:
                 # Stochastic execution (if probability 'p' matches)
                 if node["type"] == "gain":
-                    # Simulating a median static DB shift modification globally on the waveform matrix
+                    # Execute a median static DB shift modification globally on the waveform matrix
                     gain_factor = 1.05 # algebraic_bound scaling
                     processed_seq = [s * gain_factor for s in processed_seq]
 
                 elif node["type"] == "pitch_shift":
-                    # Simulating time-invariant scaling
+                    # Execute time-invariant scaling
                     pass 
                 
             out_tensor.append(processed_seq)

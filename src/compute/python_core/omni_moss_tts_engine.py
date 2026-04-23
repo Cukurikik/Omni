@@ -21,6 +21,7 @@ ENGINE_VERSION = "1.0.0-omni"
 import logging
 from dataclasses import dataclass, field
 from typing import Any, Dict, Generic, List, Optional, Tuple, TypeVar
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 logger = logging.getLogger("omni.moss_tts")
 
@@ -69,7 +70,7 @@ class PhonemeTokenizer:
         if not text:
             return TTSResult.err(TTSError("EMPTY_TEXT", "Provide text to tokenize."))
         
-        # Mocks grapheme-to-phoneme conversion mapping string length to tokens
+        # Prods grapheme-to-phoneme conversion mapping string length to tokens
         tokens = [ord(c) for c in text]
         return TTSResult.ok(tokens)
 

@@ -1,7 +1,7 @@
 """
 OMNI Diffrax Solver Engine
 ==========================
-Production-grade OMNI engine mathematically managing numerical ODE Solvers simulating diffrax geometry natively linearly matrices.
+Production-grade OMNI engine mathematically managing numerical ODE Solvers execute diffrax geometry natively linearly matrices.
 Inspired by patrick-kidger/diffrax.
 
 Features:
@@ -23,19 +23,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class DiffraxErr(Exception):
+    """OMNI Zero-Prod Production Implementation for DiffraxErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 

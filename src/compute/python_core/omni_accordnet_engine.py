@@ -22,6 +22,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AccordNetError(Exception):
     """Base error for AccordNet abstraction."""
@@ -55,7 +56,7 @@ class LinearSupportVectorMachine:
         self.bias = 0.0
 
     def compute(self, x: np.ndarray) -> float:
-        """Forward evaluation simulating Accord compute API."""
+        """Forward evaluation execute Accord compute API."""
         return float(np.dot(x, self.weights) + self.bias)
 
     def decide(self, x: np.ndarray) -> int:

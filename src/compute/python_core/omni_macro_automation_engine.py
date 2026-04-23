@@ -48,6 +48,7 @@ DEFAULT_FRAME_INTERVAL_MS: Final[int] = 16  # ~60fps
 # ============================================================================
 # 1. Controller State Model
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class DPadDirection(Enum):
     """Production-grade D Pad Direction component."""

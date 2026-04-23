@@ -31,6 +31,7 @@ from pathlib import Path
 
 
 # ---- Constitutional Laws ---------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ConstitutionalLaw(Enum):
     """Athena's 6 constitutional laws governing autonomous behavior."""

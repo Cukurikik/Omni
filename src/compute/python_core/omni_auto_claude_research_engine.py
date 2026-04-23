@@ -9,6 +9,7 @@ import numpy as np
 import time
 from typing import Dict, Any, List, Tuple, Optional
 from enum import Enum
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern for OMNI engines."""

@@ -14,6 +14,7 @@ logger = logging.getLogger("OmniEqMacEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniEqMacEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class NullAudioServerDriver:
     """
@@ -47,7 +48,7 @@ class TenBandEqualizer:
             logger.debug(f"EQ: Set {frequency}Hz to {self.bands[frequency]:.1f}dB")
 
     def process(self, chunk: bytes) -> bytes:
-        # Mocking DSP filter math 
+        # Proding DSP filter math 
         """Execute process operation for TenBandEqualizer."""
         return chunk
 

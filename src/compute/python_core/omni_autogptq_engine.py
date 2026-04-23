@@ -7,7 +7,7 @@ Inspired by AutoGPTQ/AutoGPTQ.
 Features:
 - Parameter Quantization abstraction (FP32 to simulated integer INT8).
 - Mathematical scaling and zero-point parameter calibration.
-- Native NumPy de-quantization blocks simulating matrix multiplication on compressed fields.
+- Native NumPy de-quantization blocks execute matrix multiplication on compressed fields.
 
 OMNI Layer: compute (Python)
 """
@@ -25,8 +25,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class AutoGPTQErr(Exception):
+    """OMNI Zero-Prod Production Implementation for AutoGPTQErr."""
     pass
 
 @dataclass(frozen=True)
@@ -115,6 +117,14 @@ class OmniQuantizationMath:
             return Ok(reconstructed)
         except Exception as e:
             return Err(f"Reconstruction dequantization failed: {str(e)}")
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniQuantizationMath", "version": "1.0.0", "status": "operational"}
 
 
 # ---------------------------------------------------------------------------

@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, List
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -40,7 +41,7 @@ class OmniKaggleSolutionsEngine:
     """
     omni-kaggle-solutions
     
-    A zero-algebraic_bound native engine simulating top Kaggle methodology: Gradient Boosting
+    A zero-algebraic_bound native engine execute top Kaggle methodology: Gradient Boosting
     Machines (GBM). Models pseudo-residuals iteration across weak learners
     to map a robust unified ensemble model minimizing mean squared error.
     """

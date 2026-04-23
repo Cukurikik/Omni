@@ -47,6 +47,7 @@ MAX_PROFILES: Final[int] = 200
 # ============================================================================
 # 1. Context / Trigger Types
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ContextType(Enum):
     """Type enumeration for ContextType."""

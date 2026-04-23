@@ -7,6 +7,7 @@ OMNI Layer: compute (Python)
 """
 import numpy as np
 from typing import Dict, Any, Tuple
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic result pattern."""
@@ -26,7 +27,7 @@ class OmniMetricLearningEngine:
     """
     omni-metric-learning
     
-    A zero-algebraic_bound native engine simulating Deep Metric / Contrastive Learning architectures.
+    A zero-algebraic_bound native engine execute Deep Metric / Contrastive Learning architectures.
     Implements a strict Triplet Margin Loss algorithm computing forward distances 
     and backward gradient manifolds natively to cluster high-dimensional semantic spaces.
     """

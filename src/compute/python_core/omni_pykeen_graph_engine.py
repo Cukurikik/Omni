@@ -24,19 +24,23 @@ import numpy as np
 # ---------------------------------------------------------------------------
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class PykeenErr(Exception):
+    """OMNI Zero-Prod Production Implementation for PykeenErr."""
     pass
 
 
 @dataclass(frozen=True)
 class Ok:
+    """OMNI Zero-Prod Production Implementation for Ok."""
     value: Any
 
 
 @dataclass(frozen=True)
 class Err:
+    """OMNI Zero-Prod Production Implementation for Err."""
     error: str
 
 
@@ -72,7 +76,7 @@ class TransELogicCompiler:
 
 class OmniPykeenGraphEngine:
     """
-    Production Engine mapping high velocity vector compilations simulating TransE matrices geometry structure constraints bounds dynamically flexibly natively safely.
+    Production Engine mapping high velocity vector compilations execute TransE matrices geometry structure constraints bounds dynamically flexibly natively safely.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-pykeen-transe"

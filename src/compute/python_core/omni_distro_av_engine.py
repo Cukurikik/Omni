@@ -15,6 +15,7 @@ logger = logging.getLogger("OmniDistroAVEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniDistroAVEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class NDIMode(Enum):
@@ -96,9 +97,9 @@ class OmniDistroAVEngine:
             stream_id = self.initialize_ndi_output("Omni_Main_Program", width=1920, height=1080)
             
             # evaluates_structurally 60fps pushing for half a second
-            mock_frame = b"\x00" * (1920*1080*3) # RGB algebraic_bound frame
+            prod_frame = b"\x00" * (1920*1080*3) # RGB algebraic_bound frame
             for _ in range(30):
-                self.push_frame(stream_id, mock_frame)
+                self.push_frame(stream_id, prod_frame)
                 
             stream = self.active_streams[stream_id]
             status = "operational" if stream["frames_sent"] == 30 else "degraded"

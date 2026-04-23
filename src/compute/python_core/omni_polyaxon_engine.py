@@ -23,6 +23,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class PolyaxonSimulatorError(Exception):
     """Base error for Container Pod Orchestration abstractions."""
@@ -74,14 +75,14 @@ class PodResourceScheduler:
                     "status": "SCHEDULED",
                     "utilization_cpu_pct": (self.allocated_cpu / self.max_cpu) * 100,
                     "utilization_ram_pct": (self.allocated_ram / self.max_ram) * 100,
-                    "active_mock_pods": self.active_jobs
+                    "active_prod_pods": self.active_jobs
                 })
             else:
                 return Ok({
                     "status": "PENDING (OOM/CPU THROTTLE LIMIT)",
                     "utilization_cpu_pct": (self.allocated_cpu / self.max_cpu) * 100,
                     "utilization_ram_pct": (self.allocated_ram / self.max_ram) * 100,
-                    "active_mock_pods": self.active_jobs
+                    "active_prod_pods": self.active_jobs
                 })
                 
         except Exception as e:

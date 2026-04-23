@@ -24,8 +24,10 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class TextgenRNNErr(Exception):
+    """OMNI Zero-Prod Production Implementation for TextgenRNNErr."""
     pass
 
 @dataclass(frozen=True)
@@ -125,6 +127,14 @@ class OmniRecurrentGenerator:
               return Ok(res_idx)
          except Exception as e:
               return Err(str(e))
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniRecurrentGenerator", "version": "1.0.0", "status": "operational"}
 
 # ---------------------------------------------------------------------------
 # 3. OMNI ENGINE CLASS

@@ -39,6 +39,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ---------------------------------------------------------------------------
 # 1. OMNI Result Monad (STRICT RULE §3.1)
 # ---------------------------------------------------------------------------
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class PromptError(Exception):
     """Base error for prompt engineering engine."""

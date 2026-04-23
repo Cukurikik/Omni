@@ -29,6 +29,7 @@ ENGINE_VERSION = "1.0.0"
 # ============================================================================
 # 1. Action Types & Identifiers
 # ============================================================================
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class ActionID(Enum):
     """Standard iOS Shortcuts action identifiers."""

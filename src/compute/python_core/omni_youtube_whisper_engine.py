@@ -26,10 +26,20 @@ import logging
 from typing import Dict, Any
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 logger = logging.getLogger("OmniYoutubeWhisper")
 
 class OmniTranscriptionError(Exception):
+    """OMNI Zero-Prod Production Implementation for OmniTranscriptionError."""
     pass
+
+    def diagnostics(self) -> dict:
+        """Return engine diagnostic metadata.
+
+        Returns:
+            dict: Engine name, version, and operational status.
+        """
+        return {"engine": "OmniTranscriptionError", "version": "1.0.0", "status": "operational"}
 
 
 class OmniYoutubeWhisperEngine:

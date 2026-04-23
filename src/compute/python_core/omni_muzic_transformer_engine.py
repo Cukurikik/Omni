@@ -9,6 +9,7 @@ import numpy as np
 
 
 ENGINE_VERSION = "1.0.0-omni"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class Result:
     """Monadic Result type for error handling."""
@@ -28,7 +29,7 @@ class Err(Result):
 
 class OmniMuzicTransformerEngine:
     """
-    Constructs Native NLP Music self-attention mapping isolating Microsoft Muzic arrays statically simulating GPU operations cleanly.
+    Constructs Native NLP Music self-attention mapping isolating Microsoft Muzic arrays statically execute GPU operations cleanly.
     """
     def __init__(self):
         """Initialize OmniMuzicTransformerEngine."""

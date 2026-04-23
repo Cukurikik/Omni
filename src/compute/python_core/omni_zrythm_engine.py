@@ -15,6 +15,7 @@ logger = logging.getLogger("OmniZrythmEngine")
 
 ENGINE_VERSION = "1.0.0"
 ENGINE_NAME = "OmniZrythmEngine"
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 
 class TrackType(Enum):

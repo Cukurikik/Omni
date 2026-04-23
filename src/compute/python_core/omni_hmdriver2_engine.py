@@ -39,6 +39,7 @@ logger = logging.getLogger("omni.hmdriver2")
 # ─────────────────────────────────────────────
 # Section 1: Core Enums & Data Types
 # ─────────────────────────────────────────────
+from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class DeviceState(Enum):
     """Production-grade Device State component."""
