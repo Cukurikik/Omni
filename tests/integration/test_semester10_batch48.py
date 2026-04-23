@@ -1,0 +1,52 @@
+"""
+Integration Test Suite for OMNI Semester 10 Batch 48
+Canonical migration from sem10_batch48_integration_tests.py
+"""
+import pytest
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+import unittest
+from src.compute.python_core.omni_amazon_finance_data_engine import OmniAmazonFinanceDataEngine
+from src.compute.python_core.omni_pypi_research_data_engine import OmniPyPIResearchDataEngine
+from src.compute.python_core.omni_cybersecurity_software_engine import OmniCybersecuritySoftwareEngine
+from src.compute.python_core.omni_ncu_sep_engine import OmniNCUSEPEngine
+from src.compute.python_core.omni_bugtrons_con_engine import OmniBugtronsConEngine
+
+class TestBatch48Integration(unittest.TestCase):
+    def test_amazon_finance(self):
+        engine = OmniAmazonFinanceDataEngine()
+        data = [{"rd_spend": 100000.0, "marketing_spend": 50000.0}]
+        res = engine.evaluate_financial_normalization(data)
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["value"]["aggregate_log_normalization"] > 0)
+        
+    def test_pypi_research(self):
+        engine = OmniPyPIResearchDataEngine()
+        nodes = [{"downloads": 50000.0, "licenses": 1.0}]
+        res = engine.calculate_research_index_geometry(nodes)
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["value"]["aggregate_research_geometry"] > 0)
+
+    def test_cybersecurity_software(self):
+        engine = OmniCybersecuritySoftwareEngine()
+        vulns = [{"cvss_score": 9.8, "mitigation_depth": 3.0}]
+        res = engine.map_cybersecurity_boundaries(vulns)
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["value"]["aggregate_defense_matrix"] > 0)
+
+    def test_ncu_sep(self):
+        engine = OmniNCUSEPEngine()
+        metrics = [{"cyclomatic_complexity": 10.0, "test_coverage": 85.0}]
+        res = engine.evaluate_software_engineering_practice(metrics)
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["value"]["aggregate_practice_validation"] > 0)
+
+    def test_bugtrons(self):
+        engine = OmniBugtronsConEngine()
+        tracks = [{"attendees": 500.0, "sessions": 10.0}]
+        res = engine.map_roadmap_conference_topology(tracks)
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["value"]["aggregate_roadmap_topology"] > 0)
+
