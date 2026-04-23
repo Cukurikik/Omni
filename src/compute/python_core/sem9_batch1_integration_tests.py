@@ -19,7 +19,7 @@ import numpy as np
 import logging
 logging.getLogger("OmniAIAudioDatasetsEngine").setLevel(logging.ERROR)
 
-from omni_apkid_engine import OmniApkidEngine, Ok as ApkidOk, Err as ApkidErr, YaraRuleMock
+from omni_apkid_engine import OmniApkidEngine, Ok as ApkidOk, Err as ApkidErr, YaraRuleProd
 from omni_kompute_engine import OmniKomputeEngine, Ok as K_Ok, Err as K_Err
 from omni_hamilton_engine import OmniHamiltonEngine, Ok as H_Ok, Err as H_Err
 from omni_evaluate_engine import OmniEvaluateEngine, Ok as E_Ok, Err as E_Err
@@ -38,7 +38,7 @@ class TestOmniSemester9Batch1(unittest.TestCase):
 
     def test_apkid_scan_buffer_match(self):
         engine = OmniApkidEngine()
-        # Mocking an APK payload containing a known rule defined in engine (proguard_map)
+        # Proding an APK payload containing a known rule defined in engine (proguard_map)
         payload = b"HEADER\x00\x01\x02proguard_map\x00FOOTER"
         res = engine.analyze_payload(payload)
         

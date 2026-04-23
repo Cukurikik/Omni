@@ -44,7 +44,7 @@ class TestMLNotesEngine(unittest.TestCase):
         engine = OmniMLNotesEngine()
         val = engine.get_validator(lr=0.01)
         
-        # simulating x^2 where min is x=0
+        # execute x^2 where min is x=0
         res = val.evaluate_structural_quadratic_descent(start_pos=10.0, max_iterations=5000)
         self.assertTrue(is_ok(res))
         out = unwrap(res)

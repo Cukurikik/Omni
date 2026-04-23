@@ -42,7 +42,7 @@ class TestDJLEngine(unittest.TestCase):
 
     def test_djl_workflow(self):
         engine = OmniDJLEngine()
-        model_res = engine.load_model("mock_resnet")
+        model_res = engine.load_model("prod_resnet")
         self.assertTrue(is_ok(model_res))
         
         predictor = engine.create_predictor(unwrap(model_res))

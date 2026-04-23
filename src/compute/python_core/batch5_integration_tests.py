@@ -327,7 +327,7 @@ def test_tsf_simulate_forecast():
     e = OmniTSFForecastingEngine()
     e.register_series("s1", 1000, 7, "h")
     e.configure_model("m1", "Autoformer", 96, 48, 24)
-    r = e.simulate_forecast("m1", "s1")
+    r = e.execute_forecast("m1", "s1")
     _assert(r["status"] == "success", "tsf_forecast")
     _assert("MSE" in r["forecast_results"]["metrics"], "tsf_mse")
     _assert(r["forecast_results"]["metrics"]["MSE"] > 0, "tsf_mse_positive")
@@ -336,14 +336,14 @@ def test_tsf_forecast_invalid_model():
     from system.omni_tsf_forecasting_engine import OmniTSFForecastingEngine
     e = OmniTSFForecastingEngine()
     e.register_series("s1", 1000, 7, "h")
-    r = e.simulate_forecast("ghost_model", "s1")
+    r = e.execute_forecast("ghost_model", "s1")
     _assert(r["status"] == "error", "tsf_forecast_no_model")
 
 def test_tsf_forecast_invalid_ds():
     from system.omni_tsf_forecasting_engine import OmniTSFForecastingEngine
     e = OmniTSFForecastingEngine()
     e.configure_model("m1", "Autoformer", 96, 48, 24)
-    r = e.simulate_forecast("m1", "ghost_s1")
+    r = e.execute_forecast("m1", "ghost_s1")
     _assert(r["status"] == "error", "tsf_forecast_no_ds")
 
 

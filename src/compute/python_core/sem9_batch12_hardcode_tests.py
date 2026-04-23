@@ -17,7 +17,7 @@ class TestBatch12HardcodedEngines(unittest.TestCase):
         
     def test_physo(self):
         engine = OmniPhysoSymbolicEngine()
-        # Mock physics: y = x^2
+        # Prod physics: y = x^2
         def physics_law(x): return x ** 2
         x_val = np.array([1, 2, 3, 4])
         y_val = np.array([1, 4, 9, 16])

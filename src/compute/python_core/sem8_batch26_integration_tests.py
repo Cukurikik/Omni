@@ -134,7 +134,7 @@ class TestSpiceAIEngine(unittest.TestCase):
         engine = OmniSpiceAIEngine()
         agg = engine.get_aggregator()
         
-        # Simulating time stamps
+        # Execute time stamps
         # Notice the jump between 105 and 500
         timestamps = [100, 102, 105, 500, 502, 505]
         

@@ -96,11 +96,11 @@ try:
                      engine.initialize_ffi_context("context2", ["invalid-crate"]))
 
     # Execution
-    exec_res = engine.execute_mock_action("context1", "linfa", "k_means_clustering")
+    exec_res = engine.execute_prod_action("context1", "linfa", "k_means_clustering")
     suite.assert_ok("AwesomeRustML: execute algebraic_bound rust calculation", exec_res)
 
     suite.assert_err("AwesomeRustML: execution for non-loaded crate",
-                     engine.execute_mock_action("context1", "burn", "forward_pass"))
+                     engine.execute_prod_action("context1", "burn", "forward_pass"))
 
     # Cleanup
     clean = engine.teardown_context("context1")

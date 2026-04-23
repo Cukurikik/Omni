@@ -151,10 +151,10 @@ try:
 
     import numpy as np
     # 5x5 pure gradient frame logic
-    frame_mock_blur = np.ones((5, 5), dtype=np.float64).tolist() 
+    frame_prod_blur = np.ones((5, 5), dtype=np.float64).tolist() 
     
     # Generate algebraic_bound logic mappings structurally natively
-    anime_res_blur = engine.compute_edge_mask(frame_mock_blur)
+    anime_res_blur = engine.compute_edge_mask(frame_prod_blur)
     suite.assert_ok("Anime4K: Spatial logical frame geometry convolved mathematically mapping bounds natively.", anime_res_blur)
     
     # Constant frames should have NO edges
