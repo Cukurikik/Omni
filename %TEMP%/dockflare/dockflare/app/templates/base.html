@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="{{ current_lang }}" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      {% block title %}DockFlare{% endblock %} {{ app_version }} - Cloudflare
+      Tunnel Manager
+    </title>
+    {% if master_api_key %}
+    <meta name="dockflare-api-key" content="{{ master_api_key }}" />
+    {% endif %}
+    <link
+      rel="apple-touch-icon"
+      href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="{{ url_for('static', filename='favicon/android-chrome-192x192.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="{{ url_for('static', filename='favicon/android-chrome-512x512.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon/favicon.ico') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/output.css') }}"
+    />
+    <link rel="preconnect" href="https://rsms.me" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://rsms.me/inter/inter.css"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      pre {
+        font-family: monospace;
+      }
+      #log-output::-webkit-scrollbar {
+        width: 8px;
+      }
+      #log-output::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #log-output::-webkit-scrollbar-thumb {
+        background-color: rgba(156, 163, 175, 0.5);
+        border-radius: 4px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      #log-output::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(156, 163, 175, 0.7);
+      }
+      html[data-theme="dark"] #log-output::-webkit-scrollbar-thumb {
+        background-color: rgba(107, 114, 128, 0.5);
+      }
+      html[data-theme="dark"] #log-output::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(107, 114, 128, 0.7);
+      }
+
+      /* Mobile Responsive Table Support */
+      @media (max-width: 768px) {
+        .table-responsive thead {
+          display: none;
+        }
+        .table-responsive tr {
+          display: block;
+          margin-bottom: 1rem;
+          border: 1px solid hsl(var(--bc) / 0.1);
+          border-radius: var(--rounded-box, 1rem);
+          background-color: hsl(var(--b1));
+          padding: 0.5rem;
+          box-shadow: var(--shadow);
+        }
+        .table-responsive td {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          text-align: right;
+          padding: 0.5rem 1rem !important;
+          border: none !important;
+          position: relative;
+          min-height: 2.5rem;
+        }
+        .table-responsive td::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 1rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 0.65rem;
+          opacity: 0.6;
+        }
+        .table-responsive td:last-child {
+          border-bottom: 0;
+        }
+
+        /* Specific overrides for status badges and links */
+        .table-responsive td > * {
+          max-width: 60%;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min_h-screen flex flex-col font-sans transition-colors duration-300 bg-base-200/50"
+  >
+    <header
+      class="sticky top-0 z-40 w-full backdrop-blur-sm shadow-sm bg-base-100/90"
+    >
+      <div class="navbar mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </label>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content mt-3 z-[51] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a
+                  href="{{ url_for('web.status_page') }}"
+                  class="{{ 'active' if request.endpoint == 'web.status_page' else '' }}"
+                  >{{ t('nav.dashboard') }}</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('web.access_policies_page') }}"
+                  class="{{ 'active' if request.endpoint == 'web.access_policies_page' else '' }}"
+                  >{{ t('nav.access_policies') }}</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('web.agents_page') }}"
+                  class="{{ 'active' if request.endpoint == 'web.agents_page' else '' }}"
+                  >{{ t('nav.agents') }}</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('web.settings_page') }}"
+                  class="{{ 'active' if request.endpoint == 'web.settings_page' else '' }}"
+                  >{{ t('nav.settings') }}</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('help.help_page') }}"
+                  class="{{ 'active' if request.endpoint.startswith('help.') else '' }}"
+                  >{{ t('nav.help') }}</a
+                >
+              </li>
+            </ul>
+          </div>
+          <a
+            href="{{ url_for('web.status_page') }}"
+            class="px-2"
+            title="Now you're thinking with tunnels"
+          >
+            <img
+              src="{{ url_for('static', filename='images/logo.gif') }}"
+              alt="Dockflare Logo Banner"
+              class="h-10 sm:h-12 block align-middle"
+            />
+          </a>
+        </div>
+
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li>
+              <a
+                href="{{ url_for('web.status_page') }}"
+                class="{{ 'active' if request.endpoint == 'web.status_page' else '' }}"
+                >{{ t('nav.dashboard') }}</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('web.access_policies_page') }}"
+                class="{{ 'active' if request.endpoint == 'web.access_policies_page' else '' }}"
+                >{{ t('nav.access_policies') }}</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('web.agents_page') }}"
+                class="{{ 'active' if request.endpoint == 'web.agents_page' else '' }}"
+                >{{ t('nav.agents') }}</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('web.settings_page') }}"
+                class="{{ 'active' if request.endpoint == 'web.settings_page' else '' }}"
+                >{{ t('nav.settings') }}</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('help.help_page') }}"
+                class="{{ 'active' if request.endpoint.startswith('help.') else '' }}"
+                >{{ t('nav.help') }}</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="navbar-end">
+          {% set _cur_lang = session.get('lang', 'en') %} {% set _lang_data = [
+          ('en', '🇬🇧', 'EN'), ('de', '🇩🇪', 'DE'), ('ch-barnduetsch', '🇨🇭',
+          'CH'), ('fr', '🇫🇷', 'FR'), ('it', '🇮🇹', 'IT'), ('es', '🇪🇸', 'ES'),
+          ('pl', '🇵🇱', 'PL'), ('zh', '🇨🇳', 'ZH'), ('ja', '🇯🇵', 'JA'), ('id',
+          '🇮🇩', 'ID') ] %} {% set _cur_flag = namespace(v='🌐') %} {% set
+          _cur_code = namespace(v=_cur_lang|upper) %} {% for _lc, _lf, _ll in
+          _lang_data %} {% if _lc == _cur_lang %} {% set _cur_flag.v = _lf %} {%
+          set _cur_code.v = _ll %} {% endif %} {% endfor %}
+          <div class="dropdown dropdown-end">
+            <button
+              tabindex="0"
+              role="button"
+              class="btn btn-ghost btn-sm gap-1.5 px-2"
+              title="{{ t('common.change_language') }}"
+            >
+              <span class="text-lg leading-none">{{ _cur_flag.v }}</span>
+              <span class="text-xs font-bold tracking-wide"
+                >{{ _cur_code.v }}</span
+              >
+            </button>
+            <div
+              tabindex="0"
+              class="dropdown-content z-[51] p-2 shadow-lg bg-base-200 rounded-box mt-2 w-36"
+            >
+              <div class="grid grid-cols-2 gap-1">
+                {% for _lc, _lf, _ll in _lang_data %}
+                <a
+                  href="{{ url_for('web.set_language', lang=_lc) }}"
+                  class="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-base-300 transition-colors {{ 'bg-primary text-primary-content' if _lc == _cur_lang else '' }}"
+                >
+                  <span class="text-base leading-none">{{ _lf }}</span>
+                  <span class="text-xs font-semibold">{{ _ll }}</span>
+                </a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="dropdown dropdown-end">
+            <button
+              tabindex="0"
+              role="button"
+              id="theme-selector-btn"
+              class="btn btn-ghost"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                />
+              </svg>
+            </button>
+            <ul
+              tabindex="0"
+              id="theme-menu"
+              class="dropdown-content z-[51] menu p-2 shadow bg-base-200 rounded-box w-52 max-h-96 overflow-y-auto mt-4 flex-nowrap min-h-0"
+            ></ul>
+          </div>
+          <!-- Help Button -->
+          <a
+            href="{{ url_for('help.help_page') }}"
+            class="btn btn-ghost btn-circle"
+            title="{{ t('nav.help') }}"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </a>
+
+          <a
+            href="{{ url_for('web.logout') }}"
+            class="btn btn-ghost btn-circle"
+            title="{{ t('common.logout') }}"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main
+      class="mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-grow w-full max-w-screen-2xl"
+    >
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer
+      class="text-center py-6 mt-auto text-sm opacity-70 border-t border-base-300 bg-base-100"
+    >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="mb-2">
+          <a
+            href="https://dockflare.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link link-hover link-primary"
+            >DockFlare.app</a
+          >
+          <a
+            href="https://github.com/ChrispyBacon-dev/DockFlare/releases"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link link-hover text-xs opacity-60"
+            >{{ app_version }}</a
+          >
+        </p>
+
+        <p class="my-3">
+          <a
+            href="https://ko-fi.com/chrispybacon"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center link link-hover"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-1 text-pink-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            {{ t('common.sponsor_dockflare') }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 ml-1 text-pink-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </p>
+
+        <a href="#" class="inline-block">
+          <img
+            src="https://img.shields.io/badge/Swiss_Made-FFFFFF?style=flat-square&labelColor=FF0000&logo=data:image/svg%2bxml;base64,PHN2ZyB2ZXJzaW9uPSIxIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZHRoPSIzMiIgZmlsbD0idHJhbnNwYXJlbnQiLz4KICA8cGF0aCBkPSJtMTMgNmg2djdoN3Y2aC03djdoLTZ2LTdoLTd2LTZoN3oiIGZpbGw9IiNmZmYiLz4KPC9zdmc+"
+            alt="Swiss Made"
+            style="height: 20px"
+          />
+        </a>
+      </div>
+    </footer>
+
+    {% block modals %}{% endblock %}
+
+    <dialog id="dockflare-alert-modal" class="modal">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4" id="dockflare-alert-title">
+          {{ t('common.alert') }}
+        </h3>
+        <p class="py-4 whitespace-pre-wrap" id="dockflare-alert-message"></p>
+        <div class="modal-action">
+          <button type="button" class="btn btn-primary" id="dockflare-alert-ok">
+            {{ t('common.ok') }}
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="dockflare-confirm-modal" class="modal">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4" id="dockflare-confirm-title">
+          {{ t('common.confirm') }}
+        </h3>
+        <p class="py-4 whitespace-pre-wrap" id="dockflare-confirm-message"></p>
+        <div class="modal-action">
+          <button
+            type="button"
+            class="btn btn-ghost"
+            id="dockflare-confirm-cancel"
+          >
+            {{ t('common.cancel') }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="dockflare-confirm-ok"
+          >
+            {{ t('common.ok') }}
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="dockflare-prompt-modal" class="modal">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4" id="dockflare-prompt-title">
+          {{ t('common.input_required') }}
+        </h3>
+        <p class="py-4" id="dockflare-prompt-message"></p>
+        <input
+          type="text"
+          class="input input-bordered w-full"
+          id="dockflare-prompt-input"
+        />
+        <div class="modal-action">
+          <button
+            type="button"
+            class="btn btn-ghost"
+            id="dockflare-prompt-cancel"
+          >
+            {{ t('common.cancel') }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="dockflare-prompt-ok"
+          >
+            {{ t('common.ok') }}
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      window.dfAlert = function (message, title) {
+        title = title || t("common.alert");
+        return new Promise((resolve) => {
+          const modal = document.getElementById("dockflare-alert-modal");
+          const titleEl = document.getElementById("dockflare-alert-title");
+          const messageEl = document.getElementById("dockflare-alert-message");
+          const okBtn = document.getElementById("dockflare-alert-ok");
+
+          titleEl.textContent = title;
+          messageEl.textContent = message;
+
+          const handleOk = () => {
+            modal.close();
+            okBtn.removeEventListener("click", handleOk);
+            resolve();
+          };
+
+          okBtn.addEventListener("click", handleOk);
+          modal.showModal();
+        });
+      };
+
+      window.dfConfirm = function (message, title) {
+        title = title || t("common.confirm");
+        return new Promise((resolve) => {
+          const modal = document.getElementById("dockflare-confirm-modal");
+          const titleEl = document.getElementById("dockflare-confirm-title");
+          const messageEl = document.getElementById(
+            "dockflare-confirm-message",
+          );
+          const okBtn = document.getElementById("dockflare-confirm-ok");
+          const cancelBtn = document.getElementById("dockflare-confirm-cancel");
+
+          titleEl.textContent = title;
+          messageEl.textContent = message;
+
+          const handleOk = () => {
+            modal.close();
+            cleanup();
+            resolve(true);
+          };
+
+          const handleCancel = () => {
+            modal.close();
+            cleanup();
+            resolve(false);
+          };
+
+          const cleanup = () => {
+            okBtn.removeEventListener("click", handleOk);
+            cancelBtn.removeEventListener("click", handleCancel);
+          };
+
+          okBtn.addEventListener("click", handleOk);
+          cancelBtn.addEventListener("click", handleCancel);
+          modal.showModal();
+        });
+      };
+
+      window.dfPrompt = function (message, defaultValue, title) {
+        defaultValue = defaultValue || "";
+        title = title || t("common.input_required");
+        return new Promise((resolve) => {
+          const modal = document.getElementById("dockflare-prompt-modal");
+          const titleEl = document.getElementById("dockflare-prompt-title");
+          const messageEl = document.getElementById("dockflare-prompt-message");
+          const inputEl = document.getElementById("dockflare-prompt-input");
+          const okBtn = document.getElementById("dockflare-prompt-ok");
+          const cancelBtn = document.getElementById("dockflare-prompt-cancel");
+
+          titleEl.textContent = title;
+          messageEl.textContent = message;
+          inputEl.value = defaultValue;
+
+          const handleOk = () => {
+            const value = inputEl.value;
+            modal.close();
+            cleanup();
+            resolve(value);
+          };
+
+          const handleCancel = () => {
+            modal.close();
+            cleanup();
+            resolve(null);
+          };
+
+          const handleEnter = (e) => {
+            if (e.key === "Enter") {
+              handleOk();
+            }
+          };
+
+          const cleanup = () => {
+            okBtn.removeEventListener("click", handleOk);
+            cancelBtn.removeEventListener("click", handleCancel);
+            inputEl.removeEventListener("keypress", handleEnter);
+          };
+
+          okBtn.addEventListener("click", handleOk);
+          cancelBtn.addEventListener("click", handleCancel);
+          inputEl.addEventListener("keypress", handleEnter);
+
+          modal.showModal();
+          setTimeout(() => inputEl.focus(), 100);
+        });
+      };
+    </script>
+
+    <script>
+      window.DF_LANG = {{ current_lang|tojson }};
+      window.DF_I18N = {{ js_translations|tojson }};
+      window.t = function(key, params) {
+          var val = (window.DF_I18N && window.DF_I18N[key]) || key;
+          if (params) {
+              for (var k in params) {
+                  if (params.hasOwnProperty(k)) {
+                      val = val.split('{' + k + '}').join(String(params[k]));
+                  }
+              }
+          }
+          return val;
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

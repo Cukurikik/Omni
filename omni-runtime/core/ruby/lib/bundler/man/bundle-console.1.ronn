@@ -1,5 +1,4 @@
-bundle-console(1) -- Open an IRB session with the bundle pre-loaded
-===================================================================
+# bundle-console(1) -- Open an IRB session with the bundle pre-loaded
 
 ## SYNOPSIS
 
@@ -19,9 +18,9 @@ exist in the Gemfile, IRB console starts without any warning or error.
 The environment variable `BUNDLE_CONSOLE` or `bundle config set console` can be used to change
 the shell from the following:
 
-* `irb` (default)
-* `pry` (https://github.com/pry/pry)
-* `ripl` (https://github.com/cldwalker/ripl)
+- `irb` (default)
+- `pry` (https://github.com/pry/pry)
+- `ripl` (https://github.com/cldwalker/ripl)
 
 `bundle console` uses irb by default. An alternative Pry or Ripl can be used with
 `bundle console` by adjusting the `console` Bundler setting. Also make sure that

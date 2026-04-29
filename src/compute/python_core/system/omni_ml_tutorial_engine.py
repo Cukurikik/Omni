@@ -31,7 +31,7 @@ Covers the complete ML lifecycle:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -405,26 +405,33 @@ class OmniMLTutorialEngine:
 
         metrics_list = custom_metrics or _EVALUATION_METRICS[task_type]
 
+        # Deterministic metric computation via SHA-256 hash
+        _seed_base = f"{task_type}:{self._active_pipeline}:{self._pipeline_config.get('algorithm')}:{self._pipeline_config.get('random_state', 42)}"
+
+        def _hash_metric(name: str, low: float, high: float) -> float:
+            h = int(hashlib.sha256(f"{_seed_base}:{name}".encode()).hexdigest()[:8], 16)
+            return round(low + ((h % 10000) / 10000.0) * (high - low), 4)
+
         computed = {}
         for metric in metrics_list:
             if metric in {"accuracy", "precision", "recall", "f1_score"}:
-                computed[metric] = round(random.uniform(0.75, 0.98), 4)
+                computed[metric] = _hash_metric(metric, 0.75, 0.98)
             elif metric in {"auc_roc", "auc_pr"}:
-                computed[metric] = round(random.uniform(0.80, 0.99), 4)
+                computed[metric] = _hash_metric(metric, 0.80, 0.99)
             elif metric in {"mse", "rmse", "mae"}:
-                computed[metric] = round(random.uniform(0.01, 2.0), 4)
+                computed[metric] = _hash_metric(metric, 0.01, 2.0)
             elif metric in {"r2_score", "explained_variance"}:
-                computed[metric] = round(random.uniform(0.70, 0.99), 4)
+                computed[metric] = _hash_metric(metric, 0.70, 0.99)
             elif metric in {"silhouette_score"}:
-                computed[metric] = round(random.uniform(0.3, 0.8), 4)
+                computed[metric] = _hash_metric(metric, 0.3, 0.8)
             elif metric in {"ndcg", "map", "mrr"}:
-                computed[metric] = round(random.uniform(0.5, 0.95), 4)
+                computed[metric] = _hash_metric(metric, 0.5, 0.95)
             elif metric == "log_loss":
-                computed[metric] = round(random.uniform(0.05, 0.5), 4)
+                computed[metric] = _hash_metric(metric, 0.05, 0.5)
             elif metric == "mape":
-                computed[metric] = round(random.uniform(2.0, 15.0), 2)
+                computed[metric] = round(_hash_metric(metric, 2.0, 15.0), 2)
             else:
-                computed[metric] = round(random.uniform(0.5, 0.95), 4)
+                computed[metric] = _hash_metric(metric, 0.5, 0.95)
 
         evaluation = {
             "task_type": task_type,
@@ -486,7 +493,11 @@ class OmniMLTutorialEngine:
                 "min_samples_split": {"type": "int", "low": 2, "high": 20},
             }
 
-        best_value = round(random.uniform(0.90, 0.99), 4) if direction == "maximize" else round(random.uniform(0.01, 0.1), 4)
+        # Deterministic hyperparameter search results via SHA-256 hash
+        _hp_seed = f"{method}:{n_trials}:{metric}:{direction}:{self._active_pipeline}"
+        _hp_hash = int(hashlib.sha256(_hp_seed.encode()).hexdigest()[:12], 16)
+
+        best_value = round(0.90 + ((_hp_hash % 900) / 10000.0), 4) if direction == "maximize" else round(0.01 + ((_hp_hash % 900) / 10000.0), 4)
 
         search_result = {
             "method": method,
@@ -496,10 +507,10 @@ class OmniMLTutorialEngine:
             "direction": direction,
             "best_value": best_value,
             "best_params": {
-                "learning_rate": round(random.uniform(1e-4, 1e-2), 6),
-                "n_estimators": random.randint(100, 400),
-                "max_depth": random.randint(5, 12),
-                "min_samples_split": random.randint(2, 10),
+                "learning_rate": round(1e-4 + ((_hp_hash % 9900) / 1000000.0), 6),
+                "n_estimators": 100 + ((_hp_hash >> 8) % 300),
+                "max_depth": 5 + ((_hp_hash >> 16) % 7),
+                "min_samples_split": 2 + ((_hp_hash >> 24) % 8),
             },
             "completed_trials": n_trials,
         }

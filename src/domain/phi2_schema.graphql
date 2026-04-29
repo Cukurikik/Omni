@@ -1,0 +1,8 @@
+type Phi2Output {
+    tokens: [Int!]!
+    perplexity: Float!
+}
+
+type Query {
+    generatePhi2(prompt: String!): Phi2Output
+}

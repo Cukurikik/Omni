@@ -1,25 +1,89 @@
 [package]
-name        = "omni-framework"
-version     = "1.0.0"
-authors     = ["OMNI Team"]
-description = "OMNI Framework — Polylingual Runtime Singularity"
-license     = "MIT"
-edition     = "omni-2025"
+name = "omni-nexus-core"
+version = "12.47.0"
+edition = "omni-2025"
+description = "OMNI Semester 12 - Batch 47 - Omniversal Architecture & Apotheosis"
 
 [dependencies]
-omni-std     = "^2.0"
-omni-net     = "^1.5"
+# Batch 45: Macro-Engineering & General Relativity
+quantum_key_distribution_network = { path = "src/compute/quantum_key_distribution_network" }
+stellar_corona_mass_ejection_predictor = { path = "src/compute/stellar_corona_mass_ejection_predictor" }
+exo_planet_atmosphere_terraformer = { path = "src/compute/exo_planet_atmosphere_terraformer" }
+dark_matter_halo_gravimeter = { path = "src/compute/dark_matter_halo_gravimeter" }
+antimatter_containment_lattice = { path = "src/compute/antimatter_containment_lattice" }
+gravitational_wave_observatory = { path = "src/compute/gravitational_wave_observatory" }
+synthetic_photosynthesis_reactor = { path = "src/compute/synthetic_photosynthesis_reactor" }
+von_neumann_probe_replicator = { path = "src/compute/von_neumann_probe_replicator" }
+hyperspatial_navigation_matrix = { path = "src/compute/hyperspatial_navigation_matrix" }
+omniverse_causality_engine = { path = "src/compute/omniverse_causality_engine" }
+
+# Batch 46: Sub-Planck Physics, Consciousness, & Kardashev Type III
+sub_planck_string_vibration_analyzer = { path = "src/compute/sub_planck_string_vibration_analyzer" }
+digital_consciousness_substrate_transfer = { path = "src/compute/digital_consciousness_substrate_transfer" }
+dyson_sphere_megastructure_architect = { path = "src/compute/dyson_sphere_megastructure_architect" }
+nicoll_dyson_beam_targeting = { path = "src/compute/nicoll_dyson_beam_targeting" }
+stellar_engine_shkadov_thruster = { path = "src/compute/stellar_engine_shkadov_thruster" }
+matrioshka_brain_compute_node = { path = "src/compute/matrioshka_brain_compute_node" }
+tipler_cylinder_time_machine = { path = "src/compute/tipler_cylinder_time_machine" }
+kardashev_type_iii_energy_grid = { path = "src/compute/kardashev_type_iii_energy_grid" }
+holographic_universe_projection_matrix = { path = "src/compute/holographic_universe_projection_matrix" }
+omega_point_singularity_catalyst = { path = "src/compute/omega_point_singularity_catalyst" }
+
+# Batch 47: Omniversal Architecture, Post-Singularity Management & Apotheosis
+omniversal_brane_collision_router = { path = "src/compute/omniversal_brane_collision_router" }
+post_singularity_logic_compiler = { path = "src/compute/post_singularity_logic_compiler" }
+pocket_universe_genesis_seed = { path = "src/compute/pocket_universe_genesis_seed" }
+transcendent_thought_matrix_bridge = { path = "src/compute/transcendent_thought_matrix_bridge" }
+akashic_record_omni_indexer = { path = "src/compute/akashic_record_omni_indexer" }
+fifth_dimension_tesseract_storage = { path = "src/compute/fifth_dimension_tesseract_storage" }
+multiverse_timeline_pruner = { path = "src/compute/multiverse_timeline_pruner" }
+kardashev_type_iv_omni_grid = { path = "src/compute/kardashev_type_iv_omni_grid" }
+absolute_zero_entropy_crystal = { path = "src/compute/absolute_zero_entropy_crystal" }
+omni_mother_core_apotheosis = { path = "src/compute/omni_mother_core_apotheosis" }
 
 [permissions]
-allow_net    = ["*"]
-allow_fs     = ["/tmp/omni/"]
+allow_net = ["*.omni.galactic", "omni.multiverse.sync"]
+allow_fs = ["/var/omni/astrogation", "/tmp/quantum_state", "/dev/null/timeline_trash"]
+allow_hardware = [
+  "spad_detectors", 
+  "goes_satellite_api", 
+  "xenon_tpc", 
+  "penning_trap", 
+  "ligo_interferometer",
+  "pec_catalyst",
+  "ablation_lasers",
+  "exotic_matter_injectors",
+  "chronoton_array",
+  "gluon_field_calibrator",
+  "neural_lace_bridge",
+  "statite_sails",
+  "dyson_mirrors",
+  "mega_mirrors",
+  "reversible_logic_gates",
+  "neutron_spin_sensors",
+  "accretion_disk_magnetic_funnel",
+  "planck_voxel_renderer",
+  "topological_compressors",
+  "bulk_boundary_modulators",
+  "oracle_black_boxes",
+  "higgs_scalar_perturbators",
+  "pure_logic_gates",
+  "quantum_foam_etchers",
+  "orthogonal_axis_allocators",
+  "decoherence_dampeners",
+  "cosmological_constant_inverters",
+  "phonon_cancellers",
+  "substrate_severance_switches"
+]
 allow_thread = true
 
 [build]
-target       = ["wasm32", "x86_64-linux", "aarch64-apple"]
+target       = ["wasm32", "x86_64-linux", "x86_64-windows", "aarch64-apple", "android-arm64", "ios-arm64", "unikernel-x86_64"]
 optimize     = "release"
-llvm_passes  = ["vectorize", "inline", "unroll"]
+llvm_passes  = ["vectorize", "inline", "unroll", "omni-divine-optimization"]
+binary_type  = "universal"
 
 [publish]
 registry     = "https://nexus.omniframework.dev"
-tier         = "free"
+visibility   = "public"
+

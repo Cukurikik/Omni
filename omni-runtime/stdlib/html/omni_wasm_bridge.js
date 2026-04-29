@@ -48,7 +48,9 @@ class OmniWasmBridge {
    */
   execute(dataBuffer) {
     if (!this.ready) {
-      throw new Error('[OMNI-E1001] WASM belum terinisialisasi. Panggil init() dulu.');
+      throw new Error(
+        "[OMNI-E1001] WASM belum terinisialisasi. Panggil init() dulu.",
+      );
     }
 
     const inputBytes = new Uint8Array(dataBuffer);
@@ -80,7 +82,7 @@ class OmniWasmBridge {
    */
   _onKernelCallback(data) {
     // Default: dispatch CustomEvent ke DOM
-    const event = new CustomEvent('omni:callback', {
+    const event = new CustomEvent("omni:callback", {
       detail: { data: data },
     });
     document.dispatchEvent(event);
@@ -88,6 +90,6 @@ class OmniWasmBridge {
 }
 
 // Export ke global browser scope
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.OmniWasmBridge = OmniWasmBridge;
 }

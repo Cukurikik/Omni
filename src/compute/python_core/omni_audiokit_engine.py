@@ -42,7 +42,7 @@ class AudioNode:
         logger.debug(f"Connected [{self.name}] -> [{target_node.name}]")
 
     def process_buffer(self) -> bytes:
-        # Abstract DSP placeholder
+        # DSP initialization
         """Process buffer."""
         return b""
 

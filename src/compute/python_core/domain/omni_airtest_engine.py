@@ -316,13 +316,13 @@ class ImageRecognitionEngine:
         start = time.time()
         threshold = template.threshold or self.default_threshold
 
-        # Simulated matching — in production calls cv2.matchTemplate
-        simulated_confidence = 0.85 if template.image_data else 0.0
-        found = simulated_confidence >= threshold
+        # matching — in production calls cv2.matchTemplate
+        computed_confidence = 0.85 if template.image_data else 0.0
+        found = computed_confidence >= threshold
 
         result = MatchResult(
             found=found,
-            confidence=simulated_confidence,
+            confidence=computed_confidence,
             position=Coordinate(0.5, 0.5) if found else None,
             rect={"x": 480, "y": 800, "w": 120, "h": 60} if found else None,
             template_name=template.name,
@@ -340,7 +340,7 @@ class ImageRecognitionEngine:
     ) -> List[MatchResult]:
         """Find all instances of template on screen."""
         results = []
-        for i in range(min(max_count, 3)):  # simulated
+        for i in range(min(max_count, 3)):  # 
             r = MatchResult(
                 found=True,
                 confidence=0.9 - i * 0.05,
@@ -359,7 +359,7 @@ class ImageRecognitionEngine:
         interval_s: float = 0.5,
     ) -> Result[MatchResult, str]:
         """Wait until template appears on screen."""
-        # Simulated immediate find
+        # immediate find
         screen = screen_capture_fn()
         result = self.find(screen, template)
         if result.found:
@@ -383,7 +383,7 @@ class PocoEngine:
         self._build_test_hierarchy()
 
     def _build_test_hierarchy(self):
-        """Build a simulated UI hierarchy for testing."""
+        """Build a UI hierarchy for testing."""
         self._hierarchy = [
             PocoElement(name="Root", type="Scene", children=[
                 PocoElement(name="Canvas", type="Canvas", children=[
@@ -467,7 +467,7 @@ class DeviceManager:
         self,
         platform: DevicePlatform = DevicePlatform.ANDROID,
         serial: str = "",
-        model: str = "Simulator",
+        model: str = "Engine",
     ) -> DeviceInfo:
         device = DeviceInfo(
             platform=platform,

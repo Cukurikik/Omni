@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Augmentor Engine
 =======================
 Production-grade OMNI engine for stochastic dataset augmentation.
@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import numpy as np
-import random
+import hashlib
 
 # ---------------------------------------------------------------------------
 # 1. OMNI Result Monad
@@ -116,8 +116,8 @@ class OmniAugmentPipeline:
                 if target_h <= 0 or target_w <= 0:
                      return Err("Crop calculation resulted in 0 dimension.")
                      
-                start_y = random.randint(0, h - target_h)
-                start_x = random.randint(0, w - target_w)
+                start_y = (0 + (int(hashlib.sha256(f"0:h - target_h".encode()).hexdigest()[:8], 16) % max(1, h - target_h - 0 + 1)))
+                start_x = (0 + (int(hashlib.sha256(f"0:w - target_w".encode()).hexdigest()[:8], 16) % max(1, w - target_w - 0 + 1)))
                 
                 cropped = img[start_y: start_y + target_h, start_x: start_x + target_w]
                 return Ok(cropped)
@@ -137,7 +137,7 @@ class OmniAugmentPipeline:
             applied_ops = []
             
             for op in self.operations:
-                if random.random() <= op.probability:
+                if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) <= op.probability:
                     res = op.func(current_image)
                     if isinstance(res, Err):
                         return Err(f"Pipeline failed at {op.name}: {res.error}")

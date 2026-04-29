@@ -4,7 +4,7 @@ OMNI Lightly Engine
 Production-grade abstraction inspired by lightly-ai/lightly.
 Extracts the core self-supervised theoretical logic into a deterministic
 NT-Xent (Normalized Temperature-scaled Cross Entropy) loss bounds calculator
-using purely simulated vector space.
+using vector space operations.
 
 OMNI Layer: compute (Python)
 """
@@ -96,7 +96,7 @@ class ContrastiveLossCalculator:
             })
             
         except Exception as e:
-            return Err(f"Simulated representation gap error: {e}")
+            return Err(f"Representation gap error: {e}")
 
 
 # ---------------------------------------------------------------------------

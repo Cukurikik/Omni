@@ -1,0 +1,15 @@
+type Query {
+  detectObjects(imageId: String!, threshold: Float): [Detection!]!
+  listModels: [VisionModel!]!
+}
+type Detection {
+  classId: Int!
+  className: String!
+  score: Float!
+  bbox: BBox!
+}
+type BBox { x1: Float!; y1: Float!; x2: Float!; y2: Float! }
+type VisionModel { id: String!; name: String!; numClasses: Int!; status: String! }
+type Mutation {
+  loadModel(modelPath: String!, numClasses: Int!): Boolean!
+}

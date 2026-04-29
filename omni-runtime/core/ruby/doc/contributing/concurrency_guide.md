@@ -4,14 +4,14 @@ This is a guide to thinking about concurrency in the cruby source code, whether 
 by writing C or by contributing to one of the JITs. This does not touch on native extensions, only the core
 language. It will go over:
 
-* What needs synchronizing?
-* How to use the VM lock, and what you can and can't do when you've acquired this lock.
-* What you can and can't do when you've acquired other native locks.
-* The difference between the VM lock and the GVL.
-* What a VM barrier is and when to use it.
-* The lock ordering of some important locks.
-* How ruby interrupt handling works.
-* The timer thread and what it's responsible for.
+- What needs synchronizing?
+- How to use the VM lock, and what you can and can't do when you've acquired this lock.
+- What you can and can't do when you've acquired other native locks.
+- The difference between the VM lock and the GVL.
+- What a VM barrier is and when to use it.
+- The lock ordering of some important locks.
+- How ruby interrupt handling works.
+- The timer thread and what it's responsible for.
 
 ## What needs synchronizing?
 
@@ -38,23 +38,22 @@ memory with it held. When you take the VM lock, there are things you can and can
 
 You can (as long as no other locks are also held before the VM lock):
 
-* Create ruby objects, call `ruby_xmalloc`, etc.
+- Create ruby objects, call `ruby_xmalloc`, etc.
 
 You can't:
 
-* Context switch to another ruby thread or ractor. This is important, as many things can cause ruby-level context switches including:
+- Context switch to another ruby thread or ractor. This is important, as many things can cause ruby-level context switches including:
+    - Calling any ruby method through, for example, `rb_funcall`. If you execute ruby code, a context switch could happen.
+      This also applies to ruby methods defined in C, as they can be redefined in Ruby. Things that call ruby methods such as
+      `rb_obj_respond_to` are also disallowed.
 
-    * Calling any ruby method through, for example, `rb_funcall`. If you execute ruby code, a context switch could happen.
-    This also applies to ruby methods defined in C, as they can be redefined in Ruby. Things that call ruby methods such as
-    `rb_obj_respond_to` are also disallowed.
-
-    * Calling `rb_raise`. This will call `initialize` on the new exception object. With the VM lock
+    - Calling `rb_raise`. This will call `initialize` on the new exception object. With the VM lock
       held, nothing you call should be able to raise an exception. `NoMemoryError` is allowed, however.
 
-    * Calling `rb_nogvl` or a ruby-level mechanism that can context switch like `rb_mutex_lock`.
+    - Calling `rb_nogvl` or a ruby-level mechanism that can context switch like `rb_mutex_lock`.
 
-    * Enter any blocking operation managed by ruby. This will context switch to another ruby thread using `rb_nogvl` or
-    something equivalent. A blocking operation is one that blocks the thread's progress, such as `sleep` or `IO#read`.
+    - Enter any blocking operation managed by ruby. This will context switch to another ruby thread using `rb_nogvl` or
+      something equivalent. A blocking operation is one that blocks the thread's progress, such as `sleep` or `IO#read`.
 
 Internally, the VM lock is the `vm->ractor.sync.lock`.
 
@@ -71,23 +70,23 @@ When you acquire one of these locks,
 
 You can:
 
-* Allocate memory though non-ruby allocation such as raw `malloc` or the standard library. But be careful, some functions like `strdup` use
-ruby allocation through the use of macros!
+- Allocate memory though non-ruby allocation such as raw `malloc` or the standard library. But be careful, some functions like `strdup` use
+  ruby allocation through the use of macros!
 
-* Use `ccan` lists, as they don't allocate.
+- Use `ccan` lists, as they don't allocate.
 
-* Do the usual things like set variables or struct fields, manipulate linked lists, signal condition variables etc.
+- Do the usual things like set variables or struct fields, manipulate linked lists, signal condition variables etc.
 
 You can't:
 
-* Allocate ruby-managed memory. This includes creating ruby objects or using `ruby_xmalloc` or `st_insert`. The reason this
-is disallowed is if that allocation causes a GC, then all other ruby threads must join a VM barrier as soon as possible
-(when they next check interrupts or acquire the VM lock). This is so that no other ractors are running during GC. If a ruby thread
-is waiting (blocked) on this same native lock, it can't join the barrier and a deadlock occurs because the barrier will never finish.
+- Allocate ruby-managed memory. This includes creating ruby objects or using `ruby_xmalloc` or `st_insert`. The reason this
+  is disallowed is if that allocation causes a GC, then all other ruby threads must join a VM barrier as soon as possible
+  (when they next check interrupts or acquire the VM lock). This is so that no other ractors are running during GC. If a ruby thread
+  is waiting (blocked) on this same native lock, it can't join the barrier and a deadlock occurs because the barrier will never finish.
 
-* Raise exceptions. You also can't use `EC_JUMP_TAG` if it jumps out of the critical section.
+- Raise exceptions. You also can't use `EC_JUMP_TAG` if it jumps out of the critical section.
 
-* Context switch. See the `VM Lock` section for more info.
+- Context switch. See the `VM Lock` section for more info.
 
 ## Difference Between VM Lock and GVL
 
@@ -106,30 +105,30 @@ often as taking a barrier slows ractor performance down considerably, but it's u
 It's a good idea to not hold more than 2 locks at once on the same thread. Locking multiple locks can introduce deadlocks, so do it with care. When locking
 multiple locks at once, follow an ordering that is consistent across the program, otherwise you can introduce deadlocks. Here are the orderings of some important locks:
 
-* VM lock before ractor_sched_lock
-* thread_sched_lock before ractor_sched_lock
-* interrupt_lock before timer_th.waiting_lock
-* timer_th.waiting_lock before ractor_sched_lock
+- VM lock before ractor_sched_lock
+- thread_sched_lock before ractor_sched_lock
+- interrupt_lock before timer_th.waiting_lock
+- timer_th.waiting_lock before ractor_sched_lock
 
 These orderings are subject to change, so check the source if you're not sure. On top of this:
 
-* During each `ubf` (unblock) function, the VM lock can be taken around it in some circumstances. This happens during VM shutdown, for example.
-See the "Interrupt Handling" section for more details.
+- During each `ubf` (unblock) function, the VM lock can be taken around it in some circumstances. This happens during VM shutdown, for example.
+  See the "Interrupt Handling" section for more details.
 
 ## Ruby Interrupt Handling
 
 When the VM runs ruby code, ruby's threads intermittently check ruby-level interrupts. These software interrupts
 are for various things in ruby and they can be set by other ruby threads or the timer thread.
 
-* Ruby threads check when they should give up their timeslice. The native thread switches to another ruby thread when their time is up.
-* The timer thread sends a "trap" interrupt to the main thread if any ruby-level signal handlers are pending.
-* Ruby threads can have other ruby threads run tasks for them by sending them an interrupt. For instance, ractors send
-the main thread an interrupt when they need to `require` a file so that it's done on the main thread. They wait for the
-main thread's result.
-* During VM shutdown, a "terminate" interrupt is sent to all ractor main threads top stop them asap.
-* When calling `Thread#raise`, the caller sends an interrupt to that thread telling it which exception to raise.
-* Unlocking a mutex sends the next waiter (if any) an interrupt telling it to grab the lock.
-* Signalling or broadcasting on a condition variable tells the waiter(s) to wake up.
+- Ruby threads check when they should give up their timeslice. The native thread switches to another ruby thread when their time is up.
+- The timer thread sends a "trap" interrupt to the main thread if any ruby-level signal handlers are pending.
+- Ruby threads can have other ruby threads run tasks for them by sending them an interrupt. For instance, ractors send
+  the main thread an interrupt when they need to `require` a file so that it's done on the main thread. They wait for the
+  main thread's result.
+- During VM shutdown, a "terminate" interrupt is sent to all ractor main threads top stop them asap.
+- When calling `Thread#raise`, the caller sends an interrupt to that thread telling it which exception to raise.
+- Unlocking a mutex sends the next waiter (if any) an interrupt telling it to grab the lock.
+- Signalling or broadcasting on a condition variable tells the waiter(s) to wake up.
 
 This isn't a complete list.
 
@@ -146,9 +145,9 @@ Remember, `ubfs` can be called from the timer thread so you cannot assume an `ec
 
 The timer thread has a few functions. They are:
 
-* Send interrupts to ruby threads that have run for their whole timeslice.
-* Wake up M:N ruby threads (threads in non-main ractors) blocked on IO or after a specified timeout. This
-uses `kqueue` or `epoll`, depending on the OS, to receive IO events on behalf of the threads.
-* Continue calling  the `SIGVTARLM` signal if a thread is still blocked on a syscall after the first `ubf` call.
-* Signal native threads (`SNT`) waiting on a ractor if there are ractors waiting in the global run queue.
-* Create more `SNT`s if some are blocked, like on IO or on `Ractor#join`.
+- Send interrupts to ruby threads that have run for their whole timeslice.
+- Wake up M:N ruby threads (threads in non-main ractors) blocked on IO or after a specified timeout. This
+  uses `kqueue` or `epoll`, depending on the OS, to receive IO events on behalf of the threads.
+- Continue calling the `SIGVTARLM` signal if a thread is still blocked on a syscall after the first `ubf` call.
+- Signal native threads (`SNT`) waiting on a ractor if there are ractors waiting in the global run queue.
+- Create more `SNT`s if some are blocked, like on IO or on `Ractor#join`.

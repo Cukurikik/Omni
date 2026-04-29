@@ -19,7 +19,7 @@ class OmniGithubActionsPrepEngine:
 
     def validate_pipeline(self, pipeline_config: dict) -> dict:
         """
-        Takes a simulated parsed YAML pipeline config and returns the deterministic
+        Takes a parsed YAML pipeline config and returns the deterministic
         evaluation state and success confidence vector.
         """
         if not self._is_operational:
@@ -83,7 +83,7 @@ class OmniGithubActionsPrepEngine:
             "status": "operational" if self._is_operational else "offline",
             "system_id": self._system_id,
             "capabilities": [
-                "dag_pipeline_simulation",
+                "dag_pipeline_computation",
                 "yaml_schema_validation",
                 "confidence_scoring_matrix"
             ],

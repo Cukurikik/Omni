@@ -3,10 +3,10 @@ name: rubyspec C-API extensions
 inputs:
   builddir:
     required: false
-    default: '.'
+    default: "."
   make:
     required: false
-    default: 'make -s'
+    default: "make -s"
 
 outputs:
   key:

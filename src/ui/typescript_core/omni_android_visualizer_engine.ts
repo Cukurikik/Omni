@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniAndroidVisualizerEngine.ts
@@ -109,5 +109,16 @@ export class OmniAndroidVisualizerEngine {
         }
 
         return Ok(nodes);
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAndroidVisualizerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

@@ -40,7 +40,7 @@ class OmniFastApiRouterEngine(OmniBaseEngine):
 
     def resolve_topology(self, request_path: str, request_method: str) -> Result[str, str]:
         """
-        Calculates exact mapping deterministic bounds simulating HTTP evaluation.
+        Calculates exact mapping deterministic bounds computing HTTP evaluation.
         """
         # Exact match O(1) hashing
         if request_path in self.routes:
@@ -50,7 +50,7 @@ class OmniFastApiRouterEngine(OmniBaseEngine):
             else:
                 return Result.fail("Method Not Allowed explicitly bounded.")
                 
-        # Simulating wildcard match path bounded iteration deterministically
+        # Wildcard match path bounded iteration deterministically
         for registered_path, methods in sorted(self.routes.items(), key=lambda x: len(x[0]), reverse=True):
             if "{" in registered_path and "}" in registered_path:
                 base_path = registered_path.split("{")[0]

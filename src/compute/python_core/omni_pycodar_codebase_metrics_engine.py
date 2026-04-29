@@ -10,6 +10,7 @@ Algorithmic Primitive:
     and identify the largest files. Also detect potential dead code
     by finding files with zero public functions.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import sys, os
 from src.compute.python_core.omni_base_engine import Result, Ok, Err

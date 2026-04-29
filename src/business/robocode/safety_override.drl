@@ -1,0 +1,12 @@
+package rules.robocode
+import omni.robocode.TwistCommand
+import omni.common.OmniResult
+
+rule "Emergency Stop on Obstacle Detection"
+when
+    $cmd : TwistCommand( velocity > 2.0 )
+    $sensor : Lidar( distanceToObstacle < 0.5 )
+then
+    $cmd.overrideVelocity(0.0);
+    insert(new OmniResult(false, "Emergency Stop triggered", false));
+end

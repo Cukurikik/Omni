@@ -5,6 +5,7 @@ Production-grade engine for the OMNI Framework.
 
 OMNI Layer: compute (Python)
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 import numpy as np
 
 

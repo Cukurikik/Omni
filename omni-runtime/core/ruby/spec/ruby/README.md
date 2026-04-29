@@ -11,9 +11,9 @@ Instead, it is a practical tool to describe and test the behavior of Ruby with c
 
 Every example code has a textual description, which presents several advantages:
 
-* It is easier to understand the intent of the author
-* It documents how recent versions of Ruby should behave
-* It helps Ruby implementations to agree on a common behavior
+- It is easier to understand the intent of the author
+- It documents how recent versions of Ruby should behave
+- It helps Ruby implementations to agree on a common behavior
 
 The specs are written with syntax similar to RSpec 2.
 They are run with MSpec, the purpose-built framework for running the Ruby Spec Suite.
@@ -24,11 +24,11 @@ The language specs are grouped by keyword while the core and standard library sp
 
 ruby/spec is known to be tested in these implementations for every commit:
 
-* [MRI](https://rubyci.org/) on 30 platforms and 4 versions
-* [JRuby](https://github.com/jruby/jruby/tree/master/spec/ruby) for both 1.7 and 9.x
-* [TruffleRuby](https://github.com/truffleruby/truffleruby/tree/master/spec/ruby)
-* [Opal](https://github.com/opal/opal/tree/master/spec)
-* [Artichoke](https://github.com/artichoke/spec/tree/artichoke-vendor)
+- [MRI](https://rubyci.org/) on 30 platforms and 4 versions
+- [JRuby](https://github.com/jruby/jruby/tree/master/spec/ruby) for both 1.7 and 9.x
+- [TruffleRuby](https://github.com/truffleruby/truffleruby/tree/master/spec/ruby)
+- [Opal](https://github.com/opal/opal/tree/master/spec)
+- [Artichoke](https://github.com/artichoke/spec/tree/artichoke-vendor)
 
 ruby/spec describes the behavior of Ruby 3.3 and more recent Ruby versions.
 More precisely, every latest stable MRI release should [pass](https://github.com/ruby/spec/actions/workflows/ci.yml) all specs of ruby/spec (3.3.x, 3.4.x, etc), and those are tested in CI.
@@ -40,7 +40,7 @@ using [this script](https://github.com/ruby/mspec/blob/master/tool/sync/sync-rub
 Each of these repositories has a full copy of the specs under `spec/ruby` to ease editing specs.
 Any of these repositories can be used to add or edit specs, use what is most convenient for you.
 
-For *testing* the development version of a Ruby implementation, one should always test against that implementation's copy of the specs under `spec/ruby`, as that's what the Ruby implementation tests against in their CI.
+For _testing_ the development version of a Ruby implementation, one should always test against that implementation's copy of the specs under `spec/ruby`, as that's what the Ruby implementation tests against in their CI.
 Also, this repository doesn't always contain the latest spec changes from MRI (it's synchronized monthly), and does not contain tags (specs marked as failing on that Ruby implementation).
 Running specs on a Ruby implementation can be done with:
 
@@ -54,17 +54,17 @@ $ ../mspec/bin/mspec
 
 For older specs try these commits:
 
-* Ruby 2.0.0-p647 - [Suite](https://github.com/ruby/spec/commit/245862558761d5abc676843ef74f86c9bcc8ea8d) using [MSpec](https://github.com/ruby/mspec/commit/f90efa068791064f955de7a843e96e2d7d3041c2) (may encounter 2 failures)
-* Ruby 2.1.9 - [Suite](https://github.com/ruby/spec/commit/f029e65241374386077ac500add557ae65069b55) using [MSpec](https://github.com/ruby/mspec/commit/55568ea3918c6380e64db8c567d732fa5781efed)
-* Ruby 2.2.10 - [Suite](https://github.com/ruby/spec/commit/cbaa0e412270c944df0c2532fc500c920dba0e92) using [MSpec](https://github.com/ruby/mspec/commit/d84d7668449e96856c5f6bac8cb1526b6d357ce3)
-* Ruby 2.3.8 - [Suite](https://github.com/ruby/spec/commit/dc733114d8ae66a3368ba3a98422c50147a76ba5) using [MSpec](https://github.com/ruby/mspec/commit/4599bc195fb109f2a482a01c32a7d659518369ea)
-* Ruby 2.4.10 - [Suite](https://github.com/ruby/spec/commit/bce4f2b81d6c31db67cf4d023a0625ceadde59bd) using [MSpec](https://github.com/ruby/mspec/commit/e7eb8aa4c26495b7b461e687d950b96eb08b3ff2)
-* Ruby 2.5.9 - [Suite](https://github.com/ruby/spec/commit/c503335d3d9f6ec6ef24de60a0716c34af69b64f) using [MSpec](https://github.com/ruby/mspec/commit/0091e8a62e954717cd54641f935eaf1403692041)
-* Ruby 2.6.10 - [Suite](https://github.com/ruby/spec/commit/aaf998fb8c92c4e63ad423a2e7ca6e6921818c6e) using [MSpec](https://github.com/ruby/mspec/commit/5e36c684e9e2b92b1187589bba1df22c640a8661)
-* Ruby 2.7.8 - [Suite](https://github.com/ruby/spec/commit/93787e6035c925b593a9c0c6fb0e7e07a6f1df1f) using [MSpec](https://github.com/ruby/mspec/commit/1d8cf64722d8a7529f7cd205be5f16a89b7a67fd)
-* Ruby 3.0.7 - [Suite](https://github.com/ruby/spec/commit/affef93d9940f615e4836f64b011da211f570913) using [MSpec](https://github.com/ruby/mspec/commit/0aabb3e548eb5ea6cad0125f8f46cee34542b6b7)
-* Ruby 3.1.6 - [Suite](https://github.com/ruby/spec/commit/ec960f2389d1c2265d32397fa8afa6d462014efc) using [MSpec](https://github.com/ruby/mspec/commit/484310dbed35b84c74484fd674602f88c42d063a)
-* Ruby 3.2.9 - [Suite](https://github.com/ruby/spec/commit/97f076242b7fc6e60703e6a6053365065cd6fc30) using [MSpec](https://github.com/ruby/mspec/commit/54704795e21128a930af2021c72c49cb87065134)
+- Ruby 2.0.0-p647 - [Suite](https://github.com/ruby/spec/commit/245862558761d5abc676843ef74f86c9bcc8ea8d) using [MSpec](https://github.com/ruby/mspec/commit/f90efa068791064f955de7a843e96e2d7d3041c2) (may encounter 2 failures)
+- Ruby 2.1.9 - [Suite](https://github.com/ruby/spec/commit/f029e65241374386077ac500add557ae65069b55) using [MSpec](https://github.com/ruby/mspec/commit/55568ea3918c6380e64db8c567d732fa5781efed)
+- Ruby 2.2.10 - [Suite](https://github.com/ruby/spec/commit/cbaa0e412270c944df0c2532fc500c920dba0e92) using [MSpec](https://github.com/ruby/mspec/commit/d84d7668449e96856c5f6bac8cb1526b6d357ce3)
+- Ruby 2.3.8 - [Suite](https://github.com/ruby/spec/commit/dc733114d8ae66a3368ba3a98422c50147a76ba5) using [MSpec](https://github.com/ruby/mspec/commit/4599bc195fb109f2a482a01c32a7d659518369ea)
+- Ruby 2.4.10 - [Suite](https://github.com/ruby/spec/commit/bce4f2b81d6c31db67cf4d023a0625ceadde59bd) using [MSpec](https://github.com/ruby/mspec/commit/e7eb8aa4c26495b7b461e687d950b96eb08b3ff2)
+- Ruby 2.5.9 - [Suite](https://github.com/ruby/spec/commit/c503335d3d9f6ec6ef24de60a0716c34af69b64f) using [MSpec](https://github.com/ruby/mspec/commit/0091e8a62e954717cd54641f935eaf1403692041)
+- Ruby 2.6.10 - [Suite](https://github.com/ruby/spec/commit/aaf998fb8c92c4e63ad423a2e7ca6e6921818c6e) using [MSpec](https://github.com/ruby/mspec/commit/5e36c684e9e2b92b1187589bba1df22c640a8661)
+- Ruby 2.7.8 - [Suite](https://github.com/ruby/spec/commit/93787e6035c925b593a9c0c6fb0e7e07a6f1df1f) using [MSpec](https://github.com/ruby/mspec/commit/1d8cf64722d8a7529f7cd205be5f16a89b7a67fd)
+- Ruby 3.0.7 - [Suite](https://github.com/ruby/spec/commit/affef93d9940f615e4836f64b011da211f570913) using [MSpec](https://github.com/ruby/mspec/commit/0aabb3e548eb5ea6cad0125f8f46cee34542b6b7)
+- Ruby 3.1.6 - [Suite](https://github.com/ruby/spec/commit/ec960f2389d1c2265d32397fa8afa6d462014efc) using [MSpec](https://github.com/ruby/mspec/commit/484310dbed35b84c74484fd674602f88c42d063a)
+- Ruby 3.2.9 - [Suite](https://github.com/ruby/spec/commit/97f076242b7fc6e60703e6a6053365065cd6fc30) using [MSpec](https://github.com/ruby/mspec/commit/54704795e21128a930af2021c72c49cb87065134)
 
 ### Running the specs
 
@@ -145,9 +145,9 @@ See [CONTRIBUTING.md](https://github.com/ruby/spec/blob/master/CONTRIBUTING.md) 
 
 These command-line executables are needed to run the specs.
 
-* `echo`
-* `stat` for `core/file/*time_spec.rb`
-* `find` for `core/file/fixtures/file_types.rb` (package `findutils`, not needed on Windows)
+- `echo`
+- `stat` for `core/file/*time_spec.rb`
+- `find` for `core/file/fixtures/file_types.rb` (package `findutils`, not needed on Windows)
 
 The file `/etc/services` is required for socket specs (package `netbase` on Debian, not needed on Windows).
 

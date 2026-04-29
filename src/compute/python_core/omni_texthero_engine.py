@@ -42,7 +42,7 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. TF-IDF VECTOR DIMENSIONALITY SIMULATOR
+# 2. TF-IDF VECTOR DIMENSIONALITY ENGINE
 # ---------------------------------------------------------------------------
 
 class LexicalRepresentationCalculator:
@@ -56,7 +56,7 @@ class LexicalRepresentationCalculator:
             return Err("Text matrix array requires at least one continuous dimension.")
             
         try:
-            # Simulated TF-IDF bounds
+            # TF-IDF bounds
             total_docs = len(sentences)
             token_universe = set()
             doc_lengths = []

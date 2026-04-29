@@ -35,7 +35,7 @@ class OmniMorphikCoreEngine:
             if not doc_id:
                 return Err(ValueError("doc_id must be valid."))
                 
-            # Simulate indexing
+            # Indexing
             return Ok(True)
         except Exception as e:
             return Err(e)

@@ -101,7 +101,7 @@ class PodResourceScheduler:
 
 class OmniPolyaxonEngine:
     """
-    Production Engine for Deterministic CPU/RAM Job Queue Simulator.
+    Production Engine for Deterministic CPU/RAM Job Queue.
     """
 
     def __init__(self, config=None):

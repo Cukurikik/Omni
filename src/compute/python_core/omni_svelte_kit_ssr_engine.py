@@ -23,10 +23,10 @@ class OmniSvelteKitSsrEngine:
             if not tree_nodes:
                 return Err(ValueError("Cannot structurally execute logic sequences across empty DOM configurations matrices!"))
                 
-            simulated_render_time = 0.0
+            render_time = 0.0
             nodes_processed = 0
             
-            # Simulated mathematical mapping logic loops metrics natively!
+            # Mathematical mapping logic loops metrics natively!
             for node in tree_nodes:
                 if "tag" not in node:
                     return Err(ValueError("Mathematical bounds require strictly at least 1 tag logic string natively!"))
@@ -37,15 +37,15 @@ class OmniSvelteKitSsrEngine:
                     
                 # Algebraic temporal string computing logic bounds arrays limits matrix!
                 node_time = 0.5 + (0.1 * children)
-                simulated_render_time += node_time
+                render_time += node_time
                 nodes_processed += (1 + children)
                 
             return Ok({
                 "dom_root_nodes_mapped": len(tree_nodes),
                 "total_dom_elements_calculated": nodes_processed,
-                "simulated_ssr_latency_ms": round(simulated_render_time, 2),
+                "ssr_latency_ms": round(render_time, 2),
                 "render_threshold_ms": self.ssr_time_limit,
-                "ssr_latency_acceptable": simulated_render_time <= self.ssr_time_limit
+                "ssr_latency_acceptable": render_time <= self.ssr_time_limit
             })
 
         except Exception as e:

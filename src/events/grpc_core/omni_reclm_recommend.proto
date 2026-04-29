@@ -1,0 +1,20 @@
+// Omni RecLM Recommendation Event (gRPC proto)
+// Ref: HKUDS/RecLM — ACL2025
+syntax = "proto3";
+package omni.reclm;
+service RecLMService {
+  rpc Recommend (RecRequest) returns (RecResponse);
+}
+message RecRequest {
+  string user_id = 1;
+  repeated string history = 2;
+  int32 top_k = 3;
+}
+message RecResponse {
+  repeated RecItem items = 1;
+}
+message RecItem {
+  string item_id = 1;
+  float score = 2;
+  string source = 3;
+}

@@ -9,12 +9,15 @@
 OMNI Framework dibangun di atas tiga pilar fundamental:
 
 ### Pilar 1: Universal Abstract Syntax Tree (UAST)
+
 Semua 15 bahasa pemrograman di-parse menjadi representasi AST tunggal. Ini memungkinkan:
+
 - Interoperabilitas native tanpa FFI overhead
 - Cross-language optimization oleh LLVM
 - Type checking lintas bahasa pada compile time
 
 ### Pilar 2: Domain Layer Segregation
+
 Kode dipisahkan ke dalam 5 domain layer yang ketat:
 
 ```
@@ -37,11 +40,13 @@ Kode dipisahkan ke dalam 5 domain layer yang ketat:
 ```
 
 **Rules:**
+
 - Layer atas HANYA boleh berkomunikasi dengan layer di bawahnya melalui OMNI Bridge
 - Layer bawah TIDAK BOLEH memiliki dependensi ke layer atas
 - Setiap layer memiliki bahasa yang diperbolehkan — tidak bisa dicampur
 
 ### Pilar 3: Monadic Error System
+
 Semua error ditangani melalui algebraic types:
 
 ```omni
@@ -72,6 +77,7 @@ Request → Router → Orchestrator → Language Bridge → Runtime → Response
 ```
 
 **Komponen:**
+
 - `main.go` — Entry point dan server initialization
 - `core/orchestrator.go` — Distribusi task ke language runtime
 - `core/nexus_registry.go` — Interface ke OMNI-NEXUS
@@ -84,6 +90,7 @@ Request → Router → Orchestrator → Language Bridge → Runtime → Response
 Rust-based runtime yang mengelola memory, scheduling, dan execusi kode OMNI.
 
 **Features:**
+
 - Ownership-based memory management
 - Green thread scheduler
 - UAST interpreter
@@ -116,6 +123,7 @@ stdlib/
 Server registry yang mengelola distribusi dan resolusi package OMNI.
 
 **Workflow:**
+
 ```
 omni get crypto → Resolve deps → Download → Verify hash → Install → omni_modules/
 ```
@@ -185,6 +193,7 @@ allow_ffi    = false                    # Native code disabled
 ### 4.2 Quarantine Sandbox
 
 Kode dari sumber untrusted dieksekusi di dalam sandbox isolasi:
+
 - Memory limit enforcement
 - CPU time limit
 - Network access restriction
@@ -193,6 +202,7 @@ Kode dari sumber untrusted dieksekusi di dalam sandbox isolasi:
 ### 4.3 Supply Chain Security
 
 OMNI-NEXUS mengimplementasikan:
+
 - Package signature verification (Ed25519)
 - Dependency audit logging
 - Automated vulnerability scanning
@@ -202,14 +212,14 @@ OMNI-NEXUS mengimplementasikan:
 
 ## 5. Performance Characteristics
 
-| Metric | OMNI | Node.js | JVM | .NET |
-|--------|------|---------|-----|------|
-| Cold start | <10ms | ~200ms | ~2s | ~500ms |
-| Memory (hello world) | 3MB | 30MB | 100MB | 50MB |
-| Cross-lang call | 0ns (zero-copy) | N/A | ~1μs (JNI) | ~1μs (P/Invoke) |
-| Binary size | 3-8MB (unikernel) | N/A | ~200MB (JRE) | ~100MB (.NET Runtime) |
-| Concurrency model | Green threads + goroutines | Event loop | OS threads | Task/Thread pool |
+| Metric               | OMNI                       | Node.js    | JVM          | .NET                  |
+| -------------------- | -------------------------- | ---------- | ------------ | --------------------- |
+| Cold start           | <10ms                      | ~200ms     | ~2s          | ~500ms                |
+| Memory (hello world) | 3MB                        | 30MB       | 100MB        | 50MB                  |
+| Cross-lang call      | 0ns (zero-copy)            | N/A        | ~1μs (JNI)   | ~1μs (P/Invoke)       |
+| Binary size          | 3-8MB (unikernel)          | N/A        | ~200MB (JRE) | ~100MB (.NET Runtime) |
+| Concurrency model    | Green threads + goroutines | Event loop | OS threads   | Task/Thread pool      |
 
 ---
 
-*Untuk pertanyaan mengenai arsitektur, buka [Discussion](https://github.com/Cukurikik/Omni/discussions) di GitHub.*
+_Untuk pertanyaan mengenai arsitektur, buka [Discussion](https://github.com/Cukurikik/Omni/discussions) di GitHub._

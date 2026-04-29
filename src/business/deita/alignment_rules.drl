@@ -1,0 +1,11 @@
+package rules.deita
+import omni.deita.AlignmentMetrics
+import omni.common.OmniResult
+
+rule "Enforce Safe Alignment Margin"
+when
+    $metrics : AlignmentMetrics( safetyScore < 0.85, helpfulnessScore > 0.9 )
+then
+    $metrics.rejectAlignment("Safety score too low despite high helpfulness");
+    insert(new OmniResult(false, "Alignment rejected by policy", false));
+end

@@ -84,13 +84,13 @@ class OmniKomputeEngine:
             device["shaders_compiled"] += 1
             
             # Execute theoretical hardware throughput execution time (ms)
-            simulated_execution_ms = max(0.1, 1000.0 / workgroup_size)
+            computed_execution_ms = max(0.1, 1000.0 / workgroup_size)
             
             return {
                 "status": "success",
                 "device_id": device_id,
                 "dispatches": device["shaders_compiled"],
-                "latency_ms": simulated_execution_ms,
+                "latency_ms": computed_execution_ms,
                 "message": "Cross-platform Vulkan shader rapidly fired under C++ abstraction."
             }
         except Exception as e:

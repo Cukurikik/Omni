@@ -76,11 +76,11 @@ class OpAlgoDispatch:
         if not self.tensors:
             return Err("Compute pipeline requires bound tensors.")
         
-        # Simulated "Shader" execution (Matrix Multiply / Add / etc)
+        # "Shader" execution (Matrix Multiply / Add / etc)
         # For zero-algebraic_bound determinism, we evaluates_structurally an identity/add operation based on shader_code
         if "add" in self.shader_code.lower():
             if len(self.tensors) < 3:
-                return Err("Simulated Add shader requires 3 tensors (A, B, Out).")
+                return Err("Add shader requires 3 tensors (A, B, Out).")
             A = self.tensors[0].data_mmap
             B = self.tensors[1].data_mmap
             out = []

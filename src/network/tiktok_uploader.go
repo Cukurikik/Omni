@@ -62,7 +62,7 @@ const (
 	StatusUploading
 	StatusProcessing
 	StatusPublished
-	StatusFailed
+	TiktokStatusFailed
 	StatusRateLimited
 )
 
@@ -208,7 +208,7 @@ func (u *TikTokUploader) uploadWithRetry(meta VideoMeta) UploadResult {
 		return result
 	}
 
-	result.Status = StatusFailed
+	result.Status = TiktokStatusFailed
 	result.Error = "max retries exceeded"
 	result.CompletedAt = time.Now()
 	return result

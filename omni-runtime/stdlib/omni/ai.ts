@@ -9,24 +9,27 @@
 // ==========================================
 
 declare const OmniNative: {
-    syscall: (command: string, args: Record<string, unknown>) => Record<string, unknown>;
+  syscall: (
+    command: string,
+    args: Record<string, unknown>,
+  ) => Record<string, unknown>;
 };
 
 export interface AIResponse {
-    text: string;
-    model: string;
-    tokens_generated: number;
-    latency_ms: number;
-    mode: 'local' | 'stub';
-    cost: string;
+  text: string;
+  model: string;
+  tokens_generated: number;
+  latency_ms: number;
+  mode: "local" | "stub";
+  cost: string;
 }
 
 export interface AIConfig {
-    maxTokens?: number;
-    temperature?: number;
-    topP?: number;
-    contextSize?: number;
-    threads?: number;
+  maxTokens?: number;
+  temperature?: number;
+  topP?: number;
+  contextSize?: number;
+  threads?: number;
 }
 
 /**
@@ -49,60 +52,72 @@ export interface AIConfig {
  * console.log(ringkasan);
  * ```
  */
-export function askOmniMind(prompt: string, context?: string, maxTokens?: number): string {
-    const raw = OmniNative.syscall("ai_infer", {
-        prompt,
-        context: context ?? "",
-        max_tokens: maxTokens ?? 512,
-    });
+export function askOmniMind(
+  prompt: string,
+  context?: string,
+  maxTokens?: number,
+): string {
+  const raw = OmniNative.syscall("ai_infer", {
+    prompt,
+    context: context ?? "",
+    max_tokens: maxTokens ?? 512,
+  });
 
-    if (raw.error) {
-        throw new Error(`[OMNI-MIND] Inferensi gagal: ${raw.error}`);
-    }
+  if (raw.error) {
+    throw new Error(`[OMNI-MIND] Inferensi gagal: ${raw.error}`);
+  }
 
-    return (raw as unknown as AIResponse).text;
+  return (raw as unknown as AIResponse).text;
 }
 
 /**
  * Jalankan AI dan dapatkan response lengkap (termasuk metadata).
  */
-export function askOmniMindFull(prompt: string, context?: string, maxTokens?: number): AIResponse {
-    const raw = OmniNative.syscall("ai_infer", {
-        prompt,
-        context: context ?? "",
-        max_tokens: maxTokens ?? 512,
-    });
+export function askOmniMindFull(
+  prompt: string,
+  context?: string,
+  maxTokens?: number,
+): AIResponse {
+  const raw = OmniNative.syscall("ai_infer", {
+    prompt,
+    context: context ?? "",
+    max_tokens: maxTokens ?? 512,
+  });
 
-    if (raw.error) {
-        throw new Error(`[OMNI-MIND] Inferensi gagal: ${raw.error}`);
-    }
+  if (raw.error) {
+    throw new Error(`[OMNI-MIND] Inferensi gagal: ${raw.error}`);
+  }
 
-    return raw as unknown as AIResponse;
+  return raw as unknown as AIResponse;
 }
 
 /**
  * Startup OMNI-MIND engine dengan model GGUF tertentu.
  * Biasanya dipanggil saat server boot.
  */
-export function awakenOmniMind(modelPath: string, threads?: number, contextSize?: number): void {
-    const raw = OmniNative.syscall("ai_awaken", {
-        model_path: modelPath,
-        threads: threads ?? 4,
-        context_size: contextSize ?? 2048,
-    });
+export function awakenOmniMind(
+  modelPath: string,
+  threads?: number,
+  contextSize?: number,
+): void {
+  const raw = OmniNative.syscall("ai_awaken", {
+    model_path: modelPath,
+    threads: threads ?? 4,
+    context_size: contextSize ?? 2048,
+  });
 
-    if (raw.error) {
-        throw new Error(`[OMNI-MIND] Gagal memuat model: ${raw.error}`);
-    }
+  if (raw.error) {
+    throw new Error(`[OMNI-MIND] Gagal memuat model: ${raw.error}`);
+  }
 
-    console.log(`🧠 [OMNI-MIND] Model dimuat: ${modelPath}`);
+  console.log(`🧠 [OMNI-MIND] Model dimuat: ${modelPath}`);
 }
 
 /**
  * Dapatkan status AI engine saat ini.
  */
 export function getAIStatus(): Record<string, unknown> {
-    return OmniNative.syscall("ai_status", {});
+  return OmniNative.syscall("ai_status", {});
 }
 
 export default { askOmniMind, askOmniMindFull, awakenOmniMind, getAIStatus };

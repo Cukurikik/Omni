@@ -22,9 +22,9 @@ export type OmniResult<T, E = OmniError> =
 
 /** Error bertipe dari kernel OMNI */
 export interface OmniError {
-  code: string;    // E001, E002, dst.
+  code: string; // E001, E002, dst.
   message: string;
-  layer: 'system' | 'network' | 'compute' | 'domain' | 'ui';
+  layer: "system" | "network" | "compute" | "domain" | "ui";
 }
 
 /** FFI function signature yang di-inject oleh V8 MicroIsolate */
@@ -34,7 +34,10 @@ declare global {
   /** Alokasi OmniBuffer di Rust heap */
   function __omni_buffer_alloc(sizeBytes: number): OmniBuffer;
   /** Spawn green thread via OmniEventLoop */
-  function __omni_spawn(taskName: string, payload: ArrayBuffer): Promise<ArrayBuffer>;
+  function __omni_spawn(
+    taskName: string,
+    payload: ArrayBuffer,
+  ): Promise<ArrayBuffer>;
 }
 
 /**
@@ -43,7 +46,7 @@ declare global {
  */
 export function executeOmni<T>(
   functionName: string,
-  data: ArrayBuffer
+  data: ArrayBuffer,
 ): OmniResult<T> {
   try {
     const raw = __omni_ffi(functionName, data);
@@ -58,9 +61,9 @@ export function executeOmni<T>(
       return {
         ok: false,
         error: {
-          code: `E${String(statusByte).padStart(3, '0')}`,
-          message: 'Kernel returned error status',
-          layer: 'system',
+          code: `E${String(statusByte).padStart(3, "0")}`,
+          message: "Kernel returned error status",
+          layer: "system",
         },
       };
     }
@@ -68,9 +71,9 @@ export function executeOmni<T>(
     return {
       ok: false,
       error: {
-        code: 'E999',
+        code: "E999",
         message: String(e),
-        layer: 'system',
+        layer: "system",
       },
     };
   }

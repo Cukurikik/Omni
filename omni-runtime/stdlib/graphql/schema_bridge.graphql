@@ -8,20 +8,32 @@
 
 # ─── Custom Directives ─────────────────────────────────────
 
-"""Menandai field untuk dieksekusi langsung oleh OMNI engine"""
+"""
+Menandai field untuk dieksekusi langsung oleh OMNI engine
+"""
 directive @omni(
-  """Nama fungsi di registry OMNI"""
+  """
+  Nama fungsi di registry OMNI
+  """
   func: String!
-  """Layer domain target"""
+  """
+  Layer domain target
+  """
   layer: OmniLayer = SYSTEM
 ) on FIELD_DEFINITION
 
-"""Menandai argumen untuk dikirim sebagai zero-copy pointer"""
+"""
+Menandai argumen untuk dikirim sebagai zero-copy pointer
+"""
 directive @zeroCopy on ARGUMENT_DEFINITION
 
-"""Menandai tipe untuk di-map ke Rust struct via OmniBuffer"""
+"""
+Menandai tipe untuk di-map ke Rust struct via OmniBuffer
+"""
 directive @omniStruct(
-  """Nama struct Rust yang berkorespondensi"""
+  """
+  Nama struct Rust yang berkorespondensi
+  """
   rustType: String!
 ) on OBJECT
 
@@ -45,7 +57,9 @@ enum OmniErrorCode {
 
 # ─── Core Types ─────────────────────────────────────────────
 
-"""Monadic Result — setiap query WAJIB mengembalikan ini"""
+"""
+Monadic Result — setiap query WAJIB mengembalikan ini
+"""
 type OmniResult {
   ok: Boolean!
   data: String
@@ -58,7 +72,9 @@ type OmniError {
   layer: OmniLayer!
 }
 
-"""Buffer metadata dari Rust heap"""
+"""
+Buffer metadata dari Rust heap
+"""
 type OmniBufferInfo @omniStruct(rustType: "OmniBuffer") {
   ptr: Int!
   len: Int!
@@ -68,25 +84,28 @@ type OmniBufferInfo @omniStruct(rustType: "OmniBuffer") {
 # ─── Query & Mutation Contract ──────────────────────────────
 
 type Query {
-  """Eksekusi fungsi OMNI system layer"""
-  executeSystem(
-    command: String! @zeroCopy
-  ): OmniResult! @omni(func: "system_dispatch", layer: SYSTEM)
+  """
+  Eksekusi fungsi OMNI system layer
+  """
+  executeSystem(command: String! @zeroCopy): OmniResult!
+    @omni(func: "system_dispatch", layer: SYSTEM)
 
-  """Query data dari compute layer (Python/Julia/R)"""
-  computeQuery(
-    pipeline: String!
-    params: String @zeroCopy
-  ): OmniResult! @omni(func: "compute_dispatch", layer: COMPUTE)
+  """
+  Query data dari compute layer (Python/Julia/R)
+  """
+  computeQuery(pipeline: String!, params: String @zeroCopy): OmniResult!
+    @omni(func: "compute_dispatch", layer: COMPUTE)
 
-  """Inspect buffer metadata"""
+  """
+  Inspect buffer metadata
+  """
   bufferInfo(bufferId: ID!): OmniBufferInfo @omni(func: "buffer_inspect")
 }
 
 type Mutation {
-  """Spawn goroutine di network layer"""
-  spawnTask(
-    taskName: String!
-    payload: String! @zeroCopy
-  ): OmniResult! @omni(func: "spawn_goroutine", layer: NETWORK)
+  """
+  Spawn goroutine di network layer
+  """
+  spawnTask(taskName: String!, payload: String! @zeroCopy): OmniResult!
+    @omni(func: "spawn_goroutine", layer: NETWORK)
 }

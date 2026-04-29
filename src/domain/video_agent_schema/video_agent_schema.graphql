@@ -1,0 +1,53 @@
+# OMNI Engine: Video Agent Schema
+# GraphQL Declarative Schema representing video temporal space geometries and bounds
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  # Deterministic temporal slice mapping
+  getVideoSegment(videoId: ID!, startTime: Float!, endTime: Float!): VideoSegmentResponse!
+  
+  # Agentic spatial inference graph retrieve
+  getAgentInferencePath(videoId: ID!, maxDepth: Int!): SpatialGraphResponse!
+}
+
+type Mutation {
+  # Registers a new constraint pipeline bound to temporal spatial blocks
+  registerVideoBlock(input: VideoBlockInput!): RegistryResponse!
+}
+
+# Monadic Error Representations inside Graph
+interface OMNIResult {
+  success: Boolean!
+  errorMessage: String
+}
+
+type VideoSegmentResponse implements OMNIResult {
+  success: Boolean!
+  errorMessage: String
+  framesBoundaries: [Float!]
+  tensorHash: String
+}
+
+type SpatialGraphResponse implements OMNIResult {
+  success: Boolean!
+  errorMessage: String
+  eigenPaths: Int
+  topologyConverges: Boolean
+}
+
+type RegistryResponse implements OMNIResult {
+  success: Boolean!
+  errorMessage: String
+  blockId: ID
+}
+
+input VideoBlockInput {
+  videoBufferId: ID!
+  spatialMatrixX: Int!
+  spatialMatrixY: Int!
+  compressionRatioLimit: Float!
+}

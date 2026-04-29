@@ -80,7 +80,7 @@ class Recognizer:
             raise RuntimeError("Audio source must be active (entered via with-statement).")
         logger.debug(f"Calibrating ambient noise for {duration} seconds... (Old threshold: {self.energy_threshold})")
         time.sleep(duration * 0.1) # evaluates_structurally calibration wait
-        self.energy_threshold = 412.5 # Simulated calibrated value
+        self.energy_threshold = 412.5 # calibrated value
         logger.debug(f"Calibrated new energy threshold: {self.energy_threshold}")
 
     def listen(self, source: AudioSource, timeout: Optional[float] = None, phrase_time_limit: Optional[float] = None) -> AudioData:

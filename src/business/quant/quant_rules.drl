@@ -1,0 +1,33 @@
+// OMNI Business Layer: quant_rules.drl
+// Drools rules engine file for QuantAgent trading constraints.
+// Bounds: Hard limit of $1,000,000 per trade decision.
+
+package Omni.Semester14.Batch6.Business;
+
+import java.math.BigDecimal;
+
+global java.util.List omniErrors;
+
+declare TradeDecision
+    assetId: String
+    quantity: BigDecimal
+    price: BigDecimal
+    totalValue: BigDecimal
+    status: String
+end
+
+rule "Enforce Maximum Trade Value Bound"
+    when
+        $trade : TradeDecision(totalValue > 1000000.00)
+    then
+        $trade.setStatus("REJECTED_BOUND_EXCEEDED");
+        // Simulated Monadic Error push to globals
+        omniErrors.add("ERR_01: Trade exceeds $1M physical safety bound.");
+end
+
+rule "Approve Safe Trade"
+    when
+        $trade : TradeDecision(totalValue <= 1000000.00, status == "PENDING")
+    then
+        $trade.setStatus("APPROVED");
+end

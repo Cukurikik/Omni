@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniWebAudioEffectsEngine — Production-Grade Web Audio Interop
@@ -172,4 +172,15 @@ export class OmniWebAudioEffectsEngine {
     }
     this.effectChain = [];
   }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "EffectResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
+    }
 }

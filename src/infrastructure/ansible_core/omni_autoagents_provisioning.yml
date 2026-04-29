@@ -1,0 +1,26 @@
+---
+# Omni AutoAgents Provisioning (Ansible)
+# Bare-metal setup for running LLM reasoning pipelines
+
+- name: Provision Omni AutoAgents Nodes
+  hosts: omni_compute_nodes
+  become: yes
+  tasks:
+    - name: Ensure Python 3.11 and dependencies are installed
+      ansible.builtin.apt:
+        name:
+          - python3.11
+          - python3-pip
+        state: present
+        update_cache: yes
+
+    - name: Deploy AutoAgents Core Execution Binary
+      ansible.builtin.copy:
+        src: /omni/build/release/autoagents_engine.bin
+        dest: /opt/omni/autoagents_engine.bin
+        mode: '0755'
+
+    - name: Ensure strict execution permissions
+      ansible.builtin.command:
+        cmd: chmod 700 /opt/omni/autoagents_engine.bin
+      ignore_errors: false # Must not fail in production

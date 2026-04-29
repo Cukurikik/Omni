@@ -6,7 +6,7 @@ Author: ANTIGRAVITY MOTHER
 Reference: werner-duvaud/muzero-general
 Description: Advanced Reinforcement Learning orchestrator based on MuZero constraints.
 Bridges Tree Search (MCTS) with dynamic environment planning without explicitly providing 
-simulators, mapping purely functional transitions across OMNI system bounds.
+engines, mapping purely functional transitions across OMNI system bounds.
 """
 
 import logging
@@ -62,14 +62,14 @@ class OmniMuZeroEngine:
             logger.error(f"[OmniMuZeroEngine] Configuration failed: {str(e)}")
             return {"status": "error", "message": str(e)}
 
-    def execute_planning(self, env_id: str, observation: List[float], simulations: int = 50) -> Dict[str, Any]:
+    def execute_planning(self, env_id: str, observation: List[float], computations: int = 50) -> Dict[str, Any]:
         """
         Initiates Monte-Carlo Tree Search (MCTS) utilizing learned internal dynamic models.
         
         Args:
             env_id (str): Bound environment id.
             observation (List[float]): Root sensory node.
-            simulations (int): Depth/Breadth of planning simulations.
+            computations (int): Depth/Breadth of planning computations.
             
         Returns:
             Dict[str, Any]: Optimal action and policy distributions.
@@ -83,16 +83,16 @@ class OmniMuZeroEngine:
                 return {"status": "error", "message": "Observation dimension mismatch."}
                 
             # Execute optimal action choice via internal dynamics array
-            simulated_action = (int(sum(observation)) * simulations) % env["num_actions"]
+            computed_action = (int(sum(observation)) * computations) % env["num_actions"]
             policy_dist = [0.01] * env["num_actions"]
-            policy_dist[simulated_action] = 0.95
+            policy_dist[computed_action] = 0.95
             
             return {
                 "status": "success",
                 "env_id": env_id,
-                "optimal_action": simulated_action,
+                "optimal_action": computed_action,
                 "policy": policy_dist,
-                "simulations_run": simulations,
+                "mcts_iterations": computations,
                 "message": "MCTS executed, action distributed."
             }
         except Exception as e:

@@ -28,7 +28,7 @@ class OmniDarknetROSEngine:
 
     def subscribe_image_topic(self, topic_name: str, yolo_version: str) -> Dict[str, Any]:
         """
-        Binds a physical or simulated robotics camera feed to Darknet.
+        Binds a physical or Robotics camera feed to Darknet.
         
         Args:
             topic_name (str): ROS topic (e.g. '/camera/rgb/image_raw').
@@ -83,7 +83,7 @@ class OmniDarknetROSEngine:
                 "status": "success",
                 "source_topic": topic_name,
                 "target_topic": "/darknet_ros/bounding_boxes",
-                "objects_tracked": 5, # Simulated arbitrary map
+                "objects_tracked": 5, # arbitrary map
                 "message": "Spatial boundaries aggressively published back to ROS Core."
             }
         except Exception as e:

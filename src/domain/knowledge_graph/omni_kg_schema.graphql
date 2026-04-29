@@ -1,0 +1,45 @@
+# OMNI Knowledge Graph Schema
+# Mapped to strictly typed GraphQL to act as the Domain Contract Bridge.
+
+"""
+Represents a Universal Concept within the Omni Agent Knowledge Scope.
+"""
+type OmniConcept {
+  conceptId: ID!
+  label: String!
+  semanticVectorHash: String!
+  confidence: Float!
+  
+  """
+  Relationships strictly directed.
+  """
+  connections(minConfidence: Float = 0.5): [ConceptEdge!]!
+}
+
+"""
+Directed edge denoting relational knowledge logic.
+"""
+type ConceptEdge {
+  target: OmniConcept!
+  relationType: String!
+  weight: Float!
+}
+
+type Query {
+  """
+  Retrieves a concept by exact ID match. Mathematical matching handled in system/compute layers.
+  """
+  getConcept(id: ID!): OmniConcept
+  
+  """
+  Retrieves traversal chain from Chain-of-Image logic core based on precomputed states.
+  """
+  getLogicalPath(startId: ID!, endId: ID!): [OmniConcept!]!
+}
+
+type Mutation {
+  """
+  Ingests a newly verified Elysium artifact into the global graph context.
+  """
+  ingestVerifiedKnowledge(label: String!, vectorHash: String!): OmniConcept!
+}

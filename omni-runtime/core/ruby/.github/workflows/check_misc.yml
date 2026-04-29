@@ -31,7 +31,7 @@ jobs:
         with:
           makeup: true
           # Skip overwriting MATZBOT_AUTO_UPDATE_TOKEN
-          checkout: '' # false (ref: https://github.com/actions/runner/issues/2238)
+          checkout: "" # false (ref: https://github.com/actions/runner/issues/2238)
 
       - name: Re-generate Makefiles
         run: |

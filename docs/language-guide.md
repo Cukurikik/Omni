@@ -105,7 +105,7 @@ impl Serializable for User {
     fn serialize(&self) -> Vec<u8> {
         json::to_bytes(self)
     }
-    
+
     fn deserialize(data: &[u8]) -> Result<User, SerError> {
         json::from_bytes::<User>(data)
     }
@@ -184,7 +184,7 @@ def train_model(data: List[float]) -> Model:
     model.fit(data)
     return model
 
-// TypeScript block  
+// TypeScript block
 @typescript
 interface APIResponse<T> {
     data: T;
@@ -248,20 +248,20 @@ fn api_get_user(id: String) -> Result<User, AppError> {
 #[test]
 module tests {
     use super::*
-    
+
     #[test]
     fn test_add() {
         assert_eq!(add(2, 3), 5)
         assert_eq!(add(-1, 1), 0)
     }
-    
+
     #[test]
     fn test_divide_by_zero() {
         let result = divide(10.0, 0.0)
         assert!(result.is_err())
         assert_eq!(result.unwrap_err(), MathError::DivisionByZero)
     }
-    
+
     #[test]
     async fn test_fetch_data() {
         let data = fetch_data("https://api.example.com/test").await
@@ -272,4 +272,4 @@ module tests {
 
 ---
 
-*Untuk contoh program lengkap, lihat `omni-runtime/examples/`*
+_Untuk contoh program lengkap, lihat `omni-runtime/examples/`_

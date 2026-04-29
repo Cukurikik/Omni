@@ -1,4 +1,4 @@
-"""
+﻿"""
 +============================================================================+
 |  OMNI CLOUDFLARE BYPASS ENGINE                                             |
 |  Inspired by: cloudflare-bypass-2026 (1837620622/cloudflare-bypass-2026)   |
@@ -24,7 +24,6 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import random
 import re
 import time
 import uuid
@@ -301,7 +300,7 @@ class BrowserFingerprint:
     @staticmethod
     def random_user_agent() -> str:
         """Execute random user agent operation for BrowserFingerprint."""
-        return random.choice(USER_AGENTS)
+        return USER_AGENTS[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % len(USER_AGENTS)]
 
     @staticmethod
     def chrome_args(proxy: Optional[BypassProxy] = None) -> List[str]:

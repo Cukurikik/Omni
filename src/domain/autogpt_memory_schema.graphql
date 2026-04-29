@@ -1,0 +1,11 @@
+# OMNI Domain Layer - AutoGPT Memory Schema
+@schema
+type VectorMemory {
+  embeddingId: ID!
+  textChunk: String!
+  relevanceScore: Float!
+}
+
+type Query {
+  validateMemoryChunkSize(size: Int!): Boolean!
+}

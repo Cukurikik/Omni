@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniWebAudioSpatialEngine — Production-Grade Web UI Spatialization
@@ -141,5 +141,16 @@ export class OmniWebAudioSpatialEngine {
             panner.disconnect();
             this.panners.delete(id);
         }
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "SpatialResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

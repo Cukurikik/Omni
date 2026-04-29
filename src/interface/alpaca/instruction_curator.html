@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Alpaca - Instruction Curator</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .header { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .card { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .instruction { font-weight: bold; font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; }
+        .input-context { color: #7f8c8d; font-style: italic; margin-bottom: 10px; border-left: 3px solid #bdc3c7; padding-left: 10px; }
+        .output { background-color: #f8f9fa; padding: 15px; border-radius: 5px; border: 1px solid #e9ecef; white-space: pre-wrap; font-family: monospace;}
+        .actions { margin-top: 15px; display: flex; gap: 10px; }
+        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: opacity 0.2s; }
+        button:hover { opacity: 0.8; }
+        .btn-approve { background-color: #2ecc71; color: white; }
+        .btn-reject { background-color: #e74c3c; color: white; }
+        .btn-edit { background-color: #3498db; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1 style="margin:0;">Alpaca Data Curator</h1>
+        <div>
+            <strong>Batch:</strong> #892-A &nbsp; | &nbsp; <strong>Pending:</strong> 42
+        </div>
+    </div>
+
+    <!-- Data Instance Card -->
+    <div class="card" id="item-1">
+        <div class="instruction">Instruction: Classify the sentiment of the following movie review.</div>
+        <div class="input-context">Input: The pacing was abysmal and the characters were utterly lifeless. I wouldn't recommend it to my worst enemy.</div>
+        <div class="output">Output: Negative</div>
+        
+        <div class="actions">
+            <button class="btn-approve" onclick="document.getElementById('item-1').style.display='none'">Approve</button>
+            <button class="btn-edit">Edit Output</button>
+            <button class="btn-reject" onclick="document.getElementById('item-1').style.display='none'">Reject (Poor Quality)</button>
+        </div>
+    </div>
+
+    <div class="card" id="item-2">
+        <div class="instruction">Instruction: Write a short Python function to calculate the Fibonacci sequence.</div>
+        <div class="input-context">Input: &lt;no input&gt;</div>
+        <div class="output">Output: 
+def fibonacci(n):
+    if n <= 0: return []
+    elif n == 1: return [0]
+    result = [0, 1]
+    while len(result) < n:
+        result.append(result[-1] + result[-2])
+    return result</div>
+        
+        <div class="actions">
+            <button class="btn-approve" onclick="document.getElementById('item-2').style.display='none'">Approve</button>
+            <button class="btn-edit">Edit Output</button>
+            <button class="btn-reject" onclick="document.getElementById('item-2').style.display='none'">Reject (Poor Quality)</button>
+        </div>
+    </div>
+
+</body>
+</html>

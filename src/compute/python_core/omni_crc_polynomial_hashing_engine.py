@@ -8,7 +8,7 @@ class OmniCRCPolynomialHashingEngine:
     OmniCRCPolynomialHashingEngine
     Batch: 28 (Semester 10)
     
-    A zero-mock systems integrity engine that calculates CRC hardware simulations 
+    A zero-mock systems integrity engine that calculates CRC hardware computations 
     using generic Galois field binary polynomial division.
     """
     

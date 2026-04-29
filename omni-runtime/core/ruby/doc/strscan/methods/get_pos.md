@@ -1,5 +1,5 @@
 call-seq:
-  pos -> byte_position
+pos -> byte_position
 
 Returns the integer [byte position][2],
 which may be different from the [character position][7]:

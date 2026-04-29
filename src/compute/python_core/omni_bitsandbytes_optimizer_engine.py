@@ -80,7 +80,7 @@ class OmniBitsAndBytesOptimizerEngine:
 
     async def process(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Process the quantization or optimization step over simulated GPU tensors.
+        Process the quantization or optimization step over GPU tensors.
         
         Args:
             data (Dict[str, Any]): Optimization step payload containing tensor dims or grads.

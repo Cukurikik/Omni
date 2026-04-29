@@ -3,7 +3,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 
 class OmniRustWasmBindgenEngine(OmniBaseEngine):
     """
-    Simulates abstract linear boundaries bridging WebAssembly mapped scalar spaces
+    Abstract linear boundaries bridging WebAssembly mapped scalar spaces
     from an isolated linear memory buffer to Javascript heap structures.
     """
     
@@ -31,7 +31,7 @@ class OmniRustWasmBindgenEngine(OmniBaseEngine):
 
     def write_string_to_memory(self, content: str) -> Result[int, str]:
         """
-        Calculates abstract string utf-8 boundaries (simulating string lengths mapping).
+        Calculates abstract string utf-8 boundaries (computing string lengths mapping).
         """
         length = len(content.encode('utf-8'))
         return self.allocate(length)

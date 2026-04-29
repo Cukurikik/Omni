@@ -1,0 +1,28 @@
+type Model {
+  id: ID!
+  name: String!
+  version: String!
+  status: ModelStatus!
+  metrics: ModelMetrics
+}
+
+enum ModelStatus {
+  TRAINING
+  DEPLOYED
+  ARCHIVED
+}
+
+type ModelMetrics {
+  accuracy: Float!
+  latency: Float!
+  throughput: Int!
+}
+
+type Query {
+  getModel(id: ID!): Model
+  listModels: [Model!]!
+}
+
+type Mutation {
+  deployModel(id: ID!): Model!
+}

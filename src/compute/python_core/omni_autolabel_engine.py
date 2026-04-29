@@ -8,8 +8,8 @@ Inspired by refuel-ai/autolabel.
 
 Features:
 - Configurable labeling tasks (classification, entity recognition).
-- algebraic_bound/simulated LLM provider interface for integration.
-- Deterministic response/confidence simulations based on prompts.
+- algebraic_bound/LLM provider interface for integration.
+- Deterministic response/confidence computations based on prompts.
 - Cost/Token tracking formatting.
 - Monadic Result encapsulation preventing runtime trace crashes.
 

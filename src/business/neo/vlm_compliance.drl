@@ -1,0 +1,20 @@
+package omni.business.neo;
+
+import omni.neo.VLMRequest;
+import omni.neo.OmniResult;
+
+rule "Block Explicit Content in Vision Requests"
+    when
+        $req : VLMRequest( hasExplicitContent() == true )
+    then
+        $req.setResult(new OmniResult(null, "Content violates safety guidelines"));
+        $req.block();
+end
+
+rule "Require High Confidence for Medical Imagery"
+    when
+        $req : VLMRequest( isMedicalContext() == true, modelConfidence < 0.95 )
+    then
+        $req.setResult(new OmniResult(null, "Confidence too low for medical domain"));
+        $req.block();
+end

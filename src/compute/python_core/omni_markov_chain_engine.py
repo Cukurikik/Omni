@@ -1,4 +1,4 @@
-"""OmniMarkovChainEngine — Production-grade Markov Chain simulation.
+"""OmniMarkovChainEngine — Production-grade Markov Chain computation.
 
 Implements discrete-time Markov chains with transition matrix validation,
 stationary distribution computation via power iteration, and n-step

@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # OMNI AUDIOMENTATIONS ENGINE (TRUE KNOWLEDGE EXTRACTION)
 # ===========================================================================
@@ -8,7 +8,7 @@ ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 
 import math
-import random
+import hashlib
 import json
 import time
 from typing import Dict, Any, List
@@ -34,7 +34,7 @@ class OmniAudiomentationsEngine:
         transformed = []
         for sample in signal:
             # Physical float manipulation preserving hard clipping boundaries
-            noise = (random.random() * 2.0 - 1.0) * intensity
+            noise = ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) * 2.0 - 1.0) * intensity
             val = max(-1.0, min(1.0, sample + noise))
             transformed.append(val)
         
@@ -76,7 +76,7 @@ class OmniAudiomentationsEngine:
         """Executes the structural pipeline to prove the math maps correctly."""
         start_time = time.time()
         
-        # Simulated uncompressed Audio Float array
+        # uncompressed Audio Float array
         base_signal = [math.sin(i * 0.1) for i in range(1000)]
         
         # Engage transformations

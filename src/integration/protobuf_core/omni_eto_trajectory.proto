@@ -1,0 +1,10 @@
+// Omni ETO Proto (Protocol Buffers)
+// Integration Layer: Binary format for trajectory data exchange.
+// Ref: Yifan-Song793/ETO
+
+syntax = "proto3";
+package omni.eto;
+
+message TrajectoryStep { string action = 1; string observation = 2; double reward = 3; }
+message Trajectory { repeated TrajectoryStep steps = 1; double total_return = 2; }
+message EvaluationBatch { repeated Trajectory trajectories = 1; string agent_id = 2; }

@@ -1,0 +1,11 @@
+# OMNI Domain Layer - Fairseq BLEU Evaluator
+@schema
+type BLEUMetric {
+  score: Float!
+  referenceLength: Int!
+  hypothesisLength: Int!
+}
+
+type Query {
+  validateBLEU(score: Float!): Boolean!
+}

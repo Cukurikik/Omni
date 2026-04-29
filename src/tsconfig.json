@@ -12,12 +12,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "declaration": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "types": ["node"]
   },
   "include": [
     "ui/typescript_core/**/*.ts",
     "ui/ts_core/**/*.ts",
-    "network/typescript_core/**/*.ts"
+    "network/typescript_core/**/*.ts",
+    "infrastructure/**/*.ts",
+    "domain/**/*.ts"
   ],
   "exclude": ["node_modules", "dist"]
 }

@@ -2,7 +2,7 @@
 OMNI AI Engineering Engine
 ==========================
 Production-grade abstraction inspired by rohitg00/ai-engineering-from-scratch.
-MLOps orchestration infrastructure is replaced with a single DAG Gating Simulator
+MLOps orchestration infrastructure is replaced with a single DAG Gating Engine
 calculating rigorous throughput probabilities to advance conceptual model states.
 
 OMNI Layer: compute (Python)
@@ -72,7 +72,7 @@ class PipelineDAGStateBalancer:
             return Err("Dimensional array topology is zero.")
             
         try:
-            # Calculates simulated structural weight capacity mathematically
+            # Calculates Structural weight capacity mathematically
             complexity_factor = math.log10(row_counts * feature_dim)
             return Ok({"ingestion_capacity": float(complexity_factor), "gate_status": "APPROVED"})
         except Exception as e:

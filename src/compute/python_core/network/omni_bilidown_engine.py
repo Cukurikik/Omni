@@ -31,7 +31,7 @@ class OmniBilidownEngine:
         Natively execute a network stream yielding video binary chunks lazily.
         """
         for i in range(total_virtual_mb):
-            # Simulated byte segment downloading 
+            # byte segment downloading 
             # In a real engine: requests.get(url, stream=True).iter_content(chunk_size)
             yield bytes(b"X" * 1024) 
 
@@ -43,7 +43,7 @@ class OmniBilidownEngine:
             
             # The exact loop that prevents RAM explosion by grabbing generator iteratively
             for stream_chunk in self.virtual_m3u8_stream_generator(target_mb):
-                # Simulated `with open(filepath, "ab") as f: f.write(stream_chunk)`
+                # `with open(filepath, "ab") as f: f.write(stream_chunk)`
                 self.total_bytes_written += len(stream_chunk)
                 
             return {

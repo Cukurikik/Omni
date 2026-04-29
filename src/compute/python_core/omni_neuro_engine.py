@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Neuro Engine
 =================
 Production-grade abstraction inspired by janhuenermann/neurojs.
@@ -10,7 +10,7 @@ OMNI Layer: compute (Python)
 
 from __future__ import annotations
 
-import random
+import hashlib
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -64,9 +64,9 @@ class TemporalDifferenceAgent:
             return Err("State boundary entirely violation.")
             
         try:
-            if random.random() < epsilon:
+            if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < epsilon:
                 # Explore
-                action = random.randint(0, self.actions - 1)
+                action = (0 + (int(hashlib.sha256(f"0:self.actions - 1".encode()).hexdigest()[:8], 16) % max(1, self.actions - 1 - 0 + 1)))
             else:
                 # Exploit Maximum Expected Utility
                 action = int(np.argmax(self.q_table[state]))

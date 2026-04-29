@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # OMNI BEATAI PERSONA ENGINE — AI Character Execute & Teaching
 # Meta-functionalized from: beatai-org/BeatAI (4.7k★)
@@ -20,8 +20,7 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 import json
-import time
-import random
+import time        import hashlib  # random purged
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple
 from enum import Enum
@@ -223,7 +222,7 @@ class PersonaReviewer:
                 category=self.persona.expertise[0].value if self.persona.expertise else "general",
                 severity="suggestion",
                 comment=f"[{pattern}] — Consider reviewing this aspect.",
-                catchphrase=random.choice(self.persona.catchphrases) if self.persona.catchphrases else None,
+                catchphrase=self.persona.catchphrases[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.persona.catchphrases))] if self.persona.catchphrases else None,
             )
             comments.append(comment)
 
@@ -265,7 +264,7 @@ class PersonaReviewer:
             "topic": topic,
             "style": self.persona.style.value,
             "principles": self.persona.teaching_principles,
-            "opening": random.choice(self.persona.catchphrases),
+            "opening": self.persona.catchphrases[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.persona.catchphrases))],
             "review_focus": self.persona.review_patterns,
         }
 
@@ -296,7 +295,7 @@ class DebateEngine:
                 "style": persona.style.value,
                 "position": f"From {persona.expertise[0].value}: {self.topic}",
                 "key_points": persona.teaching_principles[:2],
-                "opener": random.choice(persona.catchphrases),
+                "opener": persona.catchphrases[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(persona.catchphrases))],
                 "review_lens": persona.review_patterns[:2],
             }
             self.arguments.append(argument)

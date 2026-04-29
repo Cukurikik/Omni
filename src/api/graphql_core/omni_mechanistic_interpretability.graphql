@@ -1,0 +1,20 @@
+# Omni Mechanistic Interpretability Schema (GraphQL)
+# API Layer: Exposing latent representations and attribution scores for LMMs.
+
+type AttributionScore {
+    featureIndex: Int!
+    activationMagnitude: Float!
+    layerName: String!
+}
+
+type MechanisticInterpretabilityQuery {
+    # Analyzes specific tokens and returns causal attributions
+    analyzeTokenAttribution(
+        tokenId: String!, 
+        layerDepth: Int!
+    ): [AttributionScore!]!
+}
+
+schema {
+    query: MechanisticInterpretabilityQuery
+}

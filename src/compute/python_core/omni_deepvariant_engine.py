@@ -45,11 +45,11 @@ Result = Union[Ok, Err]
 # 2. ALLELE PROBABILITY DENSITY MATRIX
 # ---------------------------------------------------------------------------
 
-class AlleleVariantProbabilitySimulator:
+class AlleleVariantProbabilityEngine:
     """algebraic_bound-computator resolving DNA variant bounds deterministically."""
     
     def __init__(self, error_rate: float = 0.001):
-        """Initialize AlleleVariantProbabilitySimulator."""
+        """Initialize AlleleVariantProbabilityEngine."""
         self.pileup_error_rate = error_rate
         
     def evaluate_genotype_likelihood(self, reference_base: str, read_bases: List[str]) -> Result:
@@ -132,9 +132,9 @@ class OmniDeepVariantEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-deepvariant"
 
-    def get_structural_evaluator(self) -> AlleleVariantProbabilitySimulator:
-        """Performs get simulator operation for OmniDeepVariantEngine."""
-        return AlleleVariantProbabilitySimulator()
+    def get_structural_evaluator(self) -> AlleleVariantProbabilityEngine:
+        """Performs diagnostic evaluation for OmniDeepVariantEngine."""
+        return AlleleVariantProbabilityEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniDeepVariantEngine."""

@@ -1,0 +1,23 @@
+{
+  "version": 8,
+  "configurePresets": [
+    {
+      "name": "Clang 19.1.5 (GNU CLI) - amd64 for MSVC 17.14.37111.16 (Visual Studio Build Tools 2022 Release)",
+      "displayName": "Clang 19.1.5 (GNU CLI) - amd64 for MSVC 17.14.37111.16 (Visual Studio Build Tools 2022 Release)",
+      "description": "Using compilers: C = C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\Llvm\\x64\\bin\\clang.exe, CXX = C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\Llvm\\x64\\bin\\clang++.exe",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+        "CMAKE_C_COMPILER": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clang.exe",
+        "CMAKE_CXX_COMPILER": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clang++.exe",
+        "CMAKE_RC_COMPILER": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/clang-cl.exe",
+        "CMAKE_LINKER": "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/Llvm/x64/bin/lld-link.exe",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_FLAGS": "--target=x86_64-pc-windows-msvc",
+        "CMAKE_CXX_FLAGS": "--target=x86_64-pc-windows-msvc",
+        "CMAKE_EXE_LINKER_FLAGS": "-Wl,/subsystem:console -Wl,/machine:x64"
+      }
+    }
+  ]
+}

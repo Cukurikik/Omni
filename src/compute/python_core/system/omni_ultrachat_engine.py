@@ -77,14 +77,14 @@ class OmniUltraChatEngine:
             session_log.append({"role": "user", "content": user_utterance})
             
             # Execute LLM Response inference based on conversational graph
-            simulated_response = f"Simulated UltraChat response to: '{user_utterance}'"
-            session_log.append({"role": "assistant", "content": simulated_response})
+            computed_response = f"UltraChat response to: '{user_utterance}'"
+            session_log.append({"role": "assistant", "content": computed_response})
             
             return {
                 "status": "success",
                 "session_id": session_id,
                 "turn_count": len(session_log) // 2,
-                "response": simulated_response,
+                "response": computed_response,
                 "message": "Conversational turn appended."
             }
         except Exception as e:

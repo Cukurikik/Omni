@@ -96,7 +96,7 @@ class OmniWebDatasetEngine:
                 yielded_records.append(record)
                 
             shard["current_count"] += records_to_fetch
-            shard["bytes_written"] += (records_to_fetch * 1024) # simulated 1KB per record
+            shard["bytes_written"] += (records_to_fetch * 1024) # ~1KB per record
             
             return {
                 "status": "success",

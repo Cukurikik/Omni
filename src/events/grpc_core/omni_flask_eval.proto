@@ -1,0 +1,13 @@
+// Omni FLASK Evaluation Event (gRPC proto)
+// Ref: kaistAI/FLASK — ICLR 2024
+syntax = "proto3";
+package omni.flask;
+service FlaskEvaluationService {
+  rpc EvaluateModel (EvalRequest) returns (EvalResponse);
+  rpc CompareModels (CompareRequest) returns (CompareResponse);
+}
+message SkillScore { string skill_name = 1; float score = 2; }
+message EvalRequest { string model_name = 1; repeated SkillScore scores = 2; }
+message EvalResponse { string model_name = 1; float overall = 2; repeated SkillScore scores = 3; }
+message CompareRequest { repeated EvalRequest models = 1; }
+message CompareResponse { string winner = 1; float gap = 2; }

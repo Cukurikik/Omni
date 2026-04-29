@@ -1,0 +1,21 @@
+type MachineGeneratedTextDetection {
+  id: ID!
+  textContent: String!
+  perplexityScore: Float!
+  burstinessScore: Float!
+  isMachineGenerated: Boolean!
+}
+
+type Query {
+  """
+  Analyzes text based on Awesome-Machine-Generated-Text heuristics
+  """
+  detectMachineGeneration(text: String!): MachineGeneratedTextDetection!
+}
+
+type Mutation {
+  """
+  Submits a known dataset for RLHF calibration
+  """
+  calibrateDetectionModel(datasetId: ID!, isHuman: Boolean!): Boolean!
+}

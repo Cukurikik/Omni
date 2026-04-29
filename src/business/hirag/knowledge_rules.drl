@@ -1,0 +1,11 @@
+package rules.hirag
+import omni.hirag.KnowledgeNode
+import omni.common.OmniResult
+
+rule "Filter Outdated Knowledge Nodes"
+when
+    $node : KnowledgeNode( ageInDays > 365 )
+then
+    $node.deprioritize();
+    insert(new OmniResult(false, "Knowledge node outdated", false));
+end

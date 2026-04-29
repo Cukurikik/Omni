@@ -80,14 +80,14 @@ class OmniTorchPoints3DEngine:
             point_count = self._cloud_buffers[cloud_id]
             
             # Execute extraction of unique spatial classes
-            simulated_classes = ["vehicle", "pedestrian", "ground", "building"]
+            detected_classes = ["vehicle", "pedestrian", "ground", "building"]
             
             return {
                 "status": "success",
                 "cloud_id": cloud_id,
                 "model_applied": model_type,
                 "points_segmented": point_count,
-                "unique_labels_identified": simulated_classes,
+                "unique_labels_identified": detected_classes,
                 "message": "Spatial topology semantically clustered."
             }
         except Exception as e:

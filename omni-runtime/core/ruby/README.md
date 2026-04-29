@@ -14,17 +14,17 @@ It is simple, straightforward, and extensible.
 
 ## Features of Ruby
 
-* Simple Syntax
-* **Normal** Object-oriented Features (e.g. class, method calls)
-* **Advanced** Object-oriented Features (e.g. mix-in, singleton-method)
-* Operator Overloading
-* Exception Handling
-* Iterators and Closures
-* Garbage Collection
-* Dynamic Loading of Object Files (on some architectures)
-* Highly Portable (works on many Unix-like/POSIX compatible platforms as
+- Simple Syntax
+- **Normal** Object-oriented Features (e.g. class, method calls)
+- **Advanced** Object-oriented Features (e.g. mix-in, singleton-method)
+- Operator Overloading
+- Exception Handling
+- Iterators and Closures
+- Garbage Collection
+- Dynamic Loading of Object Files (on some architectures)
+- Highly Portable (works on many Unix-like/POSIX compatible platforms as
   well as Windows, macOS, etc.) cf.
-    https://docs.ruby-lang.org/en/master/maintainers_md.html#label-Platform+Maintainers
+  https://docs.ruby-lang.org/en/master/maintainers_md.html#label-Platform+Maintainers
 
 ## How to get Ruby
 

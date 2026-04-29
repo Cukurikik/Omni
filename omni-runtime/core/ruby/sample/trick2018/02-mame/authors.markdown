@@ -1,3 +1,3 @@
-* Yusuke Endoh
-  * mame@ruby-lang.org
-  * cctld: jp
+- Yusuke Endoh
+    - mame@ruby-lang.org
+    - cctld: jp

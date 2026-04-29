@@ -2,7 +2,7 @@ name: Start release workflow
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 permissions:
   contents: read

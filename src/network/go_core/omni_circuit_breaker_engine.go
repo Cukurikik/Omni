@@ -30,21 +30,21 @@ import (
 // ============================================================
 
 // State represents the circuit breaker state.
-type State int32
+type CBState int32
 
 const (
-	StateClosed   State = iota // Normal operation
-	StateOpen                  // Failing fast
-	StateHalfOpen              // Probing for recovery
+	CBStateClosed   CBState = iota // Normal operation
+	CBStateOpen                  // Failing fast
+	CBStateHalfOpen              // Probing for recovery
 )
 
-func (s State) String() string {
+func (s CBState) String() string {
 	switch s {
-	case StateClosed:
+	case CBStateClosed:
 		return "CLOSED"
-	case StateOpen:
+	case CBStateOpen:
 		return "OPEN"
-	case StateHalfOpen:
+	case CBStateHalfOpen:
 		return "HALF_OPEN"
 	default:
 		return "UNKNOWN"
@@ -57,11 +57,11 @@ type CircuitBreakerConfig struct {
 	Timeout           time.Duration // How long to stay open before half-open
 	HalfOpenMaxCalls  int           // Max probe calls in half-open
 	SuccessThreshold  int           // Successes needed to close from half-open
-	OnStateChange     func(from, to State)
+	OnStateChange     func(from, to CBState)
 }
 
-// DefaultConfig returns sensible defaults.
-func DefaultConfig() CircuitBreakerConfig {
+// DefaultCircuitBreakerConfig returns sensible defaults.
+func DefaultCircuitBreakerConfig() CircuitBreakerConfig {
 	return CircuitBreakerConfig{
 		MaxFailures:      5,
 		Timeout:          30 * time.Second,
@@ -75,7 +75,7 @@ type CircuitBreaker struct {
 	name   string
 	config CircuitBreakerConfig
 	mu     sync.Mutex
-	state  State
+	state  CBState
 
 	// Counters
 	failures      int
@@ -90,12 +90,12 @@ type CircuitBreaker struct {
 	totalRejected  int64
 }
 
-// NewCircuitBreaker creates a new circuit breaker.
-func NewCircuitBreaker(name string, config CircuitBreakerConfig) *CircuitBreaker {
+// NewCBEngine creates a new circuit breaker.
+func NewCBEngine(name string, config CircuitBreakerConfig) *CircuitBreaker {
 	return &CircuitBreaker{
 		name:   name,
 		config: config,
-		state:  StateClosed,
+		state:  CBStateClosed,
 	}
 }
 
@@ -168,19 +168,19 @@ func (cb *CircuitBreaker) allowRequest() error {
 	defer cb.mu.Unlock()
 
 	switch cb.state {
-	case StateClosed:
+	case CBStateClosed:
 		return nil
 
-	case StateOpen:
+	case CBStateOpen:
 		// Check if timeout has elapsed
 		if time.Since(cb.lastFailure) > cb.config.Timeout {
-			cb.transitionTo(StateHalfOpen)
+			cb.transitionTo(CBStateHalfOpen)
 			cb.halfOpenCalls = 1
 			return nil
 		}
 		return ErrCircuitOpen
 
-	case StateHalfOpen:
+	case CBStateHalfOpen:
 		if cb.halfOpenCalls >= cb.config.HalfOpenMaxCalls {
 			return ErrTooManyCalls
 		}
@@ -197,13 +197,13 @@ func (cb *CircuitBreaker) recordSuccess() {
 	atomic.AddInt64(&cb.totalSuccesses, 1)
 
 	switch cb.state {
-	case StateClosed:
+	case CBStateClosed:
 		cb.failures = 0 // Reset failure count on success
 
-	case StateHalfOpen:
+	case CBStateHalfOpen:
 		cb.successes++
 		if cb.successes >= cb.config.SuccessThreshold {
-			cb.transitionTo(StateClosed)
+			cb.transitionTo(CBStateClosed)
 			cb.reset()
 		}
 	}
@@ -216,18 +216,18 @@ func (cb *CircuitBreaker) recordFailure() {
 	cb.lastFailure = time.Now()
 
 	switch cb.state {
-	case StateClosed:
+	case CBStateClosed:
 		cb.failures++
 		if cb.failures >= cb.config.MaxFailures {
-			cb.transitionTo(StateOpen)
+			cb.transitionTo(CBStateOpen)
 		}
 
-	case StateHalfOpen:
-		cb.transitionTo(StateOpen)
+	case CBStateHalfOpen:
+		cb.transitionTo(CBStateOpen)
 	}
 }
 
-func (cb *CircuitBreaker) transitionTo(newState State) {
+func (cb *CircuitBreaker) transitionTo(newState CBState) {
 	oldState := cb.state
 	cb.state = newState
 	if cb.config.OnStateChange != nil {
@@ -242,7 +242,7 @@ func (cb *CircuitBreaker) reset() {
 }
 
 // GetState returns the current state.
-func (cb *CircuitBreaker) GetState() State {
+func (cb *CircuitBreaker) GetState() CBState {
 	cb.mu.Lock()
 	defer cb.mu.Unlock()
 	return cb.state

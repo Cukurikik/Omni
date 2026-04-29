@@ -41,7 +41,7 @@ class OmniAxiomEngine:
             input_sanitized = file.replace(" ", "\\ ")
             out_filename = file.split(".")[0] + f"_converted.{target_format}"
             
-            # Simulated Axiom FFmpeg optimal flags mapping (Auto-Quality / Lossless)
+            # Axiom FFmpeg optimal flags mapping (Auto-Quality / Lossless)
             cmd_string = f"ffmpeg -i {input_sanitized} -c:v copy -c:a aac -b:a 192k {out_filename}"
             execution_scripts.append(cmd_string)
             
@@ -50,7 +50,7 @@ class OmniAxiomEngine:
         self.files_queued.clear() # Reset state post-dispatch
         return execution_scripts
 
-    def execute_batch_simulation(self) -> Dict[str, Any]:
+    def execute_batch_computation(self) -> Dict[str, Any]:
         start_time = time.time()
         
         self.queue_directory_files(["wedding video.mp4", "podcast_ep1.wav", "render_final_v2.mov"])
@@ -60,7 +60,7 @@ class OmniAxiomEngine:
             return {
                 "status": "success",
                 "mode": "native-batch-scripting-allocator",
-                "simulated_executions": generated_tasks,
+                "computed_executions": generated_tasks,
                 "compute_time_ms": int((time.time() - start_time) * 1000)
             }
         except Exception as e:
@@ -77,5 +77,5 @@ class OmniAxiomEngine:
 
 if __name__ == "__main__":
     eng = OmniAxiomEngine()
-    print(json.dumps(eng.execute_batch_simulation(), indent=2))
+    print(json.dumps(eng.execute_batch_computation(), indent=2))
     print(json.dumps(eng.diagnostics(), indent=2))

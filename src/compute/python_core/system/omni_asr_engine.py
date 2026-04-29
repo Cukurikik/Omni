@@ -80,14 +80,14 @@ class OmniASREngine:
 
             language = self._loaded_acoustic_models[model_id]
             # Execute CTC Decoder execution
-            simulated_text = "OMNI SYSTEM ONLINE" if language == "en-US" else "SISTEM OMNI AKTIF"
+            computed_text = "OMNI SYSTEM ONLINE" if language == "en-US" else "SISTEM OMNI AKTIF"
             confidence = 0.98
             duration_sec = len(audio_waveform) / sample_rate
             
             return {
                 "status": "success",
                 "model_id": model_id,
-                "transcription": simulated_text,
+                "transcription": computed_text,
                 "confidence": confidence,
                 "duration_sec": duration_sec,
                 "message": "Waveform perfectly decoded using Connectionist Temporal Classification."

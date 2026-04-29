@@ -1,0 +1,11 @@
+package rules.vla4ad
+import omni.vla4ad.ActionVector
+import omni.common.OmniResult
+
+rule "Enforce Hard Braking Safety"
+when
+    $action : ActionVector( obstacleDistance < 2.0, brake < 0.8 )
+then
+    $action.overrideBrake(1.0);
+    insert(new OmniResult(true, "Safety critical override: Hard brake engaged", true));
+end

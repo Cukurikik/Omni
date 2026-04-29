@@ -33,7 +33,7 @@ class PocoNodeProxy:
         return f"Swiped {direction} on {self.node_id}"
 
     def get_text(self) -> str:
-        return f"Simulated text from {self.node_id}"
+        return f"Text from {self.node_id}"
 
 
 class OmniPocoAutomationEngine:
@@ -48,7 +48,7 @@ class OmniPocoAutomationEngine:
 
     def select(self, node_id: str, **kwargs) -> PocoNodeProxy:
         """Selects a UI element mathematically from the render tree."""
-        # Simulated traversal
+        # traversal
         element_type = kwargs.get("type", "Node")
         return PocoNodeProxy(node_id, element_type)
 

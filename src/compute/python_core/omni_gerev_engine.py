@@ -43,7 +43,7 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. LEXICAL ENTERPRISE SEARCH SIMULATOR
+# 2. LEXICAL ENTERPRISE SEARCH ENGINE
 # ---------------------------------------------------------------------------
 
 class LexicalDistanceRetriever:
@@ -89,7 +89,7 @@ class LexicalDistanceRetriever:
             })
             
         except Exception as e:
-            return Err(f"Simulated semantic mapping retrieval failed: {e}")
+            return Err(f"Semantic mapping retrieval failed: {e}")
 
 
 # ---------------------------------------------------------------------------

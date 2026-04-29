@@ -1,21 +1,20 @@
-bundle-info(1) -- Show information for the given gem in your bundle
-===================================================================
+# bundle-info(1) -- Show information for the given gem in your bundle
 
 ## SYNOPSIS
 
 `bundle info` [GEM_NAME]
-              [--path]
-              [--version]
+[--path]
+[--version]
 
 ## DESCRIPTION
 
 Given a gem name present in your bundle, print the basic information about it
- such as homepage, version, path and summary.
+such as homepage, version, path and summary.
 
 ## OPTIONS
 
-* `--path`:
+- `--path`:
   Print the path of the given gem
 
-* `--version`:
+- `--version`:
   Print gem version

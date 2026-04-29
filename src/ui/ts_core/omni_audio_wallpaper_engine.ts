@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI AUDIO WALLPAPER ENGINE (SEMESTER 5 — BATCH 4)
 // ===========================================================================
 // Absorbed From  : rocksdanister/audio-visualizer-wallpaper
@@ -52,5 +52,16 @@ export class OmniAudioWallpaperEngine {
     public evaluateHealth(): Record<string, any> {
         return { engine: "OmniAudioWallpaperEngine", layer: "Interface", status: "healthy",
                  rendering: this.isRendering, learned_from: "rocksdanister/audio-visualizer-wallpaper" };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAudioWallpaperEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

@@ -40,7 +40,7 @@ class OmniCaffeLegacyBridgeEngine:
         self._is_ready = True
         logger.info("[OmniCaffeLegacyBridge] Standby to parse legacy BVLC/caffe topologies.")
 
-    def parse_prototxt_mock(self, prototxt_content: str) -> Dict[str, Any]:
+    def parse_prototxt(self, prototxt_content: str) -> Dict[str, Any]:
         """
         evaluates_structurally scanning a prototxt file for layer definitions.
         Normally requires Google Protobuf `caffe_pb2`, but OMNI handles it purely 
@@ -112,5 +112,5 @@ if __name__ == "__main__":
     }
     """
     
-    res = bridge.parse_prototxt_mock(prod_prototxt)
+    res = bridge.parse_prototxt(prod_prototxt)
     print("Parsed Legacy Caffe Topology:", res)

@@ -1,0 +1,29 @@
+// Omni Compliance Rules in Drools
+// Formal business logic evaluation engine
+
+package omni.compliance.rules
+
+import omni.domain.Transaction;
+import omni.domain.ComplianceResult;
+
+rule "Anti-Money Laundering Limit Check"
+    dialect "mvel"
+    when
+        $tx : Transaction( amount > 10000.00, countryCode == "HIGH_RISK" )
+        $res : ComplianceResult()
+    then
+        $res.setApproved(false);
+        $res.setReason("Transaction exceeds AML bounds for high-risk regions.");
+        update($res);
+end
+
+rule "Standard Transaction Approval"
+    dialect "mvel"
+    when
+        $tx : Transaction( amount <= 10000.00 )
+        $res : ComplianceResult( reason == null )
+    then
+        $res.setApproved(true);
+        $res.setReason("OK");
+        update($res);
+end

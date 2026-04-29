@@ -1,0 +1,6 @@
+type AgentSkill {
+    id: ID!
+    prompt: String!
+    fitnessScore: Float!
+    generation: Int!
+}

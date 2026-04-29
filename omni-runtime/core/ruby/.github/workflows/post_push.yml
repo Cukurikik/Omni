@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - 'ruby_*_*'
+      - "ruby_*_*"
 
 permissions:
   contents: read

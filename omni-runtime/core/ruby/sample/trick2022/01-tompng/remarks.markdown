@@ -11,8 +11,8 @@ Or run it with one non-ascii half-width character argument:
 
 I confirmed the following implementations/platforms:
 
-* ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin19]
-* ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x86_64-darwin20]
+- ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-darwin19]
+- ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x86_64-darwin20]
 
 ### Description
 

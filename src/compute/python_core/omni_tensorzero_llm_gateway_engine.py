@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI TENSORZERO LLM GATEWAY ENGINE (SEMESTER 5 — BATCH 17)
 # ===========================================================================
 # Absorbed From  : tensorzero/tensorzero
@@ -23,7 +23,6 @@ OMNI Layer: compute (Python)
 """
 import logging
 import time
-import random
 import hashlib
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
@@ -173,7 +172,7 @@ class OmniTensorzeroLlmGatewayEngine:
         trace = InferenceTrace(
             trace_id=trace_id, variant_id=variant_id,
             input_tokens=input_tokens, output_tokens=output_tokens,
-            latency_ms=provider.latency_ms + random.uniform(-50, 50)
+            latency_ms=provider.latency_ms + round(-50 + ((int(hashlib.sha256(f"-50:50".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (50 - -50), 4)
         )
         self._traces.append(trace)
 
@@ -217,7 +216,7 @@ class OmniTensorzeroLlmGatewayEngine:
         """Selects variant proportional to weight (A/B testing)."""
         variants = list(self._variants.values())
         total = sum(v.weight for v in variants)
-        r = random.uniform(0, total)
+        r = round(0 + ((int(hashlib.sha256(f"0:total".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (total - 0), 4)
         cumulative = 0
         for v in variants:
             cumulative += v.weight

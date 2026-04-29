@@ -3,7 +3,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 
 class OmniNginxReverseProxyEngine(OmniBaseEngine):
     """
-    Simulates abstract upstreams computing mathematically uniform Ring mapping 
+    Abstract upstreams computing mathematically uniform Ring mapping 
     bounded hashes to ensure consistent logical data distribution algorithms.
     """
     
@@ -16,7 +16,7 @@ class OmniNginxReverseProxyEngine(OmniBaseEngine):
     def _hash_eval(self, key: str) -> int:
         """
         Calculates a perfectly deterministic scalar distribution block index bounds.
-        Mathematical bounding simulates a murmur/md5 without libraries.
+        Mathematical bounding computes a murmur-equivalent/md5 without libraries.
         """
         hash_val = 5381
         for char in key:

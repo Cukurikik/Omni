@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observal Agent Dashboard</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #f8fafc; }
+        .omni-card { border: 1px solid #334155; padding: 20px; border-radius: 8px; margin: 10px; }
+        .omni-header { font-size: 24px; font-weight: bold; color: #38bdf8; }
+    </style>
+</head>
+<body>
+    <div class="omni-card">
+        <div class="omni-header">Observal Agent Telemetry</div>
+        <div id="metrics-container">
+            <!-- Dynamic OmniResult ingestion -->
+        </div>
+    </div>
+    <script>
+        function updateMetrics(omniResult) {
+            if (!omniResult.isOk) {
+                console.error("Telemetry error:", omniResult.error);
+                return;
+            }
+            document.getElementById('metrics-container').innerText = JSON.stringify(omniResult.value);
+        }
+    </script>
+</body>
+</html>

@@ -43,7 +43,7 @@ inputs:
 
   test-tasks:
     required: false
-    default: '[]'
+    default: "[]"
     description: >-
       Specifies an array of multiple test tasks to be executed.
       For example: '["test", "test-all"]'.
@@ -51,13 +51,13 @@ inputs:
 
   is-yjit:
     required: false
-    default: 'false'
+    default: "false"
     description: >-
       Whether this workflow is executed on YJIT.
 
   is-zjit:
     required: false
-    default: 'false'
+    default: "false"
     description: >-
       Whether this workflow is executed on ZJIT.
 
@@ -105,8 +105,8 @@ runs:
     - name: Set up Java
       uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
       with:
-        distribution: 'temurin'
-        java-version: '17'
+        distribution: "temurin"
+        java-version: "17"
       if: >-
         ${{ steps.enable-launchable.outputs.enable-launchable
         && !endsWith(inputs.os, 'ppc64le') && !endsWith(inputs.os, 's390x') }}
@@ -114,9 +114,9 @@ runs:
     - name: Set up Java ppc64le
       uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
       with:
-        distribution: 'semeru'
-        architecture: 'ppc64le'
-        java-version: '17'
+        distribution: "semeru"
+        architecture: "ppc64le"
+        java-version: "17"
       if: >-
         ${{ steps.enable-launchable.outputs.enable-launchable
         && endsWith(inputs.os, 'ppc64le') }}
@@ -124,9 +124,9 @@ runs:
     - name: Set up Java s390x
       uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
       with:
-        distribution: 'semeru'
-        architecture: 's390x'
-        java-version: '17'
+        distribution: "semeru"
+        architecture: "s390x"
+        java-version: "17"
       if: >-
         ${{ steps.enable-launchable.outputs.enable-launchable
         && endsWith(inputs.os, 's390x') }}

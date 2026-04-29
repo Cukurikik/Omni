@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI ML PYTHON CATALOG ENGINE (SEMESTER 5 — BATCH 15)
 // ===========================================================================
 // Absorbed From  : lukasmasuch/best-of-ml-python
@@ -133,6 +133,17 @@ export class OmniMlPythonCatalogEngine {
             catalogSize: this.catalog.length,
             categories: new Set(this.catalog.map((l) => l.category)).size,
             learned_from: "lukasmasuch/best-of-ml-python",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMlPythonCatalogEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

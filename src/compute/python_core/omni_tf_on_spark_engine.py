@@ -97,7 +97,7 @@ class RDDPartitionBalancer:
             bounds = part_res.value["boundaries"]
             executor_results = []
             
-            # Simulated Map Phase
+            # Map Phase
             for start, end in bounds:
                 chunk = tensor_data[start:end]
                 # evaluates_structurally map func: val * map_factor
@@ -105,7 +105,7 @@ class RDDPartitionBalancer:
                 # Block operation: reduce sum inside executor
                 executor_results.append(np.sum(mapped))
                 
-            # Simulated Reduce Phase (Driver node aggregation)
+            # Reduce Phase (Driver node aggregation)
             global_sum = sum(executor_results)
             
             return Ok({
@@ -114,7 +114,7 @@ class RDDPartitionBalancer:
             })
             
         except Exception as e:
-            return Err(f"Simulated node execution map-reduce block failed: {e}")
+            return Err(f"Node execution map-reduce block failed: {e}")
 
 
 # ---------------------------------------------------------------------------

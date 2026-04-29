@@ -58,7 +58,7 @@ class RAGPipeline:
 
     def ingest(self, text: str, metadata: Dict) -> str:
         node_id = hashlib.md5(text.encode()).hexdigest()
-        # Prod embedding logic for native speed (Simulated Vector)
+        # Prod embedding logic for native speed (Vector)
         embedded = json.dumps([hash(c) % 100 / 100 for c in text[:10]])
         with sqlite3.connect(self.db_path) as conn:
             conn.execute(

@@ -1,4 +1,4 @@
-"""
+﻿"""
 OmniTfDeepLearningEngine — Native Keras-Style Sequential Deep Learning Engine.
 
 Studied from: mrdbourke/tensorflow-deep-learning (5.5k★)
@@ -162,7 +162,7 @@ class Dense:
         """
         self.input_dim = input_dim
         limit = np.sqrt(6.0 / (input_dim + self.units))
-        self.W = np.random.uniform(-limit, limit, (input_dim, self.units)).astype(np.float32)
+        self.W = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (input_dim, self.units".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (input_dim, self.units - -limit), 4)).astype(np.float32)
         self.b = np.zeros(self.units, dtype=np.float32)
 
     def forward(self, x: np.ndarray) -> np.ndarray:

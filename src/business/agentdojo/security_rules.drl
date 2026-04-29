@@ -1,0 +1,11 @@
+package rules.agentdojo
+import omni.agentdojo.AgentAction
+import omni.common.OmniResult
+
+rule "Block Unauthorized File Access"
+when
+    $action : AgentAction( type == "FILE_READ", targetPath contains "/etc/" )
+then
+    $action.block();
+    insert(new OmniResult(false, "Unauthorized file access blocked", false));
+end

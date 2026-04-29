@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Flappy Dqn Engine
 ======================
 Production-grade engine for the OMNI Framework.
@@ -6,7 +6,7 @@ Production-grade engine for the OMNI Framework.
 OMNI Layer: compute (Python)
 """
 import numpy as np
-import random
+import hashlib
 from typing import Dict, Any, List, Tuple
 from collections import deque
 from src.compute.python_core.omni_base_engine import Result, Ok, Err
@@ -82,8 +82,8 @@ class OmniFlappyDqnEngine:
     def choose_action(self, state: List[float], epsilon: float = 0.1) -> Result:
         """Epsilon-greedy action selection."""
         try:
-            if random.random() < epsilon:
-                action = random.randint(0, self.action_dim - 1)
+            if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < epsilon:
+                action = (0 + (int(hashlib.sha256(f"0:self.action_dim - 1".encode()).hexdigest()[:8], 16) % max(1, self.action_dim - 1 - 0 + 1)))
             else:
                 s_arr = np.array([state], dtype=np.float32)
                 q_vals, _ = self.predict_q(s_arr)

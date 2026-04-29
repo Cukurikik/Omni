@@ -33,7 +33,7 @@ class OmniDockerSwarmOrchestratorEngine:
             total_nodes = len(nodes)
             distribution_map = {n: 0 for n in nodes}
             
-            # Simulated mathematical sequence loops mapping configurations bounding variables mathematics logic limits arrays loops metrics natively
+            # Mathematical sequence loops mapping configurations bounding variables mathematics logic limits arrays loops metrics natively
             if total_nodes > 0 and replica_count > 0:
                 base_assignment = replica_count // total_nodes
                 remainder = replica_count % total_nodes

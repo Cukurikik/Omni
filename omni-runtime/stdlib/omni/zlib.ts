@@ -7,7 +7,10 @@
 // ==========================================
 
 declare const OmniNative: {
-    syscall: (command: string, args: Record<string, unknown>) => Record<string, unknown>;
+  syscall: (
+    command: string,
+    args: Record<string, unknown>,
+  ) => Record<string, unknown>;
 };
 
 /**
@@ -17,61 +20,69 @@ declare const OmniNative: {
  * @returns Base64-encoded compressed data
  */
 export function gzip(data: string, level?: number): string {
-    const res = OmniNative.syscall("zlib_gzip", { data, level: level ?? 6 });
-    if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
-    return res.result as string;
+  const res = OmniNative.syscall("zlib_gzip", { data, level: level ?? 6 });
+  if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
+  return res.result as string;
 }
 
 /**
  * Decompress data dari Gzip.
  */
 export function gunzip(compressedBase64: string): string {
-    const res = OmniNative.syscall("zlib_gunzip", { data: compressedBase64 });
-    if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
-    return res.result as string;
+  const res = OmniNative.syscall("zlib_gunzip", { data: compressedBase64 });
+  if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
+  return res.result as string;
 }
 
 /**
  * Compress data menggunakan Deflate (raw zlib).
  */
 export function deflate(data: string, level?: number): string {
-    const res = OmniNative.syscall("zlib_deflate", { data, level: level ?? 6 });
-    if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
-    return res.result as string;
+  const res = OmniNative.syscall("zlib_deflate", { data, level: level ?? 6 });
+  if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
+  return res.result as string;
 }
 
 /**
  * Decompress data dari Deflate.
  */
 export function inflate(compressedBase64: string): string {
-    const res = OmniNative.syscall("zlib_inflate", { data: compressedBase64 });
-    if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
-    return res.result as string;
+  const res = OmniNative.syscall("zlib_inflate", { data: compressedBase64 });
+  if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
+  return res.result as string;
 }
 
 /**
  * Compress file secara streaming (untuk file besar).
  */
-export function gzipFile(inputPath: string, outputPath: string, level?: number): void {
-    const res = OmniNative.syscall("zlib_gzip_file", { inputPath, outputPath, level: level ?? 6 });
-    if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
+export function gzipFile(
+  inputPath: string,
+  outputPath: string,
+  level?: number,
+): void {
+  const res = OmniNative.syscall("zlib_gzip_file", {
+    inputPath,
+    outputPath,
+    level: level ?? 6,
+  });
+  if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
 }
 
 /**
  * Decompress file secara streaming.
  */
 export function gunzipFile(inputPath: string, outputPath: string): void {
-    const res = OmniNative.syscall("zlib_gunzip_file", { inputPath, outputPath });
-    if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
+  const res = OmniNative.syscall("zlib_gunzip_file", { inputPath, outputPath });
+  if (res.error) throw new Error(`[OMNI-ZLIB] ${res.error}`);
 }
 
 export const zlib = {
-    gzip,
-    gunzip,
-    deflate,
-    inflate,
-    gzipFile,
-    gunzipFile,
+  gzip,
+  gunzip,
+  deflate,
+  inflate,
+  gzipFile,
+  gunzipFile,
 };
 
 export default zlib;

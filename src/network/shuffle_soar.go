@@ -6,7 +6,7 @@
 // Zero-Mock Native Implementation.
 // ===========================================================================
 
-package main
+package network
 
 import (
 	"encoding/json"

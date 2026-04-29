@@ -1,0 +1,35 @@
+# OMNI Semester 14 Batch 10 — Engine Registry
+from typing import List, Dict
+
+BATCH10_ENGINES: List[Dict] = [
+    {"id": "omni-genaitimeline-s14b10", "repo": "GenAI_LLM_timeline", "domain": "Survey"},
+    {"id": "omni-medicalmultimodal-s14b10", "repo": "awesome-multimodal-in-medical-imaging", "domain": "Vision"},
+    {"id": "omni-chatunivi-s14b10", "repo": "Chat-UniVi", "domain": "Vision"},
+    {"id": "omni-markllm-s14b10", "repo": "MarkLLM", "domain": "Security"},
+    {"id": "omni-eagle-s14b10", "repo": "Eagle", "domain": "Vision"},
+    {"id": "omni-kgrag-s14b10", "repo": "KG_RAG", "domain": "RAG"},
+    {"id": "omni-langcorn-s14b10", "repo": "langcorn", "domain": "Tool"},
+    {"id": "omni-calflops-s14b10", "repo": "calculate-flops.pytorch", "domain": "Compute"},
+    {"id": "omni-starrydivine-s14b10", "repo": "StarryDivineSky", "domain": "Survey"},
+    {"id": "omni-composeagent-s14b10", "repo": "compose-for-agents", "domain": "Agent"},
+    {"id": "omni-dataprep-s14b10", "repo": "data-prep-kit", "domain": "Data"},
+    {"id": "omni-factool-s14b10", "repo": "factool", "domain": "Tool"},
+    {"id": "omni-mindnlp-s14b10", "repo": "mindnlp", "domain": "Compute"},
+    {"id": "omni-synalinks-s14b10", "repo": "synalinks-skills", "domain": "Tool"},
+    {"id": "omni-latentmas-s14b10", "repo": "LatentMAS", "domain": "Agent"},
+    {"id": "omni-omniquant-s14b10", "repo": "OmniQuant", "domain": "Tuning"},
+    {"id": "omni-llminterview-s14b10", "repo": "LLM-Interview-Questions-and-Answers-Hub", "domain": "Survey"},
+    {"id": "omni-aibootcamp-s14b10", "repo": "AI-Bootcamp", "domain": "Survey"},
+    {"id": "omni-llmfinetune-s14b10", "repo": "LLM-Finetuning-Toolkit", "domain": "Tuning"},
+    {"id": "omni-vllmserve-s14b10", "repo": "vllm-ecosystem", "domain": "System"},
+    {"id": "omni-autogpt-s14b10", "repo": "AutoGPT-Core", "domain": "Agent"},
+    {"id": "omni-babyagi-s14b10", "repo": "BabyAGI-Core", "domain": "Agent"},
+    {"id": "omni-whisper-s14b10", "repo": "Whisper-ASR", "domain": "Audio"},
+    {"id": "omni-bark-s14b10", "repo": "Bark-TTS", "domain": "Audio"},
+    {"id": "omni-musicgen-s14b10", "repo": "MusicGen-Core", "domain": "Audio"},
+    {"id": "omni-stablediff-s14b10", "repo": "Stable-Diffusion-Core", "domain": "Vision"},
+    {"id": "omni-controlnet-s14b10", "repo": "ControlNet-Core", "domain": "Vision"},
+    {"id": "omni-loratune-s14b10", "repo": "LoRA-Core", "domain": "Tuning"},
+    {"id": "omni-deepspeed-s14b10", "repo": "DeepSpeed-Core", "domain": "System"},
+    {"id": "omni-rayserve-s14b10", "repo": "Ray-Serve", "domain": "System"}
+]

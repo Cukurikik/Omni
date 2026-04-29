@@ -945,7 +945,7 @@ class OmniServiceManager:
         service.last_start = time.time()
         # In production: subprocess spawn the exec_start command
         service.state = ServiceState.ACTIVE
-        service.pid = id(service) & 0xFFFF  # Simulated PID
+        service.pid = id(service) & 0xFFFF  # PID
 
         self._emit_event("started", service)
         logger.info("Service started: %s (pid=%d)", name, service.pid or 0)

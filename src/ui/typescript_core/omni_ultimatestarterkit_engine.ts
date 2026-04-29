@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_ultimatestarterkit_engine.ts
 // Production-Grade Cross-Platform Starter Kit Engine
@@ -112,6 +112,17 @@ export class OmniUltimateStarterKitEngine {
                 screenCount: this.screens.size,
                 componentCount: this.components.size,
             },
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniUltimateStarterKitEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

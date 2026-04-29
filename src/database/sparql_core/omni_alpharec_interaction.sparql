@@ -1,0 +1,11 @@
+-- Omni AlphaRec User-Item Graph (SPARQL)
+-- Ref: LehengTHU/AlphaRec — ICLR 2025
+PREFIX omni: <http://omni.dev/alpharec/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?user ?item ?score WHERE {
+  ?interaction rdf:type omni:Interaction ;
+               omni:hasUser ?user ;
+               omni:hasItem ?item ;
+               omni:score ?score .
+  FILTER (?score > 0.5)
+} ORDER BY DESC(?score) LIMIT 100

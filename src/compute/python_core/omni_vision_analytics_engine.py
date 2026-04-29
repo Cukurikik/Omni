@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI VISION ANALYTICS ENGINE (SEMESTER 5 — BATCH 6)
 # ===========================================================================
 # Absorbed From  : ultralytics/ultralytics (YOLO)
@@ -38,18 +38,18 @@ class OmniVisionAnalyticsEngine:
         """evaluates_structurally object detection on a video/camera frame."""
         if frame_width <= 0 or frame_height <= 0:
             return {"status": "error", "error": "Invalid frame dimensions."}
-        import random
-        n_detections = random.randint(0, 5)
+        import hashlib
+        n_detections = (0 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (5 - 0 + 1)))
         detections = []
         for i in range(n_detections):
-            x1 = random.randint(0, frame_width // 2)
-            y1 = random.randint(0, frame_height // 2)
-            x2 = x1 + random.randint(20, frame_width // 3)
-            y2 = y1 + random.randint(20, frame_height // 3)
-            conf = random.uniform(0.3, 0.99)
+            x1 = (0 + (int(hashlib.sha256(f"0:frame_width // 2".encode()).hexdigest()[:8], 16) % max(1, frame_width // 2 - 0 + 1)))
+            y1 = (0 + (int(hashlib.sha256(f"0:frame_height // 2".encode()).hexdigest()[:8], 16) % max(1, frame_height // 2 - 0 + 1)))
+            x2 = x1 + (20 + (int(hashlib.sha256(f"20:frame_width // 3".encode()).hexdigest()[:8], 16) % max(1, frame_width // 3 - 20 + 1)))
+            y2 = y1 + (20 + (int(hashlib.sha256(f"20:frame_height // 3".encode()).hexdigest()[:8], 16) % max(1, frame_height // 3 - 20 + 1)))
+            conf = round(0.3 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.99 - 0.3), 4)
             if conf >= self.confidence_threshold:
                 detections.append({
-                    "class": random.choice(self.COCO_CLASSES),
+                    "class": self.COCO_CLASSES[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.COCO_CLASSES))],
                     "confidence": round(conf, 3),
                     "bbox": [x1, y1, min(x2, frame_width), min(y2, frame_height)]
                 })
@@ -57,9 +57,9 @@ class OmniVisionAnalyticsEngine:
 
     def classify_single(self, image_id: str) -> Dict[str, Any]:
         """Performs single-class classification on an image."""
-        import random
-        cls = random.choice(self.COCO_CLASSES)
-        conf = round(random.uniform(0.7, 0.99), 3)
+        import hashlib
+        cls = self.COCO_CLASSES[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.COCO_CLASSES))]
+        conf = round(round(0.7 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.99 - 0.7), 4), 3)
         return {"status": "success", "data": {"image_id": image_id, "predicted_class": cls, "confidence": conf}}
 
     def evaluate_health(self) -> Dict[str, Any]:

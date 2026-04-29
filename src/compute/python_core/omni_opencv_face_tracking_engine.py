@@ -28,7 +28,7 @@ class OmniOpencvFaceTrackingEngine:
             tracking_deltas = {}
             movement_detected = []
             
-            # Simulated mathematical coordinate extraction looping arrays Constraints bounding limit!
+            # Mathematical coordinate extraction looping arrays Constraints bounding limit!
             prev_map = {f["id"]: f for f in previous_frames if "id" in f}
             
             for cur in current_frames:

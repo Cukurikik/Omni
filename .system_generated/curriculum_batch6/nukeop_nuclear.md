@@ -4,20 +4,19 @@
     <img alt="Nuclear Music Player"  srcset="packages/docs/.gitbook/assets/readme-banner.png">
   </picture>
 
-
 </p>
 
 <div align="center">
 
-# Nuclear 
+# Nuclear
 
 </div>
 
 <div align="center">
 
-  Nuclear is a free, open-source music player without ads or tracking. Search for any song or artist, build playlists, and start listening.<br>
-  Runs on Windows, macOS, and Linux.
-  
+Nuclear is a free, open-source music player without ads or tracking. Search for any song or artist, build playlists, and start listening.<br>
+Runs on Windows, macOS, and Linux.
+
 </div>
 
 ## Screenshots
@@ -39,26 +38,26 @@ Nuclear comes with multiple built-in themes:
   <img src="packages/docs/.gitbook/assets/dashboard-violet.png" alt="Violet theme" width="32%">
 </p>
 
-| | |
-|:---:|:---:|
-| ![Search artists](packages/docs/.gitbook/assets/search-artists.png) | ![Search albums](packages/docs/.gitbook/assets/search-albums.png) |
-| Artist search | Album search |
-| ![Playlists](packages/docs/.gitbook/assets/playlists.png) | ![Plugin store](packages/docs/.gitbook/assets/plugin-store.png) |
-| Playlists | Plugin store |
-| ![Installed plugins](packages/docs/.gitbook/assets/installed-plugins.png) | ![Preferences](packages/docs/.gitbook/assets/preferences.png) |
-| Installed plugins | Preferences |
-| ![What's new](packages/docs/.gitbook/assets/whats-new.png) | ![Log viewer](packages/docs/.gitbook/assets/log-viewer.png) |
-| What's new | Log viewer |
+|                                                                           |                                                                   |
+| :-----------------------------------------------------------------------: | :---------------------------------------------------------------: |
+|    ![Search artists](packages/docs/.gitbook/assets/search-artists.png)    | ![Search albums](packages/docs/.gitbook/assets/search-albums.png) |
+|                               Artist search                               |                           Album search                            |
+|         ![Playlists](packages/docs/.gitbook/assets/playlists.png)         |  ![Plugin store](packages/docs/.gitbook/assets/plugin-store.png)  |
+|                                 Playlists                                 |                           Plugin store                            |
+| ![Installed plugins](packages/docs/.gitbook/assets/installed-plugins.png) |   ![Preferences](packages/docs/.gitbook/assets/preferences.png)   |
+|                             Installed plugins                             |                            Preferences                            |
+|        ![What's new](packages/docs/.gitbook/assets/whats-new.png)         |    ![Log viewer](packages/docs/.gitbook/assets/log-viewer.png)    |
+|                                What's new                                 |                            Log viewer                             |
 
 ## Download
 
 Grab the latest release for your platform from the [Releases page](https://github.com/nukeop/nuclear/releases).
 
-| Platform | Formats |
-|----------|---------|
-| Windows | `.exe` installer, `.msi` |
-| macOS | `.dmg` (Apple Silicon and Intel) |
-| Linux | `.AppImage`, `.deb`, `.rpm`, `.flatpak` |
+| Platform | Formats                                 |
+| -------- | --------------------------------------- |
+| Windows  | `.exe` installer, `.msi`                |
+| macOS    | `.dmg` (Apple Silicon and Intel)        |
+| Linux    | `.AppImage`, `.deb`, `.rpm`, `.flatpak` |
 
 ## Features
 

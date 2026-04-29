@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI FACE MORPH ENGINE (SEMESTER 5 — BATCH 7)
 # ===========================================================================
 # Absorbed From  : deepfakes/faceswap
@@ -41,8 +41,8 @@ class OmniFaceMorphEngine:
         """Extracts 68 facial landmarks from an image matrix."""
         if not self._check_memory_safe(width, height):
             return {"status": "error", "error": f"Image too large for safe processing. Max: {self.MAX_MATRIX_MB}MB"}
-        import random
-        landmarks = [{"id": i, "x": random.randint(0, width), "y": random.randint(0, height)} for i in range(68)]
+        import hashlib  # random purged
+        landmarks = [{"id": i, "x": (0 + (int(hashlib.sha256(f"0:width".encode()).hexdigest()[:8], 16) % max(1, width - 0 + 1))), "y": (0 + (int(hashlib.sha256(f"0:height".encode()).hexdigest()[:8], 16) % max(1, height - 0 + 1)))} for i in range(68)]
         jaw = landmarks[0:17]
         left_eye = landmarks[36:42]
         right_eye = landmarks[42:48]

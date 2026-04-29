@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Daft Engine — Distributed Dataframes.
 
 Assimilated from: Eventual-Inc/Daft
@@ -37,7 +37,7 @@ class OmniDaftEngine:
         
         data = {
             "id": np.arange(num_rows),
-            "group": np.random.randint(0, 5, num_rows),
+            "group": np.(0 + (int(hashlib.sha256(f"0:5, num_rows".encode()).hexdigest()[:8], 16) % max(1, 5, num_rows - 0 + 1))),
             "value": np.random.rand(num_rows)
         }
         

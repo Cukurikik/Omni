@@ -1,0 +1,5 @@
+type StreamTopic {
+    name: String!
+    partitions: Int!
+    retentionMs: Int!
+}

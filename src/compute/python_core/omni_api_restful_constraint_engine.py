@@ -29,7 +29,7 @@ class OmniApiRestfulConstraintEngine:
 
     def validate_protocol_matrix(self, request_spec: Dict[str, Any]) -> Result:
         """
-        Determines deterministic standard adherence of a simulated network socket payload block.
+        Determines deterministic standard adherence of a network socket payload block.
         """
         method = request_spec.get("method")
         has_body = request_spec.get("has_body", False)

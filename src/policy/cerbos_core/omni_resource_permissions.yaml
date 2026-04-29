@@ -1,0 +1,26 @@
+---
+# Omni Cerbos Policy Core
+# Defines strict Zero-Trust access bounds across the polyglot engine
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "omni_engine_component"
+  rules:
+    - actions: ["execute", "recompile"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+        - system_orchestrator
+      condition:
+        match:
+          expr: request.resource.attr.layer == request.principal.attr.assigned_layer
+
+    - actions: ["read_metrics"]
+      effect: EFFECT_ALLOW
+      roles:
+        - developer
+        - admin
+      condition:
+        match:
+          expr: request.resource.attr.is_production == true

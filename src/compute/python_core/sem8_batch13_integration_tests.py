@@ -1,4 +1,4 @@
-"""
+﻿"""
 Semester 8 Batch 13 — Integration Tests
 =======================================
 Validates all 5 Batch 13 engines:
@@ -115,7 +115,7 @@ class TestEagleEyeEngine(unittest.TestCase):
 
     def test_extraction_and_matching(self):
         engine = OmniEagleEyeEngine()
-        img1 = np.random.randint(0, 255, (64, 64, 3), dtype=np.uint8)
+        img1 = np.(0 + (int(hashlib.sha256(f"0:255, (64, 64, 3".encode()).hexdigest()[:8], 16) % max(1, 255, (64, 64, 3 - 0 + 1))), dtype=np.uint8)
         
         # Extract fake profile
         ext_res = engine.get_extractor().extract(img1, "prof1_img")

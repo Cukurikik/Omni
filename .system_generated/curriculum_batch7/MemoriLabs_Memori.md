@@ -45,8 +45,6 @@
   <strong>Choose memory that performs</strong>
 </p>
 
-
-
 [![Memori Labs](https://images.memorilabs.ai/stats.jpg)](https://memorilabs.ai/benchmark)
 
 ---
@@ -61,6 +59,7 @@
 ```bash
 npm install @memorilabs/memori
 ```
+
 </details>
 
 <details>
@@ -69,6 +68,7 @@ npm install @memorilabs/memori
 ```bash
 pip install memori
 ```
+
 </details>
 
 ### Quickstart
@@ -81,29 +81,30 @@ Set `MEMORI_API_KEY` and your LLM API key (e.g. `OPENAI_API_KEY`), then:
 <summary><b>TypeScript SDK</b></summary>
 
 ```typescript
-import { OpenAI } from 'openai';
-import { Memori } from '@memorilabs/memori';
+import { OpenAI } from "openai";
+import { Memori } from "@memorilabs/memori";
 
 // Requires MEMORI_API_KEY and OPENAI_API_KEY in your environment
 const client = new OpenAI();
 const mem = new Memori().llm
   .register(client)
-  .attribution('user_123', 'support_agent');
+  .attribution("user_123", "support_agent");
 
 async function main() {
   await client.chat.completions.create({
-    model: 'gpt-4o-mini',
-    messages: [{ role: 'user', content: 'My favorite color is blue.' }],
+    model: "gpt-4o-mini",
+    messages: [{ role: "user", content: "My favorite color is blue." }],
   });
   // Conversations are persisted and recalled automatically in the background.
 
   const response = await client.chat.completions.create({
-    model: 'gpt-4o-mini',
-    messages: [{ role: 'user', content: "What's my favorite color?" }],
+    model: "gpt-4o-mini",
+    messages: [{ role: "user", content: "What's my favorite color?" }],
   });
   // Memori recalls that your favorite color is blue.
 }
 ```
+
 </details>
 
 <details>
@@ -131,6 +132,7 @@ response = client.chat.completions.create(
 )
 # Memori recalls that your favorite color is blue.
 ```
+
 </details>
 
 ## Explore the Memories
@@ -198,6 +200,7 @@ If you do not provide any attribution, Memori cannot make memories for you.
 ```typescript
 mem.attribution("12345", "my-ai-bot");
 ```
+
 </details>
 
 <details>
@@ -206,6 +209,7 @@ mem.attribution("12345", "my-ai-bot");
 ```python
 mem.attribution(entity_id="12345", process_id="my-ai-bot")
 ```
+
 </details>
 
 ## Session Management
@@ -222,6 +226,7 @@ mem.resetSession();
 // or
 mem.setSession(sessionId);
 ```
+
 </details>
 
 <details>
@@ -232,6 +237,7 @@ mem.new_session()
 # or
 mem.set_session(session_id)
 ```
+
 </details>
 
 ## Supported LLMs
@@ -336,6 +342,7 @@ We welcome contributions from the community! Please see our [Contributing Guidel
 - [**Memori BYODB Documentation**](https://memorilabs.ai/docs/memori-byodb)
 - [**Discord**](https://discord.gg/FpytKAxnFb)
 - [**Issues**](https://github.com/MemoriLabs/Memori/issues)
+
 ---
 
 ## License

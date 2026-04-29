@@ -1,5 +1,4 @@
-bundle-remove(1) -- Removes gems from the Gemfile
-=================================================
+# bundle-remove(1) -- Removes gems from the Gemfile
 
 ## SYNOPSIS
 

@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI PROMPT ROUTING ENGINE (SEMESTER 5 — BATCH 6)
 // ===========================================================================
 // Absorbed From  : dair-ai/Prompt-Engineering-Guide
@@ -57,5 +57,16 @@ export class OmniPromptRoutingEngine {
         return { engine: "OmniPromptRoutingEngine", layer: "Interface", status: "healthy",
                  injection_patterns: this.injectionPatterns.length,
                  learned_from: "dair-ai/Prompt-Engineering-Guide" };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniPromptRoutingEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

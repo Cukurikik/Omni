@@ -72,7 +72,7 @@ class OmniMLInterviewEvaluatorEngine:
 
     async def _evaluate_submission(self, category: str, complexity: int, answer_length: int) -> Dict[str, Any]:
         """
-        Internal scoring mechanism based on simulated answer density.
+        Internal scoring mechanism based on Answer density.
         """
         await asyncio.sleep(0.04)  # Scoring latency
         

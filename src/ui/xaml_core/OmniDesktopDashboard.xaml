@@ -1,0 +1,23 @@
+<Window x:Class="Omni.UI.DesktopDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Omni Production Dashboard" Height="450" Width="800"
+        Background="#0D1117">
+    <Grid>
+        <!-- Omni XAML Interface Layer -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Text="Omni Tensor Metrics" 
+                   Foreground="#C9D1D9" FontSize="24" 
+                   HorizontalAlignment="Center" Margin="10"/>
+                   
+        <DataGrid Grid.Row="1" x:Name="MetricsGrid" 
+                  AutoGenerateColumns="True" 
+                  Background="#161B22" 
+                  Foreground="#8B949E" 
+                  HeadersVisibility="Column"/>
+    </Grid>
+</Window>

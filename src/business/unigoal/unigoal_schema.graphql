@@ -1,0 +1,39 @@
+# OMNI GraphQL Schema for UniGoal Reinforcement Learning State
+
+type RLState {
+    episodeId: Int!
+    maxQValue: Float!
+    reward: Float!
+    agentPositionX: Float!
+    agentPositionY: Float!
+    isTerminal: Boolean!
+}
+
+type Query {
+    """
+    Fetch current state of the training environment.
+    """
+    getCurrentTrainingState: RLState!
+    
+    """
+    Get training history. Limited to last 1000 episodes to prevent memory exhaustion.
+    """
+    getTrainingHistory(limit: Int = 100): [RLState!]!
+}
+
+type Mutation {
+    """
+    Issue a manual reset to the environment.
+    """
+    resetEnvironment: Boolean!
+    
+    """
+    Update Q-Table hyper-parameters.
+    """
+    updateHyperParameters(learningRate: Float!, discountFactor: Float!): Boolean!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}

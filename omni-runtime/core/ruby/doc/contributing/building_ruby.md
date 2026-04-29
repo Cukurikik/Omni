@@ -3,32 +3,28 @@
 ## Dependencies
 
 1. Install the prerequisite dependencies for building the CRuby interpreter:
-
-    * C compiler
+    - C compiler
 
     For RubyGems, you will also need:
-
-    * [OpenSSL] 1.1.x or 3.0.x / [LibreSSL]
-    * [libyaml] 0.1.7 or later
-    * [zlib]
+    - [OpenSSL] 1.1.x or 3.0.x / [LibreSSL]
+    - [libyaml] 0.1.7 or later
+    - [zlib]
 
     If you want to build from the git repository, you will also need:
-
-    * [autoconf] - 2.67 or later
-    * [gperf] - 3.1 or later
-        * Usually unneeded; only if you edit some source files using gperf
-    * ruby - 3.1 or later
-        * We can upgrade this version to system ruby version of the latest
+    - [autoconf] - 2.67 or later
+    - [gperf] - 3.1 or later
+        - Usually unneeded; only if you edit some source files using gperf
+    - ruby - 3.1 or later
+        - We can upgrade this version to system ruby version of the latest
           Ubuntu LTS.
-    * git - 2.32 or later
-        * Anterior versions may work; 2.32 or later will prevent build
+    - git - 2.32 or later
+        - Anterior versions may work; 2.32 or later will prevent build
           errors in case your system `.gitconfig` uses `$HOME` paths.
 
 2. Install optional, recommended dependencies:
-
-    * [libffi] (to build fiddle)
-    * [gmp] (if you wish to accelerate Bignum operations)
-    * [rustc] - 1.58.0 or later, if you wish to build
+    - [libffi] (to build fiddle)
+    - [gmp] (if you wish to accelerate Bignum operations)
+    - [rustc] - 1.58.0 or later, if you wish to build
       [YJIT](rdoc-ref:RubyVM::YJIT).
 
     If you want to link the libraries (e.g., gmp) installed into other than
@@ -68,7 +64,6 @@
 1. Download ruby source code:
 
     Select one of the below.
-
     1. Build from the tarball:
 
         Download the latest tarball from [Download Ruby] page and extract
@@ -134,7 +129,7 @@
 
     - If you need to run `make install` with `sudo` and want to avoid document
       generation with different permissions, you can use `make SUDO=sudo
-      install`.
+install`.
 
 8. You can then try your new Ruby out, for example:
 
@@ -221,13 +216,14 @@ export MAKEFLAGS="--jobs "(nproc)
 export MAKEFLAGS="--jobs $(nproc)"
 ```
 
-[^caution-gmake-3]: **CAUTION**: GNU make 3 is missing some features for parallel execution, we
-recommend to upgrade to GNU make 4 or later.
+[^caution-gmake-3]:
+    **CAUTION**: GNU make 3 is missing some features for parallel execution, we
+    recommend to upgrade to GNU make 4 or later.
 
 ### Miniruby vs Ruby
 
 Miniruby is a version of Ruby which has no external dependencies and lacks
-certain features.  It can be useful in Ruby development because it allows for
+certain features. It can be useful in Ruby development because it allows for
 faster build times. Miniruby is built before Ruby. A functional Miniruby is
 required to build Ruby. To build Miniruby:
 
@@ -241,12 +237,12 @@ You can use either lldb or gdb for debugging. Before debugging, you need to
 create a `test.rb` with the Ruby script you'd like to run. You can use the
 following make targets:
 
-* `make run`: Runs `test.rb` using Miniruby
-* `make lldb`: Runs `test.rb` using Miniruby in lldb
-* `make gdb`: Runs `test.rb` using Miniruby in gdb
-* `make runruby`: Runs `test.rb` using Ruby
-* `make lldb-ruby`: Runs `test.rb` using Ruby in lldb
-* `make gdb-ruby`: Runs `test.rb` using Ruby in gdb
+- `make run`: Runs `test.rb` using Miniruby
+- `make lldb`: Runs `test.rb` using Miniruby in lldb
+- `make gdb`: Runs `test.rb` using Miniruby in gdb
+- `make runruby`: Runs `test.rb` using Ruby
+- `make lldb-ruby`: Runs `test.rb` using Ruby in lldb
+- `make gdb-ruby`: Runs `test.rb` using Ruby in gdb
 
 For VS Code users, you can set up editor-based debugging experience by running:
 
@@ -307,17 +303,17 @@ RUBY_TEST_TIMEOUT_SCALE=5 SYNTAX_SUGGEST_TIMEOUT=600 make check
 
 Please note, however, the following caveats!
 
-* Due to [Bug #20243], Clang generates code for threadlocal variables which
+- Due to [Bug #20243], Clang generates code for threadlocal variables which
   doesn't work with M:N threading. Thus, it's necessary to disable M:N
   threading support at build time for now (with the `-DUSE_MN_THREADS=0`
   configure argument).
-* ASAN will only work when using Clang version 18 or later - it requires
+- ASAN will only work when using Clang version 18 or later - it requires
   [llvm/llvm-project#75290] related to multithreaded `fork`.
-* ASAN has only been tested so far with Clang on Linux. It may or may not work
+- ASAN has only been tested so far with Clang on Linux. It may or may not work
   with other compilers or on other platforms - please file an issue on
   [Ruby Issue Tracking System] if you run into problems with such configurations
   (or, to report that they actually work properly!)
-* In particular, although I have not yet tried it, I have reason to believe
+- In particular, although I have not yet tried it, I have reason to believe
   ASAN will _not_ work properly on macOS yet - the fix for the multithreaded
   fork issue was actually reverted for macOS (see [llvm/llvm-project#75659]).
   Please open an issue on [Ruby Issue Tracking System] if this is a problem for
@@ -345,11 +341,11 @@ open lcov-out/index.html
 ```
 
 If you need only C code coverage, you can remove `COVERAGE=true` from the
-above process.  You can also use `gcov` command directly to get per-file
+above process. You can also use `gcov` command directly to get per-file
 coverage.
 
-If you need only Ruby code coverage, you can remove `--enable-gcov`.  Note
-that `test-coverage.dat` accumulates all runs of `make test-all`.  Make sure
+If you need only Ruby code coverage, you can remove `--enable-gcov`. Note
+that `test-coverage.dat` accumulates all runs of `make test-all`. Make sure
 that you remove the file if you want to measure one test run.
 
 You can see the coverage result of CI: https://rubyci.org/coverage

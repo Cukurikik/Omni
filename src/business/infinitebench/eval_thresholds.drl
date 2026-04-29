@@ -1,0 +1,11 @@
+package rules.infinitebench
+import omni.infinitebench.EvalScore
+import omni.common.OmniResult
+
+rule "Enforce Long Context Benchmark Threshold"
+when
+    $score : EvalScore( retentionAccuracy < 0.85, tokenPosition > 50000 )
+then
+    $score.flagDegradation();
+    insert(new OmniResult(false, "Context retention failed at 50K+ tokens", false));
+end

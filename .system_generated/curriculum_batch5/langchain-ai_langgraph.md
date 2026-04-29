@@ -34,7 +34,7 @@ If you're looking to quickly build agents with LangChain's `create_agent` (built
 
 ## Why use LangGraph?
 
-LangGraph provides low-level supporting infrastructure for *any* long-running, stateful workflow or agent:
+LangGraph provides low-level supporting infrastructure for _any_ long-running, stateful workflow or agent:
 
 - **[Durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution)** — Build agents that persist through failures and can run for extended periods, automatically resuming from exactly where they left off.
 - **[Human-in-the-loop](https://docs.langchain.com/oss/python/langgraph/interrupts)** — Seamlessly incorporate human oversight by inspecting and modifying agent state at any point during execution.
@@ -51,7 +51,7 @@ While LangGraph can be used standalone, it also integrates seamlessly with any L
 
 To improve your LLM application development, pair LangGraph with:
 
-- [Deep Agents](https://github.com/langchain-ai/deepagents) *(new!)* – Build agents that can plan, use subagents, and leverage file systems for complex tasks.
+- [Deep Agents](https://github.com/langchain-ai/deepagents) _(new!)_ – Build agents that can plan, use subagents, and leverage file systems for complex tasks.
 - [LangChain](https://docs.langchain.com/oss/python/langchain/overview) – Provides integrations and composable components to streamline LLM application development.
 - [LangSmith](https://www.langchain.com/langsmith) – Helpful for agent evals and observability. Debug poor-performing LLM app runs, evaluate agent trajectories, gain visibility in production, and improve performance over time.
 - [LangSmith Deployment](https://docs.langchain.com/langsmith/deployments) – Deploy and scale agents effortlessly with a purpose-built deployment platform for long-running, stateful workflows. Discover, reuse, configure, and share agents across teams – and iterate quickly with visual prototyping in [LangSmith Studio](https://docs.langchain.com/langsmith/studio).

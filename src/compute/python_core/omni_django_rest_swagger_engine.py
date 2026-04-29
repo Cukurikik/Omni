@@ -29,7 +29,7 @@ class OmniDjangoRestSwaggerEngine:
             methods_aggregated = {}
             valid_endpoints = []
             
-            # Simulated schema structure logic matrix geometry loops!
+            # schema structure logic matrix geometry loops!
             for idx, endpoint in enumerate(api_endpoints):
                 if "path" not in endpoint or "method" not in endpoint:
                     return Err(ValueError(f"Geometric bounding metric missing key at index {idx}!"))

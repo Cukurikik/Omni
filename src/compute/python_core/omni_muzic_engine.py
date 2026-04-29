@@ -52,7 +52,7 @@ class OmniMuzicSequenceMapper:
         (Muzic seq2seq time tracking natively)
         """
         try:
-            # Simulated formula capturing rhythmic extraction converting absolute time to discrete step indices
+            # Formula capturing rhythmic extraction converting absolute time to discrete step indices
             # ms -> ticks = (ms / 1000) * (bpm / 60) * resolution
             ticks = (note_events / 1000.0) * (bpm / 60.0) * resolution
             return Ok(np.round(ticks).astype(int))

@@ -16,23 +16,23 @@ provide all the matchers, for instance.
 However, MSpec provides several extensions to facilitate writing the Ruby
 specs in a manner compatible with multiple Ruby implementations.
 
-  1. MSpec offers a set of guards to control execution of the specs. These
-     guards not only enable or disable execution but also annotate the specs
-     with additional information about why they are run or not run.
+1. MSpec offers a set of guards to control execution of the specs. These
+   guards not only enable or disable execution but also annotate the specs
+   with additional information about why they are run or not run.
 
-  2. MSpec provides a different shared spec implementation specifically
-     designed to ease writing specs for the numerous aliased methods in Ruby.
+2. MSpec provides a different shared spec implementation specifically
+   designed to ease writing specs for the numerous aliased methods in Ruby.
 
-  3. MSpec provides various helper methods to simplify some specs, for
-     example, creating temporary file names.
+3. MSpec provides various helper methods to simplify some specs, for
+   example, creating temporary file names.
 
-  4. MSpec has several specialized runner scripts that includes a
-     configuration facility with a default project file and user-specific
-     overrides.
+4. MSpec has several specialized runner scripts that includes a
+   configuration facility with a default project file and user-specific
+   overrides.
 
-  5. MSpec support "tagging", that is excluding specs known as failing on
-     a particular Ruby implementation, and automatically adding and removing tags
-     while running the specs.
+5. MSpec support "tagging", that is excluding specs known as failing on
+   a particular Ruby implementation, and automatically adding and removing tags
+   while running the specs.
 
 ## Requirements
 

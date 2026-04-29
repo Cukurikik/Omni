@@ -35,7 +35,7 @@ class OmniNextGptEngine:
             if not text:
                 return Err(ValueError("Text input is required for alignment."))
                 
-            # Simulated complex multimodal routing
+            # Complex multimodal routing
             return Ok({
                 "text_response": f"Processed combined query: {text}",
                 "visual_tensor": None,

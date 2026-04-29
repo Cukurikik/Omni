@@ -1,0 +1,10 @@
+// Omni DrugAssist Optimization Service (gRPC Proto)
+// Event Layer: Molecule optimization RPC.
+// Ref: blazerye/DrugAssist
+syntax = "proto3";
+package omni.drugassist;
+service MoleculeOptimizer {
+  rpc Optimize (OptimizeRequest) returns (OptimizeResponse);
+}
+message OptimizeRequest { string smiles = 1; string target_property = 2; string direction = 3; }
+message OptimizeResponse { string original_smiles = 1; float molecular_weight = 2; bool drug_like = 3; int32 violations = 4; }

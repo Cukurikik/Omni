@@ -33,7 +33,7 @@ class OmniPytorchDiffusionModelEngine:
             transformed_tensor = []
             
             # Topological math logic loop constraints matrices applying decay sequentially!
-            # Decay factor simulated computationally geometrically bounds limit math equation natively
+            # Decay factor Computationally geometrically bounds limit math equation natively
             decay_factor = math.exp(-0.01 * diffusion_steps)
             
             for noise_val in initial_noise_matrix:
@@ -46,7 +46,7 @@ class OmniPytorchDiffusionModelEngine:
                 
             return Ok({
                 "tensor_dimensions_metric": len(initial_noise_matrix),
-                "steps_simulated": diffusion_steps,
+                "steps_computed": diffusion_steps,
                 "applied_decay_factor": round(decay_factor, 5),
                 "transformed_noise_tensor": transformed_tensor
             })

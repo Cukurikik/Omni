@@ -1,4 +1,4 @@
-"""
+﻿"""
 +============================================================================+
 |  OMNI MOBILE AGENT ENGINE                                                  |
 |  Meta-functionalized from: X-PLUG/MobileAgent                              |
@@ -12,7 +12,7 @@ from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
 import uuid
 import time
-import random
+import hashlib
 
 T = Any
 E = Exception
@@ -89,7 +89,7 @@ class OmniMobileAgentEngine:
         """Internal: Use Vision-Language Model to determine next action payload."""
         # Proding VLM response
         action = AgentAction(
-            action_type="click", x=random.randint(100, 500), y=random.randint(100, 800)
+            action_type="click", x=(100 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (500 - 100 + 1))), y=(100 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (800 - 100 + 1)))
         )
         return Result.Ok(action)
 

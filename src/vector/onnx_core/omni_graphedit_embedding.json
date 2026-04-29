@@ -1,0 +1,21 @@
+// Omni GraphEdit ONNX Exporter (ONNX)
+// Vector Layer: Graph embedding model export specification.
+// Ref: HKUDS/GraphEdit
+{
+  "irVersion": 8,
+  "producerName": "omni-graphedit-exporter",
+  "graph": {
+    "name": "GraphEditEmbedding",
+    "node": [
+      {"opType": "MatMul", "input": ["node_features", "weight_matrix"], "output": ["hidden"]},
+      {"opType": "Relu", "input": ["hidden"], "output": ["activated"]},
+      {"opType": "Softmax", "input": ["activated"], "output": ["predictions"]}
+    ],
+    "input": [
+      {"name": "node_features", "type": {"tensorType": {"elemType": 1, "shape": {"dim": [{"dimValue": -1}, {"dimValue": 128}]}}}}
+    ],
+    "output": [
+      {"name": "predictions", "type": {"tensorType": {"elemType": 1, "shape": {"dim": [{"dimValue": -1}, {"dimValue": 64}]}}}}
+    ]
+  }
+}

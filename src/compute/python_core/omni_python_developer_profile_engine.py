@@ -29,17 +29,17 @@ class OmniPythonDeveloperProfileEngine:
             if total_traffic < 0:
                 return Err(ValueError("Traffic bandwidth geometries structurally must exceed absolute bounds natively (>=0)."))
                 
-            simulated_throttle = []
+            throttle_records = []
             allowed_routes = []
             running_capacity = self.max_capacity
             
-            # Simple mathematically simulated bounding ratio bounds.
+            # Simple mathematically Bounding ratio bounds.
             for route, traffic in endpoint_traffic.items():
                 if traffic <= running_capacity:
                     allowed_routes.append(route)
                     running_capacity -= traffic
                 else:
-                    simulated_throttle.append(route)
+                    throttle_records.append(route)
                     
             is_viable = total_traffic <= self.max_capacity
             utilization_ratio = total_traffic / self.max_capacity
@@ -49,7 +49,7 @@ class OmniPythonDeveloperProfileEngine:
                 "overall_utilization_percentage": round(utilization_ratio * 100, 2),
                 "diagnostics_routing_limit": {
                     "total_computed_rps": total_traffic,
-                    "throttled_routes": simulated_throttle,
+                    "throttled_routes": throttle_records,
                     "active_routes": allowed_routes
                 }
             })

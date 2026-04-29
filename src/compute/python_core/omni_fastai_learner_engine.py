@@ -143,7 +143,7 @@ class OmniFastaiLearnerEngine:
         min_gradient_lr = start_lr
 
         for i in range(num_steps):
-            # Simulated training loss (decreases then increases)
+            # Training loss (decreases then increases)
             progress = i / num_steps
             base_loss = 2.0 * math.exp(-3 * progress) + 0.5
             lr_penalty = max(0, (current_lr - 0.01) * 10)
@@ -201,7 +201,7 @@ class OmniFastaiLearnerEngine:
             for step in range(steps_per_epoch):
                 global_step = epoch * steps_per_epoch + step
                 lr = schedule.get_lr(global_step)
-                # Simulated loss decay
+                # Loss decay
                 batch_loss = 1.0 / (1.0 + global_step * 0.005) + 0.02 * math.sin(step * 0.1)
                 epoch_loss += max(0, batch_loss)
 

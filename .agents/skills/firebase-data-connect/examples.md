@@ -52,7 +52,7 @@ type Actor @table {
 type MovieActor @table(key: ["movie", "actor"]) {
   movie: Movie!
   actor: Actor!
-  role: String!  # "lead" or "supporting"
+  role: String! # "lead" or "supporting"
   character: String
 }
 
@@ -73,38 +73,61 @@ type Review @table @unique(fields: ["movie", "user"]) {
 # queries.gql
 
 # Public: List movies with filtering
-query ListMovies($genre: String, $minRating: Float, $limit: Int) 
-  @auth(level: PUBLIC) {
+query ListMovies($genre: String, $minRating: Float, $limit: Int)
+@auth(level: PUBLIC) {
   movies(
-    where: {
-      genre: { eq: $genre },
-      rating: { ge: $minRating }
-    },
-    orderBy: [{ rating: DESC }],
+    where: { genre: { eq: $genre }, rating: { ge: $minRating } }
+    orderBy: [{ rating: DESC }]
     limit: $limit
   ) {
-    id title genre rating releaseYear posterUrl
+    id
+    title
+    genre
+    rating
+    releaseYear
+    posterUrl
   }
 }
 
 # Public: Get movie with full details
 query GetMovie($id: UUID!) @auth(level: PUBLIC) {
   movie(id: $id) {
-    id title genre rating releaseYear description
-    metadata: movieMetadata_on_movie { director runtime }
-    actors: actors_via_MovieActor { name }
+    id
+    title
+    genre
+    rating
+    releaseYear
+    description
+    metadata: movieMetadata_on_movie {
+      director
+      runtime
+    }
+    actors: actors_via_MovieActor {
+      name
+    }
     reviews: reviews_on_movie(orderBy: [{ createdAt: DESC }], limit: 10) {
-      rating text createdAt
-      user { displayName }
+      rating
+      text
+      createdAt
+      user {
+        displayName
+      }
     }
   }
 }
 
 # User: Get my reviews
 query MyReviews @auth(level: USER) {
-  reviews(where: { user: { uid: { eq_expr: "auth.uid" }}}) {
-    id rating text createdAt
-    movie { id title posterUrl }
+  reviews(where: { user: { uid: { eq_expr: "auth.uid" } } }) {
+    id
+    rating
+    text
+    createdAt
+    movie {
+      id
+      title
+      posterUrl
+    }
   }
 }
 ```
@@ -116,31 +139,30 @@ query MyReviews @auth(level: USER) {
 
 # User: Create/update profile on first login
 mutation UpsertUser($email: String!, $displayName: String) @auth(level: USER) {
-  user_upsert(data: {
-    uid_expr: "auth.uid",
-    email: $email,
-    displayName: $displayName
-  })
+  user_upsert(
+    data: { uid_expr: "auth.uid", email: $email, displayName: $displayName }
+  )
 }
 
 # User: Add review (one per movie per user)
-mutation AddReview($movieId: UUID!, $rating: Int!, $text: String) 
-  @auth(level: USER) {
-  review_upsert(data: {
-    movie: { id: $movieId },
-    user: { uid_expr: "auth.uid" },
-    rating: $rating,
-    text: $text
-  })
+mutation AddReview($movieId: UUID!, $rating: Int!, $text: String)
+@auth(level: USER) {
+  review_upsert(
+    data: {
+      movie: { id: $movieId }
+      user: { uid_expr: "auth.uid" }
+      rating: $rating
+      text: $text
+    }
+  )
 }
 
 # User: Delete my review
 mutation DeleteReview($id: UUID!) @auth(level: USER) {
   review_delete(
-    first: { where: {
-      id: { eq: $id },
-      user: { uid: { eq_expr: "auth.uid" }}
-    }}
+    first: {
+      where: { id: { eq: $id }, user: { uid: { eq_expr: "auth.uid" } } }
+    }
   )
 }
 ```
@@ -210,50 +232,67 @@ type OrderItem @table {
 ```graphql
 # Public: Browse products
 query ListProducts($category: String, $search: String) @auth(level: PUBLIC) {
-  products(where: {
-    category: { eq: $category },
-    name: { contains: $search },
-    stock: { gt: 0 }
-  }) {
-    id name price stock imageUrl
+  products(
+    where: {
+      category: { eq: $category }
+      name: { contains: $search }
+      stock: { gt: 0 }
+    }
+  ) {
+    id
+    name
+    price
+    stock
+    imageUrl
   }
 }
 
 # User: View cart
 query MyCart @auth(level: USER) {
-  cartItems(where: { user: { uid: { eq_expr: "auth.uid" }}}) {
+  cartItems(where: { user: { uid: { eq_expr: "auth.uid" } } }) {
     quantity
-    product { id name price imageUrl stock }
+    product {
+      id
+      name
+      price
+      imageUrl
+      stock
+    }
   }
 }
 
 # User: Add to cart
 mutation AddToCart($productId: UUID!, $quantity: Int!) @auth(level: USER) {
-  cartItem_upsert(data: {
-    user: { uid_expr: "auth.uid" },
-    product: { id: $productId },
-    quantity: $quantity
-  })
+  cartItem_upsert(
+    data: {
+      user: { uid_expr: "auth.uid" }
+      product: { id: $productId }
+      quantity: $quantity
+    }
+  )
 }
 
 # User: Checkout (transactional)
-mutation Checkout($shippingAddress: String!) 
-  @auth(level: USER) 
-  @transaction {
+mutation Checkout($shippingAddress: String!) @auth(level: USER) @transaction {
   # Query cart items
   query @redact {
-    cartItems(where: { user: { uid: { eq_expr: "auth.uid" }}}) 
+    cartItems(where: { user: { uid: { eq_expr: "auth.uid" } } })
       @check(expr: "this.size() > 0", message: "Cart is empty") {
       quantity
-      product { id price }
+      product {
+        id
+        price
+      }
     }
   }
   # Create order (in real app, calculate total from cart)
-  order_insert(data: {
-    user: { uid_expr: "auth.uid" },
-    shippingAddress: $shippingAddress,
-    total: 0  # Calculate in app logic
-  })
+  order_insert(
+    data: {
+      user: { uid_expr: "auth.uid" }
+      shippingAddress: $shippingAddress
+      total: 0 # Calculate in app logic
+    }
+  )
 }
 ```
 
@@ -319,59 +358,62 @@ type Comment @table {
 # Public: Read published posts
 query PublishedPosts @auth(level: PUBLIC) {
   posts(
-    where: { status: { eq: PUBLISHED }},
+    where: { status: { eq: PUBLISHED } }
     orderBy: [{ publishedAt: DESC }]
   ) {
-    id title content publishedAt
-    author { name }
+    id
+    title
+    content
+    publishedAt
+    author {
+      name
+    }
   }
 }
 
 # Author+: Create post
-mutation CreatePost($title: String!, $content: String!) 
-  @auth(level: USER) 
-  @transaction {
+mutation CreatePost($title: String!, $content: String!)
+@auth(level: USER)
+@transaction {
   # Check user is at least AUTHOR
   query @redact {
-    blogPermission(key: { user: { uid_expr: "auth.uid" }})
+    blogPermission(key: { user: { uid_expr: "auth.uid" } })
       @check(expr: "this != null", message: "No permission record") {
-      role @check(expr: "this in ['AUTHOR', 'EDITOR', 'ADMIN']", message: "Must be author+")
+      role
+        @check(
+          expr: "this in ['AUTHOR', 'EDITOR', 'ADMIN']"
+          message: "Must be author+"
+        )
     }
   }
-  post_insert(data: {
-    author: { uid_expr: "auth.uid" },
-    title: $title,
-    content: $content
-  })
+  post_insert(
+    data: { author: { uid_expr: "auth.uid" }, title: $title, content: $content }
+  )
 }
 
 # Editor+: Publish any post
-mutation PublishPost($id: UUID!) 
-  @auth(level: USER) 
-  @transaction {
+mutation PublishPost($id: UUID!) @auth(level: USER) @transaction {
   query @redact {
-    blogPermission(key: { user: { uid_expr: "auth.uid" }}) {
-      role @check(expr: "this in ['EDITOR', 'ADMIN']", message: "Must be editor+")
+    blogPermission(key: { user: { uid_expr: "auth.uid" } }) {
+      role
+        @check(expr: "this in ['EDITOR', 'ADMIN']", message: "Must be editor+")
     }
   }
-  post_update(id: $id, data: {
-    status: PUBLISHED,
-    publishedAt_expr: "request.time"
-  })
+  post_update(
+    id: $id
+    data: { status: PUBLISHED, publishedAt_expr: "request.time" }
+  )
 }
 
 # Admin: Grant role
-mutation GrantRole($userUid: String!, $role: UserRole!) 
-  @auth(level: USER) 
-  @transaction {
+mutation GrantRole($userUid: String!, $role: UserRole!)
+@auth(level: USER)
+@transaction {
   query @redact {
-    blogPermission(key: { user: { uid_expr: "auth.uid" }}) {
+    blogPermission(key: { user: { uid_expr: "auth.uid" } }) {
       role @check(expr: "this == 'ADMIN'", message: "Must be admin")
     }
   }
-  blogPermission_upsert(data: {
-    user: { uid: $userUid },
-    role: $role
-  })
+  blogPermission_upsert(data: { user: { uid: $userUid }, role: $role })
 }
 ```

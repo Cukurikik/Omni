@@ -5,7 +5,7 @@ Production-grade OMNI engine encapsulating High Level AppZoo NLP pipelines.
 Inspired by alibaba/EasyNLP.
 
 Features:
-- Few-Shot simulated Transfer Learning abstraction logic.
+- Few-Shot Transfer Learning abstraction logic.
 - Pipeline Orchestration block execute classification predictions.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -88,7 +88,7 @@ class OmniEasyNlpEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-easy-nlp"
 
-    # Simulated app zoo categories
+    # app zoo categories
     SUPPORTED_TASKS = ["text_classify", "text_match", "few_shot_prompting"]
 
     def __init__(self) -> None:
@@ -132,7 +132,7 @@ class OmniEasyNlpEngine:
             "status": "operational",
             "samples_inferenced": self._inference_count,
             "features": [
-                "appzoo_pipeline_simulation",
+                "appzoo_pipeline_computation",
                 "text_classification_orchestration",
                 "task_block_routing",
             ]

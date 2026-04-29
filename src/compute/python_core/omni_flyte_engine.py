@@ -34,7 +34,7 @@ class OmniFlyteEngine:
         self._engine_id = str(uuid.uuid4())
         self._metrics = {
             "dags_orchestrated": 0,
-            "tasks_simulated": 0,
+            "tasks_computed": 0,
             "overhead_latency_ms": 0.0
         }
         self._start_time = 0.0
@@ -66,7 +66,7 @@ class OmniFlyteEngine:
         await asyncio.sleep(0.03)
         
         self._metrics["dags_orchestrated"] += 1
-        self._metrics["tasks_simulated"] += task_nodes
+        self._metrics["tasks_computed"] += task_nodes
         
         # Synthetic numerical abstractions covering kubelet spin-ups
         resolved_orchestration_overhead_sec = (task_nodes * 0.5) + (data_passing_mb * 0.01)

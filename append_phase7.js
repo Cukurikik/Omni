@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const target = path.join(process.cwd(), 'bin', 'omni.mjs');
+const target = path.join(process.cwd(), "bin", "omni.mjs");
 
 const codeToAppend = `
 // =========================================================================
@@ -93,9 +93,9 @@ ENTRYPOINT ["/omni_kernel_init"]
 }
 `;
 
-if (!fs.readFileSync(target, 'utf8').includes('runOmniPublish() {')) {
-    fs.appendFileSync(target, codeToAppend);
-    console.log("✅ Berhasil menambahkan RunOmniPublish dan RunOmniUnikernel!");
+if (!fs.readFileSync(target, "utf8").includes("runOmniPublish() {")) {
+  fs.appendFileSync(target, codeToAppend);
+  console.log("✅ Berhasil menambahkan RunOmniPublish dan RunOmniUnikernel!");
 } else {
-    console.log("⚠️ Logika sudah tertanam sebelumnya.");
+  console.log("⚠️ Logika sudah tertanam sebelumnya.");
 }

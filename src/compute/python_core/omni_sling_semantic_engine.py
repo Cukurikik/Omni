@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: Google Sling NLP Semantic Frame Engine
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 Dalam kerangka kerja SLING Semantic NLP dari Google, dekonstruksi tata bahasa 

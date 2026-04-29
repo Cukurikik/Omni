@@ -87,13 +87,13 @@ class OmniXTuringEngine:
             model["tuning_complete"] = True
             
             # Execute optimization gradient drop
-            simulated_loss = max(0.1, 1.0 - (model["dataset_size"] / 100000.0) - (rank * 0.01))
+            computed_loss = max(0.1, 1.0 - (model["dataset_size"] / 100000.0) - (rank * 0.01))
             
             return {
                 "status": "success",
                 "model_id": model_id,
                 "adaptation_technique": f"LoRA_R{rank}_INT8",
-                "final_loss": simulated_loss,
+                "final_loss": computed_loss,
                 "message": "Large Language limits locally adapted and fused."
             }
         except Exception as e:

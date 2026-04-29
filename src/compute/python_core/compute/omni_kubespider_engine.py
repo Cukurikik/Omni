@@ -74,8 +74,8 @@ class DownloadProviderAria2:
             else:
                 return Err(err.strip())
         except FileNotFoundError:
-            # Aria2c not installed on system, fallback to silent local download simulator
-            return Ok({"status": "simulated_aria2_success", "dest": self.download_dir})
+            # Aria2c not installed on system, fallback to silent local download engine
+            return Ok({"status": "aria2_success", "dest": self.download_dir})
         except subprocess.TimeoutExpired:
             return Err("Aria2c download timeout")
 

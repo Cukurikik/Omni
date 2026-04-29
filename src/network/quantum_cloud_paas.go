@@ -334,7 +334,7 @@ func (co *ContainerOrchestrator) Get(deployID string) (*Deployment, bool) {
 
 // ---- Webhook Receiver (Continuous Deployment) -----------------------------
 
-type WebhookPayload struct {
+type CloudWebhookPayload struct {
 	Ref        string // "refs/heads/main"
 	Repository struct {
 		CloneURL string
@@ -345,7 +345,7 @@ type WebhookPayload struct {
 	}
 }
 
-func (co *ContainerOrchestrator) HandleWebhook(payload WebhookPayload) {
+func (co *ContainerOrchestrator) HandleWebhook(payload CloudWebhookPayload) {
 	co.mu.RLock()
 	defer co.mu.RUnlock()
 

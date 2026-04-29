@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniAudiusEngine.ts
@@ -70,5 +70,16 @@ export class OmniAudiusEngine {
 
         const selectedNode = optimalNodes[0];
         return Ok(`auds://${selectedNode.endpointId}/api/v1/tracks/${trackHash}/stream`);
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAudiusEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

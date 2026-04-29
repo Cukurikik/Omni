@@ -27,10 +27,6 @@
       "omni-validate": ["./omni-validate/src/index.ts"]
     }
   },
-  "include": [
-    "*/src/**/*.ts"
-  ],
-  "exclude": [
-    "*/dist/**"
-  ]
+  "include": ["*/src/**/*.ts"],
+  "exclude": ["*/dist/**"]
 }

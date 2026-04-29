@@ -1,0 +1,12 @@
+PREFIX omni: <http://omni.dev/iepile/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Query extracted entities from IEPile corpus
+SELECT ?entity ?entityType ?sourceText WHERE {
+  ?entity rdf:type omni:ExtractedEntity .
+  ?entity omni:entityType ?entityType .
+  ?entity omni:sourceText ?sourceText .
+  FILTER(CONTAINS(LCASE(?entityType), "person"))
+}
+LIMIT 100

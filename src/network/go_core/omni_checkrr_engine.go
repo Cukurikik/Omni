@@ -16,7 +16,6 @@
 package go_core
 
 import (
-	"errors"
 	"time"
 )
 
@@ -37,11 +36,11 @@ type CheckrrResult struct {
 	Error CheckrrErrorCode
 }
 
-func Ok(val interface{}) CheckrrResult {
+func CheckrrOk(val interface{}) CheckrrResult {
 	return CheckrrResult{IsOk: true, Value: val, Error: CheckrrSuccess}
 }
 
-func Err(code CheckrrErrorCode) CheckrrResult {
+func CheckrrErr(code CheckrrErrorCode) CheckrrResult {
 	return CheckrrResult{IsOk: false, Value: nil, Error: code}
 }
 
@@ -61,10 +60,10 @@ func NewOmniCheckrrEngine() *OmniCheckrrEngine {
 	}
 }
 
-// Bypasses deep unmanaged OS filesystem calls generating precise logic simulations securely
+// QueueValidation adds a file validation task to the processing queue.
 func (e *OmniCheckrrEngine) QueueValidation(path string, expectedHash string) CheckrrResult {
 	if path == "" {
-		return Err(CheckrrFileUnreachable)
+		return CheckrrErr(CheckrrFileUnreachable)
 	}
 
 	task := MediaValidationTask{
@@ -74,17 +73,17 @@ func (e *OmniCheckrrEngine) QueueValidation(path string, expectedHash string) Ch
 	}
 
 	e.validationQueue = append(e.validationQueue, task)
-	return Ok(true)
+	return CheckrrOk(true)
 }
 
+// ExecuteMassValidation processes all queued validation tasks.
 func (e *OmniCheckrrEngine) ExecuteMassValidation() CheckrrResult {
 	if len(e.validationQueue) == 0 {
-		return Err(CheckrrFileUnreachable)
+		return CheckrrErr(CheckrrFileUnreachable)
 	}
 
-	// Simulating checkrr mass integrity mapping structurally smartly beautifully efficiently!
 	processedCount := len(e.validationQueue)
-	e.validationQueue = nil // Reset explicitly evaluating array sizes natively naturally
+	e.validationQueue = nil
 	
-	return Ok(processedCount)
+	return CheckrrOk(processedCount)
 }

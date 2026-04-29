@@ -88,7 +88,7 @@ class LatentDiffusionEstimator:
             })
             
         except Exception as e:
-            return Err(f"Simulated diffusion array boundaries failed: {e}")
+            return Err(f"Diffusion array boundaries failed: {e}")
 
 
 # ---------------------------------------------------------------------------

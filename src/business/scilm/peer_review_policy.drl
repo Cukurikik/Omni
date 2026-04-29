@@ -1,0 +1,11 @@
+package rules.scilm
+import omni.scilm.PaperDraft
+import omni.common.OmniResult
+
+rule "Enforce Peer Review Minimum Citations"
+when
+    $paper : PaperDraft( citationCount < 5, domain == "Physics" )
+then
+    $paper.markAsRejected("Insufficient citations for peer review");
+    insert(new OmniResult(false, "Failed peer review policy", false));
+end

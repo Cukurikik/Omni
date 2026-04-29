@@ -1,0 +1,11 @@
+package rules.agentboard
+import omni.agentboard.AgentResult
+import omni.common.OmniResult
+
+rule "Calculate Final Agent Score"
+when
+    $result : AgentResult( stepsTaken <= maxOptimalSteps, taskCompleted == true )
+then
+    $result.awardBonus(10);
+    insert(new OmniResult(true, "Bonus awarded for efficiency", true));
+end

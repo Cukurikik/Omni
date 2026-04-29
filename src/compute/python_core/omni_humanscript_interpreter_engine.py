@@ -53,7 +53,7 @@ class OmniHumanscriptInterpreterEngine:
                         if var_name in memory_state:
                             execution_log.append(f"OUT: {memory_state[var_name]}")
                         else:
-                            execution_log.append(f"OUT: {var_name}") # raw string limits natively simulated
+                            execution_log.append(f"OUT: {var_name}") # raw string limits natively computed
                     else:
                         return Err(SyntaxError(f"Line {line_no}: Invalid syntax metrics parsing bounds for TELL limit."))
                 else:

@@ -14,7 +14,7 @@ class OmniMITDeepLearningEngine:
         """Initialize MITDeepLearning engine with default configuration."""
         self.workspace_dir = workspace_dir or os.getcwd()
         self.lecture_loaded = False
-        self.simulation_active = False
+        self.engine_active = False
 
     def load_lecture_curriculum(self, lecture_id: str) -> Dict[str, Any]:
         """
@@ -36,7 +36,7 @@ class OmniMITDeepLearningEngine:
         except Exception as e:
             return {"status": "error", "message": str(e)}
 
-    def execute_deeptraffic_simulation(self, agents_count: int) -> Dict[str, Any]:
+    def execute_deeptraffic_computation(self, agents_count: int) -> Dict[str, Any]:
         """
         Initializes a DeepTraffic reinforcement grid processing continuous driving agents.
         
@@ -45,12 +45,12 @@ class OmniMITDeepLearningEngine:
         """
         try:
             if not self.lecture_loaded:
-                return {"status": "error", "message": "Cannot boot simulations disconnected from a verified lecture mapping."}
+                return {"status": "error", "message": "Cannot boot computations disconnected from a verified lecture mapping."}
                 
             if agents_count < 1:
                 raise ValueError("Agent parameters rigidly demand at least one tracking algorithm.")
                 
-            self.simulation_active = True
+            self.engine_active = True
             return {
                 "status": "success",
                 "active_agents": agents_count,
@@ -67,7 +67,7 @@ class OmniMITDeepLearningEngine:
         @returns Dict detailing evaluation MPH velocity.
         """
         try:
-            if not self.simulation_active:
+            if not self.engine_active:
                 return {"status": "error", "message": "Evaluation aborted; lacking an active DeepTraffic reinforcement cycle."}
                 
             if not isinstance(parameters, list):
@@ -91,7 +91,7 @@ class OmniMITDeepLearningEngine:
             "status": "operational",
             "capabilities": [
                 "load_lecture_curriculum",
-                "execute_deeptraffic_simulation",
+                "execute_deeptraffic_computation",
                 "evaluate_driving_scene"
             ]
         }

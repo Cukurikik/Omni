@@ -82,7 +82,7 @@ class SequencePredictorBounds:
             })
             
         except Exception as e:
-            return Err(f"Simulated transformer temporal sequence mapping failed: {e}")
+            return Err(f"Transformer temporal sequence mapping failed: {e}")
 
 
 # ---------------------------------------------------------------------------

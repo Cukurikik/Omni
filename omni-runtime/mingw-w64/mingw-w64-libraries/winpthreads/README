@@ -1,5 +1,4 @@
-The Winpthreads Library
------------------------
+## The Winpthreads Library
 
 This library provides POSIX threading APIs for mingw-w64.
 

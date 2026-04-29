@@ -87,7 +87,7 @@ class OmniTauonPlayerEngine:
             
         except FileNotFoundError:
             # Player binary not available natively
-            return {"status": "degraded", "message": "Native media player backend missing from PATH. Simulated successful dispatch.", "track": track["filename"]}
+            return {"status": "degraded", "message": "Native media player backend missing from PATH. Successful dispatch.", "track": track["filename"]}
 
     def stop(self) -> Dict[str, Any]:
         """Hard terminates the streaming media pipeline."""

@@ -1,0 +1,1927 @@
+{% extends "base.html" %} {% block title %}{{ t('settings.title') }}{% endblock
+%} {% block content %}
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+  :target {
+    scroll-margin-top: 5.5rem;
+  }
+</style>
+
+<div class="flex flex-col sm:flex-row gap-8">
+  <aside class="w-full sm:w-1/3 md:w-1/4 flex-shrink-0">
+    <div class="sticky top-20">
+      <ul id="settings-left-nav" class="menu bg-base-200 rounded-box p-2">
+        <li>
+          <a href="{{ url_for('web.settings_page') }}#general-settings"
+            >{{ t('settings.general_settings') }}</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('web.settings_page') }}#cloudflare-tunnels"
+            >{{ t('settings.all_cloudflare_tunnels') }}</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('web.settings_page') }}#backup-restore"
+            >{{ t('settings.backup_restore') }}</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('web.settings_page') }}#security"
+            >{{ t('settings.security') }}</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('web.settings_page') }}#security"
+            class="pl-8 text-sm"
+            >{{ t('settings.oauth_authentication') }}</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('web.settings_page') }}#tunnel-agent-status"
+            >{{ t('settings.tunnel_agent_status') }}</a
+          >
+        </li>
+      </ul>
+      <div class="mt-4 px-2">
+        <button
+          id="btn-check-version"
+          class="btn btn-sm btn-outline w-full"
+          type="button"
+          title="{{ t('settings.check_version_title') }}"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 mr-2 inline-block"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 8v4l3 3m6 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          {{ t('settings.check_version') }}
+        </button>
+        <div
+          id="version-check-status"
+          class="text-xs opacity-70 mt-2 hidden"
+        ></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="w-full sm:w-2/3 md:w-3/4">
+    <!-- 0. General Settings -->
+    <section
+      id="general-settings"
+      class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+    >
+      <div class="card-body">
+        <h2
+          class="card-title text-2xl sm:text-3xl border-b border-base-300 pb-3 mb-6"
+        >
+          {{ t('settings.general_settings') }}
+        </h2>
+        <form
+          method="POST"
+          action="{{ url_for('web.settings_page') }}"
+          class="space-y-4"
+        >
+          {{ settings_form.hidden_tag() }}
+
+          <div class="form-control w-full">
+            <label class="label" for="tunnel_name">
+              <span class="label-text"
+                >{{ settings_form.tunnel_name.label.text }}</span
+              >
+            </label>
+            {{ settings_form.tunnel_name(class="input input-bordered w-full",
+            **{'id': 'tunnel_name'}) }}
+            <label class="label">
+              <span class="label-text-alt"
+                >{{ t('settings.tunnel_name_help') }}</span
+              >
+            </label>
+            {% for error in settings_form.tunnel_name.errors %}
+            <label class="label">
+              <span class="label-text-alt text-error">{{ error }}</span>
+            </label>
+            {% endfor %}
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label" for="cf_zone_id">
+              <span class="label-text"
+                >{{ t('settings.cf_zone_id_label') }}</span
+              >
+            </label>
+            {{ settings_form.cf_zone_id(class="input input-bordered w-full",
+            **{'id': 'cf_zone_id'}) }}
+            <label class="label">
+              <span class="label-text-alt"
+                >{{ t('settings.optional_default_zone_id') }}</span
+              >
+            </label>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label" for="tunnel_dns_scan_zone_names">
+              <span class="label-text"
+                >{{ t('settings.zone_scan_label') }}</span
+              >
+            </label>
+            {{ settings_form.tunnel_dns_scan_zone_names(class="input
+            input-bordered w-full", **{'id': 'tunnel_dns_scan_zone_names'}) }}
+            <label class="label">
+              <span class="label-text-alt"
+                >{{ t('settings.zone_scan_description') }}</span
+              >
+            </label>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label" for="grace_period_seconds">
+              <span class="label-text"
+                >{{ settings_form.grace_period_seconds.label.text }}</span
+              >
+            </label>
+            {{ settings_form.grace_period_seconds(class="input input-bordered
+            w-full", **{'id': 'grace_period_seconds', 'type': 'number'}) }} {%
+            for error in settings_form.grace_period_seconds.errors %}
+            <label class="label">
+              <span class="label-text-alt text-error">{{ error }}</span>
+            </label>
+            {% endfor %}
+          </div>
+
+          <div class="form-control w-full">
+            <label
+              class="label cursor-pointer justify-start gap-3"
+              for="preserve_unmanaged_cf_ingress_fields"
+            >
+              {{
+              settings_form.preserve_unmanaged_cf_ingress_fields(class="toggle
+              toggle-primary", **{'id': 'preserve_unmanaged_cf_ingress_fields'})
+              }}
+              <span class="label-text"
+                >{{
+                settings_form.preserve_unmanaged_cf_ingress_fields.label.text
+                }}</span
+              >
+            </label>
+            <label class="label">
+              <span class="label-text-alt"
+                >{{ t('settings.keep_existing_fields') }}</span
+              >
+            </label>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label" for="dockflare_public_url">
+              <span class="label-text"
+                >{{ t('settings.dockflare_public_url_label') }}</span
+              >
+            </label>
+            {{ settings_form.dockflare_public_url(class="input input-bordered
+            w-full", placeholder="https://dockflare.example.com", **{'id':
+            'dockflare_public_url'}) }}
+            <label class="label">
+              <span class="label-text-alt"
+                >{{ t('settings.dockflare_public_url_help') }}</span
+              >
+            </label>
+          </div>
+
+          <div class="card-actions pt-4">
+            {{ settings_form.submit_settings(class="btn btn-primary",
+            value=t('form.settings.save_general')) }}
+          </div>
+        </form>
+        <div class="border-t border-base-300 mt-8 pt-8">
+          <h3 class="font-semibold text-lg mb-2">
+            {{ t('settings.update_cloudflare_credentials') }}
+          </h3>
+          <div role="alert" class="alert alert-info text-sm mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="stroke-current shrink-0 w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>
+              {{ t('settings.enter_new_credentials') }}
+              <br />
+              {{ t('settings.credentials_require_restart') }}
+            </span>
+          </div>
+          <form
+            method="POST"
+            action="{{ url_for('web.settings_page') }}"
+            class="space-y-4"
+          >
+            {{ cf_credentials_form.hidden_tag() }}
+            <div class="form-control">
+              <label class="label" for="cf_account_id">
+                <span class="label-text"
+                  >{{ t('settings.cloudflare_account_id') }}</span
+                >
+              </label>
+              {{ cf_credentials_form.cf_account_id(class="input input-bordered
+              w-full", **{'id': 'cf_account_id', 'placeholder': 'Enter new
+              32-character Account ID'}) }} {% for error in
+              cf_credentials_form.cf_account_id.errors %}
+              <label class="label">
+                <span class="label-text-alt text-error">{{ error }}</span>
+              </label>
+              {% endfor %}
+            </div>
+            <div class="form-control">
+              <label class="label" for="cf_api_token">
+                <span class="label-text"
+                  >{{ t('settings.cloudflare_api_token') }}</span
+                >
+              </label>
+              {{ cf_credentials_form.cf_api_token(class="input input-bordered
+              w-full", **{'id': 'cf_api_token', 'placeholder': 'Enter new
+              40-character API Token'}) }} {% for error in
+              cf_credentials_form.cf_api_token.errors %}
+              <label class="label">
+                <span class="label-text-alt text-error">{{ error }}</span>
+              </label>
+              {% endfor %}
+            </div>
+            <div class="card-actions">
+              {{ cf_credentials_form.submit_cloudflare_credentials(class="btn
+              btn-primary", value=t('form.cloudflare.submit')) }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. All Cloudflare Tunnels on Account Section -->
+    <section
+      id="cloudflare-tunnels"
+      class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+    >
+      <div class="card-body">
+        <h2
+          class="card-title text-2xl sm:text-3xl border-b border-base-300 pb-3 mb-6"
+        >
+          {{ t('settings.all_tunnels_on_account') }}
+        </h2>
+        {% if CF_ACCOUNT_ID_CONFIGURED %}
+        <p class="mb-4 text-sm opacity-70">
+          {{ t('settings.displaying_tunnels_for') }}
+          <code class="badge badge-ghost">{{ ACCOUNT_ID_FOR_DISPLAY | e }}</code
+          >.
+          <br />
+          <em class="text-xs opacity-60"
+            >{{ t('settings.tunnel_list_hint') }}</em
+          >
+        </p>
+        {% if all_account_tunnels is defined and all_account_tunnels %}
+        <div class="overflow-x-auto -mx-6 sm:-mx-8">
+          <table class="table table-sm w-full table-responsive">
+            <thead class="hidden md:table-header-group">
+              <tr>
+                <th class="w-12">+/-</th>
+                <th>{{ t('settings.tunnel_name') }}</th>
+                <th>{{ t('settings.tunnel_id') }}</th>
+                <th>{{ t('common.status') }}</th>
+                <th>{{ t('settings.created_at') }}</th>
+                <th class="w-32">{{ t('common.actions') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tunnel in all_account_tunnels %}
+              <tr>
+                <td class="text-center" data-label="Expand">
+                  <button
+                    type="button"
+                    class="btn btn-xs btn-ghost btn-circle tunnel-dns-toggle"
+                    data-tunnel-id="{{ tunnel.id | e }}"
+                    aria-expanded="false"
+                    aria-controls="dns-records-{{ tunnel.id | e }}"
+                    title="{{ t('settings.toggle_dns_records') }}"
+                  >
+                    <svg
+                      class="w-4 h-4 expand-icon"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      ></path>
+                    </svg>
+                    <svg
+                      class="w-4 h-4 collapse-icon hidden"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M18 12H6"
+                      ></path>
+                    </svg>
+                  </button>
+                </td>
+                <td
+                  class="text-sm font-medium"
+                  data-label="{{ t('settings.tunnel_name') }}"
+                >
+                  {{ tunnel.name | e }}
+                </td>
+                <td data-label="{{ t('settings.tunnel_id') }}">
+                  <code class="text-xs opacity-80">{{ tunnel.id | e }}</code>
+                </td>
+                <td data-label="{{ t('common.status') }}">
+                  {% set status_color = 'badge-success' if tunnel.status | lower
+                  == 'healthy' else ('badge-warning' if tunnel.status | lower ==
+                  'degraded' else ('badge-error' if tunnel.status | lower ==
+                  'down' else 'badge-ghost')) %}
+                  <span class="badge {{ status_color }} badge-sm"
+                    >{{ tunnel.status | capitalize | e }}</span
+                  >
+                </td>
+                <td
+                  class="text-xs opacity-70"
+                  data-label="{{ t('settings.created_at') }}"
+                >
+                  {% if tunnel.created_at %}{{ tunnel.created_at.split('T')[0] |
+                  e }}{% else %}N/A{% endif %}
+                </td>
+                <td class="text-xs" data-label="{{ t('common.actions') }}">
+                  <button
+                    type="button"
+                    class="btn btn-xs btn-error delete-tunnel-btn"
+                    data-tunnel-id="{{ tunnel.id | e }}"
+                    data-tunnel-name="{{ tunnel.name | e }}"
+                  >
+                    {{ t('common.delete') }}
+                  </button>
+                </td>
+              </tr>
+              <tr class="dns-records-row hidden bg-base-200/30">
+                <td colspan="6">
+                  <div
+                    id="dns-records-{{ tunnel.id | e }}"
+                    class="p-4 text-sm space-y-2"
+                  >
+                    <p class="opacity-60 italic">
+                      Click the '+' button to load DNS records for this tunnel.
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% elif all_account_tunnels is defined %}
+        <p class="text-center opacity-70 py-8">
+          {{ t('settings.no_tunnels_found') }}
+          <code class="badge badge-ghost">{{ ACCOUNT_ID_FOR_DISPLAY | e }}</code
+          >.
+        </p>
+        <p class="text-center text-xs opacity-60">
+          <em>{{ t('settings.ensure_api_token_permission') }}</em>
+        </p>
+        {% else %}
+        <p class="alert alert-warning text-center py-8">
+          {{ t('settings.could_not_retrieve_tunnel_info') }}
+        </p>
+        {% endif %} {% else %}
+        <div role="alert" class="alert alert-warning">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span
+            >{{ t('settings.env_var') }}
+            <code>{{ t('settings.cf_account_id') }}</code> {{
+            t('settings.env_var_not_configured') }}</span
+          >
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+    <dialog id="delete_tunnel_modal" class="modal">
+      <div class="modal-box w-11/12 max-w-md bg-base-100/90 backdrop-blur">
+        <form method="dialog">
+          <button
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            title="{{ t('common.close') }}"
+          >
+            ✕
+          </button>
+        </form>
+        <h3 class="font-bold text-lg mb-2">
+          {{ t('settings.delete_cloudflare_tunnel') }}
+        </h3>
+        <p id="delete_tunnel_warning_text" class="text-sm opacity-80 mb-4">
+          {{ t('settings.deleting_tunnel_warning') }}
+        </p>
+        <form
+          id="delete_tunnel_form"
+          action="{{ url_for('web.ui_delete_cloudflare_tunnel_route') }}"
+          method="POST"
+          class="space-y-4"
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <input type="hidden" name="tunnel_id" id="delete_tunnel_id" />
+          <label class="form-control w-full">
+            <span class="label-text text-sm"
+              >{{ t('js.prompt.delete_tunnel_confirm') }}</span
+            >
+            <input
+              type="text"
+              name="confirm_text"
+              id="delete_tunnel_confirm_input"
+              class="input input-bordered w-full"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <div class="modal-action mt-4">
+            <button
+              type="submit"
+              id="delete_tunnel_confirm_button"
+              class="btn btn-error"
+              disabled
+            >
+              {{ t('settings.delete_tunnel') }}
+            </button>
+            <button
+              type="button"
+              class="btn"
+              onclick="document.getElementById('delete_tunnel_modal').close()"
+            >
+              {{ t('common.cancel') }}
+            </button>
+          </div>
+        </form>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button>{{ t('common.close') }}</button>
+      </form>
+    </dialog>
+
+    <!-- 3. Backup & Restore Section -->
+    <section
+      id="backup-restore"
+      class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl border-2 border-warning"
+    >
+      <div class="card-body">
+        <h2
+          class="card-title text-2xl sm:text-3xl border-b border-base-300 pb-3 mb-6"
+        >
+          {{ t('settings.backup_restore') }}
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <!-- Backup Column -->
+          <div>
+            <h3 class="font-semibold text-lg mb-2">
+              {{ t('settings.create_backup') }}
+            </h3>
+            <p class="text-sm opacity-80 mb-4">
+              {{ t('settings.backup_description') }}
+            </p>
+            <a
+              href="{{ url_for('web.download_state_backup') }}"
+              class="btn btn-primary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+              {{ t('settings.download_backup') }}
+            </a>
+          </div>
+
+          <!-- Restore Column -->
+          <div>
+            <h3 class="font-semibold text-lg mb-2">
+              {{ t('settings.restore_from_backup') }}
+            </h3>
+            <div role="alert" class="alert alert-warning text-sm mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+              <span
+                ><strong>Warning:</strong> {{ t('settings.restore_warning')
+                }}</span
+              >
+            </div>
+
+            <form
+              action="{{ url_for('web.restore_state_backup') }}"
+              method="POST"
+              enctype="multipart/form-data"
+              class="protocol-aware-form space-y-3"
+            >
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <input
+                type="file"
+                name="backup_file"
+                class="file-input file-input-bordered w-full"
+                accept=".zip,.json"
+                required
+              />
+              <label class="label">
+                <span class="label-text-alt text-sm"
+                  >{{ t('settings.restore_upload_hint') }}</span
+                >
+              </label>
+              <button
+                type="submit"
+                class="btn btn-error w-full"
+                onclick="event.preventDefault(); dfConfirm('{{ t('settings.restore_confirm') }}', '{{ t('settings.restore_from_backup') }}').then(ok => { if(ok) this.closest('form').submit(); })"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                  />
+                </svg>
+                {{ t('settings.upload_restore_backup') }}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Security Section -->
+    <section
+      id="security"
+      class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+    >
+      <div class="card-body">
+        <h2
+          class="card-title text-2xl sm:text-3xl border-b border-base-300 pb-3 mb-6"
+        >
+          {{ t('settings.security') }}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div>
+            <h3 class="font-semibold text-lg mb-2">
+              {{ t('settings.change_password') }}
+            </h3>
+            <form
+              method="POST"
+              action="{{ url_for('web.change_password') }}"
+              class="space-y-4"
+            >
+              {{ change_password_form.hidden_tag() }}
+              <div class="form-control">
+                <label class="label" for="current_password">
+                  <span class="label-text"
+                    >{{ t('settings.current_password') }}</span
+                  >
+                </label>
+                {{ change_password_form.current_password(class="input
+                input-bordered w-full", **{'id': 'current_password'}) }}
+              </div>
+              <div class="form-control">
+                <label class="label" for="new_password">
+                  <span class="label-text"
+                    >{{ t('settings.new_password') }}</span
+                  >
+                </label>
+                {{ change_password_form.new_password(class="input input-bordered
+                w-full", **{'id': 'new_password'}) }}
+              </div>
+              <div class="form-control">
+                <label class="label" for="confirm_new_password">
+                  <span class="label-text"
+                    >{{ t('settings.confirm_new_password') }}</span
+                  >
+                </label>
+                {{ change_password_form.confirm_new_password(class="input
+                input-bordered w-full", **{'id': 'confirm_new_password'}) }}
+              </div>
+              <div class="card-actions">
+                <button type="submit" class="btn btn-primary">
+                  {{ t('settings.change_password') }}
+                </button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <h3 class="font-semibold text-lg mb-2">
+              {{ t('settings.disable_password_login') }}
+            </h3>
+            <form
+              method="POST"
+              action="{{ url_for('web.settings_page') }}"
+              class="space-y-4 protocol-aware-form"
+            >
+              {{ security_settings_form.hidden_tag() }}
+
+              <div class="form-control">
+                <label class="label cursor-pointer p-0">
+                  <span class="label-text"
+                    >{{ security_settings_form.disable_password_login.label.text
+                    }}</span
+                  >
+                  {{ security_settings_form.disable_password_login(class="toggle
+                  toggle-primary") }}
+                </label>
+              </div>
+
+              <div role="alert" class="alert alert-warning text-sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <span
+                  ><strong>{{ t('settings.security_warning') }}</strong> {{
+                  t('settings.disable_password_warning') }}</span
+                >
+              </div>
+
+              <div class="card-actions">
+                {{ security_settings_form.submit_security_settings(class="btn
+                btn-warning", value=t('form.security.save')) }}
+              </div>
+            </form>
+            <div class="mt-6">
+              <h4 class="text-md font-semibold mb-2 opacity-80">
+                {{ t('settings.master_api_key') }}
+              </h4>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline"
+                id="btn-show-master-key"
+              >
+                {{ t('settings.show_master_api_key') }}
+              </button>
+              <span class="block text-xs opacity-70 mt-2"
+                >{{ t('settings.master_api_key_desc') }}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- OAuth Authentication Section -->
+        <div class="mt-8">
+          <h3 class="font-semibold text-lg mb-4">
+            {{ t('settings.oauth_authentication') }}
+          </h3>
+          <p class="text-sm opacity-70 mb-4">
+            {{ t('settings.configure_oauth_desc') }}
+          </p>
+
+          <!-- OAuth Settings Card -->
+          <div class="card bg-base-200 mb-6">
+            <div class="card-body">
+              <h4 class="card-title text-md">
+                {{ t('settings.oauth_settings') }}
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-control">
+                  <label class="label" for="oauth_session_timeout">
+                    <span class="label-text"
+                      >{{ t('settings.session_timeout') }}</span
+                    >
+                  </label>
+                  {{ security_settings_form.oauth_session_timeout(class="input
+                  input-bordered input-sm", **{'id': 'oauth_session_timeout'})
+                  }}
+                </div>
+                <div class="form-control">
+                  <label class="label cursor-pointer p-0">
+                    <span class="label-text"
+                      >{{ security_settings_form.oauth_audit_enabled.label.text
+                      }}</span
+                    >
+                    {{ security_settings_form.oauth_audit_enabled(class="toggle
+                    toggle-primary toggle-sm") }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OAuth Providers Section -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+              <h4 class="text-md font-semibold">
+                {{ t('settings.oauth_settings') }}
+              </h4>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="showAddProviderModal()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                {{ t('settings.add_provider') }}
+              </button>
+            </div>
+            <div role="alert" class="alert alert-warning text-sm mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current shrink-0 h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+              <span
+                ><strong>{{ t('settings.security') }}:</strong> {{
+                t('settings.oauth_trust_warning') }}</span
+              >
+            </div>
+            <div id="provider-list" class="space-y-3">
+              <div class="text-center text-sm opacity-60 py-8">
+                {{ t('settings.no_oauth_configured') }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Authorized Users Section -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+              <h4 class="text-md font-semibold">
+                {{ t('settings.authorized_users') }}
+              </h4>
+              <button
+                class="btn btn-secondary btn-sm"
+                onclick="showAddUserModal()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+                {{ t('settings.add_user') }}
+              </button>
+            </div>
+            <p class="text-sm opacity-70 mb-4">
+              {{ t('settings.only_listed_users') }}
+            </p>
+            <div id="user-list" class="space-y-3">
+              <div class="text-center text-sm opacity-60 py-8">
+                {{ t('settings.no_authorized_users') }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <h3 class="font-semibold text-lg mb-2">
+            {{ t('settings.password_reset') }}
+          </h3>
+          <div role="alert" class="alert alert-info text-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="stroke-current shrink-0 w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>
+              {{ t('settings.filesystem_access_required') }}
+              <br />
+              1. Stop the DockFlare container.
+              <br />
+              2. Delete the `dockflare_config.dat` and `dockflare.key` files
+              from your persistent data volume.
+              <br />
+              3. Restart the container. You will be prompted to go through the
+              initial setup again.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Tunnel & Agent Status Section -->
+    <section
+      id="tunnel-agent-status"
+      class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+    >
+      <div class="card-body">
+        <h2
+          class="card-title text-2xl sm:text-3xl border-b border-base-300 pb-3 mb-6"
+        >
+          {{ t('settings.tunnel_agent_status') }}
+        </h2>
+
+        {% if agent_state.last_action_status or tunnel_state.get('error') %} {%
+        set alert_message = agent_state.last_action_status or
+        tunnel_state.status_message %} {% set is_error = 'Error:' in
+        alert_message or tunnel_state.get('error') %} {% set alert_type =
+        'alert-error' if is_error else 'alert-info' %}
+        <div role="alert" class="alert {{ alert_type }} shadow-sm text-sm mb-6">
+          <!-- ... (alert content) ... -->
+        </div>
+        {% endif %}
+
+        <div class="mb-6">
+          <h4 class="text-md font-semibold mb-3 opacity-80">
+            {{ t('settings.tunnel_details') }}
+          </h4>
+          <div class="space-y-2 text-sm">
+            <p>
+              <strong class="inline-block w-36 opacity-70"
+                >{{ t('settings.desired_name_label') }}</strong
+              >
+              <code class="badge badge-ghost">{{ tunnel_state.name }}</code>
+            </p>
+            <p>
+              <strong class="inline-block w-36 opacity-70"
+                >{{ t('settings.tunnel_id_label') }}</strong
+              >
+              <code class="badge badge-ghost"
+                >{{ tunnel_state.id if tunnel_state.id else 'N/A' }}</code
+              >
+            </p>
+            {% if not external_cloudflared %}
+            <p>
+              <strong class="inline-block w-36 opacity-70"
+                >{{ t('settings.tunnel_token_label') }}</strong
+              >
+              <code class="badge badge-ghost">{{ display_token }}</code>
+            </p>
+            {% endif %}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-3 opacity-80">
+            {{ t('settings.agent_control') }}
+          </h3>
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mt-2 p-4 bg-base-200/50 rounded-md"
+          >
+            {% if external_cloudflared %}
+            <div class="flex-grow space-y-1.5">
+              <strong class="text-sm font-medium"
+                >{{ t('settings.external_mode') }}</strong
+              >
+              <span class="badge badge-info badge-sm animate-pulse"
+                >{{ t('common.active') }}</span
+              >
+            </div>
+            {% else %}
+            <div class="flex-grow space-y-1.5">
+              <strong class="text-sm font-medium"
+                >{{ t('settings.agent_status') }}</strong
+              >
+              {% set indicator_color = 'bg-gray-400' %} {% if
+              agent_state.container_status == 'running' %} {% set
+              indicator_color = 'badge-success' %} {% elif
+              agent_state.container_status in ['exited', 'dead', 'not_found'] %}
+              {% set indicator_color = 'badge-error' %} {% else %} {% set
+              indicator_color = 'badge-warning' %} {% endif %}
+              <span class="badge {{ indicator_color }} badge-sm"
+                >{{ agent_state.container_status | replace('_',' ') }}</span
+              >
+            </div>
+            <div class="w-full sm:w-auto flex-shrink-0">
+              {% if agent_state.container_status=='running' %}
+              <form
+                action="{{ url_for('web.stop_tunnel_route') }}"
+                method="post"
+                class="protocol-aware-form"
+              >
+                <input
+                  type="hidden"
+                  name="csrf_token"
+                  value="{{ csrf_token() }}"
+                />
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-error w-full sm:w-auto"
+                >
+                  {{ t('settings.stop_agent') }}
+                </button>
+              </form>
+              {% else %}
+              <form
+                action="{{ url_for('web.start_tunnel_route') }}"
+                method="post"
+                class="protocol-aware-form"
+              >
+                <input
+                  type="hidden"
+                  name="csrf_token"
+                  value="{{ csrf_token() }}"
+                />
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-success w-full sm:w-auto"
+                >
+                  {{ t('settings.start_agent') }}
+                </button>
+              </form>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog id="master-key-modal" class="modal">
+  <div class="modal-box max-w-xl">
+    <h3 class="font-bold text-lg mb-2">{{ t('settings.master_api_key') }}</h3>
+    <p class="text-sm opacity-70 mb-4">
+      {{ t('settings.master_api_key_warning') }}
+    </p>
+    <div class="bg-base-200 rounded-md p-4">
+      <code id="master-key-display" class="break-all text-sm"
+        >{{ t('common.loading') }}</code
+      >
+    </div>
+    <div class="modal-action mt-6 gap-2">
+      <button type="button" class="btn btn-sm" id="btn-copy-master-key">
+        {{ t('common.copy') }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm btn-primary"
+        id="btn-close-master-key"
+      >
+        {{ t('common.close') }}
+      </button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+{% endblock %} {% block scripts %} {{ super() }}
+<script>
+  (function () {
+    const showMasterKeyBtn = document.getElementById("btn-show-master-key");
+    if (showMasterKeyBtn) {
+      showMasterKeyBtn.addEventListener("click", async () => {
+        try {
+          const response = await fetch(
+            "{{ url_for('web.reveal_master_key') }}",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token() }}",
+              },
+              credentials: "same-origin",
+              body: JSON.stringify({}),
+            },
+          );
+
+          if (!response.ok) {
+            const errorPayload = await response.json().catch(() => ({}));
+            const msg =
+              errorPayload.message ||
+              "Unable to reveal the master key. Check logs.";
+            await dfAlert(`Error: ${msg}`, "Error");
+            return;
+          }
+
+          const payload = await response.json();
+          const modal = document.getElementById("master-key-modal");
+          const keyDisplay = document.getElementById("master-key-display");
+          if (modal && keyDisplay) {
+            keyDisplay.textContent =
+              payload.master_api_key || t("js.text.unavailable");
+            modal.showModal();
+          }
+        } catch (err) {
+          console.error("Failed to fetch master API key:", err);
+          await dfAlert("Failed to contact the server.", "Error");
+        }
+      });
+    }
+
+    const closeMasterKeyBtn = document.getElementById("btn-close-master-key");
+    if (closeMasterKeyBtn) {
+      closeMasterKeyBtn.addEventListener("click", () => {
+        const modal = document.getElementById("master-key-modal");
+        if (modal) {
+          modal.close();
+        }
+      });
+    }
+
+    const copyMasterKeyBtn = document.getElementById("btn-copy-master-key");
+    if (copyMasterKeyBtn) {
+      copyMasterKeyBtn.addEventListener("click", async () => {
+        const keyDisplay = document.getElementById("master-key-display");
+        if (!keyDisplay) return;
+        try {
+          if (!navigator.clipboard) {
+            throw new Error("clipboard_unavailable");
+          }
+          await navigator.clipboard.writeText(keyDisplay.textContent || "");
+          copyMasterKeyBtn.textContent = "Copied!";
+          setTimeout(() => {
+            copyMasterKeyBtn.textContent = "Copy";
+          }, 2000);
+        } catch (err) {
+          console.error("Clipboard copy failed", err);
+          await dfAlert("Could not copy to clipboard.", "Error");
+        }
+      });
+    }
+
+    try {
+      const nav = document.getElementById("settings-left-nav");
+      if (!nav) return;
+
+      const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+      const idToLink = {};
+      links.forEach((a) => {
+        const id = a.getAttribute("href").slice(1);
+        idToLink[id] = a;
+      });
+
+      const sections = links
+        .map((a) => document.getElementById(a.getAttribute("href").slice(1)))
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window && sections.length) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const id = entry.target.id;
+              const link = idToLink[id];
+              if (!link) return;
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+                links.forEach((l) => l.classList.remove("active"));
+                link.classList.add("active");
+              }
+            });
+          },
+          { threshold: [0.25, 0.5, 0.75] },
+        );
+
+        sections.forEach((s) => observer.observe(s));
+      } else {
+        function onScroll() {
+          const scrollY = window.scrollY || window.pageYOffset;
+          let best = null;
+          sections.forEach((s) => {
+            const rect = s.getBoundingClientRect();
+            const offset = Math.abs(rect.top - 100);
+            if (best === null || offset < best.offset) {
+              best = { el: s, offset };
+            }
+          });
+          if (best) {
+            links.forEach((l) => l.classList.remove("active"));
+            const link = idToLink[best.el.id];
+            if (link) link.classList.add("active");
+          }
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        setTimeout(onScroll, 200);
+      }
+
+      links.forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const href = a.getAttribute("href");
+          const target = document.querySelector(href);
+          if (target) {
+            setTimeout(() => {
+              target.setAttribute("tabindex", "-1");
+              target.focus({ preventScroll: true });
+            }, 300);
+          }
+        });
+      });
+    } catch (err) {
+      console.debug("Settings left-nav script error", err);
+    }
+  })();
+</script>
+
+<script>
+    (function () {
+    try {
+      const btn = document.getElementById('btn-check-version');
+      const status = document.getElementById('version-check-status');
+      if (!btn || !status) return;
+
+      function renderMessage(html) {
+        status.innerHTML = html;
+        status.classList.remove('hidden');
+      }
+
+      btn.addEventListener('click', async function () {
+        btn.disabled = true;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="loading loading-spinner"></span> Checking...';
+        status.classList.add('hidden');
+
+        try {
+          const resp = await fetch('{{ url_for("web.version_check") }}', { credentials: 'same-origin' });
+          if (!resp.ok) throw new Error('Network response was not ok');
+          const data = await resp.json();
+
+          if (data.method === 'digest') {
+            if (data.up_to_date) {
+              renderMessage('<span class="text-success">Up to date — running the same image as {{ config.CLOUDFLARED_IMAGE if false else "" }}</span>');
+            } else {
+              let repoPart = data.repo ? `${data.repo}:${data.tag || 'stable'}` : '';
+              let cmd = repoPart ? `docker pull ${data.repo}:${data.tag || 'stable'} && docker compose restart dockflare` : 'docker pull alplat/dockflare:stable && docker compose restart dockflare';
+              let pushedAt = '';
+              if (data.remote_pushed_at) {
+                  try {
+                      const d = new Date(data.remote_pushed_at);
+                      pushedAt = `<div class="mt-1 text-xs">Latest version from: ${d.toLocaleString()}</div>`;
+                  } catch(e) {}
+              }
+              renderMessage(`<span class="text-warning">Update available</span><div class="mt-1">Run: <code class="text-xs">${cmd}</code></div>${pushedAt}`);
+            }
+          } else if (data.method === 'version') {
+            if (data.up_to_date) {
+              renderMessage('<span class="text-success">Up to date (APP_VERSION matches latest release).</span>');
+            } else if (data.latest) {
+              renderMessage(`<span class="text-warning">Latest: ${data.latest} · Current: ${data.current}</span><div class="mt-1">See the <a href="https://github.com/ChrispyBacon-dev/DockFlare/releases" target="_blank" rel="noopener noreferrer">release notes</a> for upgrade instructions.</div>`);
+            } else {
+              renderMessage('<span class="text-muted">Could not determine latest version.</span>');
+            }
+          } else if (data.error) {
+            renderMessage(`<span class="text-error">Version check error: ${String(data.error)}</span>`);
+          } else {
+            renderMessage('<span class="text-muted">Could not determine version status.</span>');
+          }
+        } catch (err) {
+          console.debug('Version check failed', err);
+          renderMessage('<span class="text-error">Version check failed (network or server error).</span>');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = originalHtml;
+        }
+      });
+    } catch (e) {
+      console.debug('Version check script error', e);
+    }
+  })();
+
+  (function() {
+    let authData = null;
+
+    // Helper to get CSRF token
+    function getCsrfToken() {
+        const csrfInput = document.querySelector('input[name="csrf_token"]');
+        return csrfInput ? csrfInput.value : '{{ csrf_token() }}';
+    }
+
+    async function loadAuthSettings() {
+      try {
+        // No auth header needed, relies on session cookie
+        const response = await fetch('/api/v2/auth/settings');
+
+        if (response.ok) {
+          authData = await response.json();
+          renderProviders();
+          renderUsers();
+        } else {
+          console.error('Failed to load auth settings');
+          const providerList = document.getElementById('provider-list');
+          if(providerList) providerList.innerHTML = '<div class="text-center text-error py-8">Failed to load OAuth settings. Please check browser console for errors.</div>';
+        }
+      } catch (error) {
+        console.error('Error loading auth settings:', error);
+      }
+    }
+
+    function renderProviders() {
+      const providerList = document.getElementById('provider-list');
+      if (!providerList) return;
+      if (!authData || !authData.providers || authData.providers.length === 0) {
+        providerList.innerHTML = '<div class="text-center text-sm opacity-60 py-8">{{ t('settings.no_oauth_configured') }}</div>';
+        return;
+      }
+
+      providerList.innerHTML = authData.providers.map(provider => {
+        let callbackUrlHtml = '';
+        const publicHostname = '{{ DOCKFLARE_PUBLIC_HOSTNAME or "" }}';
+        if (publicHostname) {
+          const callbackUrl = `https://${publicHostname}/auth/${provider.id}/callback`;
+          callbackUrlHtml = `
+            <div class="text-xs opacity-80 mt-2 pt-2 border-t border-base-200">
+              <strong class="font-semibold">Callback URL:</strong>
+              <code class="bg-base-300 p-1 rounded text-xs select-all">${escapeHtml(callbackUrl)}</code>
+            </div>
+          `;
+        }
+
+        return `
+        <div class="card bg-base-100 border">
+          <div class="card-body p-4">
+            <div class="flex justify-between items-center">
+              <div class="flex-grow">
+                <div class="flex items-center space-x-3">
+                    <div class="badge badge-sm ${provider.enabled ? 'badge-success' : 'badge-warning'}">${provider.enabled ? 'Enabled' : 'Disabled'}</div>
+                    <h5 class="font-semibold">${escapeHtml(provider.name)}</h5>
+                </div>
+                <p class="text-sm opacity-70 mt-1">${escapeHtml(provider.type)} · ID: ${escapeHtml(provider.id)}</p>
+              </div>
+              <div class="flex flex-shrink-0 space-x-2 ml-4">
+                <button class="btn btn-sm btn-outline" onclick="editProvider('${escapeHtml(provider.id)}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </button>
+                <button class="btn btn-sm btn-error" onclick="deleteProvider('${escapeHtml(provider.id)}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            ${callbackUrlHtml}
+          </div>
+        </div>
+      `}).join('');
+    }
+
+    function renderUsers() {
+      const userList = document.getElementById('user-list');
+      if (!userList) return;
+      if (!authData || !authData.users || authData.users.length === 0) {
+        userList.innerHTML = '<div class="text-center text-sm opacity-60 py-8">{{ t('settings.no_authorized_users') }}</div>';
+        return;
+      }
+
+      userList.innerHTML = authData.users.map(user => `
+        <div class="card bg-base-100 border">
+          <div class="card-body p-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <h5 class="font-semibold">${escapeHtml(user.email)}</h5>
+                ${user.name ? `<p class="text-sm opacity-70">${escapeHtml(user.name)}</p>` : ''}
+                ${user.added_date ? `<p class="text-xs opacity-50">Added: ${new Date(user.added_date).toLocaleDateString()}</p>` : ''}
+              </div>
+              <button class="btn btn-sm btn-error" onclick="deleteUser('${escapeHtml(user.email)}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+    }
+
+    function handleProviderTypeChange(form, isEdit = false) {
+      const typeSelect = form.elements['provider_type'];
+      const issuerInput = form.elements['issuer_url'];
+      const issuerGroup = issuerInput.closest('.form-control');
+      const nameInput = form.elements['provider_name'];
+      const idInput = form.elements['provider_id'];
+
+      // Default state
+      issuerGroup.style.display = 'none';
+      issuerInput.required = false;
+
+      if (typeSelect.value === 'google') {
+          // Field is hidden, but we still set the value
+          issuerInput.value = 'https://accounts.google.com';
+          if (!nameInput.value) nameInput.value = 'Google';
+          if (!idInput.value && !isEdit) idInput.value = 'google';
+      } else if (typeSelect.value === 'oidc') {
+          // Show the field for generic OIDC
+          issuerGroup.style.display = '';
+          issuerInput.required = true;
+          if (!isEdit) {
+              issuerInput.value = '';
+              nameInput.value = '';
+              idInput.value = '';
+          }
+      } else if (typeSelect.value === 'github') {
+          // Field is hidden
+          if (!nameInput.value) nameInput.value = 'GitHub';
+          if (!idInput.value && !isEdit) idInput.value = 'github';
+      }
+    }
+
+    window.showAddProviderModal = function() {
+      const modal = document.getElementById('addProviderModal');
+      const form = modal.querySelector('form');
+      form.reset();
+      handleProviderTypeChange(form, false);
+      modal.showModal();
+    };
+
+    window.editProvider = function(providerId) {
+      const provider = authData.providers.find(p => p.id === providerId);
+      if (!provider) {
+        showToast('Provider not found.', 'error');
+        return;
+      }
+
+      const modal = document.getElementById('editProviderModal');
+      const form = document.getElementById('editProviderForm');
+      const issuerGroup = form.elements['issuer_url'].closest('.form-control');
+
+      // Handle visibility of issuer URL field based on the provider's type
+      if (provider.type === 'github' || provider.type === 'google') {
+          issuerGroup.style.display = 'none';
+          form.elements['issuer_url'].required = false;
+      } else { // oidc
+          issuerGroup.style.display = '';
+          form.elements['issuer_url'].required = true;
+      }
+
+      form.elements['provider_type'].value = provider.type || 'oidc';
+      form.elements['original_provider_id'].value = provider.id;
+      form.elements['issuer_url'].value = provider.issuer_url || (provider.type === 'google' ? 'https://accounts.google.com' : '');
+      form.elements['provider_id'].value = provider.id;
+      form.elements['provider_name'].value = provider.name;
+      form.elements['client_id'].value = provider.client_id || '';
+      form.elements['client_id'].placeholder = t('js.text.oauth_client_id_placeholder');
+      form.elements['enabled'].checked = provider.enabled;
+
+      form.elements['client_secret'].value = '';
+
+      modal.showModal();
+    };
+
+    window.updateProvider = async function() {
+      const form = document.getElementById('editProviderForm');
+      const providerId = form.elements['original_provider_id'].value;
+
+      const providerData = {
+        name: form.elements['provider_name'].value,
+        enabled: form.elements['enabled'].checked,
+        issuer_url: form.elements['issuer_url'].value
+      };
+
+      const clientId = form.elements['client_id'].value;
+      if (clientId) {
+        providerData.client_id = clientId;
+      }
+
+      const clientSecret = form.elements['client_secret'].value;
+      if (clientSecret) {
+        providerData.client_secret = clientSecret;
+      }
+
+      try {
+        const response = await fetch(`/api/v2/auth/providers/${providerId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+          },
+          body: JSON.stringify(providerData)
+        });
+
+        if (response.ok) {
+          document.getElementById('editProviderModal').close();
+          await loadAuthSettings();
+          showToast('Provider updated successfully!', 'success');
+        } else {
+          const error = await response.json();
+          showToast(error.message || 'Failed to update provider', 'error');
+        }
+      } catch (error) {
+        showToast('Error updating provider', 'error');
+      }
+    };
+
+    window.showAddUserModal = function() {
+      document.getElementById('addUserModal').showModal();
+    };
+
+    window.addProvider = async function() {
+      const form = document.getElementById('addProviderForm');
+      const formData = new FormData(form);
+
+      const providerData = {
+        id: formData.get('provider_id'),
+        name: formData.get('provider_name'),
+        type: formData.get('provider_type'),
+        client_id: formData.get('client_id'),
+        client_secret: formData.get('client_secret'),
+        enabled: formData.get('enabled') === 'on'
+      };
+
+      const issuerUrl = formData.get('issuer_url');
+      if (issuerUrl) {
+        providerData.issuer_url = issuerUrl;
+      }
+
+      try {
+        const response = await fetch('/api/v2/auth/providers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+          },
+          body: JSON.stringify(providerData)
+        });
+
+        if (response.ok) {
+          document.getElementById('addProviderModal').close();
+          form.reset();
+          await loadAuthSettings();
+          showToast('Provider added successfully!', 'success');
+        } else {
+          const error = await response.json();
+          showToast(error.message || 'Failed to add provider', 'error');
+        }
+      } catch (error) {
+        showToast('Error adding provider', 'error');
+      }
+    };
+
+    window.addUser = async function() {
+      const form = document.getElementById('addUserForm');
+      const formData = new FormData(form);
+
+      const userData = {
+        email: formData.get('user_email'),
+        name: formData.get('user_name')
+      };
+
+      try {
+        const response = await fetch('/api/v2/auth/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+          },
+          body: JSON.stringify(userData)
+        });
+
+        if (response.ok) {
+          document.getElementById('addUserModal').close();
+          form.reset();
+          await loadAuthSettings();
+          showToast('User added successfully!', 'success');
+        } else {
+          const error = await response.json();
+          showToast(error.message || 'Failed to add user', 'error');
+        }
+      } catch (error) {
+        showToast('Error adding user', 'error');
+      }
+    };
+
+    window.deleteProvider = async function(providerId) {
+      const confirmed = await dfConfirm('Are you sure you want to delete this OAuth provider?', 'Delete Provider');
+      if (!confirmed) return;
+
+      try {
+        const response = await fetch(`/api/v2/auth/providers/${providerId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+          }
+        });
+
+        if (response.ok) {
+          await loadAuthSettings();
+          showToast('Provider deleted successfully!', 'success');
+        } else {
+          showToast('Failed to delete provider', 'error');
+        }
+      } catch (error) {
+        showToast('Error deleting provider', 'error');
+      }
+    };
+
+    window.deleteUser = async function(userEmail) {
+      const confirmed = await dfConfirm('Are you sure you want to remove this authorized user?', 'Remove User');
+      if (!confirmed) return;
+
+      try {
+        const response = await fetch(`/api/v2/auth/users/${encodeURIComponent(userEmail)}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+          }
+        });
+
+        if (response.ok) {
+          await loadAuthSettings();
+          showToast('User removed successfully!', 'success');
+        } else {
+          showToast('Failed to remove user', 'error');
+        }
+      } catch (error) {
+        showToast('Error removing user', 'error');
+      }
+    };
+
+    function showToast(message, type) {
+      const toast = document.createElement('div');
+      toast.className = `toast toast-top toast-end`;
+      toast.innerHTML = `
+        <div class="alert alert-${type}">
+          <span>${message}</span>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAuthSettings();
+
+      const addForm = document.getElementById('addProviderForm');
+      if (addForm) {
+          const addTypeSelect = addForm.elements['provider_type'];
+          if (addTypeSelect) {
+              addTypeSelect.addEventListener('change', () => handleProviderTypeChange(addForm, false));
+          }
+      }
+    });
+  })();
+</script>
+
+<!-- Add Provider Modal -->
+<dialog id="addProviderModal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ t('settings.add_oauth_provider') }}</h3>
+    <form id="addProviderForm" class="space-y-4 mt-4">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.provider_type') }}</span>
+        </label>
+        <select name="provider_type" class="select select-bordered" required>
+          <option value="google" selected>{{ t('settings.google') }}</option>
+          <option value="github">{{ t('settings.github') }}</option>
+          <option value="oidc">{{ t('settings.generic_oidc') }}</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.issuer_url') }}</span>
+        </label>
+        <input
+          name="issuer_url"
+          type="url"
+          placeholder="{{ t('settings.issuer_url_example') }}"
+          class="input input-bordered"
+          required
+        />
+        <label class="label">
+          <span class="label-text-alt"
+            >{{ t('settings.issuer_url_desc') }}</span
+          >
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.provider_id') }}</span>
+        </label>
+        <input
+          name="provider_id"
+          type="text"
+          placeholder="{{ t('settings.provider_id_example') }}"
+          class="input input-bordered"
+          required
+        />
+        <label class="label">
+          <span class="label-text-alt"
+            >{{ t('settings.unique_id_for_provider') }}</span
+          >
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('modal.idp.display_name') }}</span>
+        </label>
+        <input
+          name="provider_name"
+          type="text"
+          placeholder="{{ t('settings.provider_display_name_example') }}"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.client_id') }}</span>
+        </label>
+        <input
+          name="client_id"
+          type="text"
+          placeholder="{{ t('settings.oauth_client_id') }}"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.client_secret') }}</span>
+        </label>
+        <input
+          name="client_secret"
+          type="password"
+          placeholder="{{ t('settings.oauth_client_secret') }}"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ t('settings.enable_provider') }}</span>
+          <input name="enabled" type="checkbox" class="toggle" checked />
+        </label>
+      </div>
+    </form>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">{{ t('common.cancel') }}</button>
+      </form>
+      <button class="btn btn-primary" onclick="addProvider()">
+        {{ t('settings.add_provider') }}
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Edit Provider Modal -->
+<dialog id="editProviderModal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ t('settings.edit_oauth_provider') }}</h3>
+    <form id="editProviderForm" class="space-y-4 mt-4">
+      <input type="hidden" name="original_provider_id" />
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.provider_type') }}</span>
+        </label>
+        <select
+          name="provider_type"
+          class="select select-bordered"
+          required
+          disabled
+        >
+          <option value="google">{{ t('settings.google') }}</option>
+          <option value="github">{{ t('settings.github') }}</option>
+          <option value="oidc">{{ t('settings.generic_oidc') }}</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.issuer_url') }}</span>
+        </label>
+        <input
+          name="issuer_url"
+          type="url"
+          placeholder="{{ t('settings.issuer_url_example') }}"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.provider_id') }}</span>
+        </label>
+        <input
+          name="provider_id"
+          type="text"
+          placeholder="{{ t('settings.provider_id_example') }}"
+          class="input input-bordered"
+          required
+          disabled
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('modal.idp.display_name') }}</span>
+        </label>
+        <input
+          name="provider_name"
+          type="text"
+          placeholder="{{ t('settings.provider_name_example') }}"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.client_id') }}</span>
+        </label>
+        <input
+          name="client_id"
+          type="text"
+          placeholder="{{ t('settings.oauth_client_id') }}"
+          class="input input-bordered"
+          required
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.client_secret') }}</span>
+        </label>
+        <input
+          name="client_secret"
+          type="password"
+          placeholder="{{ t('settings.leave_blank_keep_secret') }}"
+          class="input input-bordered"
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ t('settings.enable_provider') }}</span>
+          <input name="enabled" type="checkbox" class="toggle" />
+        </label>
+      </div>
+    </form>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">{{ t('common.cancel') }}</button>
+      </form>
+      <button class="btn btn-primary" onclick="updateProvider()">
+        {{ t('common.save') }}
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Add User Modal -->
+<dialog id="addUserModal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ t('settings.add_authorized_user') }}</h3>
+    <form id="addUserForm" class="space-y-4 mt-4">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('settings.email_address') }}</span>
+        </label>
+        <input
+          name="user_email"
+          type="email"
+          placeholder="{{ t('settings.email_example') }}"
+          class="input input-bordered"
+          required
+        />
+        <label class="label">
+          <span class="label-text-alt"
+            >{{ t('settings.email_must_match') }}</span
+          >
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">{{ t('modal.idp.display_name') }}</span>
+        </label>
+        <input
+          name="user_name"
+          type="text"
+          placeholder="John Doe"
+          class="input input-bordered"
+        />
+      </div>
+    </form>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">{{ t('common.cancel') }}</button>
+      </form>
+      <button class="btn btn-primary" onclick="addUser()">
+        {{ t('settings.add_user') }}
+      </button>
+    </div>
+  </div>
+</dialog>
+
+{% endblock %}

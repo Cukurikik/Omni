@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniReactAudioPlayerEngine.ts
@@ -79,5 +79,16 @@ export class OmniReactAudioPlayerEngine {
 
     public captureState(): AbstractAudioState {
         return this.currentState;
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniReactAudioPlayerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

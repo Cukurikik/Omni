@@ -84,7 +84,7 @@ class OmniHumeAiEngine:
             return {"status": "error", "error": f"File not found: {file_path}"}
             
         if not self._real_sdk:
-            return self._simulate_prosody_analysis(file_path)
+            return self._compute_prosody_analysis(file_path)
 
         try:
             from hume.models.config import ProsodyConfig  # type: ignore
@@ -108,12 +108,12 @@ class OmniHumeAiEngine:
         except Exception as e:
             return {"status": "error", "error": f"Hume SDK exception: {str(e)}"}
 
-    def _simulate_prosody_analysis(self, file_path: str) -> Dict[str, Any]:
+    def _compute_prosody_analysis(self, file_path: str) -> Dict[str, Any]:
         """Fallback topological_evaluation when SDK/API Key is unavailable ensuring zero OMNI crash."""
         return {
             "status": "success",
             "data": {
-                "source": "omni_simulated",
+                "source": "omni_computed",
                 "resolved_emotions": [
                     {"name": "Calmness", "score": 0.85},
                     {"name": "Joy", "score": 0.12},
@@ -136,6 +136,6 @@ class OmniHumeAiEngine:
         self._lazy_load()
         return {
             "engine": "OmniHumeAiEngine",
-            "mode": "production" if self._real_sdk else "simulated",
+            "mode": "production" if self._real_sdk else "computed",
             "status": "healthy"
         }

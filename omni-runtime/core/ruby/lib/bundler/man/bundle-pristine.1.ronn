@@ -1,5 +1,4 @@
-bundle-pristine(1) -- Restores installed gems to their pristine condition
-=========================================================================
+# bundle-pristine(1) -- Restores installed gems to their pristine condition
 
 ## SYNOPSIS
 

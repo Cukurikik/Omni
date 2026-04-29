@@ -1,0 +1,28 @@
+@schema
+type QuantumStateSuperposition {
+  stateId: ID!
+  shannonEntropy: Float!
+  isEntangled: Boolean!
+  decoherenceFidelity: Float!
+}
+
+@schema
+type DecoherenceEvent {
+  eventId: ID!
+  timeStepsElapsed: Int!
+  fidelityScore: Float!
+  isUsableState: Boolean!
+  timestampUtc: String!
+}
+
+type Query {
+  getLatestSuperposition(stateId: ID!): QuantumStateSuperposition
+  calculateDecoherenceEventHistory: [DecoherenceEvent!]!
+}
+
+type Mutation {
+  registerWavefunctionCollapse(stateId: ID!, finalEntropy: Float!): QuantumStateSuperposition
+}
+
+# Strict bounds for Quantum tensor alignment
+directive @quantumBound(minFidelity: Float = 0.5, maxEntropy: Float = 10.0) on FIELD_DEFINITION

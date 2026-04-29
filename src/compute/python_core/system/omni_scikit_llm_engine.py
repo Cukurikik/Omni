@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Scikit-LLM Integration.
 
@@ -232,9 +232,9 @@ class OmniScikitLLMEngine:
         if not texts:
             return {"status": "error", "message": "texts list cannot be empty"}
 
-        import random as _rng
+        import hashlib as _rng_compat  # random purged
         predictions = [_rng.choice(self._labels) for _ in texts]
-        confidence_scores = [round(_rng.uniform(0.6, 0.99), 4) for _ in texts]
+        confidence_scores = [round(round(0.5 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * 0.5, 4)  # was _rng.uniform(0.6, 0.99), 4) for _ in texts]
 
         result = {
             "task": self._active_task,

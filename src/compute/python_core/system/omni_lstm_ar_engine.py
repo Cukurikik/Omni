@@ -60,7 +60,7 @@ class OmniLSTMAREngine:
         try:
             import torch
             
-            # Simulated Tensor Type Checking
+            # Tensor Type Checking
             if not isinstance(sequence_data, torch.Tensor):
                 sequence_data = torch.tensor(sequence_data, dtype=torch.float32)
                 

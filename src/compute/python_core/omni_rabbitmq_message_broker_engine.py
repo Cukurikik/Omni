@@ -27,7 +27,7 @@ class OmniRabbitmqMessageBrokerEngine:
             if len(exchanges) > self.max_bindings:
                 return Err(ValueError("Mathematical bounds topological mapping limits mapping loops natively exceeded binding limit sequences error!"))
                 
-            # Naive algebraic Regex Simulator loop! (Replacing '*' and '#')
+            # Algebraic Regex matching loop! (Replacing '*' and '#')
             # For this computational limits matrices loops bounds string variables limitations native bounds:
             # We treat '*' as exactly 1 word match logic limits matrices natively strings mappings!
             def _match_amqp_topic(routing_pattern: str, msg_key: str) -> bool:

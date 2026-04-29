@@ -1,0 +1,7 @@
+// Omni DrugAssist Molecule Schema (GraphQL)
+// Business Layer: Molecule optimization API schema.
+// Ref: blazerye/DrugAssist
+type Molecule { smiles: String!; mw: Float!; logP: Float!; drugLikeness: Boolean!; violations: Int! }
+type OptimizationResult { original: Molecule!; optimized: Molecule; improvement: Float }
+type Query { molecule(smiles: String!): Molecule; drugLikeCandidates(maxMW: Float): [Molecule!]! }
+type Mutation { optimizeMolecule(smiles: String!, target: String!, direction: String!): OptimizationResult! }

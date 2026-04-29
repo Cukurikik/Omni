@@ -29,25 +29,25 @@ prelude: |
 
 benchmark:
   fixnum_array2.sort_by: fixnum_array2.sort_by {|a| a}
-  float_array2.sort_by:  float_array2.sort_by {|a| a}
+  float_array2.sort_by: float_array2.sort_by {|a| a}
   string_length2.sort_by: string_array2.sort_by {|a| a.length}
-  mix_array2.sort_by:  mix_array2.sort_by {|a| a}
+  mix_array2.sort_by: mix_array2.sort_by {|a| a}
   all_zero2.sort_by: all_zero_array2.sort_by{|a| a}
 
   fixnum_array10.sort_by: fixnum_array10.sort_by {|a| a}
-  float_array10.sort_by:  float_array10.sort_by {|a| a}
+  float_array10.sort_by: float_array10.sort_by {|a| a}
   string_length10.sort_by: string_array10.sort_by {|a| a.length}
-  mix_array10.sort_by:  mix_array10.sort_by {|a| a}
+  mix_array10.sort_by: mix_array10.sort_by {|a| a}
   all_zero10.sort_by: all_zero_array10.sort_by{|a| a}
 
   fixnum_array1000.sort_by: fixnum_array1000.sort_by {|a| a}
-  float_array1000.sort_by:  float_array1000.sort_by {|a| a}
+  float_array1000.sort_by: float_array1000.sort_by {|a| a}
   string_length1000.sort_by: string_array1000.sort_by {|a| a.length}
-  mix_array1000.sort_by:  mix_array1000.sort_by {|a| a}
+  mix_array1000.sort_by: mix_array1000.sort_by {|a| a}
   all_zero1000.sort_by: all_zero_array1000.sort_by{|a| a}
 
   fixnum_array100000.sort_by: fixnum_array100000.sort_by {|a| a}
-  float_array100000.sort_by:  float_array100000.sort_by {|a| a}
+  float_array100000.sort_by: float_array100000.sort_by {|a| a}
   string_length100000.sort_by: string_array100000.sort_by {|a| a.length}
-  mix_array100000.sort_by:  mix_array100000.sort_by {|a| a}
+  mix_array100000.sort_by: mix_array100000.sort_by {|a| a}
   all_zero100000.sort_by: all_zero_array100000.sort_by{|a| a}

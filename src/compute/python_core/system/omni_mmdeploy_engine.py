@@ -96,7 +96,7 @@ class OmniMMDeployEngine:
                 
             model = self.converted_models[artifact_id]
             
-            # Simulated performance metrics based on backend and precision
+            # performance metrics based on backend and precision
             base_latency = 10.0 # ms
             if model["backend"] == "tensorrt":
                 base_latency *= 0.5

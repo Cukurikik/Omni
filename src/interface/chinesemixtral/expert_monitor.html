@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MoE Expert Monitor</title>
+    <style>
+        body { font-family: monospace; background: #111; color: #0f0; padding: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+        .expert { border: 1px solid #0f0; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Chinese-Mixtral Expert Load</h1>
+    <div class="grid" id="expert-grid">
+        <!-- JS rendered MoE experts -->
+        <div class="expert">Exp 0: 45%</div>
+        <div class="expert">Exp 1: 12%</div>
+    </div>
+</body>
+</html>

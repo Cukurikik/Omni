@@ -23,8 +23,8 @@ execution of a Ruby program (raise_spec.rb), and the block entities like
 Several reserved words and other entities are combined with the primary
 reserved word or entity to which they are related:
 
-false, true, nil, self              predefined_spec.rb
-in                                  for_spec.rb
-then, elsif                         if_spec.rb
-when                                case_spec.rb
-catch                               throw_spec.rb
+false, true, nil, self predefined_spec.rb
+in for_spec.rb
+then, elsif if_spec.rb
+when case_spec.rb
+catch throw_spec.rb

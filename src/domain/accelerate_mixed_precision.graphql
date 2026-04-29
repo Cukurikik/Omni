@@ -1,0 +1,10 @@
+# OMNI Domain Layer - Accelerate Mixed Precision
+@schema
+type PrecisionConfig {
+  dtype: String!
+  lossScaling: Boolean!
+}
+
+type Query {
+  validateDType(dtype: String!): Boolean!
+}

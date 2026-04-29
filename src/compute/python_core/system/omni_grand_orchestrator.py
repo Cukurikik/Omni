@@ -48,7 +48,7 @@ class OmniGrandOrchestrator:
         tool_count = 0
         for short_id, metadata in catalog_engines.items():
             layer = metadata.layer.value
-            # Dynamically bind ALL discovered engines — no hardcoded cherry-picking
+            # Dynamically bind ALL discovered engines — no static cherry-picking
             res = self.registry.instantiate(short_id)
             if res is not None:
                 instance = res
@@ -140,7 +140,7 @@ class OmniGrandOrchestrator:
             # Because this is an automated internal test running without user keys, we execute the *network payload construction*
             # to verify architecture layout, but trap the 401.
             
-            # Simulated Rig interaction assuming it asked for a tool:
+            # Rig interaction assuming it asked for a tool:
             mocked_llm_tool_choice = {
                 "name": "matrix_deploy__generate_inventory_yaml", # Uses an actual tool we bound!
                 "arguments": '{"matrix_domain": "auto.omni.dev", "admin_user": "omni_master"}'

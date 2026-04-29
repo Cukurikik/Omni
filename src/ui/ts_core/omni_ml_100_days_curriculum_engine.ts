@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI ML 100 DAYS CURRICULUM ENGINE (SEMESTER 5 — BATCH 20)
@@ -85,6 +85,17 @@ export class OmniMl100DaysCurriculumEngine {
             status: "healthy",
             days_indexed: this.curriculum.size,
             learned_from: "MLEveryday/100-Days-Of-ML-Code"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMl100DaysCurriculumEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

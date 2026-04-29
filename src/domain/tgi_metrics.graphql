@@ -1,0 +1,4 @@
+type TGIMetrics {
+    queueLength: Int!
+    batchSize: Int!
+}

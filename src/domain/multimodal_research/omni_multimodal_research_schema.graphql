@@ -1,0 +1,58 @@
+# OMNI Multimodal Research Schema — Domain Layer
+# Absorbing Eurus-Holmes/Awesome-Multimodal-Research knowledge taxonomy.
+# GraphQL schema for multimodal research paper tracking.
+
+"""
+A multimodal research paper entry with cross-references.
+"""
+type ResearchPaper {
+  paperId: ID!
+  title: String!
+  authors: [String!]!
+  venue: String!
+  year: Int!
+  modalities: [String!]!
+  topics: [String!]!
+  arxivUrl: String
+  codeUrl: String
+  citationCount: Int!
+}
+
+type ResearchCategory {
+  name: String!
+  paperCount: Int!
+  papers: [ResearchPaper!]!
+}
+
+type Query {
+  """
+  Search papers by modality combination.
+  """
+  searchByModality(modalities: [String!]!): [ResearchPaper!]!
+
+  """
+  Get papers by venue and year.
+  """
+  getByVenue(venue: String!, year: Int): [ResearchPaper!]!
+
+  """
+  List all categories with paper counts.
+  """
+  listCategories: [ResearchCategory!]!
+}
+
+type Mutation {
+  """
+  Register a new multimodal research paper.
+  """
+  addPaper(
+    title: String!
+    authors: [String!]!
+    venue: String!
+    year: Int!
+    modalities: [String!]!
+    topics: [String!]!
+    arxivUrl: String
+    codeUrl: String
+  ): ResearchPaper!
+}

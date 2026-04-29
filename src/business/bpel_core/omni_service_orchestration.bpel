@@ -1,0 +1,31 @@
+<!-- Omni Service Orchestration in BPEL -->
+<!-- Strict deterministic orchestration of legacy SOAP services -->
+<process name="OmniProcess" 
+         targetNamespace="http://omni.framework/bpel"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:tns="http://omni.framework/bpel">
+
+    <sequence>
+        <receive name="ReceivePaymentRequest" 
+                 partnerLink="client" 
+                 portType="tns:PaymentPT" 
+                 operation="ProcessPayment" 
+                 variable="PaymentRequest" 
+                 createInstance="yes"/>
+                 
+        <validate variables="PaymentRequest"/>
+        
+        <invoke name="InvokeBankService" 
+                partnerLink="banking" 
+                portType="tns:BankPT" 
+                operation="Charge" 
+                inputVariable="PaymentRequest" 
+                outputVariable="PaymentResponse"/>
+                
+        <reply name="ReplyToClient" 
+               partnerLink="client" 
+               portType="tns:PaymentPT" 
+               operation="ProcessPayment" 
+               variable="PaymentResponse"/>
+    </sequence>
+</process>

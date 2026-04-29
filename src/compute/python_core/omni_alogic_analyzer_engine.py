@@ -6,7 +6,7 @@ class OmniAlogicAnalyzerEngine:
     """
     omni-alogic-analyzer
     
-    Models digital logic waveforms computationally, translating boolean states into simulated 
+    Models digital logic waveforms computationally, translating boolean states into computed 
     pulse width limit metrics without requiring physical parallel port metrics constraint bound.
     """
     
@@ -52,7 +52,7 @@ class OmniAlogicAnalyzerEngine:
             total_samples = len(pulse_stream)
             duration_seconds = total_samples / sampling_rate_hz
             
-            # Simulated mathematical boundaries
+            # Mathematical boundaries
             frequency = (transitions / 2) / duration_seconds if duration_seconds > 0 else 0
             duty_cycle = (high_count / total_samples) * 100
             

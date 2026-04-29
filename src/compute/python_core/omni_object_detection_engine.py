@@ -44,7 +44,7 @@ class OmniObjectDetectionEngine:
             local_region = signal[start_bound:end_bound]
             
             if signal[i] == max(local_region):
-                # Apply simulated Soft-NMS damping
+                # Apply Soft-NMS damping
                 confidence = round(1.0 / (1.0 + math.exp(-signal[i])), 4)
                 detections.append({
                     "center": i,

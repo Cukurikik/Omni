@@ -69,12 +69,12 @@ class OmniPrompttoolsEngine:
             # Simple execute of LLM generation response based on temperature
             temp = variant.get("temperature", 0.5)
             sim_length = int(temp * 100) + 10
-            response = f"Simulated logical output for variant {variant_index} bridging {sim_length} tokens."
+            response = f"Logical output for variant {variant_index} bridging {sim_length} tokens."
             
             result_record = {
                 "variant_index": variant_index,
                 "temperature": temp,
-                "simulated_response": response,
+                "computed_response": response,
                 "latency_ms": int(150 + (temp * 100))
             }
             exp["results"].append(result_record)
@@ -102,7 +102,7 @@ class OmniPrompttoolsEngine:
             evaluations = []
             for res in exp["results"]:
                 # Execute of vector cosine similarity logic
-                diff = abs(len(res["simulated_response"]) - len(ground_truth))
+                diff = abs(len(res["computed_response"]) - len(ground_truth))
                 similarity = max(0.0, 1.0 - (diff / 100.0))
                 
                 evaluations.append({

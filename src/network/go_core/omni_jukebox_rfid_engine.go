@@ -6,7 +6,7 @@
 // Domain Layer      : Concurrency (Go Core)
 // ===========================================================================
 
-package main
+package go_core
 
 import (
 	"encoding/json"
@@ -62,7 +62,7 @@ func action_dispatcher(rfid_bus <-chan RfidEvent, report_bus chan<- DaemonAction
 	close(report_bus)
 }
 
-func main() {
+func init_jukebox_rfid() {
 	rfid_channel := make(chan RfidEvent, 10)
 	report_channel := make(chan DaemonAction, 10)
 

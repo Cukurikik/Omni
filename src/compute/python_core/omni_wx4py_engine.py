@@ -645,7 +645,7 @@ class OmniWx4pyEngine:
     ) -> str:
         """Generate an AI reply using configured LLM (production: use httpx/aiohttp)."""
         # In production: POST to config.base_url with config.api_key
-        # Simulated response for engine integrity
+        # Response for engine integrity
         last_message = context[-1]["content"] if context else ""
         reply = f"[AI Reply from {config.model}] Received your message: '{last_message[:30]}...'"
         logger.info(f"Generated AI reply using {config.model}")

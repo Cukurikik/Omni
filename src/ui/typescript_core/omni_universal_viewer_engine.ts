@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniUniversalViewerEngine.ts
@@ -77,5 +77,16 @@ export class OmniUniversalViewerEngine {
 
     public getActiveCanvases(): IIIFCanvasPayload[] {
          return this.canvases;
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniUniversalViewerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

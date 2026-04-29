@@ -85,12 +85,12 @@ class OmniKerasTunerEngine:
                 
             t_ref = self._active_tuners[tuner_id]
             if t_ref["type"] != "Hyperband":
-                # Simulated fallback
+                # fallback
                 t_ref["type"] = "Hyperband"
 
             t_ref["status"] = "completed"
             
-            # Simulated Optimal Params after optimization
+            # Optimal Params after optimization
             t_ref["best_params"] = {
                 "units": 128,
                 "learning_rate": 0.001,

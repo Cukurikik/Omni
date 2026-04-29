@@ -93,7 +93,7 @@ const (
 	StatusDeploying  DeploymentStatus = "deploying"
 	StatusHealthCheck DeploymentStatus = "health_checking"
 	StatusCompleted  DeploymentStatus = "completed"
-	StatusFailed     DeploymentStatus = "failed"
+	FtlStatusFailed     DeploymentStatus = "failed"
 	StatusRolledBack DeploymentStatus = "rolled_back"
 )
 
@@ -123,7 +123,7 @@ type DeployStep struct {
 // 3. Config Validator
 // ============================================================================
 
-type ValidationError struct {
+type FtlValidationError struct {
 	Field   string `json:"field"`
 	Message string `json:"message"`
 }
@@ -134,14 +134,14 @@ func NewConfigValidator() *ConfigValidator {
 	return &ConfigValidator{}
 }
 
-func (v *ConfigValidator) Validate(config *FTLProjectConfig) []ValidationError {
-	var errors []ValidationError
+func (v *ConfigValidator) Validate(config *FTLProjectConfig) []FtlValidationError {
+	var errors []FtlValidationError
 
 	if config.Name == "" {
-		errors = append(errors, ValidationError{"name", "Project name is required"})
+		errors = append(errors, FtlValidationError{"name", "Project name is required"})
 	}
 	if config.Domain == "" {
-		errors = append(errors, ValidationError{"domain", "Domain is required"})
+		errors = append(errors, FtlValidationError{"domain", "Domain is required"})
 	}
 
 	// Validate server
@@ -152,28 +152,28 @@ func (v *ConfigValidator) Validate(config *FTLProjectConfig) []ValidationError {
 		config.Server.Port = 22
 	}
 	if config.Server.Port > 65535 {
-		errors = append(errors, ValidationError{"server.port", "Port must be between 1 and 65535"})
+		errors = append(errors, FtlValidationError{"server.port", "Port must be between 1 and 65535"})
 	}
 
 	// Validate services
 	if len(config.Services) == 0 {
-		errors = append(errors, ValidationError{"services", "At least one service is required"})
+		errors = append(errors, FtlValidationError{"services", "At least one service is required"})
 	}
 
 	serviceNames := make(map[string]bool)
 	for i, svc := range config.Services {
 		if svc.Name == "" {
-			errors = append(errors, ValidationError{
+			errors = append(errors, FtlValidationError{
 				fmt.Sprintf("services[%d].name", i), "Service name is required"})
 		}
 		if serviceNames[svc.Name] {
-			errors = append(errors, ValidationError{
+			errors = append(errors, FtlValidationError{
 				fmt.Sprintf("services[%d].name", i), "Duplicate service name"})
 		}
 		serviceNames[svc.Name] = true
 
 		if svc.Port <= 0 || svc.Port > 65535 {
-			errors = append(errors, ValidationError{
+			errors = append(errors, FtlValidationError{
 				fmt.Sprintf("services[%d].port", i), "Invalid port number"})
 		}
 	}
@@ -191,7 +191,7 @@ func (v *ConfigValidator) Validate(config *FTLProjectConfig) []ValidationError {
 					envName := varExpr
 					if _, ok := config.EnvVars[envName]; !ok {
 						if os.Getenv(envName) == "" {
-							errors = append(errors, ValidationError{
+							errors = append(errors, FtlValidationError{
 								fmt.Sprintf("services.%s.env.%s", svc.Name, key),
 								fmt.Sprintf("Required env var ${%s} is not set", envName),
 							})
@@ -209,21 +209,21 @@ func (v *ConfigValidator) Validate(config *FTLProjectConfig) []ValidationError {
 // 4. Health Checker
 // ============================================================================
 
-type HealthChecker struct {
+type FtlHealthChecker struct {
 	MaxRetries int
 	Interval   time.Duration
 	Timeout    time.Duration
 }
 
-func NewHealthChecker() *HealthChecker {
-	return &HealthChecker{
+func NewFtlHealthChecker() *FtlHealthChecker {
+	return &FtlHealthChecker{
 		MaxRetries: 30,
 		Interval:   2 * time.Second,
 		Timeout:    5 * time.Second,
 	}
 }
 
-func (hc *HealthChecker) Check(host string, port int, path string) (bool, error) {
+func (hc *FtlHealthChecker) Check(host string, port int, path string) (bool, error) {
 	for attempt := 0; attempt < hc.MaxRetries; attempt++ {
 		addr := net.JoinHostPort(host, fmt.Sprintf("%d", port))
 		conn, err := net.DialTimeout("tcp", addr, hc.Timeout)
@@ -237,7 +237,7 @@ func (hc *HealthChecker) Check(host string, port int, path string) (bool, error)
 		hc.MaxRetries, host, port, path)
 }
 
-func (hc *HealthChecker) CheckService(svc *FTLServiceConfig, host string) (bool, error) {
+func (hc *FtlHealthChecker) CheckService(svc *FTLServiceConfig, host string) (bool, error) {
 	port := svc.Port
 	if svc.HealthCheck.Port > 0 {
 		port = svc.HealthCheck.Port
@@ -251,7 +251,7 @@ func (hc *HealthChecker) CheckService(svc *FTLServiceConfig, host string) (bool,
 		retries = svc.HealthCheck.Retries
 	}
 
-	checker := &HealthChecker{
+	checker := &FtlHealthChecker{
 		MaxRetries: retries,
 		Interval:   hc.Interval,
 		Timeout:    hc.Timeout,
@@ -400,7 +400,7 @@ func (m *SSHTunnelManager) ListTunnels() []SSHTunnel {
 type FTLDeployEngine struct {
 	DataDir       string
 	Validator     *ConfigValidator
-	HealthChecker *HealthChecker
+	FtlHealthChecker *FtlHealthChecker
 	NginxGen      *NginxConfigGenerator
 	TunnelMgr     *SSHTunnelManager
 
@@ -420,7 +420,7 @@ func NewFTLDeployEngine(dataDir string) *FTLDeployEngine {
 	return &FTLDeployEngine{
 		DataDir:       dataDir,
 		Validator:     NewConfigValidator(),
-		HealthChecker: NewHealthChecker(),
+		FtlHealthChecker: NewFtlHealthChecker(),
 		NginxGen:      NewNginxConfigGenerator(),
 		TunnelMgr:     NewSSHTunnelManager(),
 		configs:       make(map[string]*FTLProjectConfig),

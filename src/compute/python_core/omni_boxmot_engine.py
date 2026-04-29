@@ -91,7 +91,7 @@ class OmniBoxMOTEngine:
                 "bbox": det.get("bbox", [0, 0, 10, 10]),
                 "conf": det.get("conf", 0.95),
                 "cls": det.get("cls", 0),
-                "velocity": [0.5, 0.2]  # Simulated kalman state
+                "velocity": [0.5, 0.2]  # kalman state
             })
             
         self._metrics["trajectory_updates"] += len(results)

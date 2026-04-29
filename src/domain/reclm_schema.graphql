@@ -1,0 +1,9 @@
+type RecLMPrediction {
+    id: ID!
+    score: Float!
+    confidence: Float!
+}
+
+type Query {
+    getPrediction(userId: ID!): RecLMPrediction
+}

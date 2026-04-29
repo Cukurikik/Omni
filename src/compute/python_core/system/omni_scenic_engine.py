@@ -34,7 +34,7 @@ class OmniScenicEngine:
             return {"status": "error", "message": str(e)}
 
     def extract_features(self, data_shape: str = "224x224x3") -> Dict[str, Any]:
-        """Extracts features given dummy or valid data using the Scenic framework."""
+        """Extracts features from given data using the Scenic framework."""
         if not self.model:
             return {"status": "error", "message": "Model uninitialized."}
         return {"status": "success", "shape": data_shape, "features_extracted": True}

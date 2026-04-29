@@ -1,0 +1,24 @@
+package omni.business.medgraphrag;
+
+import omni.core.OmniResult;
+
+rule "Critical Drug Interaction"
+    when
+        $patient: Patient( $meds: activeMedications )
+        eval($meds.contains("Warfarin") && $meds.contains("Aspirin"))
+    then
+        OmniResult result = new OmniResult();
+        result.setError("CRITICAL: Severe bleeding risk detected.");
+        result.setOk(false);
+        insert(result);
+end
+
+rule "Standard Protocol Check"
+    when
+        $patient: Patient( age > 65 )
+    then
+        OmniResult result = new OmniResult();
+        result.setValue("Proceed with geriatric protocol");
+        result.setOk(true);
+        insert(result);
+end

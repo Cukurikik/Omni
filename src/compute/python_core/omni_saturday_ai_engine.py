@@ -4,7 +4,7 @@ OmniSaturdayAIEngine — Production-Grade AI Inference Sync
 Absorbed from: GRVYDEV/S.A.T.U.R.D.A.Y
 
 Key patterns learned and implemented:
-- Eliminates hardcoded external API limits wrapping Voice wake-word detection loops intrinsically tracking purely local.
+- Eliminates external API limits wrapping Voice wake-word detection loops intrinsically tracking purely local.
 - Abstract TTS matrix routing mappings explicitly tracking data limits naturally.
 - Establishes pipeline bounds ensuring robust STT->Logic->TTS flow securely natively natively.
 

@@ -26,8 +26,8 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 
 ## Convention
 
-| File | Handler Function | URL |
-|------|-----------------|-----|
-| `users.go` | `UsersHandler` | `/api/auto/users` |
+| File                 | Handler Function        | URL                         |
+| -------------------- | ----------------------- | --------------------------- |
+| `users.go`           | `UsersHandler`          | `/api/auto/users`           |
 | `payment_history.go` | `PaymentHistoryHandler` | `/api/auto/payment-history` |
-| `health_check.go` | `HealthCheckHandler` | `/api/auto/health-check` |
+| `health_check.go`    | `HealthCheckHandler`    | `/api/auto/health-check`    |

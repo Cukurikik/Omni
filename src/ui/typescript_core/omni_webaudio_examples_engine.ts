@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_webaudio_examples_engine.ts
 // Production-Grade Web Audio API Examples & Utilities Engine
@@ -143,6 +143,17 @@ registerProcessor('${processorName}', ${processorName});`;
             status: "success",
             data: { totalNodes: this.nodes.size, totalConnections: this.connections.length,
                     nodeTypes, sampleRate: this.sampleRate },
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniWebaudioExamplesEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

@@ -1,0 +1,20 @@
+# Data Prep Kit GraphQL Schema
+type OmniResult {
+  isOk: Boolean!
+  error: String
+}
+
+type DataJob {
+  jobId: ID!
+  status: String!
+  recordsProcessed: Int!
+}
+
+type Query {
+  getJobStatus(jobId: ID!): DataJob
+}
+
+type Mutation {
+  startDeduplication(datasetId: ID!): OmniResult!
+  startPiiRedaction(datasetId: ID!): OmniResult!
+}

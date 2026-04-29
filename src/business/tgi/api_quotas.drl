@@ -1,0 +1,11 @@
+package rules.tgi
+import omni.tgi.TokenUsage
+import omni.common.OmniResult
+
+rule "Enforce API Token Quotas"
+when
+    $usage : TokenUsage( consumed > quotaLimit )
+then
+    $usage.denyRequest();
+    insert(new OmniResult(false, "Rate limit exceeded for TGI", false));
+end

@@ -1,0 +1,14 @@
+# Omni Anchoring WAF (CloudFormation)
+# Infrastructure Layer: WAF for no-code LLM app endpoints.
+# Ref: AnchoringAI/anchoring-ai
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  OmniAnchoringWaf:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      DefaultAction: { Allow: {} }
+      Scope: REGIONAL
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: true
+        MetricName: OmniAnchoringWafMetric
+        SampledRequestsEnabled: true

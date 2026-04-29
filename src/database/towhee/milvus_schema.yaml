@@ -1,0 +1,31 @@
+version: "1.0"
+database: "omni_vector_db"
+collections:
+  - name: "omni_embeddings"
+    description: "Multimodal embedding storage for Towhee pipeline"
+    enable_dynamic_field: true
+    fields:
+      - name: "id"
+        data_type: "VarChar"
+        is_primary_key: true
+        auto_id: false
+        max_length: 36
+      
+      - name: "embedding"
+        data_type: "FloatVector"
+        dimension: 2048 # ResNet-50 output dimension
+      
+      - name: "source_type"
+        data_type: "VarChar"
+        max_length: 64
+        
+      - name: "metadata"
+        data_type: "JSON"
+        
+    indexes:
+      - field_name: "embedding"
+        index_type: "HNSW"
+        metric_type: "COSINE"
+        params:
+          M: 16
+          efConstruction: 200

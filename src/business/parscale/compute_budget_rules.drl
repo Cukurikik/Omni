@@ -1,0 +1,11 @@
+package rules.parscale
+import omni.parscale.TrainingJob
+import omni.common.OmniResult
+
+rule "Enforce Compute Budget Limits"
+when
+    $job : TrainingJob( estimatedCost > maxBudget )
+then
+    $job.haltScheduling();
+    insert(new OmniResult(false, "Training job exceeds compute budget constraints", false));
+end

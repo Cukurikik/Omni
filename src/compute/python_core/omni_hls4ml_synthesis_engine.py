@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: HLS4ML Hardware Bit-Precision Synthesis Engine
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 Dalam arsitektur perancangan Digital Signal Processing FPGA, model komputasi riil seperti Floating-Point 32 (FP32)

@@ -31,7 +31,7 @@ class OmniSpringBootHibernateEngine:
             orphan_relations = []
             valid_relations_count = 0
             
-            # Simulated mathematical mapping mapping constraint limits natively!
+            # Mathematical mapping mapping constraint limits natively!
             # Pass 1: Map tables strings bounds configurations structures
             for ent in entities:
                 t_name = ent.get("table")

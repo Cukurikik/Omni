@@ -14,11 +14,10 @@
 // @since 2026.4.0
 // @tags ["voip", "server", "udp", "teamspeak"]
 
-package network
+package go_core
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"net"

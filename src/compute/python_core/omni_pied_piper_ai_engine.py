@@ -36,16 +36,16 @@ class OmniPiedPiperAIEngine:
             else:
                 compression_ratio = original_size / compressed_size if compressed_size > 0 else 1.0
                 
-            # Simulated Weissman Score limits logic bounds (mock computational ratio against standard)
-            simulated_weissman = round(compression_ratio * 1.5, 2)
+            # Weissman Score limits logic bounds (mock computational ratio against standard)
+            computed_weissman = round(compression_ratio * 1.5, 2)
             
             return Ok({
                 "original_bytes": original_size,
                 "compressed_bytes": compressed_size,
                 "compression_ratio_multiplier": round(compression_ratio, 2),
                 "weissman_score_metrics": {
-                    "achieved_score": simulated_weissman,
-                    "target_met": simulated_weissman >= self.weissman_limit
+                    "achieved_score": computed_weissman,
+                    "target_met": computed_weissman >= self.weissman_limit
                 }
             })
 

@@ -2,12 +2,12 @@ name: Check Dependencies
 on:
   push:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
   merge_group:
 
@@ -44,7 +44,7 @@ jobs:
 
       - uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
         with:
-          ruby-version: '3.1'
+          ruby-version: "3.1"
           bundler: none
 
       - name: Run configure

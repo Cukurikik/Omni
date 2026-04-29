@@ -40,7 +40,7 @@ class OmniUbuntuDevSettingsEngine:
             installed_packages = sys_metrics.get("packages", [])
             missing_pkgs = []
             
-            # Simulated array iteration mapping boundary intersections constraints limits!
+            # Array iteration mapping boundary intersections constraints limits!
             for req in required_packages:
                 if req not in installed_packages:
                     missing_pkgs.append(req)

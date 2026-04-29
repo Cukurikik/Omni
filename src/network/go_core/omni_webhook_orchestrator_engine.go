@@ -17,7 +17,7 @@
 // external dependencies—no message broker, no Redis, no Kafka needed
 // for moderate-scale systems (up to ~10k events/sec on a single node).
 
-package omni_webhook_orchestrator
+package go_core
 
 import (
 	"context"

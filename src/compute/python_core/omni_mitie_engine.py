@@ -89,7 +89,7 @@ class SentenceChunkingEvaluator:
             })
             
         except Exception as e:
-            return Err(f"Simulated entity isolation matrix failed: {e}")
+            return Err(f"Entity isolation matrix failed: {e}")
 
 
 # ---------------------------------------------------------------------------

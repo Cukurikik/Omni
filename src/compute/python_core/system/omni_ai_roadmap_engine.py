@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for AI/ML Learning Roadmap Orchestration.
 
@@ -26,7 +26,7 @@ Covers the complete AI/ML learning roadmap (0 to 100):
 @since   7.0.0 (Semester 7 - Batch 4)
 """
 import logging
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 

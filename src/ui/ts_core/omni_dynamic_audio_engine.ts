@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * omni_dynamic_audio_engine.ts
@@ -140,5 +140,16 @@ export class OmniDynamicAudioEngine {
         this.scriptNode = null;
         this.writePos = 0;
         this.readPos = 0;
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "DynamicAudioEngineError",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

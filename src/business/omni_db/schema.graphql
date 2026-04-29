@@ -1,0 +1,5 @@
+type DatabasePage {
+    id: ID!
+    sizeBytes: Int!
+    checksum: String!
+}

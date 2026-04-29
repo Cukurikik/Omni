@@ -122,7 +122,7 @@ class OmniGenerativeAiDocsEngine:
                     {
                         "content": {
                             "parts": [
-                                {"text": f"Simulated response mapped via {model}."}
+                                {"text": f"Response mapped via {model}."}
                             ],
                             "role": "model"
                         },
@@ -152,7 +152,7 @@ class OmniGenerativeAiDocsEngine:
             "total_generations": self._history_count,
             "features": [
                 "generation_config_parsing",
-                "safety_threshold_simulation",
+                "safety_threshold_computation",
                 "multi_modal_prompt_orchestration",
             ]
         }

@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI AUTONOMOUS SLEEP RESEARCH ENGINE (SEMESTER 5 — BATCH 30)
@@ -46,6 +46,17 @@ export class OmniAutonomousSleepResearchEngine {
             status: "healthy",
             queued_jobs: this.jobQueue.length,
             learned_from: "wanshuiyin/Auto-claude-code-research-in-sleep"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAutonomousSleepResearchEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

@@ -26,7 +26,6 @@
 
 </div>
 
-
 <div align="center">
   <br>
 <img src="https://d3dg1063dc54p9.cloudfront.net/videos/demo-26.gif" alt="video-example-of-docs-gpt" width="800" height="480">
@@ -47,6 +46,7 @@
 </ul>
 
 ## Roadmap
+
 - [x] Add OAuth 2.0 authentication for MCP ( September 2025 )
 - [x] Deep Agents ( October 2025 )
 - [x] Prompt Templating ( October 2025 )

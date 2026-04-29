@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI TENSORFLOW COURSE ENGINE (SEMESTER 5 — BATCH 22)
@@ -63,6 +63,17 @@ export class OmniTensorflowCourseEngine {
             status: "healthy",
             topics_indexed: this.catalog.size,
             learned_from: "instillai/TensorFlow-Course"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniTensorflowCourseEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

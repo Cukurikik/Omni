@@ -1,0 +1,104 @@
+[package]
+name = "omni_batch17_nexus"
+version = "17.0.0"
+authors = ["ANTIGRAVITY MOTHER <mother@omni.framework>"]
+description = "OMNI Semester 13 Batch 17 Universal Bridge Nexus"
+license = "OMNI-Open"
+edition = "omni-2026"
+
+[dependencies]
+# Group 1: Concurrency / Multimodal Deep Agents
+knowledge_net = { path = "../concurrency/knowledge_net/omni_knowledge_net_agent.ts" }
+supercut = { path = "../ui/supercut/omni_supercut_engine.ts" }
+sarama_ondevice = { path = "../ui/sarama_ondevice/omni_sarama_ondevice.swift" }
+hera_emotion = { path = "../compute/hera_emotion/omni_hera_emotion.ts" }
+
+# Group 2: Advanced Compute / 3D / Security
+hunyuan3d = { path = "../compute/hunyuan3d/omni_hunyuan3d_engine.py" }
+exovip_verification = { path = "../compute/exovip_verification/omni_exovip_verification.py" }
+tijo_defense = { path = "../compute/tijo_defense/omni_tijo_backdoor_defense.py" }
+flash_v3 = { path = "../compute/flash_v3/omni_flash_v3_attention.py" }
+ktransformer = { path = "../compute/ktransformer/omni_ktransformer_core.py" }
+
+# Group 3: Video & Audio Generative Logic
+video_s1 = { path = "../compute/video_s1/omni_video_s1_engine.py" }
+x_portrait_2 = { path = "../compute/x_portrait2/omni_x_portrait_2.py" }
+stream_any_v = { path = "../compute/stream_any_v/omni_stream_any_v.py" }
+f5_tts = { path = "../compute/f5_tts/omni_f5_tts_engine.py" }
+mamba3d = { path = "../compute/mamba3d/omni_mamba_3d_engine.py" }
+
+# Group 4: High-Fidelity Generative Synthesis
+hyvideo = { path = "../compute/hyvideo/omni_hyvideo_engine.py" }
+hallo2 = { path = "../compute/hallo2/omni_hallo2_audio_video.py" }
+lumina_t2x = { path = "../compute/lumina_t2x/omni_lumina_t2x.py" }
+seed_story = { path = "../compute/seed_story/omni_seed_story_engine.py" }
+stable_audio = { path = "../compute/stable_audio/omni_stable_audio_tools.py" }
+
+[bridge]
+# Deterministic monadic orchestrations across layers for Batch 17
+
+@omni_nexus_workflow
+fn orchestrate_multimodal_agent_synthesis(
+    query: String,
+    base_audio: Vec<f64>,
+    base_identity: Vec<f64>
+) -> Result<Map<String, Any>, NexusError> {
+    
+    // 1. Deep Research (Knowledge Net)
+    let research_task = { taskId: "B17_01", query: query, depth: 3 };
+    let research_res = ts::knowledge_net::OmniKnowledgeNetAgent::new()
+                        .executeDeepResearch(research_task)?;
+                        
+    // 2. Tijo Backdoor Analysis on Query / Graph
+    let tijo_res = py::tijo_defense::OmniTijoBackdoorDefense::new()
+                    .scan_for_backdoor(build_mock_hidden(research_res.knowledgeGraphNodes), [1, 2, 3])?;
+                    
+    if tijo_res.is_compromised {
+        return Err(NexusError::SecurityBreach("TIJO triggered on Knowledge Graph."));
+    }
+    
+    // 3. Audio TTS from Research (F5 TTS)
+    let phonemes = map_to_phonemes(research_res.knowledgeGraphNodes[0]);
+    let audio_res = py::f5_tts::OmniF5TtsEngine::new()
+                     .generate_flow_alignment(phonemes, 100)?;
+                     
+    // 4. Hallo2 Audio-to-Video Lip Sync using Base Identity
+    let hallo2_res = py::hallo2::OmniHallo2AudioVideo::new()
+                      .calculate_lip_sync_pose(audio_res.duration_map, base_identity)?;
+                      
+    // 5. Emotion Classification on result (Hera Emotion)
+    let emotion_res = ts::hera_emotion::OmniHeraEmotion::new()
+                       .evaluateMultimodalEmotion([1,2,3], [1,2,3], [1,2,3])?;
+                       
+    Ok({
+        "status": "success",
+        "nodes": research_res.knowledgeGraphNodes,
+        "emotion": emotion_res.fusedEmotion,
+        "video_frames_aligned": hallo2_res.total_frames
+    })
+}
+
+@omni_nexus_workflow
+fn compile_ondevice_supercut(
+    clips: Vec<ClipData>,
+    keyword: String
+) -> Result<Map<String, Any>, NexusError> {
+    
+    // 1. Apple On-Device Model Memory Allocation
+    let device_res = swift::sarama_ondevice::OmniSaramaOnDevice::new()
+                      .allocateNeuralBackend({ "vram_priority": 1 }, 1024)?;
+                      
+    // 2. Perform Video S1 bounds analysis on clips
+    // (In reality this maps frame intensity, here simulated conceptually)
+    let parser = py::video_s1::OmniVideoS1Engine::new();
+    
+    // 3. Supercut Timeline Assembly
+    let supercut_res = ts::supercut::OmniSupercutEngine::new("Intense")
+                        .buildSupercutTimeline(clips, keyword)?;
+                        
+    Ok({
+        "timeline": supercut_res.timelineOperations,
+        "duration": supercut_res.totalDurationMs,
+        "memory_ptr": device_res.nativeTensorPtr
+    })
+}

@@ -1,0 +1,58 @@
+# OmniFederatedSchema - OMNI Business Layer
+# 
+# Defines the absolute strict schema contract for data exchange 
+# between all polyglot microservices via GraphQL Federation.
+
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0",
+        import: ["@key", "@shareable", "@provides", "@external", "@requires"])
+
+type OmniResult {
+  ok: Boolean!
+  error: String
+}
+
+"""
+The universal entity for tracking OMNI System Transactions.
+It uses standard DDD aggregates mapped to GraphQL boundaries.
+"""
+type OmniTransaction @key(fields: "id") {
+  id: ID!
+  timestamp: String!
+  status: TransactionStatus!
+  initiatingLayer: LayerType!
+  
+  """
+  Monadic response representing the completion state of the transaction.
+  """
+  completionResult: OmniResult!
+}
+
+enum TransactionStatus {
+  PENDING
+  COMMITTED
+  ROLLED_BACK
+  FAILED_MONADIC
+}
+
+enum LayerType {
+  SYSTEM
+  COMPUTE
+  NETWORK
+  DOMAIN
+  UI
+}
+
+type Query {
+  """
+  Fetches a transaction by ID. Never throws, always returns structural data or OmniResult.
+  """
+  getOmniTransaction(id: ID!): OmniTransaction
+}
+
+type Mutation {
+  """
+  Executes a cross-layer operation safely.
+  """
+  dispatchCrossLayerEvent(layer: LayerType!, payload: String!): OmniResult!
+}

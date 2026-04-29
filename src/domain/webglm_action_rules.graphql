@@ -1,0 +1,22 @@
+# OMNI Domain Layer - WebGLM Action Rules
+@schema
+type WebAction {
+  id: ID!
+  elementSelector: String!
+  actionType: String!
+  value: String
+}
+
+type Query {
+  validateAction(actionType: String!): Boolean!
+}
+
+type Mutation {
+  recordAction(action: WebActionInput!): WebAction!
+}
+
+input WebActionInput {
+  elementSelector: String!
+  actionType: String!
+  value: String
+}

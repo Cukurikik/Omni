@@ -37,7 +37,7 @@ class OmniVuexStateManagementEngine:
                 m_val = mut.get("payload", 1) # default 1 numeric boundary geometry
                 
                 if m_type == "INCREMENT":
-                    # Simulated dynamic numeric mapping bounds logic mapping geometry numerical limit matrices
+                    # Dynamic numeric mapping bounds logic mapping geometry numerical limit matrices
                     for k in state:
                         state[k] += int(m_val)
                     mutations_applied += 1
@@ -53,7 +53,7 @@ class OmniVuexStateManagementEngine:
                     mutations_failed.append(m_type)
                     
             return Ok({
-                "mutations_traced_simulated": len(mutations),
+                "mutations_traced_computed": len(mutations),
                 "successful_state_transitions": mutations_applied,
                 "unsupported_mutation_types": mutations_failed,
                 "final_state_snapshot_matrix": state,

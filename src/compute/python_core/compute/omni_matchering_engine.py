@@ -54,7 +54,7 @@ class OmniMatcheringEngine:
 
     def align_master_volumes(self) -> Dict[str, Any]:
         """
-        Performs the logic extraction across simulated physical PCM arrays
+        Performs the logic extraction across Physical PCM arrays
         to prove computational integration capability locally.
         """
         start_time = time.time()

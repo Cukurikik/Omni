@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI AI CAREER ROADMAP ENGINE (SEMESTER 5 — BATCH 12)
 // ===========================================================================
 // Absorbed From  : AMAI-GmbH/AI-Expert-Roadmap
@@ -179,6 +179,17 @@ export class OmniAICareerRoadmapEngine {
             totalSkills: this.skillTree.length,
             totalRoles: Object.keys(ROLE_REQUIREMENTS).length,
             learned_from: "AMAI-GmbH/AI-Expert-Roadmap",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAICareerRoadmapEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

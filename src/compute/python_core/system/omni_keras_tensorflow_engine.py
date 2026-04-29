@@ -57,7 +57,7 @@ class OmniKerasTensorflowEngine:
             total_params = 0
             for lw in layers:
                 if lw.get("type") == "Dense":
-                    total_params += (lw.get("units", 10) * 10) # dummy calculus
+                    total_params += (lw.get("units", 10) * lw.get("input_dim", 10))  # param estimate
 
             self._compiled_graphs[model_name] = {
                 "layers": layers,

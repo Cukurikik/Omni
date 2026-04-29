@@ -2,12 +2,12 @@ name: Cross compile
 on:
   push:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
     # Do not use paths-ignore for required status checks
     # https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/troubleshooting-required-status-checks

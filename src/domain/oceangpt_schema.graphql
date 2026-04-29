@@ -1,0 +1,9 @@
+type MarineData {
+    id: ID!
+    temperature: Float!
+    salinity: Float!
+}
+
+type Query {
+    getMarineData(locId: ID!): MarineData
+}

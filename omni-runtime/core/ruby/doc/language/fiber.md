@@ -209,8 +209,8 @@ However you should generally avoid this unless you are implementing a scheduler.
 
 By default, I/O is non-blocking. Not all operating systems support non-blocking
 I/O. Windows is a notable example where socket I/O can be non-blocking but pipe
-I/O is blocking. Provided that there *is* a scheduler and the current thread *is
-non-blocking*, the operation will invoke the scheduler.
+I/O is blocking. Provided that there _is_ a scheduler and the current thread _is
+non-blocking_, the operation will invoke the scheduler.
 
 ##### `IO#close`
 

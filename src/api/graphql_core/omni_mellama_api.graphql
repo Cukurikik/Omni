@@ -1,0 +1,7 @@
+# Omni Medical LLM API (GraphQL)
+# API Layer: Schema for Me-LLaMA medical inference.
+# Ref: BIDS-Xu-Lab/Me-LLaMA
+
+type MedicalEntity { text: String!, entityType: String!, confidence: Float! }
+type InferenceResult { entities: [MedicalEntity!]!, modelUsed: String!, tokensProcessed: Int! }
+type Query { extractEntities(text: String!, model: String!): InferenceResult! }

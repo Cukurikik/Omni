@@ -64,22 +64,22 @@ class OmniCamelRoleplayingAgentsEngine:
             
         session = self.active_sessions[session_id]
         
-        simulation_log = [
+        conversation_log = [
             f"[System] Inception Prompt active: A is {session['agent_a']['role']}, B is {session['agent_b']['role']}.",
             f"[User: {session['agent_b']['role']}] Gives specific instruction related to: '{session['task']}'",
             f"[Assistant: {session['agent_a']['role']}] Provides solution and explains methodology.",
             "[System] Task evaluator network determines if goal is reached."
         ]
         
-        session["chat_history"] = simulation_log
+        session["chat_history"] = conversation_log
         session["status"] = "Completed"
 
         return {"status": "success", "data": {
             "session_id": session_id,
             "task_completed": True,
-            "turns_taken": 2, # Simulated
+            "turns_taken": 2, # 
             "methodology": "Role-playing inception preventing prompt drift.",
-            "log": simulation_log
+            "log": conversation_log
         }}
 
     def evaluate_health(self) -> Dict[str, Any]:

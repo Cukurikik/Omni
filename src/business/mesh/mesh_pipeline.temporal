@@ -1,0 +1,35 @@
+// OMNI Business Layer: mesh_pipeline.temporal
+// Temporal SDK workflow for MeshAnything 3D generation.
+// Bounds: Max 5 retry attempts per workflow step to prevent infinite loops.
+
+import { proxyActivities, sleep } from '@temporalio/workflow';
+import type * as activities from './activities';
+
+const { generatePointCloud, createVoxelGrid, synthesizeMesh } = proxyActivities<typeof activities>({
+  startToCloseTimeout: '10 minutes',
+  retry: {
+    maximumAttempts: 5, // Strict retry bound
+  },
+});
+
+export interface OmniError {
+    code: number;
+    message: string;
+}
+
+export interface OmniResult<T> {
+    data: T | null;
+    error: OmniError | null;
+}
+
+export async function meshAnythingWorkflow(imageUri: string): Promise<OmniResult<string>> {
+  try {
+    const pointCloud = await generatePointCloud(imageUri);
+    const voxelGrid = await createVoxelGrid(pointCloud);
+    const meshUri = await synthesizeMesh(voxelGrid);
+    
+    return { data: meshUri, error: null };
+  } catch (err: any) {
+    return { data: null, error: { code: 1, message: `Workflow failed after bounded retries: ${err.message}` }};
+  }
+}

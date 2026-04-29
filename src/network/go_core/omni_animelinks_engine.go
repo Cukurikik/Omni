@@ -9,6 +9,7 @@
 package go_core
 
 import (
+	"log"
 	"errors"
 	"fmt"
 	"math"

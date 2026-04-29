@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI ML5JS WEB CAPABILITIES ENGINE (SEMESTER 5 — BATCH 32)
@@ -41,6 +41,17 @@ export class OmniMl5jsWebCapabilitiesEngine {
             layer: "Interface/WebML",
             status: "healthy",
             learned_from: "ml5js/ml5-library"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMl5jsWebCapabilitiesEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

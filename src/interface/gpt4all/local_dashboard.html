@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI GPT4All - Local Edge Dashboard</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .dashboard-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .metric-title { font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+        .metric-value { font-size: 32px; font-weight: bold; color: #2c3e50; }
+        .status-indicator { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #2ecc71; margin-right: 8px; }
+        progress { width: 100%; height: 20px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1000px; margin: 0 auto 20px auto; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="margin: 0; color: #2c3e50;">OMNI GPT4All Telemetry</h1>
+        <div><span class="status-indicator"></span>Model Loaded: <strong>Llama-2-7B.gguf</strong></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- CPU Usage -->
+        <div class="card">
+            <div class="metric-title">Thread Pool Usage (Edge CPU)</div>
+            <div class="metric-value">6 / 8 Cores</div>
+            <progress value="75" max="100"></progress>
+        </div>
+
+        <!-- Token Speed -->
+        <div class="card">
+            <div class="metric-title">Inference Speed</div>
+            <div class="metric-value">14.2 tok/s</div>
+            <div style="margin-top: 10px; color: #666; font-size: 14px;">Prompt Eval: 45.1 tok/s</div>
+        </div>
+
+        <!-- Memory -->
+        <div class="card">
+            <div class="metric-title">RAM Utilization (Mmap)</div>
+            <div class="metric-value">4.1 GB</div>
+            <progress value="4.1" max="16.0" style="accent-color: #e67e22;"></progress>
+            <div style="margin-top: 5px; text-align: right; font-size: 12px; color: #888;">System Total: 16 GB</div>
+        </div>
+
+        <!-- Generation Context -->
+        <div class="card">
+            <div class="metric-title">Context Window</div>
+            <div class="metric-value">845 / 4096</div>
+            <progress value="845" max="4096" style="accent-color: #9b59b6;"></progress>
+            <div style="margin-top: 5px; font-size: 14px; color: #666;">RoPE Scaling: <span style="color:#2ecc71">Inactive</span></div>
+        </div>
+    </div>
+</body>
+</html>

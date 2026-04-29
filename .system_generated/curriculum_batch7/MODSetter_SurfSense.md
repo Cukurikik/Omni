@@ -1,7 +1,5 @@
 <a href="https://www.surfsense.com/"><img width="1584" height="396" alt="readme_banner" src="https://github.com/user-attachments/assets/9361ef58-1753-4b6e-b275-5020d8847261" /></a>
 
-
-
 <div align="center">
 <a href="https://discord.gg/ejRNvftDp9">
 <img src="https://img.shields.io/discord/1359368468260192417" alt="Discord">
@@ -45,18 +43,13 @@ NotebookLM is one of the best and most useful AI platforms out there, but once y
 
 ...and more to come.
 
-
-
 ## Video Agent Sample
 
 https://github.com/user-attachments/assets/012a7ffa-6f76-4f06-9dda-7632b470057a
 
-
-
 ## Podcast Agent Sample
 
 https://github.com/user-attachments/assets/a0a16566-6967-4374-ac51-9b3e07fbecd7
-
 
 ## How to Use SurfSense
 
@@ -75,50 +68,38 @@ https://github.com/user-attachments/assets/a0a16566-6967-4374-ac51-9b3e07fbecd7
 <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/DocUploadGif.gif" alt="Upload Documents" /></p>
 
 4. Once everything is indexed, Ask Away (Use Cases):
-
    - Desktop App — General Assist
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/general_assist.gif" alt="General Assist" /></p>
-
    - Desktop App — Quick Assist
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/quick_assist.gif" alt="Quick Assist" /></p>
-
    - Desktop App — Extreme Assist
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/extreme_assist.gif" alt="Extreme Assist" /></p>
-
    - Desktop App — Watch Local Folder
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/folder_watch.gif" alt="Watch Local Folder" /></p>
-
    - Video Generation
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/video_gen_gif.gif" alt="Video Generation" /></p>
-
    - Basic search and citation
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/BSNCGif.gif" alt="Search and Citation" /></p>
-
    - Document Mention QNA
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/BQnaGif_compressed.gif" alt="Document Mention QNA" /></p>
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/BQnaGif_compressed.gif" alt="Document Mention QNA" /></p>
-
    - Report Generations and Exports (PDF, DOCX, HTML, LaTeX, EPUB, ODT, Plain Text)
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/ReportGenGif_compressed.gif" alt="Report Generation" /></p>
-
    - Podcast Generations
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/PodcastGenGif.gif" alt="Podcast Generation" /></p>
-
    - Image Generations
 
    <p align="center"><img src="surfsense_web/public/homepage/hero_tutorial/ImageGenGif.gif" alt="Image Generation" /></p>
-
    - And more coming soon.
-
 
 ### Self Hosted
 
@@ -179,28 +160,28 @@ All features operate against your chosen search space, so your answers are alway
 
 ## SurfSense vs Google NotebookLM
 
-| Feature | Google NotebookLM | SurfSense |
-|---------|-------------------|-----------|
-| **Sources per Notebook** | 50 (Free) to 600 (Ultra, $249.99/mo) | Unlimited |
-| **Number of Notebooks** | 100 (Free) to 500 (paid tiers) | Unlimited |
-| **Source Size Limit** | 500,000 words / 200MB per source | No limit |
-| **Pricing** | Free tier available; Pro $19.99/mo, Ultra $249.99/mo | Free and open source, self-host on your own infra |
-| **LLM Support** | Google Gemini only | 100+ LLMs via OpenAI spec & LiteLLM |
-| **Embedding Models** | Google only | 6,000+ embedding models, all major rerankers |
-| **Local / Private LLMs** | Not available | Full support (vLLM, Ollama) - your data stays yours |
-| **Self Hostable** | No | Yes - Docker one-liner or full Docker Compose |
-| **Open Source** | No | Yes |
-| **External Connectors** | Google Drive, YouTube, websites | 27+ connectors - Search Engines, Google Drive, OneDrive, Dropbox, Slack, Teams, Jira, Notion, GitHub, Discord & [more](#external-sources) |
-| **File Format Support** | PDFs, Docs, Slides, Sheets, CSV, Word, EPUB, images, web URLs, YouTube | 50+ formats - documents, images, videos via LlamaCloud, Unstructured, or Docling (local) |
-| **Search** | Semantic search | Hybrid Search - Semantic + Full Text with Hierarchical Indices & Reciprocal Rank Fusion |
-| **Cited Answers** | Yes | Yes - Perplexity-style cited responses |
-| **Agentic Architecture** | No | Yes - powered by [LangChain Deep Agents](https://docs.langchain.com/oss/python/deepagents/overview) with planning, subagents, and file system access |
-| **Real-Time Multiplayer** | Shared notebooks with Viewer/Editor roles (no real-time chat) | RBAC with Owner / Admin / Editor / Viewer roles, real-time chat & comment threads |
-| **Video Generation** | Cinematic Video Overviews via Veo 3 (Ultra only) | Available (NotebookLM is better here, actively improving) |
-| **Presentation Generation** | Better looking slides but not editable | Create editable, slide-based presentations |
-| **Podcast Generation** | Audio Overviews with customizable hosts and languages | Available with multiple TTS providers (NotebookLM is better here, actively improving) |
-| **Desktop App** | No | Native app with General Assist, Quick Assist, Extreme Assist, and local folder sync |
-| **Browser Extension** | No | Cross-browser extension to save any webpage, including auth-protected pages |
+| Feature                     | Google NotebookLM                                                      | SurfSense                                                                                                                                            |
+| --------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Sources per Notebook**    | 50 (Free) to 600 (Ultra, $249.99/mo)                                   | Unlimited                                                                                                                                            |
+| **Number of Notebooks**     | 100 (Free) to 500 (paid tiers)                                         | Unlimited                                                                                                                                            |
+| **Source Size Limit**       | 500,000 words / 200MB per source                                       | No limit                                                                                                                                             |
+| **Pricing**                 | Free tier available; Pro $19.99/mo, Ultra $249.99/mo                   | Free and open source, self-host on your own infra                                                                                                    |
+| **LLM Support**             | Google Gemini only                                                     | 100+ LLMs via OpenAI spec & LiteLLM                                                                                                                  |
+| **Embedding Models**        | Google only                                                            | 6,000+ embedding models, all major rerankers                                                                                                         |
+| **Local / Private LLMs**    | Not available                                                          | Full support (vLLM, Ollama) - your data stays yours                                                                                                  |
+| **Self Hostable**           | No                                                                     | Yes - Docker one-liner or full Docker Compose                                                                                                        |
+| **Open Source**             | No                                                                     | Yes                                                                                                                                                  |
+| **External Connectors**     | Google Drive, YouTube, websites                                        | 27+ connectors - Search Engines, Google Drive, OneDrive, Dropbox, Slack, Teams, Jira, Notion, GitHub, Discord & [more](#external-sources)            |
+| **File Format Support**     | PDFs, Docs, Slides, Sheets, CSV, Word, EPUB, images, web URLs, YouTube | 50+ formats - documents, images, videos via LlamaCloud, Unstructured, or Docling (local)                                                             |
+| **Search**                  | Semantic search                                                        | Hybrid Search - Semantic + Full Text with Hierarchical Indices & Reciprocal Rank Fusion                                                              |
+| **Cited Answers**           | Yes                                                                    | Yes - Perplexity-style cited responses                                                                                                               |
+| **Agentic Architecture**    | No                                                                     | Yes - powered by [LangChain Deep Agents](https://docs.langchain.com/oss/python/deepagents/overview) with planning, subagents, and file system access |
+| **Real-Time Multiplayer**   | Shared notebooks with Viewer/Editor roles (no real-time chat)          | RBAC with Owner / Admin / Editor / Viewer roles, real-time chat & comment threads                                                                    |
+| **Video Generation**        | Cinematic Video Overviews via Veo 3 (Ultra only)                       | Available (NotebookLM is better here, actively improving)                                                                                            |
+| **Presentation Generation** | Better looking slides but not editable                                 | Create editable, slide-based presentations                                                                                                           |
+| **Podcast Generation**      | Audio Overviews with customizable hosts and languages                  | Available with multiple TTS providers (NotebookLM is better here, actively improving)                                                                |
+| **Desktop App**             | No                                                                     | Native app with General Assist, Quick Assist, Extreme Assist, and local folder sync                                                                  |
+| **Browser Extension**       | No                                                                     | Cross-browser extension to save any webpage, including auth-protected pages                                                                          |
 
 <details>
 <summary><b>Full list of External Sources</b></summary>
@@ -210,9 +191,7 @@ Search Engines (Tavily, LinkUp) · SearxNG · Google Drive · OneDrive · Dropbo
 
 </details>
 
-
 ## FEATURE REQUESTS AND FUTURE
-
 
 **SurfSense is actively being developed.** While it's not yet production-ready, you can help us speed up the process.
 
@@ -226,7 +205,6 @@ Check out our public roadmap and contribute your ideas or feedback:
 **Roadmap Discussion:** [SurfSense 2026 Roadmap](https://github.com/MODSetter/SurfSense/discussions/565)
 
 **Kanban Board:** [SurfSense Project Board](https://github.com/users/MODSetter/projects/3)
-
 
 ## Contribute
 
@@ -249,7 +227,9 @@ Thanks to all our Surfers:
 </a>
 
 ---
+
 ---
+
 <p align="center">
     <img 
       src="https://github.com/user-attachments/assets/329c9bc2-6005-4aed-a629-700b5ae296b4" 
@@ -259,4 +239,5 @@ Thanks to all our Surfers:
 </p>
 
 ---
+
 ---

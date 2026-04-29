@@ -10,6 +10,7 @@ Algorithmic Primitive:
     validate an entity instance against its schema. Compute a validation
     report with per-property pass/fail status and aggregate validity.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import re
 import sys, os

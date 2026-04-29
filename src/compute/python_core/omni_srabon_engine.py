@@ -51,7 +51,7 @@ class OmniSrabonEngine(OmniBaseEngine):
 
     def review_item(self, user_id: str, item_id: str, current_time: int, successful_recall: bool) -> Result[int, str]:
         """
-        Updates pedagogical intervals deterministically simulating SuperMemo SM-2 math constraints.
+        Updates pedagogical intervals deterministically computing SuperMemo SM-2 math constraints.
         """
         if user_id not in self.user_states:
             return Result.fail("Invalid topographical reference.")

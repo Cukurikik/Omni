@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EvalPlus Leaderboard</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0d1117; color: #c9d1d9; }
+        .table-container { max-width: 1200px; margin: auto; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border-bottom: 1px solid #30363d; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <h1>EvalPlus Rigorous Code Leaderboard</h1>
+        <table id="leaderboard">
+            <thead>
+                <tr><th>Model</th><th>Pass@1</th><th>Pass@10</th></tr>
+            </thead>
+            <tbody>
+                <!-- Populated via API, bound to 100 rows -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function updateLeaderboard(data) {
+            if (data.length > 100) {
+                console.error("OmniResult: Err(DOM Row Limit Exceeded)");
+                return;
+            }
+            // DOM manipulation
+        }
+    </script>
+</body>
+</html>

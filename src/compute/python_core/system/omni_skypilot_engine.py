@@ -78,7 +78,7 @@ class OmniSkyPilotEngine:
             if active_hours < 0:
                 raise ValueError("Cost matrices deny fractional time allocations falling behind 0.")
                 
-            projected_cost = active_hours * 2.50 # Simulated baseline $2.50/hr
+            projected_cost = active_hours * 2.50 # baseline $2.50/hr
             exceeded = projected_cost > self.cost_threshold if self.cost_threshold > 0 else False
             
             return {

@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI JAMMER ENGINE (SEMESTER 5 — BATCH 4)
 // ===========================================================================
 // Absorbed From  : jooapa/jammer
@@ -61,5 +61,16 @@ export class OmniJammerEngine {
     public evaluateHealth(): Record<string, any> {
         return { engine: "OmniJammerEngine", layer: "Interface", status: "healthy",
                  tracks: this.tracks.size, learned_from: "jooapa/jammer" };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniJammerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

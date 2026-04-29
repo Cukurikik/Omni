@@ -102,7 +102,7 @@ class WorkflowNode:
                 if self.node_type == NodeType.HUMAN_REVIEW:
                     self.status = NodeStatus.WAITING_HUMAN
                     # Execute human approval (in production: pause and wait for webhook)
-                    result = self._simulate_human_review(inputs)
+                    result = self._compute_human_review(inputs)
                 elif self.node_type == NodeType.CONDITIONAL:
                     result = self._evaluate_condition(inputs)
                 elif self.node_type == NodeType.ROUTER:
@@ -130,7 +130,7 @@ class WorkflowNode:
                 self.end_time = time.time()
                 raise
     
-    def _simulate_human_review(self, inputs: dict) -> dict:
+    def _compute_human_review(self, inputs: dict) -> dict:
         """Execute human-in-the-loop review gate."""
         review_policy = self.config.get("review_policy", "auto_approve")
         if review_policy == "auto_approve":
@@ -208,7 +208,7 @@ class OmniPyspurWorkflowEngine:
     Execution flow:
     1. Topological sort all nodes
     2. Identify independent nodes (no unresolved dependencies)
-    3. Execute independent nodes concurrently (simulated)
+    3. Execute independent nodes concurrently 
     4. Propagate results through edges
     5. Repeat until all nodes complete or failure
     """

@@ -5,9 +5,9 @@ fixed-size element on memory among extension libraries.
 
 ## Disclaimer
 
-* This feature is still experimental.  The specification described here can be changed in the future.
+- This feature is still experimental. The specification described here can be changed in the future.
 
-* This document is under construction.  Please refer the master branch of ruby for the latest version of this document.
+- This document is under construction. Please refer the master branch of ruby for the latest version of this document.
 
 ## Overview
 
@@ -15,7 +15,7 @@ We sometimes deal with certain kinds of objects that have arrays of the same typ
 Numo::NArray in numo-narray and Magick::Image in rmagick are typical examples of such objects.
 MemoryView plays the role of the hub to share the internal data of such objects without copy among such libraries.
 
-Copy-less sharing of data is very important in some field such as data analysis, machine learning, and image processing.  In these field, people need to handle large amount of on-memory data with several libraries.  If we are forced to copy to exchange large data among libraries, a large amount of the data processing time must be occupied by copying data.  You can avoid such wasting time by using MemoryView.
+Copy-less sharing of data is very important in some field such as data analysis, machine learning, and image processing. In these field, people need to handle large amount of on-memory data with several libraries. If we are forced to copy to exchange large data among libraries, a large amount of the data processing time must be occupied by copying data. You can avoid such wasting time by using MemoryView.
 
 MemoryView has two categories of APIs:
 
@@ -30,7 +30,7 @@ MemoryView has two categories of APIs:
 ## MemoryView structure
 
 A MemoryView structure, `rb_memory_view_t`, is used for exporting objects' MemoryView.
-This structure contains the reference of the object, which is the owner of the MemoryView, the pointer to the head of exported memory, and the metadata that describes the structure of the memory.  The metadata can describe multidimensional arrays with strides.
+This structure contains the reference of the object, which is the owner of the MemoryView, the pointer to the head of exported memory, and the metadata that describes the structure of the memory. The metadata can describe multidimensional arrays with strides.
 
 ### The member of MemoryView structure
 
@@ -40,7 +40,7 @@ The MemoryView structure consists of the following members.
 
     The reference to the original object that has the memory exported via the MemoryView.
 
-    RubyVM manages the reference count of the MemoryView-exported objects to guard them from the garbage collection.  The consumers do not have to struggle to guard this object from GC.
+    RubyVM manages the reference count of the MemoryView-exported objects to guard them from the garbage collection. The consumers do not have to struggle to guard this object from GC.
 
 - `void *data`
 
@@ -100,13 +100,13 @@ The MemoryView structure consists of the following members.
 
 - `bool rb_memory_view_available_p(VALUE obj)`
 
-    Return `true` if `obj` supports to export a MemoryView.  Return `false` otherwise.
+    Return `true` if `obj` supports to export a MemoryView. Return `false` otherwise.
 
     If this function returns `true`, it doesn't mean the function `rb_memory_view_get` will succeed.
 
 - `bool rb_memory_view_get(VALUE obj, rb_memory_view_t *view, int flags)`
 
-    If the given `obj` supports to export a MemoryView that conforms the given `flags`, this function fills `view` by the information of the MemoryView and returns `true`.  In this case, the reference count of `obj` is increased.
+    If the given `obj` supports to export a MemoryView that conforms the given `flags`, this function fills `view` by the information of the MemoryView and returns `true`. In this case, the reference count of `obj` is increased.
 
     If the given combination of `obj` and `flags` cannot export a MemoryView, this function returns `false`. The content of `view` is not touched in this case.
 
@@ -116,7 +116,7 @@ The MemoryView structure consists of the following members.
 
     Release the given MemoryView `view` and decrement the reference count of `view->obj`.
 
-    Consumers must call this function when the MemoryView is no longer needed.  Missing to call this function leads memory leak.
+    Consumers must call this function when the MemoryView is no longer needed. Missing to call this function leads memory leak.
 
 - `ssize_t rb_memory_view_item_size_from_format(const char *format, const char **err)`
 
@@ -138,30 +138,30 @@ The MemoryView structure consists of the following members.
 
 - `rb_memory_view_init_as_byte_array(rb_memory_view_t *view, VALUE obj, void *data, const ssize_t len, const bool readonly)`
 
-  Fill the members of `view` as an 1-dimensional byte array.
+    Fill the members of `view` as an 1-dimensional byte array.
 
 - `void rb_memory_view_fill_contiguous_strides(const ssize_t ndim, const ssize_t item_size, const ssize_t *const shape, const bool row_major_p, ssize_t *const strides)`
 
-  Fill the `strides` array with byte-Strides of a contiguous array of the given shape with the given element size.
+    Fill the `strides` array with byte-Strides of a contiguous array of the given shape with the given element size.
 
 - `void rb_memory_view_prepare_item_desc(rb_memory_view_t *view)`
 
-  Fill the `item_desc` member of `view`.
+    Fill the `item_desc` member of `view`.
 
 - `bool rb_memory_view_is_contiguous(const rb_memory_view_t *view)`
 
-  Return `true` if the data in the MemoryView `view` is row-major or column-major contiguous.
+    Return `true` if the data in the MemoryView `view` is row-major or column-major contiguous.
 
-  Return `false` otherwise.
+    Return `false` otherwise.
 
 - `bool rb_memory_view_is_row_major_contiguous(const rb_memory_view_t *view)`
 
-  Return `true` if the data in the MemoryView `view` is row-major contiguous.
+    Return `true` if the data in the MemoryView `view` is row-major contiguous.
 
-  Return `false` otherwise.
+    Return `false` otherwise.
 
 - `bool rb_memory_view_is_column_major_contiguous(const rb_memory_view_t *view)`
 
-  Return `true` if the data in the MemoryView `view` is column-major contiguous.
+    Return `true` if the data in the MemoryView `view` is column-major contiguous.
 
-  Return `false` otherwise.
+    Return `false` otherwise.

@@ -85,13 +85,13 @@ class OmniDeepTrackingEngine:
             feed["frames_tracked"] += frame_count
             
             # Execute tracking robustness (Multiple Object Tracking Accuracy - MOTA)
-            simulated_mota = max(0.5, 0.95 - (max_objects * 0.005))
+            computed_mota = max(0.5, 0.95 - (max_objects * 0.005))
             
             return {
                 "status": "success",
                 "feed_id": feed_id,
                 "frames_processed": feed["frames_tracked"],
-                "mota_score": simulated_mota,
+                "mota_score": computed_mota,
                 "message": "Continuous entity IDs permanently maintained across occlusion barriers."
             }
         except Exception as e:

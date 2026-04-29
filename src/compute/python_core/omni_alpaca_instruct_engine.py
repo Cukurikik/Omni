@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI ALPACA INSTRUCT ENGINE (SEMESTER 5 — BATCH 12)
 # ===========================================================================
 # Absorbed From  : tatsu-lab/stanford_alpaca
@@ -25,7 +25,6 @@ OMNI Layer: compute (Python)
 """
 import logging
 import json
-import random
 import hashlib
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
@@ -157,7 +156,7 @@ class OmniAlpacaInstructEngine:
 
         generated = []
         for i in range(n_samples):
-            seed = random.choice(pool)
+            seed = pool[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % len(pool)]
             # Template expansion: modify the seed slightly
             variation = InstructionSample(
                 instruction=f"{seed.instruction} (variation {i+1})",

@@ -16,7 +16,10 @@
 // ==========================================
 
 declare const OmniNative: {
-    syscall: (command: string, args: Record<string, unknown>) => Record<string, unknown>;
+  syscall: (
+    command: string,
+    args: Record<string, unknown>,
+  ) => Record<string, unknown>;
 };
 
 // ==========================================
@@ -24,28 +27,28 @@ declare const OmniNative: {
 // ==========================================
 
 export interface SynapseResponse<T = any> {
-    status: number;
-    headers: Record<string, string>;
-    data: T;
+  status: number;
+  headers: Record<string, string>;
+  data: T;
 }
 
 export interface SynapseConfig {
-    modulePath: string;
-    moduleName: string;
-    appVar: string;
+  modulePath: string;
+  moduleName: string;
+  appVar: string;
 }
 
 export interface SynapseStatus {
-    initialized: boolean;
-    fastapi_loaded: boolean;
-    app_module: string;
-    app_var: string;
-    total_calls: number;
-    avg_latency_ns: number;
-    avg_latency_us: number;
-    uptime_seconds: number;
-    mode: string;
-    bridge: string;
+  initialized: boolean;
+  fastapi_loaded: boolean;
+  app_module: string;
+  app_var: string;
+  total_calls: number;
+  avg_latency_ns: number;
+  avg_latency_us: number;
+  uptime_seconds: number;
+  mode: string;
+  bridge: string;
 }
 
 // ==========================================
@@ -68,12 +71,12 @@ export interface SynapseStatus {
  * });
  */
 export function igniteFastAPI(config?: Partial<SynapseConfig>): void {
-    const res = OmniNative.syscall("synapse_ignite", {
-        module_path: config?.modulePath ?? "./api",
-        module_name: config?.moduleName ?? "main",
-        app_var: config?.appVar ?? "app",
-    });
-    if (res.error) throw new Error(`[OMNI-SYNAPSE] Ignite gagal: ${res.error}`);
+  const res = OmniNative.syscall("synapse_ignite", {
+    module_path: config?.modulePath ?? "./api",
+    module_name: config?.moduleName ?? "main",
+    app_var: config?.appVar ?? "app",
+  });
+  if (res.error) throw new Error(`[OMNI-SYNAPSE] Ignite gagal: ${res.error}`);
 }
 
 // ==========================================
@@ -100,80 +103,80 @@ export function igniteFastAPI(config?: Partial<SynapseConfig>): void {
  * console.log(result.skor_ai); // 0.99
  */
 export function pyFetch<T = any>(
-    route: string,
-    payload?: any,
-    options?: {
-        method?: string;
-        headers?: Record<string, string>;
-        query?: string;
-    }
+  route: string,
+  payload?: any,
+  options?: {
+    method?: string;
+    headers?: Record<string, string>;
+    query?: string;
+  },
 ): T {
-    const method = options?.method ?? (payload ? "POST" : "GET");
-    const body = payload ? JSON.stringify(payload) : "";
+  const method = options?.method ?? (payload ? "POST" : "GET");
+  const body = payload ? JSON.stringify(payload) : "";
 
-    const res = OmniNative.syscall("synapse_call", {
-        method,
-        route,
-        body,
-        query: options?.query ?? "",
-        headers: {
-            "content-type": "application/json",
-            ...(options?.headers ?? {}),
-        },
-    });
+  const res = OmniNative.syscall("synapse_call", {
+    method,
+    route,
+    body,
+    query: options?.query ?? "",
+    headers: {
+      "content-type": "application/json",
+      ...(options?.headers ?? {}),
+    },
+  });
 
-    if (res.error) throw new Error(`[OMNI-SYNAPSE] ${res.error}`);
+  if (res.error) throw new Error(`[OMNI-SYNAPSE] ${res.error}`);
 
-    const data = res.data as string;
+  const data = res.data as string;
 
-    // Auto-parse JSON response
-    try {
-        return JSON.parse(data) as T;
-    } catch {
-        return data as unknown as T;
-    }
+  // Auto-parse JSON response
+  try {
+    return JSON.parse(data) as T;
+  } catch {
+    return data as unknown as T;
+  }
 }
 
 /**
  * pyFetch dengan full response metadata (status, headers, body).
  */
 export function pyFetchFull<T = any>(
-    route: string,
-    payload?: any,
-    options?: {
-        method?: string;
-        headers?: Record<string, string>;
-        query?: string;
-    }
+  route: string,
+  payload?: any,
+  options?: {
+    method?: string;
+    headers?: Record<string, string>;
+    query?: string;
+  },
 ): SynapseResponse<T> {
-    const method = options?.method ?? (payload ? "POST" : "GET");
-    const body = payload ? JSON.stringify(payload) : "";
+  const method = options?.method ?? (payload ? "POST" : "GET");
+  const body = payload ? JSON.stringify(payload) : "";
 
-    const res = OmniNative.syscall("synapse_call", {
-        method,
-        route,
-        body,
-        query: options?.query ?? "",
-        headers: {
-            "content-type": "application/json",
-            ...(options?.headers ?? {}),
-        },
-    });
+  const res = OmniNative.syscall("synapse_call", {
+    method,
+    route,
+    body,
+    query: options?.query ?? "",
+    headers: {
+      "content-type": "application/json",
+      ...(options?.headers ?? {}),
+    },
+  });
 
-    if (res.error) throw new Error(`[OMNI-SYNAPSE] ${res.error}`);
+  if (res.error) throw new Error(`[OMNI-SYNAPSE] ${res.error}`);
 
-    const status = res.status as number;
-    const headers = res.headers as Record<string, string>;
-    const data = res.data as string;
+  const status = res.status as number;
+  const headers = res.headers as Record<string, string>;
+  const data = res.data as string;
 
-    let parsedData: T;
-    try {
-        parsedData = JSON.parse(data) as T;
-    } catch {
-        parsedData = data as unknown as T;
-    }
+  let parsedData: T;
+  try {
+    parsedData = JSON.parse(data) as T;
+  } catch {
+    parsedData = data as unknown as T;
+  }
 
-    return { status, headers, data: parsedData };
+  return { status, headers, data: parsedData };
 }
 
 // ==========================================
@@ -184,35 +187,35 @@ export function pyFetchFull<T = any>(
  * GET request ke FastAPI route.
  */
 export function pyGet<T = any>(route: string, query?: string): T {
-    return pyFetch<T>(route, undefined, { method: "GET", query });
+  return pyFetch<T>(route, undefined, { method: "GET", query });
 }
 
 /**
  * POST request ke FastAPI route.
  */
 export function pyPost<T = any>(route: string, payload: any): T {
-    return pyFetch<T>(route, payload, { method: "POST" });
+  return pyFetch<T>(route, payload, { method: "POST" });
 }
 
 /**
  * PUT request ke FastAPI route.
  */
 export function pyPut<T = any>(route: string, payload: any): T {
-    return pyFetch<T>(route, payload, { method: "PUT" });
+  return pyFetch<T>(route, payload, { method: "PUT" });
 }
 
 /**
  * DELETE request ke FastAPI route.
  */
 export function pyDelete<T = any>(route: string): T {
-    return pyFetch<T>(route, undefined, { method: "DELETE" });
+  return pyFetch<T>(route, undefined, { method: "DELETE" });
 }
 
 /**
  * PATCH request ke FastAPI route.
  */
 export function pyPatch<T = any>(route: string, payload: any): T {
-    return pyFetch<T>(route, payload, { method: "PATCH" });
+  return pyFetch<T>(route, payload, { method: "PATCH" });
 }
 
 // ==========================================
@@ -223,8 +226,8 @@ export function pyPatch<T = any>(route: string, payload: any): T {
  * Dapatkan status OMNI-SYNAPSE engine.
  */
 export function getSynapseStatus(): SynapseStatus {
-    const res = OmniNative.syscall("synapse_status", {});
-    return res as unknown as SynapseStatus;
+  const res = OmniNative.syscall("synapse_status", {});
+  return res as unknown as SynapseStatus;
 }
 
 // ==========================================
@@ -232,15 +235,15 @@ export function getSynapseStatus(): SynapseStatus {
 // ==========================================
 
 export const synapse = {
-    ignite: igniteFastAPI,
-    call: pyFetch,
-    callFull: pyFetchFull,
-    get: pyGet,
-    post: pyPost,
-    put: pyPut,
-    delete: pyDelete,
-    patch: pyPatch,
-    status: getSynapseStatus,
+  ignite: igniteFastAPI,
+  call: pyFetch,
+  callFull: pyFetchFull,
+  get: pyGet,
+  post: pyPost,
+  put: pyPut,
+  delete: pyDelete,
+  patch: pyPatch,
+  status: getSynapseStatus,
 };
 
 export default synapse;

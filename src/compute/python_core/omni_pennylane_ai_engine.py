@@ -2,7 +2,7 @@
 OMNI PennyLane AI Engine
 ========================
 Production-grade abstraction inspired by PennyLaneAI/pennylane.
-Omit massive quantum circuit simulators and unitary physics dependencies,
+Omit massive quantum circuit solvers and unitary physics dependencies,
 resolving wave state rotation phases strictly via Numpy cosine/sine bounding arrays.
 
 OMNI Layer: compute (Python)

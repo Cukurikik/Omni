@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI ML CURRICULUM ENGINE (SEMESTER 5 — BATCH 13)
 // ===========================================================================
 // Absorbed From  : ZuzooVn/machine-learning-for-software-engineers
@@ -151,6 +151,17 @@ export class OmniMLCurriculumEngine {
             totalMilestones: this.curriculum.length,
             activeLearners: this.learnerData.size,
             learned_from: "ZuzooVn/machine-learning-for-software-engineers",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMLCurriculumEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

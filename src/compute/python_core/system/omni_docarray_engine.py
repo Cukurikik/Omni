@@ -84,7 +84,7 @@ class OmniDocArrayEngine:
             
             for d in docs:
                 if "embedding" in d:
-                    # Simulated L2 Distance
+                    # L2 Distance
                     v = d["embedding"]
                     if len(v) != len(query_vector):
                         continue

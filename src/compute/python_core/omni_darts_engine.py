@@ -194,7 +194,7 @@ class OmniDARTSEngine:
         return Ok(x)  # passthrough for non-1D
 
     def op_sep_conv(self, x: np.ndarray, kernel_size: int = 3, seed: int = 0) -> Result:
-        """Simulated separable convolution (depthwise + pointwise).
+        """Separable convolution (depthwise + pointwise).
 
         For 1D signals: applies random filter as proxy.
         @param x: 1D input.

@@ -29,8 +29,8 @@ type DeployTarget struct {
 	DeployTo string // remote directory
 }
 
-// DeployConfig defines the deployment pipeline.
-type DeployConfig struct {
+// SyncdDeployConfig defines the deployment pipeline.
+type SyncdDeployConfig struct {
 	ProjectName   string
 	SourceDir     string
 	Targets       []DeployTarget
@@ -110,13 +110,13 @@ func (rh *ReleaseHistory) Count() int {
 // ---- Deploy Engine --------------------------------------------------------
 
 type SyncdDeployer struct {
-	config   DeployConfig
+	config   SyncdDeployConfig
 	history  map[string]*ReleaseHistory // target.Name → history
 	results  []DeployResult
 	mu       sync.Mutex
 }
 
-func NewSyncdDeployer(config DeployConfig) *SyncdDeployer {
+func NewSyncdDeployer(config SyncdDeployConfig) *SyncdDeployer {
 	history := make(map[string]*ReleaseHistory)
 	for _, t := range config.Targets {
 		history[t.Name] = newReleaseHistory(config.KeepReleases)

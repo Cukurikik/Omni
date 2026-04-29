@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_midiplayer_engine.ts
 // Production-Grade MIDI Player Engine
@@ -277,6 +277,17 @@ export class OmniMidiplayerEngine {
                 tempoChanges: this.tempoMap.length,
                 avgBpm: Math.round(avgBpm * 100) / 100,
             },
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMidiplayerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

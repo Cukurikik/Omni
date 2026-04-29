@@ -4,18 +4,18 @@ Ruby Box is designed to provide separated spaces in a Ruby process, to isolate a
 
 ## Known issues
 
-* Experimental warning is shown when ruby starts with `RUBY_BOX=1` (specify `-W:no-experimental` option to hide it)
-* Installing native extensions may fail under `RUBY_BOX=1` because of stack level too deep in extconf.rb
-* `require 'active_support/core_ext'` may fail under `RUBY_BOX=1`
-* Defined methods in a box may not be referred by built-in methods written in Ruby
+- Experimental warning is shown when ruby starts with `RUBY_BOX=1` (specify `-W:no-experimental` option to hide it)
+- Installing native extensions may fail under `RUBY_BOX=1` because of stack level too deep in extconf.rb
+- `require 'active_support/core_ext'` may fail under `RUBY_BOX=1`
+- Defined methods in a box may not be referred by built-in methods written in Ruby
 
 ## TODOs
 
-* Add the loaded box on iseq to check if another box tries running the iseq (add a field only when VM_CHECK_MODE?)
-* Assign its own TOPLEVEL_BINDING in boxes
-* Fix calling `warn` in boxes to refer `$VERBOSE` and `Warning.warn` in the box
-* Make an internal data container class `Ruby::Box::Entry` invisible
-* More test cases about `$LOAD_PATH` and `$LOADED_FEATURES`
+- Add the loaded box on iseq to check if another box tries running the iseq (add a field only when VM_CHECK_MODE?)
+- Assign its own TOPLEVEL_BINDING in boxes
+- Fix calling `warn` in boxes to refer `$VERBOSE` and `Warning.warn` in the box
+- Make an internal data container class `Ruby::Box::Entry` invisible
+- More test cases about `$LOAD_PATH` and `$LOADED_FEATURES`
 
 ## How to use
 
@@ -70,8 +70,8 @@ p s.x  # 1
 
 There are two box types:
 
-* Root box
-* User boxes
+- Root box
+- User boxes
 
 There is the root box, just a single box in a Ruby process. Ruby bootstrap runs in the root box, and all builtin classes/modules are defined in the root box. (See "Builtin classes and modules".)
 
@@ -131,9 +131,9 @@ The main box and `box` are different boxes, so monkey patches in main are also i
 
 In the box context, "builtin" classes and modules are classes and modules:
 
-* Accessible without any `require` calls in user scripts
-* Defined before any user program start running
-* Including classes/modules loaded by `prelude.rb` (including RubyGems `Gem`, for example)
+- Accessible without any `require` calls in user scripts
+- Defined before any user program start running
+- Including classes/modules loaded by `prelude.rb` (including RubyGems `Gem`, for example)
 
 Hereafter, "builtin classes and modules" will be referred to as just "builtin classes".
 
@@ -261,11 +261,11 @@ Once a file is loaded in a box `box`, all methods/procs defined/created in the f
 
 Several methods are available for trying/testing Ruby Box.
 
-* `Ruby::Box.current` returns the current box
-* `Ruby::Box.enabled?` returns true/false to represent `RUBY_BOX=1` is specified or not
-* `Ruby::Box.root` returns the root box
-* `Ruby::Box.main` returns the main box
-* `Ruby::Box#eval` evaluates a Ruby code (String) in the receiver box, just like calling `#load` with a file
+- `Ruby::Box.current` returns the current box
+- `Ruby::Box.enabled?` returns true/false to represent `RUBY_BOX=1` is specified or not
+- `Ruby::Box.root` returns the root box
+- `Ruby::Box.main` returns the main box
+- `Ruby::Box#eval` evaluates a Ruby code (String) in the receiver box, just like calling `#load` with a file
 
 ## Implementation details
 
@@ -342,13 +342,13 @@ But in the worst case, a script (without `require "openssl"`) runs well in `box1
 
 An option possible to prevent this situation is to have "root" and "builtin" boxes.
 
-* root
-  * The box for the Ruby process bootstrap, then the source of CoW
-  * After starting the main box, no code runs in this box
-* builtin
-  * The box copied from the root box at the same time with "main"
-  * Methods and procs defined in the "root" box run in this box
-  * Classes and modules required will be loaded in this box
+- root
+    - The box for the Ruby process bootstrap, then the source of CoW
+    - After starting the main box, no code runs in this box
+- builtin
+    - The box copied from the root box at the same time with "main"
+    - Methods and procs defined in the "root" box run in this box
+    - Classes and modules required will be loaded in this box
 
 This design realizes a consistent source of box CoW.
 

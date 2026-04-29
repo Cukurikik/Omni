@@ -1,0 +1,19 @@
+type Query {
+  compressKVCache(modelId: String!, seqLen: Int!, ratio: Float!): KVCacheResult!
+  cacheMetrics(modelId: String!): CacheMetrics!
+}
+type KVCacheResult {
+  originalTokens: Int!
+  compressedTokens: Int!
+  memorySavedMB: Float!
+  compressionRatio: Float!
+}
+type CacheMetrics {
+  modelId: String!
+  avgCompressionRatio: Float!
+  totalRequestsServed: Int!
+  peakMemoryMB: Float!
+}
+type Mutation {
+  setCompressionStrategy(modelId: String!, strategy: String!, ratio: Float!): Boolean!
+}

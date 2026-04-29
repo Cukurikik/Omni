@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for TensorFlow.NET Cross-Runtime ML Orchestration.
 
@@ -24,7 +24,7 @@ Covers the full cross-runtime ML pipeline:
 @since   7.0.0 (Semester 7 - Batch 4)
 """
 import logging
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -274,10 +274,10 @@ class OmniTFDotNetEngine:
         history = []
 
         for epoch in range(1, epochs + 1):
-            train_loss = max(0.01, 2.5 / (epoch + 1) + random.gauss(0, 0.05))
-            val_loss = train_loss + random.uniform(0.01, 0.15)
-            train_acc = min(0.99, 0.5 + 0.05 * epoch + random.gauss(0, 0.02))
-            val_acc = train_acc - random.uniform(0.01, 0.05)
+            train_loss = max(0.01, 2.5 / (epoch + 1) + (((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * 0.05))
+            val_loss = train_loss + round(0.01 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.15 - 0.01), 4)
+            train_acc = min(0.99, 0.5 + 0.05 * epoch + (((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * 0.02))
+            val_acc = train_acc - round(0.01 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.05 - 0.01), 4)
 
             epoch_record = {
                 "epoch": epoch,
@@ -343,7 +343,7 @@ class OmniTFDotNetEngine:
             "extension": fmt_spec["extension"],
             "output_path": f"{output_path}{fmt_spec['extension']}",
             "architecture": self._model_config["architecture"] if self._model_config else "unknown",
-            "file_size_mb": round(random.uniform(1.5, 120.0), 1),
+            "file_size_mb": round(round(1.5 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (120.0 - 1.5), 4), 1),
             "exported_at": time.strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
 
@@ -373,8 +373,8 @@ class OmniTFDotNetEngine:
         if num_iterations < 1:
             return {"status": "error", "message": "num_iterations must be >= 1"}
 
-        python_latency_ms = round(random.uniform(0.5, 5.0), 2)
-        csharp_latency_ms = round(python_latency_ms * random.uniform(0.85, 1.15), 2)
+        python_latency_ms = round(round(0.5 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (5.0 - 0.5), 4), 2)
+        csharp_latency_ms = round(python_latency_ms * round(0.85 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (1.15 - 0.85), 4), 2)
 
         return {
             "status": "success",

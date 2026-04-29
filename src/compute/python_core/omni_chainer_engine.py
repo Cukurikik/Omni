@@ -1,4 +1,4 @@
-"""
+﻿"""
 OmniChainerEngine — Native Define-by-Run Deep Learning Framework.
 
 Studied from: chainer/chainer (5.9k★)
@@ -10,10 +10,11 @@ OMNI Domain: compute/ (Python)
 CODE RULE 001-005 compliant. Zero external ML dependencies.
 """
 
+import numpy as np
 from __future__ import annotations
 
 import math
-import random
+import hashlib
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional, Tuple, Any
 
@@ -201,7 +202,7 @@ class Linear:
         # Xavier init
         limit = math.sqrt(6.0 / (in_features + out_features))
         self.weights: List[Vector] = [
-            [random.uniform(-limit, limit) for _ in range(out_features)]
+            [round(-limit + ((int(hashlib.sha256(f"-limit:limit".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit - -limit), 4) for _ in range(out_features)]
             for _ in range(in_features)
         ]
         self.bias: Vector = [0.0 for _ in range(out_features)]

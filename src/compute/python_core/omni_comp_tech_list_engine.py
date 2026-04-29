@@ -1,4 +1,5 @@
 """OmniCompTechListEngine - Technology stack architectural density and compatibility analysis."""
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from src.compute.python_core.omni_base_engine import Result, Ok, Err
 class OmniCompTechListEngine:
     """OMNI Production Engine: OmniCompTechListEngine. Zero-Prod compliant."""

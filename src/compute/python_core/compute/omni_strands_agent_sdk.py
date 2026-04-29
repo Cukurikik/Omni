@@ -391,7 +391,7 @@ class OmniAgent:
             
             # Call model
             self.hooks.invoke(BeforeModelCallEvent(self, turn=turn))
-            model_response = self._simulate_model_call()
+            model_response = self._compute_model_call()
             self.hooks.invoke(AfterModelCallEvent(self, response=model_response))
             
             stop_reason = model_response.get("stop_reason", "end_turn")
@@ -441,7 +441,7 @@ class OmniAgent:
         
         return AgentResult("max_turns", {"role": "assistant", "content": "Max turns reached"}, self.metrics, self.state.to_dict())
     
-    def _simulate_model_call(self) -> dict:
+    def _compute_model_call(self) -> dict:
         """Execute model inference (deterministic for testing)."""
         last_msg = self.messages[-1] if self.messages else {}
         content = last_msg.get("content", "")

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Multi-Modal In-Context Instruction Tuning (Otter).
 
@@ -24,7 +24,7 @@ Covers the full multi-modal pipeline:
 @since   7.0.0 (Semester 7 - Batch 4)
 """
 import logging
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -246,8 +246,8 @@ class OmniMultimodalOtterEngine:
         modality = "video" if video_frames > 0 else ("image" if image_description else "text_only")
 
         # Execute response generation
-        response_tokens = random.randint(50, max_new_tokens)
-        latency_ms = response_tokens * random.uniform(8, 25)
+        response_tokens = (50 + (int(hashlib.sha256(f"50:max_new_tokens".encode()).hexdigest()[:8], 16) % max(1, max_new_tokens - 50 + 1)))
+        latency_ms = response_tokens * round(8 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (25 - 8), 4)
 
         response_text = (
             f"[Model: {self._active_model}] Based on the {modality} input, "
@@ -370,15 +370,15 @@ class OmniMultimodalOtterEngine:
         for b in benchmarks:
             spec = _BENCHMARKS[b]
             if spec["metric"] == "accuracy":
-                score = round(random.uniform(40.0, 85.0), 1)
+                score = round(round(40.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (85.0 - 40.0), 4), 1)
             elif spec["metric"] == "f1_score":
-                score = round(random.uniform(60.0, 92.0), 1)
+                score = round(round(60.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (92.0 - 60.0), 4), 1)
             elif spec["metric"] == "gpt4_score":
-                score = round(random.uniform(25.0, 65.0), 1)
+                score = round(round(25.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (65.0 - 25.0), 4), 1)
             elif spec["metric"] == "score":
-                score = round(random.uniform(800.0, 1600.0), 1)
+                score = round(round(800.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (1600.0 - 800.0), 4), 1)
             else:
-                score = round(random.uniform(50.0, 90.0), 1)
+                score = round(round(50.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (90.0 - 50.0), 4), 1)
 
             results[b] = {
                 "score": score,

@@ -62,7 +62,8 @@ service cloud.firestore {
   }
 }
 ```
-*See [security_rules.md](security_rules.md) for how to write actual rules.*
+
+_See [security_rules.md](security_rules.md) for how to write actual rules._
 
 ### 3. Create `firestore.indexes.json`
 
@@ -75,10 +76,10 @@ Create a file named `firestore.indexes.json` with an empty configuration to star
 }
 ```
 
-*See [indexes.md](indexes.md) for how to configure indexes.*
-
+_See [indexes.md](indexes.md) for how to configure indexes._
 
 ## Deploy rules and indexes
+
 ```bash
 # To deploy all rules and indexes
 firebase deploy --only firestore

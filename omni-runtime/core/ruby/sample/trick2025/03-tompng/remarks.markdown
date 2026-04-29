@@ -15,8 +15,8 @@ cat 4 + 1 5 + 4 + 1 8 = | ruby -run -e colorize
 
 I confirmed the following implementations/platforms:
 
-* ruby 3.4.1 (2024-12-25 revision 48d4efcb85) +YJIT +MN +PRISM [arm64-darwin22]
-* ruby 3.3.0 (2023-12-25 revision 5124f9ac75) +YJIT +MN [arm64-darwin22]
+- ruby 3.4.1 (2024-12-25 revision 48d4efcb85) +YJIT +MN +PRISM [arm64-darwin22]
+- ruby 3.3.0 (2023-12-25 revision 5124f9ac75) +YJIT +MN [arm64-darwin22]
 
 ### Description
 

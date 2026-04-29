@@ -5,7 +5,7 @@ Production-grade OMNI engine abstracting cross-language boundary
 integrations. Inspired by arbox/machine-learning-with-ruby.
 
 Features:
-- Simulated foreign memory spaces binding to Ruby ecosystem (SciRuby, Rumale).
+- Foreign memory spaces binding to Ruby ecosystem (SciRuby, Rumale).
 - Execution routing validating algorithm contexts mapping logic execution.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -51,13 +51,13 @@ Result = Union[Ok, Err]
 
 class OmniRubyMlInteropEngine:
     """
-    Production Engine providing FFI (Foreign Function Interface) simulations
+    Production Engine providing FFI (Foreign Function Interface) computations
     bridging OMNI Python -> OMNI Ruby frameworks.
     """
     VERSION = "1.0.0"
     ENGINE_ID = "omni-ruby-ml-interop"
 
-    # Simulated mapping of available native Ruby libraries
+    # mapping of available native Ruby libraries
     KNOWN_RUBY_GEMS = {
         "rumale": "Machine learning library in Ruby (scikit-learn counterpart).",
         "sciruby": "Scientific computing in Ruby.",

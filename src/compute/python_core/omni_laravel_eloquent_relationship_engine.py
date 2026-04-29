@@ -45,14 +45,14 @@ class OmniLaravelEloquentRelationshipEngine:
             max_depth = max(depths) if depths else 0
             
             # Count implicit queries Variables maps Configurations Lists configurations Sets Sequences vectors Strings arrays Limits Limits Sequences limits Constraints Strings Strings Scripts limitations arrays Limits Maps
-            simulated_queries = 1 # 1 main query Variables limits limits Sequences Arrays boundaries Variables Configurations Limits arrays Loops strings
+            eager_load_queries = 1 # 1 main query Variables limits limits Sequences Arrays boundaries Variables Configurations Limits arrays Loops strings
             for path in valid_paths:
-                simulated_queries += len(path.split(".")) 
+                eager_load_queries += len(path.split(".")) 
                 
             return Ok({
                 "total_eager_load_paths": len(with_clause),
                 "maximum_relationship_depth": max_depth,
-                "n_plus_one_abatement_queries_simulated": simulated_queries,
+                "n_plus_one_abatement_queries": eager_load_queries,
                 "is_depth_within_bounds": max_depth <= self.capacity_bounds,
                 "eloquent_saturation_ratio": round(max_depth / self.capacity_bounds, 4) if self.capacity_bounds > 0 else 0.0
             })

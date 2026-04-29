@@ -27,7 +27,7 @@ class OmniUnity3dSceneGraphEngine:
             found_depth = -1
             nodes_visited = 0
             
-            # Simulated mathematical mapping depth mapping constraints recursive loops natively
+            # Mathematical mapping depth mapping constraints recursive loops natively
             def _traverse_scene_graph(node: Dict[str, Any], current_depth: int) -> bool:
                 nonlocal nodes_visited, found_depth
                 

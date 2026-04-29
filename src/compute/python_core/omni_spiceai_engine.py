@@ -42,7 +42,7 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. TIME-SERIES ANOMALY DATABASE SIMULATOR
+# 2. TIME-SERIES ANOMALY DATABASE ENGINE
 # ---------------------------------------------------------------------------
 
 class TemporalEventMatrixAggregator:
@@ -90,7 +90,7 @@ class TemporalEventMatrixAggregator:
             })
             
         except Exception as e:
-            return Err(f"Simulated Matrix Aggregate failed: {e}")
+            return Err(f"Matrix Aggregate failed: {e}")
 
 
 # ---------------------------------------------------------------------------

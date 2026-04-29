@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Auto Claude Research Engine
 ================================
 Production-grade engine for the OMNI Framework.
@@ -164,7 +164,7 @@ class OmniAutoClaudeResearchEngine:
                 
                 # Probabilistically determine next state using P
                 probs = self.P[action, current_state, :]
-                next_state = np.random.choice(self.num_states, p=probs)
+                next_state = np.self.num_states, p=probs[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.num_states, p=probs))]
                 
                 history.append({
                     "state": AgentState(current_state).name,

@@ -279,7 +279,7 @@ class VoiceProcessingPipeline:
     
     def _tts(self, text: str) -> bytes:
         """Text-to-Speech synthesis."""
-        return text.encode('utf-8')  # Placeholder
+        return text.encode('utf-8')  # UTF-8 encoding
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

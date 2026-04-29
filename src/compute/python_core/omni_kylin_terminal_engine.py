@@ -20,7 +20,7 @@ class OmniKylinTerminalEngine:
         
     def inject_node(self, parent_id: int, script_name: str, payload: str) -> Result[int, Exception]:
         """
-        Sanitizes and executes terminal injections into a simulated Cocos Creator AST root map.
+        Sanitizes and executes terminal injections into a Cocos Creator AST root map.
         Requires pure string sanitization protocols.
         """
         try:

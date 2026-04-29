@@ -55,6 +55,6 @@ class OmniAlgorithmicComplexityEngine:
 
         return Ok({
             "complexity_class": complexity,
-            "simulated_operations": hazard,
+            "computed_operations": hazard,
             "is_production_safe": is_safe
         })

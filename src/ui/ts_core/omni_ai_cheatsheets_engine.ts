@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI AI CHEATSHEETS ENGINE (SEMESTER 5 — BATCH 23)
@@ -53,6 +53,17 @@ export class OmniAiCheatsheetsEngine {
             status: "healthy",
             sheets_indexed: this.catalog.size,
             learned_from: "kailashahirwar/cheatsheets-ai"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAiCheatsheetsEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

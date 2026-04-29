@@ -1,0 +1,11 @@
+package rules.vllm
+import omni.vllm.RequestMetric
+import omni.common.OmniResult
+
+rule "Enforce SLA on Latency"
+when
+    $metric : RequestMetric( latencyMs > 2000 )
+then
+    $metric.flagViolation();
+    insert(new OmniResult(false, "SLA Violation: Latency > 2s", false));
+end

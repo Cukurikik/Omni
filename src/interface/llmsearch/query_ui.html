@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LLM Search Interface</title>
+    <style>
+        body { font-family: sans-serif; background: #222; color: #ddd; padding: 2rem; }
+        .search-box { width: 100%; padding: 10px; font-size: 1.2rem; }
+        .results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Local Document LLM Search</h1>
+    <input type="text" class="search-box" placeholder="Ask your documents..." id="query">
+    <div class="results" id="results-container"></div>
+    <script>
+        function processOmniResult(jsonResponse) {
+            try {
+                let res = JSON.parse(jsonResponse);
+                if (res.is_ok) return res.value;
+                console.error(res.error);
+                return [];
+            } catch(e) {
+                return [];
+            }
+        }
+    </script>
+</body>
+</html>

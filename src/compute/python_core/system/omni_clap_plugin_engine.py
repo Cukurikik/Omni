@@ -18,7 +18,7 @@ class OmniClapPluginEngine:
     C++ framework, but a pure C Application Binary Interface (ABI) consisting 
     solely of precisely defined struct pointers. Features exist as extensions.
     
-    Instead of execute dummy calls, OMNI structurally proves this knowledge
+    Instead of external calls, OMNI structurally proves this knowledge
     by explicitly mapping the core C structs (`clap_plugin_descriptor`, `clap_plugin`)
     using `ctypes.Structure` and `CFUNCTYPE`, proving OMNI can host these plugins directly.
     """

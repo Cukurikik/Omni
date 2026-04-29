@@ -1,3 +1,3 @@
-* Colin Fulton
-  * justcolin@gmail.com
-  * cctld: us
+- Colin Fulton
+    - justcolin@gmail.com
+    - cctld: us

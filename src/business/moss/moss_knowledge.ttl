@@ -1,0 +1,30 @@
+@prefix omni: <http://omni.nexus.dev/ontology/moss#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# OMNI Divine Memory Integration: Inspired by MOSS
+# Business Layer - Knowledge graph turtle mapping for Semantic Logic
+# Bounded to strict taxonomic depth to prevent graph explosion
+
+omni:Agent a rdfs:Class ;
+    rdfs:label "Conversational AI Agent" .
+
+omni:Tool a rdfs:Class ;
+    rdfs:label "Execution Tool" .
+
+omni:SearchTool a rdfs:Class ;
+    rdfs:subClassOf omni:Tool ;
+    rdfs:label "Web Search Tool" .
+
+# Physical Limits defined in the ontology
+omni:maxContextTokens a rdf:Property ;
+    rdfs:domain omni:Agent ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Strict physical token limit." .
+
+omni:MOSS_Instance a omni:Agent ;
+    omni:maxContextTokens 8192 ;
+    omni:hasTool omni:SearchTool_Google .
+
+omni:SearchTool_Google a omni:SearchTool .

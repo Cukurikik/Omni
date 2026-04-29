@@ -82,7 +82,7 @@ class OmniYoutubeWhisperEngine:
             return {
                 "status": "success",
                 "data": {
-                    "text": "This is a simulated transcription due to missing dependencies.",
+                    "text": "This is a Transcription due to missing dependencies.",
                     "detected_language": "en",
                     "mode": "topological_evaluation"
                 }

@@ -1,0 +1,11 @@
+package rules.codefuse
+import omni.codefuse.CodeNode
+import omni.common.OmniResult
+
+rule "Detect Deep Nesting Smell"
+when
+    $node : CodeNode( astDepth > 5, cyclomaticComplexity > 15 )
+then
+    $node.markAsSmell("High Complexity");
+    insert(new OmniResult(false, "Code smell detected: Refactoring required", false));
+end

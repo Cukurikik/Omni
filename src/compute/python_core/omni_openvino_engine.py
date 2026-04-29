@@ -41,17 +41,17 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. QUANTIZATION LATENCY SIMULATOR
+# 2. QUANTIZATION LATENCY ENGINE
 # ---------------------------------------------------------------------------
 
-class OpenVINOLatencySimulator:
+class OpenVINOLatencyEngine:
     """Calculates scaling ratios mapping memory constraints on inference bounds."""
     
     def __init__(self):
-        # Baseline mathematical bounds simulated per FLOP at FP32
-        """Initialize OpenVINOLatencySimulator."""
+        # Baseline mathematical bounds Per FLOP at FP32
+        """Initialize OpenVINOLatencyEngine."""
         self.fp32_ns_per_flop = 0.5 
-        # Simulated INT8 memory bandwidth gain matrix multiplier
+        # INT8 memory bandwidth gain matrix multiplier
         self.int8_speedup_ratio = 3.5 
         
     def evaluate_structural_quantized_inference(self, num_parameters_millions: float, is_int8: bool = False) -> Result:
@@ -67,7 +67,7 @@ class OpenVINOLatencySimulator:
             
             if is_int8:
                 resolved_latency_ns = raw_latency_ns / self.int8_speedup_ratio
-                precision_loss = 0.02 # Simulated algebraic_bound logic drop
+                precision_loss = 0.02 # algebraic_bound logic drop
             else:
                 resolved_latency_ns = raw_latency_ns
                 precision_loss = 0.0
@@ -102,9 +102,9 @@ class OmniOpenVINOEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-openvino"
 
-    def get_structural_evaluator(self) -> OpenVINOLatencySimulator:
-        """Performs get simulator operation for OmniOpenVINOEngine."""
-        return OpenVINOLatencySimulator()
+    def get_structural_evaluator(self) -> OpenVINOLatencyEngine:
+        """Performs diagnostic evaluation for OmniOpenVINOEngine."""
+        return OpenVINOLatencyEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniOpenVINOEngine."""

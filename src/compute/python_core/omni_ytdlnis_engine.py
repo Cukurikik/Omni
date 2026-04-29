@@ -84,7 +84,7 @@ class BackgroundWorkManager:
             
         job.status = "completed"
         job.file_path = f"/downloads/ytdl_{job.id}.mp4"
-        job.metadata = {"title": "Simulated Video", "uploader": "OMNI", "duration": 420}
+        job.metadata = {"title": "Video", "uploader": "OMNI", "duration": 420}
         
         self.completed_jobs[job.id] = job
         del self.active_jobs[job.id]

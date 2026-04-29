@@ -6,14 +6,14 @@ class OmniFastAPIDataRouterEngine:
     """
     omni-fastapi-data-router
     
-    Models dynamic AST tree route parsing limits. Validates endpoint paths via simulated 
+    Models dynamic AST tree route parsing limits. Validates endpoint paths via 
     Radix/Trie matching schemas natively inside python structural constraints.
     """
     
     ENGINE_VERSION = "omni-s11-b5.1.0"
     
     def __init__(self) -> None:
-        # A simple simulated trie for path routing logic
+        # A simple Trie for path routing logic
         self.routes_trie: Dict[str, Any] = {}
 
     def register_endpoint_route(self, path: str, endpoint_identifier: str) -> Result:

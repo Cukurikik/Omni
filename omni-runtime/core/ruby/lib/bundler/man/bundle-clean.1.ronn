@@ -1,5 +1,4 @@
-bundle-clean(1) -- Cleans up unused gems in your bundler directory
-==================================================================
+# bundle-clean(1) -- Cleans up unused gems in your bundler directory
 
 ## SYNOPSIS
 
@@ -12,7 +11,7 @@ useful when you have made many changes to your gem dependencies.
 
 ## OPTIONS
 
-* `--dry-run`:
+- `--dry-run`:
   Print the changes, but do not clean the unused gems.
-* `--force`:
+- `--force`:
   Forces cleaning up unused gems even if Bundler is configured to use globally installed gems. As a consequence, removes all system gems except for the ones in the current application.

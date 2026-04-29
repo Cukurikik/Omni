@@ -1,10 +1,9 @@
-bundle-show(1) -- Shows all the gems in your bundle, or the path to a gem
-=========================================================================
+# bundle-show(1) -- Shows all the gems in your bundle, or the path to a gem
 
 ## SYNOPSIS
 
 `bundle show` [GEM]
-              [--paths]
+[--paths]
 
 ## DESCRIPTION
 
@@ -16,6 +15,6 @@ machine.
 
 ## OPTIONS
 
-* `--paths`:
+- `--paths`:
   List the paths of all gems that are required by your [`Gemfile(5)`][Gemfile(5)],
   sorted by gem name.

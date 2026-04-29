@@ -1,8 +1,8 @@
 <div align="center">
 
 # ComfyUI
-**The most powerful and modular visual AI engine and application.**
 
+**The most powerful and modular visual AI engine and application.**
 
 [![Website][website-shield]][website-url]
 [![Dynamic JSON Badge][discord-shield]][discord-url]
@@ -18,12 +18,13 @@
 [matrix-url]: https://app.element.io/#/room/%23comfyui_space%3Amatrix.org
 [website-shield]: https://img.shields.io/badge/ComfyOrg-4285F4?style=flat
 [website-url]: https://www.comfy.org/
+
 <!-- Workaround to display total user from https://github.com/badges/shields/issues/4500#issuecomment-2060079995 -->
+
 [discord-shield]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fcomfyorg%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&logo=discord&logoColor=white&label=Discord&color=green&suffix=%20total
 [discord-url]: https://www.comfy.org/discord
 [twitter-shield]: https://img.shields.io/twitter/follow/ComfyUI
 [twitter-url]: https://x.com/ComfyUI
-
 [github-release-shield]: https://img.shields.io/github/v/release/comfyanonymous/ComfyUI?style=flat&sort=semver
 [github-release-link]: https://github.com/comfyanonymous/ComfyUI/releases
 [github-release-date-shield]: https://img.shields.io/github/release-date/comfyanonymous/ComfyUI?style=flat
@@ -32,6 +33,7 @@
 [github-downloads-link]: https://github.com/comfyanonymous/ComfyUI/releases
 
 ![ComfyUI Screenshot](https://github.com/user-attachments/assets/7ccaf2c1-9b72-41ae-9a89-5688c94b7abe)
+
 </div>
 
 ComfyUI lets you design and execute advanced stable diffusion pipelines using a graph/nodes/flowchart based interface. Available on Windows, Linux, and macOS.
@@ -41,64 +43,70 @@ ComfyUI lets you design and execute advanced stable diffusion pipelines using a 
 ### Local
 
 #### [Desktop Application](https://www.comfy.org/download)
+
 - The easiest way to get started.
 - Available on Windows & macOS.
 
 #### [Windows Portable Package](#installing)
+
 - Get the latest commits and completely portable.
 - Available on Windows.
 
 #### [Manual Install](#manual-install-windows-linux)
+
 Supports all operating systems and GPU types (NVIDIA, AMD, Intel, Apple Silicon, Ascend).
 
 ### Cloud
 
 #### [Comfy Cloud](https://www.comfy.org/cloud)
+
 - Our official paid cloud version for those who can't afford local hardware.
 
 ## Examples
+
 See what ComfyUI can do with the [newer template workflows](https://comfy.org/workflows) or old [example workflows](https://comfyanonymous.github.io/ComfyUI_examples/).
 
 ## Features
+
 - Nodes/graph/flowchart interface to experiment and create complex Stable Diffusion workflows without needing to code anything.
 - NOTE: There are many more models supported than the list below, if you want to see what is supported see our templates list inside ComfyUI.
 - Image Models
-   - SD1.x, SD2.x ([unCLIP](https://comfyanonymous.github.io/ComfyUI_examples/unclip/))
-   - [SDXL](https://comfyanonymous.github.io/ComfyUI_examples/sdxl/), [SDXL Turbo](https://comfyanonymous.github.io/ComfyUI_examples/sdturbo/)
-   - [Stable Cascade](https://comfyanonymous.github.io/ComfyUI_examples/stable_cascade/)
-   - [SD3 and SD3.5](https://comfyanonymous.github.io/ComfyUI_examples/sd3/)
-   - Pixart Alpha and Sigma
-   - [AuraFlow](https://comfyanonymous.github.io/ComfyUI_examples/aura_flow/)
-   - [HunyuanDiT](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_dit/)
-   - [Flux](https://comfyanonymous.github.io/ComfyUI_examples/flux/)
-   - [Lumina Image 2.0](https://comfyanonymous.github.io/ComfyUI_examples/lumina2/)
-   - [HiDream](https://comfyanonymous.github.io/ComfyUI_examples/hidream/)
-   - [Qwen Image](https://comfyanonymous.github.io/ComfyUI_examples/qwen_image/)
-   - [Hunyuan Image 2.1](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_image/)
-   - [Flux 2](https://comfyanonymous.github.io/ComfyUI_examples/flux2/)
-   - [Z Image](https://comfyanonymous.github.io/ComfyUI_examples/z_image/)
+  - SD1.x, SD2.x ([unCLIP](https://comfyanonymous.github.io/ComfyUI_examples/unclip/))
+  - [SDXL](https://comfyanonymous.github.io/ComfyUI_examples/sdxl/), [SDXL Turbo](https://comfyanonymous.github.io/ComfyUI_examples/sdturbo/)
+  - [Stable Cascade](https://comfyanonymous.github.io/ComfyUI_examples/stable_cascade/)
+  - [SD3 and SD3.5](https://comfyanonymous.github.io/ComfyUI_examples/sd3/)
+  - Pixart Alpha and Sigma
+  - [AuraFlow](https://comfyanonymous.github.io/ComfyUI_examples/aura_flow/)
+  - [HunyuanDiT](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_dit/)
+  - [Flux](https://comfyanonymous.github.io/ComfyUI_examples/flux/)
+  - [Lumina Image 2.0](https://comfyanonymous.github.io/ComfyUI_examples/lumina2/)
+  - [HiDream](https://comfyanonymous.github.io/ComfyUI_examples/hidream/)
+  - [Qwen Image](https://comfyanonymous.github.io/ComfyUI_examples/qwen_image/)
+  - [Hunyuan Image 2.1](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_image/)
+  - [Flux 2](https://comfyanonymous.github.io/ComfyUI_examples/flux2/)
+  - [Z Image](https://comfyanonymous.github.io/ComfyUI_examples/z_image/)
 - Image Editing Models
-   - [Omnigen 2](https://comfyanonymous.github.io/ComfyUI_examples/omnigen/)
-   - [Flux Kontext](https://comfyanonymous.github.io/ComfyUI_examples/flux/#flux-kontext-image-editing-model)
-   - [HiDream E1.1](https://comfyanonymous.github.io/ComfyUI_examples/hidream/#hidream-e11)
-   - [Qwen Image Edit](https://comfyanonymous.github.io/ComfyUI_examples/qwen_image/#edit-model)
+  - [Omnigen 2](https://comfyanonymous.github.io/ComfyUI_examples/omnigen/)
+  - [Flux Kontext](https://comfyanonymous.github.io/ComfyUI_examples/flux/#flux-kontext-image-editing-model)
+  - [HiDream E1.1](https://comfyanonymous.github.io/ComfyUI_examples/hidream/#hidream-e11)
+  - [Qwen Image Edit](https://comfyanonymous.github.io/ComfyUI_examples/qwen_image/#edit-model)
 - Video Models
-   - [Stable Video Diffusion](https://comfyanonymous.github.io/ComfyUI_examples/video/)
-   - [Mochi](https://comfyanonymous.github.io/ComfyUI_examples/mochi/)
-   - [LTX-Video](https://comfyanonymous.github.io/ComfyUI_examples/ltxv/)
-   - [Hunyuan Video](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_video/)
-   - [Wan 2.1](https://comfyanonymous.github.io/ComfyUI_examples/wan/)
-   - [Wan 2.2](https://comfyanonymous.github.io/ComfyUI_examples/wan22/)
-   - [Hunyuan Video 1.5](https://docs.comfy.org/tutorials/video/hunyuan/hunyuan-video-1-5)
+  - [Stable Video Diffusion](https://comfyanonymous.github.io/ComfyUI_examples/video/)
+  - [Mochi](https://comfyanonymous.github.io/ComfyUI_examples/mochi/)
+  - [LTX-Video](https://comfyanonymous.github.io/ComfyUI_examples/ltxv/)
+  - [Hunyuan Video](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_video/)
+  - [Wan 2.1](https://comfyanonymous.github.io/ComfyUI_examples/wan/)
+  - [Wan 2.2](https://comfyanonymous.github.io/ComfyUI_examples/wan22/)
+  - [Hunyuan Video 1.5](https://docs.comfy.org/tutorials/video/hunyuan/hunyuan-video-1-5)
 - Audio Models
-   - [Stable Audio](https://comfyanonymous.github.io/ComfyUI_examples/audio/)
-   - [ACE Step](https://comfyanonymous.github.io/ComfyUI_examples/audio/)
+  - [Stable Audio](https://comfyanonymous.github.io/ComfyUI_examples/audio/)
+  - [ACE Step](https://comfyanonymous.github.io/ComfyUI_examples/audio/)
 - 3D Models
-   - [Hunyuan3D 2.0](https://docs.comfy.org/tutorials/3d/hunyuan3D-2)
+  - [Hunyuan3D 2.0](https://docs.comfy.org/tutorials/3d/hunyuan3D-2)
 - Asynchronous Queue system
 - Many optimizations: Only re-executes the parts of the workflow that changes between executions.
 - Smart memory management: can automatically run large models on GPUs with as low as 1GB vram with smart offloading.
-- Works even if you don't have a GPU with: ```--cpu``` (slow)
+- Works even if you don't have a GPU with: `--cpu` (slow)
 - Can load ckpt and safetensors: All in one checkpoints or standalone diffusion models, VAEs and CLIP models.
 - Safe loading of ckpt, pt, pth, etc.. files.
 - Embeddings/Textual inversion
@@ -143,38 +151,38 @@ ComfyUI follows a weekly release cycle targeting Monday but this regularly chang
 
 ## Shortcuts
 
-| Keybind                            | Explanation                                                                                                        |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| `Ctrl` + `Enter`                      | Queue up current graph for generation                                                                              |
-| `Ctrl` + `Shift` + `Enter`              | Queue up current graph as first for generation                                                                     |
-| `Ctrl` + `Alt` + `Enter`                | Cancel current generation                                                                                          |
-| `Ctrl` + `Z`/`Ctrl` + `Y`                 | Undo/Redo                                                                                                          |
-| `Ctrl` + `S`                          | Save workflow                                                                                                      |
-| `Ctrl` + `O`                          | Load workflow                                                                                                      |
-| `Ctrl` + `A`                          | Select all nodes                                                                                                   |
-| `Alt `+ `C`                           | Collapse/uncollapse selected nodes                                                                                 |
-| `Ctrl` + `M`                          | Mute/unmute selected nodes                                                                                         |
+| Keybind                                | Explanation                                                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `Ctrl` + `Enter`                       | Queue up current graph for generation                                                                              |
+| `Ctrl` + `Shift` + `Enter`             | Queue up current graph as first for generation                                                                     |
+| `Ctrl` + `Alt` + `Enter`               | Cancel current generation                                                                                          |
+| `Ctrl` + `Z`/`Ctrl` + `Y`              | Undo/Redo                                                                                                          |
+| `Ctrl` + `S`                           | Save workflow                                                                                                      |
+| `Ctrl` + `O`                           | Load workflow                                                                                                      |
+| `Ctrl` + `A`                           | Select all nodes                                                                                                   |
+| `Alt `+ `C`                            | Collapse/uncollapse selected nodes                                                                                 |
+| `Ctrl` + `M`                           | Mute/unmute selected nodes                                                                                         |
 | `Ctrl` + `B`                           | Bypass selected nodes (acts like the node was removed from the graph and the wires reconnected through)            |
 | `Delete`/`Backspace`                   | Delete selected nodes                                                                                              |
 | `Ctrl` + `Backspace`                   | Delete the current graph                                                                                           |
-| `Space`                              | Move the canvas around when held and moving the cursor                                                             |
-| `Ctrl`/`Shift` + `Click`                 | Add clicked node to selection                                                                                      |
-| `Ctrl` + `C`/`Ctrl` + `V`                  | Copy and paste selected nodes (without maintaining connections to outputs of unselected nodes)                     |
-| `Ctrl` + `C`/`Ctrl` + `Shift` + `V`          | Copy and paste selected nodes (maintaining connections from outputs of unselected nodes to inputs of pasted nodes) |
+| `Space`                                | Move the canvas around when held and moving the cursor                                                             |
+| `Ctrl`/`Shift` + `Click`               | Add clicked node to selection                                                                                      |
+| `Ctrl` + `C`/`Ctrl` + `V`              | Copy and paste selected nodes (without maintaining connections to outputs of unselected nodes)                     |
+| `Ctrl` + `C`/`Ctrl` + `Shift` + `V`    | Copy and paste selected nodes (maintaining connections from outputs of unselected nodes to inputs of pasted nodes) |
 | `Shift` + `Drag`                       | Move multiple selected nodes at the same time                                                                      |
 | `Ctrl` + `D`                           | Load default graph                                                                                                 |
-| `Alt` + `+`                          | Canvas Zoom in                                                                                                     |
-| `Alt` + `-`                          | Canvas Zoom out                                                                                                    |
+| `Alt` + `+`                            | Canvas Zoom in                                                                                                     |
+| `Alt` + `-`                            | Canvas Zoom out                                                                                                    |
 | `Ctrl` + `Shift` + LMB + Vertical drag | Canvas Zoom in/out                                                                                                 |
-| `P`                                  | Pin/Unpin selected nodes                                                                                           |
+| `P`                                    | Pin/Unpin selected nodes                                                                                           |
 | `Ctrl` + `G`                           | Group selected nodes                                                                                               |
-| `Q`                                 | Toggle visibility of the queue                                                                                     |
-| `H`                                  | Toggle visibility of history                                                                                       |
-| `R`                                  | Refresh graph                                                                                                      |
-| `F`                                  | Show/Hide menu                                                                                                      |
-| `.`                                  | Fit view to selection (Whole graph when nothing is selected)                                                        |
-| Double-Click LMB                   | Open node quick search palette                                                                                     |
-| `Shift` + Drag                       | Move multiple wires at once                                                                                        |
+| `Q`                                    | Toggle visibility of the queue                                                                                     |
+| `H`                                    | Toggle visibility of history                                                                                       |
+| `R`                                    | Refresh graph                                                                                                      |
+| `F`                                    | Show/Hide menu                                                                                                     |
+| `.`                                    | Fit view to selection (Whole graph when nothing is selected)                                                       |
+| Double-Click LMB                       | Open node quick search palette                                                                                     |
+| `Shift` + Drag                         | Move multiple wires at once                                                                                        |
 | `Ctrl` + `Alt` + LMB                   | Disconnect all wires from clicked slot                                                                             |
 
 `Ctrl` can also be replaced with `Cmd` instead for macOS users
@@ -203,10 +211,10 @@ The portable above currently comes with python 3.13 and pytorch cuda 13.0. Updat
 
 See the [Config file](extra_model_paths.yaml.example) to set the search paths for models. In the standalone windows build you can find this file in the ComfyUI directory. Rename this file to extra_model_paths.yaml and edit it with your favorite text editor.
 
-
 ## [comfy-cli](https://docs.comfy.org/comfy-cli/getting-started)
 
 You can install and start ComfyUI using comfy-cli:
+
 ```bash
 pip install comfy-cli
 comfy install
@@ -228,17 +236,15 @@ Put your SD checkpoints (the huge ckpt/safetensors files) in: models/checkpoints
 
 Put your VAE in: models/vae
 
-
 ### AMD GPUs (Linux)
 
 AMD users can install rocm and pytorch with pip if you don't have it already installed, this is the command to install the stable version:
 
-```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm7.2```
+`pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm7.2`
 
 This is the command to install the nightly with ROCm 7.2 which might have some performance improvements:
 
-```pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm7.2```
-
+`pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/rocm7.2`
 
 ### AMD GPUs (Experimental: Windows and Linux), RDNA 3, 3.5 and 4 only.
 
@@ -246,15 +252,15 @@ These have less hardware support than the builds above but they work on windows.
 
 RDNA 3 (RX 7000 series):
 
-```pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/```
+`pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/`
 
 RDNA 3.5 (Strix halo/Ryzen AI Max+ 365):
 
-```pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2/gfx1151/```
+`pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2/gfx1151/`
 
 RDNA 4 (RX 9000 series):
 
-```pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2/gfx120X-all/```
+`pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2/gfx120X-all/`
 
 ### Intel GPUs (Windows and Linux)
 
@@ -262,27 +268,27 @@ Intel Arc GPU users can install native PyTorch with torch.xpu support using pip.
 
 1. To install PyTorch xpu, use the following command:
 
-```pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu```
+`pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/xpu`
 
 This is the command to install the Pytorch xpu nightly which might have some performance improvements:
 
-```pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu```
+`pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/xpu`
 
 ### NVIDIA
 
 Nvidia users should install stable pytorch using this command:
 
-```pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu130```
+`pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu130`
 
 This is the command to install pytorch nightly instead which might have performance improvements.
 
-```pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu132```
+`pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu132`
 
 #### Troubleshooting
 
 If you get the "Torch not compiled with CUDA enabled" error, uninstall torch with:
 
-```pip uninstall torch```
+`pip uninstall torch`
 
 And install it again with the command above.
 
@@ -290,7 +296,7 @@ And install it again with the command above.
 
 Install the dependencies by opening your terminal inside the ComfyUI folder and:
 
-```pip install -r requirements.txt```
+`pip install -r requirements.txt`
 
 After this you should have everything installed and can proceed to running ComfyUI.
 
@@ -331,7 +337,6 @@ For models compatible with Iluvatar Extension for PyTorch. Here's a step-by-step
 1. Install the Iluvatar Corex Toolkit by adhering to the platform-specific instructions on the [Installation](https://support.iluvatar.com/#/DocumentCentre?id=1&nameCenter=2&productId=520117912052801536)
 2. Launch ComfyUI by running `python main.py`
 
-
 ## [ComfyUI-Manager](https://github.com/Comfy-Org/ComfyUI-Manager/tree/manager-v4)
 
 **ComfyUI-Manager** is an extension that allows you to easily install, update, and manage custom nodes for ComfyUI.
@@ -339,6 +344,7 @@ For models compatible with Iluvatar Extension for PyTorch. Here's a step-by-step
 ### Setup
 
 1. Install the manager dependencies:
+
    ```bash
    pip install -r manager_requirements.txt
    ```
@@ -350,30 +356,29 @@ For models compatible with Iluvatar Extension for PyTorch. Here's a step-by-step
 
 ### Command Line Options
 
-| Flag | Description |
-|------|-------------|
-| `--enable-manager` | Enable ComfyUI-Manager |
-| `--enable-manager-legacy-ui` | Use the legacy manager UI instead of the new UI (requires `--enable-manager`) |
-| `--disable-manager-ui` | Disable the manager UI and endpoints while keeping background features like security checks and scheduled installation completion (requires `--enable-manager`) |
-
+| Flag                         | Description                                                                                                                                                     |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--enable-manager`           | Enable ComfyUI-Manager                                                                                                                                          |
+| `--enable-manager-legacy-ui` | Use the legacy manager UI instead of the new UI (requires `--enable-manager`)                                                                                   |
+| `--disable-manager-ui`       | Disable the manager UI and endpoints while keeping background features like security checks and scheduled installation completion (requires `--enable-manager`) |
 
 # Running
 
-```python main.py```
+`python main.py`
 
 ### For AMD cards not officially supported by ROCm
 
 Try running it with this command if you have issues:
 
-For 6700, 6600 and maybe other RDNA2 or older: ```HSA_OVERRIDE_GFX_VERSION=10.3.0 python main.py```
+For 6700, 6600 and maybe other RDNA2 or older: `HSA_OVERRIDE_GFX_VERSION=10.3.0 python main.py`
 
-For AMD 7600 and maybe other RDNA3 cards: ```HSA_OVERRIDE_GFX_VERSION=11.0.0 python main.py```
+For AMD 7600 and maybe other RDNA3 cards: `HSA_OVERRIDE_GFX_VERSION=11.0.0 python main.py`
 
 ### AMD ROCm Tips
 
 You can enable experimental memory efficient attention on recent pytorch in ComfyUI on some AMD GPUs using this command, it should already be enabled by default on RDNA3. If this improves speed for you on latest pytorch on your GPU please report it so that I can enable it by default.
 
-```TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1 python main.py --use-pytorch-cross-attention```
+`TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1 python main.py --use-pytorch-cross-attention`
 
 You can also try setting this env variable `PYTORCH_TUNABLEOP_ENABLED=1` which might speed things up at the cost of a very slow initial run.
 
@@ -393,22 +398,22 @@ Dynamic prompts also support C-style comments, like `// comment` or `/* comment 
 
 To use a textual inversion concepts/embeddings in a text prompt put them in the models/embeddings directory and use them in the CLIPTextEncode node like this (you can omit the .pt extension):
 
-```embedding:embedding_filename.pt```
-
+`embedding:embedding_filename.pt`
 
 ## How to show high-quality previews?
 
-Use ```--preview-method auto``` to enable previews.
+Use `--preview-method auto` to enable previews.
 
 The default installation includes a fast latent preview method that's low-resolution. To enable higher-quality previews with [TAESD](https://github.com/madebyollin/taesd), download the [taesd_decoder.pth, taesdxl_decoder.pth, taesd3_decoder.pth and taef1_decoder.pth](https://github.com/madebyollin/taesd/) and place them in the `models/vae_approx` folder. Once they're installed, restart ComfyUI and launch it with `--preview-method taesd` to enable high-quality previews.
 
 ## How to use TLS/SSL?
+
 Generate a self-signed certificate (not appropriate for shared/production use) and key by running the command: `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"`
 
 Use `--tls-keyfile key.pem --tls-certfile cert.pem` to enable TLS/SSL, the app will now be accessible with `https://...` instead of `http://...`.
 
 > Note: Windows users can use [alexisrolland/docker-openssl](https://github.com/alexisrolland/docker-openssl) or one of the [3rd party binary distributions](https://wiki.openssl.org/index.php/Binaries) to run the command example above.
-<br/><br/>If you use a container, note that the volume mount `-v` can be a relative path so `... -v ".\:/openssl-certs" ...` would create the key & cert files in the current directory of your command prompt or powershell terminal.
+> <br/><br/>If you use a container, note that the volume mount `-v` can be a relative path so `... -v ".\:/openssl-certs" ...` would create the key & cert files in the current directory of your command prompt or powershell terminal.
 
 ## Support and dev channel
 

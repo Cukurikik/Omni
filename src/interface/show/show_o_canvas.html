@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show-o Canvas</title>
+    <style>
+        body { margin: 0; background-color: #121212; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { border: 1px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+    <!-- Hardware bound: Max Canvas WebGL texture size (4096x4096) -->
+    <canvas id="showo-canvas" width="1024" height="1024"></canvas>
+
+    <script>
+        const canvas = document.getElementById('showo-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function sendMultimodalData(imageData) {
+            if (imageData.data.length > 4096 * 4096 * 4) {
+                console.error("OmniResult: Err(Texture size exceeds limits)");
+                return;
+            }
+            // Transmit to Rust WASM or Elixir Multiplexer
+            console.log("OmniResult: Ok(Transmitted)");
+        }
+    </script>
+</body>
+</html>

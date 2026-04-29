@@ -72,7 +72,7 @@ class InteractiveGradientMapper:
             rate_of_convergence = (start_loss - loss_history[-1]) / start_loss if start_loss else 0.0
             
             return Ok({
-                "epochs_simulated": epochs,
+                "epochs_computed": epochs,
                 "initial_loss": start_loss,
                 "final_loss": round(float(loss_history[-1]), 6),
                 "is_converged": loss_history[-1] < start_loss * 0.1,
@@ -81,7 +81,7 @@ class InteractiveGradientMapper:
             })
             
         except Exception as e:
-            return Err(f"Simulated interactive convergence visualizer failed: {e}")
+            return Err(f"Interactive convergence visualizer failed: {e}")
 
 
 # ---------------------------------------------------------------------------

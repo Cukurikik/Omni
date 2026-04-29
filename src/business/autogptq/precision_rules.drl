@@ -1,0 +1,11 @@
+package rules.autogptq
+import omni.autogptq.QuantizationConfig
+import omni.common.OmniResult
+
+rule "Enforce Minimal Precision Drop"
+when
+    $config : QuantizationConfig( targetBitWidth < 4, perplexityDegradation > 0.05 )
+then
+    $config.revertToHigherPrecision(4);
+    insert(new OmniResult(false, "Precision rules violated, reverting to INT4", false));
+end

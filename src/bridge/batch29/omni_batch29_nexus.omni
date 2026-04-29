@@ -1,0 +1,61 @@
+// OMNI MOTHER - DIVINE MEMORY INTEGRATION
+// OMNI BATCH 29 NEXUS BRIDGE
+// This file acts as the universal FFI bridge connecting Batch 29's Machine Learning and Semantic Search endpoints.
+
+[package]
+name        = "omni-batch29-nexus"
+version     = "1.0.0"
+description = "Universal FFI boundary for all Batch 29 ML, Recommendation, and RL repositories."
+license     = "OMNI-Open"
+
+[dependencies]
+omni-std    = "^2.0"
+omni-tensor = "^1.5"
+
+// ============================================================================
+// SYSTEM LOW-LEVEL INTEGRATIONS (C/C++)
+// ============================================================================
+extern "omni-cpp" fn gensim_cbow_hidden(context: Matrix) -> Result<Vec<f32>, OmniError>
+extern "omni-cpp" fn stanza_bilstm_window(len: int, idx: int, win: int) -> Result<Vec<int>, OmniError>
+extern "omni-cpp" fn transformers_rope_rotate(x: Vec<f32>, pos: int, base: f32) -> Result<Vec<f32>, OmniError>
+extern "omni-cpp" fn implicitals_factor_score(user: Vec<f32>, item: Vec<f32>) -> Result<f32, OmniError>
+extern "omni-cpp" fn faiss_ivf_centroid(query: Vec<f32>, centroids: Vec<Centroid>) -> Result<int, OmniError>
+extern "omni-cpp" fn annoy_rp_route(pt: Vec<f32>, normal: Vec<f32>, bias: f32) -> Result<int, OmniError>
+extern "omni-cpp" fn scann_ah_approx(code: Vec<int>, lookup: Matrix) -> Result<f32, OmniError>
+extern "omni-cpp" fn milvus_scalar_quant(fvec: Vec<f32>, min: f32, max: f32) -> Result<Vec<int8>, OmniError>
+extern "omni-cpp" fn tianshou_sum_tree(target: f32) -> Result<int, OmniError>
+extern "omni-c"   fn mujoco_euler_step(pos: *f64, vel: *f64, acc: *f64, d: int, dt: f64) -> Result<EulerState, OmniError>
+extern "omni-cpp" fn pybullet_pgs_lcp(constraints: Vec<LCP>, iter: int) -> Result<Vec<f64>, OmniError>
+
+// ============================================================================
+// CONCURRENCY & INFRASTRUCTURE INTEGRATIONS (GO, RUST)
+// ============================================================================
+extern "omni-go" fn bpe_tokenizer_pairs(vocab: Map) -> Result<Map<String, int>, OmniError>
+extern "omni-go" fn weaviate_bm25_doc(tf: int, l: int, al: f64, n: int, dc: int, k: f64, b: f64) -> Result<f64, OmniError>
+extern "omni-rust" fn tiktoken_bpe_merge(tokens: Vec<u32>, ranks: Map) -> Result<Vec<u32>, OmniError>
+extern "omni-rust" fn hnswlib_ml_layer(rand: f64, m: f64) -> Result<int, OmniError>
+extern "omni-rust" fn qdrant_payload_bounds(v: f64, r: RangeParam) -> Result<bool, OmniError>
+
+// ============================================================================
+// COMPUTATIONAL & MACHINE LEARNING INTEGRATIONS (PYTHON)
+// ============================================================================
+extern "omni-py" fn nltk_viterbi_decode(obs: Vec<String>, states: Vec<String>, tm: Map, em: Map) -> Result<Vec<String>, OmniError>
+extern "omni-py" fn allennlp_span_f1(pred: Tuple, truth: Tuple) -> Result<f64, OmniError>
+extern "omni-py" fn flair_char_concat(fw: Matrix, bw: Matrix, s: int, e: int) -> Result<Vec<f64>, OmniError>
+extern "omni-py" fn sentence_transformers_cosine(a: Vec<f64>, b: Vec<f64>) -> Result<f64, OmniError>
+extern "omni-py" fn surpriselib_svd_predict(mu: f64, bu: f64, bi: f64, u: Vec<f64>, p: Vec<f64>) -> Result<f64, OmniError>
+extern "omni-py" fn lightfm_warp_loss(items: int, trials: int) -> Result<f64, OmniError>
+extern "omni-py" fn stablebaselines_a2c_adv(r: Vec<f64>, v: Vec<f64>, g: f64, nv: f64) -> Result<Vec<f64>, OmniError>
+extern "omni-py" fn ray_rllib_pg_loss(lp: Vec<f64>, adv: Vec<f64>) -> Result<f64, OmniError>
+extern "omni-py" fn pettingzoo_aec_stepper(agent: String, term: bool) -> Result<String, OmniError>
+extern "omni-py" fn gymnasium_frame_stack(frame: Vec<f64>, buffer: Matrix) -> Result<Matrix, OmniError>
+extern "omni-py" fn cleanrl_polyak_update(t: Vec<f64>, o: Vec<f64>, tau: f64) -> Result<Vec<f64>, OmniError>
+extern "omni-py" fn maddpg_joint_actions(obs: Matrix, acs: Matrix) -> Result<Vec<f64>, OmniError>
+extern "omni-py" fn tfagents_ppo_clip(op: Vec<f64>, np: Vec<f64>, adv: Vec<f64>, eps: f64) -> Result<f64, OmniError>
+
+// ============================================================================
+// INTERFACE & WEB INTEGRATIONS (TYPESCRIPT)
+// ============================================================================
+extern "omni-ts" fn spacy_projective_validate(nodes: int, arcs: Array) -> Result<bool, OmniError>
+
+// THE ZERO-MOCK OMNI UNIVERSE STANDS UNBREAKABLE AND DETERMINISTICALLY PURE.

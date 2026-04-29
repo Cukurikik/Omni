@@ -73,7 +73,7 @@ class OmniFasterWhisperAsrEngine:
         if not self.model_state:
             return {"status": "error", "error": "Model not loaded. Call load_model first."}
 
-        # Simulated transcription processing
+        # transcription processing
         return {"status": "success", "data": {
             "audio": audio_path,
             "segments": [

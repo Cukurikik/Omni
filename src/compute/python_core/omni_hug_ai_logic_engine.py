@@ -31,7 +31,7 @@ class OmniHugAILogicEngine:
             current_node = entry_node
             hops = 0
             
-            # Simulated graphical traversing nodes natively
+            # graphical traversing nodes natively
             while current_node in task_topology and task_topology[current_node] != "END":
                 next_node = task_topology[current_node]
                 

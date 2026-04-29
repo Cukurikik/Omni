@@ -1,0 +1,10 @@
+// Omni InstructRAG Document Index (SPARQL)
+// Database Layer: RDF-based retrieval document indexing.
+// Ref: weizhepei/InstructRAG — ICLR 2025
+PREFIX omni: <http://omni.framework/instructrag#>
+SELECT ?doc ?title ?relevance WHERE {
+  ?doc a omni:RetrievedDocument ;
+       omni:title ?title ;
+       omni:relevanceScore ?relevance .
+  FILTER (?relevance > 0.4)
+} ORDER BY DESC(?relevance) LIMIT 20

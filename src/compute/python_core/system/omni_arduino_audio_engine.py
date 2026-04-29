@@ -11,14 +11,14 @@ import json
 import time
 from typing import Dict, Any, Generator
 
-class I2SStreamSimulator:
+class I2SStreamEngine:
     """
     Physical native Python class mirroring the C++ I2SStream endpoint concept.
     Microcontrollers lack infinite memory, so this utilizes strict generators 
     bound to hardware-like buffer chunks.
     """
     def __init__(self, mode: str = "TX", buffer_size: int = 512):
-        """Initialize I2SStreamSimulator engine with default configuration."""
+        """Initialize I2SStreamEngine engine with default configuration."""
         self.mode = mode
         self.buffer_size = buffer_size
         self.internal_registry = []
@@ -39,7 +39,7 @@ class I2SStreamSimulator:
     def diagnostics(self):
         """Return engine health status for the OmniEngineRegistry."""
         return {
-            "engine": "I2SStreamSimulator",
+            "engine": "I2SStreamEngine",
             "version": "1.0.0",
             "status": "operational",
             "capabilities": []
@@ -53,7 +53,7 @@ class OmniArduinoAudioEngine:
     explicitly shuttles bounded chunks of memory from a Source pointer to a Sink pointer.
     
     This engine proves production comprehension by building a literal Python-level 
-    StreamCopy class orchestrating hardware-simulated byte limits exactly.
+    StreamCopy class orchestrating hardware-Byte limits exactly.
     """
 
     def __init__(self):
@@ -69,8 +69,8 @@ class OmniArduinoAudioEngine:
         start_time = time.time()
         
         # Instantiate Native Sink/Source mimicking hardware endpoints
-        hardware_sink = I2SStreamSimulator(mode="TX", buffer_size=1024)
-        hardware_source = I2SStreamSimulator(mode="RX", buffer_size=1024)
+        hardware_sink = I2SStreamEngine(mode="TX", buffer_size=1024)
+        hardware_source = I2SStreamEngine(mode="RX", buffer_size=1024)
         
         try:
             # Physical Stream Copy Loop Execute

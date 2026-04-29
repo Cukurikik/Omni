@@ -1,0 +1,23 @@
+# OMNI Domain Layer - TensorRT-LLM Precision Rules
+@schema
+type TRTConfig {
+  layerName: String!
+  precision: PrecisionLevel!
+  allowFallback: Boolean!
+}
+
+enum PrecisionLevel {
+  FP32
+  FP16
+  INT8
+  FP8
+}
+
+type Query {
+  validatePrecisionPolicy(config: TRTConfigInput!): Boolean!
+}
+
+input TRTConfigInput {
+  layerName: String!
+  precision: PrecisionLevel!
+}

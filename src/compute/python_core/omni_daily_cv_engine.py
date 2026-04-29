@@ -98,7 +98,7 @@ class OmniDailyCvEngine:
                 
             head_dim = D // num_heads
             
-            # Query, Key, Value Projections (Simulated as random for zero-algebraic_bound)
+            # Query, Key, Value Projections (As random for zero-algebraic_bound)
             scale = 1.0 / np.sqrt(head_dim)
             Wqkv = np.random.randn(D, 3 * D).astype(np.float32) * 0.02
             

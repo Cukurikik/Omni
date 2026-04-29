@@ -2,7 +2,7 @@
 OMNI HDBSCAN Engine
 ===================
 Production-grade abstraction inspired by scikit-learn-contrib/hdbscan.
-Calculates Hierarchical spatial density core-distances via pure simulated
+Calculates Hierarchical spatial density core-distances via pure computed
 matrix constraints bypassing full tree build times.
 
 OMNI Layer: compute (Python)
@@ -45,7 +45,7 @@ Result = Union[Ok, Err]
 # 2. CORE DISTANCE RADIUS CALCULATOR 
 # ---------------------------------------------------------------------------
 
-class CoreDistanceDensitySimulator:
+class CoreDistanceDensityEngine:
     """Numerically determines core distances bounds isolating structural noise."""
     
     def evaluate_core_distances(self, spatial_points: np.ndarray, min_samples: int = 2) -> Result:
@@ -109,9 +109,9 @@ class OmniHDBSCANEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-hdbscan"
 
-    def get_structural_evaluator(self) -> CoreDistanceDensitySimulator:
-        """Performs get simulator operation for OmniHDBSCANEngine."""
-        return CoreDistanceDensitySimulator()
+    def get_structural_evaluator(self) -> CoreDistanceDensityEngine:
+        """Performs diagnostic evaluation for OmniHDBSCANEngine."""
+        return CoreDistanceDensityEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniHDBSCANEngine."""

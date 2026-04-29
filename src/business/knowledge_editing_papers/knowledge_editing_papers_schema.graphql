@@ -1,0 +1,7 @@
+type Query {
+  searchPapers(query: String!, limit: Int = 20): [Paper!]!
+  getPaper(id: ID!): Paper
+  taxonomy: [Category!]!
+}
+type Paper { id: ID! title: String! authors: [String!]! venue: String year: Int category: String! }
+type Category { name: String! count: Int! subcategories: [String!]! }

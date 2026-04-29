@@ -1,0 +1,17 @@
+type ClearMLExperiment {
+  id: ID!
+  project: String!
+  name: String!
+  metrics: [Metric!]!
+}
+
+type Metric {
+  key: String!
+  value: Float!
+  step: Int!
+}
+
+type Query {
+  getExperiment(id: ID!): ClearMLExperiment
+  listExperiments(project: String!): [ClearMLExperiment!]!
+}

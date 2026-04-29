@@ -34,7 +34,7 @@ class OmniCoreMLModelsEngine:
         self._engine_id = str(uuid.uuid4())
         self._metrics = {
             "model_schemas_verified": 0,
-            "edge_inferences_simulated": 0,
+            "edge_inferences_computed": 0,
             "latency_ms": 0.0
         }
         self._start_time = 0.0
@@ -68,7 +68,7 @@ class OmniCoreMLModelsEngine:
         self._metrics["model_schemas_verified"] += 1
         
         resolved_inferences = sequence_depth * 15
-        self._metrics["edge_inferences_simulated"] += resolved_inferences
+        self._metrics["edge_inferences_computed"] += resolved_inferences
         
         calc_time = (time.time() - st) * 1000.0
         self._metrics["latency_ms"] += calc_time

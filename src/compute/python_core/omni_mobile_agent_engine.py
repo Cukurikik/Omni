@@ -31,7 +31,7 @@ class OmniMobileAgentEngine:
             Result wrapping the macro execution instructions.
         """
         try:
-            # Simulating agent workflow construction per MobileAgent paradigm
+            # Computing agent workflow construction per MobileAgent paradigm
             # which relies heavily on vision-to-action chaining.
             macro = {
                 "goal": goal,

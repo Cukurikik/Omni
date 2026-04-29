@@ -5,7 +5,7 @@ Production-grade OMNI engine for Matrix Quantization Operations.
 Inspired by AutoGPTQ/AutoGPTQ.
 
 Features:
-- Parameter Quantization abstraction (FP32 to simulated integer INT8).
+- Parameter Quantization abstraction (FP32 to Integer INT8).
 - Mathematical scaling and zero-point parameter calibration.
 - Native NumPy de-quantization blocks execute matrix multiplication on compressed fields.
 

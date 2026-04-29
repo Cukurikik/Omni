@@ -1,0 +1,12 @@
+module Seasonality
+
+using OmniStd
+
+function extract_seasonality(data::Vector{Float64}, period::Int)::Result{Vector{Float64}, Exception}
+    if period <= 0 || length(data) < period
+        return Err(ErrorException("Invalid period or data too short"))
+    end
+    return Ok(data[1:period])
+end
+
+end

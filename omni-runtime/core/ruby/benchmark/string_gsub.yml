@@ -20,7 +20,6 @@ prelude: |
   }
   ESCAPE_PATTERN = Regexp.union(ESCAPED_CHARS.keys)
 
-
 benchmark:
   escape: |
     str = STR.dup

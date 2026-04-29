@@ -111,7 +111,7 @@ class OmniThincEngine:
             if not pipe["is_compiled"]:
                 return {"status": "error", "message": "Pipeline must be compiled before inference."}
                 
-            # Simulated forward processing
+            # forward processing
             results = [{"input": text, "embedding": [0.1, 0.4, 0.9]} for text in texts]
             
             return {

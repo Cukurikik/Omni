@@ -33,7 +33,7 @@ class OmniFlashVSRVideoUpscaleEngine:
                 return Err(ValueError("Upscaling engines inherently require mathematical target boundaries scaling above inputs."))
                 
             # Algebraic logic string math limits computations natively
-            base_frame_ms = 15.0 # Native simulated baseline
+            base_frame_ms = 15.0 # Native Baseline
             
             # Non-linear metric boundary logic constraint limits computationally!
             estimated_ms_per_frame = base_frame_ms * (scale_factor ** 2) * self.latency_multiplier

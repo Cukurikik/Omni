@@ -1,0 +1,18 @@
+# OMNI Domain Layer - Lexoid Schema
+@schema
+type AgentContext {
+  id: ID!
+  sourceType: String!
+  cleanData: JSON!
+  confidenceScore: Float!
+  parsedAt: DateTime!
+}
+
+type Query {
+  getCleanContext(id: ID!): AgentContext
+  listContexts(sourceType: String!): [AgentContext!]!
+}
+
+type Mutation {
+  ingestMessyData(raw: String!, source: String!): AgentContext!
+}

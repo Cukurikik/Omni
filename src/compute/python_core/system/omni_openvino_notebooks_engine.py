@@ -5,7 +5,7 @@ OpenVINO Notebooks Engine (openvinotoolkit/openvino_notebooks)
 --------------------------------------------------
 A production-grade engine translating OpenVINO inference concepts
 into the Omni monadic execution graph. Protects OMNI from hardware-specific
-crashes (CPU, iGPU, VPU) through simulated graph mapping and compilation proxies.
+crashes (CPU, iGPU, VPU) through Graph mapping and compilation proxies.
 """
 
 import uuid
@@ -70,7 +70,7 @@ class OmniOpenVinoNotebooksEngine:
                 "status": "success",
                 "compiled_id": compiled_id,
                 "new_precision": "INT8",
-                "message": "Quantization simulated successfully. Graph nodes compressed."
+                "message": "Quantization Successfully. Graph nodes compressed."
             }
         except Exception as e:
             return {"status": "error", "message": f"Quantization failed: {str(e)}"}

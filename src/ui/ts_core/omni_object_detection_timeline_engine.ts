@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI OBJECT DETECTION TIMELINE ENGINE (SEMESTER 5 — BATCH 17)
 // ===========================================================================
 // Absorbed From  : hoya012/deep_learning_object_detection
@@ -94,6 +94,17 @@ export class OmniObjectDetectionTimelineEngine {
             detectors: this.timeline.length,
             families: [...new Set(this.timeline.map((d) => d.family))],
             learned_from: "hoya012/deep_learning_object_detection",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniObjectDetectionTimelineEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

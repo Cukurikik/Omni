@@ -16,6 +16,7 @@
 
 Video-subtitle-remover (VSR) 是一款基于AI技术，将视频中的硬字幕去除的软件。
 主要实现了以下功能：
+
 - **无损分辨率**将视频中的硬字幕去除，生成去除字幕后的文件
 - 通过超强AI算法模型，对去除字幕文本的区域进行填充（非相邻像素填充与马赛克去除）
 - 提取原视频字幕，可配合：[video-subtitle-extractor (VSE)](https://github.com/YaoFANGUK/video-subtitle-extractor)
@@ -34,17 +35,18 @@ Video-subtitle-remover (VSR) 是一款基于AI技术，将视频中的硬字幕�
 
 **预构建包对比说明**：
 
-|       预构建包名          | Python  | Paddle | Torch | 环境                          | 支持的计算能力范围|
-|---------------|------------|--------------|--------------|-----------------------------|----------|
-| `vsr-windows-cpu.7z`              | 3.12 | 3.0.0 | 2.7.0 | 通用                 | 通用       |
-| `vsr-windows-directml.7z`         | 3.12 | 3.0.0 | 2.4.1 | Windows 非Nvidia显卡 | 通用       |
-| `vsr-windows-nvidia-cuda-11.8.7z` | 3.12 | 3.0.0 | 2.7.0 | CUDA 11.8           | 3.5 – 8.9  |
-| `vsr-windows-nvidia-cuda-12.6.7z` | 3.12 | 3.0.0 | 2.7.0 | CUDA 12.6           | 5.0 – 8.9  |
-| `vsr-windows-nvidia-cuda-12.8.7z` | 3.12 | 3.0.0 | 2.7.0 | CUDA 12.8           | 5.0 – 9.0+ |
+| 预构建包名                        | Python | Paddle | Torch | 环境                 | 支持的计算能力范围 |
+| --------------------------------- | ------ | ------ | ----- | -------------------- | ------------------ |
+| `vsr-windows-cpu.7z`              | 3.12   | 3.0.0  | 2.7.0 | 通用                 | 通用               |
+| `vsr-windows-directml.7z`         | 3.12   | 3.0.0  | 2.4.1 | Windows 非Nvidia显卡 | 通用               |
+| `vsr-windows-nvidia-cuda-11.8.7z` | 3.12   | 3.0.0  | 2.7.0 | CUDA 11.8            | 3.5 – 8.9          |
+| `vsr-windows-nvidia-cuda-12.6.7z` | 3.12   | 3.0.0  | 2.7.0 | CUDA 12.6            | 5.0 – 8.9          |
+| `vsr-windows-nvidia-cuda-12.8.7z` | 3.12   | 3.0.0  | 2.7.0 | CUDA 12.8            | 5.0 – 9.0+         |
 
 > NVIDIA官方提供了各GPU型号的计算能力列表，您可以参考链接: [CUDA GPUs](https://developer.nvidia.com/cuda-gpus) 查看你的GPU适合哪个CUDA版本
 
 **Docker版本：**
+
 ```shell
   # Nvidia 10 20 30系显卡
   docker run -it --name vsr --gpus all eritpchy/video-subtitle-remover:1.4.0-cuda11.8 python backend/main.py -i test/test.mp4 -o test/test_no_sub.mp4
@@ -66,6 +68,7 @@ Video-subtitle-remover (VSR) 是一款基于AI技术，将视频中的硬字幕�
 ```
 
 **命令行参数：**
+
 ```
 Video Subtitle Remover Command Line Tool
 
@@ -80,6 +83,7 @@ options:
   --inpaint-mode {sttn-auto,sttn-det,lama,propainter,opencv}
                         Inpaint mode, default is sttn-auto
 ```
+
 ## 演示
 
 - GUI版：
@@ -89,7 +93,6 @@ options:
 <p style="text-align:center;"><a href="https://b23.tv/guEbl9C"><img src="https://github.com/YaoFANGUK/video-subtitle-remover/raw/main/design/demo.gif" alt="demo.gif"/></a></p>
 
 ## 源码使用说明
-
 
 #### 1. 安装 Python
 
@@ -110,15 +113,19 @@ options:
 请使用虚拟环境来管理项目依赖，避免与系统环境冲突。
 
 （1）创建虚拟环境并激活
+
 ```shell
 python -m venv videoEnv
 ```
 
 - Windows：
+
 ```shell
 videoEnv\\Scripts\\activate
 ```
+
 - MacOS/Linux：
+
 ```shell
 source videoEnv/bin/activate
 ```
@@ -126,10 +133,13 @@ source videoEnv/bin/activate
 #### 3. 创建并激活项目目录
 
 切换到源码所在目录：
+
 ```shell
 cd <源码所在目录>
 ```
+
 > 例如：如果您的源代码放在 D 盘的 tools 文件夹下，并且源代码的文件夹名为 video-subtitle-remover，则输入：
+>
 > ```shell
 > cd D:/tools/video-subtitle-remover-main
 > ```
@@ -163,11 +173,13 @@ cd <源码所在目录>
   pip install paddlepaddle-gpu==3.0.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
   ```
 - 安装 Torch GPU 版本（CUDA 11.8）：
+
   ```shell
   pip install torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu118
   ```
 
 - 安装其他依赖
+
   ```shell
   pip install -r requirements.txt
   ```
@@ -180,6 +192,7 @@ cd <源码所在目录>
   # for cuda 11.x
   pip install onnxruntime-gpu==1.20.1 --index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-11/pypi/simple/
   ```
+
   > 详情见: [Install ONNX Runtime](https://onnxruntime.ai/docs/install/#install-onnx-runtime-gpu-cuda-12x)
 
 ##### (2) DirectML（AMD、Intel等GPU/APU加速卡用户）
@@ -191,6 +204,7 @@ cd <源码所在目录>
   pip install -r requirements.txt
   pip install torch_directml==0.2.5.dev240914
   ```
+
 ##### (3) CPU 运行（无 GPU 加速）
 
 - 适用于没有 GPU 或不希望使用 GPU 的情况。
@@ -199,7 +213,9 @@ cd <源码所在目录>
   pip install torch==2.7.0 torchvision==0.22.0
   pip install -r requirements.txt
   ```
+
 ##### (4) macOS 运行 (Apple Silicon)
+
 - 适用于 macOS (Apple Silicon) 设备
 - macOS (Intel) 请使用CPU, 强行使用GPU只会更慢
 - macOS (Apple Silicon)上字幕检测PP-OCRv4-Server模型精度似乎不太理想, 推荐使用其他模型
@@ -209,6 +225,7 @@ cd <源码所在目录>
   pip install -r requirements.txt
   ```
   > 基于Python3.13版本测试
+
 #### 4. 运行程序
 
 - 运行图形化界面
@@ -224,9 +241,11 @@ python ./backend/main.py
 ```
 
 ## 常见问题
+
 1. 提取速度慢怎么办
 
 修改backend/config.py中的参数，可以大幅度提高去除速度
+
 ```python
 MODE = InpaintMode.STTN  # 设置为STTN算法
 STTN_SKIP_DETECTION = True # 跳过字幕检测，跳过后可能会导致要去除的字幕遗漏或者误伤不需要去除字幕的视频帧
@@ -252,7 +271,9 @@ STTN_REFERENCE_LENGTH = 10
 # 要保证STTN_MAX_LOAD_NUM大于STTN_NEIGHBOR_STRIDE和STTN_REFERENCE_LENGTH
 STTN_MAX_LOAD_NUM = 30
 ```
+
 - 使用LAMA算法
+
 ```python
 MODE = InpaintMode.LAMA  # 设置为STTN算法
 LAMA_SUPER_FAST = False  # 保证效果
@@ -267,7 +288,6 @@ LAMA_SUPER_FAST = False  # 保证效果
 4. Mac版本运行报错：Error "bad CPU type in executable"
 
 解决方案：打开控制台输入`softwareupdate --install-rosetta` 安装rosetta
-
 
 ## 赞助
 

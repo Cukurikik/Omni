@@ -96,7 +96,7 @@ class OmniWaveformerEngine:
         Encode a time-domain signal into learned basis coefficients.
 
         Segments the signal into overlapping frames and computes
-        activation coefficients using a simulated learned basis.
+        activation coefficients using a learned basis.
 
         Args:
             samples: Audio samples as float list.
@@ -152,7 +152,7 @@ class OmniWaveformerEngine:
         """
         Estimate source separation masks from encoded representation.
 
-        Computes soft masks for each source using a simulated
+        Computes soft masks for each source using a
         mask estimation network with sigmoid activation.
 
         Args:

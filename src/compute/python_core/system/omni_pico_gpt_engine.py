@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Minimalist GPT-2 Inference.
 
@@ -23,7 +23,7 @@ Covers the full GPT-2 inference pipeline:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 

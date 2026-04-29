@@ -2,20 +2,20 @@ name: WebAssembly
 on:
   push:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   merge_group:
 
 concurrency:
@@ -30,18 +30,18 @@ jobs:
     strategy:
       matrix:
         entry:
-#         # wasmtime can't compile non-optimized Asyncified binary due to locals explosion
-#         - { name: O0-debuginfo, optflags: '-O0', debugflags: '-g', wasmoptflags: '-O1' }
-#         - { name: O1,           optflags: '-O1', debugflags: ''  , wasmoptflags: '-O1' }
-          - { name: O2, optflags: '-O2', debugflags: '', wasmoptflags: '-O2' }
-#         - { name: O3,           optflags: '-O3', debugflags: ''  , wasmoptflags: '-O3' }
-#         # -O4 is equivalent to -O3 in clang, but it's different in wasm-opt
-#         - { name: O4,           optflags: '-O3', debugflags: ''  , wasmoptflags: '-O4' }
-#         - { name: Oz,           optflags: '-Oz', debugflags: ''  , wasmoptflags: '-Oz' }
+          #         # wasmtime can't compile non-optimized Asyncified binary due to locals explosion
+          #         - { name: O0-debuginfo, optflags: '-O0', debugflags: '-g', wasmoptflags: '-O1' }
+          #         - { name: O1,           optflags: '-O1', debugflags: ''  , wasmoptflags: '-O1' }
+          - { name: O2, optflags: "-O2", debugflags: "", wasmoptflags: "-O2" }
+      #         - { name: O3,           optflags: '-O3', debugflags: ''  , wasmoptflags: '-O3' }
+      #         # -O4 is equivalent to -O3 in clang, but it's different in wasm-opt
+      #         - { name: O4,           optflags: '-O3', debugflags: ''  , wasmoptflags: '-O4' }
+      #         - { name: Oz,           optflags: '-Oz', debugflags: ''  , wasmoptflags: '-Oz' }
       fail-fast: false
 
     env:
-      RUBY_TESTOPTS: '-q --tty=no'
+      RUBY_TESTOPTS: "-q --tty=no"
       GITPULLOPTIONS: --no-tags origin ${{ github.ref }}
       WASI_SDK_VERSION_MAJOR: 25
       WASI_SDK_VERSION_MINOR: 0
@@ -101,7 +101,7 @@ jobs:
 
       - uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
         with:
-          ruby-version: '3.1'
+          ruby-version: "3.1"
           bundler: none
 
       - name: Build baseruby

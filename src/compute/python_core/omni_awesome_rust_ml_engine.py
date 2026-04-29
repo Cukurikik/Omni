@@ -5,7 +5,7 @@ Production-grade OMNI engine conceptualizing an abstract Foreign Function
 Interface (FFI) metadata registry. Inspired by vaaaaanquish/Awesome-Rust-MachineLearning.
 
 Features:
-- Rust framework environment simulated registry (`tch-rs`, `linfa`).
+- Rust framework environment Registry (`tch-rs`, `linfa`).
 - Safe initialization of foreign computational contexts.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -51,7 +51,7 @@ Result = Union[Ok, Err]
 
 class OmniAwesomeRustMLEngine:
     """
-    Production Engine providing a simulated environment orchestrator 
+    Production Engine providing a environment orchestrator 
     for Rust-based ML crates.
     """
     VERSION = "1.0.0"
@@ -132,7 +132,7 @@ class OmniAwesomeRustMLEngine:
             "active_contexts": len(self.active_contexts),
             "total_initializations": self._initialization_count,
             "features": [
-                "rust_crate_registry_simulation",
+                "rust_crate_registry_computation",
                 "ffi_memory_boundary_abstraction",
                 "safeguarded_execution_routing",
             ]

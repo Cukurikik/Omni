@@ -7,7 +7,6 @@
 [![Nuget package](https://img.shields.io/nuget/vpre/Microsoft.SemanticKernel)](https://www.nuget.org/packages/Microsoft.SemanticKernel/)
 [![Discord](https://img.shields.io/discord/1063152441819942922?label=Discord&logo=discord&logoColor=white&color=d82679)](https://aka.ms/SKDiscord)
 
-
 ## What is Semantic Kernel?
 
 Semantic Kernel is a model-agnostic SDK that empowers developers to build, orchestrate, and deploy AI agents and multi-agent systems. Whether you're building a simple chatbot or a complex multi-agent workflow, Semantic Kernel provides the tools you need with enterprise-grade reliability and flexibility.
@@ -15,7 +14,7 @@ Semantic Kernel is a model-agnostic SDK that empowers developers to build, orche
 ## System Requirements
 
 - **Python**: 3.10+
-- **.NET**: .NET 10.0+ 
+- **.NET**: .NET 10.0+
 - **Java**: JDK 17+
 - **OS Support**: Windows, macOS, Linux
 
@@ -36,11 +35,13 @@ Semantic Kernel is a model-agnostic SDK that empowers developers to build, orche
 First, set the environment variable for your AI Services:
 
 **Azure OpenAI:**
+
 ```bash
 export AZURE_OPENAI_API_KEY=AAA....
 ```
 
 **or OpenAI directly:**
+
 ```bash
 export OPENAI_API_KEY=sk-...
 ```
@@ -85,7 +86,7 @@ async def main():
     response = await agent.get_response(messages="Write a haiku about Semantic Kernel.")
     print(response.content)
 
-asyncio.run(main()) 
+asyncio.run(main())
 
 # Output:
 # Language's essence,
@@ -115,7 +116,7 @@ ChatCompletionAgent agent =
         Kernel = kernel,
     };
 
-await foreach (AgentResponseItem<ChatMessageContent> response 
+await foreach (AgentResponseItem<ChatMessageContent> response
     in agent.InvokeAsync("Write a haiku about Semantic Kernel."))
 {
     Console.WriteLine(response.Message);
@@ -178,7 +179,7 @@ async def main():
     # Output:
     # The price of the Clam Chowder, which is the soup special, is $9.99.
 
-asyncio.run(main()) 
+asyncio.run(main())
 ```
 
 ### Agent with Plugin - .NET
@@ -209,7 +210,7 @@ ChatCompletionAgent agent =
 
     };
 
-await foreach (AgentResponseItem<ChatMessageContent> response 
+await foreach (AgentResponseItem<ChatMessageContent> response
     in agent.InvokeAsync("What is the price of the soup special?"))
 {
     Console.WriteLine(response.Message);
@@ -243,8 +244,8 @@ from semantic_kernel.agents import ChatCompletionAgent, ChatHistoryAgentThread
 from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion, OpenAIChatCompletion
 
 billing_agent = ChatCompletionAgent(
-    service=AzureChatCompletion(), 
-    name="BillingAgent", 
+    service=AzureChatCompletion(),
+    name="BillingAgent",
     instructions="You handle billing issues like charges, payment methods, cycles, fees, discrepancies, and payment failures."
 )
 
@@ -303,8 +304,6 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-
-
 ## Where to Go Next
 
 1. 📖 Try our [Getting Started Guide](https://learn.microsoft.com/en-us/semantic-kernel/get-started/quick-start-guide) or learn about [Building Agents](https://learn.microsoft.com/en-us/semantic-kernel/frameworks/agent/)
@@ -328,7 +327,6 @@ if __name__ == "__main__":
 - Check our [GitHub issues](https://github.com/microsoft/semantic-kernel/issues) for known problems
 - Search the [Discord community](https://aka.ms/SKDiscord) for solutions
 - Include your SDK version and full error messages when asking for help
-
 
 ## Join the community
 

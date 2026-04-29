@@ -2,22 +2,22 @@
 // OMNI WEBSOCKET ENGINE (POLYLINGUAL REMEDIATION — BATCH 37.7)
 // ===========================================================================
 // Absorbed From  : gorilla/websocket + nhooyr.io/websocket + gobwas/ws
-// Logic Inherited: Go / Network Layer (Room-Based WebSocket Connection Manager)
+// Logic Inherited: Go / Network Layer (Room-Based WebSocket WSConnection Manager)
 // Domain Layer   : Network (Go Core)
 // ===========================================================================
 //
 // By studying gorilla/websocket and nhooyr.io/websocket, Mother learned
 // that production WebSocket management requires:
-//   1. Connection registry with thread-safe map (sync.Map)
+//   1. WSConnection registry with thread-safe map (sync.Map)
 //   2. Room-based pub/sub (broadcast to all connections in a room)
-//   3. Per-connection write pump with buffered channel
+//   3. Per-WSConnection write pump with buffered channel
 //   4. Heartbeat/ping-pong with configurable intervals
 //   5. Graceful shutdown with context cancellation
 //
-// Go's goroutine-per-connection model scales to 100K+ concurrent
+// Go's goroutine-per-WSConnection model scales to 100K+ concurrent
 // connections with minimal memory overhead.
 
-package omni_websocket
+package go_core
 
 import (
 	"context"
@@ -49,10 +49,10 @@ type Message struct {
 	Timestamp time.Time
 }
 
-// ---- Connection ----
+// ---- WSConnection ----
 
-// Connection represents a single WebSocket connection.
-type Connection struct {
+// WSConnection represents a single WebSocket WSConnection.
+type WSConnection struct {
 	ID          string
 	UserID      string
 	Rooms       map[string]bool
@@ -63,9 +63,9 @@ type Connection struct {
 	IsAlive     int32 // atomic: 1 = alive, 0 = dead
 }
 
-// NewConnection creates a managed connection.
-func NewConnection(id, userID string, bufferSize int) *Connection {
-	return &Connection{
+// NewConnection creates a managed WSConnection.
+func NewConnection(id, userID string, bufferSize int) *WSConnection {
+	return &WSConnection{
 		ID:          id,
 		UserID:      userID,
 		Rooms:       make(map[string]bool),
@@ -82,18 +82,18 @@ func NewConnection(id, userID string, bufferSize int) *Connection {
 // Room holds connections subscribed to a named channel.
 type Room struct {
 	ID          string
-	Connections sync.Map // connID → *Connection
+	Connections sync.Map // connID → *WSConnection
 	CreatedAt   time.Time
 }
 
 // ---- Event Handler ----
 
-// EventHandler is called on connection lifecycle events.
+// EventHandler is called on WSConnection lifecycle events.
 type EventHandler struct {
-	OnConnect    func(conn *Connection)
-	OnDisconnect func(conn *Connection)
-	OnMessage    func(conn *Connection, msg Message)
-	OnError      func(conn *Connection, err error)
+	OnConnect    func(conn *WSConnection)
+	OnDisconnect func(conn *WSConnection)
+	OnMessage    func(conn *WSConnection, msg Message)
+	OnError      func(conn *WSConnection, err error)
 }
 
 // ---- Configuration ----
@@ -125,7 +125,7 @@ func DefaultWSConfig() WSConfig {
 // OmniWebSocketEngine manages WebSocket connections and rooms.
 type OmniWebSocketEngine struct {
 	config      WSConfig
-	connections sync.Map // connID → *Connection
+	connections sync.Map // connID → *WSConnection
 	rooms       sync.Map // roomID → *Room
 	handler     EventHandler
 	ctx         context.Context
@@ -152,10 +152,10 @@ func NewOmniWebSocketEngine(cfg WSConfig, handler EventHandler) *OmniWebSocketEn
 	}
 }
 
-// ---- Connection Management ----
+// ---- WSConnection Management ----
 
-// Connect registers a new connection.
-func (e *OmniWebSocketEngine) Connect(conn *Connection) error {
+// Connect registers a new WSConnection.
+func (e *OmniWebSocketEngine) Connect(conn *WSConnection) error {
 	activeCount := atomic.LoadInt64(&e.stats.ActiveConnections)
 	if activeCount >= int64(e.config.MaxConnections) {
 		return fmt.Errorf("max connections (%d) reached", e.config.MaxConnections)
@@ -172,14 +172,14 @@ func (e *OmniWebSocketEngine) Connect(conn *Connection) error {
 	return nil
 }
 
-// Disconnect removes a connection & cleans up all room memberships.
+// Disconnect removes a WSConnection & cleans up all room memberships.
 func (e *OmniWebSocketEngine) Disconnect(connID string) {
 	val, ok := e.connections.LoadAndDelete(connID)
 	if !ok {
 		return
 	}
 
-	conn := val.(*Connection)
+	conn := val.(*WSConnection)
 	atomic.StoreInt32(&conn.IsAlive, 0)
 	close(conn.SendCh)
 
@@ -196,24 +196,24 @@ func (e *OmniWebSocketEngine) Disconnect(connID string) {
 	}
 }
 
-// GetConnection retrieves a connection by ID.
-func (e *OmniWebSocketEngine) GetConnection(connID string) (*Connection, bool) {
+// GetConnection retrieves a WSConnection by ID.
+func (e *OmniWebSocketEngine) GetConnection(connID string) (*WSConnection, bool) {
 	val, ok := e.connections.Load(connID)
 	if !ok {
 		return nil, false
 	}
-	return val.(*Connection), true
+	return val.(*WSConnection), true
 }
 
 // ---- Room Management ----
 
-// JoinRoom adds a connection to a room, creating the room if needed.
+// JoinRoom adds a WSConnection to a room, creating the room if needed.
 func (e *OmniWebSocketEngine) JoinRoom(connID, roomID string) error {
 	val, ok := e.connections.Load(connID)
 	if !ok {
-		return fmt.Errorf("connection %s not found", connID)
+		return fmt.Errorf("WSConnection %s not found", connID)
 	}
-	conn := val.(*Connection)
+	conn := val.(*WSConnection)
 
 	// Get or create room
 	roomVal, _ := e.rooms.LoadOrStore(roomID, &Room{
@@ -228,7 +228,7 @@ func (e *OmniWebSocketEngine) JoinRoom(connID, roomID string) error {
 	return nil
 }
 
-// LeaveRoom removes a connection from a room.
+// LeaveRoom removes a WSConnection from a room.
 func (e *OmniWebSocketEngine) LeaveRoom(connID, roomID string) {
 	val, ok := e.rooms.Load(roomID)
 	if !ok {
@@ -237,10 +237,10 @@ func (e *OmniWebSocketEngine) LeaveRoom(connID, roomID string) {
 	room := val.(*Room)
 	room.Connections.Delete(connID)
 
-	// Remove room from connection's room set
+	// Remove room from WSConnection's room set
 	connVal, ok := e.connections.Load(connID)
 	if ok {
-		conn := connVal.(*Connection)
+		conn := connVal.(*WSConnection)
 		delete(conn.Rooms, roomID)
 	}
 
@@ -257,16 +257,16 @@ func (e *OmniWebSocketEngine) LeaveRoom(connID, roomID string) {
 
 // ---- Messaging ----
 
-// Send sends a message to a specific connection.
+// Send sends a message to a specific WSConnection.
 func (e *OmniWebSocketEngine) Send(connID string, msg Message) error {
 	val, ok := e.connections.Load(connID)
 	if !ok {
-		return fmt.Errorf("connection %s not found", connID)
+		return fmt.Errorf("WSConnection %s not found", connID)
 	}
-	conn := val.(*Connection)
+	conn := val.(*WSConnection)
 
 	if atomic.LoadInt32(&conn.IsAlive) == 0 {
-		return fmt.Errorf("connection %s is dead", connID)
+		return fmt.Errorf("WSConnection %s is dead", connID)
 	}
 
 	select {
@@ -275,7 +275,7 @@ func (e *OmniWebSocketEngine) Send(connID string, msg Message) error {
 		return nil
 	default:
 		atomic.AddUint64(&e.stats.TotalErrors, 1)
-		return fmt.Errorf("send buffer full for connection %s", connID)
+		return fmt.Errorf("send buffer full for WSConnection %s", connID)
 	}
 }
 
@@ -292,13 +292,13 @@ func (e *OmniWebSocketEngine) Broadcast(roomID string, msg Message) int {
 	sent := 0
 
 	room.Connections.Range(func(key, value interface{}) bool {
-		conn := value.(*Connection)
+		conn := value.(*WSConnection)
 		if atomic.LoadInt32(&conn.IsAlive) == 1 {
 			select {
 			case conn.SendCh <- msg:
 				sent++
 			default:
-				// Buffer full — skip this connection
+				// Buffer full — skip this WSConnection
 				atomic.AddUint64(&e.stats.TotalErrors, 1)
 			}
 		}
@@ -317,7 +317,7 @@ func (e *OmniWebSocketEngine) BroadcastAll(msg Message) int {
 	sent := 0
 
 	e.connections.Range(func(key, value interface{}) bool {
-		conn := value.(*Connection)
+		conn := value.(*WSConnection)
 		if atomic.LoadInt32(&conn.IsAlive) == 1 {
 			select {
 			case conn.SendCh <- msg:
@@ -333,13 +333,13 @@ func (e *OmniWebSocketEngine) BroadcastAll(msg Message) int {
 	return sent
 }
 
-// HandleIncoming processes an incoming message from a connection.
+// HandleIncoming processes an incoming message from a WSConnection.
 func (e *OmniWebSocketEngine) HandleIncoming(connID string, msg Message) {
 	val, ok := e.connections.Load(connID)
 	if !ok {
 		return
 	}
-	conn := val.(*Connection)
+	conn := val.(*WSConnection)
 	msg.SenderID = connID
 	msg.Timestamp = time.Now()
 
@@ -373,11 +373,11 @@ func (e *OmniWebSocketEngine) runHeartbeat() {
 	now := time.Now()
 
 	e.connections.Range(func(key, value interface{}) bool {
-		conn := value.(*Connection)
+		conn := value.(*WSConnection)
 
 		// Check pong timeout
 		if now.Sub(conn.LastPingAt) > e.config.PongTimeout {
-			// Connection timed out — disconnect
+			// WSConnection timed out — disconnect
 			connID := key.(string)
 			e.Disconnect(connID)
 			return true
@@ -399,19 +399,19 @@ func (e *OmniWebSocketEngine) runHeartbeat() {
 	})
 }
 
-// HandlePong updates the last ping timestamp for a connection.
+// HandlePong updates the last ping timestamp for a WSConnection.
 func (e *OmniWebSocketEngine) HandlePong(connID string) {
 	val, ok := e.connections.Load(connID)
 	if !ok {
 		return
 	}
-	conn := val.(*Connection)
+	conn := val.(*WSConnection)
 	conn.LastPingAt = time.Now()
 }
 
 // ---- Query ----
 
-// GetRoomConnections returns all connection IDs in a room.
+// GetRoomConnections returns all WSConnection IDs in a room.
 func (e *OmniWebSocketEngine) GetRoomConnections(roomID string) []string {
 	val, ok := e.rooms.Load(roomID)
 	if !ok {

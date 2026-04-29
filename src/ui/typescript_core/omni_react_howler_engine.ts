@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_react_howler_engine.ts
 // Production-Grade React Howler Audio Bridge Engine
@@ -278,6 +278,17 @@ export class OmniReactHowlerEngine {
             rate: this.rate,
             loop: this.loop,
             muted: this.muted,
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniReactHowlerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

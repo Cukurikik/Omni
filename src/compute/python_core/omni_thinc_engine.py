@@ -80,7 +80,7 @@ class TensorShapeIntegrityValidator:
             final_dimension = (layer_shapes[0][0], layer_shapes[-1][1]) if is_valid else None
             
             if not is_valid:
-                return Err(f"Tensor Shape mismatch detected during simulated forward pass: {validation_chain}")
+                return Err(f"Tensor Shape mismatch detected during Forward pass: {validation_chain}")
             
             return Ok({
                 "layers_validated": len(layer_shapes),

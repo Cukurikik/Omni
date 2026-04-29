@@ -6,7 +6,7 @@ class OmniKubernetesHelmChartEngine:
     """
     omni-kubernetes-helm-chart
     
-    A simulated configuration matrix mapping string geometry sequences evaluating values overrides loops natively metric loops string boundary mathematical combinations!
+    a configuration matrix mapping string geometry sequences evaluating values overrides loops natively metric loops string boundary mathematical combinations!
     """
     
     ENGINE_VERSION = "omni-s11-b15.1.0"
@@ -28,7 +28,7 @@ class OmniKubernetesHelmChartEngine:
             merged_values = dict(default_values)
             keys_overridden = set()
             
-            # Simulated algebraic mapping strings geometry constraints combinations vectors strings sequences Limit math limit loops mappings constraints logic loops limit geometry variables logic Limits sequences
+            # algebraic mapping strings geometry constraints combinations vectors strings sequences Limit math limit loops mappings constraints logic loops limit geometry variables logic Limits sequences
             def _deep_merge_traces(base: Dict[str, Any], override: Dict[str, Any], path: str = ""):
                 for k, v in override.items():
                     current_path = f"{path}.{k}" if path else k

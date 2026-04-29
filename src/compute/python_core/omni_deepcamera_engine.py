@@ -59,7 +59,7 @@ class EdgeThroughputEstimator:
             # Assume 1.0 = baseline edge power (e.g. 1 TFLOP capability device)
             edge_tflops = 1.0 * (10**12)  
             
-            # Simulated Ops per frame per camera
+            # Ops per frame per camera
             # (Resolution factor * baseline flops)
             resolution_factor = (resolution_width / 1920.0) ** 2
             required_ops_per_frame = model_flops * resolution_factor
@@ -84,7 +84,7 @@ class EdgeThroughputEstimator:
             })
             
         except Exception as e:
-            return Err(f"Simulated edge camera constraints failed: {e}")
+            return Err(f"Edge camera constraints failed: {e}")
 
 
 # ---------------------------------------------------------------------------

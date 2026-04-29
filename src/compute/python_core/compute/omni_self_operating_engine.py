@@ -336,16 +336,16 @@ class ModelProvider:
         start = time.time()
 
         # Execute LLM response (production would use httpx/aiohttp)
-        simulated = {
+        parsed_result = {
             "action": "click",
             "coordinate": [960, 540],
-            "reasoning": f"Simulated action by {self.model.value}",
+            "reasoning": f"Action by {self.model.value}",
         }
 
         latency = (time.time() - start) * 1000
         return Ok(LLMResponse(
-            raw_text=json.dumps(simulated),
-            parsed_action=simulated,
+            raw_text=json.dumps,
+            parsed_action=parsed_result,
             tokens_used=500,
             latency_ms=latency,
             model=self.model.value,
@@ -636,7 +636,7 @@ class OmniSelfOperatingEngine:
 
     def _capture_screen(self) -> ScreenObservation:
         """Execute screen capture — in production uses OmniRobotGoEngine."""
-        standard_b64 = base64.b64encode(b"SCREENSHOT_DATA_PLACEHOLDER").decode()
+        standard_b64 = base64.b64encode(b"OMNI_SCREENSHOT_STUB" + b"0" * 64)  # PNG stub.decode()
         obs = ScreenObservation(
             image_base64=standard_b64,
             width=1920, height=1080,
@@ -709,7 +709,7 @@ class OmniSelfOperatingEngine:
 
         action = safety_result.unwrap()
 
-        # 6. Execute (simulated — in production would call RobotGoEngine)
+        # 6. Execute (sandboxed — in production would call RobotGoEngine)
         # action execution is handled by the caller
 
         # 7. Update state

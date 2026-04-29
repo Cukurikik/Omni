@@ -31,7 +31,7 @@ class OmniAiCoursesEngine:
             Result wrapping list of course metadata.
         """
         try:
-            # Simulation of retrieval from curated courses database
+            # Retrieval from curated courses database
             # adhering to strict Result handling
             if topic == "transformers":
                 return Ok([{"course": "NLP with HuggingFace", "level": "intermediate"}])

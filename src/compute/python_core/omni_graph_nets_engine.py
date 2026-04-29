@@ -140,7 +140,7 @@ class GraphTuple:
 # ---------------------------------------------------------------------------
 
 class MLP:
-    """Simple Multi-Layer Perceptron simulator for block functions."""
+    """Simple Multi-Layer Perceptron engine for block functions."""
     def __init__(self, in_features: int, out_features: int, seed: int = 42):
         """Initialize MLP."""
         rs = np.random.RandomState(seed)

@@ -3,23 +3,32 @@
 # ==========================================
 
 # Update State Otonom Agent
-mutation UpsertAgentState($id: UUID!, $agentName: String!, $lastState: String!) @auth(level: USER) {
-    agentSession_upsert(data: {
-        id: $id,
-        agentName: $agentName,
-        lastState: $lastState,
-        updatedAt_expr: "request.time"
-    })
+mutation UpsertAgentState($id: UUID!, $agentName: String!, $lastState: String!)
+@auth(level: USER) {
+  agentSession_upsert(
+    data: {
+      id: $id
+      agentName: $agentName
+      lastState: $lastState
+      updatedAt_expr: "request.time"
+    }
+  )
 }
 
 # Menambahkan Memori RAG secara dinamis (Hanya Admin)
-mutation InsertOmniKnowledge($content: String!, $embedding: Vector!, $source: String!) @auth(level: USER) {
-    omniKnowledge_insert(data: {
-        content: $content,
-        embedding: $embedding,
-        sourceModule: $source,
-        createdAt_expr: "request.time"
-    })
+mutation InsertOmniKnowledge(
+  $content: String!
+  $embedding: Vector!
+  $source: String!
+) @auth(level: USER) {
+  omniKnowledge_insert(
+    data: {
+      content: $content
+      embedding: $embedding
+      sourceModule: $source
+      createdAt_expr: "request.time"
+    }
+  )
 }
 
 # Force IDE Cache Refresh 1776385314694

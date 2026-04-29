@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI PYTORCH DEEP LEARNING CURRICULUM (SEMESTER 5 — BATCH 21)
@@ -69,6 +69,17 @@ export class OmniPytorchDeepLearningCurriculumEngine {
             status: "healthy",
             modules_indexed: this.curriculum.size,
             learned_from: "mrdbourke/pytorch-deep-learning"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniPytorchDeepLearningCurriculumEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

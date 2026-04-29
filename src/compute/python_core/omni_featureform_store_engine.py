@@ -29,7 +29,7 @@ class VirtualFeatureMathematics:
     @staticmethod
     def calculate_feature_hash(feature_name: str, schema_version: int, vector_dimension: int) -> float:
         """Calculates a deterministic feature hash representing the virtual state."""
-        # Simulated hash mapping using algorithmic matrix operations
+        # hash mapping using algorithmic matrix operations
         base_vector = np.array([ord(c) for c in feature_name[:10].ljust(10, 'A')], dtype=np.float32)
         transformation_matrix = np.eye(10) * np.pi * schema_version
         

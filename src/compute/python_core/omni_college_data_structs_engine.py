@@ -3,7 +3,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 
 class OmniCollegeDataStructsEngine(OmniBaseEngine):
     """
-    Implements advanced algorithmic simulations for standard C-like
+    Implements advanced algorithmic computations for standard C-like
     data structures, notably a deterministic contiguous memory pool allocator.
     """
     

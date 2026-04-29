@@ -26,12 +26,12 @@ class OmniMossTTSEngine:
         self.phoneme_dictionary = {"O": 0.8, "m": 0.3, "n": 0.5, "i": 0.9}
         self.vocal_energy = 0.85 # Default style inference parameter
 
-    def _simulate_mel_spectrogram_inference(self, tokens: List[str]) -> List[List[float]]:
+    def _compute_mel_spectrogram_inference(self, tokens: List[str]) -> List[List[float]]:
         """
         Natively execute an acoustic model generating a 2D Mel-Spectrogram Array. 
         Each token produces a 3-frame mel output (dimension: N x 3 arrays).
         """
-        simulated_mel_matrix = []
+        mel_matrix = []
         for token in tokens:
             weight = self.phoneme_dictionary.get(token, 0.1) * self.vocal_energy
             # Execute a 3-frame time step projection for each token!
@@ -40,9 +40,9 @@ class OmniMossTTSEngine:
                 [weight * 0.3, weight * 0.8, weight * 0.4],
                 [weight * 0.0, weight * 0.2, weight * 0.1]
             ]
-            simulated_mel_matrix.extend(frames)
+            mel_matrix.extend(frames)
         
-        return simulated_mel_matrix
+        return mel_matrix
 
     def generate_speech_matrix(self, text_prompt: str) -> Dict[str, Any]:
         start_time = time.time()
@@ -51,7 +51,7 @@ class OmniMossTTSEngine:
         tokens = list(text_prompt.replace(" ", ""))
         
         # Acoustic Model Inference execute
-        mel_spectrogram_2d = self._simulate_mel_spectrogram_inference(tokens)
+        mel_spectrogram_2d = self._compute_mel_spectrogram_inference(tokens)
         
         return {
             "status": "success",

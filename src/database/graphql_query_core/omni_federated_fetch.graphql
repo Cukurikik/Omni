@@ -1,0 +1,24 @@
+# Omni Federated Fetch Query (GraphQL)
+# Zero-mock complex data retrieval across layers
+
+query GetOmniEngineStatus($engineId: ID!) {
+  engine(id: $engineId) {
+    id
+    name
+    layer
+    telemetry {
+      cpuUsage
+      memoryAllocation
+      activeGoroutines
+      cudaUtilization
+    }
+    dependencies {
+      id
+      status
+    }
+    securityPolicies {
+      cerbosRuleName
+      opaValidationStatus
+    }
+  }
+}

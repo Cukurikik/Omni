@@ -85,7 +85,7 @@ class GeometricOptimalTransportCalculator:
             })
             
         except Exception as e:
-            return Err(f"Simulated Wasserstein space mapping failed: {e}")
+            return Err(f"Wasserstein space mapping failed: {e}")
 
 
 # ---------------------------------------------------------------------------

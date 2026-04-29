@@ -1,4 +1,4 @@
-# omni_bmt_engine.py
+﻿# omni_bmt_engine.py
 # Production-Grade Bi-Modal Transformer Engine
 # ==============================================================
 # Absorbed from: v-iashin/BMT (Bi-Modal Transformer)
@@ -21,7 +21,7 @@ OMNI Layer: compute (Python)
 """
 from typing import List, Optional, Dict, Any, Tuple
 import math
-import random
+import hashlib
 
 ENGINE_VERSION = "1.0.0-omni"
 from src.compute.python_core.omni_base_engine import Result, Ok, Err

@@ -146,8 +146,8 @@ type TestSuite struct {
 // Section 3: Execution Results
 // ─────────────────────────────────────────────
 
-// ValidationError represents a single validation failure.
-type ValidationError struct {
+// ApiTestValidationError represents a single validation failure.
+type ApiTestValidationError struct {
 	Type     string `json:"type"`     // status, header, json_data, json_schema, body
 	Expected string `json:"expected"`
 	Actual   string `json:"actual"`
@@ -161,7 +161,7 @@ type SpecResult struct {
 	StatusCode       int               `json:"response_status_code"`
 	Duration         time.Duration     `json:"duration"`
 	DurationMs       float64           `json:"duration_ms"`
-	Errors           []ValidationError `json:"errors,omitempty"`
+	Errors           []ApiTestValidationError `json:"errors,omitempty"`
 	ResponseHeaders  map[string]string `json:"response_headers,omitempty"`
 	ResponseBody     string            `json:"response_body,omitempty"`
 	RetryAttempts    int               `json:"retry_attempts"`
@@ -297,12 +297,12 @@ func (c *APIClient) Execute(ctx context.Context, spec RequestSpec) (*http.Respon
 // ResponseValidator validates HTTP responses against spec.
 type ResponseValidator struct{}
 
-func (v *ResponseValidator) Validate(resp *http.Response, body []byte, spec ResponseSpec) []ValidationError {
-	errs := make([]ValidationError, 0)
+func (v *ResponseValidator) Validate(resp *http.Response, body []byte, spec ResponseSpec) []ApiTestValidationError {
+	errs := make([]ApiTestValidationError, 0)
 
 	// Status code
 	if spec.StatusCode > 0 && resp.StatusCode != spec.StatusCode {
-		errs = append(errs, ValidationError{
+		errs = append(errs, ApiTestValidationError{
 			Type:     "status",
 			Expected: fmt.Sprintf("%d", spec.StatusCode),
 			Actual:   fmt.Sprintf("%d", resp.StatusCode),
@@ -325,7 +325,7 @@ func (v *ResponseValidator) Validate(resp *http.Response, body []byte, spec Resp
 				matched = strings.Contains(strings.ToLower(actual), strings.ToLower(h.Value))
 			}
 			if !matched {
-				errs = append(errs, ValidationError{
+				errs = append(errs, ApiTestValidationError{
 					Type:     "header",
 					Expected: fmt.Sprintf("%s: %s", h.Name, h.Value),
 					Actual:   fmt.Sprintf("%s: %s", h.Name, actual),
@@ -339,7 +339,7 @@ func (v *ResponseValidator) Validate(resp *http.Response, body []byte, spec Resp
 	bodyStr := string(body)
 	for _, expected := range spec.BodyContains {
 		if !strings.Contains(bodyStr, expected) {
-			errs = append(errs, ValidationError{
+			errs = append(errs, ApiTestValidationError{
 				Type:     "body",
 				Expected: expected,
 				Actual:   truncateStr(bodyStr, 200),
@@ -352,7 +352,7 @@ func (v *ResponseValidator) Validate(resp *http.Response, body []byte, spec Resp
 	if len(spec.JSONData) > 0 {
 		var jsonObj interface{}
 		if err := json.Unmarshal(body, &jsonObj); err != nil {
-			errs = append(errs, ValidationError{
+			errs = append(errs, ApiTestValidationError{
 				Type:    "json_data",
 				Message: "Failed to parse response as JSON: " + err.Error(),
 			})
@@ -362,7 +362,7 @@ func (v *ResponseValidator) Validate(resp *http.Response, body []byte, spec Resp
 				expected := fmt.Sprintf("%v", check.Value)
 				actualStr := fmt.Sprintf("%v", actual)
 				if actualStr != expected {
-					errs = append(errs, ValidationError{
+					errs = append(errs, ApiTestValidationError{
 						Type:     "json_data",
 						Expected: fmt.Sprintf("%s = %s", check.Path, expected),
 						Actual:   fmt.Sprintf("%s = %s", check.Path, actualStr),
@@ -483,7 +483,7 @@ func (r *SuiteRunner) executeSpec(ctx context.Context, spec TestSpec) SpecResult
 
 	if err != nil {
 		result.Status = StatusError
-		result.Errors = append(result.Errors, ValidationError{
+		result.Errors = append(result.Errors, ApiTestValidationError{
 			Type: "connection", Message: err.Error(),
 		})
 		return result

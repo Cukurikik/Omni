@@ -35,7 +35,7 @@ class OmniSoliditySmartContractEngine:
             total_gas = 0
             unmapped_instructions = []
             
-            # Simulated mathematical mapping routing constraints natively!
+            # Mathematical mapping routing constraints natively!
             for code in opcodes:
                 c_upper = str(code).upper()
                 if c_upper in gas_table:

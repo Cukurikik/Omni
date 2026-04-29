@@ -1,0 +1,13 @@
+// Omni INTERS Search Metrics (DAX)
+// Business/Analysis Layer: PowerBI deterministic measure for tuning metrics.
+
+OmniIntersRelevanceScore = 
+VAR TotalDocs = COUNTROWS('IntersDocs')
+VAR RelevantDocs = CALCULATE(COUNTROWS('IntersDocs'), 'IntersDocs'[Relevance] > 0.8)
+
+RETURN
+IF (
+    ISBLANK(TotalDocs) || TotalDocs == 0,
+    0,
+    DIVIDE(RelevantDocs, TotalDocs, 0)
+)

@@ -6,7 +6,7 @@ Inspired by KudoAI/chatgpt.js.
 
 Features:
 - State Machine array context buffers.
-- Simulated prompt logic constraints truncating infinite vectors safely.
+- Prompt logic constraints truncating infinite vectors safely.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
 OMNI Layer: compute (Python)
@@ -62,7 +62,7 @@ class ConversationalBuffer:
 
     def _enforce_bounds(self) -> None:
         """Determines mathematical word sizes enforcing arbitrary token limits natively."""
-        # Simulated tokenizer utilizing heuristic space split mapping
+        # tokenizer utilizing heuristic space split mapping
         # 1 word = ~1.3 tokens calculation approx.
         current_tokens = sum(int(len(msg["content"].split()) * 1.3) for msg in self.context_log)
         
@@ -96,7 +96,7 @@ class OmniChatgptJsEngine:
             # 1. Store user inputs safely
             self.buffer.append_message("user", user_prompt)
             
-            # 2. A simulated LLM external boundary mapping
+            # 2. a LLM external boundary mapping
             safe_reply = resolved_ai_reply if resolved_ai_reply else "..."
             self.buffer.append_message("assistant", safe_reply)
             

@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_webav_engine.ts
 // Production-Grade Browser-Native AV Composition Engine
@@ -196,5 +196,16 @@ export class OmniWebavEngine {
             if (end > maxEnd) maxEnd = end;
         }
         this.timelineDurationMs = maxEnd;
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniWebavEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

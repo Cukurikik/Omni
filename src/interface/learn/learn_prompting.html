@@ -1,0 +1,75 @@
+<!-- 
+OMNI Divine Memory Integration: Inspired by Learn_Prompting
+Interface Layer - HTML structure for prompt engineering curriculum UI.
+Bounded semantic components, zero CSS frameworks.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Learn Prompting</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --text-main: #f8fafc;
+            --accent: #10b981;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .module {
+            background: var(--surface-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-top: 4px solid var(--accent);
+        }
+        .module h3 { margin-top: 0; }
+        .prompt-box {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto; margin-bottom: 2rem;">
+        <h1>Prompt Engineering Curriculum</h1>
+        <p>Hardcoded production structures for generative AI interactions.</p>
+    </div>
+
+    <div class="curriculum-grid">
+        <div class="module">
+            <h3>Zero-Shot Prompting</h3>
+            <p>Direct query execution without context framing.</p>
+            <div class="prompt-box">"Analyze the sentiment of this text: I love OMNI framework."</div>
+        </div>
+        <div class="module">
+            <h3>Few-Shot Prompting</h3>
+            <p>Providing physical bounded examples.</p>
+            <div class="prompt-box">"Awesome -> Positive\nTerrible -> Negative\nGreat -> ?"</div>
+        </div>
+        <div class="module">
+            <h3>Chain of Thought</h3>
+            <p>Step-by-step logic tracing.</p>
+            <div class="prompt-box">"Let's think step by step. If 1 node has 2 GPUs..."</div>
+        </div>
+    </div>
+</body>
+</html>

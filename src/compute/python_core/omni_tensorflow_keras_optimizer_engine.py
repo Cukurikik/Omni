@@ -14,7 +14,7 @@ class OmniTensorflowKerasOptimizerEngine:
     def __init__(self, step_capacity_bound: int = 1000) -> None:
         self.capacity_bounds = step_capacity_bound
 
-    def compute_sgd_gradient_step_simulation(self, initial_weight: float, learning_rate: float, gradients: List[float]) -> Result:
+    def compute_sgd_gradient_step_computation(self, initial_weight: float, learning_rate: float, gradients: List[float]) -> Result:
         """
         Natively isolates string logic configurations bounding computational string dictionary maps natively boundary structures strings mapping matrices natively sequences mapping vectors numeric parameters combinations Sequences mappings Arrays Vectors Variables Strings Limits!
         initial_weight: 0.5

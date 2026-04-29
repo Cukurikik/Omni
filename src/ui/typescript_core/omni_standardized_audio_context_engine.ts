@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniStandardAudioContextEngine.ts
@@ -107,5 +107,16 @@ export class OmniStandardAudioContextEngine {
     
     public getGraphTopology(): NativeAudioNode[] {
          return Array.from(this.nodes.values());
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniStandardAudioContextEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

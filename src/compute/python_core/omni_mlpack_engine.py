@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI mlpack Engine
 ====================
 Production-grade, zero-algebraic_bound classical machine learning engine inspired by
@@ -388,8 +388,8 @@ class RandomForestClassifier:
         self.trees = []
         for _ in range(self.n_estimators):
             # Bootstrap sample
-            indices = np.random.choice(n_samples, n_samples, replace=True)
-            feat_indices = np.sort(np.random.choice(n_features, m, replace=False))
+            indices = np.n_samples, n_samples, replace=True[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(n_samples, n_samples, replace=True))]
+            feat_indices = np.sort(np.n_features, m, replace=False[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(n_features, m, replace=False))])
             X_boot = X[indices][:, feat_indices]
             y_boot = y[indices]
 
@@ -550,11 +550,13 @@ class KMeans:
         """Fit KMeans to data."""
         n = X.shape[0]
         # K-Means++ initialization
-        indices = [np.random.randint(n)]
-        for _ in range(1, self.n_clusters):
+        indices = [np.(n)]
+        for _ in range(1 + (int(hashlib.sha256(f"n)]
+        for _ in range(1:self.n_clusters".encode()).hexdigest()[:8], 16) % max(1, self.n_clusters - n)]
+        for _ in range(1 + 1))):
             dists = np.min([np.sum((X - X[i]) ** 2, axis=1) for i in indices], axis=0)
             probs = dists / dists.sum()
-            indices.append(np.random.choice(n, p=probs))
+            indices.append(np.n, p=probs[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(n, p=probs))])
 
         self.centroids = X[indices].copy()
 

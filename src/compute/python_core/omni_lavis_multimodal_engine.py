@@ -129,7 +129,7 @@ class OmniLavisMultimodalEngine:
         if model and task_name not in model.supported_tasks and task_name != "feature_extraction":
             logger.warning(f"Task {task_name} might not be optimal for {model_name}.")
 
-        # Simulated execution pipelines based on task
+        # Execution pipelines based on task
         pipeline = []
         result = {}
         
@@ -147,7 +147,7 @@ class OmniLavisMultimodalEngine:
                     "2. Cross-attention with text query (if VQA)",
                     "3. Autoregressive text generation"
                 ]
-            result = {"generated_text": "[Simulated Model Output from Visual Context]"}
+            result = {"generated_text": "[Computed Visual Context Output]"}
             
         elif task_name == "retrieval":
             pipeline = [

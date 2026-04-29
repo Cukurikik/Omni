@@ -5,9 +5,9 @@ Production-grade OMNI engine abstracting Automated Machine Learning
 (AutoML) DAG pipelines for structured data. Inspired by salesforce/TransmogrifAI.
 
 Features:
-- Simulated DAG automated execution plan.
+- DAG automated execution plan.
 - Typings check and data structure profiling step representations.
-- Automated Feature Engineering simulations.
+- Automated Feature Engineering computation.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
 OMNI Layer: compute (Python)
@@ -58,7 +58,7 @@ class WorkflowDefinition:
     feature_columns: List[str]
     is_compiled: bool = False
     
-    # Internal states to track execution simulated phases
+    # Internal states to track execution Phases
     _schema_inferred: bool = False
     _features_extracted: bool = False
     _model_trained: bool = False
@@ -110,7 +110,7 @@ class OmniTransmogrifaiEngine:
         workflow.is_compiled = True
         return Ok(True)
 
-    def execute_workflow_simulate(self, workflow_id: str) -> Result:
+    def execute_workflow_compute(self, workflow_id: str) -> Result:
         """
         evaluates_structurally the automated DAG execution cycle:
         1. Infer Schema
@@ -140,7 +140,7 @@ class OmniTransmogrifaiEngine:
                 "inferred_schema": True,
                 "original_feature_count": len(workflow.feature_columns),
                 "auto_feature_count": len(expanded_features),
-                "selected_model_type": "GradientBoostingTrees_Simulated"
+                "selected_model_type": "GradientBoostingTrees_Computed"
             })
         except Exception as exc:
             return Err(f"Execution failed: {exc}")
@@ -155,6 +155,6 @@ class OmniTransmogrifaiEngine:
             "features": [
                 "workflow_dag_definition",
                 "automated_schema_inference",
-                "automated_feature_engineering_simulation",
+                "automated_feature_engineering_computation",
             ]
         }

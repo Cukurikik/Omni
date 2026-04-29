@@ -1,0 +1,11 @@
+package rules.bioreason
+import omni.bioreason.SequenceModification
+import omni.common.OmniResult
+
+rule "Enforce Bio-Ethics on Genetic Modification"
+when
+    $mod : SequenceModification( targetOrganism == "human", riskLevel > "low" )
+then
+    $mod.denyModification();
+    insert(new OmniResult(false, "Ethical violation: High risk human sequence modification", false));
+end

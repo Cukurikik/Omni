@@ -1,1 +1,3 @@
-﻿export class LSPServer { onHover() {} }
+﻿export class LSPServer {
+  onHover() {}
+}

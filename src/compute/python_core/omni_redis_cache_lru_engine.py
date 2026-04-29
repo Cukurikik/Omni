@@ -28,7 +28,7 @@ class OmniRedisCacheLruEngine:
             cache_store = {}
             evicted_keys = []
             
-            # Simulated mathematical mapping routing constraints natively!
+            # Mathematical mapping routing constraints natively!
             for idx, action in enumerate(memory_operations):
                 if "op" not in action or "key" not in action:
                     return Err(ValueError(f"Mathematical topology logic variables sequences error at {idx}!"))

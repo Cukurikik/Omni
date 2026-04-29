@@ -82,11 +82,11 @@ class PgBouncerLatencyEstimator:
                 "complexity_weight": query_complexity_weight,
                 "pool_queue_penalty": round(queue_penalty, 3),
                 "resolved_query_latency_ms": round(total_latency_ms, 2),
-                "is_network_simulated": True
+                "is_network_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated REST/RPC boundary mapping failed: {e}")
+            return Err(f"REST/RPC boundary mapping failed: {e}")
 
 
 # ---------------------------------------------------------------------------

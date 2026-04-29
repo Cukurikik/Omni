@@ -1,0 +1,11 @@
+package rules.chatkbqa
+import omni.chatkbqa.Answer
+import omni.common.OmniResult
+
+rule "Fact Check Enforcement"
+when
+    $ans : Answer( isBackedByKG == false )
+then
+    $ans.markAsHallucination();
+    insert(new OmniResult(false, "Answer rejected: Not backed by Knowledge Graph facts", false));
+end

@@ -1,0 +1,39 @@
+# OMNI Business Layer: kg_schema.graphql
+# Strict GraphQL Schema for KG-LLM-Papers entities.
+# Bounds: Max query depth 5 enforced via Gateway, max 1000 nodes returned per edge.
+
+type OmniError {
+    code: Int!
+    message: String!
+}
+
+type KGNode {
+    id: ID!
+    label: String!
+    properties: String! # JSON
+}
+
+type KGEdge {
+    id: ID!
+    source: KGNode!
+    target: KGNode!
+    relation: String!
+    weight: Float!
+}
+
+type KGResult {
+    data: [KGNode!]
+    error: OmniError
+}
+
+type Query {
+    """
+    Search nodes by label, bounded to 1000 results.
+    """
+    searchNodes(label: String!, limit: Int = 100): KGResult!
+    
+    """
+    Get neighbors, strict depth limits applied externally.
+    """
+    getNeighbors(nodeId: ID!, limit: Int = 100): KGResult!
+}

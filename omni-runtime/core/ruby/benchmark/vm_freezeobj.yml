@@ -1,5 +1,5 @@
 prelude: |
- objs = 100000.times.map { Object.new }
+  objs = 100000.times.map { Object.new }
 benchmark:
   vm_freeze_obj: |
     objs.map(&:freeze)

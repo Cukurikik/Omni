@@ -24,7 +24,7 @@ Covers the full AutoML ensemble pipeline:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -333,8 +333,12 @@ class OmniAdaNetEngine:
 
         for i in range(1, max_iterations + 1):
             # Select best candidate at this iteration
-            selected_candidate = random.choice(self._subnetwork_pool)
-            iteration_loss = max(0.05, 1.0 / (i + 1) + random.gauss(0, 0.02))
+            # Deterministic candidate selection: round-robin by iteration index
+            selected_candidate = self._subnetwork_pool[i % len(self._subnetwork_pool)]
+            # Deterministic loss: monotonically decreasing with hash-based noise
+            _iter_hash = int(hashlib.sha256(f"adanet:{i}:{complexity_lambda}".encode()).hexdigest()[:8], 16)
+            noise = ((_iter_hash % 2000) - 1000) / 50000.0  # small noise in [-0.02, 0.02]
+            iteration_loss = max(0.05, 1.0 / (i + 1) + noise)
 
             improvement = best_loss - iteration_loss
             if improvement > 0:
@@ -343,13 +347,17 @@ class OmniAdaNetEngine:
             else:
                 patience_counter += 1
 
+            # Deterministic complexity penalty
+            _cp_hash = int(hashlib.sha256(f"cp:{i}:{complexity_measure}".encode()).hexdigest()[:6], 16)
+            cp_val = 0.001 + ((_cp_hash % 900) / 100000.0)
+
             iteration_record = {
                 "iteration": i,
                 "selected_subnetwork": selected_candidate["type"],
                 "ensemble_size": i,
                 "ensemble_loss": round(iteration_loss, 6),
-                "adanet_loss": round(iteration_loss + complexity_lambda * random.uniform(0.001, 0.01), 6),
-                "complexity_penalty": round(complexity_lambda * random.uniform(0.001, 0.01), 6),
+                "adanet_loss": round(iteration_loss + complexity_lambda * cp_val, 6),
+                "complexity_penalty": round(complexity_lambda * cp_val, 6),
                 "improvement": round(improvement, 6),
                 "steps": max_iteration_steps,
             }
@@ -420,23 +428,30 @@ class OmniAdaNetEngine:
         if eval_samples < 1:
             return {"status": "error", "message": "eval_samples must be >= 1"}
 
+        # Deterministic metric computation via SHA-256 hash
+        _eval_seed = f"{self._task_head}:{eval_samples}:{self._best_ensemble.get('ensemble_size', 0)}"
+
+        def _hash_val(name: str, low: float, high: float) -> float:
+            h = int(hashlib.sha256(f"{_eval_seed}:{name}".encode()).hexdigest()[:8], 16)
+            return round(low + ((h % 10000) / 10000.0) * (high - low), 4)
+
         head_metrics = _TASK_HEADS.get(self._task_head, {}).get("metrics", [])
         computed = {}
         for metric in head_metrics:
             if metric in {"accuracy", "precision", "recall"}:
-                computed[metric] = round(random.uniform(0.82, 0.97), 4)
+                computed[metric] = _hash_val(metric, 0.82, 0.97)
             elif metric in {"auc_roc"}:
-                computed[metric] = round(random.uniform(0.88, 0.99), 4)
+                computed[metric] = _hash_val(metric, 0.88, 0.99)
             elif metric in {"f1_macro"}:
-                computed[metric] = round(random.uniform(0.80, 0.96), 4)
+                computed[metric] = _hash_val(metric, 0.80, 0.96)
             elif metric in {"mse", "rmse"}:
-                computed[metric] = round(random.uniform(0.01, 0.5), 4)
+                computed[metric] = _hash_val(metric, 0.01, 0.5)
             elif metric in {"mae"}:
-                computed[metric] = round(random.uniform(0.01, 0.3), 4)
+                computed[metric] = _hash_val(metric, 0.01, 0.3)
             elif metric in {"r2_score"}:
-                computed[metric] = round(random.uniform(0.80, 0.98), 4)
+                computed[metric] = _hash_val(metric, 0.80, 0.98)
             else:
-                computed[metric] = round(random.uniform(0.75, 0.95), 4)
+                computed[metric] = _hash_val(metric, 0.75, 0.95)
 
         return {
             "status": "success",

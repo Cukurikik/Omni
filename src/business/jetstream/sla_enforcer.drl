@@ -1,0 +1,11 @@
+package rules.jetstream
+import omni.jetstream.InferenceRequest
+import omni.common.OmniResult
+
+rule "Enforce Service Level Agreement Latency"
+when
+    $req : InferenceRequest( currentLatency > maxAllowedLatency, priority == "high" )
+then
+    $req.preemptLowerPriorityTasks();
+    insert(new OmniResult(true, "SLA enforced: preempting to reduce latency", true));
+end

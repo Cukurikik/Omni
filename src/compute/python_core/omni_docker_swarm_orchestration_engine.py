@@ -27,7 +27,7 @@ class OmniDockerSwarmOrchestrationEngine:
             if len(nodes) > self.capacity_bounds:
                 return Err(ValueError(f"Algorithm limits mapping equations limits sizes mathematical boundary Variables arrays Vectors mappings Numerical Parameters vectors Sequences Arrays limit bounds Limits variables limits {self.capacity_bounds}!"))
                 
-            # Simulated swarm placement scheduling native limits mapping boundaries loops Variables Maps Loops Limits sequences Coordinates mapping lengths Matrices limits Strings Limits Loops Loops Limits Limits Parameters Configurations!
+            # swarm placement scheduling native limits mapping boundaries loops Variables Maps Loops Limits sequences Coordinates mapping lengths Matrices limits Strings Limits Loops Loops Limits Limits Parameters Configurations!
             placement_map = {}
             unplaced = 0
             

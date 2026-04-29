@@ -1,0 +1,27 @@
+# OMNI Business Layer: eagle_routing.graphql
+# Strict GraphQL Schema for EAGLE Speculative Decoding Gateway.
+# Bounds: Max 64 speculation steps per request.
+
+type OmniError {
+    code: Int!
+    message: String!
+}
+
+type SpeculationStep {
+    tokenId: Int!
+    probability: Float!
+    accepted: Boolean!
+}
+
+type EagleResult {
+    steps: [SpeculationStep!]
+    error: OmniError
+}
+
+type Query {
+    """
+    Generate speculative tokens. 
+    Strict bound: 'maxSteps' cannot exceed 64.
+    """
+    generateSpeculativeTokens(promptId: ID!, maxSteps: Int! = 16): EagleResult!
+}

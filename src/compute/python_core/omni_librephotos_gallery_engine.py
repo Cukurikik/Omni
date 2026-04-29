@@ -21,7 +21,7 @@ class OmniLibrePhotosGalleryEngine:
     
     Provides programmatic logic for self-hosted image analysis, clustering,
     and metadata extraction. Operates directly on OMNI's internal image buffer logic
-    (simulated for UAST layers).
+    (for UAST layers).
     """
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):

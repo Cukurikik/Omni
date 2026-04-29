@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI ACADEMIC ROADMAP ENGINE (SEMESTER 5 — BATCH 9)
 // ===========================================================================
 // Absorbed From  : floodsung/Deep-Learning-Papers-Reading-Roadmap
@@ -48,5 +48,16 @@ export class OmniAcademicRoadmapEngine {
     public evaluateHealth(): Record<string, any> {
         return { engine: "OmniAcademicRoadmapEngine", layer: "Interface", status: "healthy",
                  domains: this.tree.size, learned_from: "floodsung/Deep-Learning-Papers-Reading-Roadmap" };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAcademicRoadmapEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

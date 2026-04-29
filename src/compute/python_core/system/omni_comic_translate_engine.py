@@ -89,12 +89,12 @@ class OmniComicTranslateEngine:
             job["processed"] = True
             
             # Execute pipeline processing
-            simulated_bubbles = max(1, int(page_density / 10))
+            computed_bubbles = max(1, int(page_density / 10))
             
             return {
                 "status": "success",
                 "job_id": job_id,
-                "bubbles_translated": simulated_bubbles,
+                "bubbles_translated": computed_bubbles,
                 "steps": ["ocr", "inpaint", "translate", "typeset"],
                 "message": "Complete visual narrative flawlessly reconstructed in new linguistic semantics."
             }

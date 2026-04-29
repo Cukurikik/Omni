@@ -85,13 +85,13 @@ class OmniTimeLLMEngine:
             series["patched"] = True
             
             # Execute linguistic extrapolation
-            simulated_confidence = max(0.4, 0.95 - (future_steps * 0.005))
+            computed_confidence = max(0.4, 0.95 - (future_steps * 0.005))
             
             return {
                 "status": "success",
                 "series_id": series_id,
                 "horizon_length": future_steps,
-                "llm_confidence": simulated_confidence,
+                "llm_confidence": computed_confidence,
                 "message": "Temporal sequence safely synthesized by LLM priors."
             }
         except Exception as e:

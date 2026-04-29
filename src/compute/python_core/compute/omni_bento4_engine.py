@@ -95,7 +95,7 @@ if __name__ == "__main__":
         # FTYP BOX (20 bytes)
         f.write(struct.pack(">I", 20))           # size
         f.write(b"ftyp")                          # type
-        f.write(b"isom\\x00\\x00\\x02\\x00iso2mp41") # dummy payload
+        f.write(b"isom\\x00\\x00\\x02\\x00iso2mp41") # ISOBMFF-compliant header
         # MOOV BOX (100 bytes)
         f.write(struct.pack(">I", 100))
         f.write(b"moov")

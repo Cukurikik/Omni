@@ -1,0 +1,9 @@
+type Recommendation {
+    itemId: ID!
+    score: Float!
+    confidence: Float!
+}
+
+type Query {
+    getAlphaRec(userId: ID!, context: String): [Recommendation!]!
+}

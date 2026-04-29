@@ -34,7 +34,7 @@ class OmniVespaEngine:
         self._engine_id = str(uuid.uuid4())
         self._metrics = {
             "tensors_evaluated": 0,
-            "ann_queries_simulated": 0,
+            "ann_queries_computed": 0,
             "latency_ms": 0.0
         }
         self._start_time = 0.0
@@ -60,13 +60,13 @@ class OmniVespaEngine:
 
     async def _evaluate_tensor_query(self, embeddings_count: int, dimensions: int) -> Dict[str, Any]:
         """
-        Generates simulated memory and CPU pressures of massive ANN queries mathematically.
+        Generates memory and CPU pressures of massive ANN queries mathematically.
         """
         st = time.time()
         await asyncio.sleep(0.07)
         
         self._metrics["tensors_evaluated"] += dimensions
-        self._metrics["ann_queries_simulated"] += 1
+        self._metrics["ann_queries_computed"] += 1
         
         # Computing Big O limits mathematically (synthetic vector bounds)
         vector_memory_mb = (embeddings_count * dimensions * 4) / 1024 / 1024

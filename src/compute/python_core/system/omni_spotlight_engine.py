@@ -94,7 +94,7 @@ class OmniSpotlightEngine:
             if user_id < 0 or user_id >= max_users:
                 return {"status": "error", "message": f"Invalid User ID. Must be 0 to {max_users - 1}."}
                 
-            # Simulated pseudo-random determinism
+            # pseudo-random determinism
             recs = []
             for i in range(top_k):
                 pseudo_item = (user_id * 7 + i * 11) % max_items

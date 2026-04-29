@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compose for Agents</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0A0A0A; color: #FFF; margin: 0; padding: 2rem; }
+        .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+        .agent-card { background: #1A1A1A; border: 1px solid #333; border-radius: 8px; padding: 1rem; }
+        .status-badge { display: inline-block; padding: 0.25rem 0.5rem; background: #2E7D32; border-radius: 4px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <h1>Multi-Agent Orchestration</h1>
+    <div class="agent-grid">
+        <div class="agent-card">
+            <h3>Agent_Planner</h3>
+            <span class="status-badge">Idle</span>
+        </div>
+        <div class="agent-card">
+            <h3>Agent_Coder</h3>
+            <span class="status-badge" style="background:#1565C0">Working</span>
+        </div>
+    </div>
+</body>
+</html>

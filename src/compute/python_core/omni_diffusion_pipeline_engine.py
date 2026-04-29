@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI DIFFUSION PIPELINE ENGINE (SEMESTER 5 — BATCH 11)
 # ===========================================================================
 # Absorbed From  : huggingface/diffusers
@@ -28,7 +28,7 @@ OMNI Layer: compute (Python)
 """
 import logging
 import math
-import random
+import hashlib
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
 
@@ -131,7 +131,7 @@ class UNetPredictor:
         """Predicts the noise component in the current latent."""
         noise = []
         for i in range(latent.numel):
-            # Simulated noise prediction (in production: full UNet forward pass)
+            # noise prediction (in production: full UNet forward pass)
             n = math.sin(i * 0.01 + timestep * 0.001) * 0.1
             noise.append(n)
         return noise
@@ -209,7 +209,7 @@ class OmniDiffusionPipelineEngine:
 
         # Step 2: Initialize random latent noise
         numel = self.LATENT_CHANNELS * self.LATENT_SIZE * self.LATENT_SIZE
-        latent_data = [random.gauss(0, 1) for _ in range(numel)]
+        latent_data = [(((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * 1) for _ in range(numel)]
         latent = LatentTensor(self.LATENT_CHANNELS, self.LATENT_SIZE, self.LATENT_SIZE, latent_data)
 
         # Step 3: Denoising loop

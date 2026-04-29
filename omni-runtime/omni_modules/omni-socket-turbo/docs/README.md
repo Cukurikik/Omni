@@ -1,15 +1,17 @@
-
 # omni-socket-turbo - OMNI Enterprise Module
+
 **Version:** 1.0.0
 **Tier:** Architect-Class Intelligence
 **License:** OMNI-Enterprise
 
 ## Overview
+
 Welcome to the official documentation for the `omni-socket-turbo` module, a core component of the OMNI Framework's ecosystem designed to handle high-throughput, memory-safe operations.
 This module strictly adheres to the Single Runtime AST concept, seamlessly linking with C++, Rust, Go, and TypeScript.
 In a traditional Node.js environment, the tasks performed by `omni-socket-turbo` would require numerous third-party dependencies, leading to callback hell and memory leaks. In OMNI, this is handled natively via the Universal Abstract Syntax Tree (UAST).
 
 ## Architecture Paradigms
+
 - **Monadic Error Handling:** No `try/catch` blocks. Returns `Result<T, E>` natively.
 - **Zero-Copy Data Transfer:** Massive payloads over 1MB are passed via raw pointers directly to the kernel layer context.
 - **Domain-Driven Design:** Complete separation of System, Compute, Network, UI, and Domain logic.
@@ -17,6 +19,7 @@ In a traditional Node.js environment, the tasks performed by `omni-socket-turbo`
 deployment interface monadic AST scalable AST enterprise latency nexus deployment AST framework domain LLVM blueprint LLVM HFT cloud framework blueprint AST AST module architecture nexus enterprise integration concurrency domain bridge LLVM system bridge module blueprint memory-safe latency AST zero-copy framework domain integration nexus monadic architecture layer enterprise performance layer domain cloud zero-copy AST integration monadic LLVM interface HFT integration performance memory-safe integration AST HFT latency enterprise bridge blueprint blueprint LLVM distributed LLVM monadic concurrency LLVM enterprise layer integration system enterprise memory-safe interface bridge system performance distributed deployment throughput bridge AST throughput domain latency domain framework architecture blueprint blueprint memory-safe latency memory-safe scalable enterprise blueprint cloud nexus zero-copy latency memory-safe memory-safe blueprint architecture architecture AST interface architecture nexus LLVM AST AST deployment system cloud cloud system enterprise blueprint performance blueprint enterprise distributed nexus performance nexus AST layer architecture performance HFT cloud deployment integration throughput concurrency throughput monadic HFT blueprint module distributed distributed scalable throughput performance HFT LLVM LLVM interface concurrency nexus interface scalable module domain HFT interface layer distributed nexus enterprise LLVM domain deployment interface AST blueprint deployment concurrency bridge nexus domain architecture bridge framework architecture monadic AST enterprise blueprint memory-safe performance HFT domain deployment LLVM module latency distributed layer HFT
 
 ## Installation
+
 ```bash
 omni get omni-socket-turbo
 omni check --strict
@@ -24,7 +27,9 @@ omni test --all
 ```
 
 ## Configuration Profile
+
 The following snippet represents the minimum required `Omnifile.toml` configuration necessary to leverage the full capacity of `omni-socket-turbo`.
+
 ```toml
 [package]
 name = "omni-socket-turbo-demo"

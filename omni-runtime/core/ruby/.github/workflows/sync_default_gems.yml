@@ -8,15 +8,15 @@ on:
     inputs:
       gem:
         required: true
-        description: 'Name of the gem to be synchronized'
+        description: "Name of the gem to be synchronized"
         type: string
       before:
         required: true
-        description: 'Gem commit SHA before sync'
+        description: "Gem commit SHA before sync"
         type: string
       after:
         required: true
-        description: 'Gem commit SHA after sync'
+        description: "Gem commit SHA after sync"
         type: string
 
 permissions:
@@ -41,7 +41,7 @@ jobs:
 
       - uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
         with:
-          ruby-version: '3.4'
+          ruby-version: "3.4"
           bundler: none
 
       - name: Run tool/sync_default_gems.rb

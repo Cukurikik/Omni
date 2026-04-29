@@ -2,7 +2,7 @@
 OMNI Literature DL Engine
 =========================
 Production-grade abstraction inspired by DeepGraphLearning/LiteratureDL4Graph.
-Omit PyTorch Geometric implementations to utilize an Adjacency Matrix simulator
+Omit PyTorch Geometric implementations to utilize an Adjacency Matrix engine
 calculating clustering structural density natively.
 
 OMNI Layer: compute (Python)

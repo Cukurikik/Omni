@@ -7,7 +7,7 @@ class OmniWebRTCPeerToPeerEngine:
     omni-webrtc-peer-to-peer
     
     A structural limiting bounding matrix modeling WebRTC ICE Candidate connection 
-    graph limits mathematically. Resolves priority bounds over STUN/TURN simulated nodes 
+    graph limits mathematically. Resolves priority bounds over STUN/TURN Nodes 
     computationally.
     """
     

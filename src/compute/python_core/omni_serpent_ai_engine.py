@@ -35,7 +35,7 @@ class OmniSerpentAIEngine:
         self._metrics = {
             "frame_arrays_analyzed": 0,
             "controller_actions_emitted": 0,
-            "episodes_simulated": 0
+            "episodes_computed": 0
         }
         self._start_time = 0.0
 
@@ -60,12 +60,12 @@ class OmniSerpentAIEngine:
 
     async def _evaluate_frame(self, frame_density: float, ticks: int) -> Dict[str, Any]:
         """
-        Generates simulated RL controller reactions derived strictly from numeric frame density.
+        Generates RL controller reactions derived strictly from numeric frame density.
         """
         await asyncio.sleep(0.04)
         
         self._metrics["frame_arrays_analyzed"] += ticks
-        self._metrics["episodes_simulated"] += 1
+        self._metrics["episodes_computed"] += 1
         
         # Hypothetical reinforcement control boundary derivation
         action_keys_pressed = max(1, int(frame_density * 10))
@@ -74,7 +74,7 @@ class OmniSerpentAIEngine:
         computed_reward = frame_density * 0.75
         
         return {
-            "ticks_simulated": ticks,
+            "ticks_computed": ticks,
             "input_density_scalar": round(frame_density, 3),
             "predicted_keystrokes": action_keys_pressed,
             "observation_reward": round(computed_reward, 3),

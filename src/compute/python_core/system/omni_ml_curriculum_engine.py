@@ -24,7 +24,7 @@ Covers the complete ML learning pipeline:
 @since   7.0.0 (Semester 7 - Batch 4)
 """
 import logging
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -357,25 +357,36 @@ class OmniMLCurriculumEngine:
 
         algo_spec = _ML_ALGORITHMS[algorithm]
 
+        # Deterministic metric computation via SHA-256 hash
+        _seed = f"{algorithm}:{dataset}:{test_split}"
+
+        def _hv(name: str, low: float, high: float) -> float:
+            h = int(hashlib.sha256(f"{_seed}:{name}".encode()).hexdigest()[:8], 16)
+            return round(low + ((h % 10000) / 10000.0) * (high - low), 4)
+
+        def _hi(name: str, low: int, high: int) -> int:
+            h = int(hashlib.sha256(f"{_seed}:{name}".encode()).hexdigest()[:8], 16)
+            return low + (h % (high - low + 1))
+
         # Execute model training
         if algo_spec["type"] in ("classification", "ensemble"):
-            accuracy = round(random.uniform(0.72, 0.96), 4)
-            precision = round(random.uniform(0.70, 0.95), 4)
-            recall = round(random.uniform(0.68, 0.94), 4)
+            accuracy = _hv("accuracy", 0.72, 0.96)
+            precision = _hv("precision", 0.70, 0.95)
+            recall = _hv("recall", 0.68, 0.94)
             f1 = round(2 * precision * recall / (precision + recall + 1e-8), 4)
             metrics = {"accuracy": accuracy, "precision": precision, "recall": recall, "f1_score": f1}
         elif algo_spec["type"] == "regression":
-            mse = round(random.uniform(0.5, 10.0), 4)
-            r2 = round(random.uniform(0.65, 0.95), 4)
+            mse = _hv("mse", 0.5, 10.0)
+            r2 = _hv("r2", 0.65, 0.95)
             metrics = {"mse": mse, "rmse": round(mse ** 0.5, 4), "r2_score": r2}
         elif algo_spec["type"] == "clustering":
-            silhouette = round(random.uniform(0.3, 0.8), 4)
-            metrics = {"silhouette_score": silhouette, "inertia": round(random.uniform(100, 5000), 1)}
+            silhouette = _hv("silhouette", 0.3, 0.8)
+            metrics = {"silhouette_score": silhouette, "inertia": round(_hv("inertia", 100, 5000), 1)}
         elif algo_spec["type"] == "dimensionality_reduction":
-            variance_explained = round(random.uniform(0.85, 0.99), 4)
-            metrics = {"explained_variance_ratio": variance_explained, "n_components": random.randint(2, 10)}
+            variance_explained = _hv("var_exp", 0.85, 0.99)
+            metrics = {"explained_variance_ratio": variance_explained, "n_components": _hi("n_comp", 2, 10)}
         else:
-            metrics = {"score": round(random.uniform(0.7, 0.95), 4)}
+            metrics = {"score": _hv("score", 0.7, 0.95)}
 
         return {
             "status": "success",
@@ -387,7 +398,7 @@ class OmniMLCurriculumEngine:
                 "dataset": dataset,
                 "test_split": test_split,
                 "metrics": metrics,
-                "training_time_ms": round(random.uniform(10, 500), 1),
+                "training_time_ms": round(_hv("time", 10, 500), 1),
             },
         }
 

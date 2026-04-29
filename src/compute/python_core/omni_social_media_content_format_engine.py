@@ -10,6 +10,7 @@ Algorithmic Primitive:
     into a strictly structured social media post format optimized
     for timeline engagement.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import re
 import sys, os

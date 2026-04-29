@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI DATASCI RESOURCE ENGINE (SEMESTER 5 — BATCH 13)
 // ===========================================================================
 // Absorbed From  : academic/awesome-datascience
@@ -130,6 +130,17 @@ export class OmniDatasciResourceEngine {
             catalogSize: this.catalog.length,
             categories: new Set(this.catalog.map((r) => r.category)).size,
             learned_from: "academic/awesome-datascience",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniDatasciResourceEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

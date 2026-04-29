@@ -1,4 +1,4 @@
-"""OmniParallelMergeSortEngine simulating tracking of parallel merge sort execution."""
+"""OmniParallelMergeSortEngine computing tracking of parallel merge sort execution."""
 from typing import Dict, Any, List
 from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 
@@ -38,7 +38,7 @@ class OmniParallelMergeSortEngine(OmniBaseEngine):
 
         mid = len(arr) // 2
         
-        # Simulate parallel branching
+        # Compute parallel branching
         left = self._parallel_merge_sort(arr[:mid], depth + 1)
         right = self._parallel_merge_sort(arr[mid:], depth + 1)
 

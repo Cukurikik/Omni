@@ -81,11 +81,11 @@ class CausalComplexityEvaluator:
                 "samples_provided": observation_samples,
                 "samples_required_baseline": int(required_samples_baseline),
                 "predicted_inference_confidence": round(predicted_confidence, 4),
-                "is_dag_simulated": True
+                "is_dag_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated Causal Structure Limits failed: {e}")
+            return Err(f"Causal Structure Limits failed: {e}")
 
 
 # ---------------------------------------------------------------------------

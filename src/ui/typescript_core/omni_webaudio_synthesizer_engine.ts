@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniWebAudioSynthesizerEngine — Production-Grade Web Audio Synthesizer
@@ -120,4 +120,15 @@ export class OmniWebAudioSynthesizerEngine {
 
     return SynthResult.ok(true);
   }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "SynthResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
+    }
 }

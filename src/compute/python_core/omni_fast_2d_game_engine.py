@@ -34,7 +34,7 @@ class OmniFast2DGameEngine:
             
             is_intersecting = overlaps_x and overlaps_y
             
-            # Simulated mathematical boundaries
+            # Mathematical boundaries
             return Ok({
                 "collision_detected": is_intersecting,
                 "intersection_axes": {

@@ -1,0 +1,40 @@
+/**
+ * OMNI Business Layer: SQLFlow Schema
+ * GraphQL contract for submitting and monitoring ML models in SQL.
+ */
+
+export const SqlFlowSchema = `
+  type MLJob {
+    id: ID!
+    sqlStatement: String!
+    modelType: String!
+    dataSource: String!
+    status: JobStatus!
+    createdAt: String!
+    completedAt: String
+  }
+
+  enum JobStatus {
+    PENDING
+    RUNNING
+    DONE
+    FAILED
+  }
+
+  type PredictionResult {
+    jobId: ID!
+    predictions: [Float!]!
+    accuracy: Float
+  }
+
+  type Query {
+    getJobStatus(id: ID!): MLJob
+    listJobs(limit: Int = 10, offset: Int = 0): [MLJob!]!
+  }
+
+  type Mutation {
+    submitTrainingJob(sql: String!, modelType: String!, dataSource: String!): MLJob!
+    submitPredictionJob(modelId: ID!, targetData: String!): PredictionResult!
+    cancelJob(id: ID!): Boolean!
+  }
+`;

@@ -1,0 +1,191 @@
+// ===========================================================================
+// OMNI NEXUS BRIDGE — SEMESTER 14 BATCH 36
+// ===========================================================================
+// Unified FFI boundary for all 12 new production engines.
+// Establishes cross-layer interoperability through OMNI Interface Bridge.
+// ===========================================================================
+
+@nexus_version("14.36.0")
+@semester(14)
+@batch(36)
+
+// ===========================================================================
+// SYSTEM LAYER — Low-Level Foundations
+// ===========================================================================
+
+@ffi("rust", "system/rust_core/omni_rust_spsc_ring_buffer.rs")
+extern module RustSPSCRingBuffer {
+  struct RingBuffer {
+    capacity: usize,
+    mask: usize,
+    head: AtomicUsize,
+    tail: AtomicUsize,
+  }
+
+  fn new(capacity: usize) -> Result<RingBuffer, RingBufferError>
+  fn write(self: &mut RingBuffer, data: &[u8]) -> Result<usize, RingBufferError>
+  fn read(self: &mut RingBuffer, out: &mut [u8]) -> Result<usize, RingBufferError>
+  fn diagnostics(self: &RingBuffer) -> RingBufferDiagnostics
+}
+
+@ffi("zig", "system/zig_core/omni_zig_comptime_hash_map.zig")
+extern module ZigComptimeHashMap {
+  fn fnv1a_hash(key: []const u8) -> u64
+  // Generic FixedHashMap(N) with put, get, len, diagnostics
+}
+
+@ffi("cpp", "system/cpp_core/omni_cpp_swar_string_search.cpp")
+extern module CppSWARStringSearch {
+  fn swar_has_byte(word: u64, byte_val: u8) -> bool
+  fn swar_find_byte_position(word: u64, byte_val: u8) -> i32
+  fn swar_string_search(
+    haystack: *const u8, haystack_len: usize,
+    needle: *const u8, needle_len: usize
+  ) -> Result<Vec<SearchHit>, String>
+}
+
+// ===========================================================================
+// CONCURRENCY & NETWORKING LAYER
+// ===========================================================================
+
+@ffi("go", "network/go_core/omni_go_rag_orchestrator_agent.go")
+extern module GoRAGOrchestrator {
+  struct RAGOrchestrator {
+    tools: Map<String, ToolDefinition>,
+    maxSteps: int,
+    documents: Vec<RAGDocument>,
+  }
+
+  fn NewRAGOrchestrator(maxSteps: int) -> Result<RAGOrchestrator, Error>
+  fn RegisterTool(self: &mut RAGOrchestrator, tool: ToolDefinition) -> Result<(), Error>
+  fn IngestDocuments(self: &mut RAGOrchestrator, docs: Vec<RAGDocument>) -> Result<(), Error>
+  fn RetrieveRelevant(self: &RAGOrchestrator, query: String, topK: int) -> Result<Vec<RAGDocument>, Error>
+  fn ExecuteAgentLoop(self: &RAGOrchestrator, query: String, tools: Vec<String>) -> OrchestratorResult
+  fn Diagnostics(self: &RAGOrchestrator) -> Map<String, Any>
+}
+
+@ffi("gleam", "concurrency/gleam_core/omni_gleam_circuit_breaker.gleam")
+extern module GleamCircuitBreaker {
+  fn new_circuit_breaker(name: String, config: CircuitConfig) -> CBResult<CircuitBreaker>
+  fn allow_call(cb: CircuitBreaker) -> CBResult<Bool>
+  fn record_outcome(cb: CircuitBreaker, outcome: CallOutcome) -> CircuitBreaker
+  fn attempt_reset(cb: CircuitBreaker) -> CBResult<CircuitBreaker>
+}
+
+@ffi("elixir", "concurrency/elixir_core/omni_elixir_rate_limiter.ex")
+extern module ElixirRateLimiter {
+  fn new(client_id: String, max_tokens: Int, refill_rate: Int, refill_ms: Int) -> Result<RateLimiter, String>
+  fn try_acquire(limiter: RateLimiter) -> Result<RateLimiter, String>
+  fn try_acquire(limiter: RateLimiter, cost: Int) -> Result<RateLimiter, String>
+  fn available_tokens(limiter: RateLimiter) -> Int
+  fn diagnostics(limiter: RateLimiter) -> Map
+}
+
+// ===========================================================================
+// COMPUTATIONAL & DATA LAYER
+// ===========================================================================
+
+@ffi("python", "compute/python_core/omni_python_rag_vector_store.py")
+extern module PythonRAGVectorStore {
+  class OmniVectorStoreEngine {
+    fn __init__(self, dimension: int)
+    fn ingest(self, documents: List<VectorDocument>) -> VectorResult
+    fn search(self, query_embedding: List<float>, top_k: int, metadata_filter: Optional<Dict>, score_threshold: float) -> VectorResult
+    fn delete(self, doc_id: str) -> VectorResult
+    fn diagnostics(self) -> Dict
+  }
+}
+
+@ffi("julia", "compute/julia_core/omni_julia_auto_diff_engine.jl")
+extern module JuliaAutoDiff {
+  fn forward_diff(f: Function, x: Float64) -> ADResult
+  fn gradient_descent_step(f: Function, x: Float64, learning_rate: Float64) -> ADResult
+  fn diagnostics() -> Dict
+}
+
+// ===========================================================================
+// INTERFACE LAYER
+// ===========================================================================
+
+@ffi("typescript", "ui/ts_core/omni_agent_chat_ui_engine.ts")
+extern module TSAgentChatUI {
+  class OmniAgentChatUIEngine {
+    fn createConversation(id: String, maxTokens: Int) -> UIResult<ConversationState>
+    fn sendUserMessage(id: String, content: String) -> UIResult<ConversationState>
+    fn startStreaming(id: String) -> UIResult<ConversationState>
+    fn appendStreamChunk(id: String, chunk: String) -> UIResult<String>
+    fn completeStreaming(id: String) -> UIResult<ConversationState>
+    fn startToolCall(id: String, toolName: String) -> UIResult<ConversationState>
+    fn diagnostics() -> Record<String, Unknown>
+  }
+}
+
+@ffi("dart", "ui/dart_core/omni_dart_widget_reconciler.dart")
+extern module DartWidgetReconciler {
+  class OmniWidgetReconciler {
+    fn reconcile(oldTree: List<OmniWidget>, newTree: List<OmniWidget>) -> WidgetResult<List<WidgetPatch>>
+    fn diagnostics() -> Map<String, Dynamic>
+  }
+}
+
+// ===========================================================================
+// BUSINESS LAYER
+// ===========================================================================
+
+@ffi("csharp", "domain/csharp_core/omni_csharp_cqrs_domain_engine.cs")
+extern module CSharpCQRSEngine {
+  class CQRSCommandHandler {
+    fn HandleCreateOrder(customerId: String) -> DomainResult<Guid>
+    fn HandleAddItem(orderId: Guid, productId: String, name: String, price: Decimal, qty: Int) -> DomainResult<Bool>
+    fn HandleSubmitOrder(orderId: Guid) -> DomainResult<Bool>
+  }
+
+  class CQRSQueryHandler {
+    fn GetOrder(orderId: Guid) -> DomainResult<OrderAggregate>
+    fn GetOrdersByCustomer(customerId: String) -> DomainResult<List<OrderAggregate>>
+    fn Diagnostics() -> Dict<String, Object>
+  }
+}
+
+// ===========================================================================
+// SECURITY & POLICY LAYER
+// ===========================================================================
+
+@ffi("rego", "policy/rego/omni_rego_api_gateway_policy.rego")
+extern module RegoAPIGatewayPolicy {
+  rule allow: Bool
+  rule is_authenticated: Bool
+  rule rate_limit_exceeded: Bool
+  rule path_access_allowed: Bool
+  rule reasons: Set<String>
+  rule response_headers: Map<String, String>
+}
+
+// ===========================================================================
+// NEXUS MANIFEST
+// ===========================================================================
+
+@manifest
+const SEMESTER_14_BATCH_36 = {
+  semester: 14,
+  batch: 36,
+  engines: 12,
+  layers_covered: [
+    "System (Rust, Zig, C++)",
+    "Concurrency (Go, Gleam, Elixir)",
+    "Compute (Python, Julia)",
+    "Interface (TypeScript, Dart)",
+    "Business (C#)",
+    "Security (Rego)",
+  ],
+  compliance: "ZERO-MOCK",
+  monadic_pattern: "Result<T, E> enforced in all engines",
+  learned_from: [
+    "tokio-rs/bytes", "ziglang/zig std", "glibc memchr SWAR",
+    "infiniflow/ragflow", "langchain-ai/langchain", "OpenClaw agent",
+    "open-webui/open-webui", "Dify", "FluxML/Zygote.jl",
+    "flutter/flutter RenderObject", "Netflix Hystrix",
+    "ExHammer/hammer", "dotnet-architecture/eShopOnContainers",
+    "open-policy-agent/gatekeeper",
+  ],
+}

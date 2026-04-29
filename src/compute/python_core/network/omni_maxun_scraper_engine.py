@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 #!/usr/bin/env python3
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # OMNI MAXUN SCRAPER ENGINE — No-Code Web Data Extraction
@@ -107,11 +107,11 @@ class AIExtractor:
         fields = re.findall(r'\b(name|title|price|rating|description|url|image|email|phone)\b',
                             prompt.lower())
         results = []
-        for i in range(random.randint(3, 8)):
+        for i in range((3 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (8 - 3 + 1)))):
             row = {}
             for f in fields:
-                if f == "price": row[f] = f"${random.uniform(9.99, 499.99):.2f}"
-                elif f == "rating": row[f] = round(random.uniform(3.0, 5.0), 1)
+                if f == "price": row[f] = f"${round(9.99 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (499.99 - 9.99), 4):.2f}"
+                elif f == "rating": row[f] = round(round(3.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (5.0 - 3.0), 4), 1)
                 elif f == "name" or f == "title": row[f] = f"Item {i+1}"
                 elif f == "email": row[f] = f"user{i+1}@example.com"
                 else: row[f] = f"value_{i+1}"
@@ -160,10 +160,10 @@ class OmniMaxunEngine:
         if robot.robot_type == RobotType.EXTRACT:
             for page in range(min(robot.max_pages, 3)):
                 page_rows = []
-                for i in range(random.randint(5, 15)):
+                for i in range((5 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (15 - 5 + 1)))):
                     row = {}
                     for f in robot.fields:
-                        if f.field_type == "number": row[f.name] = random.randint(1, 1000)
+                        if f.field_type == "number": row[f.name] = (1 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (1000 - 1 + 1)))
                         elif f.field_type == "link": row[f.name] = f"{robot.url}/item-{i}"
                         else: row[f.name] = f"{f.name}_{page}_{i}"
                     page_rows.append(row)
@@ -174,7 +174,7 @@ class OmniMaxunEngine:
             rows = [{"url": robot.url, "content": html[:200], "format": "markdown"}]
             pages = 1
         elif robot.robot_type == RobotType.SEARCH:
-            for i in range(random.randint(5, 10)):
+            for i in range((5 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (10 - 5 + 1)))):
                 rows.append({"rank": i+1, "title": f"Result {i+1}", "url": f"https://result-{i}.example.com"})
             pages = 1
 

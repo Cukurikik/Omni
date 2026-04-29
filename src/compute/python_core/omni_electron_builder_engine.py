@@ -3,7 +3,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 
 class OmniElectronBuilderEngine(OmniBaseEngine):
     """
-    Simulates cross-platform executable bundling mathematically scaling constraints
+    Computes cross-platform executable bundling mathematically scaling constraints
     across OS architectures.
     """
     
@@ -62,7 +62,7 @@ class OmniElectronBuilderEngine(OmniBaseEngine):
         self.packages[package_id]["targets"].append(target)
         return Result.ok(True)
 
-    def simulate_build_size(self, package_id: str) -> Result[int, str]:
+    def estimate_build_size(self, package_id: str) -> Result[int, str]:
         """
         Derives an absolute mathematical bounding evaluating final binary geometries.
         """

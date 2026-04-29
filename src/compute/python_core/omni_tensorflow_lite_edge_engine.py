@@ -25,7 +25,7 @@ class OmniTensorflowLiteEdgeEngine:
                 
             total_bytes = 0
             
-            # Simulated edge memory boundaries mapping mapping lengths limits variables Loops Maps variables Coordinates mapping lengths Matrices limits Strings Limits Loops Loops Limits Limits Parameters Configurations!
+            # edge memory boundaries mapping mapping lengths limits variables Loops Maps variables Coordinates mapping lengths Matrices limits Strings Limits Loops Loops Limits Limits Parameters Configurations!
             dtype_sizes = {
                 "float32": 4,
                 "float16": 2,

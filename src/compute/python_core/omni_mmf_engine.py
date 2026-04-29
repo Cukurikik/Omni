@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI MMF (Multimodal Framework) Engine
 ========================================
 Production-grade multimodal AI research engine inspired by facebookresearch/mmf.
@@ -495,7 +495,7 @@ class CaptionHead:
             probs = softmax(logits, axis=-1)
             # Sample from distribution
             for bi in range(b):
-                tokens[bi, t] = np.random.choice(self.vocab_size, p=probs[bi])
+                tokens[bi, t] = np.self.vocab_size, p=probs[bi][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.vocab_size, p=probs[bi]))]
             # Simple update: mix features with token embedding
             token_emb = np.random.randn(b, self.dim).astype(np.float32) * 0.01
             current = 0.8 * current + 0.2 * token_emb

@@ -62,9 +62,8 @@ $ ruby vertical.rb
 
 Can you tell how they work? Enjoy analyzing!
 
-
-
 ---
+
 Code reading tips (spoiler)
 
 Some code fragments are highly reused between the programs.

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package omni.api.universal;
+
+// Omni Universal Message (Protocol Buffers)
+// API Serialization Layer: The foundational data structure bridging all 50+ languages.
+
+message OmniResult {
+  bool success = 1;
+  string error_message = 2;
+  
+  oneof payload {
+    string string_data = 3;
+    int64 int_data = 4;
+    double float_data = 5;
+    bytes binary_data = 6;
+  }
+  
+  // Enforcing strict layer isolation context
+  string source_layer = 7;
+  string target_layer = 8;
+}
+
+message OmniHealthCheck {
+  string service_name = 1;
+  int64 timestamp_utc = 2;
+  OmniResult status = 3;
+}

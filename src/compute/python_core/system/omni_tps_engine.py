@@ -28,7 +28,7 @@ class OmniTPSEngine:
             if not os.path.exists(self.checkpoints_dir):
                 return {"status": "error", "message": f"Checkpoints directory not found: {self.checkpoints_dir}"}
             
-            # Simulated ready state
+            # ready state
             self.animator = "TPS_Model_Loaded"
             return {"status": "success", "message": "TPS motion model animator loaded"}
         except ImportError as e:

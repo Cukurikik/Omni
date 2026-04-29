@@ -9,7 +9,7 @@ prelude: |
 benchmark:
   num3: num.flat_map {|x| x}.take(3).to_a
   num10: num.flat_map {|x| x}.take(3).to_a
-  ary2:  ary2.flat_map {|x| x}.take(3).to_a
+  ary2: ary2.flat_map {|x| x}.take(3).to_a
   ary10: ary10.flat_map {|x| x}.take(3).to_a
   ary20: ary20.flat_map {|x| x}.take(3).to_a
   ary50: ary50.flat_map {|x| x}.take(3).to_a

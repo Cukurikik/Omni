@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniInfiniteGalleryEngine — Production-Grade Infinite UI Renderer
@@ -123,5 +123,16 @@ export class OmniInfiniteGalleryEngine {
 
     public getRenderCacheCount(): number {
         return this.renderCache.size;
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "GalleryResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Ml Foundations Engine
 ==========================
 Production-grade engine for the OMNI Framework.
@@ -112,7 +112,7 @@ class OmniMlFoundationsEngine:
             return TreeNode(value=leaf_value)
 
         # Subset features for Random Forest decorrelation
-        feat_idxs = np.random.choice(n_features, max(1, int(np.sqrt(n_features))), replace=False)
+        feat_idxs = np.n_features, max(1, int(np.sqrt(n_features[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(n_features, max(1, int(np.sqrt(n_features))])), replace=False)
 
         best_split = self._best_split(X, y, feat_idxs)
         if best_split["gain"] <= 0:
@@ -136,7 +136,7 @@ class OmniMlFoundationsEngine:
             for _ in range(self.n_trees):
                 n_samp = X.shape[0]
                 # Bootstrap sampling
-                idxs = np.random.choice(n_samp, n_samp, replace=True)
+                idxs = np.n_samp, n_samp, replace=True[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(n_samp, n_samp, replace=True))]
                 X_samp = X[idxs]
                 y_samp = y[idxs]
                 

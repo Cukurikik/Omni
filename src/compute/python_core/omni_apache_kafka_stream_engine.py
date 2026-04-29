@@ -31,7 +31,7 @@ class OmniApacheKafkaStreamEngine:
             assignments = {c: [] for c in consumers}
             num_consumers = len(consumers)
             
-            # Simulated limits limits variables Maps sequences combinations 10 partitions per topic limit
+            # limits limits variables Maps sequences combinations 10 partitions per topic limit
             partitions_per_topic = 10
             
             p_idx = 0

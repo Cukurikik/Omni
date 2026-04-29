@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI AI FOUNDATIONAL ENGINE (SEMESTER 5 — BATCH 7)
 // ===========================================================================
 // Absorbed From  : microsoft/AI-For-Beginners
@@ -45,5 +45,16 @@ export class OmniAIFoundationalEngine {
         return { engine: "OmniAIFoundationalEngine", layer: "Interface", status: "healthy",
                  throttle_window_ms: this.throttleWindowMs,
                  learned_from: "microsoft/AI-For-Beginners" };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAIFoundationalEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

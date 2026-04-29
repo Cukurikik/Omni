@@ -10,7 +10,7 @@ In general each set of bytes inside of the struct has either a direct value (usu
 
 ## Helpful links
 
-* [Arm A64 Instruction Set Architecture](https://developer.arm.com/documentation/ddi0596/2021-12?lang=en) Official documentation
-* [armconverter.com](https://armconverter.com/) A website that encodes Arm assembly syntax
-* [hatstone](https://github.com/tenderlove/hatstone) A wrapper around the Capstone disassembler written in Ruby
-* [onlinedisassembler.com](https://onlinedisassembler.com/odaweb/) A web-based disassembler
+- [Arm A64 Instruction Set Architecture](https://developer.arm.com/documentation/ddi0596/2021-12?lang=en) Official documentation
+- [armconverter.com](https://armconverter.com/) A website that encodes Arm assembly syntax
+- [hatstone](https://github.com/tenderlove/hatstone) A wrapper around the Capstone disassembler written in Ruby
+- [onlinedisassembler.com](https://onlinedisassembler.com/odaweb/) A web-based disassembler

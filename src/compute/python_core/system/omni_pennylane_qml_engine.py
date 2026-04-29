@@ -17,7 +17,7 @@ from typing import Dict, Any, List, Optional, Union, Tuple
 
 class OmniPennyLaneQMLEngine:
     """
-    Orchestrates PennyLane QML components: simulators, qubits, gates,
+    Orchestrates PennyLane QML components: backends, qubits, gates,
     and hybrid classical-quantum models using monadic error handling.
     """
 
@@ -51,7 +51,7 @@ class OmniPennyLaneQMLEngine:
         }
 
     def allocate_device(self, name: str, wires: int, shots: Optional[int] = None) -> Dict[str, Any]:
-        """Allocates a quantum device simulator for the engine."""
+        """Allocates a quantum device engine for the engine."""
         try:
             if name not in self.supported_devices:
                 return {"status": "error", "message": f"Unsupported device: {name}. Use: {self.supported_devices}"}

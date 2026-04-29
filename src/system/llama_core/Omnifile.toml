@@ -1,0 +1,7 @@
+[package]
+name="omni-llama-core"
+version="1.0.0"
+edition="omni-2025"
+
+[dependencies]
+omni-std="^2.0"

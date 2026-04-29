@@ -6,9 +6,7 @@
   "cacheTTLMinutes": 60,
   "network": {
     "gatewayPort": 3000,
-    "allowedOrigins": [
-      "*"
-    ]
+    "allowedOrigins": ["*"]
   },
   "universalDependencies": {
     "ui_jsx": [],

@@ -1,0 +1,53 @@
+# OMNI Social Network Schema — Business Layer
+# Absorbing the-maldonado/social_network
+# GraphQL Schema definition mapping relational node connections for Omni Domain Layer
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  profile: Profile
+  posts(limit: Int = 10, offset: Int = 0): [Post!]!
+  followers: [User!]!
+  following: [User!]!
+  createdAt: String!
+}
+
+type Profile {
+  bio: String
+  avatarUrl: String
+  website: String
+}
+
+type Post {
+  id: ID!
+  author: User!
+  content: String!
+  mediaUrls: [String!]
+  likes: Int!
+  comments: [Comment!]!
+  createdAt: String!
+}
+
+type Comment {
+  id: ID!
+  author: User!
+  post: Post!
+  content: String!
+  createdAt: String!
+}
+
+type Query {
+  me: User
+  user(id: ID!): User
+  feed(limit: Int = 20): [Post!]!
+  searchUsers(query: String!): [User!]!
+}
+
+type Mutation {
+  createPost(content: String!, mediaUrls: [String!]): Post!
+  likePost(postId: ID!): Post!
+  createComment(postId: ID!, content: String!): Comment!
+  followUser(userId: ID!): User!
+  unfollowUser(userId: ID!): User!
+}

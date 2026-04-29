@@ -1,0 +1,11 @@
+# OMNI Domain Layer - Maestro Pali Schema
+@schema
+type VisionModelConfig {
+  modelName: String!
+  resolution: Int!
+  useLoRA: Boolean!
+}
+
+type Query {
+  validateImageResolution(resolution: Int!): Boolean!
+}

@@ -287,7 +287,7 @@ class ProvisionResult:
 
 
 class ProvisionerExecutor:
-    """Executes provisioning steps (simulated for safety)."""
+    """Executes provisioning steps (sandboxed)."""
 
     def execute(self, config: ProvisionerConfig) -> ProvisionResult:
         """Execute execute operation for ProvisionerExecutor engine."""

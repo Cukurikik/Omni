@@ -49,14 +49,7 @@
       "description": "Execute video_to_mkv",
       "engine": "ffmpeg",
       "category": "VIDEO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-c",
-        "copy",
-        "{output}.mkv"
-      ],
+      "args": ["-y", "-i", "{input}", "-c", "copy", "{output}.mkv"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -413,15 +406,7 @@
       "description": "Execute video_remove_audio",
       "engine": "ffmpeg",
       "category": "VIDEO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-c",
-        "copy",
-        "-an",
-        "{output}.mp4"
-      ],
+      "args": ["-y", "-i", "{input}", "-c", "copy", "-an", "{output}.mp4"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -742,14 +727,7 @@
       "description": "Execute video_blur",
       "engine": "ffmpeg",
       "category": "VIDEO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-vf",
-        "boxblur=10:5",
-        "{output}.mp4"
-      ],
+      "args": ["-y", "-i", "{input}", "-vf", "boxblur=10:5", "{output}.mp4"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 1800000000000,
@@ -776,14 +754,7 @@
       "description": "Execute video_crop_1_1",
       "engine": "ffmpeg",
       "category": "VIDEO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-vf",
-        "crop=ih:ih",
-        "{output}.mp4"
-      ],
+      "args": ["-y", "-i", "{input}", "-vf", "crop=ih:ih", "{output}.mp4"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 1200000000000,
@@ -1022,14 +993,7 @@
       "description": "Execute video_rotate_90_cw",
       "engine": "ffmpeg",
       "category": "VIDEO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-vf",
-        "transpose=1",
-        "{output}.mp4"
-      ],
+      "args": ["-y", "-i", "{input}", "-vf", "transpose=1", "{output}.mp4"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 1800000000000,
@@ -1056,14 +1020,7 @@
       "description": "Execute video_rotate_90_ccw",
       "engine": "ffmpeg",
       "category": "VIDEO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-vf",
-        "transpose=2",
-        "{output}.mp4"
-      ],
+      "args": ["-y", "-i", "{input}", "-vf", "transpose=2", "{output}.mp4"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 1800000000000,
@@ -1090,14 +1047,7 @@
       "description": "Execute audio_to_mp3",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-acodec",
-        "libmp3lame",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-acodec", "libmp3lame", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1124,14 +1074,7 @@
       "description": "Execute audio_to_wav",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-acodec",
-        "pcm_s16le",
-        "{output}.wav"
-      ],
+      "args": ["-y", "-i", "{input}", "-acodec", "pcm_s16le", "{output}.wav"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1158,14 +1101,7 @@
       "description": "Execute audio_to_ogg",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-acodec",
-        "libvorbis",
-        "{output}.ogg"
-      ],
+      "args": ["-y", "-i", "{input}", "-acodec", "libvorbis", "{output}.ogg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1192,14 +1128,7 @@
       "description": "Execute audio_to_flac",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-acodec",
-        "flac",
-        "{output}.flac"
-      ],
+      "args": ["-y", "-i", "{input}", "-acodec", "flac", "{output}.flac"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1226,14 +1155,7 @@
       "description": "Execute audio_compress_320k",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-b:a",
-        "320k",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-b:a", "320k", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1260,14 +1182,7 @@
       "description": "Execute audio_compress_256k",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-b:a",
-        "256k",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-b:a", "256k", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1294,14 +1209,7 @@
       "description": "Execute audio_compress_192k",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-b:a",
-        "192k",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-b:a", "192k", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1328,14 +1236,7 @@
       "description": "Execute audio_compress_128k",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-b:a",
-        "128k",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-b:a", "128k", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -1362,14 +1263,7 @@
       "description": "Execute audio_compress_64k",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-b:a",
-        "64k",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-b:a", "64k", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -1940,14 +1834,7 @@
       "description": "Execute audio_reverse",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-af",
-        "areverse",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-af", "areverse", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 900000000000,
@@ -2008,14 +1895,7 @@
       "description": "Execute audio_mono_to_stereo",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-ac",
-        "2",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-ac", "2", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -2042,14 +1922,7 @@
       "description": "Execute audio_stereo_to_mono",
       "engine": "ffmpeg",
       "category": "AUDIO",
-      "args": [
-        "-y",
-        "-i",
-        "{input}",
-        "-ac",
-        "1",
-        "{output}.mp3"
-      ],
+      "args": ["-y", "-i", "{input}", "-ac", "1", "{output}.mp3"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -2110,10 +1983,7 @@
       "description": "Execute image_to_png",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "{output}.png"
-      ],
+      "args": ["{input}", "{output}.png"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2140,13 +2010,7 @@
       "description": "Execute image_to_jpg",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-background",
-        "white",
-        "-flatten",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-background", "white", "-flatten", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2173,12 +2037,7 @@
       "description": "Execute image_to_webp",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-quality",
-        "80",
-        "{output}.webp"
-      ],
+      "args": ["{input}", "-quality", "80", "{output}.webp"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2205,10 +2064,7 @@
       "description": "Execute image_to_bmp",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "{output}.bmp"
-      ],
+      "args": ["{input}", "{output}.bmp"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2235,10 +2091,7 @@
       "description": "Execute image_to_tiff",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "{output}.tiff"
-      ],
+      "args": ["{input}", "{output}.tiff"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2265,12 +2118,7 @@
       "description": "Execute image_compress_high",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-quality",
-        "50",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-quality", "50", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2297,12 +2145,7 @@
       "description": "Execute image_compress_med",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-quality",
-        "70",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-quality", "70", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2329,12 +2172,7 @@
       "description": "Execute image_compress_low",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-quality",
-        "90",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-quality", "90", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2361,12 +2199,7 @@
       "description": "Execute image_resize_4k",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-resize",
-        "3840x2160>",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-resize", "3840x2160>", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2393,12 +2226,7 @@
       "description": "Execute image_resize_1080p",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-resize",
-        "1920x1080>",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-resize", "1920x1080>", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2425,12 +2253,7 @@
       "description": "Execute image_resize_720p",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-resize",
-        "1280x720>",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-resize", "1280x720>", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2457,12 +2280,7 @@
       "description": "Execute image_resize_480p",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-resize",
-        "854x480>",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-resize", "854x480>", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2489,12 +2307,7 @@
       "description": "Execute image_grayscale",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-colorspace",
-        "Gray",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-colorspace", "Gray", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2521,12 +2334,7 @@
       "description": "Execute image_sepia",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-sepia-tone",
-        "80%",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-sepia-tone", "80%", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2553,11 +2361,7 @@
       "description": "Execute image_invert",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-negate",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-negate", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2584,12 +2388,7 @@
       "description": "Execute image_blur_light",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-blur",
-        "0x4",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-blur", "0x4", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2616,12 +2415,7 @@
       "description": "Execute image_blur_heavy",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-blur",
-        "0x12",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-blur", "0x12", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2648,12 +2442,7 @@
       "description": "Execute image_sharpen_light",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-sharpen",
-        "0x2",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-sharpen", "0x2", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2680,12 +2469,7 @@
       "description": "Execute image_sharpen_heavy",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-sharpen",
-        "0x5",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-sharpen", "0x5", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2712,12 +2496,7 @@
       "description": "Execute image_rotate_90",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-rotate",
-        "90",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-rotate", "90", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2744,12 +2523,7 @@
       "description": "Execute image_rotate_180",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-rotate",
-        "180",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-rotate", "180", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2776,12 +2550,7 @@
       "description": "Execute image_rotate_270",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-rotate",
-        "270",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-rotate", "270", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2808,11 +2577,7 @@
       "description": "Execute image_flip_horizontal",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-flop",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-flop", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2839,11 +2604,7 @@
       "description": "Execute image_flip_vertical",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-flip",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-flip", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2870,11 +2631,7 @@
       "description": "Execute image_auto_orient",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-auto-orient",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-auto-orient", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2901,12 +2658,7 @@
       "description": "Execute image_edge_detect",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-edge",
-        "1",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-edge", "1", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2933,12 +2685,7 @@
       "description": "Execute image_charcoal",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-charcoal",
-        "2",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-charcoal", "2", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2965,12 +2712,7 @@
       "description": "Execute image_noise_reduce",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-noise",
-        "3",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-noise", "3", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -2997,12 +2739,7 @@
       "description": "Execute image_contrast_boost",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-contrast",
-        "-contrast",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-contrast", "-contrast", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -3029,12 +2766,7 @@
       "description": "Execute image_brightness_boost",
       "engine": "magick",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-modulate",
-        "120,100",
-        "{output}.jpg"
-      ],
+      "args": ["{input}", "-modulate", "120,100", "{output}.jpg"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -3252,12 +2984,7 @@
       "description": "Execute pdf_decrypt_pass",
       "engine": "qpdf",
       "category": "MISC",
-      "args": [
-        "--password={password}",
-        "--decrypt",
-        "{input}",
-        "{output}.pdf"
-      ],
+      "args": ["--password={password}", "--decrypt", "{input}", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3290,12 +3017,7 @@
       "description": "Execute pdf_merge_generic",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "cat",
-        "output",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "cat", "output", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3322,12 +3044,7 @@
       "description": "Execute pdf_burst_pages",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "burst",
-        "output",
-        "{output}_page_%04d.pdf"
-      ],
+      "args": ["{input}", "burst", "output", "{output}_page_%04d.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3354,13 +3071,7 @@
       "description": "Execute pdf_rotate_90_cw",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "cat",
-        "1-endE",
-        "output",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "cat", "1-endE", "output", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3387,13 +3098,7 @@
       "description": "Execute pdf_rotate_90_ccw",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "cat",
-        "1-endW",
-        "output",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "cat", "1-endW", "output", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3420,13 +3125,7 @@
       "description": "Execute pdf_rotate_180",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "cat",
-        "1-endS",
-        "output",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "cat", "1-endS", "output", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3525,11 +3224,7 @@
       "description": "Execute pdf_linearize_web",
       "engine": "qpdf",
       "category": "MISC",
-      "args": [
-        "--linearize",
-        "{input}",
-        "{output}.pdf"
-      ],
+      "args": ["--linearize", "{input}", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3556,13 +3251,7 @@
       "description": "Execute pdf_to_images_jpg",
       "engine": "pdftoppm",
       "category": "MISC",
-      "args": [
-        "-jpeg",
-        "-r",
-        "300",
-        "{input}",
-        "{output}_page"
-      ],
+      "args": ["-jpeg", "-r", "300", "{input}", "{output}_page"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 900000000000,
@@ -3589,13 +3278,7 @@
       "description": "Execute pdf_to_images_png",
       "engine": "pdftoppm",
       "category": "MISC",
-      "args": [
-        "-png",
-        "-r",
-        "300",
-        "{input}",
-        "{output}_page"
-      ],
+      "args": ["-png", "-r", "300", "{input}", "{output}_page"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 900000000000,
@@ -3622,10 +3305,7 @@
       "description": "Execute pdf_extract_text",
       "engine": "pdftotext",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "{output}.txt"
-      ],
+      "args": ["{input}", "{output}.txt"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3652,11 +3332,7 @@
       "description": "Execute pdf_remove_pass_unsec",
       "engine": "qpdf",
       "category": "MISC",
-      "args": [
-        "--decrypt",
-        "{input}",
-        "{output}.pdf"
-      ],
+      "args": ["--decrypt", "{input}", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -3857,12 +3533,7 @@
       "description": "Execute pdf_extract_attachments",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "unpack_files",
-        "output",
-        "{output_dir}"
-      ],
+      "args": ["{input}", "unpack_files", "output", "{output_dir}"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3889,14 +3560,7 @@
       "description": "Execute pdf_metadata_clear",
       "engine": "qpdf",
       "category": "MISC",
-      "args": [
-        "--empty",
-        "--pages",
-        "{input}",
-        "1-z",
-        "--",
-        "{output}.pdf"
-      ],
+      "args": ["--empty", "--pages", "{input}", "1-z", "--", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -3995,11 +3659,7 @@
       "description": "Execute pdf_uncompress_streams",
       "engine": "qpdf",
       "category": "MISC",
-      "args": [
-        "--stream-data=uncompress",
-        "{input}",
-        "{output}.pdf"
-      ],
+      "args": ["--stream-data=uncompress", "{input}", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4066,13 +3726,7 @@
       "description": "Execute pdf_reverse_pages",
       "engine": "pdftk",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "cat",
-        "end-1",
-        "output",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "cat", "end-1", "output", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4201,12 +3855,7 @@
       "description": "Execute html_to_pdf",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.pdf",
-        "--pdf-engine=wkhtmltopdf"
-      ],
+      "args": ["{input}", "-o", "{output}.pdf", "--pdf-engine=wkhtmltopdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -4233,11 +3882,7 @@
       "description": "Execute md_to_pdf",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "-o", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4264,11 +3909,7 @@
       "description": "Execute txt_to_pdf",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "-o", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4466,15 +4107,7 @@
       "description": "Execute html_to_md",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-f",
-        "html",
-        "-t",
-        "markdown",
-        "-o",
-        "{output}.md"
-      ],
+      "args": ["{input}", "-f", "html", "-t", "markdown", "-o", "{output}.md"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -4501,15 +4134,7 @@
       "description": "Execute docx_to_md",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-f",
-        "docx",
-        "-t",
-        "markdown",
-        "-o",
-        "{output}.md"
-      ],
+      "args": ["{input}", "-f", "docx", "-t", "markdown", "-o", "{output}.md"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4536,15 +4161,7 @@
       "description": "Execute docx_to_html",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-f",
-        "docx",
-        "-t",
-        "html",
-        "-o",
-        "{output}.html"
-      ],
+      "args": ["{input}", "-f", "docx", "-t", "html", "-o", "{output}.html"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4571,15 +4188,7 @@
       "description": "Execute html_to_docx",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-f",
-        "html",
-        "-t",
-        "docx",
-        "-o",
-        "{output}.docx"
-      ],
+      "args": ["{input}", "-f", "html", "-t", "docx", "-o", "{output}.docx"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4606,11 +4215,7 @@
       "description": "Execute csv_to_html",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.html"
-      ],
+      "args": ["{input}", "-o", "{output}.html"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 120000000000,
@@ -4637,11 +4242,7 @@
       "description": "Execute csv_to_pdf",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "-o", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4668,11 +4269,7 @@
       "description": "Execute epub_to_pdf",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.pdf"
-      ],
+      "args": ["{input}", "-o", "{output}.pdf"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 900000000000,
@@ -4699,12 +4296,7 @@
       "description": "Execute pdf_to_html",
       "engine": "pdftohtml",
       "category": "MISC",
-      "args": [
-        "-c",
-        "-s",
-        "{input}",
-        "{output}.html"
-      ],
+      "args": ["-c", "-s", "{input}", "{output}.html"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -4731,11 +4323,7 @@
       "description": "Execute pdf_to_txt",
       "engine": "pdftotext",
       "category": "MISC",
-      "args": [
-        "-layout",
-        "{input}",
-        "{output}.txt"
-      ],
+      "args": ["-layout", "{input}", "{output}.txt"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4898,11 +4486,7 @@
       "description": "Execute md_to_docx",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.docx"
-      ],
+      "args": ["{input}", "-o", "{output}.docx"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4929,13 +4513,7 @@
       "description": "Execute epub_to_md",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-t",
-        "markdown",
-        "-o",
-        "{output}.md"
-      ],
+      "args": ["{input}", "-t", "markdown", "-o", "{output}.md"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4962,11 +4540,7 @@
       "description": "Execute md_to_epub",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.epub"
-      ],
+      "args": ["{input}", "-o", "{output}.epub"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 300000000000,
@@ -4993,12 +4567,7 @@
       "description": "Execute latex_to_pdf",
       "engine": "pandoc",
       "category": "MISC",
-      "args": [
-        "{input}",
-        "-o",
-        "{output}.pdf",
-        "--pdf-engine=pdflatex"
-      ],
+      "args": ["{input}", "-o", "{output}.pdf", "--pdf-engine=pdflatex"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 600000000000,
@@ -5122,13 +4691,7 @@
       "description": "Execute video_pixel",
       "engine": "ffmpeg",
       "category": "MISC",
-      "args": [
-        "-i",
-        "{input}",
-        "-vf",
-        "pixelize",
-        "{output}.mp4"
-      ],
+      "args": ["-i", "{input}", "-vf", "pixelize", "{output}.mp4"],
       "constraints": {
         "max_ram_bytes": 2147483648,
         "timeout": 1800000000000,

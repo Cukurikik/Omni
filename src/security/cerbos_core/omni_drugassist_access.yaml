@@ -1,0 +1,14 @@
+# Omni DrugAssist Molecule Access (Cerbos)
+# Security Layer: ABAC for molecule optimization ops.
+# Ref: blazerye/DrugAssist
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: omni.drugassist.molecule
+  rules:
+    - actions: ["optimize", "query", "analyze"]
+      effect: EFFECT_ALLOW
+      roles: [researcher, admin, omni_system]
+    - actions: ["delete", "export_smiles"]
+      effect: EFFECT_DENY
+      roles: [viewer]

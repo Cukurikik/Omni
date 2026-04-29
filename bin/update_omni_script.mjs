@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
-const filePath = 'c:/Users/IKYY/Downloads/HEAVY-TOOLS/bin/omni.mjs';
-const content = fs.readFileSync(filePath, 'utf8');
+const filePath = "c:/Users/IKYY/Downloads/HEAVY-TOOLS/bin/omni.mjs";
+const content = fs.readFileSync(filePath, "utf8");
 
 const newFunction = `async function simulateRequest(toolId) {
     return new Promise((resolve) => {
@@ -50,17 +50,22 @@ const newFunction = `async function simulateRequest(toolId) {
 
 // Match from my marker or the old function signature down to the end of that block
 // Using a simpler approach: splitting by markers
-const lines = content.split('\n');
-const startIndex = lines.findIndex(line => line.includes('// PROTOKOL OMNI-TEST: SOLUSI LANGSUNG KAPTEN'));
-const nextFuncIndex = lines.findIndex(line => line.includes('async function pollJobStatus'));
+const lines = content.split("\n");
+const startIndex = lines.findIndex((line) =>
+  line.includes("// PROTOKOL OMNI-TEST: SOLUSI LANGSUNG KAPTEN"),
+);
+const nextFuncIndex = lines.findIndex((line) =>
+  line.includes("async function pollJobStatus"),
+);
 
 if (startIndex !== -1 && nextFuncIndex !== -1) {
-    const pre = lines.slice(0, startIndex - 1); // Remove the line 'async function simulateRequest(toolId) {' too
-    const post = lines.slice(nextFuncIndex);
-    const finalContent = pre.join('\n') + '\n\n' + newFunction + '\n\n' + post.join('\n');
-    fs.writeFileSync(filePath, finalContent, 'utf8');
-    console.log('SUCCESS: omni.mjs updated successfully.');
+  const pre = lines.slice(0, startIndex - 1); // Remove the line 'async function simulateRequest(toolId) {' too
+  const post = lines.slice(nextFuncIndex);
+  const finalContent =
+    pre.join("\n") + "\n\n" + newFunction + "\n\n" + post.join("\n");
+  fs.writeFileSync(filePath, finalContent, "utf8");
+  console.log("SUCCESS: omni.mjs updated successfully.");
 } else {
-    console.error('FAILED: Markers not found.');
-    process.exit(1);
+  console.error("FAILED: Markers not found.");
+  process.exit(1);
 }

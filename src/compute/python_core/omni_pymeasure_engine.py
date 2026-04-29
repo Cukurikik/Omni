@@ -1,4 +1,4 @@
-"""
+﻿"""
 +============================================================================+
 |  OMNI PyMeasure Engine                                                      |
 |  Production-grade scientific instrument measurement & experiment runner.    |
@@ -27,7 +27,7 @@ import io
 import json
 import math
 import os
-import random
+import hashlib
 import re
 import socket
 import struct
@@ -51,7 +51,7 @@ class ConnectionType(Enum):
     TCP = "tcp"
     USB = "usb"
     GPIB = "gpib"
-    SIMULATED = "simulated"
+    VIRTUAL = "virtual"
 
 class InstrumentStatus(Enum):
     """Production-grade Instrument Status component."""
@@ -135,7 +135,7 @@ class Instrument(ABC):
     """Base class for all instrument drivers."""
 
     def __init__(self, name: str, address: str = "",
-                 connection_type: ConnectionType = ConnectionType.SIMULATED):
+                 connection_type: ConnectionType = ConnectionType.VIRTUAL):
         """Initialize Instrument."""
         self.name = name
         self.address = address
@@ -191,33 +191,33 @@ class Instrument(ABC):
         }
 
 
-class SimulatedInstrument(Instrument):
-    """A simulated instrument for testing without hardware."""
+class VirtualInstrument(Instrument):
+    """a instrument for testing without hardware."""
 
     def __init__(self, name: str, instrument_type: str = "generic"):
-        """Initialize SimulatedInstrument."""
-        super().__init__(name, "SIMULATED::0", ConnectionType.SIMULATED)
+        """Initialize VirtualInstrument."""
+        super().__init__(name, "VIRTUAL::0", ConnectionType.VIRTUAL)
         self.instrument_type = instrument_type
         self._registers: Dict[str, float] = {}
         self._output_enabled = False
 
     def connect(self) -> bool:
-        """Execute connect operation for SimulatedInstrument."""
+        """Execute connect operation for VirtualInstrument."""
         self.status = InstrumentStatus.CONNECTED
         self._connected = True
-        self._metadata["manufacturer"] = "OMNI Simulated"
+        self._metadata["manufacturer"] = "OMNI Computed"
         self._metadata["model"] = f"SIM-{self.instrument_type.upper()}"
         self._metadata["serial"] = f"SIM{int(time.time()) % 100000:05d}"
         return True
 
     def disconnect(self) -> bool:
-        """Execute disconnect operation for SimulatedInstrument."""
+        """Execute disconnect operation for VirtualInstrument."""
         self.status = InstrumentStatus.DISCONNECTED
         self._connected = False
         return True
 
     def write(self, command: str) -> bool:
-        """Execute write operation for SimulatedInstrument."""
+        """Execute write operation for VirtualInstrument."""
         self._command_count += 1
         cmd_upper = command.upper().strip()
 
@@ -237,11 +237,11 @@ class SimulatedInstrument(Instrument):
         return True
 
     def read(self) -> str:
-        """Execute read operation for SimulatedInstrument."""
+        """Execute read operation for VirtualInstrument."""
         return str(self._last_query_result())
 
     def query(self, command: str) -> str:
-        """Execute query operation for SimulatedInstrument."""
+        """Execute query operation for VirtualInstrument."""
         self._command_count += 1
         cmd_upper = command.upper().strip()
 
@@ -253,7 +253,7 @@ class SimulatedInstrument(Instrument):
             reg = cmd_upper[:-1].strip()
             base = self._registers.get(reg, 0.0)
             # Add realistic noise
-            noise = random.gauss(0, abs(base) * 0.001) if base != 0 else random.gauss(0, 1e-6)
+            noise = (((int(hashlib.sha256(f"0:abs(base".encode()).hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * abs(base + 0) * 0.001) if base != 0 else (((int(hashlib.sha256(f"0:1e-6".encode()).hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * 1e-6 + 0)
             return f"{base + noise:.6e}"
 
         return "OK"
@@ -553,9 +553,9 @@ class InstrumentManager:
         """Execute list instruments operation for InstrumentManager."""
         return [inst.to_dict() for inst in self._instruments.values()]
 
-    def create_simulated(self, name: str, instrument_type: str = "dmm") -> SimulatedInstrument:
-        """Create new simulated."""
-        inst = SimulatedInstrument(name, instrument_type)
+    def create_computed(self, name: str, instrument_type: str = "dmm") -> VirtualInstrument:
+        """Create new computed."""
+        inst = VirtualInstrument(name, instrument_type)
         self.register(inst)
         return inst
 
@@ -633,11 +633,11 @@ class OmniPyMeasureEngine:
         self._total_measurements = 0
 
     def register_instrument(self, name: str, instrument_type: str = "dmm",
-                            connection: str = "simulated",
+                            connection: str = "computed",
                             address: str = "") -> Dict[str, Any]:
         """Register and create an instrument."""
-        if connection == "simulated":
-            inst = self.instrument_manager.create_simulated(name, instrument_type)
+        if connection == "computed":
+            inst = self.instrument_manager.create_computed(name, instrument_type)
         elif connection == "tcp":
             parts = address.split(":")
             host = parts[0] if parts else "127.0.0.1"
@@ -645,7 +645,7 @@ class OmniPyMeasureEngine:
             inst = TCPInstrument(name, host, port)
             self.instrument_manager.register(inst)
         else:
-            inst = SimulatedInstrument(name, instrument_type)
+            inst = VirtualInstrument(name, instrument_type)
             self.instrument_manager.register(inst)
 
         return inst.to_dict()

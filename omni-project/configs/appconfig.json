@@ -11,9 +11,7 @@
   },
   "security": {
     "session_secret": "OMNI_SECRET_stph5cnqlg",
-    "cors_allowed_origins": [
-      "*"
-    ],
+    "cors_allowed_origins": ["*"],
     "rate_limit_per_second": 20,
     "enable_coop_coep": true
   },

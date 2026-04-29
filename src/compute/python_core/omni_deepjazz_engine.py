@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # 2. MIDI MARKOV SEQUENCE PREDICTOR
 # ---------------------------------------------------------------------------
 
-class MusicTransitionSequenceSimulator:
+class MusicTransitionSequenceEngine:
     """Calculates generative note probabilities directly via numeric indices."""
     
     def generate_jazz_progression(self, base_notes: List[int], steps: int) -> Result:
@@ -79,7 +79,7 @@ class MusicTransitionSequenceSimulator:
             })
             
         except Exception as e:
-            return Err(f"Simulated LSTM Music Generator failed: {e}")
+            return Err(f"LSTM Music Generator failed: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -99,9 +99,9 @@ class OmniDeepjazzEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-deepjazz"
 
-    def get_structural_evaluator(self) -> MusicTransitionSequenceSimulator:
-        """Performs get simulator operation for OmniDeepjazzEngine."""
-        return MusicTransitionSequenceSimulator()
+    def get_structural_evaluator(self) -> MusicTransitionSequenceEngine:
+        """Performs diagnostic evaluation for OmniDeepjazzEngine."""
+        return MusicTransitionSequenceEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniDeepjazzEngine."""

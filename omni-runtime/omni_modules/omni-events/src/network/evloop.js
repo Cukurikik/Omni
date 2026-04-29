@@ -1,1 +1,3 @@
-﻿export async function runEventLoop() { /* JS Non blocking */ }
+﻿export async function runEventLoop() {
+  /* JS Non blocking */
+}

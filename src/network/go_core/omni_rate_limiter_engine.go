@@ -5,7 +5,7 @@
 // Logic Inherited: Go / Network Layer (Token Bucket + Sliding Window)
 // ===========================================================================
 
-package ratelimiter
+package go_core
 
 import (
 	"sync"
@@ -14,7 +14,7 @@ import (
 )
 
 // Result represents the outcome of a rate limit check.
-type Result struct {
+type RateLimiterResult struct {
 	Allowed   bool
 	Remaining int64
 	RetryAfter time.Duration
@@ -46,11 +46,11 @@ func NewTokenBucket(ratePerSecond float64, burst int) *TokenBucket {
 	}
 }
 
-func (tb *TokenBucket) Allow() Result {
+func (tb *TokenBucket) Allow() RateLimiterResult {
 	return tb.AllowN(1)
 }
 
-func (tb *TokenBucket) AllowN(n int) Result {
+func (tb *TokenBucket) AllowN(n int) RateLimiterResult {
 	tb.mu.Lock()
 	defer tb.mu.Unlock()
 
@@ -68,7 +68,7 @@ func (tb *TokenBucket) AllowN(n int) Result {
 	if tb.tokens >= requested {
 		tb.tokens -= requested
 		tb.totalAllowed.Add(uint64(n))
-		return Result{
+		return RateLimiterResult{
 			Allowed:   true,
 			Remaining: int64(tb.tokens),
 			Limit:     int64(tb.maxTokens),
@@ -80,7 +80,7 @@ func (tb *TokenBucket) AllowN(n int) Result {
 	retryAfter := time.Duration(deficit / tb.rate * float64(time.Second))
 
 	tb.totalDenied.Add(uint64(n))
-	return Result{
+	return RateLimiterResult{
 		Allowed:    false,
 		Remaining:  0,
 		RetryAfter: retryAfter,
@@ -116,7 +116,7 @@ func NewSlidingWindow(windowSize time.Duration, maxRequests int64) *SlidingWindo
 	}
 }
 
-func (sw *SlidingWindow) Allow() Result {
+func (sw *SlidingWindow) Allow() RateLimiterResult {
 	sw.mu.Lock()
 	defer sw.mu.Unlock()
 
@@ -145,7 +145,7 @@ func (sw *SlidingWindow) Allow() Result {
 	if count < sw.maxRequests {
 		sw.slots = append(sw.slots, windowSlot{timestamp: now, count: 1})
 		sw.totalAllowed.Add(1)
-		return Result{
+		return RateLimiterResult{
 			Allowed:   true,
 			Remaining: sw.maxRequests - count - 1,
 			Limit:     sw.maxRequests,
@@ -161,7 +161,7 @@ func (sw *SlidingWindow) Allow() Result {
 	}
 
 	sw.totalDenied.Add(1)
-	return Result{
+	return RateLimiterResult{
 		Allowed:    false,
 		Remaining:  0,
 		RetryAfter: retryAfter,
@@ -187,7 +187,7 @@ func NewPerKeyLimiter(ratePerSecond float64, burst int) *PerKeyLimiter {
 	}
 }
 
-func (pkl *PerKeyLimiter) Allow(key string) Result {
+func (pkl *PerKeyLimiter) Allow(key string) RateLimiterResult {
 	bucket, loaded := pkl.buckets.LoadOrStore(key, pkl.factory())
 	if !loaded {
 		pkl.totalKeys.Add(1)
@@ -208,7 +208,7 @@ type OmniRateLimiterEngine struct {
 	mu             sync.RWMutex
 }
 
-func NewEngine() *OmniRateLimiterEngine {
+func NewRateLimiterEngine() *OmniRateLimiterEngine {
 	return &OmniRateLimiterEngine{
 		tokenBuckets:   make(map[string]*TokenBucket),
 		slidingWindows: make(map[string]*SlidingWindow),

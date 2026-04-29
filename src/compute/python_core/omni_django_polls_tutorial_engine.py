@@ -26,7 +26,7 @@ class OmniDjangoPollsTutorialEngine:
             choices = poll_data.get("choices", [])
             total_votes = 0
             
-            # Simulated array iteration mapping boundary intersections constraints limits!
+            # Array iteration mapping boundary intersections constraints limits!
             for ch in choices:
                 votes = int(ch.get("votes", 0))
                 if votes < 0:

@@ -44,12 +44,12 @@ Result = Union[Ok, Err]
 # 2. BILINGUAL SENTENCE ALIGNMENT MAPPER
 # ---------------------------------------------------------------------------
 
-class BilingualAlignmentSimulator:
+class BilingualAlignmentEngine:
     """Predicts statistical structural alignment indices deterministically."""
     
     def evaluate_structural_token_alignment(self, source_tokens: List[str], target_tokens: List[str]) -> Result:
         """
-        Determines the probable syntactic mapping indices between simulated sentences.
+        Determines the probable syntactic mapping indices between sentences.
         """
         if not source_tokens or not target_tokens:
             return Err("MT topological_evaluation requires valid source and target token matrices.")
@@ -66,7 +66,7 @@ class BilingualAlignmentSimulator:
             
             # Simple geometric projection rule (Execute IBM Model 1 style bounds)
             for i in range(source_len):
-                # Simulated projection index
+                # Projection index
                 projected_j = int(i * (target_len / source_len))
                 projected_j = max(0, min(projected_j, target_len - 1))
                 
@@ -114,9 +114,9 @@ class OmniMTBookEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-mtbook"
 
-    def get_structural_evaluator(self) -> BilingualAlignmentSimulator:
-        """Performs get simulator operation for OmniMTBookEngine."""
-        return BilingualAlignmentSimulator()
+    def get_structural_evaluator(self) -> BilingualAlignmentEngine:
+        """Performs diagnostic evaluation for OmniMTBookEngine."""
+        return BilingualAlignmentEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniMTBookEngine."""

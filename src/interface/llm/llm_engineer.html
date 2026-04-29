@@ -1,0 +1,82 @@
+<!-- 
+OMNI Divine Memory Integration: Inspired by llm-engineer-toolkit
+Interface Layer - HTML structure for LLM Toolkit selection UI.
+Strict semantic HTML5 avoiding non-standard dependencies. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI LLM Engineer Toolkit</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent: #38bdf8;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+        .card h3 { margin-top: 0; }
+        .tag {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--accent);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OMNI LLM Engineer Toolkit</h1>
+        <p>Curated physical execution paths for Large Language Models.</p>
+        
+        <div class="grid" id="toolkit-grid">
+            <!-- Zero-Mock injected elements -->
+            <div class="card">
+                <h3>TensorZero Gateway</h3>
+                <p>LLM routing and observability layer in Rust.</p>
+                <span class="tag">Infrastructure</span>
+                <span class="tag">Rust</span>
+            </div>
+            
+            <div class="card">
+                <h3>PowerInfer Local</h3>
+                <p>High-speed serving for consumer GPUs.</p>
+                <span class="tag">Inference</span>
+                <span class="tag">C++</span>
+            </div>
+            
+            <div class="card">
+                <h3>txtai Pipeline</h3>
+                <p>Semantic search orchestration.</p>
+                <span class="tag">RAG</span>
+                <span class="tag">Python/Gleam</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

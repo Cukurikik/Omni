@@ -1,0 +1,1065 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('policies.title') }}{% endblock %}
+
+{% block content %}
+    <!-- 1. Access Groups Section -->
+    <section class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl">
+        <div class="card-body overflow-visible">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-base-300 pb-4 mb-4">
+                <div>
+                    <h2 class="card-title text-2xl sm:text-3xl">
+                        {{ t('policies.advanced_access_policies') }}
+                        {% if ACCOUNT_ID_FOR_DISPLAY and ACCOUNT_ID_FOR_DISPLAY != "Not Configured" %}
+                            <a href="https://dash.cloudflare.com/{{ ACCOUNT_ID_FOR_DISPLAY }}/one/access-controls/apps/self-hosted" target="_blank" rel="noopener noreferrer" title="{{ t('policies.view_in_cf_zero_trust') }}" class="ml-2 inline-block align-middle transition-transform hover:scale-105">
+                                <img src="{{ url_for('static', filename='images/cloudflare-icon.svg') }}" alt="Cloudflare" class="inline h-5 w-5" />
+                                <span class="sr-only">{{ t('policies.open_in_cf_zero_trust') }}</span>
+                            </a>
+                        {% endif %}
+                    </h2>
+                    <p class="text-sm opacity-70 mt-1">{{ t('policies.create_reusable_desc') }}</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <label class="text-xs opacity-60">{{ t('policies.filter') }}</label>
+                        <select id="policyFilter" class="select select-xs select-bordered">
+                            <option value="all">{{ t('policies.all_policies') }}</option>
+                            <option value="dockflare">{{ t('policies.dockflare_managed') }}</option>
+                            <option value="external">{{ t('policies.external') }}</option>
+                            <option value="system">{{ t('policies.system') }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 mt-4 sm:mt-0 w-full sm:w-auto">
+                    <button id="sync-cloudflare-btn" class="btn btn-sm btn-secondary w-full sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        {{ t('policies.sync_from_cloudflare') }}
+                    </button>
+                    <button id="create-access-group-btn" class="btn btn-sm btn-primary w-full sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        {{ t('policies.create_new_group') }}
+                    </button>
+                </div>
+            </div>
+
+            {% if access_groups and access_groups.items() %}
+                <div class="overflow-x-auto table-container">
+                    <table class="table table-zebra policy-table w-full table-responsive" id="access-groups-table">
+                        <colgroup class="hidden md:table-column-group">
+                            <col class="col-primary">
+                            <col class="col-secondary">
+                            <col class="col-tertiary">
+                            <col class="col-status">
+                            <col class="col-actions">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3">{{ t('policies.display_name') }}</th>
+                                <th class="px-4 py-3">{{ t('policies.group_id_label') }}</th>
+                                <th class="px-4 py-3">{{ t('policies.policy_summary') }}</th>
+                                <th class="px-4 py-3">{{ t('policies.policy_type') }}</th>
+                                <th class="px-4 py-3 text-right">{{ t('common.actions') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for group_id, details in access_groups.items()|sort %}
+                                {% set policy_type_label = 'dockflare' %}
+                                {% if details.external_policy %}
+                                    {% set policy_type_label = 'external' %}
+                                {% elif details.system_policy %}
+                                    {% set policy_type_label = 'system' %}
+                                {% endif %}
+                                <tr data-policy-type="{{ policy_type_label }}" data-group-id="{{ group_id }}">
+                                    <td class="px-4 py-3 cell-top" data-label="{{ t('policies.display_name') }}">
+                                        <div class="font-medium flex items-center gap-2">
+                                            {{ details.display_name }}
+                                        </div>
+                                        {% if group_id in group_usage %}
+                                            <button class="btn btn-xs btn-ghost gap-1 mt-1 usage-toggle" data-group-id="{{ group_id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                                                </svg>
+                                                {{ t('policies.in_use_by') }} {{ group_usage[group_id]|length }} {{ t('policies.service') if group_usage[group_id]|length == 1 else t('policies.services') }}
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 chevron-icon">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                </svg>
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-3 cell-top" data-label="{{ t('policies.group_id_label') }}"><code class="badge badge-sm badge-outline">{{ group_id }}</code></td>
+                                    <td class="px-4 py-3 text-xs opacity-80 cell-top" data-label="{{ t('policies.policy_summary') }}">
+                                        {% if details.policies %}
+                                            {{ t('policies.rules_defined', count=details.policies | length) }}
+                                        {% else %}
+                                            <span class="italic opacity-60">{{ t('policies.no_rules') }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-3" data-label="{{ t('policies.policy_type') }}">
+                                        {% if details.external_policy %}
+                                            <span class="badge badge-sm badge-secondary df-badge">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+                                                {{ t('policies.external') }}
+                                            </span>
+                                        {% elif details.system_policy %}
+                                            <span class="badge badge-sm badge-success df-badge">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+                                                {{ t('policies.system') }}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge badge-sm badge-warning df-badge">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+                                                {{ t('policies.dockflare_managed') }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-4 py-3 text-right align-top" data-label="{{ t('common.actions') }}">
+                                        <div class="dropdown dropdown-end">
+                                            <label tabindex="0" class="btn btn-ghost btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                                </svg>
+                                            </label>
+                                            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64">
+                                                <li>
+                                                    <a class="edit-access-group-btn" data-group-id="{{ group_id }}" data-group-details="{{ details|tojson|forceescape }}" data-external="{{ 'true' if details.get('external_policy') else 'false' }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+                                                        {{ t('common.edit') }}
+                                                    </a>
+                                                </li>
+                                                {% if details.cloudflare_policy_id and ACCOUNT_ID_FOR_DISPLAY and ACCOUNT_ID_FOR_DISPLAY != "Not Configured" %}
+                                                <li>
+                                                    <a class="flex items-center gap-2" href="https://dash.cloudflare.com/{{ ACCOUNT_ID_FOR_DISPLAY }}/one/access-controls/policies/{{ details.cloudflare_policy_id }}/edit" target="_blank" rel="noopener noreferrer">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+                                                        {{ t('policies.view_in_cloudflare') }}
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                                <div class="divider my-1"></div>
+                                                {% set is_disabled = details.get('system_policy') or not details.get('deletable', True) or group_id in used_group_ids %}
+                                                <li class="{{ 'disabled' if is_disabled else '' }}">
+                                                    <a class="text-error delete-access-group-btn {{ 'pointer-events-none cursor-not-allowed select-none' if is_disabled else '' }}" data-group-id="{{ group_id }}" data-group-name="{{ details.display_name }}" data-external="{{ 'true' if details.get('external_policy') else 'false' }}" data-disabled="{{ 'true' if is_disabled else 'false' }}" {{ 'title="' + t("policies.cannot_delete_system") + '"' if details.get('system_policy') or not details.get('deletable', True) else ('title="' + t("policies.cannot_delete_in_use") + '"' if group_id in used_group_ids else '') }}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                                                        {% if details.get('system_policy') or not details.get('deletable', True) %}
+                                                            <span class="opacity-50">{{ t('common.delete') }} ({{ t('policies.system')|lower }} {{ t('policies.access_policy_label') }})</span>
+                                                        {% elif group_id in used_group_ids %}
+                                                            <span class="opacity-50">{{ t('common.delete') }} ({{ t('policies.policy_in_use') }})</span>
+                                                        {% else %}
+                                                            {{ t('common.delete') }}
+                                                        {% endif %}
+                                                    </a>
+                                                </li>
+                                                {% if group_id in used_group_ids %}
+                                                <div class="divider my-1"></div>
+                                                <li class="menu-title">
+                                                    <span class="text-xs opacity-70">{{ t('policies.used_by_count') }} {{ group_usage[group_id]|length }} {{ t('policies.service') if group_usage[group_id]|length == 1 else t('policies.services') }}</span>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% if group_id in group_usage %}
+                                <tr class="usage-details-row" id="usage-{{ group_id }}" data-group-id="{{ group_id }}" style="display: none;">
+                                    <td colspan="5" class="p-0">
+                                        <div class="bg-base-200/50 p-4 border-l-4 border-info">
+                                            <div class="text-sm font-semibold mb-2 opacity-70">
+                                                {{ t('policies.used_by_services') }}
+                                            </div>
+                                            <ul class="list-disc list-inside space-y-1 text-sm opacity-80">
+                                                {% for hostname in group_usage[group_id] %}
+                                                    <li><code class="text-xs">{{ hostname }}</code></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center opacity-70 py-8">
+                    <p>{{ t('policies.no_groups_created') }}</p>
+                    <p class="mt-2 text-sm">{{ t('policies.click_create_group') }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- 2. Identity Providers Section -->
+    <section class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl">
+        <div class="card-body overflow-visible">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-base-300 pb-4 mb-4">
+                <div>
+                    <h2 class="card-title text-2xl sm:text-3xl">
+                        {{ t('policies.identity_providers') }}
+                        {% if ACCOUNT_ID_FOR_DISPLAY and ACCOUNT_ID_FOR_DISPLAY != "Not Configured" %}
+                            <a href="https://dash.cloudflare.com/{{ ACCOUNT_ID_FOR_DISPLAY }}/one/settings/authentication" target="_blank" rel="noopener noreferrer" title="{{ t('policies.view_idps_in_cf') }}" class="ml-2 inline-block align-middle transition-transform hover:scale-105">
+                                <img src="{{ url_for('static', filename='images/cloudflare-icon.svg') }}" alt="Cloudflare" class="inline h-5 w-5" />
+                                <span class="sr-only">{{ t('policies.open_in_cf_zero_trust') }}</span>
+                            </a>
+                        {% endif %}
+                    </h2>
+                    <p class="text-sm opacity-70 mt-1">{{ t('policies.configure_oauth_oidc') }}</p>
+                </div>
+                <div class="flex gap-2 mt-4 sm:mt-0">
+                    <button id="sync-idps-btn" class="btn btn-sm btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        {{ t('policies.sync_from_cloudflare') }}
+                    </button>
+                    <button id="create-idp-btn" class="btn btn-sm btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        {{ t('policies.add_provider') }}
+                    </button>
+                </div>
+            </div>
+
+            <div id="idp-table-container">
+                <p class="text-center opacity-70 py-8">{{ t('policies.loading_idps') }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Zone Default Policies Section -->
+    <section class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl">
+        <div class="card-body overflow-visible">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-base-300 pb-4 mb-4">
+                <div>
+                    <h2 class="card-title text-2xl sm:text-3xl">
+                        {{ t('policies.zone_default_policies') }}
+                    </h2>
+                    <p class="text-sm opacity-70 mt-1">{{ t('policies.protect_all_subdomains') }} <code>*.domain.com</code> {{ t('policies.access_policy_label') }}</p>
+                </div>
+            </div>
+
+            <div id="zone-policies-container">
+                <div class="text-center opacity-70 py-8">
+                    <span class="loading loading-spinner loading-lg"></span>
+                    <p class="mt-4">{{ t('policies.loading_zone_policies') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block modals %}
+    {{ super() }}
+    {% include 'modals/_access_group_modal.html' %}
+
+    <!-- Zone Default Policy Creation Modal -->
+    <dialog id="zone-policy-modal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">{{ t('policies.create_zone_default') }}</h3>
+            <form method="POST" action="{{ url_for('web.create_zone_default_policy') }}" id="zone-policy-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="zone_name" id="zone-policy-zone-name"/>
+                <input type="hidden" name="zone_id" id="zone-policy-zone-id"/>
+
+                <div class="space-y-4">
+                    <div class="alert alert-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>{{ t('policies.this_will_create_wildcard') }} <strong><code id="zone-policy-hostname-display"></code></strong> {{ t('policies.to_protect_all_subdomains') }}</span>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label" for="zone-policy-access-group">
+                            <span class="label-text font-medium">{{ t('policies.select_access_policy') }}</span>
+                        </label>
+                        <select name="access_group_id" id="zone-policy-access-group" class="select select-bordered w-full" required>
+                            <option value="" disabled selected>-- {{ t('policies.select_access_policy') }} --</option>
+                            {% for group_id, details in access_groups.items()|sort %}
+                                <option value="{{ group_id }}">{{ details.display_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="label">
+                            <span class="label-text-alt">{{ t('policies.policy_protect_desc') }} <code>*.zone.com</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-action mt-6">
+                    <button type="button" class="btn btn-ghost" onclick="document.getElementById('zone-policy-modal').close()">{{ t('common.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ t('policies.create_zone_policy') }}</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Geo-fencing without auth confirmation modal -->
+    <dialog id="geo-auth-confirm-modal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">{{ t('policies.no_auth_method') }}</h3>
+            <div class="space-y-4">
+                <div class="alert alert-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div>
+                        <div class="font-medium">{{ t('policies.geo_no_auth_warning') }}</div>
+                    </div>
+                </div>
+                <p class="text-sm">{{ t('policies.did_you_want_to_create') }} <strong>{{ t('policies.public_access_geo') }}</strong> instead?</p>
+                <ul class="list-disc list-inside text-sm space-y-1 opacity-80">
+                    <li><strong>{{ t('policies.public_access_mode') }}</strong> {{ t('policies.wildcard_geo_desc') }}</li>
+                    <li><strong>{{ t('policies.authenticated_mode') }}</strong> {{ t('policies.requires_email_or_identity') }}</li>
+                </ul>
+            </div>
+            <div class="modal-action">
+                <button type="button" class="btn btn-ghost" id="geo-auth-cancel-btn">{{ t('policies.cancel_add_auth') }}</button>
+                <button type="button" class="btn btn-warning" id="geo-auth-confirm-btn">{{ t('policies.switch_to_public') }}</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Sync from Cloudflare Modal -->
+    <dialog id="sync-cloudflare-modal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">{{ t('policies.sync_access_policies') }}</h3>
+            <form method="POST" action="{{ url_for('web.sync_access_groups_from_cloudflare') }}" id="sync-cloudflare-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <input type="hidden" name="sync_all" id="sync-all-input" value="false"/>
+
+                <div class="space-y-4">
+                    <div class="alert alert-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>{{ t('policies.import_reusable_desc') }}</span>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4">
+                            <input type="radio" name="sync_mode" value="dockflare" class="radio radio-primary" checked />
+                            <div class="flex-1">
+                                <span class="label-text font-medium">{{ t('policies.dockflare_prefix_only') }}</span>
+                                <p class="text-xs opacity-70 mt-1">{{ t('policies.import_with_prefix') }} <code class="bg-base-300 px-1 rounded">{{ t('policies.dockflare_prefix') }}</code> {{ t('policies.keeps_list_clean') }}</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-start gap-4">
+                            <input type="radio" name="sync_mode" value="all" class="radio radio-primary" />
+                            <div class="flex-1">
+                                <span class="label-text font-medium">{{ t('policies.sync_all_policies') }}</span>
+                                <p class="text-xs opacity-70 mt-1">{{ t('policies.import_policies_desc') }}</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="alert alert-warning mt-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        <span class="text-xs"><strong>{{ t('policies.pro_tip') }}</strong> {{ t('policies.rename_policies_desc') }} <code>{{ t('policies.dockflare_prefix') }}</code> {{ t('policies.allows_organize') }}</span>
+                    </div>
+                </div>
+
+                <div class="modal-action mt-6">
+                    <button type="button" class="btn btn-ghost" onclick="document.getElementById('sync-cloudflare-modal').close()">{{ t('common.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        {{ t('policies.sync_now') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+{% endblock %}
+
+{% block scripts %}
+<style>
+
+.table-container,
+.table-container .table {
+    overflow: visible !important;
+}
+
+.dropdown-end .dropdown-content {
+    position: absolute !important;
+    right: 0 !important;
+    top: 100% !important;
+    transform: none !important;
+    z-index: 50 !important;
+}
+
+.chevron-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.usage-details-row td {
+    transition: all 0.3s ease-in-out;
+}
+
+:root {
+    --policy-col-primary: 31%;
+    --policy-col-secondary: 23%;
+    --policy-col-tertiary: 19%;
+    --policy-col-status: 15%;
+    --policy-col-actions: 12%;
+}
+
+@media (min-width: 769px) {
+    .policy-table {
+        table-layout: fixed;
+    }
+
+    .policy-table col.col-primary {
+        width: var(--policy-col-primary);
+    }
+
+    .policy-table col.col-secondary {
+        width: var(--policy-col-secondary);
+    }
+
+    .policy-table col.col-tertiary {
+        width: var(--policy-col-tertiary);
+    }
+
+    .policy-table col.col-status {
+        width: var(--policy-col-status);
+    }
+
+    .policy-table col.col-actions {
+        width: var(--policy-col-actions);
+    }
+}
+
+.policy-table th,
+.policy-table td {
+    vertical-align: middle;
+    font-size: 0.875rem;
+}
+
+.policy-table .cell-top {
+    vertical-align: top !important;
+}
+
+.policy-table code {
+    font-size: 0.75rem;
+}
+
+.df-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.df-badge svg {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const policyFilter = document.getElementById('policyFilter');
+        if (policyFilter) {
+            policyFilter.addEventListener('change', function() {
+                const filterValue = this.value;
+                const rows = document.querySelectorAll('tbody tr');
+
+                rows.forEach(row => {
+                    const badge = row.querySelector('.badge');
+                    if (!badge) {
+                        row.style.display = '';
+                        return;
+                    }
+
+                    const badgeText = badge.textContent.trim().toLowerCase();
+                    let show = false;
+
+                    if (filterValue === 'all') {
+                        show = true;
+                    } else if (filterValue === 'external' && badgeText === 'external') {
+                        show = true;
+                    } else if (filterValue === 'system' && badgeText === 'system') {
+                        show = true;
+                    } else if (filterValue === 'dockflare' && badgeText === 'dockflare') {
+                        show = true;
+                    }
+
+                    row.style.display = show ? '' : 'none';
+                });
+            });
+        }
+
+        const countrySelectEl = document.getElementById('group_countries');
+        if (countrySelectEl) {
+            const tomSelect = new TomSelect(countrySelectEl, {
+                 plugins: {
+                     'checkbox_options': {},
+                     'remove_button': {
+                         title: '{{ t('policies.remove_this_item') }}',
+                     }
+                 },
+                 create: false,
+                 sortField: {
+                     field: "text",
+                     direction: "asc"
+                 },
+                 placeholder: "{{ t('policies.search_select_countries') }}",
+                 maxOptions: null,
+                 render: {
+                     item: function(data, escape) {
+                         return '<div class="item">' + escape(data.text) + '</div>';
+                     }
+                 }
+            });
+
+            const parentContainer = countrySelectEl.closest('.textarea');
+            if (parentContainer) {
+                const controlWrapper = tomSelect.control;
+                controlWrapper.style.height = '100%';
+                controlWrapper.style.maxHeight = 'none';
+                controlWrapper.style.border = 'none';
+                controlWrapper.style.background = 'transparent';
+
+                const observer = new ResizeObserver(() => {
+                    const containerHeight = parentContainer.offsetHeight;
+                    controlWrapper.style.height = containerHeight + 'px';
+                });
+                observer.observe(parentContainer);
+            }
+
+            const countryData = {
+                'africa': ['DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CM', 'CV', 'CF', 'TD', 'KM', 'CG', 'CD', 'CI', 'DJ', 'EG', 'GQ', 'ER', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'KE', 'LS', 'LR', 'LY', 'MG', 'MW', 'ML', 'MR', 'MU', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO', 'ZA', 'SS', 'SD', 'SZ', 'TZ', 'TG', 'TN', 'UG', 'ZM', 'ZW'],
+                'asia': ['AF', 'AM', 'AZ', 'BH', 'BD', 'BT', 'BN', 'KH', 'CN', 'CY', 'GE', 'IN', 'ID', 'IR', 'IQ', 'IL', 'JP', 'JO', 'KZ', 'KW', 'KG', 'LA', 'LB', 'MY', 'MV', 'MN', 'MM', 'NP', 'KP', 'OM', 'PK', 'PS', 'PH', 'QA', 'SA', 'SG', 'KR', 'LK', 'SY', 'TJ', 'TH', 'TL', 'TR', 'TM', 'AE', 'UZ', 'VN', 'YE'],
+                'europe': ['AL', 'AD', 'AT', 'BY', 'BE', 'BA', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'XK', 'LV', 'LI', 'LT', 'LU', 'MK', 'MT', 'MD', 'MC', 'ME', 'NL', 'NO', 'PL', 'PT', 'RO', 'RU', 'SM', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH', 'UA', 'GB', 'VA'],
+                'north-america': ['AG', 'BS', 'BB', 'BZ', 'CA', 'CR', 'CU', 'DM', 'DO', 'SV', 'GD', 'GT', 'HT', 'HN', 'JM', 'MX', 'NI', 'PA', 'KN', 'LC', 'VC', 'TT', 'US'],
+                'south-america': ['AR', 'BO', 'BR', 'CL', 'CO', 'EC', 'FK', 'GF', 'GY', 'PY', 'PE', 'SR', 'UY', 'VE'],
+                'oceania': ['AU', 'FJ', 'KI', 'MH', 'FM', 'NR', 'NZ', 'PW', 'PG', 'WS', 'SB', 'TO', 'TV', 'VU']
+            };
+
+            const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
+            const natoCountries = ['US', 'CA', 'GB', 'FR', 'DE', 'IT', 'ES', 'PL', 'RO', 'NL', 'BE', 'GR', 'PT', 'CZ', 'HU', 'BG', 'SK', 'SI', 'HR', 'AL', 'LT', 'LV', 'EE', 'LU', 'IS', 'NO', 'DK', 'TR', 'ME', 'MK', 'FI', 'SE'];
+            const highRiskCountries = ['AF', 'IR', 'KP', 'SY', 'RU', 'BY', 'MM', 'VE', 'CU', 'SO', 'YE', 'SD', 'LY'];
+
+            function updateSelectionCounter() {
+                const selected = tomSelect.getValue().length;
+                const total = Object.keys(tomSelect.options).length;
+                const counter = document.getElementById('country-selection-counter');
+                const helpText = document.getElementById('country-policy-help-text');
+
+                if (counter) {
+                    counter.textContent = `${selected} {{ t('policies.countries_selected').replace('{total}', total) }}`;
+                }
+
+                if (helpText) {
+                    if (selected === 0) {
+                        helpText.innerHTML = '{{ t('policies.no_countries_blocked') }} <strong>{{ t('policies.all_countries_allowed') }}</strong>.';
+                    } else if (selected === total) {
+                        helpText.innerHTML = '<strong>{{ t('policies.all_countries_blocked') }}</strong>. {{ t('policies.no_access_allowed') }}';
+                    } else if (selected === total - 1) {
+                        helpText.innerHTML = `{{ t('policies.one_country_allowed') }} ${total - 1} {{ t('policies.countries_blocked') }}`;
+                    } else {
+                        const allowed = total - selected;
+                        helpText.innerHTML = `<strong>${selected} {{ t('policies.countries_blocked') }}</strong> ${allowed} {{ t('policies.countries_allowed') }}`;
+                    }
+                }
+            }
+
+            document.getElementById('select-all-countries')?.addEventListener('click', () => {
+                const allValues = Object.keys(tomSelect.options);
+                tomSelect.setValue(allValues);
+                updateSelectionCounter();
+            });
+
+            document.getElementById('select-none-countries')?.addEventListener('click', () => {
+                tomSelect.clear();
+                updateSelectionCounter();
+            });
+
+            document.getElementById('invert-selection')?.addEventListener('click', () => {
+                const allValues = Object.keys(tomSelect.options);
+                const currentValues = tomSelect.getValue();
+                const invertedValues = allValues.filter(val => !currentValues.includes(val));
+                tomSelect.setValue(invertedValues);
+                updateSelectionCounter();
+            });
+
+            const templatesDropdown = document.getElementById('templates-dropdown');
+            const templatesMenu = document.getElementById('templates-menu');
+            const regionsDropdown = document.getElementById('regions-dropdown');
+            const regionsMenu = document.getElementById('regions-menu');
+
+            templatesDropdown?.addEventListener('click', (e) => {
+                e.preventDefault();
+                templatesMenu.style.display = templatesMenu.style.display === 'none' ? 'block' : 'none';
+                regionsMenu.style.display = 'none';
+            });
+
+            regionsDropdown?.addEventListener('click', (e) => {
+                e.preventDefault();
+                regionsMenu.style.display = regionsMenu.style.display === 'none' ? 'block' : 'none';
+                templatesMenu.style.display = 'none';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!templatesDropdown?.contains(e.target) && !templatesMenu?.contains(e.target)) {
+                    templatesMenu.style.display = 'none';
+                }
+                if (!regionsDropdown?.contains(e.target) && !regionsMenu?.contains(e.target)) {
+                    regionsMenu.style.display = 'none';
+                }
+            });
+
+            const templates = {
+                'block-all-except-us': () => {
+                    const allValues = Object.keys(tomSelect.options);
+                    const blockValues = allValues.filter(val => val !== 'US');
+                    tomSelect.setValue(blockValues);
+                },
+                'block-all-except-eu': () => {
+                    const allValues = Object.keys(tomSelect.options);
+                    const blockValues = allValues.filter(val => !euCountries.includes(val));
+                    tomSelect.setValue(blockValues);
+                },
+                'block-high-risk': () => {
+                    tomSelect.setValue(highRiskCountries);
+                },
+                'block-non-nato': () => {
+                    const allValues = Object.keys(tomSelect.options);
+                    const blockValues = allValues.filter(val => !natoCountries.includes(val));
+                    tomSelect.setValue(blockValues);
+                }
+            };
+
+            document.querySelectorAll('[data-template]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const template = e.target.dataset.template;
+                    if (templates[template]) {
+                        templates[template]();
+                        updateSelectionCounter();
+                        templatesMenu.style.display = 'none';
+                    }
+                });
+            });
+
+            document.querySelectorAll('[data-region]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const region = e.target.dataset.region;
+                    if (countryData[region]) {
+                        const currentValues = tomSelect.getValue();
+                        const newValues = [...new Set([...currentValues, ...countryData[region]])];
+                        tomSelect.setValue(newValues);
+                        updateSelectionCounter();
+                        regionsMenu.style.display = 'none';
+                    }
+                });
+            });
+
+            const quickActions = {
+                'allow-us-only': () => {
+                    const allValues = Object.keys(tomSelect.options);
+                    const blockValues = allValues.filter(val => val !== 'US');
+                    tomSelect.setValue(blockValues);
+                },
+                'allow-us-eu': () => {
+                    const allowedCountries = ['US', ...euCountries];
+                    const allValues = Object.keys(tomSelect.options);
+                    const blockValues = allValues.filter(val => !allowedCountries.includes(val));
+                    tomSelect.setValue(blockValues);
+                },
+                'block-high-risk': () => {
+                    tomSelect.setValue(highRiskCountries);
+                }
+            };
+
+            document.querySelectorAll('[data-quick-action]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const action = e.target.dataset.quickAction;
+                    if (quickActions[action]) {
+                        quickActions[action]();
+                        updateSelectionCounter();
+                    }
+                });
+            });
+
+            tomSelect.on('change', updateSelectionCounter);
+            updateSelectionCounter();
+
+            window.enhancedCountrySelector = {
+                tomSelect: tomSelect,
+                updateSelectionCounter: updateSelectionCounter
+            };
+        }
+
+        const idpSelectEl = document.getElementById('group_identity_providers');
+        if (idpSelectEl) {
+            window.idpTomSelect = new TomSelect(idpSelectEl, {
+                plugins: {
+                    'checkbox_options': {},
+                    'remove_button': {
+                        title: '{{ t('policies.remove_this_item') }}',
+                    }
+                },
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                },
+                placeholder: "{{ t('policies.select_identity_providers') }}",
+                maxOptions: null
+            });
+
+            fetch('/api/v2/idp/list')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.identity_providers) {
+                        const options = [];
+                        for (const [friendlyName, idpData] of Object.entries(data.identity_providers)) {
+                            if (!idpData.system_managed) {
+                                options.push({
+                                    value: friendlyName,
+                                    text: `${idpData.name} (${friendlyName})`
+                                });
+                            }
+                        }
+                        window.idpTomSelect.clearOptions();
+                        window.idpTomSelect.addOptions(options);
+                    }
+                })
+                .catch(err => console.error('Failed to load IdPs for selector:', err));
+        }
+
+
+        const tabAuthenticated = document.getElementById('tab-authenticated');
+        const tabPublic = document.getElementById('tab-public');
+        const publicModeInput = document.getElementById('public_mode');
+        const modeDescAuth = document.getElementById('mode-description-authenticated');
+        const modeDescPublic = document.getElementById('mode-description-public');
+        const emailFieldContainer = document.getElementById('email-field-container');
+        const idpFieldContainer = document.getElementById('idp-field-container');
+        const appSettingsContainer = document.getElementById('app-settings-container');
+        const emailField = document.getElementById('group_emails');
+
+        function switchToMode(mode) {
+            if (mode === 'public') {
+
+                tabPublic.classList.add('tab-active');
+                tabAuthenticated.classList.remove('tab-active');
+                publicModeInput.value = 'true';
+                modeDescPublic.style.display = 'flex';
+                modeDescAuth.style.display = 'none';
+                emailFieldContainer.style.display = 'none';
+                idpFieldContainer.style.display = 'none';
+                appSettingsContainer.style.display = 'none';
+                emailField.removeAttribute('required');
+            } else {
+
+                tabAuthenticated.classList.add('tab-active');
+                tabPublic.classList.remove('tab-active');
+                publicModeInput.value = 'false';
+                modeDescAuth.style.display = 'flex';
+                modeDescPublic.style.display = 'none';
+                emailFieldContainer.style.display = 'block';
+                idpFieldContainer.style.display = 'block';
+                appSettingsContainer.style.display = 'block';
+                emailField.removeAttribute('required');
+            }
+        }
+
+        window.switchToMode = switchToMode;
+
+        tabAuthenticated?.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchToMode('authenticated');
+        });
+
+        tabPublic?.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchToMode('public');
+        });
+
+        
+        document.querySelectorAll('.delete-access-group-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const isDisabled = btn.dataset.disabled === 'true' || btn.closest('li')?.classList.contains('disabled');
+                if (isDisabled) {
+                    return;
+                }
+
+                const groupId = e.currentTarget.dataset.groupId;
+                const groupName = e.currentTarget.dataset.groupName;
+                const isExternal = e.currentTarget.dataset.external === 'true';
+
+                if (!groupId || !groupName) {
+                    console.error('Missing group ID or name', e.currentTarget.dataset);
+                    return;
+                }
+
+                let confirmMsg = `{{ t('policies.delete_group_confirm') }} '${groupName}'? {{ t('policies.cannot_be_undone') }}`;
+                let confirmTitle = '{{ t('js.confirm.delete_group_title') }}';
+                if (isExternal) {
+                    confirmMsg = `⚠️ {{ t('policies.external_policy_warning') }}\n\n{{ t('policies.delete_group_confirm') }} '${groupName}' {{ t('policies.external_policy_affect') }}\n\n{{ t('policies.external_policy_confirm') }}`;
+                    confirmTitle = '{{ t('policies.delete_external_policy_title') }}';
+                }
+
+                const confirmed = await dfConfirm(confirmMsg, confirmTitle);
+                if (!confirmed) {
+                    return;
+                }
+
+                console.log('Deleting group:', groupId, 'Name:', groupName);
+
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/ui/access-groups/delete/${groupId}`;
+
+                console.log('Form action:', form.action);
+
+                const existingCsrfInput = document.querySelector('input[name="csrf_token"]');
+                if (!existingCsrfInput) {
+                    console.error('CSRF token not found');
+                    return;
+                }
+
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = 'csrf_token';
+                csrfInput.value = existingCsrfInput.value;
+                form.appendChild(csrfInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+
+        document.querySelectorAll('.usage-toggle').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const groupId = btn.getAttribute('data-group-id');
+                const usageRow = document.getElementById(`usage-${groupId}`);
+                const chevron = btn.querySelector('.chevron-icon');
+
+                if (usageRow.style.display === 'none') {
+                    usageRow.style.display = 'table-row';
+                    chevron.style.transform = 'rotate(180deg)';
+                } else {
+                    usageRow.style.display = 'none';
+                    chevron.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+
+        const accessGroupForm = document.getElementById('access_group_form');
+        if (accessGroupForm) {
+            accessGroupForm.addEventListener('submit', async function(e) {
+                // Sync tom-select values to underlying select elements before form submission
+                if (window.enhancedCountrySelector && window.enhancedCountrySelector.tomSelect) {
+                    window.enhancedCountrySelector.tomSelect.sync();
+                }
+                if (window.idpTomSelect) {
+                    window.idpTomSelect.sync();
+                }
+
+                const publicMode = document.getElementById('public_mode').value;
+
+                if (publicMode === 'false') {
+                    const emailField = document.getElementById('group_emails');
+                    const emailValue = emailField ? emailField.value.trim() : '';
+
+                    const selectedIdps = window.idpTomSelect ? window.idpTomSelect.getValue() : [];
+                    const selectedCountries = window.enhancedCountrySelector && window.enhancedCountrySelector.tomSelect
+                        ? window.enhancedCountrySelector.tomSelect.getValue()
+                        : [];
+
+                    if (selectedCountries.length > 0 && !emailValue && selectedIdps.length === 0) {
+                        e.preventDefault();
+                        document.getElementById('geo-auth-confirm-modal').showModal();
+                        return false;
+                    }
+
+                    if (selectedIdps.length > 0 && !emailValue) {
+                        e.preventDefault();
+                        await dfAlert('{{ t('policies.idp_email_required') }}', '{{ t('policies.security_requirement') }}');
+                        return false;
+                    }
+                }
+            });
+        }
+
+        async function loadZonePolicies() {
+            const container = document.getElementById('zone-policies-container');
+            if (!container) return;
+
+            try {
+                const response = await fetch('/api/v2/zone-policies');
+                const data = await response.json();
+
+                if (!data.success) {
+                    container.innerHTML = '<div class="text-center opacity-70 py-8"><p class="text-error">{{ t('policies.failed_load_zone_policies') }}</p></div>';
+                    return;
+                }
+
+                const zonePolicies = data.zone_policies || [];
+
+                if (zonePolicies.length === 0) {
+                    container.innerHTML = '<div class="text-center opacity-70 py-8"><p>{{ t('policies.no_dns_zones') }}</p></div>';
+                    return;
+                }
+
+                let html = '<div class="overflow-x-auto table-container"><table class="table table-zebra policy-table w-full table-responsive">';
+                html += '<colgroup class="hidden md:table-column-group">';
+                html += '<col class="col-primary">';
+                html += '<col class="col-secondary">';
+                html += '<col class="col-tertiary">';
+                html += '<col class="col-status">';
+                html += '<col class="col-actions">';
+                html += '</colgroup>';
+                html += '<thead><tr>';
+                html += '<th class="px-4 py-3">{{ t('policies.zone_name') }}</th>';
+                html += '<th class="px-4 py-3">{{ t('policies.zone_id') }}</th>';
+                html += '<th class="px-4 py-3">{{ t('policies.wildcard_hostname') }}</th>';
+                html += '<th class="px-4 py-3">{{ t('common.status') }}</th>';
+                html += '<th class="px-4 py-3 text-right">{{ t('common.actions') }}</th>';
+                html += '</tr></thead><tbody>';
+
+                zonePolicies.forEach(zone => {
+                    html += '<tr>';
+                    html += `<td class="px-4 py-3 font-medium" data-label="{{ t('policies.zone_name') }}">${zone.zone_name}</td>`;
+                    if (zone.zone_id) {
+                        html += `<td class="px-4 py-3 text-xs opacity-70" data-label="{{ t('policies.zone_id') }}"><span class=\"tooltip\" data-tip=\"${zone.zone_id}\"><code>${zone.zone_id.slice(0, 8)}...</code></span></td>`;
+                    } else {
+                        html += '<td class="px-4 py-3 text-xs opacity-70" data-label="{{ t('policies.zone_id') }}">-</td>';
+                    }
+                    html += `<td class="px-4 py-3" data-label="{{ t('policies.wildcard_hostname') }}"><code class="text-sm">*.${zone.zone_name}</code></td>`;
+                    html += '<td class="px-4 py-3" data-label="{{ t('common.status') }}">';
+
+                    if (zone.has_default_policy) {
+                        html += '<span class="badge badge-sm badge-success df-badge">';
+                        html += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>{{ t('policies.protected') }}</span>';
+                    } else {
+                        html += '<span class="badge badge-sm badge-warning df-badge">';
+                        html += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>{{ t('policies.not_protected') }}</span>';
+                    }
+
+                    html += '</td><td class="px-4 py-3 text-right" data-label="{{ t('common.actions') }}">';
+
+                    if (!zone.has_default_policy) {
+                        html += `<div class="dropdown dropdown-end">
+                            <label tabindex="0" class="btn btn-ghost btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu menu-compact bg-base-100 shadow-lg rounded-box w-60 mt-2">
+                                <li>
+                                    <a class="create-zone-policy-btn flex items-center gap-2" data-zone-name="${zone.zone_name}" data-zone-id="${zone.zone_id}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                        {{ t('policies.create_zone_policy') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>`;
+                    } else {
+                        html += `<div class="dropdown dropdown-end">
+                            <label tabindex="0" class="btn btn-ghost btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                </svg>
+                            </label>
+                            <ul tabindex="0" class="dropdown-content menu menu-compact bg-base-100 shadow-lg rounded-box w-60 mt-2">
+                                <li>
+                                    <a href="${zone.cf_app_id ? `https://dash.cloudflare.com/{{ ACCOUNT_ID_FOR_DISPLAY }}/one/access-controls/apps/self-hosted/${zone.cf_app_id}/edit?tab=basic-info` : `https://dash.cloudflare.com/{{ ACCOUNT_ID_FOR_DISPLAY }}/one/access-controls/apps/self-hosted`}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                        </svg>
+                                        {{ t('policies.view_in_cloudflare') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>`;
+                    }
+
+                    html += '</td></tr>';
+                });
+
+                html += '</tbody></table></div>';
+                container.innerHTML = html;
+
+                document.querySelectorAll('.create-zone-policy-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const zoneName = btn.getAttribute('data-zone-name');
+                        const zoneId = btn.getAttribute('data-zone-id');
+
+                        document.getElementById('zone-policy-zone-name').value = zoneName;
+                        document.getElementById('zone-policy-zone-id').value = zoneId;
+                        document.getElementById('zone-policy-hostname-display').textContent = `*.${zoneName}`;
+
+                        document.getElementById('zone-policy-modal').showModal();
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading zone policies:', error);
+                container.innerHTML = '<div class="text-center opacity-70 py-8"><p class="text-error">{{ t('policies.failed_load_zone_policies') }}</p></div>';
+            }
+        }
+
+        loadZonePolicies();
+
+        const geoAuthConfirmBtn = document.getElementById('geo-auth-confirm-btn');
+        const geoAuthCancelBtn = document.getElementById('geo-auth-cancel-btn');
+        const geoAuthModal = document.getElementById('geo-auth-confirm-modal');
+
+        if (geoAuthConfirmBtn && geoAuthModal) {
+            geoAuthConfirmBtn.addEventListener('click', function() {
+                geoAuthModal.close();
+                document.getElementById('public_mode').value = 'true';
+                switchToMode('public');
+                setTimeout(() => {
+                    accessGroupForm.submit();
+                }, 100);
+            });
+        }
+
+        if (geoAuthCancelBtn && geoAuthModal) {
+            geoAuthCancelBtn.addEventListener('click', function() {
+                geoAuthModal.close();
+            });
+        }
+
+        const syncCloudflareBtn = document.getElementById('sync-cloudflare-btn');
+        if (syncCloudflareBtn) {
+            syncCloudflareBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('sync-cloudflare-modal').showModal();
+            });
+        }
+
+        // Handle radio button changes in sync modal
+        const syncModeRadios = document.querySelectorAll('input[name="sync_mode"]');
+        const syncAllInput = document.getElementById('sync-all-input');
+
+        syncModeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'all') {
+                    syncAllInput.value = 'true';
+                } else {
+                    syncAllInput.value = 'false';
+                }
+            });
+        });
+
+    });
+</script>
+
+{% include 'modals/_idp_modal.html' %}
+{% endblock %}

@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniDrumSequencerEngine — Production-Grade Web Sequencer 
@@ -166,4 +166,15 @@ export class OmniDrumSequencerEngine {
     if (this.timerID !== null) cancelAnimationFrame(this.timerID);
     return SeqResult.ok(true);
   }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "SeqResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
+    }
 }

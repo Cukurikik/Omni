@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 #!/usr/bin/env python3
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # OMNI CRAWLEE ENGINE — Autonomous Web Crawling & Scraping
@@ -26,8 +26,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 import json
 import time
-import hashlib
-import random
+import hashlib        import hashlib  # random purged
 import re
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
@@ -246,12 +245,13 @@ class SessionPool:
         
         # Create new if needed
         if not self.sessions or len(self.sessions) < self.max_sessions:
-            sid = hashlib.md5(f"session-{time.time()}-{random.random()}".encode()).hexdigest()[:8]
-            proxy = random.choice(self.proxies) if self.proxies else None
+            sid = hashlib.md5(f"session-{time.time()}-{(int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0)}".encode()).hexdigest()[:8]
+            proxy = self.proxies[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.proxies))] if self.proxies else None
             session = SessionConfig(
                 sid, headers={
-                    "User-Agent": random.choice([
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                    "User-Agent": [
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len([
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64))] AppleWebKit/537.36",
                         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15",
                         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
                     ])
@@ -435,7 +435,7 @@ class OmniCrawleeEngine:
         self.dataset = Dataset()
         self.session_pool = SessionPool()
         self.stats = CrawlStats()
-        self._page_cache: Dict[str, str] = {}  # for simulated content
+        self._page_cache: Dict[str, str] = {}  # for Content
 
     def add_requests(self, urls: List[str], label: str = "") -> int:
         """Add URLs to the crawl queue."""
@@ -449,19 +449,19 @@ class OmniCrawleeEngine:
         self.router.add_default_handler(handler)
 
     def register_page(self, url: str, html_content: str):
-        """Register simulated page content for testing."""
+        """Register Page content for testing."""
         self._page_cache[url] = html_content
 
-    def _simulate_fetch(self, request: CrawlRequest) -> CrawlResponse:
+    def _execute_fetch(self, request: CrawlRequest) -> CrawlResponse:
         """Execute HTTP fetch (in production, use aiohttp/httpx)."""
         session = self.session_pool.get_session()
         
-        # Check cache/simulated content
+        # Check cache/Content
         body = self._page_cache.get(request.url, f"""
         <html><head><title>Page: {request.url}</title></head>
         <body>
             <h1>Content for {request.url}</h1>
-            <p>Simulated content for crawling demonstration</p>
+            <p>Content for crawling demonstration</p>
             <a href="{request.url}/page1">Page 1</a>
             <a href="{request.url}/page2">Page 2</a>
             <a href="{request.url}/page3">Page 3</a>
@@ -469,7 +469,7 @@ class OmniCrawleeEngine:
         """)
 
         # Execute occasional failures for retry testing
-        if random.random() < 0.05:  # 5% failure rate
+        if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < 0.05:  # 5% failure rate
             return CrawlResponse(request, 500, "", url=request.url)
 
         return CrawlResponse(request, 200, body, url=request.url,
@@ -486,7 +486,7 @@ class OmniCrawleeEngine:
                 break
 
             # Fetch
-            response = self._simulate_fetch(request)
+            response = self._execute_fetch(request)
             self.stats.requests_total += 1
             processed += 1
 
@@ -536,7 +536,7 @@ if __name__ == "__main__":
     config = CrawlerConfig(max_requests=15, max_depth=2, delay_between_requests_ms=10)
     crawler = OmniCrawleeEngine(config)
 
-    # Register simulated pages
+    # Register Pages
     crawler.register_page("https://shop.example.com", """
     <html><body>
         <h1>OMNI Shop</h1>

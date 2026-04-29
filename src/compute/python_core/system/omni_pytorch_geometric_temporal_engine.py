@@ -95,7 +95,7 @@ class OmniPyTorchGeometricTemporalEngine:
                 "status": "success",
                 "horizon": horizon_steps,
                 "topology_predicted": "static" if graph["static_edges"] else "dynamic",
-                "temporal_deltas": [0.012, 0.054, -0.015][:horizon_steps] # simulated node drift values
+                "temporal_deltas": [0.012, 0.054, -0.015][:horizon_steps] # node drift values
             }
         except Exception as e:
             return {"status": "error", "message": f"Prediction sequence failed: {str(e)}"}

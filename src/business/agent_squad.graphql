@@ -1,0 +1,25 @@
+type Agent {
+  id: ID!
+  role: AgentRole!
+  status: AgentStatus!
+}
+
+enum AgentRole {
+  RESEARCHER
+  CODER
+  REVIEWER
+}
+
+enum AgentStatus {
+  IDLE
+  WORKING
+  SLEEPING
+}
+
+type Query {
+  listSquads: [Agent!]!
+}
+
+type Mutation {
+  dispatchTask(role: AgentRole!, prompt: String!): String!
+}

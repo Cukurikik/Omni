@@ -72,7 +72,7 @@ class CurriculumTopologicalEvaluator:
             queue = [node for node, deg in in_degrees.items() if deg == 0]
             topological_order = []
             
-            # Simulated BFS Topo scale
+            # BFS Topo scale
             while queue:
                 current = queue.pop(0)
                 topological_order.append(current)

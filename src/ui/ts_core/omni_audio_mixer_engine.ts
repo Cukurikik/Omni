@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI AUDIO MIXER ENGINE (SEMESTER 5 — BATCH 5)
 // ===========================================================================
 // Absorbed From  : Jax-Core/YourMixer
@@ -58,5 +58,16 @@ export class OmniAudioMixerEngine {
     public evaluateHealth(): Record<string, any> {
         return { engine: "OmniAudioMixerEngine", layer: "Interface", status: "healthy",
                  channels: this.channels.size, learned_from: "Jax-Core/YourMixer" };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAudioMixerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

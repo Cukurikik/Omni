@@ -58,12 +58,12 @@ Got here.
 An exception handler has several elements:
 
 | Element                     | Use                                                                                      |
-|-----------------------------|------------------------------------------------------------------------------------------|
+| --------------------------- | ---------------------------------------------------------------------------------------- |
 | Begin clause.               | Begins the handler and contains the code whose raised exception, if any, may be rescued. |
 | One or more rescue clauses. | Each contains "rescuing" code, which is to be executed for certain exceptions.           |
 | Else clause (optional).     | Contains code to be executed if no exception is raised.                                  |
 | Ensure clause (optional).   | Contains code to be executed whether or not an exception is raised, or is rescued.       |
-| <tt>end</tt> statement.     | Ends the handler.  `                                                                     |
+| <tt>end</tt> statement.     | Ends the handler. `                                                                      |
 
 #### Begin Clause
 
@@ -344,10 +344,10 @@ and then "reinstate" the exception.
 This may be done via the `raise` method, but in a special way;
 a rescuing clause:
 
-  - Captures an exception.
-  - Does whatever is needed concerning the exception (such as logging it).
-  - Calls method `raise` with no argument,
-    which raises the rescued exception:
+- Captures an exception.
+- Does whatever is needed concerning the exception (such as logging it).
+- Calls method `raise` with no argument,
+  which raises the rescued exception:
 
 ```rb
 begin
@@ -459,7 +459,7 @@ it is best to limit the ANSI codes to these widely-supported codes:
 - Begin font color:
 
     | Color   | ANSI Code        |
-    |---------|------------------|
+    | ------- | ---------------- |
     | Red     | <tt>\\e[31m</tt> |
     | Green   | <tt>\\e[32m</tt> |
     | Yellow  | <tt>\\e[33m</tt> |
@@ -472,7 +472,7 @@ it is best to limit the ANSI codes to these widely-supported codes:
 - Begin font attribute:
 
     | Attribute | ANSI Code       |
-    |-----------|-----------------|
+    | --------- | --------------- |
     | Bold      | <tt>\\e[1m</tt> |
     | Underline | <tt>\\e[4m</tt> |
 
@@ -481,7 +481,7 @@ it is best to limit the ANSI codes to these widely-supported codes:
 - End all of the above:
 
     | Color | ANSI Code       |
-    |-------|-----------------|
+    | ----- | --------------- |
     | Reset | <tt>\\e[0m</tt> |
 
 It's also best to craft a message that is conveniently human-readable,
@@ -513,9 +513,9 @@ Note that:
 - if the developer sets the backtrace by one of the above methods to an array of
   Thread::Backtrace::Location, they still represent the same backtrace;
 - if the developer sets the backtrace to a string or an array of strings:
-  - by Kernel#raise: `backtrace_locations` become `nil`;
-  - by Exception#set_backtrace: `backtrace_locations` preserve the original
-    value;
+    - by Kernel#raise: `backtrace_locations` become `nil`;
+    - by Exception#set_backtrace: `backtrace_locations` preserve the original
+      value;
 - if the developer sets the backtrace to `nil` by Exception#set_backtrace,
   `backtrace_locations` preserve the original value; but if the exception is then
   reraised, both `backtrace` and `backtrace_locations` become the location of reraise.

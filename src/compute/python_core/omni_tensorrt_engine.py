@@ -68,7 +68,7 @@ class StaticGraphNodeMerger:
             fusion_gain = 1.0 - (float(fused_nodes) / float(graph_nodes))
             precision_gain = 0.5 if is_fp16 else 1.0
             
-            # Simulated base time 1ms per node
+            # base time 1ms per node
             original_latency = float(graph_nodes) * 1.0
             optimized_latency = float(fused_nodes) * precision_gain
             
@@ -83,7 +83,7 @@ class StaticGraphNodeMerger:
             })
             
         except Exception as e:
-            return Err(f"Simulated CUDA kernel mapping bounds failed: {e}")
+            return Err(f"CUDA kernel mapping bounds failed: {e}")
 
 
 # ---------------------------------------------------------------------------

@@ -2,13 +2,13 @@
 OMNI Tangent Engine
 ===================
 Production-grade OMNI engine abstracting source-to-source auto-differentiation
-simulations. Inspired by google/tangent, it provides a functional AST-like
+computations. Inspired by google/tangent, it provides a functional AST-like
 analytical derivative interface without modifying actual Python ASTs,
 focusing on mathematical function gradients for pure functions.
 
 Features:
 - Pure analytical derivative computations for registered math expressions.
-- Forward Mode and Reverse Mode derivative pipeline simulations.
+- Forward Mode and Reverse Mode derivative pipeline computations.
 - Jacobian vector products.
 - Monadic Result encapsulation preventing runtime trace crashes.
 
@@ -53,14 +53,14 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. AUTO-DIFF ABSTRACTIONS (SIMULATED Source-to-Source)
+# 2. AUTO-DIFF ABSTRACTIONS (Source-to-Source)
 # ---------------------------------------------------------------------------
 # To mimic google/tangent without actually rewriting Python's CPython AST
 # (which is fragile in edge cases outside deep ML frameworks),
 # we provide functional abstractions for vector-Jacobian products.
 
 class GradientTape:
-    """Numerical/Analytical gradient tape simulator."""
+    """Numerical/Analytical gradient tape engine."""
 
     @staticmethod
     def finite_difference(func: Callable[[np.ndarray], np.ndarray],
@@ -185,7 +185,7 @@ class OmniTangentEngine:
             "features": [
                 "finite_difference_jacobian",
                 "vector_jacobian_product",
-                "forward_mode_simulation",
-                "reverse_mode_simulation",
+                "forward_mode_computation",
+                "reverse_mode_computation",
             ]
         }

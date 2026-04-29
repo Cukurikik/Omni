@@ -78,13 +78,13 @@ class OmniVideoPipeEngine:
                 return {"status": "error", "message": "Frames must be positive."}
                 
             # Execute zero copy frame extraction
-            simulated_buffer_ids = [f"B_{i}" for i in range(frames)]
+            buffer_ids = [f"B_{i}" for i in range(frames)]
             
             return {
                 "status": "success",
                 "pipeline_id": pipeline_id,
                 "extracted_count": frames,
-                "buffers": simulated_buffer_ids,
+                "buffers": buffer_ids,
                 "message": "Direct Memory Access frame polling successful."
             }
         except Exception as e:

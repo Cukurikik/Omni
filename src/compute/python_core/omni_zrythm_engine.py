@@ -77,7 +77,7 @@ class OmniZrythmEngine:
             return self.project.add_track(data, TrackType.AUDIO)
 
     def engine_tick(self):
-         """The simulated real-time audio thread executing the graph sequentially."""
+         """The real-time audio thread executing the graph sequentially."""
          self.graph_engine.process_block(512, self.project.tracks)
 
 

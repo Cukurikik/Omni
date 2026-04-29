@@ -2,9 +2,9 @@
 
 Ruby supports a few native build platforms for Windows.
 
-* mswin: Build using Microsoft Visual C++ compiler with vcruntimeXXX.dll
-* mingw-msvcrt: Build using compiler for Mingw with msvcrtXX.dll
-* mingw-ucrt: Build using compiler for Mingw with Windows Universal CRT
+- mswin: Build using Microsoft Visual C++ compiler with vcruntimeXXX.dll
+- mingw-msvcrt: Build using compiler for Mingw with msvcrtXX.dll
+- mingw-ucrt: Build using compiler for Mingw with Windows Universal CRT
 
 ## Building Ruby using Mingw with UCRT
 
@@ -78,15 +78,15 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
     x64.
 
     The minimum requirement is here:
-      * VC++/MSVC on VS 2017/2019/2022 version build tools.
-      * Windows 10/11 SDK
+    - VC++/MSVC on VS 2017/2019/2022 version build tools.
+    - Windows 10/11 SDK
 
     You can install Visual Studio Build Tools with `winget`.
     `win32\install-buildtools.cmd` is a batch file to install the
     minimum requirements excluding the IDE etc.
 
 3.  Please set environment variable `INCLUDE`, `LIB`, `PATH` to run
-    required commands properly from the command line.  These are set
+    required commands properly from the command line. These are set
     properly by `vsdevcmd.bat` or `vcvarall*.bat` usually. You can run
     the following command to set them in your command line.
 
@@ -109,20 +109,19 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
     ```
 
     This batch file is a wrapper of `vsdevcmd.bat` and options are
-    passed to it as-is.  `win32\vssetup.cmd -help` for other command
+    passed to it as-is. `win32\vssetup.cmd -help` for other command
     line options.
 
     **Note** building ruby requires following commands.
-
-    * `nmake`
-    * `cl`
-    * `ml`
-    * `lib`
-    * `dumpbin`
+    - `nmake`
+    - `cl`
+    - `ml`
+    - `lib`
+    - `dumpbin`
 
 4.  If you want to build from GIT source, following commands are required.
-    * `git`
-    * `ruby` 3.1 or later
+    - `git`
+    - `ruby` 3.1 or later
 
     You can use [scoop](https://scoop.sh/) to install them like:
 
@@ -145,8 +144,8 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
     vcpkg --triplet x64-windows install
     ```
 
-6.  Enable Command Extension of your command line.  It's the default behavior
-    of `cmd.exe`.  If you want to enable it explicitly, run `cmd.exe` with
+6.  Enable Command Extension of your command line. It's the default behavior
+    of `cmd.exe`. If you want to enable it explicitly, run `cmd.exe` with
     `/E:ON` option.
 
 ### How to compile and install
@@ -168,7 +167,7 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
 
     By default, the name for the executable without a console window
     is generated from the _RUBY_INSTALL_NAME_ specified as above by
-    replacing `ruby` with `rubyw`.  If you want to make it different
+    replacing `ruby` with `rubyw`. If you want to make it different
     more, modify _RUBYW_INSTALL_NAME_ directly in the Makefile.
 
 3.  You need specify vcpkg directory to use `--with-opt-dir`
@@ -187,7 +186,7 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
 
 ### Build examples
 
-* Build on the ruby source directory.
+- Build on the ruby source directory.
 
     ```
     ruby source directory:  C:\ruby
@@ -204,7 +203,7 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
     nmake install
     ```
 
-* Build on the relative directory from the ruby source directory.
+- Build on the relative directory from the ruby source directory.
 
     ```
     ruby source directory:  C:\ruby
@@ -223,7 +222,7 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
     nmake install
     ```
 
-* Build on the different drive.
+- Build on the different drive.
 
     ```
     ruby source directory:  C:\src\ruby
@@ -240,7 +239,7 @@ sh ../../ruby/configure -C --disable-install-doc --with-opt-dir=C:\Users\usernam
     nmake install DESTDIR=C:
     ```
 
-* Build x64 version (requires native x64 VC++ compiler)
+- Build x64 version (requires native x64 VC++ compiler)
 
     ```
     ruby source directory:  C:\ruby
@@ -278,7 +277,6 @@ nmake update-vcpkg # Update baseline version of vcpkg
 nmake install-vcpkg # Install vcpkg from build directory
 ```
 
-
 ## Icons
 
 Any icon files(`*.ico`) in the build directory, directories specified with
@@ -294,9 +292,9 @@ Although no icons are distributed with the ruby source, you can use
 anything you like. You will be able to find many images by search engines.
 For example, followings are made from [Ruby logo kit]:
 
-* Small [favicon] in the official site
+- Small [favicon] in the official site
 
-* [vit-ruby.ico] or [icon itself]
+- [vit-ruby.ico] or [icon itself]
 
 [Ruby logo kit]: https://cache.ruby-lang.org/pub/misc/logo/ruby-logo-kit.zip
 [favicon]: https://www.ruby-lang.org/favicon.ico

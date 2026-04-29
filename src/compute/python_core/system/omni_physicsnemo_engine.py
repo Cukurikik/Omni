@@ -21,7 +21,7 @@ class OmniPhysicsNemoEngine:
     """
     
     def __init__(self) -> None:
-        """Initialize the Physics Simulator."""
+        """Initialize the Physics Engine."""
         self.initialized = True
         self._simulation_grids: Dict[str, dict] = {}
         logger.info("[OmniPhysicsNemoEngine] Initialized Modulus physics foundation layers.")
@@ -94,7 +94,7 @@ class OmniPhysicsNemoEngine:
                 "status": "success",
                 "domain_id": domain_id,
                 "volume_elements": res_power,
-                "steps_simulated": steps,
+                "steps_computed": steps,
                 "max_residual": max_residual_error,
                 "message": "Continuum neural operator solve sequence complete."
             }

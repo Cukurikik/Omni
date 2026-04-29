@@ -10,14 +10,14 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package network
+package go_core
 
 import (
 	"errors"
 	"sync"
 )
 
-const ENGINE_VERSION = "1.0.0-omni"
+const BIRDNET_ENGINE_VERSION = "1.0.0-omni"
 
 // --- Monadic Error Definition ---
 
@@ -102,7 +102,7 @@ func (engine *OmniBirdNetEngine) Diagnostics() map[string]interface{} {
 	defer engine.mu.RUnlock()
 
 	return map[string]interface{}{
-		"version": ENGINE_VERSION,
+		"version": BIRDNET_ENGINE_VERSION,
 		"active":  engine.isActive,
 		"queued":  len(engine.throttleChan),
 	}

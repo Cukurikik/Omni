@@ -35,7 +35,7 @@ class OmniDeepLearningAlgorithmsEngine:
         self._metrics = {
             "forward_passes": 0,
             "backward_passes": 0,
-            "total_epochs_simulated": 0
+            "total_epochs_computed": 0
         }
         self._start_time = 0.0
 
@@ -64,7 +64,7 @@ class OmniDeepLearningAlgorithmsEngine:
         """
         await asyncio.sleep(0.05)
         
-        self._metrics["total_epochs_simulated"] += epochs
+        self._metrics["total_epochs_computed"] += epochs
         self._metrics["forward_passes"] += epochs
         self._metrics["backward_passes"] += epochs
         

@@ -64,7 +64,7 @@ class SyntheticMetadataClusterizer:
                 ratio = (r * 17) % 3
                 distribution[ratio] += 1
                 
-            # Scale up to total simulated rows
+            # Scale up to total rows
             scaling_factor = row_simulation_count / max(1, min(row_simulation_count, 1000))
             
             landscape_ratio = (distribution[1] * scaling_factor) / row_simulation_count
@@ -86,7 +86,7 @@ class SyntheticMetadataClusterizer:
             })
             
         except Exception as e:
-            return Err(f"Simulated Unsplash TSV ingestion failed: {e}")
+            return Err(f"Unsplash TSV ingestion failed: {e}")
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,28 @@
+type Query {
+  embedDocument(content: String!, model: String!): EmbedResult!
+  searchSimilar(query: String!, topK: Int!): [SearchHit!]!
+}
+type EmbedResult {
+  documentId: String!
+  dimensions: Int!
+  chunkCount: Int!
+  processingTimeMs: Float!
+}
+type SearchHit {
+  documentId: String!
+  score: Float!
+  snippet: String!
+}
+type Mutation {
+  ingestBatch(documents: [DocumentInput!]!): IngestResult!
+}
+input DocumentInput {
+  title: String!
+  content: String!
+  metadata: String
+}
+type IngestResult {
+  ingested: Int!
+  failed: Int!
+  totalTimeMs: Float!
+}

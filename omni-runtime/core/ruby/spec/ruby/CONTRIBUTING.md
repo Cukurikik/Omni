@@ -6,11 +6,11 @@ If the pull requests passes the CI and conforms to the existing style of specs, 
 
 Spec are grouped in 5 separate top-level groups:
 
-* `command_line`: for the ruby executable command-line flags (`-v`, `-e`, etc)
-* `language`: for the language keywords and syntax constructs (`if`, `def`, `A::B`, etc)
-* `core`: for the core methods (`Integer#+`, `String#upcase`, no need to require anything)
-* `library`: for the standard libraries methods (`CSV.new`, `YAML.parse`, need to require the stdlib)
-* `optional/capi`: for functions available to the Ruby C-extension API
+- `command_line`: for the ruby executable command-line flags (`-v`, `-e`, etc)
+- `language`: for the language keywords and syntax constructs (`if`, `def`, `A::B`, etc)
+- `core`: for the core methods (`Integer#+`, `String#upcase`, no need to require anything)
+- `library`: for the standard libraries methods (`CSV.new`, `YAML.parse`, need to require the stdlib)
+- `optional/capi`: for functions available to the Ruby C-extension API
 
 The exact file for methods is decided by the `#owner` of a method, for instance for `#group_by`:
 

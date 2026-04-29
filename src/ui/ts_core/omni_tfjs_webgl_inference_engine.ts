@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI TFJS WEBGL INFERENCE ENGINE (SEMESTER 5 — BATCH 29)
@@ -46,6 +46,17 @@ export class OmniTfjsWebglInferenceEngine {
             status: "healthy",
             bound_backend: this.selectedBackend,
             learned_from: "tensorflow/tfjs-core"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniTfjsWebglInferenceEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

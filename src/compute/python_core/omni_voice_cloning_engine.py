@@ -47,7 +47,7 @@ class OmniVoiceCloningEngine:
         if not audio_bytes or len(audio_bytes) < 50:
             return {"status": "error", "error": "Audio reference too short for embedding."}
         embedding = [abs(hash(audio_bytes[i:i+4])) % 1000 / 1000.0 for i in range(0, min(256*4, len(audio_bytes)), 4)]
-        embedding = embedding[:256] + [0.0 for _ in range(max)](0, 256 - len(embedding))
+        embedding = embedding[:256] + [0.0 for _ in range(max(0, 256 - len(embedding)))]
         return {"status": "success", "data": {"embedding_dim": 256, "sample": embedding[:5]}}
 
     def synthesize_mel_spectrogram(self, text: str, embedding: List[float]) -> Dict[str, Any]:

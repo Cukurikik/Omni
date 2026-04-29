@@ -1,0 +1,12 @@
+# OMNI Domain Layer - Kubeflow Job Status
+@schema
+type JobStatus {
+  jobId: ID!
+  phase: String!
+  activeReplicas: Int!
+  failedReplicas: Int!
+}
+
+type Query {
+  validateJobPhaseTransition(current: String!, next: String!): Boolean!
+}

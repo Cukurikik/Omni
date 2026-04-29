@@ -1,0 +1,11 @@
+# OMNI Domain Layer - DB-GPT SQL Schema
+@schema
+type DatabaseTable {
+  tableName: String!
+  columns: [String!]!
+  primaryKey: String
+}
+
+type Query {
+  validateSQLInjection(queryStr: String!): Boolean!
+}

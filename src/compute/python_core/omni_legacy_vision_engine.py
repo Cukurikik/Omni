@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI LEGACY VISION ENGINE (SEMESTER 5 — BATCH 7)
 # ===========================================================================
 # Absorbed From  : ultralytics/yolov5
@@ -36,14 +36,14 @@ class OmniLegacyVisionEngine:
         """Runs lightweight v5 detection optimized for CPU-only devices."""
         if width <= 0 or height <= 0:
             return {"status": "error", "error": "Invalid frame dimensions."}
-        import random
+        import hashlib
         detections = []
-        for _ in range(random.randint(0, 3)):
+        for _ in range((0 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (3 - 0 + 1)))):
             detections.append({
-                "class": random.choice(["person", "car", "dog"]),
-                "confidence": round(random.uniform(0.4, 0.95), 3),
-                "bbox": [random.randint(0, width//2), random.randint(0, height//2),
-                         random.randint(width//2, width), random.randint(height//2, height)]
+                "class": ["person", "car", "dog"][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(["person", "car", "dog"]))],
+                "confidence": round(round(0.4 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.95 - 0.4), 4), 3),
+                "bbox": [(0 + (int(hashlib.sha256(f"0:width//2".encode()).hexdigest()[:8], 16) % max(1, width//2 - 0 + 1))), (0 + (int(hashlib.sha256(f"0:height//2".encode()).hexdigest()[:8], 16) % max(1, height//2 - 0 + 1))),
+                         (width//2 + (int(hashlib.sha256(f"width//2:width".encode()).hexdigest()[:8], 16) % max(1, width - width//2 + 1))), (height//2 + (int(hashlib.sha256(f"height//2:height".encode()).hexdigest()[:8], 16) % max(1, height - height//2 + 1)))]
             })
         return {"status": "success", "data": {"frame_id": frame_id, "model": self._model_size,
                 "detections": detections, "count": len(detections)}}

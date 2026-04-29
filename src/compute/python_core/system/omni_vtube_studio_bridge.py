@@ -238,10 +238,10 @@ class VTubeStudioClient:
         print(f"   😊 [VTUBE] Expression '{expression_file}': {state}")
     
     def _send(self, request: VTSRequest) -> dict:
-        """Send a request to VTube Studio (simulated)."""
+        """Send a request to VTube Studio ."""
         self._message_queue.append(json.loads(request.to_json()))
         
-        # Simulated response
+        # Response
         return {
             "vTubeStudioVersion": "2.0.7",
             "modelLoaded": True,

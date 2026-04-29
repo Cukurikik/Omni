@@ -75,7 +75,7 @@ class OmniEqMacEngine:
         """Performs start engine operation for OmniEqMacEngine."""
         self.audio_driver.hook_system_audio()
         self.websocket_api_active = True
-        logger.info("EqMac Websocket API listening... (Simulated).")
+        logger.info("EqMac Websocket API listening... .")
 
     def set_volume(self, level: float):
         """Allows pushing hardware past 1.0 (100%)."""

@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Shimmy Engine
 ==================
 Production-grade abstraction inspired by Michael-A-Kuykendall/shimmy.
@@ -10,7 +10,7 @@ OMNI Layer: compute (Python)
 
 from __future__ import annotations
 
-import random
+import hashlib
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -81,7 +81,7 @@ class ShimmyBridge:
             next_state = int(self.transitions[self.state, action])
             reward = float(self.rewards[self.state, action])
             
-            # Simulated absorbing boundary definition for test integrity
+            # absorbing boundary definition for test integrity
             done = next_state == (self.num_states - 1)
             
             self.state = next_state

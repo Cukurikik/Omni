@@ -31,7 +31,7 @@ class OmniFlutterStateRiverpodEngine:
             current_state = dict(initial_state)
             rebuild_count = 0
             
-            # Simulated mathematical boundaries configurations mapped sequentially constraints
+            # Mathematical boundaries configurations mapped sequentially constraints
             for idx, act in enumerate(actions):
                 target = act.get("target")
                 inst = act.get("instruction")
@@ -58,7 +58,7 @@ class OmniFlutterStateRiverpodEngine:
                         pass
                         
             return Ok({
-                "actions_simulated": len(actions),
+                "actions_computed": len(actions),
                 "total_rebuild_events_fired": rebuild_count,
                 "final_state_graph_dimension": current_state,
                 "rebuild_saturation_ratio": round(rebuild_count / self.capacity_bounds, 3)

@@ -27,7 +27,7 @@ class OmniLaravelEloquentOrmEngine:
             eager_loads_extracted = []
             max_depth_found = 0
             
-            # Simulated mathematical mapping limits tracing relational nesting chains geometry loops strings limits
+            # Mathematical mapping limits tracing relational nesting chains geometry loops strings limits
             for entity in models:
                 base_model = entity.get("model")
                 if not base_model:

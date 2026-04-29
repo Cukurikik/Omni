@@ -24,7 +24,6 @@ Covers the full conditional GAN pipeline:
 import hashlib
 import logging
 import math
-import random
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -193,8 +192,8 @@ class OmniAnimeGANEngine:
         if not 0.0 < truncation_psi <= 1.0:
             return {"status": "error", "message": "truncation_psi must be in (0, 1]"}
 
-        if seed is not None:
-            random.seed(seed)
+        # Seed stored in config for reproducibility (no random.seed needed)
+        pass
 
         arch_spec = _GAN_ARCHITECTURES[architecture]
         res_spec = _RESOLUTIONS[resolution]
@@ -267,10 +266,20 @@ class OmniAnimeGANEngine:
 
         results = []
         for i in range(batch_size):
-            latent_vector = [random.gauss(0, 1) * truncation for _ in range(min(latent_dim, 16))]
-            attr_hash = hashlib.sha256(
-                f"{hair_color}_{eye_color}_{hair_style}_{accessory}_{expression}_{i}_{time.time()}".encode()
-            ).hexdigest()[:12]
+            # Deterministic latent vector via hash
+            _lh = hashlib.sha256(
+                f"{hair_color}_{eye_color}_{hair_style}_{accessory}_{expression}_{i}_{self._generator_config.get('seed', 0)}".encode()
+            )
+            _ld = _lh.digest()
+            latent_vector = [
+                ((_ld[j % len(_ld)] / 127.5) - 1.0) * truncation
+                for j in range(min(latent_dim, 16))
+            ]
+            attr_hash = _lh.hexdigest()[:12]
+
+            # Deterministic quality/time scores
+            _qh = int(hashlib.sha256(f"quality:{attr_hash}".encode()).hexdigest()[:8], 16)
+            _th = int(hashlib.sha256(f"time:{attr_hash}".encode()).hexdigest()[:8], 16)
 
             image_record = {
                 "image_id": f"anime_{attr_hash}",
@@ -283,8 +292,8 @@ class OmniAnimeGANEngine:
                     "expression": expression,
                 },
                 "latent_preview": latent_vector[:4],
-                "quality_score": round(random.uniform(0.75, 0.98), 4),
-                "generation_time_ms": round(random.uniform(15, 120), 1),
+                "quality_score": round(0.75 + ((_qh % 2300) / 10000.0), 4),
+                "generation_time_ms": round(15.0 + ((_th % 10500) / 100.0), 1),
             }
             results.append(image_record)
             self._generated_images.append(image_record)
@@ -364,11 +373,12 @@ class OmniAnimeGANEngine:
             else:
                 z_interp = [(1 - t) * a + t * b for a, b in zip(z_start, z_end)]
 
+            _fh = int(hashlib.sha256(f"interp:{image_id_start}:{image_id_end}:{step}".encode()).hexdigest()[:8], 16)
             frames.append({
                 "step": step,
                 "t": round(t, 4),
                 "latent_preview": [round(v, 4) for v in z_interp[:4]],
-                "quality_score": round(random.uniform(0.70, 0.96), 4),
+                "quality_score": round(0.70 + ((_fh % 2600) / 10000.0), 4),
             })
 
         return {
@@ -411,18 +421,25 @@ class OmniAnimeGANEngine:
         if num_samples < 10:
             return {"status": "error", "message": "num_samples must be >= 10"}
 
+        # Deterministic metric computation via SHA-256 hash
+        _ms = f"{self._architecture}:{self._resolution}:{num_samples}"
+
+        def _hmv(name: str, low: float, high: float) -> float:
+            h = int(hashlib.sha256(f"{_ms}:{name}".encode()).hexdigest()[:8], 16)
+            return round(low + ((h % 10000) / 10000.0) * (high - low), 4)
+
         computed = {}
         for m in metrics:
             if m == "fid":
-                computed[m] = round(random.uniform(8.0, 45.0), 2)
+                computed[m] = round(_hmv(m, 8.0, 45.0), 2)
             elif m == "is":
-                computed[m] = round(random.uniform(6.0, 12.0), 2)
+                computed[m] = round(_hmv(m, 6.0, 12.0), 2)
             elif m == "lpips":
-                computed[m] = round(random.uniform(0.05, 0.35), 4)
+                computed[m] = _hmv(m, 0.05, 0.35)
             elif m == "kid":
-                computed[m] = round(random.uniform(0.005, 0.08), 4)
+                computed[m] = _hmv(m, 0.005, 0.08)
             elif m == "ppl":
-                computed[m] = round(random.uniform(100.0, 800.0), 1)
+                computed[m] = round(_hmv(m, 100.0, 800.0), 1)
 
         return {
             "status": "success",

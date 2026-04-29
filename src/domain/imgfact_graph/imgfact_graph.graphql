@@ -1,0 +1,52 @@
+# OMNI IMGFACT KNOWLEDGE GRAPH PROTOCOL
+# Strongly-typed triple-fact schemas ensuring multimodality bounding.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  verifyImageFact(imageId: ID!, subject: String!, predicate: String!, object: String!): VerificationResult!
+  extractEntitiesFromVideo(videoId: ID!): [Entity!]!
+}
+
+type Mutation {
+  registerKnowledgeTuple(
+    modality: ModalityType!
+    tensorHash: String!
+    confidence: Float!
+  ): TupleRegistrationPayload!
+}
+
+enum ModalityType {
+  VISION
+  TEXT
+  AUDIO
+  SPATIAL
+}
+
+type Entity {
+  id: ID!
+  label: String!
+  boundingBox: BoundingRegion
+}
+
+type BoundingRegion {
+  x: Float!
+  y: Float!
+  width: Float!
+  height: Float!
+}
+
+type VerificationResult {
+  isVerified: Boolean!
+  certaintyScore: Float!
+  errorLog: String
+}
+
+type TupleRegistrationPayload {
+  success: Boolean!
+  tupleId: ID
+  domainConstraintError: String
+}

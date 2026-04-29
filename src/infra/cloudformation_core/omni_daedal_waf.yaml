@@ -1,0 +1,15 @@
+# Omni DAEDAL WAF (CloudFormation)
+# Infrastructure Layer: WAF for diffusion LLM API endpoints.
+# Ref: Li-Jinsong/DAEDAL
+
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  OmniDaedalWaf:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      DefaultAction: { Allow: {} }
+      Scope: REGIONAL
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: true
+        MetricName: OmniDaedalWafMetric
+        SampledRequestsEnabled: true

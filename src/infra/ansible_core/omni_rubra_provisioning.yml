@@ -1,0 +1,14 @@
+# Omni Rubra Provisioning (Ansible)
+# Infrastructure Layer: Tool-calling LLM server setup.
+# Ref: rubra-ai/rubra
+- name: Configure Rubra LLM Nodes
+  hosts: llm_nodes
+  become: yes
+  tasks:
+    - name: Install vLLM runtime
+      pip: name=vllm state=present
+    - name: Set tool-calling mode
+      lineinfile:
+        path: /etc/omni/rubra.conf
+        regexp: '^TOOL_CALLING='
+        line: 'TOOL_CALLING=enabled'

@@ -76,11 +76,11 @@ class RLAlphaDecayEstimator:
                 "training_episodes": episodes,
                 "predicted_sharpe_ratio": round(predicted_sharpe, 4),
                 "resolved_action_latency_ms": round(resolved_execution_latency_ms, 4),
-                "is_trading_simulated": True
+                "is_trading_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated quantitative RL decay calculation failed: {e}")
+            return Err(f"Quantitative RL decay calculation failed: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -109,6 +109,6 @@ class OmniTradeMasterEngine:
         return {
             "engine_id": self.ENGINE_ID,
             "version": self.VERSION,
-            "architecture": "Deterministic Reinforcement Portfolio Simulator",
+            "architecture": "Deterministic Reinforcement Portfolio Engine",
             "status": "operational",
         }

@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: BitNet b1.58 Ternary Quantization Engine
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 BitNet b1.58 adalah generasi struktur inovasi LLM ("Large Language Models") yang mana alih-alih

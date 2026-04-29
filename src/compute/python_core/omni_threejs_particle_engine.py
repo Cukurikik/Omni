@@ -44,7 +44,7 @@ class OmniThreejsParticleEngine:
                     active_count += 1
                     
             return Ok({
-                "total_particles_simulated": len(particles),
+                "total_particles_computed": len(particles),
                 "active_particles_remaining": active_count,
                 "out_of_bounds_ids": out_of_bounds,
                 "applied_velocity_scalar": velocity,

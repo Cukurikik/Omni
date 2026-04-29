@@ -33,13 +33,13 @@ class OmniCyberFederatedLearningEngine:
                     
             aggregated_global = [0.0] * vector_dim
             
-            # Simple mathematically simulated averages constraints bounds.
+            # Simple mathematically Averages constraints bounds.
             for v_idx in range(vector_dim):
                 sum_val = 0.0
                 for peer_idx in range(num_peers):
                     sum_val += peer_gradients[peer_idx][v_idx]
                 
-                # Math average plus simulated privacy static noise limit bounds
+                # Math average plus Privacy static noise limit bounds
                 mean_val = sum_val / num_peers
                 aggregated_global[v_idx] = round(mean_val + self.noise_threshold, 6)
                 

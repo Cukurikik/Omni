@@ -63,10 +63,10 @@ class OmniElasticsearchQueryDslEngine:
                                 
                 results.append({
                     "id": doc.get("id"),
-                    "score": 1.0 + (should_score * 0.5) # Simulated BM25 scoring configurations parameters Maps Configurations limitations Arrays Maps Configurations Variables mapping
+                    "score": 1.0 + (should_score * 0.5) # BM25 scoring configurations parameters Maps Configurations limitations Arrays Maps Configurations Variables mapping
                 })
                 
-            # Sort by simulated relevance limit Bounds Sequences Configurations configurations matrices Loops Combinations limits limitations vectors Arrays Limits Variables limits Configurations Sets limits String Matrices limitations Sequences parameters Constants Sets Configurations Arrays boundaries constraints Configuration limits Arrays vectors Sequences Parameters constraints Loops limits!
+            # Sort by Relevance limit Bounds Sequences Configurations configurations matrices Loops Combinations limits limitations vectors Arrays Limits Variables limits Configurations Sets limits String Matrices limitations Sequences parameters Constants Sets Configurations Arrays boundaries constraints Configuration limits Arrays vectors Sequences Parameters constraints Loops limits!
             results.sort(key=lambda x: x["score"], reverse=True)
             
             return Ok({

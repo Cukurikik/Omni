@@ -1,0 +1,15 @@
+PREFIX omni: <http://omni.framework/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+# Omni Semantic Web Query (SPARQL)
+# Queries the dependency graph between AI models and System kernels
+
+SELECT ?engineName ?layerName
+WHERE {
+  ?engine rdf:type omni:ProductionEngine ;
+          omni:hasName ?engineName ;
+          omni:belongsToLayer ?layer .
+  ?layer  omni:layerName ?layerName .
+  FILTER (?layerName = "Computational" || ?layerName = "System")
+}
+ORDER BY ?layerName ?engineName

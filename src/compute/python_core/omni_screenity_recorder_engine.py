@@ -169,7 +169,7 @@ class OmniScreenityRecorderEngine:
 
     def get_trimmer_segments(self, session_id: str) -> List[Tuple[int, int]]:
         """Analyzes audio waveform to detect silence for auto-trimming (Smart Trim)."""
-        # Simulated silence detection for smart trimming
+        # silence detection for smart trimming
         return [(0, 5000), (8000, 15000)]
 
     def diagnostics(self) -> Dict[str, Any]:

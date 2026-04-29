@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RoboCode Control Panel</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #000; color: #0f0; }
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .panel { border: 1px solid #0f0; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h1>RoboCode Teleoperation</h1>
+    <div class="dashboard">
+        <div class="panel" id="camera-feed">Camera Offline</div>
+        <div class="panel" id="telemetry">
+            <p>Velocity: 0.0 m/s</p>
+            <p>Status: Idle</p>
+        </div>
+    </div>
+</body>
+</html>

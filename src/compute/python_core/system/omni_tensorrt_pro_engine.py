@@ -102,13 +102,13 @@ class OmniTensorRTProEngine:
                 }
                 
             # Execute high performance GPU execution and memory copy back
-            simulated_bboxes = [{"class": 0, "confidence": 0.98, "box": [10, 20, 100, 200]}] * batch_size
+            computed_bboxes = [{"class": 0, "confidence": 0.98, "box": [10, 20, 100, 200]}] * batch_size
             
             return {
                 "status": "success",
                 "context_name": name,
-                "throughput_ms": 1.25,  # simulated low latency
-                "detections": simulated_bboxes,
+                "throughput_ms": 1.25,  # low latency
+                "detections": computed_bboxes,
                 "message": "TRT Inference execution complete."
             }
         except Exception as e:

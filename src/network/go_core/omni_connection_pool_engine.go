@@ -5,12 +5,11 @@
 // Logic Inherited: Go / Network Layer (Connection Pool Management)
 // ===========================================================================
 
-package connpool
+package go_core
 
 import (
 	"context"
 	"errors"
-	"fmt"
 	"sync"
 	"sync/atomic"
 	"time"

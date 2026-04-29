@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI TINYML CURRICULUM ENGINE (SEMESTER 5 — BATCH 15)
 // ===========================================================================
 // Absorbed From  : harvard-edge/cs249r_book
@@ -105,6 +105,17 @@ export class OmniTinymlCurriculumEngine {
             engine: "OmniTinymlCurriculumEngine", layer: "Interface", status: "healthy",
             chapters: this.curriculum.length, techniques: this.techniques.length,
             learned_from: "harvard-edge/cs249r_book",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniTinymlCurriculumEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

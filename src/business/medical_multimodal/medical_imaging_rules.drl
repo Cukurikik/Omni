@@ -1,0 +1,18 @@
+package com.omni.medical
+import com.omni.medical.PatientRecord;
+
+// Medical Imaging Policy Rules
+rule "Flag High Contrast Brain Scan"
+    when
+        $record : PatientRecord( scanType == "MRI_BRAIN", contrastLevel > 0.85 )
+    then
+        $record.setRequiresReview(true);
+        $record.setFlagReason("High contrast detected, manual review needed.");
+end
+
+rule "Auto-Approve Standard X-Ray"
+    when
+        $record : PatientRecord( scanType == "XRAY_CHEST", contrastLevel <= 0.5 )
+    then
+        $record.setRequiresReview(false);
+end

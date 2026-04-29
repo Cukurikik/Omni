@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>KnowLM Knowledge Editor</title>
+<style>body{margin:0;background:#0d1117;color:#c9d1d9;font-family:'Inter',sans-serif;}
+.editor{max-width:800px;margin:40px auto;padding:20px;}
+input,textarea{width:100%;padding:10px;margin:8px 0;background:#161b22;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;}
+button{padding:10px 20px;background:#238636;color:white;border:none;border-radius:6px;cursor:pointer;}
+</style></head><body><div class="editor">
+<h1>KnowLM Knowledge Editor</h1>
+<label>Subject</label><input id="subject" maxlength="512">
+<label>Old Fact</label><textarea id="old" rows="3" maxlength="4096"></textarea>
+<label>New Fact</label><textarea id="new" rows="3" maxlength="4096"></textarea>
+<button onclick="submitEdit()">Apply Edit</button>
+<div id="result"></div>
+</div><script>
+function submitEdit(){
+  const s=document.getElementById('subject').value;
+  const o=document.getElementById('old').value;
+  const n=document.getElementById('new').value;
+  if(!s||!n){document.getElementById('result').textContent='Error: Subject and New Fact required';return;}
+  if(s.length>512){document.getElementById('result').textContent='Error: Subject exceeds 512 chars';return;}
+  document.getElementById('result').textContent='OmniResult: Ok(Edit submitted for layer injection)';
+}
+</script></body></html>

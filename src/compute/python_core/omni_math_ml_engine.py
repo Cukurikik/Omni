@@ -1,4 +1,4 @@
-"""
+﻿"""
 OmniMathMlEngine — Native Mathematics for Machine Learning Library.
 
 Studied from: dair-ai/Mathematics-for-ML (5.9k★)
@@ -14,7 +14,7 @@ CODE RULE 001-005 compliant. Zero external dependencies.
 from __future__ import annotations
 
 import math
-import random
+import hashlib
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional, Tuple
 

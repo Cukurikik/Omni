@@ -371,7 +371,7 @@ print("[PoC] Vulnerability confirmed — see description above")
         return poc
     
     def verify_poc(self, vuln: Vulnerability) -> bool:
-        """Verify PoC in sandbox environment (simulated E2B)."""
+        """Verify PoC in sandbox environment (E2B)."""
         if not vuln.poc_code:
             return False
         

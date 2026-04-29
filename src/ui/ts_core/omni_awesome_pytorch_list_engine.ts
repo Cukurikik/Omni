@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI AWESOME PYTORCH LIST ENGINE (SEMESTER 5 — BATCH 22)
@@ -64,6 +64,17 @@ export class OmniAwesomePytorchListEngine {
             status: "healthy",
             libraries_indexed: this.catalog.size,
             learned_from: "bharathgs/Awesome-pytorch-list"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAwesomePytorchListEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

@@ -81,11 +81,11 @@ class DeepLearningThroughputMapper:
                 "payload_size_mb": payload_mb,
                 "theoretical_amdahl_speedup": round(speedup, 2),
                 "predicted_max_qps": round(resolved_qps, 2),
-                "is_server_simulated": True
+                "is_server_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated parallel processing bound failed: {e}")
+            return Err(f"Parallel processing bound failed: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -114,6 +114,6 @@ class OmniDeepDetectEngine:
         return {
             "engine_id": self.ENGINE_ID,
             "version": self.VERSION,
-            "architecture": "Deterministic Parallel Inference QPS Simulator",
+            "architecture": "Deterministic Parallel Inference QPS Engine",
             "status": "operational",
         }

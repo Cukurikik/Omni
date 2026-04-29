@@ -185,5 +185,4 @@ Output:
 
 With no block given, returns a new {Enumerator}[https://docs.ruby-lang.org/en/master/Enumerator.html].
 
-
 Related: StringIO.each_byte, StringIO.each_char, StringIO.each_codepoint.

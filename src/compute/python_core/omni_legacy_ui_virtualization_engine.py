@@ -30,7 +30,7 @@ class OmniLegacyUIVirtualizationEngine:
 
     def validate_event_propagation(self, event_queue: List[Dict[str, str]]) -> Result:
         """
-        Processes a deterministic queue of simulated user interface events.
+        Processes a deterministic queue of user interface events.
         """
         processed = []
         for evt in event_queue:
@@ -38,7 +38,7 @@ class OmniLegacyUIVirtualizationEngine:
             type_var = evt.get("type")
             
             if not target or not type_var:
-                return Err("Null pointer exception simulated: Event missing mandatory bindings.")
+                return Err("Null pointer exception: Event missing mandatory bindings.")
             
             # Logic abstract transformation equivalent to WinDef processing 
             processed.append(f"{type_var}_HANDLED_AT_{target}")

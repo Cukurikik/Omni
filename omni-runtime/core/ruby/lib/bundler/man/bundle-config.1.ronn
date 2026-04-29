@@ -1,5 +1,4 @@
-bundle-config(1) -- Set bundler configuration options
-=====================================================
+# bundle-config(1) -- Set bundler configuration options
 
 ## SYNOPSIS
 
@@ -37,12 +36,12 @@ setting, and all locations where it was set.
 
 **OPTIONS**
 
-* `--local`:
+- `--local`:
   Get configuration from configuration file for the local application, namely,
   `<project_root>/.bundle/config`, or `$BUNDLE_APP_CONFIG/config` if
   `BUNDLE_APP_CONFIG` is set.
 
-* `--global`:
+- `--global`:
   Get configuration from configuration file global to all bundles executed as
   the current user, namely, from `~/.bundle/config`.
 
@@ -54,13 +53,13 @@ set `global` configuration.
 
 **OPTIONS**
 
-* `--local`:
+- `--local`:
   Executing `bundle config set --local <name> <value>` will set that configuration
   in the directory for the local application. The configuration will be stored in
   `<project_root>/.bundle/config`. If `BUNDLE_APP_CONFIG` is set, the configuration
   will be stored in `$BUNDLE_APP_CONFIG/config`.
 
-* `--global`:
+- `--global`:
   Executing `bundle config set --global <name> <value>` will set that
   configuration to the value specified for all bundles executed as the current
   user. The configuration will be stored in `~/.bundle/config`. If <name> already
@@ -73,11 +72,11 @@ local and global sources.
 
 **OPTIONS**
 
-* `--local`:
+- `--local`:
   Executing `bundle config unset --local <name>` will delete the configuration
   only from the local application.
 
-* `--global`:
+- `--global`:
   Executing `bundle config unset --global <name>` will delete the configuration
   only from the user configuration.
 
@@ -106,172 +105,172 @@ the environment variable `BUNDLE_LOCAL__RACK`.
 The following is a list of all configuration keys and their purpose. You can
 learn more about their operation in [bundle install(1)](bundle-install.1.html).
 
-* `api_request_size` (`BUNDLE_API_REQUEST_SIZE`):
-   Configure how many dependencies to fetch when resolving the specifications.
-   This configuration is only used when fetchig specifications from RubyGems
-   servers that didn't implement the Compact Index API.
-   Defaults to 100.
-* `auto_install` (`BUNDLE_AUTO_INSTALL`):
-   Automatically run `bundle install` when gems are missing.
-* `bin` (`BUNDLE_BIN`):
-   If configured, `bundle binstubs` will install executables from gems in the
-   bundle to the specified directory. Otherwise it will create them in a `bin`
-   directory relative to the Gemfile directory. These executables run in
-   Bundler's context. If used, you might add this directory to your
-   environment's `PATH` variable. For instance, if the `rails` gem comes with a
-   `rails` executable, `bundle binstubs` will create a `bin/rails` executable
-   that ensures that all referred dependencies will be resolved using the
-   bundled gems.
-* `cache_all` (`BUNDLE_CACHE_ALL`):
-   Cache all gems, including path and git gems. This needs to be explicitly
-   before bundler 4, but will be the default on bundler 4.
-* `cache_all_platforms` (`BUNDLE_CACHE_ALL_PLATFORMS`):
-   Cache gems for all platforms.
-* `cache_path` (`BUNDLE_CACHE_PATH`):
-   The directory that bundler will place cached gems in when running
-   <code>bundle package</code>, and that bundler will look in when installing gems.
-   Defaults to `vendor/cache`.
-* `clean` (`BUNDLE_CLEAN`):
-   Whether Bundler should run `bundle clean` automatically after
-   `bundle install`. Defaults to `true` in Bundler 4, as long as `path` is not
-   explicitly configured.
-* `console` (`BUNDLE_CONSOLE`):
-   The console that `bundle console` starts. Defaults to `irb`.
-* `default_cli_command` (`BUNDLE_DEFAULT_CLI_COMMAND`):
-   The command that running `bundle` without arguments should run. Defaults to
-   `cli_help` since Bundler 4, but can also be `install` which was the previous
-   default.
-* `deployment` (`BUNDLE_DEPLOYMENT`):
-   Equivalent to setting `frozen` to `true` and `path` to `vendor/bundle`.
-* `disable_checksum_validation` (`BUNDLE_DISABLE_CHECKSUM_VALIDATION`):
-   Allow installing gems even if they do not match the checksum provided by
-   RubyGems.
-* `disable_exec_load` (`BUNDLE_DISABLE_EXEC_LOAD`):
-   Stop Bundler from using `load` to launch an executable in-process in
-   `bundle exec`.
-* `disable_local_branch_check` (`BUNDLE_DISABLE_LOCAL_BRANCH_CHECK`):
-   Allow Bundler to use a local git override without a branch specified in the
-   Gemfile.
-* `disable_local_revision_check` (`BUNDLE_DISABLE_LOCAL_REVISION_CHECK`):
-   Allow Bundler to use a local git override without checking if the revision
-   present in the lockfile is present in the repository.
-* `disable_shared_gems` (`BUNDLE_DISABLE_SHARED_GEMS`):
-   Stop Bundler from accessing gems installed to RubyGems' normal location.
-* `disable_version_check` (`BUNDLE_DISABLE_VERSION_CHECK`):
-   Stop Bundler from checking if a newer Bundler version is available on
-   rubygems.org.
-* `force_ruby_platform` (`BUNDLE_FORCE_RUBY_PLATFORM`):
-   Ignore the current machine's platform and install only `ruby` platform gems.
-   As a result, gems with native extensions will be compiled from source.
-* `frozen` (`BUNDLE_FROZEN`):
-   Disallow any automatic changes to `Gemfile.lock`. Bundler commands will
-   be blocked unless the lockfile can be installed exactly as written.
-   Usually this will happen when changing the `Gemfile` manually and forgetting
-   to update the lockfile through `bundle lock` or `bundle install`.
-* `gem.github_username` (`BUNDLE_GEM__GITHUB_USERNAME`):
-   Sets a GitHub username or organization to be used in the `README` and `.gemspec` files
-   when you create a new gem via `bundle gem` command. It can be overridden by passing an
-   explicit `--github-username` flag to `bundle gem`.
-* `gem.push_key` (`BUNDLE_GEM__PUSH_KEY`):
-   Sets the `--key` parameter for `gem push` when using the `rake release`
-   command with a private gemstash server.
-* `gemfile` (`BUNDLE_GEMFILE`):
-   The name of the file that bundler should use as the `Gemfile`. This location
-   of this file also sets the root of the project, which is used to resolve
-   relative paths in the `Gemfile`, among other things. By default, bundler
-   will search up from the current working directory until it finds a
-   `Gemfile`.
-* `global_gem_cache` (`BUNDLE_GLOBAL_GEM_CACHE`):
-   Whether Bundler should cache all gems and compiled extensions globally,
-   rather than locally to the configured installation path.
-* `ignore_funding_requests` (`BUNDLE_IGNORE_FUNDING_REQUESTS`):
-   When set, no funding requests will be printed.
-* `ignore_messages` (`BUNDLE_IGNORE_MESSAGES`):
-   When set, no post install messages will be printed. To silence a single gem,
-   use dot notation like `ignore_messages.httparty true`.
-* `init_gems_rb` (`BUNDLE_INIT_GEMS_RB`):
-   Generate a `gems.rb` instead of a `Gemfile` when running `bundle init`.
-* `jobs` (`BUNDLE_JOBS`):
-   The number of gems Bundler can download and install in parallel.
-   Defaults to the number of available processors.
-* `lockfile` (`BUNDLE_LOCKFILE`):
-   The path to the lockfile that bundler should use. By default, Bundler adds
-   `.lock` to the end of the `gemfile` entry. Can be set to `false` in the
-   Gemfile to disable lockfile creation entirely (see gemfile(5)).
-* `lockfile_checksums` (`BUNDLE_LOCKFILE_CHECKSUMS`):
-   Whether Bundler should include a checksums section in new lockfiles, to protect from compromised gem sources. Defaults to true.
-* `no_install` (`BUNDLE_NO_INSTALL`):
-   Whether `bundle package` should skip installing gems.
-* `no_prune` (`BUNDLE_NO_PRUNE`):
-   Whether Bundler should leave outdated gems unpruned when caching.
-* `only` (`BUNDLE_ONLY`):
-   A space-separated list of groups to install only gems of the specified groups.
-   Please check carefully if you want to install also gems without a group, because
-   they get put inside `default` group. For example `only test:default` will install
-   all gems specified in test group and without one.
-* `path` (`BUNDLE_PATH`):
-   The location on disk where all gems in your bundle will be located regardless
-   of `$GEM_HOME` or `$GEM_PATH` values. Bundle gems not found in this location
-   will be installed by `bundle install`. When not set, Bundler install by
-   default to a `.bundle` directory relative to repository root in Bundler 4,
-   and to the default system path (`Gem.dir`) before Bundler 4. That means that
-   before Bundler 4, Bundler shares this location with Rubygems, and `gem
-   install ...` will have gems installed in the same location and therefore,
-   gems installed without `path` set will show up by calling `gem list`. This
-   will not be the case in Bundler 4.
-* `path.system` (`BUNDLE_PATH__SYSTEM`):
-   Whether Bundler will install gems into the default system path (`Gem.dir`).
-* `plugins` (`BUNDLE_PLUGINS`):
-   Enable Bundler's experimental plugin system.
-* `prefer_patch` (BUNDLE_PREFER_PATCH):
-   Prefer updating only to next patch version during updates. Makes `bundle update` calls equivalent to `bundler update --patch`.
-* `redirect` (`BUNDLE_REDIRECT`):
-   The number of redirects allowed for network requests. Defaults to `5`.
-* `retry` (`BUNDLE_RETRY`):
-   The number of times to retry failed network requests. Defaults to `3`.
-* `shebang` (`BUNDLE_SHEBANG`):
-   The program name that should be invoked for generated binstubs. Defaults to
-   the ruby install name used to generate the binstub.
-* `silence_deprecations` (`BUNDLE_SILENCE_DEPRECATIONS`):
-   Whether Bundler should silence deprecation warnings for behavior that will
-   be changed in the next major version.
-* `silence_root_warning` (`BUNDLE_SILENCE_ROOT_WARNING`):
-   Silence the warning Bundler prints when installing gems as root.
-* `simulate_version` (`BUNDLE_SIMULATE_VERSION`):
-   The virtual version Bundler should use for activating feature flags. Can be
-   used to simulate all the new functionality that will be enabled in a future
-   major version.
-* `ssl_ca_cert` (`BUNDLE_SSL_CA_CERT`):
-   Path to a designated CA certificate file or folder containing multiple
-   certificates for trusted CAs in PEM format.
-* `ssl_client_cert` (`BUNDLE_SSL_CLIENT_CERT`):
-   Path to a designated file containing a X.509 client certificate
-   and key in PEM format.
-* `ssl_verify_mode` (`BUNDLE_SSL_VERIFY_MODE`):
-   The SSL verification mode Bundler uses when making HTTPS requests.
-   Defaults to verify peer.
-* `system_bindir` (`BUNDLE_SYSTEM_BINDIR`):
-   The location where RubyGems installs binstubs. Defaults to `Gem.bindir`.
-* `timeout` (`BUNDLE_TIMEOUT`):
-   The seconds allowed before timing out for network requests. Defaults to `10`.
-* `update_requires_all_flag` (`BUNDLE_UPDATE_REQUIRES_ALL_FLAG`):
-   Require passing `--all` to `bundle update` when everything should be updated,
-   and disallow passing no options to `bundle update`.
-* `user_agent` (`BUNDLE_USER_AGENT`):
-   The custom user agent fragment Bundler includes in API requests.
-* `verbose` (`BUNDLE_VERBOSE`):
-   Whether Bundler should print verbose output. Defaults to `false`, unless the
-   `--verbose` CLI flag is used.
-* `version` (`BUNDLE_VERSION`):
-   The version of Bundler to use when running under Bundler environment.
-   Defaults to `lockfile`. You can also specify `system` or `x.y.z`.
-   `lockfile` will use the Bundler version specified in the `Gemfile.lock`,
-   `system` will use the system version of Bundler, and `x.y.z` will use
-   the specified version of Bundler.
-* `with` (`BUNDLE_WITH`):
-   A space-separated or `:`-separated list of groups whose gems bundler should install.
-* `without` (`BUNDLE_WITHOUT`):
-   A space-separated or `:`-separated list of groups whose gems bundler should not install.
+- `api_request_size` (`BUNDLE_API_REQUEST_SIZE`):
+  Configure how many dependencies to fetch when resolving the specifications.
+  This configuration is only used when fetchig specifications from RubyGems
+  servers that didn't implement the Compact Index API.
+  Defaults to 100.
+- `auto_install` (`BUNDLE_AUTO_INSTALL`):
+  Automatically run `bundle install` when gems are missing.
+- `bin` (`BUNDLE_BIN`):
+  If configured, `bundle binstubs` will install executables from gems in the
+  bundle to the specified directory. Otherwise it will create them in a `bin`
+  directory relative to the Gemfile directory. These executables run in
+  Bundler's context. If used, you might add this directory to your
+  environment's `PATH` variable. For instance, if the `rails` gem comes with a
+  `rails` executable, `bundle binstubs` will create a `bin/rails` executable
+  that ensures that all referred dependencies will be resolved using the
+  bundled gems.
+- `cache_all` (`BUNDLE_CACHE_ALL`):
+  Cache all gems, including path and git gems. This needs to be explicitly
+  before bundler 4, but will be the default on bundler 4.
+- `cache_all_platforms` (`BUNDLE_CACHE_ALL_PLATFORMS`):
+  Cache gems for all platforms.
+- `cache_path` (`BUNDLE_CACHE_PATH`):
+  The directory that bundler will place cached gems in when running
+  <code>bundle package</code>, and that bundler will look in when installing gems.
+  Defaults to `vendor/cache`.
+- `clean` (`BUNDLE_CLEAN`):
+  Whether Bundler should run `bundle clean` automatically after
+  `bundle install`. Defaults to `true` in Bundler 4, as long as `path` is not
+  explicitly configured.
+- `console` (`BUNDLE_CONSOLE`):
+  The console that `bundle console` starts. Defaults to `irb`.
+- `default_cli_command` (`BUNDLE_DEFAULT_CLI_COMMAND`):
+  The command that running `bundle` without arguments should run. Defaults to
+  `cli_help` since Bundler 4, but can also be `install` which was the previous
+  default.
+- `deployment` (`BUNDLE_DEPLOYMENT`):
+  Equivalent to setting `frozen` to `true` and `path` to `vendor/bundle`.
+- `disable_checksum_validation` (`BUNDLE_DISABLE_CHECKSUM_VALIDATION`):
+  Allow installing gems even if they do not match the checksum provided by
+  RubyGems.
+- `disable_exec_load` (`BUNDLE_DISABLE_EXEC_LOAD`):
+  Stop Bundler from using `load` to launch an executable in-process in
+  `bundle exec`.
+- `disable_local_branch_check` (`BUNDLE_DISABLE_LOCAL_BRANCH_CHECK`):
+  Allow Bundler to use a local git override without a branch specified in the
+  Gemfile.
+- `disable_local_revision_check` (`BUNDLE_DISABLE_LOCAL_REVISION_CHECK`):
+  Allow Bundler to use a local git override without checking if the revision
+  present in the lockfile is present in the repository.
+- `disable_shared_gems` (`BUNDLE_DISABLE_SHARED_GEMS`):
+  Stop Bundler from accessing gems installed to RubyGems' normal location.
+- `disable_version_check` (`BUNDLE_DISABLE_VERSION_CHECK`):
+  Stop Bundler from checking if a newer Bundler version is available on
+  rubygems.org.
+- `force_ruby_platform` (`BUNDLE_FORCE_RUBY_PLATFORM`):
+  Ignore the current machine's platform and install only `ruby` platform gems.
+  As a result, gems with native extensions will be compiled from source.
+- `frozen` (`BUNDLE_FROZEN`):
+  Disallow any automatic changes to `Gemfile.lock`. Bundler commands will
+  be blocked unless the lockfile can be installed exactly as written.
+  Usually this will happen when changing the `Gemfile` manually and forgetting
+  to update the lockfile through `bundle lock` or `bundle install`.
+- `gem.github_username` (`BUNDLE_GEM__GITHUB_USERNAME`):
+  Sets a GitHub username or organization to be used in the `README` and `.gemspec` files
+  when you create a new gem via `bundle gem` command. It can be overridden by passing an
+  explicit `--github-username` flag to `bundle gem`.
+- `gem.push_key` (`BUNDLE_GEM__PUSH_KEY`):
+  Sets the `--key` parameter for `gem push` when using the `rake release`
+  command with a private gemstash server.
+- `gemfile` (`BUNDLE_GEMFILE`):
+  The name of the file that bundler should use as the `Gemfile`. This location
+  of this file also sets the root of the project, which is used to resolve
+  relative paths in the `Gemfile`, among other things. By default, bundler
+  will search up from the current working directory until it finds a
+  `Gemfile`.
+- `global_gem_cache` (`BUNDLE_GLOBAL_GEM_CACHE`):
+  Whether Bundler should cache all gems and compiled extensions globally,
+  rather than locally to the configured installation path.
+- `ignore_funding_requests` (`BUNDLE_IGNORE_FUNDING_REQUESTS`):
+  When set, no funding requests will be printed.
+- `ignore_messages` (`BUNDLE_IGNORE_MESSAGES`):
+  When set, no post install messages will be printed. To silence a single gem,
+  use dot notation like `ignore_messages.httparty true`.
+- `init_gems_rb` (`BUNDLE_INIT_GEMS_RB`):
+  Generate a `gems.rb` instead of a `Gemfile` when running `bundle init`.
+- `jobs` (`BUNDLE_JOBS`):
+  The number of gems Bundler can download and install in parallel.
+  Defaults to the number of available processors.
+- `lockfile` (`BUNDLE_LOCKFILE`):
+  The path to the lockfile that bundler should use. By default, Bundler adds
+  `.lock` to the end of the `gemfile` entry. Can be set to `false` in the
+  Gemfile to disable lockfile creation entirely (see gemfile(5)).
+- `lockfile_checksums` (`BUNDLE_LOCKFILE_CHECKSUMS`):
+  Whether Bundler should include a checksums section in new lockfiles, to protect from compromised gem sources. Defaults to true.
+- `no_install` (`BUNDLE_NO_INSTALL`):
+  Whether `bundle package` should skip installing gems.
+- `no_prune` (`BUNDLE_NO_PRUNE`):
+  Whether Bundler should leave outdated gems unpruned when caching.
+- `only` (`BUNDLE_ONLY`):
+  A space-separated list of groups to install only gems of the specified groups.
+  Please check carefully if you want to install also gems without a group, because
+  they get put inside `default` group. For example `only test:default` will install
+  all gems specified in test group and without one.
+- `path` (`BUNDLE_PATH`):
+  The location on disk where all gems in your bundle will be located regardless
+  of `$GEM_HOME` or `$GEM_PATH` values. Bundle gems not found in this location
+  will be installed by `bundle install`. When not set, Bundler install by
+  default to a `.bundle` directory relative to repository root in Bundler 4,
+  and to the default system path (`Gem.dir`) before Bundler 4. That means that
+  before Bundler 4, Bundler shares this location with Rubygems, and `gem
+ install ...` will have gems installed in the same location and therefore,
+  gems installed without `path` set will show up by calling `gem list`. This
+  will not be the case in Bundler 4.
+- `path.system` (`BUNDLE_PATH__SYSTEM`):
+  Whether Bundler will install gems into the default system path (`Gem.dir`).
+- `plugins` (`BUNDLE_PLUGINS`):
+  Enable Bundler's experimental plugin system.
+- `prefer_patch` (BUNDLE_PREFER_PATCH):
+  Prefer updating only to next patch version during updates. Makes `bundle update` calls equivalent to `bundler update --patch`.
+- `redirect` (`BUNDLE_REDIRECT`):
+  The number of redirects allowed for network requests. Defaults to `5`.
+- `retry` (`BUNDLE_RETRY`):
+  The number of times to retry failed network requests. Defaults to `3`.
+- `shebang` (`BUNDLE_SHEBANG`):
+  The program name that should be invoked for generated binstubs. Defaults to
+  the ruby install name used to generate the binstub.
+- `silence_deprecations` (`BUNDLE_SILENCE_DEPRECATIONS`):
+  Whether Bundler should silence deprecation warnings for behavior that will
+  be changed in the next major version.
+- `silence_root_warning` (`BUNDLE_SILENCE_ROOT_WARNING`):
+  Silence the warning Bundler prints when installing gems as root.
+- `simulate_version` (`BUNDLE_SIMULATE_VERSION`):
+  The virtual version Bundler should use for activating feature flags. Can be
+  used to simulate all the new functionality that will be enabled in a future
+  major version.
+- `ssl_ca_cert` (`BUNDLE_SSL_CA_CERT`):
+  Path to a designated CA certificate file or folder containing multiple
+  certificates for trusted CAs in PEM format.
+- `ssl_client_cert` (`BUNDLE_SSL_CLIENT_CERT`):
+  Path to a designated file containing a X.509 client certificate
+  and key in PEM format.
+- `ssl_verify_mode` (`BUNDLE_SSL_VERIFY_MODE`):
+  The SSL verification mode Bundler uses when making HTTPS requests.
+  Defaults to verify peer.
+- `system_bindir` (`BUNDLE_SYSTEM_BINDIR`):
+  The location where RubyGems installs binstubs. Defaults to `Gem.bindir`.
+- `timeout` (`BUNDLE_TIMEOUT`):
+  The seconds allowed before timing out for network requests. Defaults to `10`.
+- `update_requires_all_flag` (`BUNDLE_UPDATE_REQUIRES_ALL_FLAG`):
+  Require passing `--all` to `bundle update` when everything should be updated,
+  and disallow passing no options to `bundle update`.
+- `user_agent` (`BUNDLE_USER_AGENT`):
+  The custom user agent fragment Bundler includes in API requests.
+- `verbose` (`BUNDLE_VERBOSE`):
+  Whether Bundler should print verbose output. Defaults to `false`, unless the
+  `--verbose` CLI flag is used.
+- `version` (`BUNDLE_VERSION`):
+  The version of Bundler to use when running under Bundler environment.
+  Defaults to `lockfile`. You can also specify `system` or `x.y.z`.
+  `lockfile` will use the Bundler version specified in the `Gemfile.lock`,
+  `system` will use the system version of Bundler, and `x.y.z` will use
+  the specified version of Bundler.
+- `with` (`BUNDLE_WITH`):
+  A space-separated or `:`-separated list of groups whose gems bundler should install.
+- `without` (`BUNDLE_WITHOUT`):
+  A space-separated or `:`-separated list of groups whose gems bundler should not install.
 
 ## BUILD OPTIONS
 
@@ -402,10 +401,10 @@ copy-pasting bundler output.
 Also note that to guarantee a sane mapping between valid environment variable
 names and valid host names, bundler makes the following transformations:
 
-* Any `-` characters in a host name are mapped to a triple underscore (`___`) in the
+- Any `-` characters in a host name are mapped to a triple underscore (`___`) in the
   corresponding environment variable.
 
-* Any `.` characters in a host name are mapped to a double underscore (`__`) in the
+- Any `.` characters in a host name are mapped to a double underscore (`__`) in the
   corresponding environment variable.
 
 This means that if you have a gem server named `my.gem-host.com`, you'll need to

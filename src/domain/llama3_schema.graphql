@@ -1,0 +1,15 @@
+type Llama3InferenceRequest {
+    prompt: String!
+    maxTokens: Int!
+    temperature: Float!
+}
+
+type Llama3InferenceResponse {
+    text: String!
+    tokensGenerated: Int!
+    latencyMs: Int!
+}
+
+type Query {
+    generateLlama3(req: Llama3InferenceRequest!): Llama3InferenceResponse!
+}

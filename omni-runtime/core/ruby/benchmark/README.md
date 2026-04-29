@@ -1,7 +1,7 @@
 # ruby/benchmark
 
 This directory has benchmark definitions to be run with
-[benchmark\_driver.gem](https://github.com/benchmark-driver/benchmark-driver).
+[benchmark_driver.gem](https://github.com/benchmark-driver/benchmark-driver).
 
 ## Normal usage
 
@@ -46,8 +46,8 @@ Usage: benchmark-driver [options] RUBY|YAML...
 ## make benchmark
 
 Using `make benchmark`, `make update-benchmark-driver` automatically downloads
-the supported version of benchmark\_driver, and it runs benchmarks with the downloaded
-benchmark\_driver.
+the supported version of benchmark_driver, and it runs benchmarks with the downloaded
+benchmark_driver.
 
 ```bash
 # Run all benchmarks with the ruby in the $PATH and the built ruby

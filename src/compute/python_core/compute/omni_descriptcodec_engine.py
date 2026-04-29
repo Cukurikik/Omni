@@ -24,7 +24,7 @@ class OmniDescriptCodecEngine:
 
     def __init__(self):
         self.vectors_quantized = 0
-        # A simulated Codebook: 4 physical static vectors representing the "Model Weights"
+        # a Codebook: 4 physical static vectors representing the "Model Weights"
         self.codebook = [
             [-0.5, -0.5], # Code 0
             [-0.5,  0.5], # Code 1
@@ -60,7 +60,7 @@ class OmniDescriptCodecEngine:
         """
         start_time = time.time()
         
-        # A simulated series of audio 2D vectors (Continuous Floats)
+        # a series of audio 2D vectors (Continuous Floats)
         raw_audio_tensors = [
             [0.1, 0.4], [-0.6, -0.8], [0.9, -0.1], [0.0, 0.0]
         ]

@@ -1,0 +1,11 @@
+package rules.hyde
+import omni.hyde.SearchQuery
+import omni.common.OmniResult
+
+rule "Filter HyDE Queries for PII"
+when
+    $query : SearchQuery( containsPII == true )
+then
+    $query.sanitize();
+    insert(new OmniResult(false, "Search query sanitized due to PII", false));
+end

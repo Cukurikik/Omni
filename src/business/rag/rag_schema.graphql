@@ -1,0 +1,12 @@
+type Query {
+  retrieveDocuments(query: String!, topK: Int = 10): [RAGDocument!]!
+  generateAnswer(query: String!, contextIds: [ID!]!): RAGAnswer!
+}
+type Mutation {
+  indexDocument(input: DocInput!): IndexResult!
+  deleteDocument(docId: ID!): Boolean!
+}
+input DocInput { title: String! content: String! metadata: String }
+type RAGDocument { id: ID! title: String! score: Float! snippet: String! }
+type RAGAnswer { answer: String! sources: [ID!]! confidence: Float! }
+type IndexResult { success: Boolean! docId: ID message: String }

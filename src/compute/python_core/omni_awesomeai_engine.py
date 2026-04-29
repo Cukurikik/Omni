@@ -79,7 +79,7 @@ class SemanticResourceAllocator:
             })
             
         except Exception as e:
-            return Err(f"Simulated catalog density projection failed: {e}")
+            return Err(f"Catalog density projection failed: {e}")
 
 
 # ---------------------------------------------------------------------------

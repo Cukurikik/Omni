@@ -1,11 +1,10 @@
 call-seq:
-  get_byte -> byte_as_character or nil
+get_byte -> byte_as_character or nil
 
 Returns the next byte, if available:
 
 - If the [position][2]
   is not at the end of the [stored string][1]:
-
     - Returns the next byte.
     - Increments the [byte position][2].
     - Adjusts the [character position][7].

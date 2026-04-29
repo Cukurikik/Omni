@@ -30,9 +30,7 @@
       "post": {
         "summary": "Jalankan alat apa saja dari OMNI Engine",
         "description": "Gerbang utama (multiplexer) untuk 150+ alat. Endpoint ini mendukung File Stream 50GB tanpa RAM bloat.",
-        "tags": [
-          "Universal Execution"
-        ],
+        "tags": ["Universal Execution"],
         "requestBody": {
           "required": true,
           "content": {
@@ -204,10 +202,7 @@
                     "description": "File sumber yang akan diproses"
                   }
                 },
-                "required": [
-                  "tool_id",
-                  "omni_file"
-                ]
+                "required": ["tool_id", "omni_file"]
               }
             }
           }

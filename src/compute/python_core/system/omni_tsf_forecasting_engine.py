@@ -122,7 +122,7 @@ class OmniTSFForecastingEngine:
             return {"status": "error", "message": f"Window generation failed: {str(e)}"}
 
     def execute_forecast(self, model_id: str, dataset_id: str) -> Dict[str, Any]:
-        """Executes a simulated forecasting inference returning MAE/MSE metrics."""
+        """Executes a forecasting inference returning MAE/MSE metrics."""
         try:
             if model_id not in self.models:
                 return {"status": "error", "message": f"Model {model_id} not found."}

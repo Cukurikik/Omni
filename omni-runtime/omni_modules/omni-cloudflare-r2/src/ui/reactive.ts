@@ -7,14 +7,26 @@ export class ReactiveStore<T> {
   private state: T;
   private listeners: Set<Listener<T>> = new Set();
 
-  constructor(initial: T) { this.state = initial; }
-  get(): T { return this.state; }
-  set(value: T): void { this.state = value; this.listeners.forEach(l => l(value)); }
-  update(fn: (prev: T) => T): void { this.set(fn(this.state)); }
-  subscribe(listener: Listener<T>): Unsubscribe { this.listeners.add(listener); return () => this.listeners.delete(listener); }
+  constructor(initial: T) {
+    this.state = initial;
+  }
+  get(): T {
+    return this.state;
+  }
+  set(value: T): void {
+    this.state = value;
+    this.listeners.forEach((l) => l(value));
+  }
+  update(fn: (prev: T) => T): void {
+    this.set(fn(this.state));
+  }
+  subscribe(listener: Listener<T>): Unsubscribe {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
   derived<U>(fn: (value: T) => U): ReactiveStore<U> {
     const d = new ReactiveStore<U>(fn(this.state));
-    this.subscribe(v => d.set(fn(v)));
+    this.subscribe((v) => d.set(fn(v)));
     return d;
   }
 }
@@ -26,5 +38,7 @@ export class EventEmitter<T extends Record<string, unknown>> {
     this.handlers.get(event)!.add(handler);
     return () => this.handlers.get(event)?.delete(handler);
   }
-  emit<K extends keyof T>(event: K, data: T[K]): void { this.handlers.get(event)?.forEach(h => h(data)); }
+  emit<K extends keyof T>(event: K, data: T[K]): void {
+    this.handlers.get(event)?.forEach((h) => h(data));
+  }
 }

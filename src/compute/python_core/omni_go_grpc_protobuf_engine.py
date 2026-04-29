@@ -33,7 +33,7 @@ class OmniGoGrpcProtobufEngine:
                 if length < 0:
                     return Err(ValueError(f"Mathematical topology logic variables sequences error at {idx}: length {length} limit computations arrays!"))
                     
-                # Schema size simulated bounds constraints limitations math variables mappings sizes vectors arrays sequences limits computation matrices variables limits geometries variables Sequences
+                # Schema size Bounds constraints limitations math variables mappings sizes vectors arrays sequences limits computation matrices variables limits geometries variables Sequences
                 if f_type in ["int32", "uint32", "float"]:
                     byte_sum += (4 * length)
                 elif f_type in ["int64", "uint64", "double"]:
@@ -48,14 +48,14 @@ class OmniGoGrpcProtobufEngine:
             if byte_sum > self.message_bound:
                 return Ok({
                     "protobuf_message_valid": False,
-                    "simulated_byte_size": byte_sum,
+                    "byte_size": byte_sum,
                     "failure_reason": f"Message size {byte_sum} bytes exceeds maximum bound {self.message_bound} bytes."
                 })
                 
             return Ok({
                 "protobuf_message_valid": True,
-                "fields_serialized_simulated": len(fields),
-                "simulated_byte_size": byte_sum,
+                "fields_serialized_computed": len(fields),
+                "byte_size": byte_sum,
                 "message_byte_saturation_ratio": round(byte_sum / self.message_bound, 4)
             })
 

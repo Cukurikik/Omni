@@ -28,7 +28,7 @@ class OmniJwtAuthMiddlewareEngine:
             valid_count = 0
             invalid_count = 0
             
-            # Simulated string constraint logic matrix geometry
+            # string constraint logic matrix geometry
             for tkn in tokens:
                 if not isinstance(tkn, str):
                     return Err(ValueError("Geometric limit bounds error! Tokens must be structural string vectors!"))

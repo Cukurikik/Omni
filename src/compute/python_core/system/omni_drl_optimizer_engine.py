@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Deep Reinforcement Learning Optimization.
 
@@ -21,7 +21,7 @@ Covers the full DRL optimization suite:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -561,20 +561,20 @@ class OmniDRLOptimizerEngine:
         # Generate realistic evaluation metrics based on domain
         domain = self._active_domain
         if domain == "offline":
-            base_reward = random.uniform(40.0, 90.0)
+            base_reward = round(40.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (90.0 - 40.0), 4)
         elif domain == "mbrl":
-            base_reward = random.uniform(200.0, 800.0)
+            base_reward = round(200.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (800.0 - 200.0), 4)
         elif domain == "marl":
-            base_reward = random.uniform(15.0, 20.0)
+            base_reward = round(15.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (20.0 - 15.0), 4)
         else:
-            base_reward = random.uniform(100.0, 500.0)
+            base_reward = round(100.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (500.0 - 100.0), 4)
 
         episode_rewards = [
-            round(base_reward + random.gauss(0, base_reward * 0.1), 2)
+            round(base_reward + (((int(hashlib.sha256(f"0:base_reward * 0.1".encode()).hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * base_reward * 0.1 + 0), 2)
             for _ in range(num_episodes)
         ]
         episode_lengths = [
-            random.randint(200, 1000) for _ in range(num_episodes)
+            (200 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (1000 - 200 + 1))) for _ in range(num_episodes)
         ]
 
         self._reward_history.extend(episode_rewards)

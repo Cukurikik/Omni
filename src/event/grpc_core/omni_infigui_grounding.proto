@@ -1,0 +1,13 @@
+// Omni InfiGUI Grounding Service (gRPC Proto)
+// Event Layer: GUI grounding action RPC service.
+// Ref: InfiXAI/InfiGUI-G1 — AAAI 2026 Oral
+syntax = "proto3";
+package omni.infigui;
+service GUIGroundingService {
+  rpc GroundAction (GroundRequest) returns (GroundResponse);
+  rpc StreamActions (stream ActionEvent) returns (stream ActionResult);
+}
+message GroundRequest { string screenshot_hash = 1; string instruction = 2; float exploration_weight = 3; }
+message GroundResponse { float x = 1; float y = 2; string action_type = 3; float confidence = 4; }
+message ActionEvent { string action_id = 1; string state_hash = 2; }
+message ActionResult { bool success = 1; float reward = 2; }

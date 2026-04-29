@@ -6,7 +6,7 @@ class OmniRustTokioAsyncEngine:
     """
     omni-rust-tokio-async
     
-    A numerical timing simulator bounds logic testing array constraints evaluating
+    A numerical timing bounds logic testing array constraints evaluating
     thread blocking configurations limits algorithms mapping math temporal sums natively! 
     """
     
@@ -28,7 +28,7 @@ class OmniRustTokioAsyncEngine:
             dropped_events = 0
             accumulated_time = 0
             
-            # Simulated mathematical mapping time loop constraints natively
+            # Mathematical mapping time loop constraints natively
             for duration in event_durations_ms:
                 if not isinstance(duration, int):
                     return Err(ValueError("Geometric limit bounds logic! Timings must reflect native python integers computations!"))

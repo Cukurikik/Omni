@@ -30,7 +30,7 @@ inputs:
     # to optimize binaries.  Also GitHub Actions run on relatively modern CPUs
     # compared to, say, GCC 4 or Clang 3.  We don't specify `-march=native`
     # because compilers tend not understand what the CPU is.
-    default: '-O1'
+    default: "-O1"
     description: >-
       Compiler flags for optimisations.
 
@@ -56,19 +56,19 @@ inputs:
 
   check:
     required: false
-    default: ''
+    default: ""
     description: >-
       Whether to run `make check`
 
   test_all:
     required: false
-    default: ''
+    default: ""
     description: >-
       Whether to run `make test-all` with options for test-all.
 
   test_spec:
     required: false
-    default: ''
+    default: ""
     description: >-
       Whether to run `make test-spec` with options for mspec.
 

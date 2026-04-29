@@ -137,7 +137,7 @@ class OmniMediaCMSEngine:
             "media_assets": len(self.media_database),
             "capabilities": [
                 "rbac_role_based_access_control",
-                "django_celery_worker_simulation",
+                "django_celery_worker_computation",
                 "ffmpeg_hls_transcoding_profiles",
                 "adaptive_bitrate_resolution_generation",
                 "whisper_ai_auto_transcription",

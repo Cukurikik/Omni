@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Omni AWS Infrastructure Stack. High-availability deployment map.'
+
+Resources:
+  OmniVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Omni-Production-VPC
+
+  OmniUnikernelSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow inbound GRPC traffic to Unikernel Enclaves
+      VpcId: !Ref OmniVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 9090
+          ToPort: 9090
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: Omni-Unikernel-SG

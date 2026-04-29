@@ -48,10 +48,9 @@ end
 
 It has been tested with the following Ruby versions:
 
-* ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin17]
-* ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
-* If you replace `b&.[]` with `b&&b[]` it will work with ruby 2.0.0 as well, but it will be one character longer.
-
+- ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-darwin17]
+- ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
+- If you replace `b&.[]` with `b&&b[]` it will work with ruby 2.0.0 as well, but it will be one character longer.
 
 ### Description
 

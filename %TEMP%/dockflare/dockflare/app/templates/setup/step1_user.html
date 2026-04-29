@@ -1,0 +1,72 @@
+{% extends "setup/base.html" %} {% block setup_content %}
+<div class="text-center mb-6">
+  {% if is_migration %}
+  <h2 class="text-xl font-bold">{{ t('setup.step1.final_step') }}</h2>
+  <p class="py-4 text-gray-500">{{ t('setup.step1.desc_migration') }}</p>
+  {% else %}
+  <h2 class="text-xl font-bold">{{ t('setup.step1.create_admin') }}</h2>
+  <p class="py-4 text-gray-500">{{ t('setup.step1.desc_new') }}</p>
+  {% endif %}
+</div>
+
+<form
+  method="POST"
+  action="{{ url_for('setup.step1_admin_user') }}"
+  class="space-y-4"
+>
+  {{ form.hidden_tag() }}
+
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">{{ form.username.label }}</span>
+    </label>
+    {{ form.username(class="input input-bordered w-full",
+    placeholder=t('setup.step1.username_placeholder')) }} {% for error in
+    form.username.errors %}
+    <label class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </label>
+    {% endfor %}
+  </div>
+
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">{{ form.password.label }}</span>
+    </label>
+    {{ form.password(class="input input-bordered w-full") }} {% for error in
+    form.password.errors %}
+    <label class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </label>
+    {% endfor %}
+  </div>
+
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">{{ form.confirm_password.label }}</span>
+    </label>
+    {{ form.confirm_password(class="input input-bordered w-full") }} {% for
+    error in form.confirm_password.errors %}
+    <label class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </label>
+    {% endfor %}
+  </div>
+
+  <div class="card-actions mt-6">
+    <button type="submit" name="submit" class="btn btn-primary w-full">
+      {{ t('form.setup.next') }}
+    </button>
+  </div>
+</form>
+{% endblock %} {% block step_indicator %} {% include 'setup/_steps.html' with
+context %} {% if show_restore_option %}
+<div class="mt-6 text-center">
+  <a
+    href="{{ url_for('setup.restore_from_backup') }}"
+    class="btn btn-outline btn-primary"
+  >
+    {{ t('setup.step1.restore_option') }}
+  </a>
+</div>
+{% endif %} {% endblock %}

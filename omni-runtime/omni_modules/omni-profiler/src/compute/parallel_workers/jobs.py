@@ -1,1 +1,1 @@
-﻿def distribute_compilation(): pass
+def distribute_compilation(): pass

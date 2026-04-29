@@ -1,0 +1,14 @@
+module DataFrameOps
+
+using OmniStd
+
+function filter_rows(df::Vector{Dict{String, Any}}, condition::Function)::Result{Vector{Dict{String, Any}}, Exception}
+    try
+        filtered = filter(condition, df)
+        return Ok(filtered)
+    catch e
+        return Err(e)
+    end
+end
+
+end

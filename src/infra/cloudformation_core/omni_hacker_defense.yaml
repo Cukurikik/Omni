@@ -1,0 +1,32 @@
+# Omni Hacker Defense (CloudFormation)
+# Infrastructure Layer: AWS WAF rules blocking LLM prompt injection vectors.
+
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  OmniLLMWafAcl:
+    Type: AWS::WAFv2::WebACL
+    Properties: 
+      DefaultAction: 
+        Allow: {}
+      Scope: REGIONAL
+      VisibilityConfig: 
+        CloudWatchMetricsEnabled: true
+        MetricName: OmniLLMWafMetric
+        SampledRequestsEnabled: true
+      Rules:
+        - Name: BlockPromptInjection
+          Priority: 0
+          Action:
+            Block: {}
+          Statement:
+            RegexPatternSetReferenceStatement:
+              Arn: "arn:aws:wafv2:region:account:regional/regexpatternset/name/id"
+              FieldToMatch:
+                Body: {}
+              TextTransformations:
+                - Priority: 0
+                  Type: LOWERCASE
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: BlockPromptInjectionMetric
+            SampledRequestsEnabled: true

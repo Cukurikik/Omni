@@ -8,7 +8,7 @@ class OmniIOSRoadmapEngine:
         self._config = config or {}
         self._is_operational = True
         self._engine_id = "ios-roadmap-dag"
-        # Core hardcoded knowledge matrix based on alainhsu/iOS-Developer-Roadmap
+        # Core knowledge matrix based on alainhsu/iOS-Developer-Roadmap
         self._competency_graph = {
             "swift_basics": [],
             "swift_oop": ["swift_basics"],

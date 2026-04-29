@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * omni_audio_player_engine.ts
@@ -63,5 +63,16 @@ export class OmniAudioPlayerEngine {
         this.currentIndex = (this.currentIndex + 1) % this.playlist.length;
         
         return { isOk: true, value: this.playlist[this.currentIndex], error: AudioPlayerErrorCode.SUCCESS };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAudioPlayerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

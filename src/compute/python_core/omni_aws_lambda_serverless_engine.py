@@ -27,7 +27,7 @@ class OmniAwsLambdaServerlessEngine:
             cold_starts = 0
             timeouts = 0
             
-            # Simulated mathematical coordinate extraction looping algorithms dimensions variables loops geometries lengths arrays mappings natively!
+            # Mathematical coordinate extraction looping algorithms dimensions variables loops geometries lengths arrays mappings natively!
             for idx, log in enumerate(invocation_logs):
                 dur = log.get("duration_ms")
                 if dur is None:

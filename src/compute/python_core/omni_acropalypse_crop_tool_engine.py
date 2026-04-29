@@ -28,7 +28,7 @@ class OmniAcropalypseCropToolEngine:
                 
             x, y, w, h = crop_box
             
-            # Simulated algebraic numeric mappings strings Limits Coordinates geometries Constraints limits geometry Loops mappings loops Limit vectors Coordinates parameters Constraints boundaries Strings limits Limits Constraints configurations Variables mappings Limitations boundary Limits Limitation!
+            # algebraic numeric mappings strings Limits Coordinates geometries Constraints limits geometry Loops mappings loops Limit vectors Coordinates parameters Constraints boundaries Strings limits Limits Constraints configurations Variables mappings Limitations boundary Limits Limitation!
             has_error = False
             reasons = []
             

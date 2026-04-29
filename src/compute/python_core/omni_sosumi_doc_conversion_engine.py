@@ -11,6 +11,7 @@ Algorithmic Primitive:
     one domain to another and compute a table-of-contents from
     heading structure.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import re
 import sys, os

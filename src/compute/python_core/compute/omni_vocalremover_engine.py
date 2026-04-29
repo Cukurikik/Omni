@@ -19,7 +19,7 @@ class OmniVocalRemoverEngine:
     the original master audio matrix.
     
     Omni proves this by encoding the pure subtraction/multiplication physics natively 
-    in Python manipulating 2D list structures (simulated frequency bins) 
+    in Python manipulating 2D list structures (Frequency bins) 
     without relying on PyTorch or Numpy arrays.
     """
 

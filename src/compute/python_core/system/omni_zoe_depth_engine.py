@@ -58,7 +58,7 @@ class OmniZoeDepthEngine:
 
     def infer_absolute_depth(self, model_id: str, image_shape: List[int]) -> Dict[str, Any]:
         """
-        Calculates metric depth map from simulated image bounds.
+        Calculates metric depth map from image bounds.
         
         Args:
             model_id (str): Target ZoeDepth model.

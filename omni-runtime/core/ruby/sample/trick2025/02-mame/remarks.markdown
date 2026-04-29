@@ -17,7 +17,7 @@ After running these commands, verify that `sample.rb` has been modified.
 
 ## Usage as a Patch File
 
-Interestingly, this program is not just a patch-like tools -- it *is* a patch.
+Interestingly, this program is not just a patch-like tools -- it _is_ a patch.
 This duality allows it to be applied like a regular patch file.
 
 The following will create a file named pd.rb.
@@ -104,7 +104,7 @@ To apply subsequent patches:
 $ for i in `seq 0 32`; do ruby pd.rb | git am --committer-date-is-author-date; done
 ```
 
-*(A fun details: you will see the `b` logo!)*
+_(A fun details: you will see the `b` logo!)_
 
 Now, view a commit history by the following command:
 
@@ -136,6 +136,6 @@ Can you spot the difference?
 
 ## Limitations
 
-* I tested it with ruby 3.3.6, git 2.45.2, and GNU patch 2.7.6.
-* No error check at all. The lesser patch do not care if there is a discrepancy between what is written in the patch and the input file, and will write over the existing file without prompt.
-* It is assumed that the text files have a new line at the end.
+- I tested it with ruby 3.3.6, git 2.45.2, and GNU patch 2.7.6.
+- No error check at all. The lesser patch do not care if there is a discrepancy between what is written in the patch and the input file, and will write over the existing file without prompt.
+- It is assumed that the text files have a new line at the end.

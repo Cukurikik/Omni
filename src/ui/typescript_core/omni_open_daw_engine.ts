@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniOpenDAWEngine — Production-Grade Web DAW Engine
@@ -269,4 +269,15 @@ export class OmniOpenDAWEngine {
       listener(state);
     }
   }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "DAWResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
+    }
 }

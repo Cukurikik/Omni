@@ -121,4 +121,3 @@ def match_values_cleared?(scanner)
     scanner.named_captures == {}
 end
 ```
-

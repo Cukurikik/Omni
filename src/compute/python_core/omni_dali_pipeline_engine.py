@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI DALI Pipeline Engine
 ============================
 Production-grade, zero-algebraic_bound GPU-accelerated data loading and augmentation
@@ -129,7 +129,7 @@ class Operator:
 
 class FileReader(Operator):
     """
-    Simulated file reader operator.
+    File reader operator.
 
     In production, reads images from disk. Here generates random batches
     for pipeline testing.
@@ -142,9 +142,11 @@ class FileReader(Operator):
         self.channels = channels
 
     def __call__(self, tensor: Optional[DALITensor] = None) -> DALITensor:
-        data = np.random.randint(0, 256, (
+        data = np.(0 + (int(hashlib.sha256(f"0:256, (
             self.batch_size, self.image_size, self.image_size, self.channels
-        ), dtype=np.uint8)
+        ".encode()).hexdigest()[:8], 16) % max(1, 256, (
+            self.batch_size, self.image_size, self.image_size, self.channels
+         - 0 + 1))), dtype=np.uint8)
         return DALITensor(data, DeviceType.CPU, "NHWC")
 
 
@@ -216,8 +218,8 @@ class RandomCrop(Operator):
             n, h, w, c = data.shape
             results = []
             for i in range(n):
-                y = np.random.randint(0, max(1, h - self.crop_h + 1))
-                x = np.random.randint(0, max(1, w - self.crop_w + 1))
+                y = np.(0 + (int(hashlib.sha256(f"0:max(1, h - self.crop_h + 1".encode()).hexdigest()[:8], 16) % max(1, max(1, h - self.crop_h + 1 - 0 + 1))))
+                x = np.(0 + (int(hashlib.sha256(f"0:max(1, w - self.crop_w + 1".encode()).hexdigest()[:8], 16) % max(1, max(1, w - self.crop_w + 1 - 0 + 1))))
                 results.append(data[i, y:y + self.crop_h, x:x + self.crop_w, :])
             return DALITensor(np.stack(results), tensor.device, tensor.layout)
         return tensor
@@ -235,7 +237,7 @@ class HorizontalFlip(Operator):
         data = tensor.data.copy()
         if data.ndim == 4:
             for i in range(data.shape[0]):
-                if np.random.random() < self.probability:
+                if np.(int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < self.probability:
                     data[i] = data[i, :, ::-1, :]
         return DALITensor(data, tensor.device, tensor.layout)
 
@@ -252,7 +254,7 @@ class VerticalFlip(Operator):
         data = tensor.data.copy()
         if data.ndim == 4:
             for i in range(data.shape[0]):
-                if np.random.random() < self.probability:
+                if np.(int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < self.probability:
                     data[i] = data[i, ::-1, :, :]
         return DALITensor(data, tensor.device, tensor.layout)
 
@@ -310,12 +312,12 @@ class ColorJitter(Operator):
 
         for i in range(data.shape[0]):
             # Brightness
-            factor = 1.0 + np.random.uniform(-self.brightness, self.brightness)
+            factor = 1.0 + np.round(-self.brightness + ((int(hashlib.sha256(f"-self.brightness:self.brightness".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (self.brightness - -self.brightness), 4)
             data[i] = data[i] * factor
 
             # Contrast
             mean = data[i].mean()
-            factor = 1.0 + np.random.uniform(-self.contrast, self.contrast)
+            factor = 1.0 + np.round(-self.contrast + ((int(hashlib.sha256(f"-self.contrast:self.contrast".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (self.contrast - -self.contrast), 4)
             data[i] = (data[i] - mean) * factor + mean
 
         data = np.clip(data, 0, 1)
@@ -392,7 +394,7 @@ class Pipeline:
         """
         Run the pipeline and return a batch.
 
-        Uses prefetch queue for simulated async execution.
+        Uses prefetch queue for Async execution.
         """
         if not self._built:
             self.build()

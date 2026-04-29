@@ -1,0 +1,23 @@
+type Experiment {
+  id: ID!
+  name: String!
+  createdAt: String!
+  status: String!
+  metrics: [Metric!]!
+  hyperparameters: JSON
+}
+
+type Metric {
+  name: String!
+  values: [Float!]!
+  steps: [Int!]!
+}
+
+type Query {
+  getExperiment(id: ID!): Experiment
+  listExperiments(projectId: ID!): [Experiment!]!
+}
+
+type Mutation {
+  logMetric(experimentId: ID!, name: String!, value: Float!, step: Int!): Boolean!
+}

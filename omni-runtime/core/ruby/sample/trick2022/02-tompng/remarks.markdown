@@ -8,12 +8,12 @@
 
 I confirmed the following implementations/platforms:
 
-* Ruby Version
-  * ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x86_64-darwin20]
-* Browser
-  * Chrome(macOS, Android)
-  * Firefox(macOS)
-  * Edge(macOS)
+- Ruby Version
+    - ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x86_64-darwin20]
+- Browser
+    - Chrome(macOS, Android)
+    - Firefox(macOS)
+    - Edge(macOS)
 
 ### Description
 

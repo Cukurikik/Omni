@@ -165,8 +165,8 @@ export class OmniWebmmuxerEngine {
         const simpleBlockHeaderSize = 4;
         const frameBytes = simpleBlockHeaderSize + dataSize;
 
-        this.currentCluster.frameCount++;
-        this.currentCluster.totalBytes += frameBytes;
+        this.currentCluster!.frameCount++;
+        this.currentCluster!.totalBytes += frameBytes;
         this.totalFrames++;
         this.totalBytes += frameBytes;
 
@@ -177,7 +177,7 @@ export class OmniWebmmuxerEngine {
                 timestampMs,
                 isKeyframe,
                 dataSize,
-                clusterId: this.currentCluster.clusterId,
+                clusterId: this.currentCluster!.clusterId,
             },
         };
     }
@@ -245,6 +245,17 @@ export class OmniWebmmuxerEngine {
                     ? Math.round(this.totalBytes / this.clusters.length)
                     : 0,
             },
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniWebmmuxerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

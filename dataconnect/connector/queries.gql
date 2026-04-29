@@ -3,28 +3,35 @@
 # ==========================================
 
 # Menganalisis Knowledge Base dengan Vector Search
-query SearchOmniKnowledge($queryEmbedding: Vector!, $threshold: Float!) @auth(level: USER) {
-    omniKnowledges_embedding_similarity(
-        compare: $queryEmbedding,
-        method: COSINE,
-        within: $threshold,
-        limit: 5
-    ) {
-        id
-        content
-        sourceModule
-        _metadata { distance }
+query SearchOmniKnowledge($queryEmbedding: Vector!, $threshold: Float!)
+@auth(level: USER) {
+  omniKnowledges_embedding_similarity(
+    compare: $queryEmbedding
+    method: COSINE
+    within: $threshold
+    limit: 5
+  ) {
+    id
+    content
+    sourceModule
+    _metadata {
+      distance
     }
+  }
 }
 
 # Mendapatkan Last State dari Agent
 query GetAgentState($agentName: String!) @auth(level: USER) {
-    agentSessions(where: { agentName: { eq: $agentName } }, orderBy: [{ updatedAt: DESC }], limit: 1) {
-        id
-        agentName
-        lastState
-        updatedAt
-    }
+  agentSessions(
+    where: { agentName: { eq: $agentName } }
+    orderBy: [{ updatedAt: DESC }]
+    limit: 1
+  ) {
+    id
+    agentName
+    lastState
+    updatedAt
+  }
 }
 
 # Force IDE Cache Refresh 1776385314695

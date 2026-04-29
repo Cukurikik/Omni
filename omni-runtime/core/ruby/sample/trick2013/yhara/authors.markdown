@@ -1,3 +1,3 @@
-* Yutaka Hara
-  * yutaka.hara.gmail.com
-  * cctld: jp
+- Yutaka Hara
+    - yutaka.hara.gmail.com
+    - cctld: jp

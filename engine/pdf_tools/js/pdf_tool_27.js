@@ -6,18 +6,18 @@ function printJson(success, code, msg, data = {}) {
     layer: "JS_ENGINE",
     code: code,
     message: msg,
-    data: data
+    data: data,
   };
   console.log(JSON.stringify(response));
 }
 
 async function main(args) {
   // TODO: Implement PDF Tool 27
-  
+
   // Dummy response
   printJson(true, "SUCCESS", "PDF Tool 27 processed successfully.");
 }
 
-main(process.argv.slice(2)).catch(err => {
+main(process.argv.slice(2)).catch((err) => {
   printJson(false, "ERR_FATAL", err.message);
 });

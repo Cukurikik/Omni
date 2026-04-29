@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Omni MMStar Evaluation AWS Stack. High-memory instance mapping.'
+
+Resources:
+  MMStarEvaluationInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: p4d.24xlarge # A100 GPU Instance for VLM eval
+      ImageId: ami-0c55b159cbfafe1f0
+      SecurityGroupIds:
+        - !Ref MMStarSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Omni-MMStar-Eval-Node
+
+  MMStarSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow inbound SSH and gRPC traffic
+      VpcId: vpc-12345678 # Assumed deterministic VPC mapping
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/8

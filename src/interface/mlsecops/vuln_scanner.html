@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MLSecOps Vulnerability Scanner</title>
+    <style>
+        body { font-family: monospace; background: #1e1e1e; color: #d4d4d4; padding: 2rem; }
+        .vuln-critical { color: #f44336; font-weight: bold; }
+        .vuln-safe { color: #4caf50; }
+    </style>
+</head>
+<body>
+    <h1>Model Artifact Security Scan</h1>
+    <ul>
+        <li class="vuln-safe">[PASS] Model Weights Integrity: OK</li>
+        <li class="vuln-safe">[PASS] Pickle Deserialization: Safe</li>
+        <li class="vuln-critical">[FAIL] Prompt Injection Defense: Vulnerable (Score: 0.82)</li>
+    </ul>
+</body>
+</html>

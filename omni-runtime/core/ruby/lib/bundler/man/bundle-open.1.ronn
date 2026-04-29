@@ -1,5 +1,4 @@
-bundle-open(1) -- Opens the source directory for a gem in your bundle
-=====================================================================
+# bundle-open(1) -- Opens the source directory for a gem in your bundle
 
 ## SYNOPSIS
 
@@ -24,5 +23,5 @@ Will open the README.md file of the 'rack' gem source in your bundle.
 
 ## OPTIONS
 
-* `--path[=PATH]`:
+- `--path[=PATH]`:
   Specify GEM source relative path to open.

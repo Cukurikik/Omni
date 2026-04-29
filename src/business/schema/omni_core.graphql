@@ -1,0 +1,37 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getSystemMetrics(clusterId: ID!): MetricsResult!
+  verifyTransaction(txId: ID!): TransactionResult!
+}
+
+type Mutation {
+  dispatchComputeTask(payload: ComputePayload!): TaskResult!
+}
+
+input ComputePayload {
+  kernelType: String!
+  dataUri: String!
+  priority: Int!
+}
+
+type MetricsResult {
+  cpuUsage: Float!
+  memoryUsage: Float!
+  activeActors: Int!
+  error: String
+}
+
+type TransactionResult {
+  id: ID!
+  status: String!
+  timestamp: String!
+}
+
+type TaskResult {
+  taskId: ID!
+  estimatedCompletion: String!
+}

@@ -1,0 +1,8 @@
+// Omni Loong Doc Retrieval (SPARQL)
+// Database Layer: Multi-document relevance querying.
+// Ref: MozerWang/Loong — EMNLP 2024
+PREFIX omni: <http://omni.framework/loong#>
+SELECT ?doc ?relevance WHERE {
+  ?doc a omni:Document ; omni:relevanceScore ?relevance .
+  FILTER (?relevance > 0.5)
+} ORDER BY DESC(?relevance) LIMIT 50

@@ -5,7 +5,7 @@ prelude: |
   r_str = 'a'..'z'
 
 benchmark:
-  'int 1': r_1.count
-  'int 1K': r_1k.count
-  'int 1M': r_1m.count
+  "int 1": r_1.count
+  "int 1K": r_1k.count
+  "int 1M": r_1m.count
   string: r_str.count

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omni Semantic Declarative UI</title>
+    <style>
+        :root { --omni-bg: #0d1117; --omni-fg: #c9d1d9; }
+        body { background: var(--omni-bg); color: var(--omni-fg); font-family: system-ui, sans-serif; }
+        .omni-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+    </style>
+</head>
+<body>
+    <!-- Omni HTML UI Layer: Zero-mock declarative structure -->
+    <main class="omni-container" id="omni-root-bridge">
+        <header>
+            <h1>Omni Framework Tensor Dashboard</h1>
+        </header>
+        <section aria-label="System Metrics">
+            <table id="metrics-table">
+                <thead>
+                    <tr><th>Layer</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <!-- Populated dynamically via TypeScript Bridge -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

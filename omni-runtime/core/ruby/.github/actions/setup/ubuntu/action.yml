@@ -7,7 +7,7 @@ description: >-
 inputs:
   arch:
     required: false
-    default: ''
+    default: ""
     description: >-
       Architecture.  Because we run this on a GitHub-hosted runner
       acceptable value for this input is very limited.

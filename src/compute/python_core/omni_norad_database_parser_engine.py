@@ -4,7 +4,7 @@ from src.compute.python_core.omni_base_engine import Result, Ok, Err
 
 class OmniNoradDatabaseParserEngine:
     """
-    glSatellite-Demo (NORAD PARSER component simulator)
+    glSatellite-Demo (NORAD PARSER component engine)
     
     A native string mathematical boundaries engine natively extracting array lengths mapping
     Tle-like string bounds computing extraction topology logic matrices arrays natively!

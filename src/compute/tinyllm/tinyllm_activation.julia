@@ -1,0 +1,50 @@
+module TinyLLMActivation
+
+using SIMD
+
+const MAX_TENSOR_LEN = 10_000_000
+
+# Monadic Result
+abstract type OmniResult end
+struct Ok{T} <: OmniResult payload::T end
+struct Err <: OmniResult msg::String end
+
+"""
+    compute_silu!(data::Vector{Float32})
+
+Computes SiLU (Swish) activation function in-place using SIMD.
+SiLU(x) = x * sigmoid(x)
+"""
+function compute_silu!(data::Vector{Float32})::OmniResult
+    len = length(data)
+    
+    if len > MAX_TENSOR_LEN
+        return Err("OMNI_LIMIT: Tensor exceeds maximum length ($MAX_TENSOR_LEN)")
+    end
+    
+    # Process in chunks of 8 for SIMD
+    @inbounds @simd for i in 1:8:(len - 7)
+        x = Vec{8, Float32}(Tuple(data[i:i+7]))
+        # Fast sigmoid approximation for SIMD
+        # sigmoid(x) ≈ 0.5 * (x / (1 + |x|) + 1)
+        abs_x = abs(x)
+        sig = 0.5f0 * (x / (1.0f0 + abs_x) + 1.0f0)
+        res = x * sig
+        
+        # Write back
+        for j in 1:8
+            data[i+j-1] = res[j]
+        end
+    end
+    
+    # Handle remainder
+    rem_start = len - (len % 8) + 1
+    @inbounds for i in rem_start:len
+        x = data[i]
+        data[i] = x * (1.0f0 / (1.0f0 + exp(-x)))
+    end
+    
+    return Ok(nothing)
+end
+
+end

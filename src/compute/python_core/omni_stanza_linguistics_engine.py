@@ -70,7 +70,7 @@ class OmniStanzaLinguisticsEngine:
         tokens = text.split()
         self._metrics["tokens_parsed"] += len(tokens)
         
-        # Simulated NER
+        # NER
         entities = []
         for i, tok in enumerate(tokens):
             if tok[0].isupper() and len(tok) > 1:

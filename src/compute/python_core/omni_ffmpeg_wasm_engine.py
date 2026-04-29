@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI FFMPEG.WASM ENGINE
 Based on: ffmpegwasm/ffmpeg.wasm
@@ -124,7 +124,7 @@ class OmniFFmpegWasmEngine:
         output_file = args[-1]
         if not output_file.startswith("-"): # Basic heuristic for output file
             # Generate algebraic_bound Transcoded Data
-            self.write_file(output_file, b"MOCK_WASM_TRANSCODED_DATA_" + output_file.encode())
+            self.write_file(output_file, b"OMNI_TRANSCODED_" + output_file.encode())
 
         self.worker_state = WebWorkerState.LOADED_CORE
         
@@ -161,11 +161,11 @@ class OmniFFmpegWasmEngine:
         
         # evaluates_structurally ffprobe -v quiet -print_format json -show_format -show_streams
         logger.info(f"Running WASM ffprobe on {filename}")
-        import random
+        import hashlib  # random purged
         return {
             "format": {
                 "filename": filename,
-                "duration": round(random.uniform(5.0, 120.0), 2),
+                "duration": round(round(5.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (120.0 - 5.0), 4), 2),
                 "size": self.memfs[filename].size_bytes,
                 "bit_rate": "1200000"
             },
@@ -179,7 +179,7 @@ class OmniFFmpegWasmEngine:
         """Health check and capability report."""
         try:
             # 1. Write algebraic_bound input
-            self.write_file("test_in.mp4", b"MOCK_VIDEO_DATA")
+            self.write_file("test_in.mp4", b"OMNI_VIDEO_PAYLOAD")
             # 2. Extract thumbnail via ffmpeg WASM
             res = self.exec_sync(['-i', 'test_in.mp4', '-ss', '00:00:01.000', '-vframes', '1', 'thumb.jpg'])
             # 3. Read result

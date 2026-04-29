@@ -62,7 +62,7 @@ class HamiltonGraph:
 
     def add_module(self, module_dict: Dict[str, Callable]) -> Result:
         """
-        Parses a simulated module dictionary to construct nodes based on signatures.
+        Parses a module dictionary to construct nodes based on signatures.
         """
         for func_name, func in module_dict.items():
             if not inspect.isfunction(func):

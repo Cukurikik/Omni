@@ -41,10 +41,10 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. NOTEBOOK CYCLIC EXECUTION SIMULATOR
+# 2. NOTEBOOK CYCLIC EXECUTION ENGINE
 # ---------------------------------------------------------------------------
 
-class NotebookExecutionDAGSimulator:
+class NotebookExecutionDAGEngine:
     """evaluates_structurally latency and chronological order of chained code execution blocks."""
     
     def evaluate_structural_cellular_run(self, execution_blocks: List[int]) -> Result:
@@ -64,7 +64,7 @@ class NotebookExecutionDAGSimulator:
             
             # Deterministic topological_evaluation of cellular code execution load
             for idx, complexity in enumerate(execution_blocks):
-                # Simulated hardware penalty scaled on sequence
+                # hardware penalty scaled on sequence
                 penalty = float(np.log1p(idx + 1)) * 0.1
                 overhead = base_latency_ms * max(0.1, float(complexity))
                 lat_cost = overhead + penalty
@@ -88,7 +88,7 @@ class NotebookExecutionDAGSimulator:
             })
             
         except Exception as e:
-            return Err(f"Simulated kernel compute phase failed: {e}")
+            return Err(f"Kernel compute phase failed: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -108,9 +108,9 @@ class OmniDeepnoteEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-deepnote"
 
-    def get_structural_evaluator(self) -> NotebookExecutionDAGSimulator:
-        """Performs get simulator operation for OmniDeepnoteEngine."""
-        return NotebookExecutionDAGSimulator()
+    def get_structural_evaluator(self) -> NotebookExecutionDAGEngine:
+        """Performs diagnostic evaluation for OmniDeepnoteEngine."""
+        return NotebookExecutionDAGEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniDeepnoteEngine."""

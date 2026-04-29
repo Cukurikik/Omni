@@ -5,7 +5,7 @@ Production-grade OMNI engine abstracting cloud platform training logic.
 Inspired by aws/sagemaker-python-sdk.
 
 Features:
-- Simulated Cloud Estimator instantiation.
+- Cloud Estimator instantiation.
 - Fit orchestration topological_evaluation (model training on remote instances).
 - Deployment orchestration (abstracting inference endpoint generation).
 - Monadic Result encapsulation preventing runtime trace crashes.
@@ -151,7 +151,7 @@ class OmniSagemakerSdkEngine:
             "training_jobs_recorded": len(self.active_jobs),
             "active_endpoints": len(self.endpoints),
             "features": [
-                "remote_estimator_fit_simulation",
+                "remote_estimator_fit_computation",
                 "endpoint_deployment_orchestration",
                 "s3_uri_validation",
             ]

@@ -6,7 +6,7 @@ class OmniNexaResearchAgentEngine:
     """
     Nexa_Research_Agent
     
-    A pure structural sorting metric constraints simulator validating research geometries limits arrays!
+    A pure structural sorting metric constraints engine validating research geometries limits arrays!
     """
     
     ENGINE_VERSION = "omni-s11-b9.1.0"

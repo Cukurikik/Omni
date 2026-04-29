@@ -1,0 +1,41 @@
+# OMNI GraphQL Business Layer: Kiln-AI Evaluation Schema
+# Strongly typed schema for interacting with the AI Agent evaluation system.
+
+type EvaluationMetric {
+    name: String!
+    score: Float!
+    weight: Float!
+}
+
+type EvaluationResult {
+    id: ID!
+    promptId: String!
+    candidateResponse: String!
+    expectedResponse: String
+    isAcceptable: Boolean!
+    metrics: [EvaluationMetric!]!
+    timestamp: String!
+}
+
+type EvaluationReport {
+    totalEvaluations: Int!
+    passRate: Float!
+    history: [EvaluationResult!]!
+}
+
+input EvaluationRequest {
+    prompt: String!
+    candidate: String!
+    expected: String!
+    metricsToRun: [String!]!
+}
+
+type Query {
+    getEvaluationReport(datasetId: String!): EvaluationReport!
+    getSpecificEvaluation(evalId: ID!): EvaluationResult
+}
+
+type Mutation {
+    runAgentEvaluation(input: EvaluationRequest!): EvaluationResult!
+    clearEvaluationHistory(datasetId: String!): Boolean!
+}

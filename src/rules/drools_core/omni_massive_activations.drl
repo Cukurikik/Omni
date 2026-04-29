@@ -1,0 +1,29 @@
+// Omni Massive Activations (Drools)
+// Rules Layer: Business rule engine enforcement for activation clipping thresholds.
+
+package omni.activations;
+
+global Float threshold;
+
+declare ActivationTensor
+    id : String
+    maxActivation : Float
+    clipped : Boolean
+end
+
+rule "Clip Massive Activations"
+when
+    $tensor : ActivationTensor( maxActivation > threshold, clipped == false )
+then
+    modify($tensor) {
+        setClipped(true);
+    }
+    System.out.println("OMNI: Massive activation clipped for tensor " + $tensor.getId());
+end
+
+rule "Validate Safe Activations"
+when
+    $tensor : ActivationTensor( maxActivation <= threshold, clipped == false )
+then
+    System.out.println("OMNI: Activation safe for tensor " + $tensor.getId());
+end

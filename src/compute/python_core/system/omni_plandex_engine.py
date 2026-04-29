@@ -204,6 +204,6 @@ if __name__ == "__main__":
     # Apply
     print(json.dumps(eng.apply_plan(), indent=2))
     
-    # Cleanup dummy file
+    # Cleanup temp file
     if os.path.exists("test_hello.py"):
         os.remove("test_hello.py")

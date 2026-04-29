@@ -362,7 +362,7 @@ class LockFreeRingBuffer:
         self._overruns: int = 0
         self._underruns: int = 0
         self._wrap_count: int = 0
-        # Simulated buffer (in production, this would be mmap'd shared memory)
+        # Buffer (in production, this would be mmap'd shared memory)
         bytes_per_sample = {
             SampleFormat.INT16: 2, SampleFormat.INT24: 3,
             SampleFormat.INT32: 4, SampleFormat.FLOAT32: 4,

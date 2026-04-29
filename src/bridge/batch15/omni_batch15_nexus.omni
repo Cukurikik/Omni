@@ -1,0 +1,42 @@
+# OMNI-NEXUS Batch 15 Integration Bridge
+# Binds Batch 15 engines into the OMNI UAST.
+
+[batch15_nexus]
+version = "3.0.0"
+strict_mode = true
+monadic_enforcement = true
+
+# SYSTEM & CONCURRENCY LAYER
+[[bind]]
+layer = "system_concurrency"
+modules = ["OmniOllamaHerdBalancer", "OmniSiriusTraySystem", "OmniVlmLiveStreamer", "OmniVisionMultiagentRouter"]
+targets = [
+  "src/concurrency/ollama_herd_balancer/omni_ollama_herd_balancer.go",
+  "src/system/sirius_tray/omni_sirius_tray_system.rs",
+  "src/concurrency/vlm_live_streamer/omni_vlm_live_streamer.go",
+  "src/system/vision_multiagent/omni_vision_multiagent.cpp"
+]
+
+# COMPUTE LAYER
+[[bind]]
+layer = "compute"
+modules = [
+  "OmniGen2VideoEngine", "OmniDitsVideoRetrievalEngine", "Omni2DPriors3DEngine",
+  "OmniG2sDepthEstimator", "OmniSimpleVlmEngine", "OmniPerceiverIoEngine",
+  "OmniMultimodalAdapterEngine", "OmniGeniusriseVisionEngine", "OmniLibreFaceEmotionEngine",
+  "OmniMeFasEngine", "OmniStrangerXChatbot"
+]
+target_dir = "src/compute/"
+
+# DOMAIN & UI LAYER
+[[bind]]
+layer = "domain_ui"
+modules = [
+  "OmniEduGeniusDomain", "OmniMedicoVqaSchema", "OmniBotMedRouter", "OmniAiUiUxStore"
+]
+targets = [
+  "src/domain/edu_genius/omni_edu_genius_domain.rb",
+  "src/domain/medico_vqa/omni_medico_vqa_schema.graphql",
+  "src/ui/botmed_router/omni_botmed_router.ts",
+  "src/ui/ai_ui_ux_store/omni_ai_ui_ux_store.ts"
+]

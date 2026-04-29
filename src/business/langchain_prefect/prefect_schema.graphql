@@ -1,0 +1,6 @@
+type PrefectFlow {
+    id: ID!
+    name: String!
+    status: String!
+    langchainTraces: [String!]!
+}

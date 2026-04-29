@@ -1,0 +1,19 @@
+// Omni Interpretability Schema (Protocol Buffers)
+// Integration Layer: Universal binary format for exchanging layer activation data.
+
+syntax = "proto3";
+
+package omni.interpretability;
+
+message LayerActivation {
+    int32 layer_index = 1;
+    float sparsity_score = 2;
+    repeated float principal_components = 3;
+    bool is_massive = 4;
+}
+
+message ModelDiagnostic {
+    string model_id = 1;
+    repeated LayerActivation layers = 2;
+    uint64 timestamp = 3;
+}

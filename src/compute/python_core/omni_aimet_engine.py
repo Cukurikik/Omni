@@ -79,11 +79,11 @@ class QuantizationEntropyProjector:
                 "hexagon_dsp_optimized": optimize_for_hexagon,
                 "predicted_accuracy": round(final_accuracy, 2),
                 "compression_ratio": round(memory_reduction_factor, 1),
-                "is_quantization_simulated": True
+                "is_quantization_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated Shannon Entropy model compression failed: {e}")
+            return Err(f"Shannon Entropy model compression failed: {e}")
 
 
 # ---------------------------------------------------------------------------

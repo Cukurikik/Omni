@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI AI LEARNING CURRICULUM ENGINE (SEMESTER 5 — BATCH 16)
 // ===========================================================================
 // Absorbed From  : tangyudi/Ai-Learn
@@ -102,6 +102,17 @@ export class OmniAiLearningCurriculumEngine {
             modules: this.curriculum.length,
             stages: [...new Set(this.curriculum.map((m) => m.stage))],
             learned_from: "tangyudi/Ai-Learn",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAiLearningCurriculumEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

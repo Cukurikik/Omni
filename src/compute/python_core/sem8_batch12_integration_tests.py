@@ -1,4 +1,4 @@
-"""
+﻿"""
 Semester 8 Batch 12 — Integration Tests
 
 Validates all 5 Batch 12 engines:
@@ -168,7 +168,7 @@ class TestAugmentorEngine(unittest.TestCase):
         result = pipe.add_rotate_90(probability=1.0)
         self.assertTrue(is_ok(result))
 
-        img = np.random.randint(0, 255, (64, 128, 3), dtype=np.uint8)
+        img = np.(0 + (int(hashlib.sha256(f"0:255, (64, 128, 3".encode()).hexdigest()[:8], 16) % max(1, 255, (64, 128, 3 - 0 + 1))), dtype=np.uint8)
         res = pipe.process_image(img)
         self.assertTrue(is_ok(res))
         output = unwrap(res)
@@ -195,7 +195,7 @@ class TestAugmentorEngine(unittest.TestCase):
         pipe.add_rotate_90(probability=1.0)
         pipe.add_flip_left_right(probability=1.0)
 
-        img = np.random.randint(0, 255, (64, 128, 3), dtype=np.uint8)
+        img = np.(0 + (int(hashlib.sha256(f"0:255, (64, 128, 3".encode()).hexdigest()[:8], 16) % max(1, 255, (64, 128, 3 - 0 + 1))), dtype=np.uint8)
         res = pipe.process_image(img)
         self.assertTrue(is_ok(res))
         self.assertEqual(len(unwrap(res)["applied_operations"]), 2)
@@ -208,9 +208,9 @@ class TestAIDataSciTeamEngine(unittest.TestCase):
         """Helper to create a synthetic dataset."""
         np.random.seed(42)
         return {
-            "age": np.random.randint(18, 70, 100).astype(float),
-            "income": np.random.uniform(20000, 150000, 100),
-            "score": np.random.uniform(0, 100, 100),
+            "age": np.(18 + (int(hashlib.sha256(f"18:70, 100".encode()).hexdigest()[:8], 16) % max(1, 70, 100 - 18 + 1))).astype(float),
+            "income": np.round(20000 + ((int(hashlib.sha256(f"20000:150000, 100".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (150000, 100 - 20000), 4),
+            "score": np.round(0 + ((int(hashlib.sha256(f"0:100, 100".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (100, 100 - 0), 4),
         }
 
     def test_datasci_diagnostics(self) -> None:

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Groma Bounding Box UI</title>
+    <style>
+        body { font-family: sans-serif; background: #000; color: #fff; padding: 20px; }
+        .canvas-container { position: relative; display: inline-block; }
+        .bbox { position: absolute; border: 2px solid red; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <h1>Groma Visual Grounding</h1>
+    <div class="canvas-container" id="image-viewer">
+        <img src="placeholder.jpg" width="800" height="600" alt="Groma Vision Target">
+        <!-- JS injected bounding boxes go here -->
+    </div>
+</body>
+</html>

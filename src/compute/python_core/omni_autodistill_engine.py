@@ -61,7 +61,7 @@ class DistillationRetentionEstimator:
             # A 10x parameter drop might lose 3% accuracy.
             ratio = float(student_params) / float(teacher_params)
             
-            # Simulated formula for accuracy decay
+            # Formula for accuracy decay
             # Penalty increases drastically as ratio drops below 1%
             penalty = -0.05 * np.log10(ratio)
             penalty = max(0.0, float(penalty))
@@ -83,7 +83,7 @@ class DistillationRetentionEstimator:
             })
             
         except Exception as e:
-            return Err(f"Simulated model distillation decay mapping failed: {e}")
+            return Err(f"Model distillation decay mapping failed: {e}")
 
 
 # ---------------------------------------------------------------------------

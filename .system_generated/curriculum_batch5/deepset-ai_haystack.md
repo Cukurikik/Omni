@@ -3,10 +3,11 @@
 
 |         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| CI/CD   | [![Tests](https://github.com/deepset-ai/haystack/actions/workflows/tests.yml/badge.svg)](https://github.com/deepset-ai/haystack/actions/workflows/tests.yml) [![types - Mypy](https://img.shields.io/badge/types-Mypy-blue.svg)](https://github.com/python/mypy) [![Coverage Status](https://coveralls.io/repos/github/deepset-ai/haystack/badge.svg?branch=main)](https://coveralls.io/github/deepset-ai/haystack?branch=main) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) |
+| CI/CD   | [![Tests](https://github.com/deepset-ai/haystack/actions/workflows/tests.yml/badge.svg)](https://github.com/deepset-ai/haystack/actions/workflows/tests.yml) [![types - Mypy](https://img.shields.io/badge/types-Mypy-blue.svg)](https://github.com/python/mypy) [![Coverage Status](https://coveralls.io/repos/github/deepset-ai/haystack/badge.svg?branch=main)](https://coveralls.io/github/deepset-ai/haystack?branch=main) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)                                                                                                                                         |
 | Docs    | [![Website](https://img.shields.io/website?label=documentation&up_message=online&url=https%3A%2F%2Fdocs.haystack.deepset.ai)](https://docs.haystack.deepset.ai)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | Package | [![PyPI](https://img.shields.io/pypi/v/haystack-ai)](https://pypi.org/project/haystack-ai/) ![PyPI - Downloads](https://img.shields.io/pypi/dm/haystack-ai?color=blue&logo=pypi&logoColor=gold) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/haystack-ai?logo=python&logoColor=gold) [![Conda Version](https://img.shields.io/conda/vn/conda-forge/haystack-ai.svg)](https://anaconda.org/conda-forge/haystack-ai) [![GitHub](https://img.shields.io/github/license/deepset-ai/haystack?color=blue)](LICENSE) [![License Compliance](https://github.com/deepset-ai/haystack/actions/workflows/license_compliance.yml/badge.svg)](https://github.com/deepset-ai/haystack/actions/workflows/license_compliance.yml) |
-| Meta    | [![Discord](https://img.shields.io/discord/993534733298450452?logo=discord)](https://discord.com/invite/xYvH6drSmA) [![Twitter Follow](https://img.shields.io/twitter/follow/haystack_ai)](https://twitter.com/haystack_ai)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Meta    | [![Discord](https://img.shields.io/discord/993534733298450452?logo=discord)](https://discord.com/invite/xYvH6drSmA) [![Twitter Follow](https://img.shields.io/twitter/follow/haystack_ai)](https://twitter.com/haystack_ai)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+
 </div>
 
 [Haystack](https://haystack.deepset.ai/) is an open-source AI orchestration framework for building production-ready LLM applications in Python.
@@ -24,7 +25,6 @@ Design modular pipelines and agent workflows with explicit control over retrieva
 - [Contributing to Haystack](#contributing-to-haystack)
 - [Organizations using Haystack](#organizations-using-haystack)
 
-
 ## Installation
 
 The simplest way to get Haystack is via pip:
@@ -34,6 +34,7 @@ pip install haystack-ai
 ```
 
 Install nightly pre-releases to try the newest features:
+
 ```sh
 pip install --pre haystack-ai
 ```
@@ -66,7 +67,7 @@ Use built-in components for retrieval, indexing, tool calling, memory, and evalu
 Build and share custom components through a consistent interface that makes it easy for the community and third parties to extend Haystack and contribute to an open ecosystem.
 
 > [!TIP]
-> 
+>
 > Would you like to deploy and serve Haystack pipelines as **REST APIs** or **MCP servers**? [Hayhooks](https://github.com/deepset-ai/hayhooks) provides a simple way for you to wrap pipelines and agents with custom logic and expose them through HTTP endpoints or MCP. It also supports OpenAI-compatible chat completion endpoints and works with chat UIs like [open-webui](https://openwebui.com/).
 
 ## Haystack Enterprise: Support & Platform
@@ -94,12 +95,13 @@ If you have a feature request or a bug report, feel free to open an [issue in Gi
 We are very open to the community's contributions - be it a quick fix of a typo, or a completely new feature! You don't need to be a Haystack expert to provide meaningful improvements. To learn how to get started, check out our [Contributor Guidelines](https://github.com/deepset-ai/haystack/blob/main/CONTRIBUTING.md) first.
 
 There are several ways you can contribute to Haystack:
+
 - Contribute to the main Haystack project
 - Contribute an integration on [haystack-core-integrations](https://github.com/deepset-ai/haystack-core-integrations)
 - Contribute to the documentation in [haystack/docs-website](https://github.com/deepset-ai/haystack/tree/main/docs-website)
 
 > [!TIP]
->👉 **[Check out the full list of issues that are open to contributions](https://github.com/orgs/deepset-ai/projects/14)**
+> 👉 **[Check out the full list of issues that are open to contributions](https://github.com/orgs/deepset-ai/projects/14)**
 
 ## Organizations using Haystack
 
@@ -109,6 +111,5 @@ Haystack is used by thousands of teams building production AI systems across ind
 - **Public Sector AI Initiatives**: [European Commission](https://commission.europa.eu/index_en), [German Federal Ministry of Research, Technology, and Space (BMFTR)](https://www.deepset.ai/case-studies/german-federal-ministry-research-technology-space-bmftr), [PD, Baden-Württemberg State](https://www.pd-g.de/)
 - **Enterprise & Industrial AI Applications**: [Airbus](https://www.deepset.ai/case-studies/airbus), [Lufthansa Industry Solutions](https://haystack.deepset.ai/blog/lufthansa-user-story), [Infineon](https://www.infineon.com/), [LEGO](https://github.com/larsbaunwall/bricky#readme), [Comcast](https://arxiv.org/html/2405.00801v2), [Accenture](https://www.accenture.com/), [TELUS Agriculture & Consumer Goods](https://www.telus.com/agcg/en)
 - **Knowledge & Content Platforms**: [Netflix](https://netflix.com), [ZEIT Online](https://www.deepset.ai/case-studies/zeit-online), [Rakuten](https://www.rakuten.com/), [Oxford University Press](https://corp.oup.com/), [Manz](https://www.deepset.ai/case-studies/manz), [YPulse](https://www.deepset.ai/case-studies/ypulse)
-
 
 Are you also using Haystack? Open a PR or [tell us your story](https://forms.gle/Mm3G1aEST3GAH2rn8)

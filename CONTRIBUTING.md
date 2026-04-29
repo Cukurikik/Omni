@@ -29,16 +29,19 @@ Proyek ini mengikuti [Code of Conduct](CODE_OF_CONDUCT.md) kami. Dengan berparti
 ## Cara Berkontribusi
 
 ### 🐛 Melaporkan Bug
+
 1. Periksa [Issues](https://github.com/Cukurikik/Omni/issues) apakah bug sudah dilaporkan
 2. Buat issue baru dengan template bug report
 3. Sertakan langkah reproduksi, expected behavior, dan actual behavior
 
 ### 💡 Mengajukan Fitur
+
 1. Buka [Discussions](https://github.com/Cukurikik/Omni/discussions) untuk diskusi awal
 2. Jika disetujui, buat issue dengan label `enhancement`
 3. Tunggu approval dari core maintainer sebelum mulai koding
 
 ### 🔧 Mengirim Kode
+
 1. Fork repository
 2. Buat branch dari `main` dengan nama deskriptif
 3. Tulis kode sesuai coding standards
@@ -92,6 +95,7 @@ node bin/omni.mjs --version
 ### OMNI Strict Rules (WAJIB)
 
 #### 1. Monadic Error Handling
+
 ```omni
 // ❌ DILARANG
 try {
@@ -109,6 +113,7 @@ fn process_payment(req: Request) -> Result<Receipt, PaymentError> {
 ```
 
 #### 2. Domain Layer Segregation
+
 ```
 src/
 ├── ui/           → HANYA TypeScript, HTML, Swift
@@ -119,6 +124,7 @@ src/
 ```
 
 #### 3. Immutable by Default
+
 ```omni
 // Default: immutable
 val config: AppConfig = load_config()
@@ -128,6 +134,7 @@ mutable var counter: AtomicU64 = AtomicU64::new(0)
 ```
 
 #### 4. Zero-Copy untuk Data >1MB
+
 ```omni
 // ❌ SALAH — copy data besar
 fn transfer(data: Vec<u8>) { ... }
@@ -137,16 +144,19 @@ fn transfer(data: &[u8]) -> Result<(), IOError> { ... }
 ```
 
 ### Go Standards
+
 - Gunakan `gofmt` untuk formatting
 - Semua error harus di-handle (no `_` untuk error)
 - Gunakan `context.Context` untuk cancellation
 
 ### Rust Standards
+
 - Gunakan `rustfmt` dan `clippy`
 - Prefer `&str` over `String` untuk function parameters
 - Dokumentasikan semua public items
 
 ### TypeScript Standards
+
 - Strict mode aktif (`"strict": true`)
 - Prefer `interface` over `type` untuk object shapes
 - No `any` — gunakan `unknown` jika tipe belum diketahui
@@ -167,28 +177,28 @@ Kami menggunakan [Conventional Commits](https://www.conventionalcommits.org/):
 
 ### Types
 
-| Type | Deskripsi |
-|------|-----------|
-| `feat` | Fitur baru |
-| `fix` | Bug fix |
-| `docs` | Perubahan dokumentasi |
-| `style` | Formatting, titik koma, dll (bukan perubahan logika) |
-| `refactor` | Refactoring tanpa perubahan fungsional |
-| `perf` | Peningkatan performa |
-| `test` | Menambah/memperbaiki test |
-| `chore` | Maintenance tasks |
+| Type       | Deskripsi                                            |
+| ---------- | ---------------------------------------------------- |
+| `feat`     | Fitur baru                                           |
+| `fix`      | Bug fix                                              |
+| `docs`     | Perubahan dokumentasi                                |
+| `style`    | Formatting, titik koma, dll (bukan perubahan logika) |
+| `refactor` | Refactoring tanpa perubahan fungsional               |
+| `perf`     | Peningkatan performa                                 |
+| `test`     | Menambah/memperbaiki test                            |
+| `chore`    | Maintenance tasks                                    |
 
 ### Scopes
 
-| Scope | Area |
-|-------|------|
-| `core` | omni-runtime/core |
-| `api` | Go API Gateway |
-| `cli` | OMNI CLI tools |
-| `nexus` | Package registry |
-| `ui` | Dashboard UI |
-| `docs` | Documentation |
-| `ci` | CI/CD pipeline |
+| Scope   | Area              |
+| ------- | ----------------- |
+| `core`  | omni-runtime/core |
+| `api`   | Go API Gateway    |
+| `cli`   | OMNI CLI tools    |
+| `nexus` | Package registry  |
+| `ui`    | Dashboard UI      |
+| `docs`  | Documentation     |
+| `ci`    | CI/CD pipeline    |
 
 ### Contoh
 
@@ -211,27 +221,34 @@ test(core): add unit tests for lexer module
 5. **Gunakan merge commit** (bukan rebase) untuk PR merge
 
 ### PR Title Format
+
 Sama dengan commit convention:
+
 ```
 feat(core): deskripsi singkat perubahan
 ```
 
 ### PR Template
+
 ```markdown
 ## Deskripsi
+
 Jelaskan perubahan yang dilakukan.
 
 ## Jenis Perubahan
+
 - [ ] Fitur baru (non-breaking)
 - [ ] Bug fix (non-breaking)
 - [ ] Breaking change
 
 ## Testing
+
 - [ ] Unit test ditambahkan/diperbarui
 - [ ] Test lokal berhasil
 - [ ] CI pipeline hijau
 
 ## Checklist
+
 - [ ] Kode mengikuti coding standards
 - [ ] Dokumentasi diperbarui
 - [ ] Tidak ada console.log/println debugging
@@ -253,6 +270,7 @@ omni test --all --coverage
 ```
 
 ### Testing Requirements
+
 - Semua fungsi publik **WAJIB** memiliki minimal 1 unit test
 - Coverage target: **80%** untuk core modules
 - Integration test untuk setiap API endpoint
@@ -284,4 +302,4 @@ pub fn process_payment(req: PaymentRequest) -> Result<Receipt, PaymentError> {
 
 Setiap kontribusi, sekecil apapun, sangat berarti bagi perkembangan OMNI Framework. Kami menghargai waktu dan usaha Anda!
 
-> *"The singularity is not a destination — it's a collaboration."* — OMNI Core Team
+> _"The singularity is not a destination — it's a collaboration."_ — OMNI Core Team

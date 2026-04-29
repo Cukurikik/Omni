@@ -1,0 +1,13 @@
+module Indexer
+
+using OmniStd
+
+function index_documents(docs::Vector{String})::Result{Int, Exception}
+    if isempty(docs)
+        return Err(ErrorException("No documents to index"))
+    end
+    # Native SIMD string parsing here
+    return Ok(length(docs))
+end
+
+end

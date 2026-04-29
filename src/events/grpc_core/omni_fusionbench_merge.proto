@@ -1,0 +1,19 @@
+// Omni FusionBench Merge Event (gRPC proto)
+// Ref: tanganke/fusion_bench — MIT
+syntax = "proto3";
+package omni.fusionbench;
+service ModelMergeService {
+  rpc MergeModels (MergeRequest) returns (MergeResponse);
+}
+message MergeRequest {
+  string method = 1;
+  float scaling = 2;
+  repeated string model_paths = 3;
+  string output_path = 4;
+}
+message MergeResponse {
+  string output_path = 1;
+  float conflict_rate = 2;
+  int64 total_params = 3;
+  string status = 4;
+}

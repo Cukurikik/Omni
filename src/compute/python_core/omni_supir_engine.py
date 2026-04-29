@@ -439,7 +439,7 @@ class MultiScaleFeatureExtractor:
         self.num_scales = num_scales
         self.base_channels = base_channels
 
-        # Simulated conv weights per scale
+        # conv weights per scale
         self.encoder_weights = []
         self.decoder_weights = []
         for s in range(num_scales):

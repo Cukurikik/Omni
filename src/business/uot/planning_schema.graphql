@@ -1,0 +1,5 @@
+type PlanningState {
+    id: ID!
+    entropy: Float!
+    recommendedAction: String!
+}

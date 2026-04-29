@@ -29,7 +29,7 @@ class OmniSupervisionEngine:
                 
             self.active_frame_buffer = True
             
-            # Simulated supervision.VideoInfo interaction
+            # supervision.VideoInfo interaction
             return {
                 "status": "success",
                 "total_frames": 1800,

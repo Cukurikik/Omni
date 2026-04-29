@@ -190,11 +190,11 @@ class OmniDetoxEngine:
                                               DevicePlatform.IOS, "17.4")
         self.suites: List[TestSuite] = []
         self.current_steps: List[TestStep] = []
-        self._ui_tree: Dict[str, Dict] = {}  # simulated UI tree
+        self._ui_tree: Dict[str, Dict] = {}  # UI tree
         self._sync_pending = False
 
     def register_ui(self, elements: Dict[str, Dict]):
-        """Register simulated UI elements for testing."""
+        """Register UI elements for testing."""
         self._ui_tree.update(elements)
 
     def _execute_step(self, step: TestStep) -> bool:
@@ -321,7 +321,7 @@ if __name__ == "__main__":
 
     engine = OmniDetoxEngine()
 
-    # Register simulated UI
+    # Register UI
     engine.register_ui({
         "email": {"type": "TextInput", "visible": True, "text": ""},
         "password": {"type": "TextInput", "visible": True, "text": ""},

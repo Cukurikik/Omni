@@ -95,21 +95,21 @@ class Placeholder:
             try:
                 int(value)
             except (ValueError, TypeError):
-                return _err(f"Placeholder '{self.name}' expects integer, got '{type(value).__name__}'")
+                return _err(f"Parameter '{self.name}' expects integer, got '{type(value).__name__}'")
         elif self.ptype == PlaceholderType.FLOAT:
             try:
                 float(value)
             except (ValueError, TypeError):
-                return _err(f"Placeholder '{self.name}' expects float")
+                return _err(f"Parameter '{self.name}' expects float")
         elif self.ptype == PlaceholderType.JSON:
             if isinstance(value, str):
                 try:
                     json.loads(value)
                 except json.JSONDecodeError:
-                    return _err(f"Placeholder '{self.name}' expects valid JSON")
+                    return _err(f"Parameter '{self.name}' expects valid JSON")
         elif self.ptype == PlaceholderType.LIST:
             if not isinstance(value, (list, tuple)):
-                return _err(f"Placeholder '{self.name}' expects list")
+                return _err(f"Parameter '{self.name}' expects list")
         return _ok(value)
 
 

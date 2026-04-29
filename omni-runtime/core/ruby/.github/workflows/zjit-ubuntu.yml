@@ -4,12 +4,12 @@ on:
     branches:
       - master
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
     types:
       - opened
@@ -53,36 +53,36 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - test_task: 'check'
-            run_opts: '--zjit-call-threshold=1'
-            specopts: '-T --zjit-call-threshold=1'
-            configure: '--enable-zjit=dev'
+          - test_task: "check"
+            run_opts: "--zjit-call-threshold=1"
+            specopts: "-T --zjit-call-threshold=1"
+            configure: "--enable-zjit=dev"
 
-          - test_task: 'check'
-            run_opts: '--zjit-disable-hir-opt --zjit-call-threshold=1'
-            specopts: '-T --zjit-disable-hir-opt -T --zjit-call-threshold=1'
-            configure: '--enable-zjit=dev'
+          - test_task: "check"
+            run_opts: "--zjit-disable-hir-opt --zjit-call-threshold=1"
+            specopts: "-T --zjit-disable-hir-opt -T --zjit-call-threshold=1"
+            configure: "--enable-zjit=dev"
 
             # The optimizer benefits from at least 1 iteration of profiling. Also, many
             # regression tests in bootstraptest/test_yjit.rb assume call-threshold=2.
-          - test_task: 'btest'
-            run_opts: '--zjit-call-threshold=2'
-            configure: '--enable-zjit=dev'
+          - test_task: "btest"
+            run_opts: "--zjit-call-threshold=2"
+            configure: "--enable-zjit=dev"
 
-          - test_task: 'zjit-check' # zjit-test + quick feedback of test_zjit.rb
-            configure: '--enable-yjit --enable-zjit=dev'
-            rust_version: '1.85.0'
+          - test_task: "zjit-check" # zjit-test + quick feedback of test_zjit.rb
+            configure: "--enable-yjit --enable-zjit=dev"
+            rust_version: "1.85.0"
 
-          - test_task: 'zjit-bindgen'
-            hint: 'To fix: use patch in logs'
+          - test_task: "zjit-bindgen"
+            hint: "To fix: use patch in logs"
             # Build with YJIT+ZJIT for output that works in the most number of configurations
-            configure: '--enable-zjit=dev --enable-yjit --with-gcc=clang-16'
-            clang_path: '/usr/bin/clang-16'
-            runs-on: 'ubuntu-24.04' # for clang-16
+            configure: "--enable-zjit=dev --enable-yjit --with-gcc=clang-16"
+            clang_path: "/usr/bin/clang-16"
+            runs-on: "ubuntu-24.04" # for clang-16
 
-          - test_task: 'test-bundled-gems'
-            configure: '--enable-zjit=dev'
-            run_opts: '--zjit-call-threshold=1'
+          - test_task: "test-bundled-gems"
+            configure: "--enable-zjit=dev"
+            run_opts: "--zjit-call-threshold=1"
 
     env:
       GITPULLOPTIONS: --no-tags origin ${{ github.ref }}
@@ -116,7 +116,7 @@ jobs:
 
       - uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
         with:
-          ruby-version: '3.1'
+          ruby-version: "3.1"
           bundler: none
 
       - uses: taiki-e/install-action@d858f8113943481093e02986a7586a4819a3bfd6 # v2.71.2
@@ -194,12 +194,12 @@ jobs:
             ZJIT_BINDGEN_DIFF_OPTS="$ZJIT_BINDGEN_DIFF_OPTS"
         timeout-minutes: 90
         env:
-          RUBY_TESTOPTS: '-q --tty=no'
-          EXCLUDES: '../src/test/.excludes-zjit'
-          TEST_BUNDLED_GEMS_ALLOW_FAILURES: ''
-          PRECHECK_BUNDLED_GEMS: 'no'
-          SYNTAX_SUGGEST_TIMEOUT: '30'
-          ZJIT_BINDGEN_DIFF_OPTS: '--exit-code'
+          RUBY_TESTOPTS: "-q --tty=no"
+          EXCLUDES: "../src/test/.excludes-zjit"
+          TEST_BUNDLED_GEMS_ALLOW_FAILURES: ""
+          PRECHECK_BUNDLED_GEMS: "no"
+          SYNTAX_SUGGEST_TIMEOUT: "30"
+          ZJIT_BINDGEN_DIFF_OPTS: "--exit-code"
           CLANG_PATH: ${{ matrix.clang_path }}
           LAUNCHABLE_STDOUT: ${{ steps.launchable.outputs.stdout_report_path }}
           LAUNCHABLE_STDERR: ${{ steps.launchable.outputs.stderr_report_path }}
@@ -235,9 +235,9 @@ jobs:
       matrix:
         include:
           # Test --call-threshold=2 with 2 iterations in total
-          - ruby_opts: '--zjit-call-threshold=2'
-            bench_opts: '--warmup=1 --bench=1 --excludes=shipit'
-            configure: '--enable-zjit=dev_nodebug' # --enable-zjit=dev is too slow
+          - ruby_opts: "--zjit-call-threshold=2"
+            bench_opts: "--warmup=1 --bench=1 --excludes=shipit"
+            configure: "--enable-zjit=dev_nodebug" # --enable-zjit=dev is too slow
 
     runs-on: ubuntu-24.04
 

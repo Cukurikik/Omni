@@ -128,4 +128,3 @@ jobs:
             `;
             core.info(`Comment: ${comment}`);
             await postComment(comment, pr);
-

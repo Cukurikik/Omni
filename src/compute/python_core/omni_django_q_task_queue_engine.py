@@ -29,7 +29,7 @@ class OmniDjangoQTaskQueueEngine:
             valid_tasks = []
             error_count = 0
             
-            # Simulated mathematical mapping limits tracing bounds metrics arrays structures limits Numerical mappings Limits Arrays Loops Limit mapping variables strings logic geometries mappings loops arrays Strings limits Numerical Maps
+            # Mathematical mapping limits tracing bounds metrics arrays structures limits Numerical mappings Limits Arrays Loops Limit mapping variables strings logic geometries mappings loops arrays Strings limits Numerical Maps
             for idx, task in enumerate(tasks):
                 tid = task.get("task_id")
                 pri = task.get("priority")

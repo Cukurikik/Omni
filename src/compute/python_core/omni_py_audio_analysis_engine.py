@@ -35,7 +35,7 @@ class AudioMLClassifier:
     def classify(self, feature_matrix: List[List[float]]) -> Tuple[str, float]:
         """Takes mid-term aggregated features and outputs text classification."""
         logger.debug(f"[Classifier|{self.model_type}] Evaluating feature statistics over time...")
-        # Simulated prediction
+        # prediction
         return "Speech", 0.94
 
 

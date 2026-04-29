@@ -38,7 +38,7 @@ class OmniBossSensorEngine:
     def __init__(self, target_embedding: np.ndarray = None, threshold: float = 0.85):
         """Initialize OmniBossSensorEngine."""
         if target_embedding is None:
-            # Default to a generic simulated normalized face embedding vector length of 128
+            # Default to a generic Normalized face embedding vector length of 128
             np.random.seed(999)
             target = np.random.randn(128).astype(np.float32)
             self.target_embedding = target / np.linalg.norm(target)
@@ -83,7 +83,7 @@ class OmniBossSensorEngine:
             best_similarity = -1.0
             best_box = None
             
-            # Simulated Haar Cascade / Sliding Window over frame matrix
+            # Haar Cascade / Sliding Window over frame matrix
             for y in range(0, H - self.patch_size + 1, stride):
                 for x in range(0, W - self.patch_size + 1, stride):
                     patch = image[y:y+self.patch_size, x:x+self.patch_size, :]

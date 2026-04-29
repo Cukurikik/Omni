@@ -7,7 +7,7 @@ class OmniCPPAlgorithmAnalysisEngine:
     omni-cpp-algorithm-analysis
     
     A pure algebraic computing bound engine estimating the computational complexity constraints of
-    structural iterative limits (Binary Search simulations) scaling matrices limits constraints!
+    structural iterative limits (Binary Search computations) scaling matrices limits constraints!
     """
     
     ENGINE_VERSION = "omni-s11-b7.1.0"
@@ -30,7 +30,7 @@ class OmniCPPAlgorithmAnalysisEngine:
             left = 0
             right = array_size - 1
             
-            # Simulated mathematical boundaries
+            # Mathematical boundaries
             path_trace = []
             
             while left <= right:

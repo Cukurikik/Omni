@@ -3,12 +3,12 @@ name: Ubuntu on WSL
 on:
   push:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
     # Do not use paths-ignore for required status checks
     # https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/troubleshooting-required-status-checks#handling-skipped-but-required-checks
@@ -38,9 +38,9 @@ jobs:
       - name: Install dependencies
         uses: Ubuntu/WSL/.github/actions/wsl-bash@main
         with:
-         distro: Ubuntu-24.04
-         working-dir: /tmp/github/
-         exec: |
+          distro: Ubuntu-24.04
+          working-dir: /tmp/github/
+          exec: |
             DEBIAN_FRONTEND=noninteractive sudo apt update
             DEBIAN_FRONTEND=noninteractive sudo apt install -y ruby build-essential autoconf libssl-dev libyaml-dev zlib1g-dev libgmp-dev libffi-dev
 
@@ -54,9 +54,9 @@ jobs:
       - name: Build
         uses: Ubuntu/WSL/.github/actions/wsl-bash@main
         with:
-         distro: Ubuntu-24.04
-         working-dir: /tmp/github/
-         exec: |
+          distro: Ubuntu-24.04
+          working-dir: /tmp/github/
+          exec: |
             ./autogen.sh
             ./configure --disable-install-doc
             make ruby -j4
@@ -66,8 +66,8 @@ jobs:
       - name: Test
         uses: Ubuntu/WSL/.github/actions/wsl-bash@main
         with:
-         distro: Ubuntu-24.04
-         working-dir: /tmp/github/
-         exec: |
+          distro: Ubuntu-24.04
+          working-dir: /tmp/github/
+          exec: |
             ./ruby -v
             # make check TESTS="-j4" MSPECOPT="-j"

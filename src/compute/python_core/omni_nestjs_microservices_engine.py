@@ -28,7 +28,7 @@ class OmniNestjsMicroservicesEngine:
             dropped_patterns = []
             total_bytes = 0
             
-            # Simulated mathematical mapping constraints natively bounding logic structures string variables loops
+            # Mathematical mapping constraints natively bounding logic structures string variables loops
             for idx, msg in enumerate(incoming_messages):
                 pattern = msg.get("pattern")
                 p_bytes = int(msg.get("payload_bytes", 0))

@@ -1,0 +1,15 @@
+# Omni Libre Chat Provisioning (Ansible)
+# Infrastructure Layer: Self-hosted LLM chat server setup.
+# Ref: vemonet/libre-chat
+
+- name: Configure Libre Chat Nodes
+  hosts: chat_nodes
+  become: yes
+  tasks:
+    - name: Install Python and pip
+      apt: name=python3-pip state=present
+    - name: Set inference memory limit
+      lineinfile:
+        path: /etc/omni/libre-chat.conf
+        regexp: '^MAX_MODEL_RAM='
+        line: 'MAX_MODEL_RAM=32G'

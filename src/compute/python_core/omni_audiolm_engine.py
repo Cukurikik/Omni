@@ -35,7 +35,7 @@ class OmniAudioLmEngine:
             if not isinstance(semantic_tokens, torch.Tensor):
                 return Err(ValueError("Input must be a torch Tensor."))
                 
-            # Simulate generation of 1 second audio
+            # Generate 1 second audio
             return Ok(torch.randn([1, self.sample_rate]))
         except ImportError:
             return Err(Exception("torch is not installed."))

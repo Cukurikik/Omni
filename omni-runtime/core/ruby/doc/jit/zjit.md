@@ -114,10 +114,11 @@ make -j miniruby
 Note that `--enable-zjit=dev` does a lot of IR validation, which will help to catch errors early but mean compilation and warmup are significantly slower.
 
 The valid values for `--enable-zjit` are, from fastest to slowest:
-* `--enable-zjit`: enable ZJIT in release mode for maximum performance
-* `--enable-zjit=stats`: enable ZJIT in extended-stats mode
-* `--enable-zjit=dev_nodebug`: enable ZJIT in development mode but without slow runtime checks
-* `--enable-zjit=dev`: enable ZJIT in debug mode for development, also enables `RUBY_DEBUG`
+
+- `--enable-zjit`: enable ZJIT in release mode for maximum performance
+- `--enable-zjit=stats`: enable ZJIT in extended-stats mode
+- `--enable-zjit=dev_nodebug`: enable ZJIT in development mode but without slow runtime checks
+- `--enable-zjit=dev`: enable ZJIT in debug mode for development, also enables `RUBY_DEBUG`
 
 ### Regenerate bindings
 
@@ -295,7 +296,7 @@ This metric only appears when ZJIT is built with `--enable-zjit=stats` [or more]
 ### Tracing side exits
 
 `--zjit-trace-exits` records a backtrace every time compiled code takes a
-side exit.  The output is a [Fuchsia Trace Format](https://fuchsia.dev/fuchsia-src/reference/tracing/trace-format)
+side exit. The output is a [Fuchsia Trace Format](https://fuchsia.dev/fuchsia-src/reference/tracing/trace-format)
 (`.fxt`) file written to `/tmp/perfetto-{pid}.fxt`, which can be opened
 directly in [Perfetto UI](https://ui.perfetto.dev/) or queried with the
 [Perfetto trace processor](https://perfetto.dev/docs/quickstart/trace-analysis).
@@ -365,7 +366,8 @@ Note that this disables profiling. To inject interpreter profiles into ZJIT, con
 ```bash
 ./miniruby --zjit --zjit-dump-hir -e "30.times { 1 + 1 }"
 ```
-```
+
+````
 
 ### Viewing HIR in Iongraph
 
@@ -381,7 +383,7 @@ From there, you can use https://mozilla-spidermonkey.github.io/iongraph/ to view
 
 ```bash
 ./miniruby --zjit-debug script.rb
-```
+````
 
 As you might guess from the name, this option is intended mostly for ZJIT developers.
 

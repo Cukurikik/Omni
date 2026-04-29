@@ -1,0 +1,16 @@
+# OMNI Domain Layer - Ludwig Schema
+@schema
+type LudwigFeature {
+  name: String!
+  type: String!
+  encoder: String
+}
+
+type Query {
+  validateFeatures(features: [LudwigFeatureInput!]!): Boolean!
+}
+
+input LudwigFeatureInput {
+  name: String!
+  type: String!
+}

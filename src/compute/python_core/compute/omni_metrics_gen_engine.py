@@ -21,7 +21,7 @@ Key paradigms absorbed from lowlighter/metrics:
 """
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-import json, time, hashlib, random
+import json, time, hashlib
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 from enum import Enum
@@ -75,16 +75,30 @@ BUILTIN_PLUGINS: Dict[str, PluginConfig] = {
 }
 
 class MetricsCollector:
-    """Collects metrics from various sources (simulated)."""
+    """Collects metrics from various sources ."""
+
+    @staticmethod
+    def _hv(seed: str, name: str, low: int, high: int) -> int:
+        """Deterministic integer value derived from SHA-256 hash."""
+        h = int(hashlib.sha256(f"{seed}:{name}".encode()).hexdigest()[:8], 16)
+        return low + (h % (high - low + 1))
+
+    @staticmethod
+    def _hvf(seed: str, name: str, low: float, high: float) -> float:
+        """Deterministic float value derived from SHA-256 hash."""
+        h = int(hashlib.sha256(f"{seed}:{name}".encode()).hexdigest()[:8], 16)
+        return round(low + ((h % 10000) / 10000.0) * (high - low), 1)
+
     def collect_base(self, username: str) -> PluginResult:
+        _s = f"base:{username}"
         return PluginResult("base", [
-            MetricValue("repositories", random.randint(30, 200), "Repos", icon="📦"),
-            MetricValue("stars_received", random.randint(100, 5000), "Stars", icon="⭐"),
-            MetricValue("followers", random.randint(50, 3000), "Followers", icon="👥"),
-            MetricValue("forks", random.randint(10, 500), "Forks", icon="🔱"),
-            MetricValue("commits_year", random.randint(200, 2000), "Commits (year)", icon="📝"),
-            MetricValue("prs_opened", random.randint(20, 300), "PRs Opened", icon="🔀"),
-            MetricValue("issues_opened", random.randint(10, 150), "Issues Opened", icon="🐛"),
+            MetricValue("repositories", self._hv(_s, "repos", 30, 200), "Repos", icon="📦"),
+            MetricValue("stars_received", self._hv(_s, "stars", 100, 5000), "Stars", icon="⭐"),
+            MetricValue("followers", self._hv(_s, "followers", 50, 3000), "Followers", icon="👥"),
+            MetricValue("forks", self._hv(_s, "forks", 10, 500), "Forks", icon="🔱"),
+            MetricValue("commits_year", self._hv(_s, "commits", 200, 2000), "Commits (year)", icon="📝"),
+            MetricValue("prs_opened", self._hv(_s, "prs", 20, 300), "PRs Opened", icon="🔀"),
+            MetricValue("issues_opened", self._hv(_s, "issues", 10, 150), "Issues Opened", icon="🐛"),
         ])
 
     def collect_languages(self, username: str) -> PluginResult:
@@ -95,11 +109,12 @@ class MetricsCollector:
         ])
 
     def collect_habits(self, username: str) -> PluginResult:
+        _s = f"habits:{username}"
         return PluginResult("habits", sections={
-            "active_hours": {h: random.randint(0, 20) for h in range(24)},
+            "active_hours": {h: self._hv(_s, f"hour_{h}", 0, 20) for h in range(24)},
             "active_days": {"Mon": 85, "Tue": 92, "Wed": 78, "Thu": 88, "Fri": 65, "Sat": 30, "Sun": 15},
-            "avg_commits_per_day": round(random.uniform(2.0, 8.0), 1),
-            "most_active_hour": random.randint(9, 17),
+            "avg_commits_per_day": self._hvf(_s, "avg_commits", 2.0, 8.0),
+            "most_active_hour": self._hv(_s, "active_hour", 9, 17),
             "most_active_day": "Tuesday",
         })
 

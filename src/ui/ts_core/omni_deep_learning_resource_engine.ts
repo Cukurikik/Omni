@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI DEEP LEARNING RESOURCE ENGINE (SEMESTER 5 — BATCH 14)
 // ===========================================================================
 // Absorbed From  : ChristosChristofidis/awesome-deep-learning
@@ -146,6 +146,17 @@ export class OmniDeepLearningResourceEngine {
             catalogSize: this.catalog.length,
             foundationalPapers: this.catalog.filter((r) => r.impact === "foundational" && r.category === "paper").length,
             learned_from: "ChristosChristofidis/awesome-deep-learning",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniDeepLearningResourceEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

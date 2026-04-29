@@ -132,7 +132,7 @@ class OmniEmbeddedToolchainEngine:
                 }
                 
             elif operation == "flash":
-                # Simulated hardware flashing
+                # hardware flashing
                 target_ip = data.get("target_ip", "192.168.1.100")
                 await asyncio.sleep(0.05)
                 self._metrics["connected_targets"] += 1

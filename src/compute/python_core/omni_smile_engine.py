@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Smile Engine
 =================
 Production-grade engine for the OMNI Framework.
@@ -66,7 +66,7 @@ class OmniSmileEngine:
         try:
             np.random.seed(42)
             X = np.random.randn(samples, features)
-            y = np.random.randint(0, 5, size=(samples,))
+            y = np.(50 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 50))  # was (0 + (int(hashlib.sha256(f"0:5, size=(samples,".encode()).hexdigest()[:8], 16) % max(1, 5, size=(samples, - 0 + 1))))
             
             rf = RandomForestClassifier(n_estimators=trees, random_state=42, n_jobs=-1)
             rf.fit(X, y)

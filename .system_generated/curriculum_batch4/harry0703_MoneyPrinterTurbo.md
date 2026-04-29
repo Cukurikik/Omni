@@ -31,8 +31,8 @@
 - [x] 完整的 **MVC架构**，代码 **结构清晰**，易于维护，支持 `API` 和 `Web界面`
 - [x] 支持视频文案 **AI自动生成**，也可以**自定义文案**
 - [x] 支持多种 **高清视频** 尺寸
-    - [x] 竖屏 9:16，`1080x1920`
-    - [x] 横屏 16:9，`1920x1080`
+  - [x] 竖屏 9:16，`1080x1920`
+  - [x] 横屏 16:9，`1920x1080`
 - [x] 支持 **批量视频生成**，可以一次生成多个视频，然后选择一个最满意的
 - [x] 支持 **视频片段时长** 设置，方便调节素材切换频率
 - [x] 支持 **中文** 和 **英文** 视频文案
@@ -41,7 +41,7 @@
 - [x] 支持 **背景音乐**，随机或者指定音乐文件，可设置`背景音乐音量`
 - [x] 视频素材来源 **高清**，而且 **无版权**，也可以使用自己的 **本地素材**
 - [x] 支持 **OpenAI**、**Moonshot**、**Azure**、**gpt4free**、**one-api**、**通义千问**、**Google Gemini**、**Ollama**、**DeepSeek**、**MiniMax**、 **文心一言**, **Pollinations**、**ModelScope** 等多种模型接入
-    - 中国用户建议使用 **DeepSeek** 或 **Moonshot** 作为大模型提供商（国内可直接访问，不需要VPN。注册就送额度，基本够用）
+  - 中国用户建议使用 **DeepSeek** 或 **Moonshot** 作为大模型提供商（国内可直接访问，不需要VPN。注册就送额度，基本够用）
 
 ## 视频演示 📺
 
@@ -86,15 +86,14 @@
 - 建议系统：Windows 10 或 MacOS 11.0 以上，或主流 Linux 发行版
 - GPU 不是必需项，但如果你希望本地转录、更快的视频处理或更顺畅的批量生成体验，建议使用带显存的独立显卡
 
-| 项目 | 最低配置 | 推荐配置 | 理想配置 |
-| --- | --- | --- | --- |
-| CPU | 4 核 | 6 到 8 核 | 8 核及以上 |
-| RAM | 4 GB | 8 GB | 16 GB 及以上 |
-| GPU | 非必须 | 4 GB 显存及以上 | 8 GB 显存及以上 |
+| 项目 | 最低配置 | 推荐配置        | 理想配置        |
+| ---- | -------- | --------------- | --------------- |
+| CPU  | 4 核     | 6 到 8 核       | 8 核及以上      |
+| RAM  | 4 GB     | 8 GB            | 16 GB 及以上    |
+| GPU  | 非必须   | 4 GB 显存及以上 | 8 GB 显存及以上 |
 
 - 如果你主要依赖云端 LLM、云端 TTS 和在线素材源，CPU 与内存比 GPU 更重要
 - 如果你启用 `faster-whisper`、批量生成或更重的本地处理链路，GPU 会明显提升速度
-
 
 ## 快速开始 🚀
 
@@ -105,10 +104,10 @@
 - 想要隔离运行环境：优先使用 Docker 部署
 
 ### 在 Google Colab 中运行
+
 免去本地环境配置，点击直接在 Google Colab 中快速体验 MoneyPrinterTurbo
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/harry0703/MoneyPrinterTurbo/blob/main/docs/MoneyPrinterTurbo.ipynb)
-
 
 ### Windows一键启动包
 
@@ -194,6 +193,7 @@ pip install -r requirements.txt
 ```
 
 说明：
+
 - `pyproject.toml` 是主依赖定义文件
 - `uv.lock` 是锁文件，建议默认执行 `uv sync --frozen`
 - `requirements.txt` 仅保留给旧的 `pip` 安装方式兼容使用
@@ -201,15 +201,15 @@ pip install -r requirements.txt
 #### ② 安装好 ImageMagick
 
 - Windows:
-    - 下载 https://imagemagick.org/script/download.php 选择Windows版本，切记一定要选择 **静态库** 版本，比如
-      ImageMagick-7.1.1-32-Q16-x64-**static**.exe
-    - 安装下载好的 ImageMagick，**注意不要修改安装路径**
-    - 修改 `配置文件 config.toml` 中的 `imagemagick_path` 为你的 **实际安装路径**
+  - 下载 https://imagemagick.org/script/download.php 选择Windows版本，切记一定要选择 **静态库** 版本，比如
+    ImageMagick-7.1.1-32-Q16-x64-**static**.exe
+  - 安装下载好的 ImageMagick，**注意不要修改安装路径**
+  - 修改 `配置文件 config.toml` 中的 `imagemagick_path` 为你的 **实际安装路径**
 
 - MacOS:
   ```shell
   brew install imagemagick
-  ````
+  ```
 - Ubuntu
   ```shell
   sudo apt-get install imagemagick
@@ -314,7 +314,7 @@ python main.py
 最终的文件路径应该是这样: `.\MoneyPrinterTurbo\models\whisper-large-v3`
 
 ```
-MoneyPrinterTurbo  
+MoneyPrinterTurbo
   ├─models
   │   └─whisper-large-v3
   │          config.json
@@ -327,6 +327,7 @@ MoneyPrinterTurbo
 ## 背景音乐 🎵
 
 用于视频的背景音乐，位于项目的 `resource/songs` 目录下。
+
 > 当前项目里面放了一些默认的音乐，来自于 YouTube 视频，如有侵权，请删除。
 
 ## 字幕字体 🅰

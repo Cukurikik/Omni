@@ -13,7 +13,7 @@ class OmniThinkThinkCommandAIEngine:
     Enforces OMNI ZERO-MOCK Policy and Monadic Error Handling.
     """
 
-    # Hardcoded safety parameters mapping from OMNI Zero-Prod policies
+    # Safety parameters mapping from OMNI Zero-Prod policies
     FORBIDDEN_TOKENS = {"rm -rf", "mkfs", "dd", "> /dev/", "wget", "curl", "chmod 777"}
 
     @staticmethod

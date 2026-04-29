@@ -8,10 +8,10 @@
 [![Discord Shield](https://img.shields.io/discord/831165782750789672)](https://discord.com/invite/xPHTuHCmuV)
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/OpenBB-finance/OpenBB)
 <a href="https://codespaces.new/OpenBB-finance/OpenBB">
-  <img src="https://github.com/codespaces/badge.svg" height="20" />
+<img src="https://github.com/codespaces/badge.svg" height="20" />
 </a>
 <a target="_blank" href="https://colab.research.google.com/github/OpenBB-finance/OpenBB/blob/develop/examples/googleColab.ipynb">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 [![PyPI](https://img.shields.io/pypi/v/openbb?color=blue&label=PyPI%20Package)](https://pypi.org/project/openbb/)
 
@@ -43,6 +43,7 @@ While the Open Data Platform provides the open-source data integration foundatio
 
 You can find OpenBB Workspace at <https://pro.openbb.co>.
 <a href="https://pro.openbb.co">
+
   <div align="center">
   <img src="https://openbb-cms.directus.app/assets/f69b6aaf-0821-4bc8-a43c-715e03a924ef.png" alt="Logo" width="1000">
   </div>
@@ -124,7 +125,7 @@ The ODP CLI is a command-line interface that allows you to access the ODP direct
 
 It can be installed by running `pip install openbb-cli`
 
-or by cloning the repository directly with  `git clone https://github.com/OpenBB-finance/OpenBB.git`.
+or by cloning the repository directly with `git clone https://github.com/OpenBB-finance/OpenBB.git`.
 
 Please find more about the installation process in the [OpenBB Documentation](https://docs.openbb.co/cli/installation).
 

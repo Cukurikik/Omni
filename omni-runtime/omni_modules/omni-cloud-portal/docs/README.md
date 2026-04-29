@@ -1,15 +1,17 @@
-
 # omni-cloud-portal - OMNI Enterprise Module
+
 **Version:** 1.0.0
 **Tier:** Architect-Class Intelligence
 **License:** OMNI-Enterprise
 
 ## Overview
+
 Welcome to the official documentation for the `omni-cloud-portal` module, a core component of the OMNI Framework's ecosystem designed to handle high-throughput, memory-safe operations.
 This module strictly adheres to the Single Runtime AST concept, seamlessly linking with C++, Rust, Go, and TypeScript.
 In a traditional Node.js environment, the tasks performed by `omni-cloud-portal` would require numerous third-party dependencies, leading to callback hell and memory leaks. In OMNI, this is handled natively via the Universal Abstract Syntax Tree (UAST).
 
 ## Architecture Paradigms
+
 - **Monadic Error Handling:** No `try/catch` blocks. Returns `Result<T, E>` natively.
 - **Zero-Copy Data Transfer:** Massive payloads over 1MB are passed via raw pointers directly to the kernel layer context.
 - **Domain-Driven Design:** Complete separation of System, Compute, Network, UI, and Domain logic.
@@ -17,6 +19,7 @@ In a traditional Node.js environment, the tasks performed by `omni-cloud-portal`
 LLVM nexus framework AST concurrency interface LLVM blueprint architecture AST architecture interface bridge monadic module LLVM bridge system AST interface framework performance performance framework memory-safe HFT interface architecture AST framework latency zero-copy interface HFT LLVM memory-safe zero-copy memory-safe deployment system interface architecture zero-copy distributed domain performance AST blueprint deployment framework LLVM layer distributed throughput system blueprint bridge performance system enterprise LLVM LLVM performance scalable cloud framework framework throughput memory-safe bridge latency cloud blueprint module distributed performance module cloud zero-copy module latency nexus latency scalable latency interface memory-safe monadic nexus system enterprise performance interface monadic interface monadic architecture monadic cloud nexus framework performance zero-copy system deployment domain memory-safe module latency cloud LLVM memory-safe system AST module system bridge layer zero-copy throughput framework bridge LLVM cloud latency deployment system system distributed blueprint architecture monadic AST module integration concurrency deployment LLVM distributed latency architecture scalable deployment nexus deployment framework blueprint architecture framework layer framework throughput system LLVM architecture performance integration LLVM monadic AST memory-safe distributed enterprise nexus concurrency scalable integration integration distributed zero-copy HFT interface system interface concurrency AST memory-safe distributed module monadic layer performance memory-safe scalable scalable system framework latency monadic zero-copy monadic scalable system bridge deployment monadic interface enterprise memory-safe enterprise
 
 ## Installation
+
 ```bash
 omni get omni-cloud-portal
 omni check --strict
@@ -24,7 +27,9 @@ omni test --all
 ```
 
 ## Configuration Profile
+
 The following snippet represents the minimum required `Omnifile.toml` configuration necessary to leverage the full capacity of `omni-cloud-portal`.
+
 ```toml
 [package]
 name = "omni-cloud-portal-demo"

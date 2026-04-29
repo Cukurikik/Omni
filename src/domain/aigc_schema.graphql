@@ -1,0 +1,18 @@
+# OMNI Domain Layer - AIGC Schema
+@schema
+type ResearchGroup {
+  id: ID!
+  name: String!
+  institution: String!
+  focusAreas: [String!]!
+  publications: Int!
+}
+
+type Query {
+  listGroups(focus: String): [ResearchGroup!]!
+  getGroup(id: ID!): ResearchGroup
+}
+
+type Mutation {
+  addGroup(name: String!, institution: String!): ResearchGroup!
+}

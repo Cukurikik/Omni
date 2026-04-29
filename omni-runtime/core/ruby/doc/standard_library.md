@@ -212,7 +212,6 @@ of each.
 [win32-registry]: https://github.com/ruby/win32-registry
 [yaml]: https://github.com/ruby/yaml
 [zlib]: https://github.com/ruby/zlib
-
 [reline-doc]: https://ruby.github.io/reline/
 [rake-doc]: https://ruby.github.io/rake/
 [irb-doc]: https://ruby.github.io/irb/

@@ -1,25 +1,25 @@
-name: 'Check SAST tool'
+name: "Check SAST tool"
 
 on:
   push:
-    branches: ['master']
+    branches: ["master"]
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   schedule:
-    - cron: '0 12 * * *'
+    - cron: "0 12 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -87,7 +87,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
         with:
-          category: '/language:${{ matrix.language }}'
+          category: "/language:${{ matrix.language }}"
           upload: False
           output: sarif-results
 

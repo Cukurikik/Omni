@@ -5,18 +5,18 @@ env:
 
 on:
   push:
-    branches: ['master']
+    branches: ["master"]
     paths:
-      - '.github/workflows/bundled_gems.yml'
-      - 'gems/bundled_gems'
+      - ".github/workflows/bundled_gems.yml"
+      - "gems/bundled_gems"
   pull_request:
-    branches: ['master']
+    branches: ["master"]
     paths:
-      - '.github/workflows/bundled_gems.yml'
-      - 'gems/bundled_gems'
+      - ".github/workflows/bundled_gems.yml"
+      - "gems/bundled_gems"
   merge_group:
   schedule:
-    - cron: '45 6 * * *'
+    - cron: "45 6 * * *"
   workflow_dispatch:
 
 permissions: # added using https://github.com/step-security/secure-workflows
@@ -45,7 +45,7 @@ jobs:
       - uses: ./.github/actions/setup/directories
         with:
           # Skip overwriting MATZBOT_AUTO_UPDATE_TOKEN
-          checkout: '' # false (ref: https://github.com/actions/runner/issues/2238)
+          checkout: "" # false (ref: https://github.com/actions/runner/issues/2238)
 
       - name: Set ENV
         run: |
@@ -175,8 +175,8 @@ jobs:
           make -s test-bundled-gems
         timeout-minutes: 30
         env:
-          RUBY_TESTOPTS: '-q --tty=no'
-          TEST_BUNDLED_GEMS_ALLOW_FAILURES: ''
+          RUBY_TESTOPTS: "-q --tty=no"
+          TEST_BUNDLED_GEMS_ALLOW_FAILURES: ""
         if: ${{ steps.diff.outputs.gems }}
 
       - name: Push

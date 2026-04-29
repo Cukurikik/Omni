@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_tuna_engine.ts
 // Production-Grade Web Audio Effects Rack Engine
@@ -168,5 +168,16 @@ export class OmniTunaEngine {
             convolver: { impulseLength: 4096, decay: 2 },
         };
         return defaults[type] || {};
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniTunaEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

@@ -37,7 +37,7 @@ class OmniFastStyleTransferEngine:
     """
 
     def __init__(self):
-        # Pre-compiled styles (simulated loaded models)
+        # Pre-compiled styles (Loaded models)
         """Initialize OmniFastStyleTransferEngine."""
         self.available_styles = ["la_muse", "rain_princess", "scream", "udnie", "wave", "wreck"]
         logger.info(f"[OmniFST] Fast Style Transfer online. Styles: {self.available_styles}")

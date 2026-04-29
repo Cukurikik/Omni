@@ -16,18 +16,17 @@ Rubyはテキスト処理関係の能力などに優れ，Perlと同じくらい
 
 ## Rubyの特長
 
-*   シンプルな文法
-*   普通のオブジェクト指向機能(クラス，メソッドコールなど)
-*   特殊なオブジェクト指向機能(Mixin，特異メソッドなど)
-*   演算子オーバーロード
-*   例外処理機能
-*   イテレータとクロージャ
-*   ガーベージコレクタ
-*   ダイナミックローディング (アーキテクチャによる)
-*   移植性が高い．多くのUnix-like/POSIX互換プラットフォーム上で動くだけでなく，Windows， macOS，
-    Haikuなどの上でも動く cf.
-    https://docs.ruby-lang.org/en/master/maintainers_md.html#label-Platform+Maintainers
-
+- シンプルな文法
+- 普通のオブジェクト指向機能(クラス，メソッドコールなど)
+- 特殊なオブジェクト指向機能(Mixin，特異メソッドなど)
+- 演算子オーバーロード
+- 例外処理機能
+- イテレータとクロージャ
+- ガーベージコレクタ
+- ダイナミックローディング (アーキテクチャによる)
+- 移植性が高い．多くのUnix-like/POSIX互換プラットフォーム上で動くだけでなく，Windows， macOS，
+  Haikuなどの上でも動く cf.
+  https://docs.ruby-lang.org/en/master/maintainers_md.html#label-Platform+Maintainers
 
 ## 入手法
 
@@ -111,32 +110,29 @@ Ruby拡張モジュールについて話し合うruby-extメーリングリス�
 7.  `make install`
 
     以下のディレクトリを作って，そこにファイルをインストー ルします．
+    - `${DESTDIR}${prefix}/bin`
+    - `${DESTDIR}${prefix}/include/ruby-${MAJOR}.${MINOR}.${TEENY}`
+    - `${DESTDIR}${prefix}/include/ruby-${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
+    - `${DESTDIR}${prefix}/lib`
+    - `${DESTDIR}${prefix}/lib/ruby`
+    - `${DESTDIR}${prefix}/lib/ruby/${MAJOR}.${MINOR}.${TEENY}`
+    - `${DESTDIR}${prefix}/lib/ruby/${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
+    - `${DESTDIR}${prefix}/lib/ruby/site_ruby`
+    - `${DESTDIR}${prefix}/lib/ruby/site_ruby/${MAJOR}.${MINOR}.${TEENY}`
+    - `${DESTDIR}${prefix}/lib/ruby/site_ruby/${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
+    - `${DESTDIR}${prefix}/lib/ruby/vendor_ruby`
+    - `${DESTDIR}${prefix}/lib/ruby/vendor_ruby/${MAJOR}.${MINOR}.${TEENY}`
+    - `${DESTDIR}${prefix}/lib/ruby/vendor_ruby/${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
+    - `${DESTDIR}${prefix}/lib/ruby/gems/${MAJOR}.${MINOR}.${TEENY}`
+    - `${DESTDIR}${prefix}/share/man/man1`
+    - `${DESTDIR}${prefix}/share/ri/${MAJOR}.${MINOR}.${TEENY}/system`
 
-    *   `${DESTDIR}${prefix}/bin`
-    *   `${DESTDIR}${prefix}/include/ruby-${MAJOR}.${MINOR}.${TEENY}`
-    *   `${DESTDIR}${prefix}/include/ruby-${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
-    *   `${DESTDIR}${prefix}/lib`
-    *   `${DESTDIR}${prefix}/lib/ruby`
-    *   `${DESTDIR}${prefix}/lib/ruby/${MAJOR}.${MINOR}.${TEENY}`
-    *   `${DESTDIR}${prefix}/lib/ruby/${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
-    *   `${DESTDIR}${prefix}/lib/ruby/site_ruby`
-    *   `${DESTDIR}${prefix}/lib/ruby/site_ruby/${MAJOR}.${MINOR}.${TEENY}`
-    *   `${DESTDIR}${prefix}/lib/ruby/site_ruby/${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
-    *   `${DESTDIR}${prefix}/lib/ruby/vendor_ruby`
-    *   `${DESTDIR}${prefix}/lib/ruby/vendor_ruby/${MAJOR}.${MINOR}.${TEENY}`
-    *   `${DESTDIR}${prefix}/lib/ruby/vendor_ruby/${MAJOR}.${MINOR}.${TEENY}/${PLATFORM}`
-    *   `${DESTDIR}${prefix}/lib/ruby/gems/${MAJOR}.${MINOR}.${TEENY}`
-    *   `${DESTDIR}${prefix}/share/man/man1`
-    *   `${DESTDIR}${prefix}/share/ri/${MAJOR}.${MINOR}.${TEENY}/system`
-
-
-    RubyのAPIバージョンが'*x.y.z*'であれば，`${MAJOR}`は
-    '*x*'で，`${MINOR}`は'*y*'，`${TEENY}`は'*z*'です．
+    RubyのAPIバージョンが'_x.y.z_'であれば，`${MAJOR}`は
+    '_x_'で，`${MINOR}`は'_y_'，`${TEENY}`は'_z_'です．
 
     **注意**: APIバージョンの `teeny` は，Rubyプログラムのバージョンとは異なることがあります．
 
     `root` で作業する必要があるかもしれません．
-
 
 もし，コンパイル時にエラーが発生した場合にはエラーのログとマシン，OSの種類を含むできるだけ詳しいレポートを作者に送って下さると他の方のためにもなります．
 

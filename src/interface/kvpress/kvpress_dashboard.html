@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>kvpress — KV Cache Monitor</title></head><body>
+<div id="kvpress-dashboard"><h1>KV Cache Compression Dashboard</h1>
+<div id="metrics"><label>Compression Ratio: <span id="ratio">0.5</span></label>
+<label>Memory Saved: <span id="saved">0</span> MB</label>
+<label>Seq Length: <span id="seq">0</span></label></div>
+<canvas id="chart" width="600" height="300"></canvas>
+<script>
+const MAX_HISTORY=1000;let history=[];
+function recordMetric(ratio,memSaved,seqLen){
+    if(history.length>=MAX_HISTORY)history.shift();
+    history.push({ratio,memSaved,seqLen,ts:Date.now()});
+    document.getElementById('ratio').textContent=ratio.toFixed(3);
+    document.getElementById('saved').textContent=memSaved.toFixed(1);
+    document.getElementById('seq').textContent=seqLen;
+}
+</script></div></body></html>

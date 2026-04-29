@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AlignSurvey RLHF Dashboard</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; }
+        .dashboard-container { display: flex; flex-direction: column; align-items: center; }
+        .metric-card { background: #1a1a1a; padding: 20px; margin: 10px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>RLHF Alignment Metrics</h1>
+        <div class="metric-card" id="reward-score">
+            Reward Score: Loading...
+        </div>
+    </div>
+    <script>
+        // OmniResult simulated parser
+        function parseOmniResult(jsonString) {
+            try {
+                let res = JSON.parse(jsonString);
+                if (res.is_ok) return res.value;
+                console.error(res.error);
+                return null;
+            } catch (e) {
+                return null;
+            }
+        }
+    </script>
+</body>
+</html>

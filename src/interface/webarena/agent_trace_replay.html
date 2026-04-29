@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebArena Agent Trace Replay</title>
+    <style>
+        body { font-family: monospace; background: #282c34; color: #abb2bf; padding: 20px; }
+        .trace-container { display: flex; flex-direction: column; gap: 10px; }
+        .action { background: #3e4451; padding: 10px; border-left: 4px solid #61afef; }
+    </style>
+</head>
+<body>
+    <h1>Agent Trajectory Replay</h1>
+    <div class="trace-container">
+        <div class="action">[00:01] NAVIGATE: https://example.com/login</div>
+        <div class="action">[00:03] TYPE: username_field -> agent_tester</div>
+        <div class="action">[00:04] CLICK: submit_button</div>
+    </div>
+</body>
+</html>

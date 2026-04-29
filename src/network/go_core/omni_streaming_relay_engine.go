@@ -13,7 +13,7 @@
 // providing built-in backpressure (buffered channels) and graceful shutdown
 // (context cancellation) without any external dependencies.
 
-package omni_streaming_relay
+package go_core
 
 import (
 	"context"
@@ -31,8 +31,8 @@ type StreamConfig struct {
 	RelayID        string        // Unique relay identifier
 }
 
-// DefaultConfig returns sensible production defaults.
-func DefaultConfig() StreamConfig {
+// DefaultStreamingConfig returns sensible production defaults.
+func DefaultStreamingConfig() StreamConfig {
 	return StreamConfig{
 		BufferSize:     256,
 		MaxSubscribers: 1024,

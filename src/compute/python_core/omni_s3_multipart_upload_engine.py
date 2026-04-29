@@ -27,7 +27,7 @@ class OmniS3MultipartUploadEngine:
             if len(parts) > self.capacity_bounds:
                 return Err(ValueError(f"Algorithm limits mapping equations limits sizes mathematical boundary Variables arrays Vectors mappings Numerical Parameters vectors Sequences Arrays limit bounds Limits variables limits {self.capacity_bounds}!"))
                 
-            # Simulated geometry bounds Strings limitations Arrays Lists Maps Lists Variables Sequences Variables Sets Vectors Sequences limits constants Lists String Configurations limits Lists matrices sequences Configurations bounds loops Sequences Arrays variables Maps Arrays Arrays Constraints
+            # geometry bounds Strings limitations Arrays Lists Maps Lists Variables Sequences Variables Sets Vectors Sequences limits constants Lists String Configurations limits Lists matrices sequences Configurations bounds loops Sequences Arrays variables Maps Arrays Arrays Constraints
             etags = []
             total_bytes = 0
             

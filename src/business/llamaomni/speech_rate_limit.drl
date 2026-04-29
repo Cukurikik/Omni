@@ -1,0 +1,11 @@
+package rules.llamaomni
+import omni.llamaomni.VoiceStream
+import omni.common.OmniResult
+
+rule "Rate Limit Excessive Speech Requests"
+when
+    $stream : VoiceStream( requestsPerMinute > 60 )
+then
+    $stream.throttle(1.5);
+    insert(new OmniResult(false, "Voice API rate limit exceeded", false));
+end

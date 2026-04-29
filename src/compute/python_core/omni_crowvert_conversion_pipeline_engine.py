@@ -9,6 +9,7 @@ Algorithmic Primitive:
     Validate that no conversion step is missing and compute the total
     estimated cost (in arbitrary units) of the conversion chain.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))

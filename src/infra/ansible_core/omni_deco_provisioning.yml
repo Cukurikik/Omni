@@ -1,0 +1,14 @@
+# Omni DeCo Provisioning (Ansible)
+# Infrastructure Layer: MLLM correction server setup.
+# Ref: zjunlp/Deco — ICLR 2025
+- name: Configure DeCo MLLM Nodes
+  hosts: mllm_nodes
+  become: yes
+  tasks:
+    - name: Install MLLM runtime
+      pip: name=transformers state=present
+    - name: Set correction mode
+      lineinfile:
+        path: /etc/omni/deco.conf
+        regexp: '^CORRECTION_MODE='
+        line: 'CORRECTION_MODE=dynamic'

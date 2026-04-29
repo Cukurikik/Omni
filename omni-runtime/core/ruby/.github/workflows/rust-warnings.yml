@@ -9,8 +9,8 @@ on:
       - synchronize
       - reopened
     paths:
-      - '**.rs'
-      - '!**.inc.rs'
+      - "**.rs"
+      - "!**.inc.rs"
   merge_group:
 
 concurrency:

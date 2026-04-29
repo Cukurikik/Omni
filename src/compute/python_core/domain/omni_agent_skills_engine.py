@@ -105,7 +105,7 @@ Produce a structured review with: severity, location, description, suggestion
         "tags": ["security", "audit", "vulnerability"],
         "content": """# Security Audit Skill
 ## Instructions
-1. Scan for hardcoded secrets (API keys, passwords, tokens)
+1. Scan for embedded secrets (API keys, passwords, tokens)
 2. Check authentication and authorization mechanisms
 3. Verify input validation on all external-facing endpoints
 4. Audit dependency versions for known CVEs

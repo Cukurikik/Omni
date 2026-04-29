@@ -1,5 +1,4 @@
-bundle-cache(1) -- Package your needed `.gem` files into your application
-=========================================================================
+# bundle-cache(1) -- Package your needed `.gem` files into your application
 
 ## SYNOPSIS
 
@@ -15,19 +14,19 @@ use the gems in the cache in preference to the ones on `rubygems.org`.
 
 ## OPTIONS
 
-* `--all-platforms`:
+- `--all-platforms`:
   Include gems for all platforms present in the lockfile, not only the current one.
 
-* `--cache-path=CACHE-PATH`:
+- `--cache-path=CACHE-PATH`:
   Specify a different cache path than the default (vendor/cache).
 
-* `--gemfile=GEMFILE`:
+- `--gemfile=GEMFILE`:
   Use the specified gemfile instead of Gemfile.
 
-* `--no-install`:
+- `--no-install`:
   Don't install the gems, only update the cache.
 
-* `--quiet`:
+- `--quiet`:
   Only output warnings and errors.
 
 ## GIT AND PATH GEMS
@@ -39,7 +38,7 @@ besides .gem files. This can be disabled setting `cache_all` to false.
 
 When using gems that have different packages for different platforms, Bundler
 supports caching of gems for other platforms where the Gemfile has been resolved
-(i.e. present in the lockfile) in `vendor/cache`.  This needs to be enabled via
+(i.e. present in the lockfile) in `vendor/cache`. This needs to be enabled via
 the `--all-platforms` option. This setting will be remembered in your local
 bundler configuration.
 

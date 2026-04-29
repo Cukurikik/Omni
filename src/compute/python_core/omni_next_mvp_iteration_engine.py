@@ -38,7 +38,7 @@ class OmniNextMVPIterationEngine:
             
             running_cost = 0.0
             
-            # Simple mathematically simulated prioritization bounds constraint. We just take chronologically.
+            # Simple mathematically Prioritization bounds constraint. We just take chronologically.
             for comp in components:
                 cost = comp.get("cost_hours", 0)
                 if running_cost + cost <= self.capacity:

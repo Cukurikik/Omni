@@ -1,0 +1,21 @@
+# Omni Multi-Token Access (Cerbos)
+# Security Layer: Hardcoded, deterministic attribute-based access control for multi-modal operations.
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: omni.multitoken.embedding
+  rules:
+    - actions: ["fuse", "extract"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ai_researcher
+        - omni_system
+      condition:
+        match:
+          expr: request.resource.attr.modality in ["image", "text", "audio"]
+          
+    - actions: ["*"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      name: FallbackDeny

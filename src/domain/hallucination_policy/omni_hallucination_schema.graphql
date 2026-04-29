@@ -1,0 +1,40 @@
+# OMNI Hallucination Policy Schema — Domain Layer
+# GraphQL contract for SHIELD hallucination detection system.
+
+"""
+Represents a hallucination evaluation event from visual encoder analysis.
+"""
+type HallucinationReport {
+  reportId: ID!
+  modelName: String!
+  hallucinationScore: Float!
+  vulnerableHeads: Int!
+  totalHeads: Int!
+  timestamp: String!
+  correctionApplied: Boolean!
+}
+
+type Query {
+  """
+  Retrieve the latest hallucination report for a given model.
+  """
+  getLatestReport(modelName: String!): HallucinationReport
+
+  """
+  List all reports exceeding a given hallucination threshold.
+  """
+  getHighRiskReports(threshold: Float! = 0.5): [HallucinationReport!]!
+}
+
+type Mutation {
+  """
+  Submit a new hallucination evaluation from the compute layer SHIELD engine.
+  """
+  submitReport(
+    modelName: String!
+    hallucinationScore: Float!
+    vulnerableHeads: Int!
+    totalHeads: Int!
+    correctionApplied: Boolean!
+  ): HallucinationReport!
+}

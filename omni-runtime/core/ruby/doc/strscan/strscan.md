@@ -58,33 +58,30 @@ put_situation(scanner)
 
 The scanner has:
 
-* A <i>stored string</i>, which is:
-
-    * Initially set by StringScanner.new(string) to the given `string`
+- A <i>stored string</i>, which is:
+    - Initially set by StringScanner.new(string) to the given `string`
       (`'foobarbaz'` in the example above).
-    * Modifiable by methods #string=(new_string) and #concat(more_string).
-    * Returned by method #string.
+    - Modifiable by methods #string=(new_string) and #concat(more_string).
+    - Returned by method #string.
 
     More at [Stored String][1] below.
 
-* A _position_;
+- A _position_;
   a zero-based index into the bytes of the stored string (_not_ into its characters):
-
-    * Initially set by StringScanner.new to `0`.
-    * Returned by method #pos.
-    * Modifiable explicitly by methods #reset, #terminate, and #pos=(new_pos).
-    * Modifiable implicitly (various traversing methods, among others).
+    - Initially set by StringScanner.new to `0`.
+    - Returned by method #pos.
+    - Modifiable explicitly by methods #reset, #terminate, and #pos=(new_pos).
+    - Modifiable implicitly (various traversing methods, among others).
 
     More at [Byte Position][2] below.
 
-* A <i>target substring</i>,
+- A <i>target substring</i>,
   which is a trailing substring of the stored string;
   it extends from the current position to the end of the stored string:
-
-    * Initially set by StringScanner.new(string) to the given `string`
+    - Initially set by StringScanner.new(string) to the given `string`
       (`'foobarbaz'` in the example above).
-    * Returned by method #rest.
-    * Modified by any modification to either the stored string or the position.
+    - Returned by method #rest.
+    - Modified by any modification to either the stored string or the position.
 
     <b>Most importantly</b>:
     the searching and traversing methods operate on the target substring,
@@ -99,7 +96,7 @@ The <i>stored string</i> is the string stored in the `StringScanner` object.
 Each of these methods sets, modifies, or returns the stored string:
 
 | Method               | Effect                                          |
-|----------------------|-------------------------------------------------|
+| -------------------- | ----------------------------------------------- |
 | ::new(string)        | Creates a new scanner for the given string.     |
 | #string=(new_string) | Replaces the existing stored string.            |
 | #concat(more_string) | Appends a string to the existing stored string. |
@@ -113,7 +110,7 @@ and a zero-based <i>character position</i>.
 Each of these methods explicitly sets positions:
 
 | Method                   | Effect                                                    |
-|--------------------------|-----------------------------------------------------------|
+| ------------------------ | --------------------------------------------------------- |
 | #reset                   | Sets both positions to zero (beginning of stored string). |
 | #terminate               | Sets both positions to the end of the stored string.      |
 | #pos=(new_byte_position) | Sets byte position; adjusts character position.           |
@@ -126,14 +123,14 @@ for a new `StringScanner` object, the byte position is zero.
 
 When the byte position is:
 
-* Zero (at the beginning), the target substring is the entire stored string.
-* Equal to the size of the stored string (at the end),
+- Zero (at the beginning), the target substring is the entire stored string.
+- Equal to the size of the stored string (at the end),
   the target substring is the empty string `''`.
 
 To get or set the byte position:
 
-* \#pos: returns the byte position.
-* \#pos=(new_pos): sets the byte position.
+- \#pos: returns the byte position.
+- \#pos=(new_pos): sets the byte position.
 
 Many methods use the byte position as the basis for finding matches;
 many others set, increment, or decrement the byte position:
@@ -150,8 +147,8 @@ scanner.pos # => 3             # Byte position not changed.
 Some methods implicitly modify the byte position;
 see:
 
-* [Setting the Target Substring][4].
-* [Traversing the Target Substring][5].
+- [Setting the Target Substring][4].
+- [Traversing the Target Substring][5].
 
 The values of these methods are derived directly from the values of #pos and #string:
 
@@ -171,8 +168,8 @@ its value may not be reset explicitly.
 Some methods change (increment or reset) the character position;
 see:
 
-* [Setting the Target Substring][4].
-* [Traversing the Target Substring][5].
+- [Setting the Target Substring][4].
+- [Traversing the Target Substring][5].
 
 Example (string includes multi-byte characters):
 
@@ -244,15 +241,15 @@ put_situation(scanner)
 
 The target substring is set whenever:
 
-* The [stored string][1] is set (position reset to zero; target substring set to stored string).
-* The [byte position][2] is set (target substring adjusted accordingly).
+- The [stored string][1] is set (position reset to zero; target substring set to stored string).
+- The [byte position][2] is set (target substring adjusted accordingly).
 
 ### Querying the Target Substring
 
 This table summarizes (details and examples at the links):
 
 | Method     | Returns                           |
-|------------|-----------------------------------|
+| ---------- | --------------------------------- |
 | #rest      | Target substring.                 |
 | #rest_size | Size (bytes) of target substring. |
 
@@ -265,7 +262,7 @@ or (by implication) shorten the target substring.
 This table summarizes (details and examples at the links):
 
 | Method                | Returns                                       | Sets Match Values? |
-|-----------------------|-----------------------------------------------|--------------------|
+| --------------------- | --------------------------------------------- | ------------------ |
 | #check(pattern)       | Matched leading substring or +nil+.           | Yes.               |
 | #check_until(pattern) | Matched substring (anywhere) or +nil+.        | Yes.               |
 | #exist?(pattern)      | Matched substring (anywhere) end index.       | Yes.               |
@@ -282,11 +279,10 @@ and, if successful:
 - Advances the [positions][11].
 - Shortens the target substring.
 
-
 This table summarizes (details and examples at links):
 
 | Method               | Returns                                              | Sets Match Values? |
-|----------------------|------------------------------------------------------|--------------------|
+| -------------------- | ---------------------------------------------------- | ------------------ |
 | #get_byte            | Leading byte or +nil+.                               | No.                |
 | #getch               | Leading character or +nil+.                          | No.                |
 | #scan(pattern)       | Matched leading substring or +nil+.                  | Yes.               |
@@ -302,7 +298,7 @@ Each of these methods queries the scanner object
 without modifying it (details and examples at links)
 
 | Method              | Returns                          |
-|---------------------|----------------------------------|
+| ------------------- | -------------------------------- |
 | #beginning_of_line? | +true+ or +false+.               |
 | #charpos            | Character position.              |
 | #eos?               | +true+ or +false+.               |
@@ -325,7 +321,7 @@ Each <i>matcher method</i> takes a single argument `pattern`,
 and attempts to find a matching substring in the [target substring][3].
 
 | Method       | Pattern Type      | Matches Target Substring | Success Return     | May Update Positions? |
-|--------------|-------------------|--------------------------|--------------------|-----------------------|
+| ------------ | ----------------- | ------------------------ | ------------------ | --------------------- |
 | #check       | Regexp or String. | At beginning.            | Matched substring. | No.                   |
 | #check_until | Regexp or String. | Anywhere.                | Substring.         | No.                   |
 | #match?      | Regexp or String. | At beginning.            | Match size.        | No.                   |
@@ -340,21 +336,18 @@ and attempts to find a matching substring in the [target substring][3].
 Which matcher you choose will depend on:
 
 - Where you want to find a match:
-
     - Only at the beginning of the target substring:
       #check, #match?, #scan, #skip.
     - Anywhere in the target substring:
       #check_until, #exist?, #scan_until, #skip_until.
 
 - Whether you want to:
-
     - Traverse, by advancing the positions:
       #scan, #scan_until, #skip, #skip_until.
     - Keep the positions unchanged:
       #check, #check_until, #match?, #exist?.
 
 - What you want for the return value:
-
     - The matched substring: #check, #scan.
     - The substring: #check_until, #scan_until.
     - The match size: #match?, #skip.
@@ -367,9 +360,9 @@ generally contain the results of the most recent attempted match.
 
 Each match value may be thought of as:
 
-* _Clear_: Initially, or after an unsuccessful match attempt:
+- _Clear_: Initially, or after an unsuccessful match attempt:
   usually, `false`, `nil`, or `{}`.
-* _Set_: After a successful match attempt:
+- _Set_: After a successful match attempt:
   `true`, string, array, or hash.
 
 Each of these methods clears match values:
@@ -396,13 +389,13 @@ Basic match values are those not related to captures.
 
 Each of these methods returns a basic match value:
 
-| Method          | Return After Match                     | Return After No Match |
-|-----------------|----------------------------------------|-----------------------|
-| #matched?       | +true+.                                | +false+.              |
-| #matched_size   | Size of matched substring.             | +nil+.                |
-| #matched        | Matched substring.                     | +nil+.                |
-| #pre_match      | Substring preceding matched substring. | +nil+.                |
-| #post_match     | Substring following matched substring. | +nil+.                |
+| Method        | Return After Match                     | Return After No Match |
+| ------------- | -------------------------------------- | --------------------- |
+| #matched?     | +true+.                                | +false+.              |
+| #matched_size | Size of matched substring.             | +nil+.                |
+| #matched      | Matched substring.                     | +nil+.                |
+| #pre_match    | Substring preceding matched substring. | +nil+.                |
+| #post_match   | Substring following matched substring. | +nil+.                |
 
 <br>
 
@@ -415,11 +408,11 @@ Captured match values are those related to [captures][16].
 Each of these methods returns a captured match value:
 
 | Method          | Return After Match                      | Return After No Match |
-|-----------------|-----------------------------------------|-----------------------|
+| --------------- | --------------------------------------- | --------------------- |
 | #size           | Count of captured substrings.           | +nil+.                |
 | #\[\](n)        | <tt>n</tt>th captured substring.        | +nil+.                |
 | #captures       | Array of all captured substrings.       | +nil+.                |
-| #values_at(*n)  | Array of specified captured substrings. | +nil+.                |
+| #values_at(\*n) | Array of specified captured substrings. | +nil+.                |
 | #named_captures | Hash of named captures.                 | <tt>{}</tt>.          |
 
 <br>
@@ -516,7 +509,7 @@ Pattern matching in `StringScanner` is the same as in Ruby's,
 except for its fixed-anchor property,
 which determines the meaning of `'\A'`:
 
-* `false` (the default): matches the current byte position.
+- `false` (the default): matches the current byte position.
 
     ```rb
     scanner = StringScanner.new('foobar')
@@ -526,7 +519,7 @@ which determines the meaning of `'\A'`:
     scanner.scan(/\A./) # => "b"
     ```
 
-* `true`: matches the beginning of the target substring;
+- `true`: matches the beginning of the target substring;
   never matches unless the byte position is zero:
 
     ```rb
@@ -541,4 +534,3 @@ The fixed-anchor property is set when the `StringScanner` object is created,
 and may not be modified
 (see StringScanner.new);
 method #fixed_anchor? returns the setting.
-

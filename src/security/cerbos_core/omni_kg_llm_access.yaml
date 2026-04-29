@@ -1,0 +1,19 @@
+# Omni KG-LLM Access Policy (Cerbos)
+# Security Layer: ABAC for knowledge graph completion operations.
+# Ref: yao8839836/kg-llm
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: omni.kg.triple
+  rules:
+    - actions: ["predict_tail", "predict_head", "evaluate"]
+      effect: EFFECT_ALLOW
+      roles: [ai_researcher, omni_system]
+      condition:
+        match:
+          expr: request.resource.attr.graph_name != ""
+    - actions: ["delete", "modify_schema"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      name: DenyDestructiveOps

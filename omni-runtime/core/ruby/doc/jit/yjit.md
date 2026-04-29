@@ -4,8 +4,7 @@
   </a>
 </p>
 
-YJIT - Yet Another Ruby JIT
-===========================
+# YJIT - Yet Another Ruby JIT
 
 YJIT is a lightweight, minimalistic Ruby JIT built inside CRuby.
 It lazily compiles code using a Basic Block Versioning (BBV) architecture.
@@ -66,10 +65,10 @@ You can change how much executable memory is allocated using [YJIT's command-lin
 
 You will need to install:
 
- - All the usual build tools for Ruby. See [Building Ruby](../contributing/building_ruby.md)
- - The Rust compiler `rustc`
+- All the usual build tools for Ruby. See [Building Ruby](../contributing/building_ruby.md)
+- The Rust compiler `rustc`
     - The Rust version must be [>= 1.58.0](../../yjit/Cargo.toml).
- - Optionally, only if you wish to build in dev/debug mode, Rust's `cargo`
+- Optionally, only if you wish to build in dev/debug mode, Rust's `cargo`
 
 If you don't intend on making code changes to YJIT itself, we recommend
 obtaining `rustc` through your OS's package manager since that
@@ -286,8 +285,8 @@ This section contains tips on writing Ruby code that will run as fast as possibl
 - Avoid redefining the meaning of `nil`, equality, etc.
 - Avoid allocating objects in the hot parts of your code
 - Minimize layers of indirection
-  - Avoid writing wrapper classes if you can (e.g. a class that only wraps a Ruby hash)
-  - Avoid methods that just call another method
+    - Avoid writing wrapper classes if you can (e.g. a class that only wraps a Ruby hash)
+    - Avoid methods that just call another method
 - Ruby method calls are costly. Avoid things such as methods that only return a value from a hash
 - Try to write code so that the same variables and method arguments always have the same type
 - Avoid using `TracePoint` as it can cause YJIT to deoptimize code
@@ -315,19 +314,19 @@ irb(main):001:0> RubyVM::YJIT.runtime_stats
 
 Some of the counters include:
 
-* `:yjit_insns_count` - how many Ruby bytecode instructions have been executed
-* `:binding_allocations` - number of bindings allocated
-* `:binding_set` - number of variables set via a binding
-* `:code_gc_count` - number of garbage collections of compiled code since process start
-* `:vm_insns_count` - number of instructions executed by the Ruby interpreter
-* `:compiled_iseq_count` - number of bytecode sequences compiled
-* `:inline_code_size` - size in bytes of main-line machine code
-* `:outlined_code_size` - size in bytes of relatively uncommonly executed machine code
-* `:side_exit_count` - number of side exits taken at runtime
-* `:total_exit_count` - number of exits, including side exits, taken at runtime
-* `:avg_len_in_yjit` - avg. number of instructions in compiled blocks before exiting to interpreter
+- `:yjit_insns_count` - how many Ruby bytecode instructions have been executed
+- `:binding_allocations` - number of bindings allocated
+- `:binding_set` - number of variables set via a binding
+- `:code_gc_count` - number of garbage collections of compiled code since process start
+- `:vm_insns_count` - number of instructions executed by the Ruby interpreter
+- `:compiled_iseq_count` - number of bytecode sequences compiled
+- `:inline_code_size` - size in bytes of main-line machine code
+- `:outlined_code_size` - size in bytes of relatively uncommonly executed machine code
+- `:side_exit_count` - number of side exits taken at runtime
+- `:total_exit_count` - number of exits, including side exits, taken at runtime
+- `:avg_len_in_yjit` - avg. number of instructions in compiled blocks before exiting to interpreter
 
-Counters starting with "exit_" show reasons for YJIT code taking a side exit (return to the interpreter.)
+Counters starting with "exit\_" show reasons for YJIT code taking a side exit (return to the interpreter.)
 
 Performance counter names are not guaranteed to remain the same between Ruby versions. If you're curious what each counter means,
 it's usually best to search the source code for it &mdash; but it may change in a later Ruby version.
@@ -438,7 +437,7 @@ echo "settings set target.x86-disassembly-flavor intel" >> ~/.lldbinit
 
 ## Running x86 YJIT on Apple's Rosetta
 
-For development purposes, it is possible to run x86 YJIT on an Apple M1 via Rosetta.  You can find basic
+For development purposes, it is possible to run x86 YJIT on an Apple M1 via Rosetta. You can find basic
 instructions below, but there are a few caveats listed further down.
 
 First, install Rosetta:

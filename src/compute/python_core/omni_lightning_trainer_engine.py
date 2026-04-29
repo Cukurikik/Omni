@@ -156,7 +156,7 @@ class LightningModule:
 
     def training_step(self, batch: Any, batch_idx: int) -> float:
         """Override: compute training loss for one batch."""
-        # Simulated loss decay
+        # Loss decay
         import math
         return 1.0 / (1.0 + batch_idx * 0.1) + 0.01 * math.sin(batch_idx)
 

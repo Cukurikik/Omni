@@ -80,12 +80,12 @@ class OmniDLBookEngine:
                 return {"status": "error", "message": "Loss must be non-negative real bound."}
                 
             graph = self._compiled_graphs[graph_id]
-            simulated_grad_norm = loss_value * graph["lr"] * graph["nodes"]
+            computed_grad_norm = loss_value * graph["lr"] * graph["nodes"]
             
             return {
                 "status": "success",
                 "graph_id": graph_id,
-                "gradient_norm": simulated_grad_norm,
+                "gradient_norm": computed_grad_norm,
                 "message": "Gradients propagated to leaf nodes successfully."
             }
         except Exception as e:

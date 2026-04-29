@@ -1,0 +1,13 @@
+# OMNI Domain Layer - FireAct Trajectory Schema
+@schema
+type AgentTrajectory {
+  id: ID!
+  taskDescription: String!
+  thoughtChain: [String!]!
+  toolsUsed: [String!]!
+  isSuccessful: Boolean!
+}
+
+type Query {
+  validateTrajectory(id: ID!): Boolean!
+}

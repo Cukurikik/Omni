@@ -13,7 +13,7 @@ ENGINE_VERSION = "2.0.0-omni-weighted-routing"
 
 class OmniWeightedRoutingAlgorithmEngine:
     """
-    Evaluates topological payload distributions balancing simulated connection traffic across N nodes.
+    Evaluates topological payload distributions balancing connection traffic across N nodes.
     
     @since 2.0.0
     @tags ["nginx", "load-balancing", "round-robin", "weighted-routing"]

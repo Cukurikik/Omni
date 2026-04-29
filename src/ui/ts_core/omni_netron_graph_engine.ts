@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI NETRON GRAPH ENGINE (SEMESTER 5 — BATCH 12)
 // ===========================================================================
 // Absorbed From  : lutzroeder/netron
@@ -201,6 +201,17 @@ export class OmniNetronGraphEngine {
             modelsLoaded: this.graphs.size,
             supportedOps: Object.keys(COMMON_OPS).length,
             learned_from: "lutzroeder/netron",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniNetronGraphEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

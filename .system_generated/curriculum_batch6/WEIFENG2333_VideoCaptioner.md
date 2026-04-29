@@ -3,7 +3,8 @@
   <h1>VideoCaptioner</h1>
   <p>基于大语言模型的视频字幕处理工具 — 语音识别、字幕优化、翻译、视频合成一站式处理</p>
 
-  [在线文档](https://weifeng2333.github.io/VideoCaptioner/) · [CLI 使用](#cli-命令行) · [GUI 桌面版](#gui-桌面版) · [Claude Code Skill](#claude-code-skill)
+[在线文档](https://weifeng2333.github.io/VideoCaptioner/) · [CLI 使用](#cli-命令行) · [GUI 桌面版](#gui-桌面版) · [Claude Code Skill](#claude-code-skill)
+
 </div>
 
 ## 安装
@@ -47,14 +48,14 @@ videocaptioner config set llm.model gpt-4o-mini
 <details>
 <summary>所有 CLI 命令一览</summary>
 
-| 命令 | 说明 |
-|------|------|
+| 命令         | 说明                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
 | `transcribe` | 语音转字幕。引擎：`faster-whisper`、`whisper-api`、`bijian`（免费）、`jianying`（免费）、`whisper-cpp` |
-| `subtitle` | 字幕优化/翻译。翻译服务：`llm`、`bing`（免费）、`google`（免费） |
-| `synthesize` | 字幕烧录到视频（软字幕/硬字幕） |
-| `process` | 全流程处理 |
-| `download` | 下载 YouTube、B站等平台视频 |
-| `config` | 配置管理（`show`、`set`、`get`、`path`、`init`） |
+| `subtitle`   | 字幕优化/翻译。翻译服务：`llm`、`bing`（免费）、`google`（免费）                                       |
+| `synthesize` | 字幕烧录到视频（软字幕/硬字幕）                                                                        |
+| `process`    | 全流程处理                                                                                             |
+| `download`   | 下载 YouTube、B站等平台视频                                                                            |
+| `config`     | 配置管理（`show`、`set`、`get`、`path`、`init`）                                                       |
 
 运行 `videocaptioner <命令> --help` 查看完整参数。完整 CLI 文档见 [docs/cli.md](docs/cli.md)。
 
@@ -73,12 +74,12 @@ videocaptioner                      # 无参数时自动打开桌面版
 **Windows**：从 [Release](https://github.com/WEIFENG2333/VideoCaptioner/releases) 下载安装包
 
 **macOS**：
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/WEIFENG2333/VideoCaptioner/master/scripts/run.sh | bash
 ```
 
 </details>
-
 
 <!-- <div align="center">
   <img src="https://h1.appinn.me/file/1731487405884_main.png" alt="界面预览" width="90%" style="border-radius: 5px;">
@@ -93,11 +94,11 @@ LLM 仅用于字幕优化和大模型翻译，免费功能（必剪识别、必�
 
 支持所有 OpenAI 兼容接口的服务商：
 
-| 服务商 | 官网 |
-|--------|------|
+| 服务商                    | 官网                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
 | **VideoCaptioner 中转站** | [api.videocaptioner.cn](https://api.videocaptioner.cn) — 高并发，性价比高，支持 GPT/Claude/Gemini 等 |
-| SiliconCloud | [cloud.siliconflow.cn](https://cloud.siliconflow.cn/i/HF95kaoz) |
-| DeepSeek | [platform.deepseek.com](https://platform.deepseek.com) |
+| SiliconCloud              | [cloud.siliconflow.cn](https://cloud.siliconflow.cn/i/HF95kaoz)                                      |
+| DeepSeek                  | [platform.deepseek.com](https://platform.deepseek.com)                                               |
 
 在软件设置或 CLI 中填入 API Base URL 和 API Key 即可。[详细配置教程](https://weifeng2333.github.io/VideoCaptioner/config/llm)
 

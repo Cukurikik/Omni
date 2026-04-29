@@ -1,5 +1,4 @@
-bundle-init(1) -- Generates a Gemfile into the current working directory
-========================================================================
+# bundle-init(1) -- Generates a Gemfile into the current working directory
 
 ## SYNOPSIS
 
@@ -14,10 +13,10 @@ created [`Gemfile(5)`][Gemfile(5)].
 
 ## OPTIONS
 
-* `--gemspec=GEMSPEC`:
+- `--gemspec=GEMSPEC`:
   Use the specified .gemspec to create the [`Gemfile(5)`][Gemfile(5)]
 
-* `--gemfile=GEMFILE`:
+- `--gemfile=GEMFILE`:
   Use the specified name for the gemfile instead of `Gemfile`
 
 ## FILES

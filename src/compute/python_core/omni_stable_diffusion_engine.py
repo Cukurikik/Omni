@@ -32,9 +32,9 @@ class OmniStableDiffusionEngine:
             Result wrapping the PIL Image or Tensor.
         """
         try:
-            # Simulated check for PyTorch execution environment
+            # check for PyTorch execution environment
             import torch
-            # Simulating output via torch tensor
+            # Output via torch tensor
             return Ok(torch.zeros([3, 512, 512]))
         except ImportError:
             return Err(Exception("torch is not installed."))

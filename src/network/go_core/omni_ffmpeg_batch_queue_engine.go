@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package media
+package go_core
 
 import (
 	"context"
@@ -30,7 +30,7 @@ type TranscodeJob struct {
 	Args       []string
 }
 
-type JobResult struct {
+type FFmpegJobResult struct {
 	JobID    string
 	Success  bool
 	ErrorMsg string
@@ -51,13 +51,13 @@ func NewOmniFFmpegBatchQueueEngine(workers int) *OmniFFmpegBatchQueueEngine {
 }
 
 // ExecuteBatch runs massive processing operations concurrently.
-func (e *OmniFFmpegBatchQueueEngine) ExecuteBatch(ctx context.Context, jobs []TranscodeJob) ([]JobResult, error) {
+func (e *OmniFFmpegBatchQueueEngine) ExecuteBatch(ctx context.Context, jobs []TranscodeJob) ([]FFmpegJobResult, error) {
 	if len(jobs) == 0 {
 		return nil, errors.New("EMPTY_BATCH: No jobs provided")
 	}
 
 	jobQueue := make(chan TranscodeJob, len(jobs))
-	resultQueue := make(chan JobResult, len(jobs))
+	resultQueue := make(chan FFmpegJobResult, len(jobs))
 	var wg sync.WaitGroup
 
 	// Spawn strictly bounded worker pool
@@ -78,7 +78,7 @@ func (e *OmniFFmpegBatchQueueEngine) ExecuteBatch(ctx context.Context, jobs []Tr
 		close(resultQueue) // Seal results when all workers exit
 	}()
 
-	var results []JobResult
+	var results []FFmpegJobResult
 	for res := range resultQueue {
 		results = append(results, res)
 	}
@@ -86,13 +86,13 @@ func (e *OmniFFmpegBatchQueueEngine) ExecuteBatch(ctx context.Context, jobs []Tr
 	return results, nil
 }
 
-func (e *OmniFFmpegBatchQueueEngine) worker(ctx context.Context, jobs <-chan TranscodeJob, results chan<- JobResult, wg *sync.WaitGroup) {
+func (e *OmniFFmpegBatchQueueEngine) worker(ctx context.Context, jobs <-chan TranscodeJob, results chan<- FFmpegJobResult, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for job := range jobs {
 		select {
 		case <-ctx.Done():
-			results <- JobResult{
+			results <- FFmpegJobResult{
 				JobID:    job.ID,
 				Success:  false,
 				ErrorMsg: "CONTEXT_CANCELED",
@@ -103,7 +103,7 @@ func (e *OmniFFmpegBatchQueueEngine) worker(ctx context.Context, jobs <-chan Tra
 			err := e.processSingleJob(ctx, job)
 			duration := time.Since(start)
 
-			res := JobResult{
+			res := FFmpegJobResult{
 				JobID:    job.ID,
 				Success:  err == nil,
 				Duration: duration,

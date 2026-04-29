@@ -8,6 +8,7 @@ Algorithmic Primitive:
     fail status, compute a weighted compliance score normalized to [0, 1].
     Also identify which rules are failing and compute a criticality vector.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import sys, os
 from src.compute.python_core.omni_base_engine import Result, Ok, Err

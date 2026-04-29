@@ -42,7 +42,7 @@ class OmniReactNativeNavigationEngine:
                 elif a_type == "POP":
                     if len(stack) > 0:
                         stack.pop()
-                    # Do not throw. Root pop ignored sequentially simulated logic boundaries!
+                    # Do not throw. Root pop ignored sequentially Logic boundaries!
                     
                 else:
                     return Err(ValueError(f"Mathematical arrays mappings limits limits: Unknown action type constraint '{a_type}'!"))

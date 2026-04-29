@@ -43,7 +43,7 @@ class OmniDistributedComputeEngine:
         return {"status": "success", "data": {"job_id": job_id, "status": "queued"}}
 
     def execute_batch(self, task_ids: list) -> Dict[str, Any]:
-        """Executes a batch of queued tasks (simulated parallel execution)."""
+        """Executes a batch of queued tasks (Parallel execution)."""
         results = []
         for tid in task_ids:
             job = self._job_registry.get(tid)

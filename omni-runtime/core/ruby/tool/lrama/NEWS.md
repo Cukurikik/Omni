@@ -55,8 +55,8 @@ https://github.com/ruby/lrama/pull/700
 
 Counterexample searches can sometimes take a long time, so we've added a timeout to abort the process after a set period. The current limits are:
 
-* 10 seconds per case
-* 120 seconds total (cumulative)
+- 10 seconds per case
+- 120 seconds total (cumulative)
 
 Please note that these are hard-coded and cannot be modified by the user in the current version.
 
@@ -247,11 +247,13 @@ Rule Usage Frequency
 ```
 
 This feature provides insights into the language characteristics by showing:
+
 - Which symbols are most frequently used in the grammar
 - The distribution of terminal and non-terminal usage
 - Potential areas for grammar optimization or refactoring
 
 The frequency statistics help developers understand the grammar structure and can be useful for:
+
 - Grammar complexity analysis
 - Performance optimization hints
 - Language design decisions
@@ -483,7 +485,6 @@ Allow to use aliased named references for actions of RHS in Parameterizing rules
 
 https://github.com/ruby/lrama/pull/410
 
-
 ### Named References for actions of RHS in Parameterizing rules caller side
 
 Allow to use named references for actions of RHS in Parameterizing rules caller side.
@@ -537,6 +538,7 @@ $ exe/lrama --report=terms sample/calc.y
      9 tEQEQ
     10 '>'
 ```
+
 https://github.com/ruby/lrama/pull/439
 
 ### Report unused rules
@@ -564,7 +566,7 @@ https://github.com/ruby/lrama/pull/446
 ### Diagnostics report for parameterized rules redefine
 
 Support to warning redefined parameterized rules.
-Run `exe/lrama -W` or  `exe/lrama --warnings` to show redefined parameterized rules.
+Run `exe/lrama -W` or `exe/lrama --warnings` to show redefined parameterized rules.
 
 ```console
 $ exe/lrama -W sample/calc.y
@@ -809,11 +811,11 @@ Lrama introduces two features to support another semantic value stack by parser 
 User can emulate semantic value stack by these callbacks.
 Lrama provides these five callbacks. Registered functions are called when each event happens. For example %after-shift function is called when shift happens on original semantic value stack.
 
-* `%after-shift` function_name
-* `%before-reduce` function_name
-* `%after-reduce` function_name
-* `%after-shift-error-token` function_name
-* `%after-pop-stack` function_name
+- `%after-shift` function_name
+- `%before-reduce` function_name
+- `%after-reduce` function_name
+- `%after-shift-error-token` function_name
+- `%after-pop-stack` function_name
 
 2. `$:n` variable to access index of each grammar symbols
 
@@ -926,7 +928,6 @@ program         : option(number) <i>
 
 https://github.com/ruby/lrama/pull/272
 
-
 ## Lrama 0.5.10 (2023-11-18)
 
 ### Parameterizing rules (option, nonempty_list, list)
@@ -981,9 +982,9 @@ args: arg
 
 Lrama supports these suffixes:
 
-* `?`: option
-* `+`: nonempty list
-* `*`: list
+- `?`: option
+- `+`: nonempty list
+- `*`: list
 
 Idea of Parameterizing rules comes from Menhir LR(1) parser generator (https://gallium.inria.fr/~fpottier/menhir/manual.html#sec32).
 
@@ -1004,8 +1005,8 @@ https://github.com/ruby/lrama/pull/62
 
 Make error recovery function configurable on runtime by two new macros.
 
-* `YYMAXREPAIR`: Expected to return max length of repair operations. `%parse-param` is passed to this function.
-* `YYERROR_RECOVERY_ENABLED`: Expected to return bool value to determine error recovery is enabled or not. `%parse-param` is passed to this function.
+- `YYMAXREPAIR`: Expected to return max length of repair operations. `%parse-param` is passed to this function.
+- `YYERROR_RECOVERY_ENABLED`: Expected to return bool value to determine error recovery is enabled or not. `%parse-param` is passed to this function.
 
 https://github.com/ruby/lrama/pull/74
 
@@ -1047,12 +1048,12 @@ Bison supports this feature from 2.5.
 
 `%parse-param` are added to these macros and functions to remove ytab.sed hack from Ruby.
 
-* `YY_LOCATION_PRINT`
-* `YY_SYMBOL_PRINT`
-* `yy_stack_print`
-* `YY_STACK_PRINT`
-* `YY_REDUCE_PRINT`
-* `yysyntax_error`
+- `YY_LOCATION_PRINT`
+- `YY_SYMBOL_PRINT`
+- `yy_stack_print`
+- `YY_STACK_PRINT`
+- `YY_REDUCE_PRINT`
+- `yysyntax_error`
 
 https://github.com/ruby/lrama/pull/40
 

@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI TRANSFER LEARNING KNOWLEDGE ENGINE (SEMESTER 5 — BATCH 26)
@@ -52,6 +52,17 @@ export class OmniTransferLearningKnowledgeEngine {
             status: "healthy",
             nodes_indexed: this.catalog.size,
             learned_from: "jindongwang/transferlearning"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniTransferLearningKnowledgeEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

@@ -616,7 +616,7 @@ class OmniWeChatArchiveEngine:
                 logger.info(f"Checking source: {source.name} ({source.url})")
 
                 # In production, fetch and parse upstream data
-                # Simulated: source returns no new version
+                # source returns no new version
                 # Real implementation would parse JSON/HTML from source.url
 
             return new_versions

@@ -1,0 +1,14 @@
+# Omni LLMs4OL Ontology (SPARQL)
+# Database Layer: Querying ontology concept hierarchies.
+# Ref: HamedBabaei/LLMs4OL
+
+PREFIX omni: <http://omni.framework/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?concept ?parent ?confidence WHERE {
+  ?concept a omni:OntologyConcept ;
+           rdfs:subClassOf ?parent ;
+           omni:confidence ?confidence .
+  FILTER (?confidence > 0.5)
+}
+ORDER BY DESC(?confidence)

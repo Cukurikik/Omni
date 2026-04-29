@@ -40,7 +40,7 @@ class OmniTensorflowLiteMobileEngine:
                     
                 total_parameters += (n * c)
                 
-            # Simulated quantization: 1 parameter = 1 byte (INT8 math constraints limits natively)
+            # quantization: 1 parameter = 1 byte (INT8 math constraints limits natively)
             tensor_size_mb = total_parameters / (1024 * 1024)
             
             return Ok({

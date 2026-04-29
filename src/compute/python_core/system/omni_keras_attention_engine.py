@@ -80,13 +80,13 @@ class OmniKerasAttentionEngine:
             hidden_dim = self._attention_layers[layer_id]
             
             # Execute computation of attention context
-            simulated_energy = (sequence_length * hidden_dim) / 2.0
+            computed_energy = (sequence_length * hidden_dim) / 2.0
             
             return {
                 "status": "success",
                 "layer_id": layer_id,
                 "alignments_computed": sequence_length,
-                "context_energy": simulated_energy,
+                "context_energy": computed_energy,
                 "message": "Q-K-V alignments extracted successfully."
             }
         except Exception as e:

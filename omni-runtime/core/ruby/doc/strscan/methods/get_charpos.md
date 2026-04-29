@@ -1,5 +1,5 @@
 call-seq:
-  charpos -> character_position
+charpos -> character_position
 
 Returns the [character position][7] (initially zero),
 which may be different from the [byte position][2]

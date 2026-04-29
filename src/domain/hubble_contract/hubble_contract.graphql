@@ -1,0 +1,29 @@
+@schema
+type AstronomicalSemanticAlignment {
+  id: ID!
+  vectorDimension: Int!
+  parallaxTolerance: Float!
+  spectraNorm: Float!
+  isConverged: Boolean!
+}
+
+@schema
+type ParallaxShiftEvent {
+  eventId: ID!
+  baselineAu: Float!
+  observedAngleRad: Float!
+  distanceParsecs: Float!
+  timestampUtc: String!
+}
+
+type Query {
+  getLatestAlignment(id: ID!): AstronomicalSemanticAlignment
+  calculateShiftEventHistory: [ParallaxShiftEvent!]!
+}
+
+type Mutation {
+  registerAlignmentConvergence(vectorDim: Int!, spectraNorm: Float!): AstronomicalSemanticAlignment
+}
+
+# Strict bounds for PAPERCLIP-Hubble alignment rules
+directive @geometryBound(minDim: Int = 128, maxDim: Int = 2048) on FIELD_DEFINITION

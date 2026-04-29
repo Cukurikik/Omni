@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI ML NLP CURRICULUM ENGINE (SEMESTER 5 — BATCH 21)
@@ -69,6 +69,17 @@ export class OmniMlNlpCurriculumEngine {
             status: "healthy",
             topics_indexed: this.catalog.size,
             learned_from: "NLP-LOVE/ML-NLP"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMlNlpCurriculumEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

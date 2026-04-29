@@ -30,6 +30,7 @@ GET /api/health
 ```
 
 **Response:**
+
 ```json
 {
   "status": "ok",
@@ -51,6 +52,7 @@ GET /api/nexus/packages
 ```
 
 **Response:**
+
 ```json
 {
   "packages": [
@@ -101,6 +103,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "output": "Hello OMNI!",
@@ -182,28 +185,28 @@ All errors follow this format:
 
 ### Error Codes
 
-| Code | Type | Description |
-|------|------|-------------|
+| Code   | Type                   | Description                            |
+| ------ | ---------------------- | -------------------------------------- |
 | `E001` | `DomainLayerViolation` | Code violates domain layer segregation |
-| `E002` | `MissingResultWrapper` | Function must return `Result<T, E>` |
-| `E003` | `UnsafeDataCopy` | Data >1MB must use zero-copy transfer |
-| `E004` | `PermissionDenied` | Missing permission in Omnifile.toml |
-| `E005` | `MissingDocComment` | Public function must have doc comment |
-| `E006` | `CompilationError` | Source code failed to compile |
-| `E007` | `RuntimeError` | Runtime execution error |
-| `E008` | `PackageNotFound` | Package not found in OMNI-NEXUS |
-| `E009` | `VersionConflict` | Dependency version conflict |
-| `E010` | `Timeout` | Execution exceeded time limit |
+| `E002` | `MissingResultWrapper` | Function must return `Result<T, E>`    |
+| `E003` | `UnsafeDataCopy`       | Data >1MB must use zero-copy transfer  |
+| `E004` | `PermissionDenied`     | Missing permission in Omnifile.toml    |
+| `E005` | `MissingDocComment`    | Public function must have doc comment  |
+| `E006` | `CompilationError`     | Source code failed to compile          |
+| `E007` | `RuntimeError`         | Runtime execution error                |
+| `E008` | `PackageNotFound`      | Package not found in OMNI-NEXUS        |
+| `E009` | `VersionConflict`      | Dependency version conflict            |
+| `E010` | `Timeout`              | Execution exceeded time limit          |
 
 ---
 
 ## Rate Limits
 
-| Tier | Requests/min | Requests/month |
-|------|-------------|----------------|
-| Community | 60 | 7,000,000,000 |
-| Pro | 600 | 99,999,999,999,999 |
-| Enterprise | Unlimited | Unlimited |
+| Tier       | Requests/min | Requests/month     |
+| ---------- | ------------ | ------------------ |
+| Community  | 60           | 7,000,000,000      |
+| Pro        | 600          | 99,999,999,999,999 |
+| Enterprise | Unlimited    | Unlimited          |
 
 ---
 
@@ -212,17 +215,17 @@ All errors follow this format:
 ### JavaScript/TypeScript
 
 ```typescript
-import { OmniClient } from '@omni/client';
+import { OmniClient } from "@omni/client";
 
 const client = new OmniClient({
-  baseUrl: 'https://api.omniframework.dev',
+  baseUrl: "https://api.omniframework.dev",
   apiKey: process.env.OMNI_API_KEY,
 });
 
 // Execute code
 const result = await client.execute({
   source: 'fn main() { println("Hello!") }',
-  language: 'omni',
+  language: "omni",
 });
 
 console.log(result.output); // "Hello!"
@@ -230,4 +233,4 @@ console.log(result.output); // "Hello!"
 
 ---
 
-*Untuk testing API, gunakan koleksi Postman kami di `docs/postman/`*
+_Untuk testing API, gunakan koleksi Postman kami di `docs/postman/`_

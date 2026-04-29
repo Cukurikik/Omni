@@ -45,7 +45,7 @@ Result = Union[Ok, Err]
 # 2. FREQUENCY PHASE BOUNDING CALCULATOR
 # ---------------------------------------------------------------------------
 
-class VocalIsolationAmplitudeSimulator:
+class VocalIsolationAmplitudeEngine:
     """Isolates pseudo-frequencies deterministic sine mapping without Demucs."""
     
     def separate_stems_deterministically(self, samples_array: np.ndarray) -> Result:
@@ -66,7 +66,7 @@ class VocalIsolationAmplitudeSimulator:
             
             mean_amp = np.mean(np.abs(samples_array))
             
-            # Simulated isolation boundary
+            # isolation boundary
             vocal_mask = np.abs(samples_array) > (mean_amp * 1.25)
             instrumental_mask = ~vocal_mask
             
@@ -85,7 +85,7 @@ class VocalIsolationAmplitudeSimulator:
             })
             
         except Exception as e:
-            return Err(f"Simulated boundary separation matrix failed: {e}")
+            return Err(f"Boundary separation matrix failed: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -105,9 +105,9 @@ class OmniStemrollerEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-stemroller"
 
-    def get_structural_evaluator(self) -> VocalIsolationAmplitudeSimulator:
-        """Performs get simulator operation for OmniStemrollerEngine."""
-        return VocalIsolationAmplitudeSimulator()
+    def get_structural_evaluator(self) -> VocalIsolationAmplitudeEngine:
+        """Performs diagnostic evaluation for OmniStemrollerEngine."""
+        return VocalIsolationAmplitudeEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniStemrollerEngine."""

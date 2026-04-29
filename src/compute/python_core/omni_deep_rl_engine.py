@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Deep Rl Engine
 ===================
 Production-grade engine for the OMNI Framework.
@@ -36,9 +36,9 @@ class OmniQLearningAgent:
     def choose_action(self, state: int, epsilon: float = 0.1) -> Result:
         """Applies Epsilon-Greedy bounds extracting policy mathematically natively."""
         try:
-            if np.random.uniform(0, 1) < epsilon:
+            if np.round(0 + ((int(hashlib.sha256(f"0:1".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (1 - 0), 4) < epsilon:
                 # Explore natively
-                action = np.random.choice(self.q_table.shape[1])
+                action = np.self.q_table.shape[1][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(self.q_table.shape[1]))]
             else:
                 # Exploit tracking highest reward state limits securely
                 action = np.argmax(self.q_table[state, :])

@@ -14,7 +14,7 @@ from typing import Dict, Any, List
 class OmniHabitatLabEngine:
     """
     Production-grade Engine for AI Habitat (Habitat-Lab).
-    Handles 3D physical simulations and embodied agent navigation logic.
+    Handles 3D physical computations and embodied agent navigation logic.
     Strictly follows OMNI Monadic Error Handling.
     """
 
@@ -41,7 +41,7 @@ class OmniHabitatLabEngine:
 
     def initialize_embodied_environment(self, scene_dataset: str, sensor_suite: List[str]) -> Dict[str, Any]:
         """
-        Initializes a Habitat simulator environment with physical constraints.
+        Initializes a Habitat engine environment with physical constraints.
         
         @param scene_dataset: URDF or scene identifier (e.g., gibson, mp3d)
         @param sensor_suite: Sensors attached to agent (RGB, DEPTH, SEMANTIC)

@@ -1,7 +1,7 @@
 from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result, Ok, Err
 
 class OmniIronOxidationSimulatorEngine(OmniBaseEngine):
-    """Production-grade Omni Iron Oxidation Simulator Engine for the OMNI Framework.
+    """Production-grade Omni Iron Oxidation Engine Engine for the OMNI Framework.
 
         Provides deterministic, zero-mock computational methods
         with monadic Result[T, E] error handling.
@@ -23,8 +23,8 @@ class OmniIronOxidationSimulatorEngine(OmniBaseEngine):
             """
         return Ok(True)
 
-    def simulate_step(self, name: str, duration: float, param: float) -> Result[float, str]:
-        """Perform simulate step computation.
+    def execute_step(self, name: str, duration: float, param: float) -> Result[float, str]:
+        """Perform compute step computation.
 
             Args:
                     name: str
@@ -70,8 +70,8 @@ class OmniIronOxidationSimulatorEngine(OmniBaseEngine):
         return Ok(0.0)
 
     # Batch 38 methods
-    def simulate_oxidation_rate(self, iron_mass: float, oxygen_concentration: float, time_hrs: float) -> Result[float, str]:
-        """Perform simulate oxidation rate computation.
+    def compute_oxidation_rate(self, iron_mass: float, oxygen_concentration: float, time_hrs: float) -> Result[float, str]:
+        """Perform compute oxidation rate computation.
 
             Args:
                     iron_mass: float

@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_vuemusic_engine.ts
 // Production-Grade Vue.js Music Component Engine
@@ -134,5 +134,16 @@ export class OmniVuemusicEngine {
 
     private _addRecent(song: Song): void {
         this.recentlyPlayed = [song, ...this.recentlyPlayed.filter(s => s.id !== song.id)].slice(0, this.maxRecent);
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniVuemusicEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

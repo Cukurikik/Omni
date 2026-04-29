@@ -103,7 +103,7 @@ class OmniTinyTagEngine:
         if len(data_buffer) < 128:
             return TagResult.err(TagError("BUFFER_UNDERRUN", "Buffer is too small to contain valid metadata tags."))
 
-        # Natively simulated execution decoupling heavy binary limits 
+        # Natively Execution decoupling heavy binary limits 
         # mimicking pure structural iteration mappings mapping boundaries safely.
         
         metadata = AudioMetadataDict(

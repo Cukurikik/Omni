@@ -1,0 +1,22 @@
+[package]
+name = "omni-semester14-batch12"
+version = "1.0.0"
+description = "OMNI Semester 14 Batch 12 Engine Implementations"
+authors = ["ANTIGRAVITY MOTHER"]
+edition = "omni-2026"
+
+[dependencies]
+omni-std = "^2.0"
+omni-net = "^1.5"
+omni-crypto = "^3.0"
+
+[permissions]
+allow_net = ["api.github.com", "huggingface.co"]
+allow_fs = ["/tmp/omni_batch12/"]
+allow_env = ["OMNI_ENV", "LLM_API_KEY"]
+allow_thread = true
+
+[build]
+target = ["wasm32", "x86_64-linux", "aarch64-apple", "x86_64-windows"]
+optimize = "release"
+llvm_passes = ["vectorize", "inline", "unroll"]

@@ -1,0 +1,27 @@
+#usda 1.0
+(
+    doc = """Omni Scene Composer (OpenUSD). 
+    Defines the structural baseline for 3D Vision LLM grounding."""
+    defaultPrim = "OmniRoot"
+    upAxis = "Y"
+)
+
+def Xform "OmniRoot"
+{
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+    def Sphere "CentralCore"
+    {
+        double radius = 5.0
+        color3f[] primvars:displayColor = [(0.1, 0.5, 0.8)]
+    }
+
+    def Camera "MainCamera"
+    {
+        float focalLength = 35
+        float focusDistance = 100
+        double3 xformOp:translate = (0, 0, 20)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}

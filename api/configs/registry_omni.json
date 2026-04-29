@@ -29,8 +29,18 @@
       "accepts": ".mp3, .wav, .ogg, .flac",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "start_ms", "label": "Mulai (Milidetik)", "type": "number", "default": 0 },
-        { "name": "end_ms", "label": "Akhir (Milidetik)", "type": "number", "default": 30000 }
+        {
+          "name": "start_ms",
+          "label": "Mulai (Milidetik)",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "end_ms",
+          "label": "Akhir (Milidetik)",
+          "type": "number",
+          "default": 30000
+        }
       ]
     },
     {
@@ -52,7 +62,12 @@
       "accepts": ".mp3, .wav, .ogg, .flac, .aac",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "output_format", "label": "Format Output", "type": "text", "default": "mp3" }
+        {
+          "name": "output_format",
+          "label": "Format Output",
+          "type": "text",
+          "default": "mp3"
+        }
       ]
     },
     {
@@ -64,7 +79,12 @@
       "accepts": ".mp3, .wav",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "sensitivity", "label": "Sensitivitas (0-100)", "type": "number", "default": 50 }
+        {
+          "name": "sensitivity",
+          "label": "Sensitivitas (0-100)",
+          "type": "number",
+          "default": 50
+        }
       ]
     },
     {
@@ -76,7 +96,12 @@
       "accepts": ".mp3, .wav",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "semitones", "label": "Semitone (+/-12)", "type": "number", "default": 0 }
+        {
+          "name": "semitones",
+          "label": "Semitone (+/-12)",
+          "type": "number",
+          "default": 0
+        }
       ]
     },
     {
@@ -99,8 +124,18 @@
       "accepts": ".mp4, .mkv, .mov, .avi",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "start_ms", "label": "Mulai (Milidetik)", "type": "number", "default": 0 },
-        { "name": "end_ms", "label": "Akhir (Milidetik)", "type": "number", "default": 60000 }
+        {
+          "name": "start_ms",
+          "label": "Mulai (Milidetik)",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "end_ms",
+          "label": "Akhir (Milidetik)",
+          "type": "number",
+          "default": 60000
+        }
       ]
     },
     {
@@ -112,7 +147,12 @@
       "accepts": ".mp4, .mkv, .mov",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "crf_value", "label": "CRF Quality (0-51, semakin kecil = semakin bagus)", "type": "number", "default": 23 }
+        {
+          "name": "crf_value",
+          "label": "CRF Quality (0-51, semakin kecil = semakin bagus)",
+          "type": "number",
+          "default": 23
+        }
       ]
     },
     {
@@ -124,7 +164,12 @@
       "accepts": ".mp4, .mkv, .mov, .avi, .webm",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "output_format", "label": "Format Output", "type": "text", "default": "mp4" }
+        {
+          "name": "output_format",
+          "label": "Format Output",
+          "type": "text",
+          "default": "mp4"
+        }
       ]
     },
     {
@@ -146,7 +191,12 @@
       "accepts": ".mp4, .mkv",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "timestamp_ms", "label": "Detik Ke (Milidetik)", "type": "number", "default": 10000 }
+        {
+          "name": "timestamp_ms",
+          "label": "Detik Ke (Milidetik)",
+          "type": "number",
+          "default": 10000
+        }
       ]
     },
     {
@@ -158,7 +208,12 @@
       "accepts": ".mp4, .mkv, .mov",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "speed_factor", "label": "Faktor Kecepatan (0.25 - 4.0)", "type": "number", "default": 1 }
+        {
+          "name": "speed_factor",
+          "label": "Faktor Kecepatan (0.25 - 4.0)",
+          "type": "number",
+          "default": 1
+        }
       ]
     },
     {
@@ -170,7 +225,12 @@
       "accepts": ".mp4, .mkv, .mov",
       "delegateTo": "C++",
       "extraInputs": [
-        { "name": "fps", "label": "Frame Per Detik GIF", "type": "number", "default": 15 }
+        {
+          "name": "fps",
+          "label": "Frame Per Detik GIF",
+          "type": "number",
+          "default": 15
+        }
       ]
     },
     {
@@ -203,7 +263,12 @@
       "accepts": ".pdf",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "password", "label": "Kata Sandi Baru", "type": "password", "default": "" }
+        {
+          "name": "password",
+          "label": "Kata Sandi Baru",
+          "type": "password",
+          "default": ""
+        }
       ]
     },
     {
@@ -215,7 +280,12 @@
       "accepts": ".pdf",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "page_range", "label": "Rentang Halaman (misal: 1-5)", "type": "text", "default": "1-5" }
+        {
+          "name": "page_range",
+          "label": "Rentang Halaman (misal: 1-5)",
+          "type": "text",
+          "default": "1-5"
+        }
       ]
     },
     {
@@ -237,7 +307,12 @@
       "accepts": ".pdf",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "watermark_text", "label": "Teks Watermark", "type": "text", "default": "RAHASIA" }
+        {
+          "name": "watermark_text",
+          "label": "Teks Watermark",
+          "type": "text",
+          "default": "RAHASIA"
+        }
       ]
     },
     {
@@ -269,7 +344,12 @@
       "accepts": ".pdf",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "degrees", "label": "Derajat Rotasi (90/180/270)", "type": "number", "default": 90 }
+        {
+          "name": "degrees",
+          "label": "Derajat Rotasi (90/180/270)",
+          "type": "number",
+          "default": 90
+        }
       ]
     },
 
@@ -282,7 +362,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "aspect_ratio", "label": "Rasio Aspek", "type": "text", "default": "1:1" }
+        {
+          "name": "aspect_ratio",
+          "label": "Rasio Aspek",
+          "type": "text",
+          "default": "1:1"
+        }
       ]
     },
     {
@@ -294,8 +379,18 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "width", "label": "Lebar (px)", "type": "number", "default": 1920 },
-        { "name": "height", "label": "Tinggi (px)", "type": "number", "default": 1080 }
+        {
+          "name": "width",
+          "label": "Lebar (px)",
+          "type": "number",
+          "default": 1920
+        },
+        {
+          "name": "height",
+          "label": "Tinggi (px)",
+          "type": "number",
+          "default": 1080
+        }
       ]
     },
     {
@@ -317,7 +412,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Python",
       "extraInputs": [
-        { "name": "scale", "label": "Skala (2x/4x)", "type": "number", "default": 2 }
+        {
+          "name": "scale",
+          "label": "Skala (2x/4x)",
+          "type": "number",
+          "default": 2
+        }
       ]
     },
     {
@@ -329,7 +429,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "filter_type", "label": "Jenis Filter", "type": "text", "default": "grayscale" }
+        {
+          "name": "filter_type",
+          "label": "Jenis Filter",
+          "type": "text",
+          "default": "grayscale"
+        }
       ]
     },
     {
@@ -341,8 +446,18 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "brightness", "label": "Kecerahan (-100 ke 100)", "type": "number", "default": 0 },
-        { "name": "contrast", "label": "Kontras (-100 ke 100)", "type": "number", "default": 0 }
+        {
+          "name": "brightness",
+          "label": "Kecerahan (-100 ke 100)",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "contrast",
+          "label": "Kontras (-100 ke 100)",
+          "type": "number",
+          "default": 0
+        }
       ]
     },
     {
@@ -354,7 +469,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "degrees", "label": "Derajat", "type": "number", "default": 90 }
+        {
+          "name": "degrees",
+          "label": "Derajat",
+          "type": "number",
+          "default": 90
+        }
       ]
     },
     {
@@ -366,7 +486,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "direction", "label": "Arah (h/v)", "type": "text", "default": "h" }
+        {
+          "name": "direction",
+          "label": "Arah (h/v)",
+          "type": "text",
+          "default": "h"
+        }
       ]
     },
     {
@@ -378,7 +503,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "text", "label": "Teks Watermark", "type": "text", "default": "OMNI TOOLS" }
+        {
+          "name": "text",
+          "label": "Teks Watermark",
+          "type": "text",
+          "default": "OMNI TOOLS"
+        }
       ]
     },
     {
@@ -410,7 +540,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "quality", "label": "Kualitas (1-100)", "type": "number", "default": 80 }
+        {
+          "name": "quality",
+          "label": "Kualitas (1-100)",
+          "type": "number",
+          "default": 80
+        }
       ]
     },
     {
@@ -422,7 +557,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "sigma", "label": "Intensitas Blur", "type": "number", "default": 2 }
+        {
+          "name": "sigma",
+          "label": "Intensitas Blur",
+          "type": "number",
+          "default": 2
+        }
       ]
     },
     {
@@ -514,8 +654,18 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "color", "label": "Warna Hex", "type": "text", "default": "#000000" },
-        { "name": "thickness", "label": "Tebal (px)", "type": "number", "default": 10 }
+        {
+          "name": "color",
+          "label": "Warna Hex",
+          "type": "text",
+          "default": "#000000"
+        },
+        {
+          "name": "thickness",
+          "label": "Tebal (px)",
+          "type": "number",
+          "default": 10
+        }
       ]
     },
     {
@@ -527,7 +677,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "radius", "label": "Radius (px)", "type": "number", "default": 20 }
+        {
+          "name": "radius",
+          "label": "Radius (px)",
+          "type": "number",
+          "default": 20
+        }
       ]
     },
     {
@@ -539,7 +694,12 @@
       "accepts": ".png, .jpg, .webp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "pixel_size", "label": "Ukuran Pixel", "type": "number", "default": 8 }
+        {
+          "name": "pixel_size",
+          "label": "Ukuran Pixel",
+          "type": "number",
+          "default": 8
+        }
       ]
     },
     {
@@ -571,7 +731,12 @@
       "accepts": ".png, .jpg",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "delay", "label": "Delay (ms)", "type": "number", "default": 100 }
+        {
+          "name": "delay",
+          "label": "Delay (ms)",
+          "type": "number",
+          "default": 100
+        }
       ]
     },
     {
@@ -654,7 +819,12 @@
       "accepts": "*",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "mode", "label": "Mode (encode/decode)", "type": "text", "default": "encode" }
+        {
+          "name": "mode",
+          "label": "Mode (encode/decode)",
+          "type": "text",
+          "default": "encode"
+        }
       ]
     },
     {
@@ -666,7 +836,12 @@
       "accepts": ".png, .jpg, .jpeg, .webp, .bmp",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "output_format", "label": "Format Output (png/jpg/webp)", "type": "text", "default": "png" }
+        {
+          "name": "output_format",
+          "label": "Format Output (png/jpg/webp)",
+          "type": "text",
+          "default": "png"
+        }
       ]
     },
     {
@@ -678,7 +853,12 @@
       "accepts": "",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "qr_text", "label": "Teks / URL untuk QR", "type": "text", "default": "https://omnitools.dev" }
+        {
+          "name": "qr_text",
+          "label": "Teks / URL untuk QR",
+          "type": "text",
+          "default": "https://omnitools.dev"
+        }
       ]
     },
     {
@@ -690,7 +870,12 @@
       "accepts": "*",
       "delegateTo": "Golang",
       "extraInputs": [
-        { "name": "algorithm", "label": "Algoritma (sha256/md5)", "type": "text", "default": "sha256" }
+        {
+          "name": "algorithm",
+          "label": "Algoritma (sha256/md5)",
+          "type": "text",
+          "default": "sha256"
+        }
       ]
     },
     {
@@ -923,7 +1108,12 @@
       "accepts": "",
       "delegateTo": "Python",
       "extraInputs": [
-        { "name": "prompt", "label": "Ketik Pertanyaan Anda", "type": "text", "default": "" }
+        {
+          "name": "prompt",
+          "label": "Ketik Pertanyaan Anda",
+          "type": "text",
+          "default": ""
+        }
       ]
     },
     {
@@ -945,7 +1135,12 @@
       "accepts": ".txt, .pdf",
       "delegateTo": "Python",
       "extraInputs": [
-        { "name": "max_sentences", "label": "Maks Kalimat Ringkasan", "type": "number", "default": 5 }
+        {
+          "name": "max_sentences",
+          "label": "Maks Kalimat Ringkasan",
+          "type": "number",
+          "default": 5
+        }
       ]
     },
     {
@@ -967,7 +1162,12 @@
       "accepts": ".txt",
       "delegateTo": "Python",
       "extraInputs": [
-        { "name": "target_lang", "label": "Bahasa Target (en/id/ja/ko/de)", "type": "text", "default": "en" }
+        {
+          "name": "target_lang",
+          "label": "Bahasa Target (en/id/ja/ko/de)",
+          "type": "text",
+          "default": "en"
+        }
       ]
     },
     {
@@ -979,9 +1179,13 @@
       "accepts": "",
       "delegateTo": "Python",
       "extraInputs": [
-        { "name": "prompt", "label": "Deskripsi Gambar", "type": "text", "default": "" }
+        {
+          "name": "prompt",
+          "label": "Deskripsi Gambar",
+          "type": "text",
+          "default": ""
+        }
       ]
     }
   ]
 }
-

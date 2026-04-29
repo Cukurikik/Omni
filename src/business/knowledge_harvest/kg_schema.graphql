@@ -1,0 +1,12 @@
+type Entity {
+    id: ID!
+    name: String!
+    type: String!
+}
+
+type Relation {
+    source: Entity!
+    target: Entity!
+    predicate: String!
+    weight: Float!
+}

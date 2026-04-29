@@ -61,7 +61,7 @@ class ClusterScheduleEstimator:
             network_latency_ms_per_mb = 12.0 # Virtual constraint
             tensor_mb = total_bytes / (1024 * 1024)
             
-            # Simulated node penalty for marshalling shards
+            # Node penalty for marshalling shards
             shard_penalty_ms = float(np.log1p(cluster_nodes)) * 2.5
             
             node_allocations = []
@@ -88,7 +88,7 @@ class ClusterScheduleEstimator:
             })
             
         except Exception as e:
-            return Err(f"Simulated Mars distributed topology failed: {e}")
+            return Err(f"Mars distributed topology failed: {e}")
 
 
 # ---------------------------------------------------------------------------

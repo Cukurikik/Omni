@@ -1,0 +1,32 @@
+# OMNI Kafka Topic Configuration for LLMRank Streams
+# Strict retention and size limits for production stability
+
+# Topic: llmrank.candidate.scores
+# Purpose: Streams raw LLM candidate scores for Bradley-Terry compute layer
+config:
+  name: "omni_llmrank_scores_v1"
+  partitions: 12
+  replication_factor: 3
+  
+  settings:
+    # Memory and storage limits
+    retention.ms: 86400000 # 24 Hours max retention
+    retention.bytes: 10737418240 # 10 GB max per partition
+    max.message.bytes: 1048576 # 1 MB max message size (strict payload bound)
+    
+    # Reliability
+    min.insync.replicas: 2
+    compression.type: "lz4"
+    cleanup.policy: "delete"
+    
+# Topic: llmrank.probability.matrix
+# Purpose: Emits final probability matrices from Mojo compute layer
+config:
+  name: "omni_llmrank_matrix_v1"
+  partitions: 6
+  replication_factor: 3
+  
+  settings:
+    retention.ms: 3600000 # 1 Hour (hot stream only)
+    max.message.bytes: 5242880 # 5 MB (matrices can be larger)
+    cleanup.policy: "delete"

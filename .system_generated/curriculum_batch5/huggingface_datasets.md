@@ -114,9 +114,9 @@ For more details on using the library, check the quick start page in the documen
 - Loading a dataset: https://huggingface.co/docs/datasets/loading
 - What's in a Dataset: https://huggingface.co/docs/datasets/access
 - Processing data with 🤗 Datasets: https://huggingface.co/docs/datasets/process
-    - Processing audio data: https://huggingface.co/docs/datasets/audio_process
-    - Processing image data: https://huggingface.co/docs/datasets/image_process
-    - Processing text data: https://huggingface.co/docs/datasets/nlp_process
+  - Processing audio data: https://huggingface.co/docs/datasets/audio_process
+  - Processing image data: https://huggingface.co/docs/datasets/image_process
+  - Processing text data: https://huggingface.co/docs/datasets/nlp_process
 - Streaming a dataset: https://huggingface.co/docs/datasets/stream
 - etc.
 
@@ -125,6 +125,7 @@ For more details on using the library, check the quick start page in the documen
 We have a very detailed step-by-step guide to add a new dataset to the ![number of datasets](https://img.shields.io/endpoint?url=https://huggingface.co/api/shields/datasets&color=brightgreen) datasets already provided on the [HuggingFace Datasets Hub](https://huggingface.co/datasets).
 
 You can find:
+
 - [how to upload a dataset to the Hub using your web browser or Python](https://huggingface.co/docs/datasets/upload_dataset) and also
 - [how to upload it using Git](https://huggingface.co/docs/datasets/share).
 

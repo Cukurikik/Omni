@@ -1,0 +1,26 @@
+---
+# Omni Unikernel Provisioning (Ansible)
+# Bare-metal setup for running LLVM-Omni Unikernels
+
+- name: Provision Omni Unikernel Host
+  hosts: omni_edge_nodes
+  become: yes
+  tasks:
+    - name: Ensure minimal dependencies are installed
+      ansible.builtin.apt:
+        name:
+          - qemu-kvm
+          - iproute2
+        state: present
+        update_cache: yes
+
+    - name: Deploy Omni Unikernel Binary (3MB)
+      ansible.builtin.copy:
+        src: /omni/build/release/system_kernel.ukl
+        dest: /opt/omni/system_kernel.ukl
+        mode: '0755'
+
+    - name: Configure strict network bridge for Unikernel
+      ansible.builtin.command:
+        cmd: ip link set dev uk_bridge up
+      ignore_errors: true # Monadic-style logic handled upstream by orchestrator

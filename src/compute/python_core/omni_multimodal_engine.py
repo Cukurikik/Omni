@@ -116,7 +116,7 @@ class OmniMultimodalEngine:
         """
         Project a modality embedding into the unified space.
 
-        Uses a learned linear projection (simulated) to map
+        Uses a learned linear projection  to map
         heterogeneous feature dimensions to embed_dim.
 
         Args:

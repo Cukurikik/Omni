@@ -1,5 +1,4 @@
-bundle-exec(1) -- Execute a command in the context of the bundle
-================================================================
+# bundle-exec(1) -- Execute a command in the context of the bundle
 
 ## SYNOPSIS
 
@@ -20,7 +19,7 @@ available on your shell's `$PATH`.
 
 ## OPTIONS
 
-* `--gemfile=GEMFILE`:
+- `--gemfile=GEMFILE`:
   Use the specified gemfile instead of [`Gemfile(5)`][Gemfile(5)].
 
 ## BUNDLE INSTALL --BINSTUBS
@@ -37,29 +36,29 @@ to `bundle exec rspec spec/my_spec.rb`.
 `bundle exec` makes a number of changes to the shell environment,
 then executes the command you specify in full.
 
-* make sure that it's still possible to shell out to `bundle`
+- make sure that it's still possible to shell out to `bundle`
   from inside a command invoked by `bundle exec` (using
   `$BUNDLE_BIN_PATH`)
-* put the directory containing executables (like `rails`, `rspec`,
+- put the directory containing executables (like `rails`, `rspec`,
   `rackup`) for your bundle on `$PATH`
-* make sure that if bundler is invoked in the subshell, it uses
+- make sure that if bundler is invoked in the subshell, it uses
   the same `Gemfile` (by setting `BUNDLE_GEMFILE`)
-* add `-rbundler/setup` to `$RUBYOPT`, which makes sure that
+- add `-rbundler/setup` to `$RUBYOPT`, which makes sure that
   Ruby programs invoked in the subshell can see the gems in
   the bundle
 
 It also modifies Rubygems:
 
-* disallow loading additional gems not in the bundle
-* modify the `gem` method to be a no-op if a gem matching
+- disallow loading additional gems not in the bundle
+- modify the `gem` method to be a no-op if a gem matching
   the requirements is in the bundle, and to raise a
   `Gem::LoadError` if it's not
-* Define `Gem.refresh` to be a no-op, since the source
+- Define `Gem.refresh` to be a no-op, since the source
   index is always frozen when using bundler, and to
   prevent gems from the system leaking into the environment
-* Override `Gem.bin_path` to use the gems in the bundle,
+- Override `Gem.bin_path` to use the gems in the bundle,
   making system executables work
-* Add all gems in the bundle into Gem.loaded_specs
+- Add all gems in the bundle into Gem.loaded_specs
 
 Finally, `bundle exec` also implicitly modifies `Gemfile.lock` if the lockfile
 and the Gemfile do not match. Bundler needs the Gemfile to determine things
@@ -106,7 +105,6 @@ can be used like this:
 
     Bundler.unbundled_system('brew install wget')
     Bundler.unbundled_exec('brew install wget')
-
 
 ## RUBYGEMS PLUGINS
 

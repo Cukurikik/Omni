@@ -1,3 +1,3 @@
-* kinaba
-  * kiki@kmonos.net
-  * cctld: jp
+- kinaba
+    - kiki@kmonos.net
+    - cctld: jp

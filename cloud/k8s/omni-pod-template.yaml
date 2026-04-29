@@ -15,17 +15,17 @@ spec:
         app: omni-paws-cloud
     spec:
       containers:
-      - name: omni-runtime
-        image: us-central1-docker.pkg.dev/omni-tool-9c48b/omni-cloud/omni-runtime
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        - name: omni-runtime
+          image: us-central1-docker.pkg.dev/omni-tool-9c48b/omni-cloud/omni-runtime
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
 ---
 apiVersion: v1
 kind: Service

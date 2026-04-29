@@ -1,6 +1,6 @@
 call-seq:
-  pos = n -> n
-  pointer = n -> n
+pos = n -> n
+pointer = n -> n
 
 Sets the [byte position][2] and the [character position][11];
 returns `n`.

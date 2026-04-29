@@ -1,0 +1,11 @@
+package rules.llmscratch
+import omni.llmscratch.TrainingState
+import omni.common.OmniResult
+
+rule "Halt on NaN Loss"
+when
+    $state : TrainingState( loss == Double.NaN )
+then
+    $state.haltTraining();
+    insert(new OmniResult(false, "Training halted due to numerical instability (NaN loss)", false));
+end

@@ -1,1 +1,3 @@
-﻿type omni_pgo_jit_Model { id: ID! }
+﻿type omni_pgo_jit_Model {
+  id: ID!
+}

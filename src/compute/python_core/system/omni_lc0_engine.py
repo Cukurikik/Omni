@@ -81,7 +81,7 @@ class OmniLc0Engine:
                 return {"status": "error", "message": "MCTS Instance missing."}
                 
             inst = self.instances[instance_id]
-            nodes_simulated = inst["mcts_nodes"]
+            nodes_computed = inst["mcts_nodes"]
             
             # Simple execute of best move output based on starting FEN
             best_move = "e2e4"
@@ -90,9 +90,9 @@ class OmniLc0Engine:
                 
             return {
                 "status": "success",
-                "search_depth": int(nodes_simulated / 100),
+                "search_depth": int(nodes_computed / 100),
                 "best_move": best_move,
-                "nps": 4000 # nodes per second simulated
+                "nps": 4000 # nodes per second computed
             }
         except Exception as e:
             return {"status": "error", "message": f"MCTS query failed: {str(e)}"}

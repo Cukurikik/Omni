@@ -1,0 +1,11 @@
+package rules.groma
+import omni.groma.ObjectDetection
+import omni.common.OmniResult
+
+rule "Filter Low Confidence Detections"
+when
+    $detection : ObjectDetection( confidence < 0.5 )
+then
+    $detection.discard();
+    insert(new OmniResult(false, "Detection confidence too low", false));
+end

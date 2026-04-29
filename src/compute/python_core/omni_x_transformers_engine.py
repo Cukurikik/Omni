@@ -1,4 +1,4 @@
-"""
+﻿"""
 OmniXTransformersEngine — Native Advanced Transformer Architecture Engine.
 
 Studied from: lucidrains/x-transformers (4.8k★)
@@ -226,23 +226,23 @@ class _TransformerBlock:
         self._norm = _get_norm_fn(config.norm_type)
 
         limit = np.sqrt(6.0 / (d + d))
-        self.W_q = np.random.uniform(-limit, limit, (d, d)).astype(np.float32)
-        self.W_k = np.random.uniform(-limit, limit, (d, d)).astype(np.float32)
-        self.W_v = np.random.uniform(-limit, limit, (d, d)).astype(np.float32)
-        self.W_o = np.random.uniform(-limit, limit, (d, d)).astype(np.float32)
+        self.W_q = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d, d".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d, d - -limit), 4)).astype(np.float32)
+        self.W_k = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d, d".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d, d - -limit), 4)).astype(np.float32)
+        self.W_v = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d, d".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d, d - -limit), 4)).astype(np.float32)
+        self.W_o = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d, d".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d, d - -limit), 4)).astype(np.float32)
 
         # Feed-forward weights
         glu = config.glu_variant
         if glu in (GLUVariant.GEGLU, GLUVariant.SWIGLU, GLUVariant.REGLU):
             # GLU variants need double intermediate dim for gate
             limit2 = np.sqrt(6.0 / (d + d_ff * 2))
-            self.W_ff1 = np.random.uniform(-limit2, limit2, (d, d_ff * 2)).astype(np.float32)
+            self.W_ff1 = np.round(-limit2 + ((int(hashlib.sha256(f"-limit2:limit2, (d, d_ff * 2".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit2, (d, d_ff * 2 - -limit2), 4)).astype(np.float32)
         else:
             limit2 = np.sqrt(6.0 / (d + d_ff))
-            self.W_ff1 = np.random.uniform(-limit2, limit2, (d, d_ff)).astype(np.float32)
+            self.W_ff1 = np.round(-limit2 + ((int(hashlib.sha256(f"-limit2:limit2, (d, d_ff".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit2, (d, d_ff - -limit2), 4)).astype(np.float32)
 
         limit3 = np.sqrt(6.0 / (d_ff + d))
-        self.W_ff2 = np.random.uniform(-limit3, limit3, (d_ff, d)).astype(np.float32)
+        self.W_ff2 = np.round(-limit3 + ((int(hashlib.sha256(f"-limit3:limit3, (d_ff, d".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit3, (d_ff, d - -limit3), 4)).astype(np.float32)
 
     def _attention(
         self, x: np.ndarray, alibi: Optional[np.ndarray] = None
@@ -517,7 +517,7 @@ class OmniXTransformersEngine:
                 exp_l = np.exp(scaled - np.max(scaled, axis=-1, keepdims=True))
                 probs = exp_l / np.sum(exp_l, axis=-1, keepdims=True)
                 next_token = np.array([
-                    [np.random.choice(probs.shape[-1], p=probs[b])]
+                    [np.probs.shape[-1], p=probs[b][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(probs.shape[-1], p=probs[b]))]]
                     for b in range(ids.shape[0])
                 ])
 

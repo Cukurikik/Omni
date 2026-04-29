@@ -66,7 +66,7 @@ class FSRSRetentionModel:
     def advance_state(self, current: DSRState, elapsed_days: float, grade: int) -> Result:
         """
         Grade mapping: 1=Again, 2=Hard, 3=Good, 4=Easy
-        Returns simulated next DSRState.
+        Returns Next DSRState.
         """
         if not (1 <= grade <= 4):
             return Err("Grade metric deviation. Valid bonds are [1, 4].")
@@ -78,7 +78,7 @@ class FSRSRetentionModel:
             # Predict Retrievability based on elapsed time
             pred_r = math.exp(np.log(0.9) * elapsed_days / current.stability) if current.stability > 0 else 0.0
             
-            # Simulated difficulty update D' = D + weight * (grade_diff)
+            # difficulty update D' = D + weight * (grade_diff)
             # Grade 3 is target. <3 increases diff, >3 decreases diff
             next_d = current.difficulty + self.w[4] * (3 - grade)
             next_d = max(1.0, min(10.0, next_d)) # bounded

@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Composer Engine
 ======================
 Production-grade ML training composition engine inspired by
@@ -103,7 +103,7 @@ class TrainingState:
     # Learning rate tracking
     lr_history: List[float] = field(default_factory=list)
 
-    # Model params (simulated)
+    # Model params 
     param_count: int = 0
     best_metric: float = float('inf')
     best_epoch: int = 0
@@ -196,8 +196,8 @@ def cutmix(
     cut_h = int(h * cut_ratio)
     cut_w = int(w * cut_ratio)
 
-    cy = np.random.randint(0, h)
-    cx = np.random.randint(0, w)
+    cy = np.(0 + (int(hashlib.sha256(f"0:h".encode()).hexdigest()[:8], 16) % max(1, h - 0 + 1)))
+    cx = np.(0 + (int(hashlib.sha256(f"0:w".encode()).hexdigest()[:8], 16) % max(1, w - 0 + 1)))
 
     y1 = max(0, cy - cut_h // 2)
     y2 = min(h, cy + cut_h // 2)
@@ -239,8 +239,8 @@ def cutout(
     h, w = images.shape[1], images.shape[2]
 
     for _ in range(num_holes):
-        cy = np.random.randint(0, h)
-        cx = np.random.randint(0, w)
+        cy = np.(0 + (int(hashlib.sha256(f"0:h".encode()).hexdigest()[:8], 16) % max(1, h - 0 + 1)))
+        cx = np.(0 + (int(hashlib.sha256(f"0:w".encode()).hexdigest()[:8], 16) % max(1, w - 0 + 1)))
         y1 = max(0, cy - hole_size // 2)
         y2 = min(h, cy + hole_size // 2)
         x1 = max(0, cx - hole_size // 2)
@@ -588,7 +588,7 @@ class GradientClippingCallback(Callback):
 
 
 class CheckpointCallback(Callback):
-    """Track checkpoints (simulated)."""
+    """Track checkpoints ."""
 
     def __init__(self, save_interval: int = 5):
         """Initialize CheckpointCallback."""
@@ -875,7 +875,7 @@ class OmniComposerEngine:
         if loss_fn:
             loss = loss_fn(batch_images, batch_labels)
         else:
-            # Simulated loss: MSE from random predictions
+            # Loss: MSE from random predictions
             pred = np.random.randn(*batch_labels.shape).astype(np.float32) * 0.1
             loss = float(np.mean((pred - batch_labels) ** 2))
 

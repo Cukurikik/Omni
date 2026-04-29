@@ -73,7 +73,7 @@ class VolatilityMetrics:
             return Err(f"Exponential decay aggregation fault: {e}")
 
     def calculate_volatility(self, prices: np.ndarray, window: int = 20) -> Result:
-        """Returns localized standard deviation representing simulated price volatility."""
+        """Returns localized standard deviation representing Price volatility."""
         if len(prices) < window:
             return Err("Volatility window broader than accessible price history.")
             

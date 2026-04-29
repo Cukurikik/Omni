@@ -1,5 +1,5 @@
 call-seq:
-  scan_until(pattern) -> substring or nil
+scan_until(pattern) -> substring or nil
 
 Attempts to [match][17] the given `pattern`
 anywhere (at any [position][2]) in the [target substring][3].
@@ -10,7 +10,6 @@ If the match attempt succeeds:
 - Sets the [byte position][2] to the end of the matched substring;
   may adjust the [character position][7].
 - Returns the matched substring.
-
 
 ```rb
 scanner = StringScanner.new(HIRAGANA_TEXT)

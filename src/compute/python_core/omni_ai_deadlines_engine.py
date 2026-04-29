@@ -9,6 +9,7 @@ OMNI Domain: compute/ (Python)
 CODE RULE 001-005 compliant. Zero external dependencies (beyond stdlib).
 """
 
+import numpy as np
 from __future__ import annotations
 
 import math

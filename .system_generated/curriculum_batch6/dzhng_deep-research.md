@@ -178,18 +178,15 @@ CUSTOM_MODEL="custom_model"
 ## How It Works
 
 1. **Initial Setup**
-
    - Takes user query and research parameters (breadth & depth)
    - Generates follow-up questions to understand research needs better
 
 2. **Deep Research Process**
-
    - Generates multiple SERP queries based on research goals
    - Processes search results to extract key learnings
    - Generates follow-up research directions
 
 3. **Recursive Exploration**
-
    - If depth > 0, takes new research directions and continues exploration
    - Each iteration builds on previous learnings
    - Maintains context of research goals and findings
@@ -198,7 +195,7 @@ CUSTOM_MODEL="custom_model"
    - Compiles all findings into a comprehensive markdown report
    - Includes all sources and references
    - Organizes information in a clear, readable format
-  
+
 ## Community implementations
 
 **Python**: https://github.com/Finance-LLMs/deep-research-python

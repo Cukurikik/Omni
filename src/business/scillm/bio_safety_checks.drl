@@ -1,0 +1,11 @@
+package rules.scillm
+import omni.scillm.SynthesizedCompound
+import omni.common.OmniResult
+
+rule "Prohibit Highly Toxic Compound Synthesis"
+when
+    $compound : SynthesizedCompound( toxicityScore > 0.9, ld50_mg_kg < 5.0 )
+then
+    $compound.flagAsHazardous();
+    insert(new OmniResult(false, "Compound violates safety regulations", false));
+end

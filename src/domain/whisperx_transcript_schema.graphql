@@ -1,0 +1,8 @@
+type TranscriptWord {
+    word: String!
+    start: Float!
+    end: Float!
+}
+type Transcript {
+    words: [TranscriptWord!]!
+}

@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI OXFORD DEEP NLP ENGINE (SEMESTER 5 — BATCH 23)
@@ -64,6 +64,17 @@ export class OmniOxfordDeepNlpEngine {
             status: "healthy",
             lectures_indexed: this.catalog.size,
             learned_from: "oxford-cs-deepnlp-2017/lectures"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniOxfordDeepNlpEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

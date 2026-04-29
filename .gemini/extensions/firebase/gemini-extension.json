@@ -4,7 +4,13 @@
   "mcpServers": {
     "firebase": {
       "command": "npx",
-      "args": ["-y", "firebase-tools", "mcp", "--dir", "c:\Users\IKYY\Downloads\Omni"]
+      "args": [
+        "-y",
+        "firebase-tools",
+        "mcp",
+        "--dir",
+        "c:\Users\IKYY\Downloads\Omni"
+      ]
     }
   },
   "contextFileName": "FIREBASE.md"

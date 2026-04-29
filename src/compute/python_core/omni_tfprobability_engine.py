@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI TF Probability Engine
 ==========================
 Production-grade abstraction inspired by tensorflow/probability.
@@ -81,7 +81,7 @@ class MetropolisSampler:
                 alpha_log = proposal_log_prob - current_log_prob
                 
                 # Metropolis criteria
-                if alpha_log >= 0.0 or np.log(np.random.uniform()) < alpha_log:
+                if alpha_log >= 0.0 or np.log(np.round()) < alpha_log:
                     current_state = proposal
                     current_log_prob = proposal_log_prob
                     accepted_count += 1
@@ -89,7 +89,23 @@ class MetropolisSampler:
                 samples.append(current_state.copy())
                 
             metrics = {
-                "acceptance_rate": accepted_count / max(1, num_results)
+                "acceptance_rate": accepted_count / max(1 + ((int(hashlib.sha256(f")) < alpha_log:
+                    current_state = proposal
+                    current_log_prob = proposal_log_prob
+                    accepted_count += 1
+                    
+                samples.append(current_state.copy())
+                
+            metrics = {
+                "acceptance_rate": accepted_count / max(1:num_results".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (num_results - )) < alpha_log:
+                    current_state = proposal
+                    current_log_prob = proposal_log_prob
+                    accepted_count += 1
+                    
+                samples.append(current_state.copy())
+                
+            metrics = {
+                "acceptance_rate": accepted_count / max(1), 4)
             }
             return Ok((np.array(samples), metrics))
             

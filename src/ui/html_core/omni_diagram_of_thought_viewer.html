@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- Omni Diagram of Thought Viewer -->
+<!-- Interface Layer: Semantic structural representation of DAG reasoning paths -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Omni Diagram of Thought Viewer</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0D1117; color: #C9D1D9; }
+        .node { border: 1px solid #30363D; padding: 10px; margin: 10px; border-radius: 6px; }
+        .status-ok { border-left: 4px solid #2EA043; }
+    </style>
+</head>
+<body>
+    <main id="omni-dag-container">
+        <!-- Rendered purely structurally, deterministic layout -->
+        <div class="node status-ok" id="node-0x1">
+            <h3>Reasoning Node: Alpha</h3>
+            <p>Weight: 0.982</p>
+        </div>
+        <div class="node status-ok" id="node-0x2">
+            <h3>Reasoning Node: Beta</h3>
+            <p>Dependencies: Alpha</p>
+            <p>Weight: 0.915</p>
+        </div>
+    </main>
+</body>
+</html>

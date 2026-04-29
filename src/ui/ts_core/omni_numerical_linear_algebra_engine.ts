@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI NUMERICAL LINEAR ALGEBRA CURRICULUM (SEMESTER 5 — BATCH 19)
@@ -90,6 +90,17 @@ export class OmniNumericalLinearAlgebraEngine {
             status: "healthy",
             total_modules: this.modules.size,
             learned_from: "fastai/numerical-linear-algebra"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniNumericalLinearAlgebraEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

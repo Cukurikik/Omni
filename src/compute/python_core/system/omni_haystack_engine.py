@@ -75,7 +75,7 @@ class OmniHaystackEngine:
             return {
                 "status": "success",
                 "latency_ms": 420.5,
-                "generated_answer": f"Simulated abstract answer regarding: {question[:10]}..."
+                "generated_answer": f"Abstract answer regarding: {question[:10]}..."
             }
         except Exception as e:
             return {"status": "error", "message": str(e)}

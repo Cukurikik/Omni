@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package network
+package go_core
 
 import (
 	"errors"
@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const ENGINE_VERSION = "1.0.0-omni"
+const SOUNDSYNC_ENGINE_VERSION = "1.0.0-omni"
 
 // --- Monadic Error Definition ---
 
@@ -90,7 +90,7 @@ func (engine *OmniSoundSyncEngine) GenerateSyncBroadcastPayload() map[string]int
 	defer engine.mu.RUnlock()
 
 	return map[string]interface{}{
-		"version":      ENGINE_VERSION,
+		"version":      SOUNDSYNC_ENGINE_VERSION,
 		"master_clock": time.Now().UnixNano(),
 		"node_count":   len(engine.activeNodes),
 	}

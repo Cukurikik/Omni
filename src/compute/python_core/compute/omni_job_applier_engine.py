@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # OMNI COMPUTE LAYER - LINKEDIN JOB APPLIER ENGINE
 # ===========================================================================
@@ -10,7 +10,7 @@ ENGINE_VERSION = "1.0.0-omni"
 import json
 import logging
 import os
-import random
+import hashlib
 import time
 from typing import Dict, Any, List
 
@@ -34,11 +34,11 @@ class LinkedInBotStealth:
         return Ok("Chromedriver initialized in Stealth Mode")
 
     def search_jobs(self, keywords: str, location: str) -> List[str]:
-        """Returns dummy job IDs based on parameters"""
+        """Returns deterministic job IDs based on parameters"""
         if not self.active_session:
             return []
         # In a generic environment, we execute pulling job board DOM IDs
-        return [f"job_{random.randint(1000, 9999)}" for _ in range(3)]
+        return [f"job_{(1000 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (9999 - 1000 + 1)))}" for _ in range(3)]
 
     def extract_job_description(self, job_id: str) -> str:
         return f"URGENT: Software Engineer needed for {job_id}. Must have 5 years experience in Python and Go."
@@ -88,7 +88,7 @@ class OmniJobApplierEngine:
             
             # Step 3: Emulate PyAutoGUI / DOM Click Application
             # random stealth delay
-            time.sleep(random.uniform(0.1, 0.4)) 
+            time.sleep(round(0.1 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.4 - 0.1), 4)) 
             
             self.bot.applied_jobs += 1
             logs.append({

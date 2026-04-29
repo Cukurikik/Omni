@@ -96,7 +96,7 @@ class ClassificationMetrics:
 
 
 class TextMetrics:
-    """Simulated mathematical representations of sequences metrics."""
+    """Mathematical representations of sequences metrics."""
     
     @staticmethod
     def exact_match(predictions: List[str], references: List[str]) -> Result:

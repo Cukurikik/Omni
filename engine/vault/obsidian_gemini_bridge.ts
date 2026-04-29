@@ -3,28 +3,32 @@
 // ==========================================
 // Clone integrasi allenhutchison/obsidian-gemini
 
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
 export class ObsidianVaultBridge {
-    private vaultPath: string;
+  private vaultPath: string;
 
-    constructor(vaultPath: string) {
-        this.vaultPath = vaultPath;
-    }
+  constructor(vaultPath: string) {
+    this.vaultPath = vaultPath;
+  }
 
-    public async AnalyzeNotesWithGemini(): Promise<void> {
-        console.log(`📓 [OMNI-OBSIDIAN] Membaca Seluruh Catatan Tuan di ${this.vaultPath}...`);
-        console.log(`🧠 Mentransmisikan Text Markdown ke Vertex AI / Gemini Kognisi...`);
-        
-        // Simulasi ekstraksi pengetahuan dari Catatan Tuan
-        const summary = [
-            "- Tuan sedang membangun Omni Framework.",
-            "- Ada 200 dependensi standar yang dikejar.",
-            "- Arsitektur Kuantum adalah target utama."
-        ];
+  public async AnalyzeNotesWithGemini(): Promise<void> {
+    console.log(
+      `📓 [OMNI-OBSIDIAN] Membaca Seluruh Catatan Tuan di ${this.vaultPath}...`,
+    );
+    console.log(
+      `🧠 Mentransmisikan Text Markdown ke Vertex AI / Gemini Kognisi...`,
+    );
 
-        console.log(`✅ [GEMINI-SYNC] Berhasil mengekstrak pola pikiran Tuan!`);
-        summary.forEach(s => console.log(s));
-    }
+    // Simulasi ekstraksi pengetahuan dari Catatan Tuan
+    const summary = [
+      "- Tuan sedang membangun Omni Framework.",
+      "- Ada 200 dependensi standar yang dikejar.",
+      "- Arsitektur Kuantum adalah target utama.",
+    ];
+
+    console.log(`✅ [GEMINI-SYNC] Berhasil mengekstrak pola pikiran Tuan!`);
+    summary.forEach((s) => console.log(s));
+  }
 }

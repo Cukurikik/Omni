@@ -1,4 +1,4 @@
-"""
+﻿"""
 OmniChineseClipEngine — Native Chinese-CLIP Vision-Language Model.
 
 Studied from: OFA-Sys/Chinese-CLIP (3.5k★)
@@ -194,9 +194,9 @@ class TransformerBlock:
         self.n_heads = n_heads
         # Random projection matrices
         limit = np.sqrt(6.0 / (d_model + d_ff))
-        self.W_ff1 = np.random.uniform(-limit, limit, (d_model, d_ff)).astype(np.float32)
+        self.W_ff1 = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d_model, d_ff".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d_model, d_ff - -limit), 4)).astype(np.float32)
         self.b_ff1 = np.zeros(d_ff, dtype=np.float32)
-        self.W_ff2 = np.random.uniform(-limit, limit, (d_ff, d_model)).astype(np.float32)
+        self.W_ff2 = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d_ff, d_model".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d_ff, d_model - -limit), 4)).astype(np.float32)
         self.b_ff2 = np.zeros(d_model, dtype=np.float32)
 
     def forward(self, x: np.ndarray) -> np.ndarray:
@@ -249,7 +249,7 @@ class ViTEncoder:
         patch_dim = 3 * patch_size * patch_size
 
         limit = np.sqrt(6.0 / (patch_dim + d_model))
-        self.patch_proj = np.random.uniform(-limit, limit, (patch_dim, d_model)).astype(np.float32)
+        self.patch_proj = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (patch_dim, d_model".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (patch_dim, d_model - -limit), 4)).astype(np.float32)
 
         self.cls_token = np.random.randn(1, 1, d_model).astype(np.float32) * 0.02
         self.pos_embed = np.random.randn(1, self.n_patches + 1, d_model).astype(np.float32) * 0.02
@@ -257,7 +257,7 @@ class ViTEncoder:
         self.blocks = [TransformerBlock(d_model, n_heads, d_ff) for _ in range(n_layers)]
 
         limit2 = np.sqrt(6.0 / (d_model + embed_dim))
-        self.proj = np.random.uniform(-limit2, limit2, (d_model, embed_dim)).astype(np.float32)
+        self.proj = np.round(-limit2 + ((int(hashlib.sha256(f"-limit2:limit2, (d_model, embed_dim".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit2, (d_model, embed_dim - -limit2), 4)).astype(np.float32)
 
     def forward(self, images: np.ndarray) -> np.ndarray:
         """Encode batch of images to embeddings.
@@ -333,7 +333,7 @@ class TextEncoder:
         self.blocks = [TransformerBlock(d_model, n_heads, d_ff) for _ in range(n_layers)]
 
         limit = np.sqrt(6.0 / (d_model + embed_dim))
-        self.proj = np.random.uniform(-limit, limit, (d_model, embed_dim)).astype(np.float32)
+        self.proj = np.round(-limit + ((int(hashlib.sha256(f"-limit:limit, (d_model, embed_dim".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit, (d_model, embed_dim - -limit), 4)).astype(np.float32)
 
     def forward(self, token_ids: np.ndarray) -> np.ndarray:
         """Encode batch of token sequences to embeddings.

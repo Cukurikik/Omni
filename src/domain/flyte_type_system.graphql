@@ -1,0 +1,16 @@
+# OMNI Domain Layer - Flyte Type System
+@schema
+type FlyteVariable {
+  name: String!
+  literalType: String!
+  description: String
+}
+
+type Query {
+  validateTaskSignature(inputs: [FlyteVariableInput!]!, outputs: [FlyteVariableInput!]!): Boolean!
+}
+
+input FlyteVariableInput {
+  name: String!
+  literalType: String!
+}

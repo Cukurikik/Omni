@@ -1,8 +1,7 @@
 prelude: |
   def a = nil
 benchmark:
-  rationalize:
-    nil.rationalize
+  rationalize: nil.rationalize
   to_c: |
     nil.to_c
   to_i: |

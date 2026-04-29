@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI ML COURSE FUNDAMENTALS ENGINE (SEMESTER 5 — BATCH 33)
@@ -35,6 +35,17 @@ export class OmniMlCourseFundamentalsEngine {
             layer: "Interface/Epistemology",
             status: "healthy",
             learned_from: "dair-ai/ML-Course-Notes"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMlCourseFundamentalsEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

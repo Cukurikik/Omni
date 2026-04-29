@@ -617,7 +617,7 @@ class OmniWebDriverIOEngine:
         session = s.unwrap()
         session.url = url
         session.title = f"Page: {url.split('/')[-1]}"
-        session.page_load_time_ms = 150.0  # simulated
+        session.page_load_time_ms = 150.0  # 
         return Ok(None)
 
     def get_url(self, session_id: str) -> Result[str, str]:

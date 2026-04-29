@@ -9,6 +9,7 @@ Algorithmic Primitive:
     village], verify that each level is a valid child of the previous level.
     Also supports postal-code-to-region reverse lookup validation.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import sys, os
 from src.compute.python_core.omni_base_engine import Result, Ok, Err

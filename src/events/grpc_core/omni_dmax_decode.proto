@@ -1,0 +1,23 @@
+// Omni DMax Decode Event Stream (gRPC proto)
+// Ref: czg1225/DMax
+syntax = "proto3";
+package omni.dmax;
+service DMaxDecoder {
+  rpc ParallelDecode (DecodeRequest) returns (DecodeResponse);
+  rpc StreamDecode (DecodeRequest) returns (stream DecodeChunk);
+}
+message DecodeRequest {
+  repeated float logits = 1;
+  float threshold = 2;
+  int32 max_tokens = 3;
+}
+message DecodeResponse {
+  repeated int32 tokens = 1;
+  int32 n_parallel = 2;
+  float acceptance_rate = 3;
+}
+message DecodeChunk {
+  int32 token_id = 1;
+  float confidence = 2;
+  int32 step = 3;
+}

@@ -50,7 +50,7 @@ EOT
 #### Summary
 
 |            Mode            | Initial Clear? |   Read   |  Write   |
-|:--------------------------:|:--------------:|:--------:|:--------:|
+| :------------------------: | :------------: | :------: | :------: |
 |  <tt>'r'</tt>: read-only   |       No       | Anywhere |  Error   |
 |  <tt>'w'</tt>: write-only  |      Yes       |  Error   | Anywhere |
 | <tt>'a'</tt>: append-only  |       No       |  Error   | End only |
@@ -622,7 +622,7 @@ You can iterate over the stream using these instance methods:
 This instance method is useful in a multi-threaded application:
 
 - #pread: reads and returns all or part of the stream.
- 
+
 ### Basic Writing
 
 You can write to the stream, advancing the position, using these instance methods:
@@ -632,7 +632,7 @@ You can write to the stream, advancing the position, using these instance method
 - [Kernel#puts][kernel#puts] writes given objects as strings, each followed by newline.
 
 You can "unshift" to the stream using these instance methods;
-each  writes _before_ the current position, and decrements the position
+each writes _before_ the current position, and decrements the position
 so that the written data is next to be read.
 
 - #ungetbyte: unshifts the given byte.
@@ -684,19 +684,18 @@ Reading:
 
 - #each_codepoint: reads each remaining codepoint, passing it to the block.
 
-[bom]:                https://en.wikipedia.org/wiki/Byte_order_mark
+[bom]: https://en.wikipedia.org/wiki/Byte_order_mark
 [encodings document]: https://docs.ruby-lang.org/en/master/language/encodings_rdoc.html
-[io class]:           https://docs.ruby-lang.org/en/master/IO.html
-[kernel#puts]:        https://docs.ruby-lang.org/en/master/Kernel.html#method-i-puts
-[kernel#readline]:    https://docs.ruby-lang.org/en/master/Kernel.html#method-i-readline
-
-[basic reading]:         rdoc-ref:StringIO@Basic+Reading
-[basic writing]:         rdoc-ref:StringIO@Basic+Writing
+[io class]: https://docs.ruby-lang.org/en/master/IO.html
+[kernel#puts]: https://docs.ruby-lang.org/en/master/Kernel.html#method-i-puts
+[kernel#readline]: https://docs.ruby-lang.org/en/master/Kernel.html#method-i-readline
+[basic reading]: rdoc-ref:StringIO@Basic+Reading
+[basic writing]: rdoc-ref:StringIO@Basic+Writing
 [bom (byte order mark)]: rdoc-ref:StringIO@BOM+Byte+Order+Mark
-[data mode]:             rdoc-ref:StringIO@Data+Mode
-[encodings]:             rdoc-ref:StringIO@Encodings
-[end-of-stream]:         rdoc-ref:StringIO@End-of-Stream
-[line number]:           rdoc-ref:StringIO@Line+Number
-[open/closed streams]:   rdoc-ref:StringIO@OpenClosed+Streams
-[position]:              rdoc-ref:StringIO@Position
-[read/write mode]:       rdoc-ref:StringIO@ReadWrite+Mode
+[data mode]: rdoc-ref:StringIO@Data+Mode
+[encodings]: rdoc-ref:StringIO@Encodings
+[end-of-stream]: rdoc-ref:StringIO@End-of-Stream
+[line number]: rdoc-ref:StringIO@Line+Number
+[open/closed streams]: rdoc-ref:StringIO@OpenClosed+Streams
+[position]: rdoc-ref:StringIO@Position
+[read/write mode]: rdoc-ref:StringIO@ReadWrite+Mode

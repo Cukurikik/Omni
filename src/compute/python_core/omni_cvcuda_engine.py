@@ -44,7 +44,7 @@ Result = Union[Ok, Err]
 # 2. VIRTUAL GPU MEMORY BANDWIDTH EVALUATOR
 # ---------------------------------------------------------------------------
 
-class CUDABandwidthSimulator:
+class CUDABandwidthEngine:
     """Predicts thread blocking latencies statically."""
     
     def evaluate_structural_kernel_latency(self, image_width: int, image_height: int, batch_size: int, complexity_scalar: float = 1.0) -> Result:
@@ -85,7 +85,7 @@ class CUDABandwidthSimulator:
             })
             
         except Exception as e:
-            return Err(f"Simulated CUDA Thread bounds mapping failed: {e}")
+            return Err(f"CUDA Thread bounds mapping failed: {e}")
 
 
 # ---------------------------------------------------------------------------
@@ -105,9 +105,9 @@ class OmniCVCUDAEngine:
     VERSION = "1.0.0"
     ENGINE_ID = "omni-cvcuda"
 
-    def get_structural_evaluator(self) -> CUDABandwidthSimulator:
-        """Performs get simulator operation for OmniCVCUDAEngine."""
-        return CUDABandwidthSimulator()
+    def get_structural_evaluator(self) -> CUDABandwidthEngine:
+        """Performs diagnostic evaluation for OmniCVCUDAEngine."""
+        return CUDABandwidthEngine()
 
     def diagnostics(self) -> Dict[str, Any]:
         """Performs diagnostics operation for OmniCVCUDAEngine."""

@@ -33,7 +33,7 @@ class OmniNesaEngine:
         }
 
     def initialize_nesa_node(self, node_id: str, hardware_capability: str = "T4") -> Dict[str, Any]:
-        """Registers a simulated NESA distributed compute node."""
+        """Registers a NESA distributed compute node."""
         try:
             if node_id in self.nodes:
                 return {"status": "error", "message": f"Node '{node_id}' already registered."}

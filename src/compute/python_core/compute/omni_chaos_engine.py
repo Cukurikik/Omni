@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # OMNI COMPUTE LAYER - CHAOS TOOLKIT ENGINE
 # ===========================================================================
@@ -11,7 +11,7 @@ ENGINE_VERSION = "1.0.0-omni"
 import json
 import logging
 import time
-import random
+import hashlib
 from typing import Dict, Any, List
 
 def Ok(data: Any) -> Dict:
@@ -40,7 +40,7 @@ class ChaosExperiment:
             return Err("Steady state not verified before hypothesis.")
         
         methods = ["Network Latency High", "DB Connection Terminated", "CPU Spiked"]
-        method_applied = random.choice(methods)
+        method_applied = methods[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % len(methods)]
         
         logging.warning(f"[{self.target}] CHAOS TRIGGERED: {method_applied}")
         time.sleep(0.8) # Execute execution of subprocess/OS manipulations

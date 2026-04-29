@@ -1,0 +1,8 @@
+[package]
+name="omni-ollama-runner"
+version="1.0.0"
+edition="omni-2025"
+
+[dependencies]
+omni-std="^2.0"
+omni-net="^1.5"

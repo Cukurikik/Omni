@@ -48,14 +48,14 @@ class OmniGLSatelliteDemoEngine:
                 distances_map[sat["name"]] = round(dist, 2)
                 
                 # Native execute mapping geometric array boundaries Limits check (Line of Sight approx bounds!)
-                # Very rough simulator: if Z is negative relative to observer horizons (simplified)!
+                # Very rough engine: if Z is negative relative to observer horizons (simplified)!
                 if sz > max(0.0, oz - self.earth_radius):
                     visible_targets.append(sat["name"])
                     
             return Ok({
                 "observer_coordinate_origin": observer,
                 "total_satellites_evaluated": len(satellites),
-                "simulated_visible_satellites": visible_targets,
+                "visible_satellites": visible_targets,
                 "Euclidean_distance_matrices": distances_map,
                 "visibility_ratio": round(len(visible_targets) / len(satellites), 2)
             })

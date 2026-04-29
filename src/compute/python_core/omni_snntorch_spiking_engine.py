@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: SNNTorch Physical Spiking Math Engine
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 Leaky Integrate-and-Fire (LIF) adalah model neuro-biologis komputasional untuk Spiking Neural Networks (SNN).

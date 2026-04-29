@@ -92,7 +92,7 @@ CMD ["omni-gateway"]
 ### Docker Compose
 
 ```yaml
-version: '3.9'
+version: "3.9"
 services:
   omni-gateway:
     build: .
@@ -175,10 +175,10 @@ Push to main → Validate Go → Build → Deploy
 
 Tambahkan secrets berikut di GitHub Repository Settings:
 
-| Secret | Deskripsi |
-|--------|-----------|
-| `VPS_IP` | IP address server produksi |
-| `VPS_USER` | SSH username |
+| Secret            | Deskripsi                        |
+| ----------------- | -------------------------------- |
+| `VPS_IP`          | IP address server produksi       |
+| `VPS_USER`        | SSH username                     |
 | `SSH_PRIVATE_KEY` | SSH private key untuk deployment |
 
 ---
@@ -207,4 +207,4 @@ journalctl -u omni -f
 
 ---
 
-*Untuk pertanyaan deployment, buka [Discussion](https://github.com/Cukurikik/Omni/discussions) di GitHub.*
+_Untuk pertanyaan deployment, buka [Discussion](https://github.com/Cukurikik/Omni/discussions) di GitHub._

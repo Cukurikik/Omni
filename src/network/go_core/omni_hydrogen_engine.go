@@ -6,7 +6,7 @@
 // Domain Layer      : Concurrency (Go Core)
 // ===========================================================================
 
-package main
+package go_core
 
 import (
 	"encoding/json"
@@ -80,7 +80,7 @@ func (d *DrumMachine) PlaySequence(stepsToPlay int) map[string]interface{} {
 	}
 }
 
-func main() {
+func init_hydrogen() {
 	machine := DrumMachine{
 		BPM: 120, // 120 Beats Per Minute
 		PatternGrid: map[string][]bool{

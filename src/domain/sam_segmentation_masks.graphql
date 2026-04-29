@@ -1,0 +1,11 @@
+# OMNI Domain Layer - SAM Segmentation Masks
+@schema
+type SAMMaskOutput {
+  maskId: ID!
+  confidenceScore: Float!
+  boundingBox: [Int!]!
+}
+
+type Query {
+  validateMaskConfidence(score: Float!): Boolean!
+}

@@ -1,0 +1,20 @@
+# Omni AD Survey Schema (GraphQL)
+# API Layer: Strict schema definition for querying autonomous driving model benchmarks.
+
+type ScenarioResult {
+    scenarioId: ID!
+    timeToCollision: Float!
+    safetyStatus: String!
+    deterministicSeed: Int!
+}
+
+type ModelBenchmark {
+    modelName: String!
+    successRate: Float!
+    results: [ScenarioResult!]!
+}
+
+type Query {
+    getBenchmark(modelName: String!): ModelBenchmark
+    listSafeScenarios(minTTC: Float!): [ScenarioResult!]!
+}

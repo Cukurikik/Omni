@@ -42,7 +42,7 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. VRAM TENSOR ALLOCATION BOUNDS SIMULATOR
+# 2. VRAM TENSOR ALLOCATION BOUNDS ENGINE
 # ---------------------------------------------------------------------------
 
 class DiffusionFinetuneVRAMEstimator:
@@ -86,7 +86,7 @@ class DiffusionFinetuneVRAMEstimator:
             })
             
         except Exception as e:
-            return Err(f"Simulated SimpleTuner memory matrix failed: {e}")
+            return Err(f"SimpleTuner memory matrix failed: {e}")
 
 
 # ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniNextcloudTalkEngine.ts
@@ -76,5 +76,16 @@ export class OmniNextcloudTalkEngine {
 
     public getActiveParticipants(): SignalingPeer[] {
         return Array.from(this.peers.values()).filter(p => p.connectionState === "CONNECTED");
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniNextcloudTalkEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

@@ -1,0 +1,20 @@
+#usda 1.0
+(
+    defaultPrim = "ShowOScene"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+// Show-o multimodal 3D scene representation
+// Bound: max 1000 vertices per mesh to prevent multimodal decoder timeout
+
+def Xform "ShowOScene"
+{
+    def Mesh "OutputGeneration"
+    {
+        int[] faceVertexCounts = [3]
+        int[] faceVertexIndices = [0, 1, 2]
+        point3f[] points = [(0, 0, 0), (1, 0, 0), (0, 1, 0)]
+        color3f[] primvars:displayColor = [(1, 0, 0)]
+    }
+}

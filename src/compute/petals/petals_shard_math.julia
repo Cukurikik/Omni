@@ -1,0 +1,37 @@
+module PetalsShardMath
+
+using LinearAlgebra
+
+const MAX_SHARD_DIM = 8192
+
+# Monadic Error Model
+abstract type OmniResult end
+struct Ok{T} <: OmniResult payload::T end
+struct Err <: OmniResult msg::String end
+
+"""
+    compute_shard_matmul(A::Matrix{Float32}, B::Matrix{Float32})
+
+Computes matrix multiplication for distributed Petals tensor shards.
+Enforces strict hardware constraints on matrix dimensions.
+"""
+function compute_shard_matmul(A::Matrix{Float32}, B::Matrix{Float32})::OmniResult
+    if size(A, 1) > MAX_SHARD_DIM || size(A, 2) > MAX_SHARD_DIM ||
+       size(B, 1) > MAX_SHARD_DIM || size(B, 2) > MAX_SHARD_DIM
+        return Err("OMNI_LIMIT: Shard dimensions exceed MAX_SHARD_DIM ($MAX_SHARD_DIM)")
+    end
+    
+    if size(A, 2) != size(B, 1)
+        return Err("OMNI_ERROR: Inner matrix dimensions must agree")
+    end
+    
+    # Safe BLAS execution
+    try
+        C = A * B
+        return Ok(C)
+    catch e
+        return Err("OMNI_ERROR: BLAS execution failed - $(string(e))")
+    end
+end
+
+end # module

@@ -4,7 +4,7 @@ OMNI JEELIZ FACE FILTER ENGINE
 Sub-Agent Compute Layer: WebGL/CV Face Tracking Abstraction.
 Reference: jeeliz/jeelizFaceFilter
 Domain: Robust Face Detection, Landmark Tracking, AR Overlay.
-NOTE: Wrapped computationally for Python backend/edge tracking via simulated JS APIs.
+NOTE: Wrapped computationally for Python backend/edge tracking via JS APIs.
 """
 
 import uuid

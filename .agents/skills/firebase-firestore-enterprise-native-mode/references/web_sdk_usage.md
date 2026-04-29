@@ -22,16 +22,17 @@ const db = getFirestore(app);
 ### Writing Data
 
 #### Set a Document
+
 Creates a document if it doesn't exist, or overwrites it if it does. You can also specify a merge option to only update provided fields.
 
 ```javascript
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore";
 
 // Create/Overwrite document with ID "LA"
 await setDoc(doc(db, "cities", "LA"), {
   name: "Los Angeles",
   state: "CA",
-  country: "USA"
+  country: "USA",
 });
 
 // To merge with existing data instead of overwriting:
@@ -39,19 +40,21 @@ await setDoc(doc(db, "cities", "LA"), { population: 3900000 }, { merge: true });
 ```
 
 #### Add a Document with Auto-ID
+
 Use when you don't care about the document ID and want Firestore to automatically generate one.
 
 ```javascript
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc } from "firebase/firestore";
 
 const docRef = await addDoc(collection(db, "cities"), {
   name: "Tokyo",
-  country: "Japan"
+  country: "Japan",
 });
 console.log("Document written with ID: ", docRef.id);
 ```
 
 #### Update a Document
+
 Update some fields of an existing document without overwriting the entire document. Fails if the document doesn't exist.
 
 ```javascript
@@ -60,11 +63,12 @@ import { doc, updateDoc } from "firebase/firestore";
 const laRef = doc(db, "cities", "LA");
 
 await updateDoc(laRef, {
-  capital: true
+  capital: true,
 });
 ```
 
 #### Transactions
+
 Perform an atomic read-modify-write operation.
 
 ```javascript
@@ -106,6 +110,7 @@ if (docSnap.exists()) {
 ```
 
 #### Get Multiple Documents
+
 Fetches all documents in a query or collection once.
 
 ```javascript
@@ -125,10 +130,10 @@ querySnapshot.forEach((doc) => {
 import { doc, onSnapshot } from "firebase/firestore";
 
 const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
-    console.log("Current data: ", doc.data());
+  console.log("Current data: ", doc.data());
 });
 
-// To stop listening: 
+// To stop listening:
 // unsub();
 ```
 
@@ -141,13 +146,13 @@ const q = query(collection(db, "cities"), where("state", "==", "CA"));
 const unsubscribe = onSnapshot(q, (snapshot) => {
   snapshot.docChanges().forEach((change) => {
     if (change.type === "added") {
-        console.log("New city: ", change.doc.data());
+      console.log("New city: ", change.doc.data());
     }
     if (change.type === "modified") {
-        console.log("Modified city: ", change.doc.data());
+      console.log("Modified city: ", change.doc.data());
     }
     if (change.type === "removed") {
-        console.log("Removed city: ", change.doc.data());
+      console.log("Removed city: ", change.doc.data());
     }
   });
 });
@@ -156,6 +161,7 @@ const unsubscribe = onSnapshot(q, (snapshot) => {
 ### Queries
 
 #### Simple and Compound Queries
+
 Use `query()` and `where()` to combine filters safely.
 
 ```javascript
@@ -168,10 +174,15 @@ const q1 = query(citiesRef, where("state", "==", "CA"));
 
 // Compound (AND)
 // Note: Requires a composite index if filtering on different fields
-const q2 = query(citiesRef, where("state", "==", "CA"), where("population", ">", 1000000));
+const q2 = query(
+  citiesRef,
+  where("state", "==", "CA"),
+  where("population", ">", 1000000),
+);
 ```
 
 #### Order and Limit
+
 Sort and limit results cleanly.
 
 ```javascript
@@ -185,9 +196,7 @@ const q = query(citiesRef, orderBy("name"), limit(3));
 You can use pipeline queries to perform complex queries.
 
 ```javascript
-
-const readDataPipeline = db.pipeline()
-  .collection("users");
+const readDataPipeline = db.pipeline().collection("users");
 
 // Execute the pipeline and handle the result
 try {
@@ -196,6 +205,6 @@ try {
     console.log(`${result.id} => ${result.data()}`);
   });
 } catch (error) {
-    console.error("Error getting documents: ", error);
+  console.error("Error getting documents: ", error);
 }
 ```

@@ -1,5 +1,5 @@
 call-seq:
-  terminate -> self
+terminate -> self
 
 Sets the scanner to end-of-string;
 returns +self+:

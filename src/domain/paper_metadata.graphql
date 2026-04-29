@@ -1,0 +1,16 @@
+# OMNI Domain Layer - Paper Metadata
+@schema
+type AIPaper {
+  id: ID!
+  title: String!
+  authors: [String!]!
+  conference: String
+  year: Int!
+  abstract: String!
+  arxivUrl: String!
+}
+
+type Query {
+  getLatestPapers(limit: Int!): [AIPaper!]!
+  searchPapers(keyword: String!): [AIPaper!]!
+}

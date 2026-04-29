@@ -5,7 +5,7 @@ Production-grade OMNI engine conceptualizing pure algebraic Multi-Track Music co
 Inspired by salu133445/musegan.
 
 Features:
-- Dimensional polyphonic array mapping simulations.
+- Dimensional polyphonic array mapping computations.
 - 5-Track deterministic matrix assignments (Bass, Drums, Guitar, Strings, Piano).
 - Monadic Result encapsulation preventing runtime trace crashes.
 

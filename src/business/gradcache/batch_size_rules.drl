@@ -1,0 +1,11 @@
+package rules.gradcache
+import omni.gradcache.TrainingConfig
+import omni.common.OmniResult
+
+rule "Enforce Max Batch Size"
+when
+    $config : TrainingConfig( effectiveBatchSize > hardwareLimit )
+then
+    $config.enableGradCache();
+    insert(new OmniResult(true, "GradCache enabled to support massive batch size", true));
+end

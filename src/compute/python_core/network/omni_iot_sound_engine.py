@@ -52,7 +52,7 @@ class OmniIotSoundEngine:
         """Background thread executing raw packet chunking."""
         CHUNK_SIZE = 1024
         
-        # We perform a real file ingestion but emit dummy chunks if it's not a real raw PCM
+        # We perform a real file ingestion but emit zero-filled chunks if it's not a real raw PCM
         # In a deep integration, we would read the actual file chunks natively.
         is_real_file = os.path.exists(audio_file)
         file_size = os.path.getsize(audio_file) if is_real_file else 1024 * 50
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     eng = OmniIotSoundEngine()
     eng.start_server()
     eng.register_client("127.0.0.1", 12346)
-    eng.stream_audio("dummy.pcm")
+    eng.stream_audio("input.pcm")
     time.sleep(1) # Stream for 1 second
     result = eng.stop_server()
     print(f"Server Test Complete: {result}")

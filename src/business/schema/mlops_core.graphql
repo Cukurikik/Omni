@@ -1,0 +1,21 @@
+type Model {
+  id: ID!
+  name: String!
+  version: String!
+  status: String!
+}
+
+type Pipeline {
+  id: ID!
+  modelId: ID!
+  lastRun: String
+}
+
+type Query {
+  listModels: [Model!]!
+  getPipelineStatus(id: ID!): Pipeline
+}
+
+type Mutation {
+  triggerTraining(modelId: ID!): Boolean!
+}

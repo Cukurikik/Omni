@@ -18,10 +18,9 @@ Quivr, helps you build your second brain, utilizes the power of GenerativeAI to 
 - **Customize your RAG**: Quivr allows you to customize your RAG, add internet search, add tools, etc.
 - **Integrations with Megaparse**: Quivr works with [Megaparse](https://github.com/quivrhq/megaparse), so you can ingest your files with Megaparse and use the RAG with Quivr.
 
->We take care of the RAG so you can focus on your product. Simply install quivr-core and add it to your project. You can now ingest your files and ask questions.*
+> We take care of the RAG so you can focus on your product. Simply install quivr-core and add it to your project. You can now ingest your files and ask questions.\*
 
 **We will be improving the RAG and adding more features, stay tuned!**
-
 
 This is the core of Quivr, the brain of Quivr.com.
 
@@ -41,15 +40,11 @@ Ensure you have the following installed:
 
 ### 30 seconds Installation 💽
 
-
 - **Step 1**: Install the package
-
-  
 
   ```bash
   pip install quivr-core # Check that the installation worked
   ```
-
 
 - **Step 2**: Create a RAG with 5 lines of code
 
@@ -73,6 +68,7 @@ Ensure you have the following installed:
           )
           print("answer:", answer)
   ```
+
 ## Configuration
 
 ### Workflows
@@ -81,19 +77,20 @@ Ensure you have the following installed:
 
 ![](docs/docs/workflows/examples/basic_rag.excalidraw.png)
 
-
 Creating a basic RAG workflow like the one above is simple, here are the steps:
 
-
 1. Add your API Keys to your environment variables
+
 ```python
 import os
 os.environ["OPENAI_API_KEY"] = "myopenai_apikey"
 
 ```
+
 Quivr supports APIs from Anthropic, OpenAI, and Mistral. It also supports local models using Ollama.
 
-1. Create the YAML file ``basic_rag_workflow.yaml`` and copy the following content in it
+1. Create the YAML file `basic_rag_workflow.yaml` and copy the following content in it
+
 ```yaml
 workflow_config:
   name: "standard RAG"
@@ -130,7 +127,6 @@ reranker_config:
 
 # Configuration for the LLM
 llm_config:
-
   # maximum number of tokens passed to the LLM to generate the answer
   max_input_tokens: 4000
 
@@ -139,6 +135,7 @@ llm_config:
 ```
 
 3. Create a Brain with the default configuration
+
 ```python
 from quivr_core import Brain
 
@@ -149,6 +146,7 @@ brain = Brain.from_files(name = "my smart brain",
 ```
 
 4. Launch a Chat
+
 ```python
 brain.print_info()
 
@@ -188,7 +186,6 @@ brain.print_info()
 
 You can go further with Quivr by adding internet search, adding tools, etc. Check the [documentation](https://core.quivr.com/) for more information.
 
-
 ## Contributors ✨
 
 Thanks go to these wonderful people:
@@ -207,7 +204,6 @@ Did you get a pull request? Open it, and we'll review it as soon as possible. Ch
 ## Partners ❤️
 
 This project would not be possible without the support of our partners. Thank you for your support!
-
 
 <a href="https://ycombinator.com/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Y_Combinator_logo.svg/1200px-Y_Combinator_logo.svg.png" alt="YCombinator" style="padding: 10px" width="70px">

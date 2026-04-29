@@ -1,0 +1,60 @@
+# OMNI Medico VQA Schema — Domain Layer
+# Absorbing simula/MediaEval-Medico-2025: VQA for GastroIntestinal Imaging.
+# GraphQL schema defining multimodal VQA endpoints and GI imaging metadata.
+
+"""
+Represents a GastroIntestinal image frame and associated findings.
+"""
+type MedicoImage {
+  id: ID!
+  url: String!
+  hash: String!
+  timestampMs: Int!
+  modality: String! # e.g., "endoscopy", "colonoscopy"
+  procedureType: String!
+}
+
+"""
+Visual Question Answering Request for a Medical Image.
+"""
+type VqaRequest {
+  queryId: ID!
+  question: String!
+  imageContext: MedicoImage!
+  requireExplanation: Boolean!
+}
+
+"""
+Result of a Medico VQA query with optional multimodal explanation.
+"""
+type VqaResponse {
+  queryId: ID!
+  answer: String!
+  confidenceScore: Float!
+  explainabilityHeatmapUrl: String
+  medicalReferences: [String!]
+  executionTimeMs: Int!
+}
+
+type Query {
+  """
+  Retrieve historical VQA sessions for a patient or procedure.
+  """
+  getVqaHistory(procedureId: String!): [VqaResponse!]!
+
+  """
+  Healthcheck the VQA model engine.
+  """
+  modelDiagnostics: String!
+}
+
+type Mutation {
+  """
+  Submit a new VQA query against a gastrointestinal image.
+  """
+  submitVqaQuery(
+    imageId: String!
+    question: String!
+    requireExplanation: Boolean = true
+  ): VqaResponse!
+}

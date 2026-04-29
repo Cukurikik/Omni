@@ -1,0 +1,17 @@
+# Omni Diagram of Thought (SPARQL)
+# Database Layer: Querying deterministic dependency chains in semantic graphs.
+
+PREFIX omni: <http://omni.framework/schema#>
+PREFIX dot: <http://omni.framework/dot#>
+
+SELECT ?reasoningNode ?dependencyNode ?weight
+WHERE {
+  ?reasoningNode a dot:ReasoningState ;
+                 dot:dependsOn ?dependencyNode ;
+                 dot:logicWeight ?weight .
+  
+  # Strict acyclic evaluation filter
+  FILTER (?reasoningNode != ?dependencyNode)
+  FILTER (?weight > 0.0)
+}
+ORDER BY DESC(?weight)

@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * omni_music_visualizer_engine.ts
@@ -60,5 +60,16 @@ export class OmniMusicVisualizerEngine {
         const visualOutputDensity = frequencies.length * this.layoutDimensions;
         
         return { isOk: true, value: visualOutputDensity, error: MusicVisualizerErrorCode.SUCCESS };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMusicVisualizerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

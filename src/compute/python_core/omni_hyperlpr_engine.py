@@ -57,7 +57,7 @@ class OmniHyperLprEngine:
 
     def detect_plate_bounds(self, image_gray: np.ndarray) -> Result:
         """
-        Calculates simulated sliding window block density extracting coordinates
+        Calculates Sliding window block density extracting coordinates
         of mathematically probable license plate bounding structural boxes.
         image_gray: (H, W) normalized float array [0, 1]
         """

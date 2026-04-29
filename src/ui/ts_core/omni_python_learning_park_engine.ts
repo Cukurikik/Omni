@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI PYTHON LEARNING PARK ENGINE (SEMESTER 5 — BATCH 17)
 // ===========================================================================
 // Absorbed From  : Jack-Cherish/PythonPark
@@ -102,6 +102,17 @@ export class OmniPythonLearningParkEngine {
             resources: this.resources.length,
             domains: [...new Set(this.resources.map((r) => r.domain))],
             learned_from: "Jack-Cherish/PythonPark",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniPythonLearningParkEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

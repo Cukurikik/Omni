@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Smile Ml Engine
 ====================
 Production-grade engine for the OMNI Framework.
@@ -84,7 +84,7 @@ class OmniSmileMlEngine:
                         # Select j randomly != i
                         j = i
                         while j == i:
-                            j = np.random.randint(0, m)
+                            j = np.(0 + (int(hashlib.sha256(f"0:m".encode()).hexdigest()[:8], 16) % max(1, m - 0 + 1)))
                             
                         # Calculate f(x_j)
                         f_xj = self.b

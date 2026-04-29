@@ -30,7 +30,7 @@ class OmniStripePaymentCheckoutEngine:
             total_net = 0.0
             invalid_trans = []
             
-            # Simulated transaction logic matrix geometry loops!
+            # transaction logic matrix geometry loops!
             for idx, tx in enumerate(transactions):
                 if "amount" not in tx:
                     return Err(ValueError(f"Geometric bounding metric mapping missing amount key at array index {idx}!"))

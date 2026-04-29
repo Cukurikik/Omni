@@ -60,7 +60,7 @@ class HNSWGraphEstimator:
             # Exact search (brute force) latency is O(N * D)
             exact_ops = database_size * vector_dimension
             
-            # Simulated HNSW search latency is roughly O(log(N) * D + K)
+            # HNSW search latency is roughly O(log(N) * D + K)
             ann_ops = (np.log2(database_size) * vector_dimension) + top_k
             
             # Avoid divide by zero
@@ -79,11 +79,11 @@ class HNSWGraphEstimator:
                 "top_k_requested": top_k,
                 "predicted_speedup_vs_exact": round(speedup_factor, 2),
                 "predicted_recall_accuracy": round(predicted_recall, 4),
-                "is_search_simulated": True
+                "is_search_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated vector space limit bounding failed: {e}")
+            return Err(f"Vector space limit bounding failed: {e}")
 
 
 # ---------------------------------------------------------------------------

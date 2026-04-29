@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_useaudioplayer_engine.ts
 // Production-Grade React Audio Hook Engine
@@ -150,5 +150,16 @@ export class OmniUseaudioplayerEngine {
 
     private _queueState(): QueueState {
         return { current: this.currentIndex, total: this.playlist.length, loopMode: this.loopMode, shuffle: this.shuffled };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniUseaudioplayerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

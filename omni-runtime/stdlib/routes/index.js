@@ -12,20 +12,20 @@
 // ==========================================
 
 function OmniHandler(req) {
-    const data = {
-        pesan: "Selamat datang di OMNI-JS Runtime!",
-        metode: req.method,
-        url: req.url,
-        status: "Kedaulatan Mutlak",
-        runtime: {
-            engine: __OMNI_RUNTIME__,
-            version: __OMNI_VERSION__,
-            node_js: "TIDAK DIBUTUHKAN ❌"
-        },
-        timestamp: new Date().toISOString()
-    };
+  const data = {
+    pesan: "Selamat datang di OMNI-JS Runtime!",
+    metode: req.method,
+    url: req.url,
+    status: "Kedaulatan Mutlak",
+    runtime: {
+      engine: __OMNI_RUNTIME__,
+      version: __OMNI_VERSION__,
+      node_js: "TIDAK DIBUTUHKAN ❌",
+    },
+    timestamp: new Date().toISOString(),
+  };
 
-    console.log("📡 Request diterima:", req.method, req.url);
+  console.log("📡 Request diterima:", req.method, req.url);
 
-    return JSON.stringify(data, null, 2);
+  return JSON.stringify(data, null, 2);
 }

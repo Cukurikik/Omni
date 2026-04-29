@@ -10,16 +10,14 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package network
+package go_core
 
 import (
 	"errors"
-	"fmt"
 	"sync"
-	"time"
 )
 
-const ENGINE_VERSION = "1.0.0-omni"
+const JAMULUS_ENGINE_VERSION = "1.0.0-omni"
 
 // --- Monadic Error Definition ---
 
@@ -141,7 +139,7 @@ func (engine *OmniJamulusEngine) Diagnostics() map[string]interface{} {
 	defer engine.mu.RUnlock()
 
 	return map[string]interface{}{
-		"version": ENGINE_VERSION,
+		"version": JAMULUS_ENGINE_VERSION,
 		"active_clients": len(engine.clientBuffers),
 	}
 }

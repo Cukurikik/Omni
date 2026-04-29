@@ -74,7 +74,7 @@ class OmniDataBlock:
         return {"engine": "OmniDataBlock", "version": "1.0.0", "status": "operational"}
 
 class OmniCallback:
-    """Event interceptor simulated topology."""
+    """Event interceptor Topology."""
 
     def on_train_begin(self, learner: Any) -> Result:
         """Handle on train begin callback event."""
@@ -102,7 +102,7 @@ class OmniCallback:
 
 
 class OmniProdModel:
-    """Simple linear scalar simulated representation model avoiding external framework lock-in."""
+    """Simple linear scalar Representation model avoiding external framework lock-in."""
     def __init__(self):
          """Initialize OmniProdModel."""
          self.w = np.random.randn() * 0.01

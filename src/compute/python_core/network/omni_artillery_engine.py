@@ -1,4 +1,4 @@
-"""
+﻿"""
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║  OMNI ARTILLERY ENGINE — Network Layer                                     ║
 ║  Meta-functionalized from: artilleryio/artillery (9k★)                     ║
@@ -13,7 +13,7 @@ Architecture Notes (from Artillery source):
 - YAML-based test scenario definitions with phases, scenarios, and flows
 - Supports: HTTP/1.1, HTTP/2, WebSocket, Socket.IO, GraphQL, gRPC
 - Phase-based load ramping: arrivalRate, rampTo, duration
-- Virtual user (VU) flow: sequence of actions per simulated user
+- Virtual user (VU) flow: sequence of actions per User
 - Plugins: expect (assertions), metrics-by-endpoint, publish-metrics
 - Built-in Playwright integration for browser-based load tests
 - Distributed mode: run on multiple workers (Fargate, Lambda)
@@ -33,7 +33,7 @@ import enum
 import json
 import math
 import os
-import random
+import hashlib
 import statistics
 import time
 import uuid
@@ -199,7 +199,7 @@ class Scenario:
 
 @dataclass
 class ResponseMetrics:
-    """Metrics for a single simulated response."""
+    """Metrics for a single Response."""
     request_name: str
     status_code: int
     response_time_ms: float
@@ -397,10 +397,10 @@ class TestRun:
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 3. Load Simulator
+# 3. Load Generator
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-class LoadSimulator:
+class LoadEngine:
     """
     Execute virtual user traffic — mirrors Artillery's execution engine.
     Generates synthetic response metrics for testing without real HTTP calls.
@@ -413,15 +413,15 @@ class LoadSimulator:
     def execute_request(self, step: RequestStep) -> ResponseMetrics:
         """Execute a single request execution."""
         # Latency model: base + random jitter + occasional spikes
-        latency = self.base_latency + random.gauss(0, 10)
-        if random.random() < 0.05:  # 5% chance of slow request
-            latency += random.uniform(100, 500)
+        latency = self.base_latency + (((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 2000) - 1000) / 1000.0 * 10)
+        if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < 0.05:  # 5% chance of slow request
+            latency += round(100 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (500 - 100), 4)
         latency = max(5, latency)  # minimum 5ms
 
         # Error model
-        is_error = random.random() < self.error_rate
+        is_error = (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < self.error_rate
         if is_error:
-            status = random.choice([500, 502, 503, 429, 408])
+            status = [500, 502, 503, 429, 408][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len([500, 502, 503, 429, 408]))]
             error_msg = {500: "Internal Server Error", 502: "Bad Gateway",
                         503: "Service Unavailable", 429: "Too Many Requests",
                         408: "Request Timeout"}.get(status, "Error")
@@ -433,7 +433,7 @@ class LoadSimulator:
             request_name=step.name or step.url,
             status_code=status,
             response_time_ms=round(latency, 2),
-            bytes_received=random.randint(200, 5000),
+            bytes_received=(200 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (5000 - 200 + 1))),
             error=error_msg,
         )
 
@@ -441,10 +441,10 @@ class LoadSimulator:
         """Execute an entire load phase."""
         total_vus = phase.total_vus_estimate
         # Cap execute to reasonable numbers for testing
-        simulated_vus = min(total_vus, 500)
+        computed_vus = min(total_vus, 500)
         metrics.vus_max = max(metrics.vus_max, phase.arrival_rate)
 
-        for _ in range(simulated_vus):
+        for _ in range(computed_vus):
             # Pick a scenario (weighted)
             scenario = random.choices(scenarios, weights=[s.weight for s in scenarios])[0]
             for step in scenario.steps:
@@ -579,7 +579,7 @@ class OmniArtilleryEngine:
     ENGINE_NAME: Final[str] = "OmniArtilleryEngine"
 
     def __init__(self, base_latency_ms: float = 50.0, error_rate: float = 0.02):
-        self.simulator = LoadSimulator(base_latency_ms, error_rate)
+        self.engine = LoadEngine(base_latency_ms, error_rate)
         self.orchestrator = DistributedOrchestrator()
         self._runs: Dict[str, TestRun] = {}
 
@@ -602,7 +602,7 @@ class OmniArtilleryEngine:
 
         # Execute each phase
         for phase in config.phases:
-            self.simulator.execute_phase(phase, config.scenarios, test_run.metrics)
+            self.engine.execute_phase(phase, config.scenarios, test_run.metrics)
 
         test_run.metrics.end_time = time.time()
 
@@ -873,7 +873,7 @@ def _run_self_test() -> Dict[str, Any]:
     def t_threshold_op():
         m = AggregatedMetrics()
         for _ in range(100):
-            m.add_response(ResponseMetrics("t", 200, random.uniform(10, 100)))
+            m.add_response(ResponseMetrics("t", 200, round(10 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (100 - 10), 4)))
         t = Threshold(metric="p95", operator=ThresholdOperator.LT, value=200)
         return t.evaluate(m)
     _test("threshold_operators", t_threshold_op)

@@ -25,7 +25,7 @@ class OmniGraphqlYogaServerEngine:
                 
             total_calculated_cost = 0
             
-            # Simulated mathematical sequence loops mapping configurations bounds limits mapping limits trees variables strings variables boundaries equations geometric geometries limits calculation mathematically constraints limit
+            # Mathematical sequence loops mapping configurations bounds limits mapping limits trees variables strings variables boundaries equations geometric geometries limits calculation mathematically constraints limit
             def _traverse_ast_cost(nodes: List[Dict[str, Any]]) -> int:
                 cost = 0
                 for node in nodes:

@@ -87,7 +87,7 @@ class OmniImgclsmobEngine:
                 
             graph = self.graphs[graph_id]
             
-            # Simulated edge optimization metrics
+            # edge optimization metrics
             latency = 12.5 if graph["quantized"] else 45.2
             power_mW = 250 if graph["quantized"] else 800
             

@@ -16,7 +16,6 @@
 package go_core
 
 import (
-	"errors"
 )
 
 const AirsonicEngineVersion = "1.0.0-omni"

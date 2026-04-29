@@ -1,0 +1,4 @@
+type MJJob {
+    id: String!
+    progress: Int!
+}

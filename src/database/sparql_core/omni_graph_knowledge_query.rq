@@ -1,0 +1,15 @@
+PREFIX omni: <http://omni.framework/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+# Omni Graph Knowledge Query (SPARQL)
+# Queries the dependency graph between ML Models and System Layers
+
+SELECT ?modelName ?frameworkName
+WHERE {
+  ?model rdf:type omni:MachineLearningModel ;
+         omni:hasName ?modelName ;
+         omni:dependsOn ?framework .
+  ?framework omni:frameworkName ?frameworkName .
+  FILTER (?frameworkName = "TensorFlow" || ?frameworkName = "PyTorch")
+}
+ORDER BY ?modelName

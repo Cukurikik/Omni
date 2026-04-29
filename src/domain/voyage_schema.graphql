@@ -1,0 +1,18 @@
+# OMNI Domain Layer - Voyage Schema
+@schema
+type VoyageEmbedding {
+  id: ID!
+  text: String!
+  embedding: [Float!]!
+  model: String!
+  dimensions: Int!
+}
+
+type Query {
+  getEmbedding(id: ID!): VoyageEmbedding
+  searchSimilar(embedding: [Float!]!, limit: Int!): [VoyageEmbedding!]!
+}
+
+type Mutation {
+  createEmbedding(text: String!, model: String!): VoyageEmbedding!
+}

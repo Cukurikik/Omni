@@ -1,0 +1,37 @@
+# OMNI Divine Memory Integration: Inspired by LLMSurvey
+# Business Layer - GraphQL Schema for structured LLM telemetry
+
+type OmniError {
+  code: Int!
+  message: String!
+}
+
+type LLMProfile {
+  id: ID!
+  name: String!
+  architecture: String!
+  parameterCount: Float!
+  quantizationSupported: Boolean!
+}
+
+type SurveyResult {
+  isOk: Boolean!
+  profile: LLMProfile
+  error: OmniError
+}
+
+type Query {
+  getLLMProfile(id: ID!): SurveyResult!
+  listSupportedArchitectures(limit: Int!): [String!]!
+}
+
+type Mutation {
+  registerLLM(
+    name: String!, 
+    architecture: String!, 
+    parameterCount: Float!
+  ): SurveyResult!
+}
+
+# Physical bounds applied at the resolver level
+# OMNI Compiler requires limit < 5000 for listSupportedArchitectures

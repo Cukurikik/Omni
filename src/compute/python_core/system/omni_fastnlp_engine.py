@@ -158,7 +158,7 @@ class OmniFastNLPEngine:
             history = []
             current_score = 0.0
             for epoch in range(1, epochs + 1):
-                # Simulated logarithmic convergence
+                # logarithmic convergence
                 current_score = base_score * (1.0 - math.exp(-epoch))
                 history.append({
                     "epoch": epoch,

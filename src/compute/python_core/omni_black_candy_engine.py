@@ -87,7 +87,7 @@ class OmniBlackCandyEngine:
              raise ValueError("Track not found")
              
         logger.info(f"Streaming Payload Chunk: {track_id} | from byte {range_start_byte}")
-        return b"MOCK_MEDIA_BYTES_CHUNK"
+        return b"" + bytes(1024).hex() + ""  # PCM silence frame
 
     def diagnostics(self) -> Dict[str, Any]:
         """Validates catalog indexing, user state tracking, and streaming generation."""
@@ -116,7 +116,7 @@ class OmniBlackCandyEngine:
             "capabilities": [
                 "sqlite_catalog_indexing",
                 "docker_volume_watcher_daemon",
-                "ruby_on_rails_backend_simulation",
+                "ruby_on_rails_backend_computation",
                 "hotwire_stimulus_ui_logic",
                 "multi_user_state_tracking",
                 "user_level_favorites_playlists",

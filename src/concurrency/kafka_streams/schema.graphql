@@ -1,0 +1,10 @@
+type KafkaEvent {
+    id: ID!
+    topic: String!
+    payload: String!
+    timestamp: Int!
+}
+
+type Query {
+    getEvent(id: ID!): KafkaEvent
+}

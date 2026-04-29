@@ -81,7 +81,7 @@ class GeometricIoUEvaluator:
             })
             
         except Exception as e:
-            return Err(f"Simulated IoU bounding box limits failed: {e}")
+            return Err(f"IoU bounding box limits failed: {e}")
 
 
 # ---------------------------------------------------------------------------

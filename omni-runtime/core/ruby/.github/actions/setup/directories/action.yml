@@ -22,7 +22,7 @@ inputs:
   make-command:
     required: false
     type: string
-    default: 'make'
+    default: "make"
     description: >-
       The command of `make`.
 
@@ -32,7 +32,7 @@ inputs:
     # Note that `default: false` evaluates to a string constant
     # `'false'`, which is a truthy value :sigh:
     # https://github.com/actions/runner/issues/2238
-    default: ''
+    default: ""
     description: >-
       If set to true, additionally runs `make up`.
 
@@ -47,19 +47,19 @@ inputs:
   dummy-files:
     required: false
     type: boolean
-    default: ''
+    default: ""
     description: >-
       If set to true, creates dummy files in build dir.
 
   fetch-depth:
     required: false
-    default: '1'
+    default: "1"
     description: The depth of commit history fetched from the remote repository
 
   clean:
     required: false
     type: boolean
-    default: ''
+    default: ""
     description: >-
       If set to true, clean build directory.
 

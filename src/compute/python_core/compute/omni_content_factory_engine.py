@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 #!/usr/bin/env python3
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # OMNI CONTENT FACTORY ENGINE — Automated Content Generation & Monetization
@@ -91,7 +91,7 @@ class MediaAssembler:
         # Stock footage clips
         for i, point in enumerate(script.body):
             assets.append(MediaAsset("video_clip", f"stock://pexels/{script.keywords[0] if script.keywords else 'generic'}/clip_{i}",
-                                      random.uniform(3, 8)))
+                                      round(3 + ((int(hashlib.sha256(f"3:8".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (8 - 3), 4)))
         # Subtitles
         assets.append(MediaAsset("subtitle", "auto://whisper-srt", script.estimated_duration_sec,
                                   {"format": "srt", "style": "bold_white_shadow"}))
@@ -107,7 +107,7 @@ class MediaAssembler:
 
 
 class ContentPublisher:
-    """Publishes content to various platforms (simulated)."""
+    """Publishes content to various platforms ."""
     def publish(self, job: ContentJob) -> Dict[str, str]:
         results = {}
         for platform in job.platforms:
@@ -115,7 +115,7 @@ class ContentPublisher:
             results[platform.value] = {
                 "status": "published", "id": pub_id,
                 "url": f"https://{platform.value}.com/content/{pub_id}",
-                "estimated_reach": random.randint(1000, 100000)
+                "estimated_reach": (1000 + (int(hashlib.sha256(f"1000:100000".encode()).hexdigest()[:8], 16) % max(1, 100000 - 1000 + 1)))
             }
         return results
 

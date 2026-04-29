@@ -22,7 +22,7 @@ and run the latest local LLMs
 ✅ [**Qdrant**](https://qdrant.tech/) - Open-source, high performance vector
 store with an comprehensive API
 
-✅ [**PostgreSQL**](https://www.postgresql.org/) -  Workhorse of the Data
+✅ [**PostgreSQL**](https://www.postgresql.org/) - Workhorse of the Data
 Engineering world, handles large amounts of data safely.
 
 ### What you can build
@@ -94,12 +94,11 @@ docker compose up
 
 If you're running OLLAMA locally on your Mac (not in Docker), you need to modify the OLLAMA_HOST environment variable
 
-1. Set OLLAMA_HOST to `host.docker.internal:11434` in your .env file. 
+1. Set OLLAMA_HOST to `host.docker.internal:11434` in your .env file.
 2. Additionally, after you see "Editor is now accessible via: <http://localhost:5678/>":
-
-    1. Head to <http://localhost:5678/home/credentials>
-    2. Click on "Local Ollama service"
-    3. Change the base URL to "http://host.docker.internal:11434/"
+   1. Head to <http://localhost:5678/home/credentials>
+   2. Click on "Local Ollama service"
+   3. Change the base URL to "http://host.docker.internal:11434/"
 
 #### For everyone else
 
@@ -142,21 +141,21 @@ language model and Qdrant as your vector store.
 
 ## Upgrading
 
-* ### For Nvidia GPU setups:
+- ### For Nvidia GPU setups:
 
 ```bash
 docker compose --profile gpu-nvidia pull
 docker compose create && docker compose --profile gpu-nvidia up
 ```
 
-* ### For Mac / Apple Silicon users
+- ### For Mac / Apple Silicon users
 
 ```bash
 docker compose pull
 docker compose create && docker compose up
 ```
 
-* ### For Non-GPU setups:
+- ### For Non-GPU setups:
 
 ```bash
 docker compose --profile cpu pull

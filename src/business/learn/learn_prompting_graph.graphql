@@ -1,0 +1,38 @@
+# OMNI Divine Memory Integration: Inspired by Learn_Prompting
+# Business Layer - GraphQL schema constraints for Curriculum mapping
+
+type OmniError {
+    code: Int!
+    message: String!
+}
+
+# Strict bounds enforced by schema directives
+directive @length(max: Int!) on FIELD_DEFINITION
+
+type PromptExample {
+    id: ID!
+    category: String! @length(max: 50)
+    input: String! @length(max: 1024)
+    expectedOutput: String! @length(max: 2048)
+}
+
+type QueryResult {
+    isOk: Boolean!
+    value: [PromptExample!]
+    error: OmniError
+}
+
+type Query {
+    # Fetches bounded prompt examples
+    getPromptExamples(category: String!): QueryResult!
+}
+
+type MutationResult {
+    isOk: Boolean!
+    value: PromptExample
+    error: OmniError
+}
+
+type Mutation {
+    addPromptExample(category: String!, input: String!, expectedOutput: String!): MutationResult!
+}

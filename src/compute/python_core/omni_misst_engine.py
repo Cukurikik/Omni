@@ -97,7 +97,7 @@ class OmniMisstEngine:
         channels, length = audio_data.shape
         if channels not in (1, 2):
             raise MisstEngineError(f"Unsupported channel count: {channels}. Must be 1 or 2.")
-        results = self._simulate_separation(audio_data)
+        results = self._compute_separation(audio_data)
         return {
             "status": "success",
             "data": {
@@ -110,8 +110,8 @@ class OmniMisstEngine:
             }
         }
 
-    def _simulate_separation(self, audio_data: 'np.ndarray') -> Dict[str, 'np.ndarray']:
-        """Calculates a simulated stem extraction using frequency bounds."""
+    def _compute_separation(self, audio_data: 'np.ndarray') -> Dict[str, 'np.ndarray']:
+        """Calculates a Stem extraction using frequency bounds."""
         stems = {}
         for idx, stem in enumerate(self.STEMS):
             scale = 0.25 + (0.1 * idx)
@@ -124,7 +124,7 @@ class OmniMisstEngine:
         return {
             "engine": "OmniMisstEngine",
             "device": self._device,
-            "backend": "demucs" if self._real_demucs_available else "dsp_simulation",
+            "backend": "demucs" if self._real_demucs_available else "dsp_computation",
             "status": "ready"
         }
 

@@ -11,8 +11,13 @@
     "languages": [
       {
         "id": "omni",
-        "aliases": ["Omni", "omni"],
-        "extensions": [".omni"],
+        "aliases": [
+          "Omni",
+          "omni"
+        ],
+        "extensions": [
+          ".omni"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/omni-crest-light.svg",

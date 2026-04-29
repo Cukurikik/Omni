@@ -18,7 +18,7 @@
 // concurrent lookups with channel-based result collection enable
 // non-blocking resolution.
 
-package omni_dns_resolver
+package go_core
 
 import (
 	"context"

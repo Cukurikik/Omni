@@ -1,6 +1,7 @@
 # SDK Reference
 
 ## Contents
+
 - [SDK Generation](#sdk-generation)
 - [Web SDK](#web-sdk)
 - [Android SDK](#android-sdk)
@@ -27,6 +28,7 @@ generate:
 ```
 
 Generate SDKs:
+
 ```bash
 npx -y firebase-tools@latest dataconnect:sdk:generate
 ```
@@ -44,16 +46,19 @@ npm install firebase
 ### Initialization
 
 ```typescript
-import { initializeApp } from 'firebase/app';
-import { getDataConnect, connectDataConnectEmulator } from 'firebase/data-connect';
-import { connectorConfig } from '@movie-app/dataconnect';
+import { initializeApp } from "firebase/app";
+import {
+  getDataConnect,
+  connectDataConnectEmulator,
+} from "firebase/data-connect";
+import { connectorConfig } from "@movie-app/dataconnect";
 
 const app = initializeApp(firebaseConfig);
 const dc = getDataConnect(app, connectorConfig);
 
 // For local development
 if (import.meta.env.DEV) {
-  connectDataConnectEmulator(dc, 'localhost', 9399);
+  connectDataConnectEmulator(dc, "localhost", 9399);
 }
 ```
 
@@ -61,12 +66,12 @@ if (import.meta.env.DEV) {
 
 ```typescript
 // Generated SDK provides typed functions
-import { listMovies, createMovie, getMovie } from '@movie-app/dataconnect';
+import { listMovies, createMovie, getMovie } from "@movie-app/dataconnect";
 
 // Accessing Nested Fields
-const movie = await getMovie({ id: '...' });
+const movie = await getMovie({ id: "..." });
 // Relations are just properties on the object
-const director = movie.data.movie.metadata.director; 
+const director = movie.data.movie.metadata.director;
 const firstActor = movie.data.movie.actors[0].name;
 
 // Query
@@ -74,12 +79,12 @@ const result = await listMovies();
 console.log(result.data.movies);
 
 // Query with variables
-const movie = await getMovie({ id: 'uuid-here' });
+const movie = await getMovie({ id: "uuid-here" });
 
 // Mutation
-const newMovie = await createMovie({ 
-  title: 'New Movie', 
-  genre: 'Action' 
+const newMovie = await createMovie({
+  title: "New Movie",
+  genre: "Action",
 });
 console.log(newMovie.data.movie_insert); // Returns key
 ```
@@ -87,15 +92,15 @@ console.log(newMovie.data.movie_insert); // Returns key
 ### Subscriptions
 
 ```typescript
-import { listMoviesRef, subscribe } from '@movie-app/dataconnect';
+import { listMoviesRef, subscribe } from "@movie-app/dataconnect";
 
 const unsubscribe = subscribe(listMoviesRef(), {
   onNext: (result) => {
-    console.log('Movies updated:', result.data.movies);
+    console.log("Movies updated:", result.data.movies);
   },
   onError: (error) => {
-    console.error('Subscription error:', error);
-  }
+    console.error("Subscription error:", error);
+  },
 });
 
 // Later: unsubscribe();
@@ -104,7 +109,7 @@ const unsubscribe = subscribe(listMoviesRef(), {
 ### With Authentication
 
 ```typescript
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth(app);
 await signInWithEmailAndPassword(auth, email, password);
@@ -241,8 +246,6 @@ connector.listMovies.publisher
 
 ---
 
-
-
 ## Admin SDK
 
 Server-side operations with elevated privileges (bypasses @auth):
@@ -250,11 +253,11 @@ Server-side operations with elevated privileges (bypasses @auth):
 ### Node.js
 
 ```typescript
-import { initializeApp, cert } from 'firebase-admin/app';
-import { getDataConnect } from 'firebase-admin/data-connect';
+import { initializeApp, cert } from "firebase-admin/app";
+import { getDataConnect } from "firebase-admin/data-connect";
 
 initializeApp({
-  credential: cert(serviceAccount)
+  credential: cert(serviceAccount),
 });
 
 const dc = getDataConnect();
@@ -262,11 +265,11 @@ const dc = getDataConnect();
 // Execute operations (bypasses @auth)
 const result = await dc.executeGraphql({
   query: `query { users { id email } }`,
-  operationName: 'ListAllUsers'
+  operationName: "ListAllUsers",
 });
 
 // Or use generated Admin SDK
-import { listAllUsers } from './admin-connector';
+import { listAllUsers } from "./admin-connector";
 const users = await listAllUsers();
 ```
 
@@ -282,6 +285,7 @@ generate:
 ```
 
 Generate:
+
 ```bash
 npx -y firebase-tools@latest dataconnect:sdk:generate
 ```

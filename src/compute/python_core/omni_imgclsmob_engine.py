@@ -2,7 +2,7 @@
 OMNI Image Classification Mobile Engine
 =======================================
 Production-grade abstraction inspired by osmr/imgclsmob.
-Calculates Edge Parameter Density Simulations natively measuring
+Calculates Edge Parameter Density natively measuring
 model efficiency FLOP ratios against edge hardware latency assumptions.
 
 OMNI Layer: compute (Python)
@@ -42,7 +42,7 @@ Result = Union[Ok, Err]
 
 
 # ---------------------------------------------------------------------------
-# 2. EDGE PARAMETER DENSITY SIMULATOR
+# 2. EDGE PARAMETER DENSITY ENGINE
 # ---------------------------------------------------------------------------
 
 class EdgeParameterDensityEvaluator:

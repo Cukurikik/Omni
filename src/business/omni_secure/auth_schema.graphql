@@ -1,0 +1,5 @@
+type SecurityToken {
+    jwt: String!
+    expiresAt: String!
+    claims: [String!]!
+}

@@ -44,18 +44,9 @@
       "react-router-dom",
       "zustand"
     ],
-    "api_golang": [
-      "github.com/gorilla/websocket",
-      "github.com/joho/godotenv"
-    ],
-    "ai_python": [
-      "numpy",
-      "transformers",
-      "torch"
-    ],
-    "engine_cpp": [
-      "opencv4"
-    ]
+    "api_golang": ["github.com/gorilla/websocket", "github.com/joho/godotenv"],
+    "ai_python": ["numpy", "transformers", "torch"],
+    "engine_cpp": ["opencv4"]
   },
 
   "security": {

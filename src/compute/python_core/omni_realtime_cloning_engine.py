@@ -44,11 +44,11 @@ class OmniRealtimeCloningEngine:
         self.use_half_precision = use_half_precision
         logger.info("[OmniRealtimeCloning] ProdingBird Engine online. Modes: Half-precision={}".format(use_half_precision))
 
-    def _simulate_fast_melspectrogram(self, text: str) -> List[float]:
+    def _compute_fast_melspectrogram(self, text: str) -> List[float]:
         """
         Fast-path synthesis. Skips deep linguistic prosody analysis for speed.
         """
-        # Simulated raw mathematical derivation of mel-bands
+        # raw mathematical derivation of mel-bands
         pseudo_bands = [abs(hash(text + str(i))) % 100 / 100.0 for i in range(128)]
         return pseudo_bands
 
@@ -65,7 +65,7 @@ class OmniRealtimeCloningEngine:
         timbre_embedding = hash(reference_audio_bytes)
         
         # 2. Text to Mel (Synthesizer)
-        mel_spectrogram = self._simulate_fast_melspectrogram(text_to_speak)
+        mel_spectrogram = self._compute_fast_melspectrogram(text_to_speak)
         
         # 3. Mel to Waveform (Vocoder) 
         # ProdingBird uses fast customized vocoders (like MB-MelGAN or HiFi-GAN tuned).

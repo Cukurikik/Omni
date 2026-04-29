@@ -1,0 +1,101 @@
+// ==============================================================================
+// 🪐 ANTIGRAVITY MOTHER - BATCH 24 NEXUS BRIDGE
+// ==============================================================================
+// This file serves as the strict FFI bridge connecting the 30 ML/AI
+// execution engines created in Semester 13 Batch 24.
+// All abstractions follow OMNI's Zero-Mock, Monadic Error Handling rule.
+// ==============================================================================
+
+[package]
+name = "omni-batch24-nexus"
+version = "1.0.0"
+authors = ["OMNI MOTHER <nexus@omniframework.dev>"]
+description = "Universal FFI Bridge for 30 ML/AI production engines (Batch 24)"
+license = "OMNI-Open"
+
+[dependencies]
+omni-std = "^2.0"
+omni-tensor = "^1.5"
+
+[permissions]
+allow_net = false
+allow_fs = ["/tmp/omni_nexus/**"]
+allow_gpu = true
+
+// ==============================================================================
+// FFI EXPORTS TO C++ ENGINES
+// ==============================================================================
+
+extern "cpp" {
+    // ONNX
+    fn onnx_parse_sequential_graph(raw: *const u8, size: usize) -> Result<*mut u8, c_int>;
+    fn onnxruntime_bind_tensor(bytes: usize, mem_type: c_int) -> Result<*mut void, c_int>;
+    
+    // LightGBM
+    fn lightgbm_find_best_split(bins: *const u8, len: usize, min_gain: f64, reg: f64) -> Result<f64, c_int>;
+    
+    // LLaMA
+    fn llama_apply_rope(x: *const f32, len: usize, pos: i32, dim: i32) -> Result<*mut f32, c_int>;
+    fn llama3_tokenize_bpe(word: *const c_char) -> Result<*mut c_char, c_int>;
+    
+    // Vision / Spectrogram
+    fn cv_adjust_brightness(img: *const u8, len: usize, delta: i32) -> Result<*mut u8, c_int>;
+    fn video2x_nearest_neighbor(input: *const f32, w: i32, h: i32, c: i32) -> Result<*mut f32, c_int>;
+    fn whisper_apply_hann(frame: *const f32, len: usize) -> Result<*mut f32, c_int>;
+    fn whisper_dft_magnitude(windowed: *const f32, len: usize) -> Result<*mut f32, c_int>;
+    fn sam_apply_attention(embeds: *const f32, e_len: usize, prompt: *const f32, p_len: usize, patch: i32) -> Result<*mut f32, c_int>;
+    
+    // CS229 SVM Kernel
+    fn cs229_rbf_kernel(x1: *const f64, x2: *const f64, len: usize, sigma: f64) -> Result<f64, c_int>;
+    fn cs229_poly_kernel(x1: *const f64, x2: *const f64, len: usize, c: f64, degree: i32) -> Result<f64, c_int>;
+}
+
+// ==============================================================================
+// FFI EXPORTS TO PYTHON ENGINES
+// ==============================================================================
+
+extern "python" {
+    fn fingpt_analyze_logit_polarity(tokens: Vec<String>, weights: Vec<f32>) -> Result<f32, String>;
+    fn docsgpt_top_k_documents(query: Vec<f32>, docs: Vec<Vec<f32>>, k: i32) -> Result<Vec<i32>, String>;
+    fn awesomenlp_clean_text(text: String, rm_url: bool, lower: bool) -> Result<String, String>;
+    fn deepfacelab_compute_barycentric(a: (f32, f32), b: (f32, f32), c: (f32, f32), p: (f32, f32)) -> Result<Vec<(f32, f32)>, String>;
+    fn marimo_solve_execution_order(deps: Map<String, Vec<String>>) -> Result<Vec<String>, String>;
+    fn ethicalml_can_execute_circuit() -> Result<bool, String>;
+    fn ml_engineering_allocate_job(gpus: i32, mem: i32) -> Result<Vec<String>, String>;
+    fn ml_tutorials_compute_confusion_matrix(y_true: Vec<i32>, y_pred: Vec<i32>) -> Result<Map<String, f32>, String>;
+    fn pysyft_federated_avg(weights: Vec<Vec<f32>>, sizes: Vec<i32>) -> Result<Vec<f32>, String>;
+    fn jax_execute_vjp(primal: Vec<f32>, cotangent: Vec<f32>, op_type: String) -> Result<Vec<f32>, String>;
+    fn trl_calculate_dpo_loss(pc: Vec<f32>, pr: Vec<f32>, rc: Vec<f32>, rr: Vec<f32>) -> Result<f32, String>;
+    fn controlnet_apply_zero_conv(maps: Vec<f32>, zero_weights: Vec<f32>) -> Result<Vec<f32>, String>;
+    fn llava_project_tokens(vision_tokens: Vec<f32>) -> Result<Vec<f32>, String>;
+    fn gradio_safe_parse_payload(json: String) -> Result<Map<String, Any>, String>;
+    fn autogpt_validate_action(tool: String, args: Map<String, String>) -> Result<String, String>;
+}
+
+// ==============================================================================
+// FFI EXPORTS TO C# & Rust ENGINES
+// ==============================================================================
+
+extern "csharp" {
+    fn mlagents_compute_ppo_surrogate(advantage: f64, old_log: f64, new_log: f64) -> Result<f64, String>;
+}
+
+extern "rust" {
+    fn screenpipe_merge_boxes(boxes: *const u8, len: usize, y_thresh: f64) -> Result<*mut u8, c_int>;
+}
+
+// ==============================================================================
+// FFI EXPORTS TO GO & JavaScript ENGINES
+// ==============================================================================
+
+extern "go" {
+    fn midjourney_dispatch_prompt(job_id: String, prompt: String) -> Result<String, String>;
+}
+
+extern "js" {
+    fn tfjs_pack_tensor_to_texture(len: i32) -> Result<Map<String, i32>, String>;
+    fn gun_resolve_crdt(local: Map<String, Any>, incoming: Map<String, Any>) -> Result<Map<String, Any>, String>;
+}
+
+// The OMNI Nexus ensures strict memory safety, isolated process execution,
+// and zero-copy references wherever `*const` or `*mut` types are designated.

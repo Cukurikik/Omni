@@ -1,0 +1,9 @@
+package omni.langfair.rules;
+dialect "java"
+
+rule "Detect Gender Bias"
+when
+    $text: String( this matches ".*(?i)(man|woman).*implies.*(weak|strong).*" )
+then
+    System.out.println("Bias Flagged");
+end

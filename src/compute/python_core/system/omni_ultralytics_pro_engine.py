@@ -88,7 +88,7 @@ class OmniUltralyticsProEngine:
             if not (0.0 < confidence_thres < 1.0):
                  return {"status": "error", "message": "Conf bound violation [0.0, 1.0].", "error_code": "UPRO_ERR_005"}
 
-            # Simulated inference output
+            # Inference output
             boxes = [
                 {"class": 0, "name": "person", "conf": 0.92, "bbox": [10, 20, 150, 300]},
                 {"class": 2, "name": "car", "conf": 0.88, "bbox": [200, 50, 400, 200]}

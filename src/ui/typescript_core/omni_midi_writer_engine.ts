@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniMidiWriterEngine.ts
@@ -75,5 +75,16 @@ export class OmniMidiWriterEngine {
               buffer[i * 4 + 3] = 0x00; // Mock tick representation naturally easily securely
          }
          return buffer;
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniMidiWriterEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

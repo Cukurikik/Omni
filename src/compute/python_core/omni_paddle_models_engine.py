@@ -29,7 +29,7 @@ class OmniPaddleModelsEngine:
     omni-paddle-models
     
     A zero-algebraic_bound native structural block engine inspired by PaddlePaddle Models.
-    Implements mathematical simulations of Deformable Convolutions (DCN) 
+    Implements mathematical computations of Deformable Convolutions (DCN) 
     and Squeeze-and-Excitation (SE) blocks.
     """
     
@@ -125,7 +125,7 @@ class OmniPaddleModelsEngine:
             sq = np.mean(x, axis=(2, 3), keepdims=True)
             
             # Excitation (Two FC layers with ReLU and Sigmoid)
-            # Simulated via dense matrix multiplication
+            # via dense matrix multiplication
             c_reduced = max(1, c // reduction)
             
             # W1: (c, c_reduced)

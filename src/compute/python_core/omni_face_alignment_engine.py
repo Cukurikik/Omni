@@ -231,9 +231,9 @@ class OmniFaceAlignmentEngine:
         
         return points_3d
 
-    def forward_pass_simulation(self, batch_size: int = 1) -> np.ndarray:
+    def forward_pass_computation(self, batch_size: int = 1) -> np.ndarray:
         """Generates random output structure execute a full forward pass of the network."""
-        # Simulated Network Heatmap Output (B, 68, 64, 64)
+        # Network Heatmap Output (B, 68, 64, 64)
         return np.random.randn(batch_size, self.NUM_LANDMARKS, 64, 64).astype(np.float32)
 
     def bbox_from_landmarks(self, landmarks: np.ndarray) -> BoundingBox:

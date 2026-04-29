@@ -96,7 +96,7 @@ class OmniScriberrEngine:
         job_id = f"job_{int(time.time())}"
         
         if not os.path.exists(filepath):
-            # Create a dummy to prevent total pipeline crash if fed bad links
+            # Create a fallback to prevent total pipeline crash if fed bad links
             filepath = "standard_audio.wav"
 
         start_time = time.time()

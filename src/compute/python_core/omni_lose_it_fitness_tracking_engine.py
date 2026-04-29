@@ -30,7 +30,7 @@ class OmniLoseItFitnessTrackingEngine:
             total_days = len(daily_intakes)
             running_balance = 0.0
             
-            # Simulated mathematical boundaries
+            # Mathematical boundaries
             daily_deltas = []
             
             for i in range(total_days):

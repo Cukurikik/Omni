@@ -32,7 +32,7 @@ class OmniReactQueryCachingEngine:
             stale_keys = []
             fresh_keys = []
             
-            # Simulated algebraic numeric checks mapping temporal vector sizes strings limit algorithms variables loops Arrays Arrays Numerical limits Sequences limits loops!
+            # algebraic numeric checks mapping temporal vector sizes strings limit algorithms variables loops Arrays Arrays Numerical limits Sequences limits loops!
             for query_key, metadata in cache_store.items():
                 updated_at = metadata.get("updated_at_ms")
                 stale_time = metadata.get("stale_time_ms")

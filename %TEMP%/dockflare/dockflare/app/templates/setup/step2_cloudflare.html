@@ -1,0 +1,49 @@
+{% extends "setup/base.html" %} {% block setup_content %}
+<p class="text-center text-gray-500 mb-6">{{ t('setup.step2.desc') }}</p>
+
+<form
+  method="POST"
+  action="{{ url_for('setup.step2_api_credentials') }}"
+  class="space-y-4"
+>
+  {{ form.hidden_tag() }}
+
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">{{ form.cf_api_token.label }}</span>
+    </label>
+    {{ form.cf_api_token(class="input input-bordered w-full",
+    placeholder=t('setup.step2.token_placeholder')) }} {% for error in
+    form.cf_api_token.errors %}
+    <label class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </label>
+    {% endfor %}
+  </div>
+
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">{{ form.cf_account_id.label }}</span>
+    </label>
+    {{ form.cf_account_id(class="input input-bordered w-full",
+    placeholder=t('setup.step2.account_id_placeholder')) }} {% for error in
+    form.cf_account_id.errors %}
+    <label class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </label>
+    {% endfor %}
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+    <button type="submit" name="submit" class="btn btn-primary w-full">
+      {{ t('form.setup.next') }}
+    </button>
+    <a
+      href="{{ url_for('setup.step1_admin_user') }}"
+      class="btn btn-ghost w-full"
+      >{{ t('setup.step2.back') }}</a
+    >
+  </div>
+</form>
+{% endblock %} {% block step_indicator %} {% include 'setup/_steps.html' with
+context %} {% endblock %}

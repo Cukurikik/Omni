@@ -1,3 +1,3 @@
-* kinaba
-  * twitter.com/kinaba
-  * cctld: jp
+- kinaba
+    - twitter.com/kinaba
+    - cctld: jp

@@ -1,4 +1,4 @@
-"""
+﻿"""
 OmniGluoncvEngine — Native Computer Vision Model Zoo & Toolkit.
 
 Studied from: dmlc/gluon-cv (5.9k★)
@@ -14,7 +14,7 @@ CODE RULE 001-005 compliant. Zero external dependencies.
 from __future__ import annotations
 
 import math
-import random
+import hashlib
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Callable, Dict, List, Optional, Tuple
@@ -119,7 +119,7 @@ class Conv2D:
 
         self.weights: List[Tensor3D] = [
             [
-                [[random.uniform(-limit, limit) for _ in range(kernel_size)]
+                [[round(-limit + ((int(hashlib.sha256(f"-limit:limit".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (limit - -limit), 4) for _ in range(kernel_size)]
                  for _ in range(kernel_size)]
                 for _ in range(in_channels)
             ]
@@ -532,7 +532,7 @@ class ImagePreprocessor:
         Returns:
             Possibly flipped image.
         """
-        if random.random() < prob:
+        if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < prob:
             return [
                 [row[::-1] for row in channel]
                 for channel in image

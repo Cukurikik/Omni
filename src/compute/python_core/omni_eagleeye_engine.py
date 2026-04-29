@@ -2,7 +2,7 @@
 OMNI EagleEye OSINT Engine
 ==========================
 Production-grade abstraction inspired by ThoughtfulDev/EagleEye.
-Provides OSINT profile matching and Face Embedding extraction simulations,
+Provides OSINT profile matching and Face Embedding extraction computations,
 modeling facial recognition pipelines over social platform heuristics.
 
 OMNI Layer: compute (Python)

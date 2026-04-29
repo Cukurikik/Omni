@@ -1,4 +1,4 @@
-* kinaba
-  * twitter.com/kinaba
-  * kiki@kmonos.net
-  * cctld: jp
+- kinaba
+    - twitter.com/kinaba
+    - kiki@kmonos.net
+    - cctld: jp

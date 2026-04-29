@@ -27,7 +27,7 @@ class OmniTorchIOEngine:
             if not isinstance(nifti_path, str):
                 raise TypeError("nifti_path must be a string")
             
-            # Simulated environment mapping
+            # environment mapping
             self.volume_loaded = True
             import torchio as tio
             return {

@@ -1,1 +1,1 @@
-﻿def fetch_concurrently(): pass
+def fetch_concurrently(): pass

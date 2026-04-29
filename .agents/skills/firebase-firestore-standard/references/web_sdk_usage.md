@@ -17,22 +17,22 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 ```
 
 ## Writing Data
 
 ### Set a Document (`setDoc`)
+
 Creates a document if it doesn't exist, or overwrites it if it does.
 
 ```javascript
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore";
 
 // Create/Overwrite document with ID "LA"
 await setDoc(doc(db, "cities", "LA"), {
   name: "Los Angeles",
   state: "CA",
-  country: "USA"
+  country: "USA",
 });
 
 // To merge with existing data instead of overwriting:
@@ -40,19 +40,21 @@ await setDoc(doc(db, "cities", "LA"), { population: 3900000 }, { merge: true });
 ```
 
 ### Add a Document with Auto-ID (`addDoc`)
+
 Use when you don't care about the document ID.
 
 ```javascript
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc } from "firebase/firestore";
 
 const docRef = await addDoc(collection(db, "cities"), {
   name: "Tokyo",
-  country: "Japan"
+  country: "Japan",
 });
 console.log("Document written with ID: ", docRef.id);
 ```
 
 ### Update a Document (`updateDoc`)
+
 Update some fields of an existing document without overwriting the entire document. Fails if the document doesn't exist.
 
 ```javascript
@@ -61,11 +63,12 @@ import { doc, updateDoc } from "firebase/firestore";
 const laRef = doc(db, "cities", "LA");
 
 await updateDoc(laRef, {
-  capital: true
+  capital: true,
 });
 ```
 
 ### Transactions
+
 Perform an atomic read-modify-write operation.
 
 ```javascript
@@ -107,6 +110,7 @@ if (docSnap.exists()) {
 ```
 
 ### Get Multiple Documents (`getDocs`)
+
 Fetches all documents in a query or collection once.
 
 ```javascript
@@ -127,7 +131,7 @@ querySnapshot.forEach((doc) => {
 import { doc, onSnapshot } from "firebase/firestore";
 
 const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
-    console.log("Current data: ", doc.data());
+  console.log("Current data: ", doc.data());
 });
 
 // Stop listening
@@ -143,13 +147,13 @@ const q = query(collection(db, "cities"), where("state", "==", "CA"));
 const unsubscribe = onSnapshot(q, (snapshot) => {
   snapshot.docChanges().forEach((change) => {
     if (change.type === "added") {
-        console.log("New city: ", change.doc.data());
+      console.log("New city: ", change.doc.data());
     }
     if (change.type === "modified") {
-        console.log("Modified city: ", change.doc.data());
+      console.log("Modified city: ", change.doc.data());
     }
     if (change.type === "removed") {
-        console.log("Removed city: ", change.doc.data());
+      console.log("Removed city: ", change.doc.data());
     }
   });
 });
@@ -158,6 +162,7 @@ const unsubscribe = onSnapshot(q, (snapshot) => {
 ## Queries
 
 ### Simple and Compound Queries
+
 Use `query()` to combine filters.
 
 ```javascript
@@ -170,10 +175,15 @@ const q1 = query(citiesRef, where("state", "==", "CA"));
 
 // Compound (AND)
 // Note: Requires an index if filtering on different fields
-const q2 = query(citiesRef, where("state", "==", "CA"), where("population", ">", 1000000));
+const q2 = query(
+  citiesRef,
+  where("state", "==", "CA"),
+  where("population", ">", 1000000),
+);
 ```
 
 ### Order and Limit
+
 Sort and limit results.
 
 ```javascript

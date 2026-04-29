@@ -37,12 +37,12 @@ fn main() -> Result<(), Error> {
 
 ## API Reference
 
-| Function | Description | Returns |
-|----------|-------------|---------|
-| `init()` | Initialize the module runtime | `Result<Instance, InitError>` |
-| `create_client(config)` | Create a configured client | `Result<Client, ConfigError>` |
-| `health_check()` | Verify connectivity and readiness | `Result<Status, HealthError>` |
-| `shutdown()` | Gracefully shutdown all connections | `Result<(), ShutdownError>` |
+| Function                | Description                         | Returns                       |
+| ----------------------- | ----------------------------------- | ----------------------------- |
+| `init()`                | Initialize the module runtime       | `Result<Instance, InitError>` |
+| `create_client(config)` | Create a configured client          | `Result<Client, ConfigError>` |
+| `health_check()`        | Verify connectivity and readiness   | `Result<Status, HealthError>` |
+| `shutdown()`            | Gracefully shutdown all connections | `Result<(), ShutdownError>`   |
 
 ## Architecture
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VisionLLM — Detection Viewer</title></head><body>
+<div id="visionllm-viewer"><h1>VisionLLM Detection Results</h1>
+<canvas id="detection-canvas" width="800" height="600"></canvas>
+<div id="results-list"></div>
+<script>
+const MAX_BOXES=5000;
+function drawDetections(canvas,detections){
+    if(!canvas||!detections)return{isOk:false,error:"Null input"};
+    if(detections.length>MAX_BOXES)return{isOk:false,error:"Boxes exceed limit"};
+    const ctx=canvas.getContext('2d');
+    detections.forEach(d=>{
+        ctx.strokeStyle='#00ff00';ctx.lineWidth=2;
+        ctx.strokeRect(d.box[0],d.box[1],d.box[2]-d.box[0],d.box[3]-d.box[1]);
+        ctx.fillStyle='#00ff00';ctx.font='12px monospace';
+        ctx.fillText(`${d.class_id}: ${d.score.toFixed(2)}`,d.box[0],d.box[1]-4);
+    });
+    return{isOk:true,value:detections.length};
+}
+</script></div></body></html>

@@ -20,7 +20,7 @@ class OmniStateSpaceSearchEngine:
         
     def minimax_evaluation(self, node_value: float, depth: int, is_maximizing: bool, alpha: float, beta: float) -> Result[float, Exception]:
         """
-        Validates alpha-beta pruning mathematics over a strictly deterministic simulated
+        Validates alpha-beta pruning mathematics over a strictly deterministic
         branch resolution constraint.
         """
         try:

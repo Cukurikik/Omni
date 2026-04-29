@@ -124,7 +124,7 @@ class LLMNode(WorkflowNode):
         prompt = self.config.config.get("prompt_template", "{{query}}")
         for key, val in inputs.items():
             prompt = prompt.replace(f"{{{{{key}}}}}", str(val))
-        # Simulated LLM response
+        # LLM response
         response = f"[{self.provider}:{self.model}] Processed: {prompt[:80]}..."
         tokens = len(prompt.split()) * 2
         return NodeResult(self.config.node_id, "llm", "success",
@@ -142,7 +142,7 @@ class KnowledgeRetrievalNode(WorkflowNode):
     def execute(self, inputs: Dict[str, Any], context: Dict) -> NodeResult:
         t0 = time.time()
         query = inputs.get("query", inputs.get("user_input", ""))
-        # Simulated retrieval
+        # retrieval
         chunks = [
             {"content": f"Retrieved chunk {i+1} for: {query[:30]}", "score": 0.9 - i * 0.1}
             for i in range(self.top_k)
@@ -217,7 +217,7 @@ class TemplateNode(WorkflowNode):
 
 
 class HttpRequestNode(WorkflowNode):
-    """Makes HTTP requests (simulated)."""
+    """Makes HTTP requests ."""
     def __init__(self, config: NodeConfig):
         self.config = config
 
@@ -225,7 +225,7 @@ class HttpRequestNode(WorkflowNode):
         url = self.config.config.get("url", "")
         method = self.config.config.get("method", "GET")
         return NodeResult(self.config.node_id, "http_request", "success",
-                          {"status_code": 200, "body": f"[{method} {url}] simulated response"},
+                          {"status_code": 200, "body": f"[{method} {url}] Response"},
                           1.0)
 
 

@@ -61,7 +61,7 @@ class OmniCleanRLEngine:
 
     def evaluate_agent_reward(self, test_episodes: int) -> Dict[str, Any]:
         """
-        Scores mathematical policy robustness running simulations inside frozen environments objectively.
+        Scores mathematical policy robustness executing evaluations within frozen environments objectively.
         
         @param test_episodes: Execute sequences structurally mapped numerically.
         @returns Dict resolving empirical performance metrics transparently.

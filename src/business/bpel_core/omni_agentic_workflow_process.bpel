@@ -1,0 +1,31 @@
+<!-- Omni Agentic Workflow Process in BPEL -->
+<!-- Strict deterministic orchestration of multi-agent interactions -->
+<process name="OmniAgenticWorkflow" 
+         targetNamespace="http://omni.framework/agent/bpel"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:tns="http://omni.framework/agent/bpel">
+
+    <sequence>
+        <receive name="ReceiveAgentPrompt" 
+                 partnerLink="client" 
+                 portType="tns:PromptPT" 
+                 operation="SubmitPrompt" 
+                 variable="PromptRequest" 
+                 createInstance="yes"/>
+                 
+        <validate variables="PromptRequest"/>
+        
+        <invoke name="InvokeReasoningEngine" 
+                partnerLink="reasoning" 
+                portType="tns:ReasoningPT" 
+                operation="EvaluateChainOfThought" 
+                inputVariable="PromptRequest" 
+                outputVariable="AgentResponse"/>
+                
+        <reply name="ReplyToClient" 
+               partnerLink="client" 
+               portType="tns:PromptPT" 
+               operation="SubmitPrompt" 
+               variable="AgentResponse"/>
+    </sequence>
+</process>

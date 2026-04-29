@@ -1,0 +1,12 @@
+# OMNI Domain Layer - TextGen Sampler Config
+@schema
+type SamplerConfig {
+  temperature: Float!
+  topP: Float!
+  topK: Int!
+  repetitionPenalty: Float!
+}
+
+type Query {
+  validateTemperature(temp: Float!): Boolean!
+}

@@ -5,8 +5,9 @@
 // Dart menangani logika antarmuka dan FFI lintas platform murni non-blocking.
 // ===========================================================================
 
+// Note: This file requires Flutter SDK to be installed and configured in your development environment
 import 'dart:async';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart'; // Requires Flutter SDK
 
 class OmniNPUEngine {
   static const MethodChannel _npuChannel = MethodChannel('dev.omniframework.npu/engine');

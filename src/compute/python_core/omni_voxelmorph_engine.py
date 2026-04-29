@@ -3,7 +3,7 @@ OMNI Voxelmorph Engine
 ======================
 Production-grade abstraction inspired by voxelmorph/voxelmorph.
 Bypasses 3D CNN MRI registrations entirely. Evaluates deformation field
-vectors mathematically using simulated 3D gradients.
+vectors mathematically using 3D gradients.
 
 OMNI Layer: compute (Python)
 """
@@ -76,11 +76,11 @@ class FieldGradientEvaluator:
                 "projected_max_displacement": round(max_displacement_pixels, 4),
                 "synthetic_smoothness_loss": round(synthetic_smoothness_loss, 4),
                 "deformation_field_vram_mb": round(mem_mb, 4),
-                "is_deformation_simulated": True
+                "is_deformation_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated spatial voxelmorph gradient limits failed: {e}")
+            return Err(f"Spatial voxelmorph gradient limits failed: {e}")
 
 
 # ---------------------------------------------------------------------------

@@ -72,7 +72,7 @@ class SecureComputeLatencyEstimator:
             # Network round-trip penalty logic
             network_penalty = total_parties * 10.0 # assume 10ms network latency per party iteration
             
-            # Simulated total latency
+            # total latency
             mpc_compute_ms = plaintext_compute_ms * base_multiplier
             total_secure_latency_ms = mpc_compute_ms + network_penalty
             
@@ -87,7 +87,7 @@ class SecureComputeLatencyEstimator:
             })
             
         except Exception as e:
-            return Err(f"Simulated cryptographic overhead projection failed: {e}")
+            return Err(f"Cryptographic overhead projection failed: {e}")
 
 
 # ---------------------------------------------------------------------------

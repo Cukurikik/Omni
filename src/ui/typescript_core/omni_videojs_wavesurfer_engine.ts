@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * omni_videojs_wavesurfer_engine.ts
@@ -63,5 +63,16 @@ export class OmniVideojsWavesurferEngine {
 
         // Returns explicit configuration purely inherently functionally
         return { isOk: true, value: this.config.waveColor, error: VideoJsErrorCode.SUCCESS };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniVideojsWavesurferEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

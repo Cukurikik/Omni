@@ -93,7 +93,6 @@ involving new files `doc/*.rdoc`:
   in the rendered documentation.
 
     Therefore it's best to use file inclusion:
-
     - Retain the `call-seq` in the C code.
     - Use file inclusion (`:include:`) to include text from an .rdoc file.
 
@@ -343,13 +342,11 @@ Alternatives:
 - A [verbatim text block][verbatim text blocks],
   using spaces and punctuation to format the text;
   note that [text markup][text markup] will not be honored:
-
     - Example {source}[https://github.com/ruby/ruby/blob/34d802f32f00df1ac0220b62f72605827c16bad8/file.c#L6570-L6596].
     - Corresponding {output}[rdoc-ref:File@ReadWrite+Mode].
 
 - (Markdown format only): A {Github Flavored Markdown (GFM) table}[https://github.github.com/gfm/#tables-extension-],
   using special formatting for the text:
-
     - Example {source}[https://github.com/ruby/ruby/blob/34d802f32f00df1ac0220b62f72605827c16bad8/doc/contributing/glossary.md?plain=1].
     - Corresponding {output}[https://docs.ruby-lang.org/en/master/contributing/glossary_md.html].
 
@@ -357,11 +354,11 @@ Alternatives:
 
 For symbols and strings in documentation examples:
 
-- Prefer \English in \English documentation:  <tt>'Hello'</tt>.
-- Prefer Japanese in Japanese documentation:  <tt>'こんにちは'</tt>.
+- Prefer \English in \English documentation: <tt>'Hello'</tt>.
+- Prefer Japanese in Japanese documentation: <tt>'こんにちは'</tt>.
 - If a second language is needed (as, for example, characters with different byte-sizes),
   prefer Japanese in \English documentation and \English in Japanese documentation.
-- Use other languages examples only as necessary:  see String#capitalize.
+- Use other languages examples only as necessary: see String#capitalize.
 
 ## Documenting Classes and Modules
 
@@ -396,13 +393,12 @@ Guidelines:
   should be listed (including any methods extended from another class).
 - Attributes (which are not included in the TOC) may also be listed.
 - Display methods as items in one or more bullet lists:
-
     - Begin each item with the method name, followed by a colon
       and a short description.
     - If the method has aliases, mention them in parentheses before the colon
       (and do not list the aliases separately).
     - Check the rendered documentation to determine whether RDoc has recognized
-      the method and linked to it;  if not, manually insert a
+      the method and linked to it; if not, manually insert a
       [link][links].
 
 - If there are numerous entries, consider grouping them into subsections with headings.
@@ -478,8 +474,7 @@ Arguments:
 
 - If the method does not accept arguments, omit the parentheses.
 - If the method accepts optional arguments:
-
-    - Separate each argument name and its default value with ` = `
+    - Separate each argument name and its default value with `=`
       (equal-sign with surrounding spaces).
     - If the method has the same behavior with either an omitted
       or an explicit argument, use a `call-seq` with optional arguments.
@@ -535,7 +530,7 @@ Aliases:
 ### Synopsis
 
 The synopsis comes next, and is a short description of what the
-method does and why you would want to use it.  Ideally, this
+method does and why you would want to use it. Ideally, this
 is a single sentence, but for more complex methods it may require
 an entire paragraph.
 
@@ -543,7 +538,7 @@ For `Array#count`, the synopsis is:
 
 > Returns a count of specified elements.
 
-This is great as it is short and descriptive.  Avoid documenting
+This is great as it is short and descriptive. Avoid documenting
 too much in the synopsis, stick to the most important information
 for the benefit of the reader.
 
@@ -560,23 +555,23 @@ see Array#[] and Array#[]=.
 ### Details and Examples
 
 Most non-trivial methods benefit from examples, as well as details
-beyond what is given in the synopsis.  In the details and examples
+beyond what is given in the synopsis. In the details and examples
 section, you can document how the method handles different types
-of arguments, and provides examples on proper usage.  In this
+of arguments, and provides examples on proper usage. In this
 section, focus on how to use the method properly, not on how the
 method handles improper arguments or corner cases.
 
-Not every behavior of a method requires an example.  If the method
+Not every behavior of a method requires an example. If the method
 is documented to return `self`, you don't need to provide an example
-showing the return value is the same as the receiver.  If the method
+showing the return value is the same as the receiver. If the method
 is documented to return `nil`, you don't need to provide an example
-showing that it returns `nil`.  If the details mention that for a
+showing that it returns `nil`. If the details mention that for a
 certain argument type, an empty array is returned, you don't need
 to provide an example for that.
 
 Only add an example if it provides the user additional information,
 do not add an example if it provides the same information given
-in the synopsis or details.  The purpose of examples is not to prove
+in the synopsis or details. The purpose of examples is not to prove
 what the details are stating.
 
 Many methods that can take an optional block call the block if it is given,
@@ -592,10 +587,10 @@ but do state the fact (with the auto-linking uppercase Enumerator):
 
 For methods that require arguments, if not obvious and not explicitly
 mentioned in the details or implicitly shown in the examples, you can
-provide details about the types of arguments supported.  When discussing
+provide details about the types of arguments supported. When discussing
 the types of arguments, use simple language even if less-precise, such
 as "level must be an integer", not "level must be an Integer-convertible
-object".  The vast majority of use will be with the expected type, not an
+object". The vast majority of use will be with the expected type, not an
 argument that is explicitly convertible to the expected type, and
 documenting the difference is not important.
 
@@ -611,16 +606,16 @@ If there is more than one argument or block argument, use a
 For corner cases of methods, such as atypical usage, briefly mention
 the behavior, but do not provide any examples.
 
-Only document exceptions raised if they are not obvious.  For example,
+Only document exceptions raised if they are not obvious. For example,
 if you have stated earlier than an argument type must be an integer,
 you do not need to document that a `TypeError` is raised if a non-integer
-is passed.  Do not provide examples of exceptions being raised unless
+is passed. Do not provide examples of exceptions being raised unless
 that is a common case, such as `Hash#fetch` raising a `KeyError`.
 
 ### Related Methods (optional)
 
 In some cases, it is useful to document which methods are related to
-the current method.  For example, documentation for `Hash#[]` might
+the current method. For example, documentation for `Hash#[]` might
 mention `Hash#fetch` as a related method, and `Hash#merge` might mention
 `Hash#merge!` as a related method.
 
@@ -632,7 +627,6 @@ mention `Hash#fetch` as a related method, and `Hash#merge` might mention
   If you think more than three methods are related,
   list the three you think are most important.
 - Consider adding:
-
     - A phrase suggesting how the related method is similar to,
       or different from, the current method.
       See an example at Time#getutc.
@@ -642,18 +636,18 @@ mention `Hash#fetch` as a related method, and `Hash#merge` might mention
 ### Methods Accepting Multiple Argument Types
 
 For methods that accept multiple argument types, in some cases it can
-be useful to document the different argument types separately.  It's
+be useful to document the different argument types separately. It's
 best to use a separate paragraph for each case you are discussing.
 
-[bold text]:             https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#bold
-[call-seq]:              https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#directive-for-specifying-rdoc-source-format
-[code blocks]:           https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#code-blocks
-[fragment]:              https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment
-[headings]:              https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#headings
-[irb]:                   https://ruby.github.io/irb/index.html
-[links]:                 https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#links
-[lists]:                 https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#lists
-[monofont]:              https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#monofont
+[bold text]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#bold
+[call-seq]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#directive-for-specifying-rdoc-source-format
+[code blocks]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#code-blocks
+[fragment]: https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment
+[headings]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#headings
+[irb]: https://ruby.github.io/irb/index.html
+[links]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#links
+[lists]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#lists
+[monofont]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#monofont
 [RDoc Markup Reference]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html
-[text markup]:           https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#text-markup
-[verbatim text blocks]:  https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#verbatim-text-blocks
+[text markup]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#text-markup
+[verbatim text blocks]: https://ruby.github.io/rdoc/doc/markup_reference/rdoc_rdoc.html#verbatim-text-blocks

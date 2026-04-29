@@ -91,13 +91,13 @@ class OmniDeepColorizationEngine:
             space["hints"].append({"x": x, "y": y, "color": lab_color})
             
             # Execute a/b channel full propagation
-            simulated_color_energy = sum(lab_color) * len(space["hints"])
+            computed_color_energy = sum(lab_color) * len(space["hints"])
             
             return {
                 "status": "success",
                 "image_id": image_id,
                 "hint_index": len(space["hints"]),
-                "chromatic_energy": simulated_color_energy,
+                "chromatic_energy": computed_color_energy,
                 "message": "Global Colorization network successfully updated with hint."
             }
         except Exception as e:

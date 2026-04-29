@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI AI PROJECT NAVIGATOR ENGINE (SEMESTER 5 — BATCH 11)
 // ===========================================================================
 // Absorbed From  : ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code
@@ -206,6 +206,17 @@ export class OmniAIProjectNavigatorEngine {
             catalogSize: this.catalog.length,
             supportedDomains: Object.keys(DOMAIN_KEYWORDS).length,
             learned_from: "ashishpatel26/500-AI-Projects",
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniAIProjectNavigatorEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

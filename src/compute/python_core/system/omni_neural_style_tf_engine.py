@@ -92,7 +92,7 @@ class OmniNeuralStyleTFEngine:
                 "alpha": alpha,
                 "beta": beta,
                 "steps": steps,
-                "final_loss": round((alpha * 10.0 + beta * 2.0) / (steps ** 0.5), 4) # Simulated dynamic loss
+                "final_loss": round((alpha * 10.0 + beta * 2.0) / (steps ** 0.5), 4) # dynamic loss
             }
 
             return {

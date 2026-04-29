@@ -1,0 +1,12 @@
+type Query {
+  knowledgeEdit(subject: String!, newFact: String!): EditResult!
+  editHistory(subjectFilter: String, limit: Int = 50): [EditRecord!]!
+}
+type Mutation {
+  applyEdit(input: EditInput!): EditResult!
+  revertEdit(editId: ID!): EditResult!
+}
+input EditInput { subject: String! prompt: String! targetNew: String! layerRange: LayerRange }
+input LayerRange { start: Int! end: Int! }
+type EditResult { success: Boolean! editId: ID message: String }
+type EditRecord { id: ID! subject: String! timestamp: String! status: String! }

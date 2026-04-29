@@ -1,0 +1,39 @@
+name: OMNI Divine CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main", "apotheosis"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build_and_test:
+    name: Omni-Nexus Divine Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install OMNI Mother Core Compiler
+        run: |
+          curl -sSfL https://nexus.omniframework.dev/install.sh | sh
+          omni --version
+
+      - name: Check Strict Domain Segregation (Zero-Mock Rule)
+        run: omni check --strict
+
+      - name: Run Integration Tests (Physical Simulation Integrity)
+        run: omni test --all --coverage
+
+      - name: Audit Monadic Result Compliance
+        run: omni linter enforce-monadic-integrity
+
+      - name: Compile Universal Binaries
+        run: omni build --release --target all
+
+      - name: Publish to OMNI Nexus
+        if: github.ref == 'refs/heads/main'
+        run: omni publish --registry nexus.omniframework.dev
+        env:
+          OMNI_NEXUS_TOKEN: ${{ secrets.OMNI_NEXUS_TOKEN }}

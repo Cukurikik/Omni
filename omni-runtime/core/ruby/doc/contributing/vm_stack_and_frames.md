@@ -150,14 +150,14 @@ after "@" in disassembly listings. The "@" index is relative to the 0th local
 ### Q&A
 
 Q: It seems that the receiver is always at an offset relative to EP,
-   like locals. Couldn't we use EP to access it instead of using `cfp->self`?
+like locals. Couldn't we use EP to access it instead of using `cfp->self`?
 
 A: Not all calls put the `self` in the callee on the stack. Two
-   examples are `Proc#call`, where the receiver is the Proc object, but `self`
-   inside the callee is `Proc#receiver`, and `yield`, where the receiver isn't
-   pushed onto the stack before the arguments.
+examples are `Proc#call`, where the receiver is the Proc object, but `self`
+inside the callee is `Proc#receiver`, and `yield`, where the receiver isn't
+pushed onto the stack before the arguments.
 
 Q: Why have `cfp->ep` when it seems that everything is below `cfp->sp`?
 
 A: In the example, `cfp->ep` points to the stack, but it can also point to the
-   GC heap. Blocks can capture and evacuate their environment to the heap.
+GC heap. Blocks can capture and evacuate their environment to the heap.

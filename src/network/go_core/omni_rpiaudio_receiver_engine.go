@@ -6,7 +6,7 @@
 // Domain Layer      : Concurrency (Go Core)
 // ===========================================================================
 
-package main
+package go_core
 
 import (
 	"encoding/json"
@@ -53,7 +53,7 @@ func audio_sink_multiplexer(requests <-chan AudioStreamRequest, status_out chan<
 	close(status_out)
 }
 
-func main() {
+func init_rpiaudio_receiver() {
 	hub_requests := make(chan AudioStreamRequest, 10)
 	hub_responses := make(chan AudioLockStatus, 10)
 

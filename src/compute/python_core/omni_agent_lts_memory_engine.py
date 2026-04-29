@@ -33,7 +33,7 @@ class OmniAgentLtsMemoryEngine:
         Oldest inputs (lowest index) are destroyed first (FIFO execute).
         """
         if max_capacity <= 0:
-             return Err("Zero-capacity constraints. Total mnemonic amnesia simulated.")
+             return Err("Zero-capacity constraints. Total mnemonic amnesia.")
 
         current_size = sum(block.get("size", 0) for block in memory_blocks)
         purged = 0

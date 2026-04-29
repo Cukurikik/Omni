@@ -1,0 +1,22 @@
+# Omni Graph Knowledge Fetch (GraphQL)
+# Database Query Layer for querying the ingested repositories.
+
+query GetRepoKnowledge($repoId: ID!) {
+  repository(id: $repoId) {
+    id
+    name
+    owner
+    description
+    stargazersCount
+    language
+    topics
+    license {
+      name
+      key
+    }
+    systemArchitecture {
+      layer
+      omniComplianceStatus
+    }
+  }
+}

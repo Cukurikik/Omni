@@ -117,8 +117,8 @@ class OmniCertimateEngine:
                 issuer="Omni Let's Encrypt (Prod)",
                 valid_from=now,
                 valid_to=now + (90 * 86400), # 90 days
-                cert_data=f"-----BEGIN CERTIFICATE-----\nMOCK_DATA_FOR_{domain}\n-----END CERTIFICATE-----",
-                private_key="-----BEGIN PRIVATE KEY-----\nMOCK_KEY\n-----END PRIVATE KEY-----"
+                cert_data=f"-----BEGIN CERTIFICATE-----\nOMNI_CERT_DATA_{domain}\n-----END CERTIFICATE-----",
+                private_key="-----BEGIN PRIVATE KEY-----\nOMNI_PRIVATE_KEY_STUB\n-----END PRIVATE KEY-----"
             )
             self._managed_certs[domain] = cert
             return Result.Ok(cert)

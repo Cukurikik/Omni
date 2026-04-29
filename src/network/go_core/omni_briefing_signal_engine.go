@@ -6,7 +6,7 @@
 // Domain Layer      : Network (Go Core)
 // ===========================================================================
 
-package main
+package go_core
 
 import (
 	"encoding/json"
@@ -59,7 +59,7 @@ func webrtc_signaling_broker(uplink <-chan RtcMessage, downlink chan<- RtcMessag
 	close(downlink)
 }
 
-func main() {
+func init_briefing_signal() {
 	uplink_bus := make(chan RtcMessage, 5)
 	downlink_bus := make(chan RtcMessage, 5)
 

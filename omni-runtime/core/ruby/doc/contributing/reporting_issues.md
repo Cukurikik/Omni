@@ -1,4 +1,5 @@
 # Reporting Issues
+
 ## Reporting security issues
 
 If you've found a security vulnerability, please follow
@@ -10,24 +11,24 @@ If you've encountered a bug in Ruby, please report it to the Redmine issue
 tracker available at [bugs.ruby-lang.org](https://bugs.ruby-lang.org/), by
 following these steps:
 
-* Check if anyone has already reported your issue by
+- Check if anyone has already reported your issue by
   searching [the Redmine issue tracker](https://bugs.ruby-lang.org/projects/ruby-master/issues).
-* If you haven't already,
+- If you haven't already,
   [sign up for an account](https://bugs.ruby-lang.org/account/register) on the
   Redmine issue tracker.
-* If you can't find a ticket addressing your issue, please [create a new issue](https://bugs.ruby-lang.org/projects/ruby-master/issues/new). You will need to fill in the subject, description and Ruby version.
-
-    * Ensure the issue exists on Ruby master by trying to replicate your bug on
+- If you can't find a ticket addressing your issue, please [create a new issue](https://bugs.ruby-lang.org/projects/ruby-master/issues/new). You will need to fill in the subject, description and Ruby version.
+    - Ensure the issue exists on Ruby master by trying to replicate your bug on
       the head of master (see ["making changes to Ruby"](making_changes_to_ruby.md)).
-    * Write a concise subject and briefly describe your problem in the description section. If
+    - Write a concise subject and briefly describe your problem in the description section. If
       your issue affects [a released version of Ruby](#label-Backport+requests), please say so.
-    * Fill in the Ruby version you're using when experiencing this issue
+    - Fill in the Ruby version you're using when experiencing this issue
       (the output of running `ruby -v`).
-    * Attach any logs or reproducible programs to provide additional information.
+    - Attach any logs or reproducible programs to provide additional information.
       Any scripts should be as small as possible.
-* If the ticket doesn't have any replies after 10 days, you can send a
+
+- If the ticket doesn't have any replies after 10 days, you can send a
   reminder.
-* Please reply to feedback requests. If a bug report doesn't get any feedback,
+- Please reply to feedback requests. If a bug report doesn't get any feedback,
   it'll eventually get rejected.
 
 ### Reporting website issues
@@ -87,16 +88,16 @@ New patch versions are released at the discretion of the backport manager.
 
 [Ruby versions](https://www.ruby-lang.org/en/downloads/) can be in one of three maintenance states:
 
-* Stable releases: backport any bug fixes
-* Security maintenance: only backport security fixes
-* End of life: no backports, please upgrade your Ruby version
+- Stable releases: backport any bug fixes
+- Security maintenance: only backport security fixes
+- End of life: no backports, please upgrade your Ruby version
 
 ## Add context to existing issues
 
 There are several ways you can help with a bug that aren't directly
 resolving it. These include:
 
-* Verifying or reproducing the existing issue and reporting it
-* Adding more specific reproduction instructions
-* Contributing a failing test as a patch (see ["making changes to Ruby"](making_changes_to_ruby.md))
-* Testing patches that others have submitted (see ["making changes to Ruby"](making_changes_to_ruby.md))
+- Verifying or reproducing the existing issue and reporting it
+- Adding more specific reproduction instructions
+- Contributing a failing test as a patch (see ["making changes to Ruby"](making_changes_to_ruby.md))
+- Testing patches that others have submitted (see ["making changes to Ruby"](making_changes_to_ruby.md))

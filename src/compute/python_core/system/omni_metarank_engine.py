@@ -59,7 +59,7 @@ class OmniMetarankEngine:
             if not items:
                 return {"status": "error", "message": "Item array must have length > 0"}
             
-            # Simulated LTR ordering logic
+            # LTR ordering logic
             ranked = sorted(items, reverse=True)
             return {
                 "status": "success", 

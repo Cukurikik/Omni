@@ -1,0 +1,25 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type OmniResultGraph {
+  isOk: Boolean!
+  error: String
+  data: GraphData
+}
+
+type GraphData {
+  nodeId: ID!
+  embeddings: [Float!]!
+  connectedEdges: Int!
+}
+
+type Query {
+  getGraphNode(id: ID!): OmniResultGraph!
+  traverseGraph(startId: ID!, depth: Int!): OmniResultGraph!
+}
+
+type Mutation {
+  tuneGraphInstruction(nodeId: ID!, instruction: String!): OmniResultGraph!
+}

@@ -57,7 +57,7 @@ class OmniMnnMobileNeuralEngine:
                 "Operator-level SIMD / Winograd Convolution",
                 "Backend Auto-selection (OpenCL / Vulkan / ARM NEON)"
             ],
-            "latency_ms": 3.2 # Simulated
+            "latency_ms": 3.2 # 
         }}
 
     def evaluate_health(self) -> Dict[str, Any]:

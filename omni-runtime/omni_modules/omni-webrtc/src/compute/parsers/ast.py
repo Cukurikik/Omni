@@ -1,1 +1,1 @@
-﻿def parse_schema(): pass
+def parse_schema(): pass

@@ -29,7 +29,7 @@ class OmniStyleTtsEngine:
     
     A zero-algebraic_bound native engine execute Human-Level Text-to-Speech (TTS) architectures.
     Focuses on Prosody Style Diffusion dynamics mapping a standard Gaussian latent
-    vector backwards through a simulated deterministic differential equation step
+    vector backwards through a deterministic differential equation step
     recovering target style acoustic features without neural dependencies.
     """
     
@@ -45,13 +45,13 @@ class OmniStyleTtsEngine:
         self.alphas = 1.0 - self.betas
         self.alphas_cumprod = np.cumprod(self.alphas)
         
-        # Simulated native fixed projection matrices representing the score estimator
+        # native fixed projection matrices representing the score estimator
         np.random.seed(42)
         self.score_proj = np.random.randn(style_dim, style_dim).astype(np.float32) / np.sqrt(style_dim)
         
     def _estimate_score(self, x_t: np.ndarray, text_condition: np.ndarray, t: int) -> np.ndarray:
         """
-        Simulated Score network estimating the noise epsilon added.
+        Score network estimating the noise epsilon added.
         Maps the noisy vector x_t and text constraints into explicit epsilon estimations algebraically.
         """
         # A pseudo-neural step: linear projection of x_t combined with text conditioning

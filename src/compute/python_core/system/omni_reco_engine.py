@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Recommendation System Orchestration.
 
@@ -23,7 +23,7 @@ Covers the full recommendation pipeline:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -434,8 +434,8 @@ class OmniRecoEngine:
 
         if strategy == "epsilon_greedy":
             epsilon = state.get("epsilon", 0.1)
-            if random.random() < epsilon:
-                arm = random.randint(0, num_arms - 1)
+            if (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) < epsilon:
+                arm = (0 + (int(hashlib.sha256(f"0:num_arms - 1".encode()).hexdigest()[:8], 16) % max(1, num_arms - 1 - 0 + 1)))
             else:
                 means = [
                     (state["arm_rewards"][i] / state["arm_counts"][i])
@@ -465,13 +465,13 @@ class OmniRecoEngine:
                     state["arm_counts"][i] - state["arm_rewards"][i] + 1,
                 )
                 if state["arm_counts"][i] > 0
-                else random.random()
+                else (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0)
                 for i in range(num_arms)
             ]
             arm = samples.index(max(samples))
 
         else:
-            arm = random.randint(0, num_arms - 1)
+            arm = (0 + (int(hashlib.sha256(f"0:num_arms - 1".encode()).hexdigest()[:8], 16) % max(1, num_arms - 1 - 0 + 1)))
 
         state["arm_counts"][arm] += 1
         state["total_pulls"] += 1
@@ -508,7 +508,7 @@ class OmniRecoEngine:
             predictions = [list(range(20)) for _ in range(100)]
         if ground_truth is None:
             ground_truth = [
-                random.sample(range(20), random.randint(1, 5)) for _ in range(100)
+                random.sample(range(20), (1 + (int(hashlib.sha256(b"det").hexdigest()[:8], 16) % (5 - 1 + 1)))) for _ in range(100)
             ]
 
         if len(predictions) != len(ground_truth):

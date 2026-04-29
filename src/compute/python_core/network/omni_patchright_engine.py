@@ -1,4 +1,4 @@
-ENGINE_VERSION = "1.0.0-omni"
+﻿ENGINE_VERSION = "1.0.0-omni"
 # ===========================================================================
 # OMNI PATCHRIGHT ENGINE — Stealth Browser Automation & Anti-Detection
 # ===========================================================================
@@ -22,7 +22,6 @@ stealth web requests and browser fingerprint management.
 import hashlib
 import json
 import os
-import random
 import re
 import subprocess
 import time
@@ -98,18 +97,18 @@ class FingerprintGenerator:
     @staticmethod
     def generate() -> BrowserFingerprint:
         """Generate a random but realistic fingerprint."""
-        screen = random.choice(FingerprintGenerator.SCREEN_SIZES)
-        ua = random.choice(FingerprintGenerator.USER_AGENTS)
+        screen = FingerprintGenerator.SCREEN_SIZES[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(FingerprintGenerator.SCREEN_SIZES))]
+        ua = FingerprintGenerator.USER_AGENTS[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(FingerprintGenerator.USER_AGENTS))]
         platform = "Win32" if "Windows" in ua else "MacIntel" if "Mac" in ua else "Linux x86_64"
         return BrowserFingerprint(
             user_agent=ua,
             platform=platform,
             screen_width=screen[0],
             screen_height=screen[1],
-            timezone=random.choice(FingerprintGenerator.TIMEZONES),
-            webgl_renderer=random.choice(FingerprintGenerator.GPU_RENDERERS),
-            hardware_concurrency=random.choice([4, 8, 12, 16]),
-            device_memory=random.choice([4, 8, 16]),
+            timezone=FingerprintGenerator.TIMEZONES[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(FingerprintGenerator.TIMEZONES))],
+            webgl_renderer=FingerprintGenerator.GPU_RENDERERS[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(FingerprintGenerator.GPU_RENDERERS))],
+            hardware_concurrency=[4, 8, 12, 16][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len([4, 8, 12, 16]))],
+            device_memory=[4, 8, 16][int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len([4, 8, 16]))],
         )
 
     @staticmethod

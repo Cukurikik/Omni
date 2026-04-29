@@ -1,3 +1,3 @@
-* Benoit Daloze (eregon)
-  * eregontp@gmail.com
-  * cctld: be
+- Benoit Daloze (eregon)
+    - eregontp@gmail.com
+    - cctld: be

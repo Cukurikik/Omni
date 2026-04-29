@@ -22,16 +22,16 @@
 With prompt flow, you will be able to:
 
 - **Create and iteratively develop flow**
-    - Create executable [flows](https://microsoft.github.io/promptflow/concepts/concept-flows.html) that link LLMs, prompts, Python code and other [tools](https://microsoft.github.io/promptflow/concepts/concept-tools.html) together.
-    - Debug and iterate your flows, especially [tracing interaction with LLMs](https://microsoft.github.io/promptflow/how-to-guides/tracing/index.html) with ease.
+  - Create executable [flows](https://microsoft.github.io/promptflow/concepts/concept-flows.html) that link LLMs, prompts, Python code and other [tools](https://microsoft.github.io/promptflow/concepts/concept-tools.html) together.
+  - Debug and iterate your flows, especially [tracing interaction with LLMs](https://microsoft.github.io/promptflow/how-to-guides/tracing/index.html) with ease.
 - **Evaluate flow quality and performance**
-    - Evaluate your flow's quality and performance with larger datasets.
-    - Integrate the testing and evaluation into your CI/CD system to ensure quality of your flow.
+  - Evaluate your flow's quality and performance with larger datasets.
+  - Integrate the testing and evaluation into your CI/CD system to ensure quality of your flow.
 - **Streamlined development cycle for production**
-    - Deploy your flow to the serving platform you choose or integrate into your app's code base easily.
-    - (Optional but highly recommended) Collaborate with your team by leveraging the cloud version of [Prompt flow in Azure AI](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2).
+  - Deploy your flow to the serving platform you choose or integrate into your app's code base easily.
+  - (Optional but highly recommended) Collaborate with your team by leveraging the cloud version of [Prompt flow in Azure AI](https://learn.microsoft.com/en-us/azure/machine-learning/prompt-flow/overview-what-is-prompt-flow?view=azureml-api-2).
 
-------
+---
 
 ## Installation
 
@@ -73,7 +73,7 @@ pf connection create --file ./my_chatbot/azure_openai.yaml --set api_key=<your_a
 
 **Chat with your flow**
 
-In the `my_chatbot` folder, there's a `flow.dag.yaml` file that outlines the flow, including inputs/outputs, nodes,  connection, and the LLM model, etc
+In the `my_chatbot` folder, there's a `flow.dag.yaml` file that outlines the flow, including inputs/outputs, nodes, connection, and the LLM model, etc
 
 > Note that in the `chat` node, we're using a connection named `open_ai_connection` (specified in `connection` field) and the `gpt-35-turbo` model (specified in `deployment_name` field). The deployment_name filed is to specify the OpenAI model, or the Azure OpenAI deployment resource.
 
@@ -87,7 +87,7 @@ pf flow test --flow ./my_chatbot --interactive
 
 Explore our [**15-minute tutorial**](examples/tutorials/flow-fine-tuning-evaluation/promptflow-quality-improvement.md) that guides you through prompt tuning ➡ batch testing ➡ evaluation, all designed to ensure high quality ready for production.
 
-Next Step! Continue with the **Tutorial**  👇 section to delve deeper into prompt flow.
+Next Step! Continue with the **Tutorial** 👇 section to delve deeper into prompt flow.
 
 ## Tutorial 🏃‍♂️
 
@@ -110,17 +110,18 @@ You can install it from the <a href="https://marketplace.visualstudio.com/items?
 ### Learn from use cases
 
 [Tutorial: Chat with PDF](https://github.com/microsoft/promptflow/blob/main/examples/tutorials/e2e-development/chat-with-pdf.md): An end-to-end tutorial on how to build a high quality chat application with prompt flow, including flow development and evaluation with metrics.
+
 > More examples can be found [here](https://microsoft.github.io/promptflow/tutorials/index.html#samples). We welcome contributions of new use cases!
 
 ### Setup for contributors
 
 If you're interested in contributing, please start with our dev setup guide: [dev_setup.md](./docs/dev/dev_setup.md).
 
-Next Step! Continue with the **Contributing**  👇 section to contribute to prompt flow.
+Next Step! Continue with the **Contributing** 👇 section to contribute to prompt flow.
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
 

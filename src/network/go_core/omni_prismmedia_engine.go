@@ -11,13 +11,12 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package network
+package go_core
 
 import (
-	"errors"
 )
 
-const ENGINE_VERSION = "1.0.0-omni"
+const PRISMMEDIA_ENGINE_VERSION = "1.0.0-omni"
 
 // PrismMediaErrorCode explicitly governs all physical unmanaged mapping limits
 type PrismMediaErrorCode string

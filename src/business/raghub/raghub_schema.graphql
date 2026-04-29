@@ -1,0 +1,25 @@
+# RAGHub community registry schema
+# GraphQL business contract
+
+type OmniResult {
+  isOk: Boolean!
+  error: String
+}
+
+type RAGFramework {
+  id: ID!
+  name: String!
+  stars: Int!
+  retrievalSpeedMs: Float!
+}
+
+type Query {
+  getFrameworks(limit: Int!): [RAGFramework!]!
+}
+
+type Mutation {
+  registerFramework(name: String!, gitUrl: String!): OmniResult!
+}
+
+# Directive for hardware bound enforcement
+directive @limit(max: Int!) on ARGUMENT_DEFINITION

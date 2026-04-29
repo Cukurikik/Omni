@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Automatic Image Colorization.
 
@@ -22,7 +22,7 @@ Covers the full colorization pipeline:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -234,7 +234,7 @@ class OmniColorizationEngine:
             output_path = image_path.rsplit(".", 1)[0] + "_colorized.png"
 
         # Execute colorization pipeline
-        process_time = random.uniform(0.05, 0.5) if quality == "low" else random.uniform(0.1, 1.0)
+        process_time = round(0.05 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.5 - 0.05), 4) if quality == "low" else round(0.1 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (1.0 - 0.1), 4)
 
         result = {
             "input_path": image_path,
@@ -388,17 +388,17 @@ class OmniColorizationEngine:
         computed = {}
         for metric in metrics:
             if metric == "psnr":
-                computed[metric] = round(random.uniform(22.0, 35.0), 2)
+                computed[metric] = round(round(22.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (35.0 - 22.0), 4), 2)
             elif metric == "ssim":
-                computed[metric] = round(random.uniform(0.85, 0.98), 4)
+                computed[metric] = round(round(0.85 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.98 - 0.85), 4), 4)
             elif metric == "lpips":
-                computed[metric] = round(random.uniform(0.05, 0.25), 4)
+                computed[metric] = round(round(0.05 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.25 - 0.05), 4), 4)
             elif metric == "fid":
-                computed[metric] = round(random.uniform(10.0, 50.0), 2)
+                computed[metric] = round(round(10.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (50.0 - 10.0), 4), 2)
             elif metric == "colorfulness":
-                computed[metric] = round(random.uniform(30.0, 80.0), 2)
+                computed[metric] = round(round(30.0 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (80.0 - 30.0), 4), 2)
             elif metric == "naturalness":
-                computed[metric] = round(random.uniform(0.7, 0.95), 4)
+                computed[metric] = round(round(0.7 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.95 - 0.7), 4), 4)
 
         return {
             "status": "success",

@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniReactMusicPlayerEngine.ts
@@ -89,6 +89,17 @@ export class OmniReactMusicPlayerEngine {
             active_track: this.currentIndex >= 0 ? this.playlist[this.currentIndex].id : null,
             total_tracks: this.playlist.length,
             version: ENGINE_VERSION
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniReactMusicPlayerEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

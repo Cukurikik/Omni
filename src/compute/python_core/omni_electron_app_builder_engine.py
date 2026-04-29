@@ -27,7 +27,7 @@ class OmniElectronAppBuilderEngine:
             total_size = 0.0
             large_files = []
             
-            # Simulated array iteration mapping boundary size computations limit loops!
+            # Array iteration mapping boundary size computations limit loops!
             for entry in app_assets:
                 if "size_mb" not in entry or "name" not in entry:
                     return Err(ValueError("Geometric boundary error: File mappings require size_mb matrices keys constraints!"))

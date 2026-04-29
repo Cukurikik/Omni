@@ -1,0 +1,16 @@
+# OMNI Domain Layer - LlamaIndex Retrieval Rules
+@schema
+type RetrievalNode {
+  id: ID!
+  text: String!
+  score: Float!
+  metadata: String
+}
+
+type Query {
+  fetchRelevantNodes(query: String!, topK: Int!): [RetrievalNode!]!
+}
+
+type Mutation {
+  insertDocument(content: String!): Boolean!
+}

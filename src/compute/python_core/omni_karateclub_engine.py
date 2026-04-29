@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Karateclub Engine
 =======================
 Production-grade OMNI engine abstracting Unsupervised Graph
@@ -17,7 +17,7 @@ OMNI Layer: compute (Python)
 from __future__ import annotations
 
 import collections
-import random
+import hashlib
 from dataclasses import dataclass
 from typing import Any, Dict, List, Set, Union
 
@@ -91,7 +91,7 @@ class GraphAlgorithms:
             if not neighbors:
                 break
             # Deterministic pseudo-random for tests, or native rng
-            current = random.choice(neighbors)
+            current = neighbors[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % len(neighbors)]
             walk.append(current)
         return walk
 

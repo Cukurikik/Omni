@@ -30,7 +30,7 @@ class OmniDockerComposeOverrideEngine:
             base_services = dict(base_compose)
             over_services = dict(override_compose) if override_compose else {}
             
-            # Simulated mathematical mapping routing constraints loops logic sequences variables matrices Limits natively geometries variables strings mapping sizes!
+            # Mathematical mapping routing constraints loops logic sequences variables matrices Limits natively geometries variables strings mapping sizes!
             if (len(base_services) + len(over_services)) > self.capacity_bounds:
                 return Err(ValueError(f"Algorithm mapping bounds exceeded limitations boundary strings limits geometries {self.capacity_bounds}!"))
                 

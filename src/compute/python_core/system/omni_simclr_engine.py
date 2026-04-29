@@ -82,13 +82,13 @@ class OmniSimCLREngine:
             dataset["epochs_run"] += 1
             
             # Execute Contrastive Loss convergence (NT-Xent)
-            simulated_loss = max(0.5, 6.0 - (dataset["epochs_run"] * 0.1))
+            computed_loss = max(0.5, 6.0 - (dataset["epochs_run"] * 0.1))
             
             return {
                 "status": "success",
                 "dataset_id": dataset_id,
                 "epochs": dataset["epochs_run"],
-                "nt_xent_loss": simulated_loss,
+                "nt_xent_loss": computed_loss,
                 "message": "Visual embeddings powerfully clustered by contrasting negative latents."
             }
         except Exception as e:

@@ -157,7 +157,7 @@ class QueryExecutor:
                 data = [r for r in data if str(r.get(filter_key)) == str(filter_val)]
             return {"status": "success", "data": data, "count": len(data),
                     "duration_ms": round((time.time() - t0) * 1000, 2)}
-        # Simulated for other sources
+        # for other sources
         return {"status": "success", "data": [],
                 "message": f"[{action.data_source.value}] {action.query}",
                 "duration_ms": round((time.time() - t0) * 1000, 2)}

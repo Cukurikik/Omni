@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI QIX ML KNOWLEDGE ENGINE (SEMESTER 5 — BATCH 24)
@@ -58,6 +58,17 @@ export class OmniQixMlKnowledgeEngine {
             status: "healthy",
             nodes_indexed: this.catalog.size,
             learned_from: "ty4z2008/Qix"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniQixMlKnowledgeEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

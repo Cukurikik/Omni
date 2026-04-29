@@ -1,5 +1,4 @@
-bundle-version(1) -- Prints Bundler version information
-=======================================================
+# bundle-version(1) -- Prints Bundler version information
 
 ## SYNOPSIS
 

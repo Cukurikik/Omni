@@ -635,17 +635,17 @@ func (ca *ConfigApplicator) ApplySettings(config *IDEConfiguration) error {
 // Section 7: Health Checker
 // ─────────────────────────────────────────────
 
-// HealthChecker performs comprehensive environment health checks.
-type HealthChecker struct {
+// WizardHealthChecker performs comprehensive environment health checks.
+type WizardHealthChecker struct {
 	detector *PlatformDetector
 }
 
-func NewHealthChecker() *HealthChecker {
-	return &HealthChecker{detector: NewPlatformDetector()}
+func NewWizardHealthChecker() *WizardHealthChecker {
+	return &WizardHealthChecker{detector: NewPlatformDetector()}
 }
 
 // RunHealthCheck performs a full health check for an IDE.
-func (hc *HealthChecker) RunHealthCheck(ide IDEType) *HealthCheckResult {
+func (hc *WizardHealthChecker) RunHealthCheck(ide IDEType) *HealthCheckResult {
 	result := &HealthCheckResult{
 		IDE:       ide,
 		Healthy:   true,
@@ -826,7 +826,7 @@ type IDESetupWizardEngine struct {
 	detector     *PlatformDetector
 	profiles     *ConfigProfileManager
 	applicator   *ConfigApplicator
-	healthCheck  *HealthChecker
+	healthCheck  *WizardHealthChecker
 	downloads    *DownloadManager
 	startedAt    time.Time
 
@@ -850,7 +850,7 @@ func NewIDESetupWizardEngine(dataDir string) *IDESetupWizardEngine {
 		detector:    NewPlatformDetector(),
 		profiles:    NewConfigProfileManager(filepath.Join(dataDir, "profiles")),
 		applicator:  NewConfigApplicator(),
-		healthCheck: NewHealthChecker(),
+		healthCheck: NewWizardHealthChecker(),
 		downloads:   NewDownloadManager(filepath.Join(dataDir, "downloads")),
 		startedAt:   time.Now().UTC(),
 	}

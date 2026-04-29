@@ -84,13 +84,13 @@ class OmniLaneNetEngine:
             stream["lanes_detected"] += 2  # Left and right bound
             
             # Execute cluster survival
-            simulated_confidence = max(0.6, 0.99 - (vector_intensity * 0.05))
+            computed_confidence = max(0.6, 0.99 - (vector_intensity * 0.05))
             
             return {
                 "status": "success",
                 "stream_id": stream_id,
                 "lane_clusters": 2,
-                "curvature_confidence": simulated_confidence,
+                "curvature_confidence": computed_confidence,
                 "message": "Continuous instance clustering correctly mapped lane boundaries."
             }
         except Exception as e:

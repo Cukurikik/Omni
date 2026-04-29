@@ -1,4 +1,4 @@
-"""
+﻿"""
 +============================================================================+
 |  OMNI AUDIOMENTATIONS ENGINE                                               |
 |  Engine Layer: Compute / Audio Data Augmentation                           |
@@ -9,7 +9,7 @@
 """
 
 import math
-import random
+import hashlib
 from typing import Dict, Any, List
 
 ENGINE_VERSION: str = "1.0.0-omni"
@@ -55,8 +55,8 @@ class OmniAudiomentationsEngine:
         augmented: List[float] = []
         for s in samples:
             # Box-Muller transform for Gaussian noise
-            u1: float = max(1e-10, random.random())
-            u2: float = random.random()
+            u1: float = max(1e-10, (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0))
+            u2: float = (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0)
             noise: float = noise_std * math.sqrt(-2.0 * math.log(u1)) * math.cos(2.0 * math.pi * u2)
             augmented.append(max(-1.0, min(1.0, s + noise)))
         return augmented

@@ -10,7 +10,7 @@ class OmniCarpentriesIntermediatePythonEngine:
     
     Purpose: Mathematically validates intermediate Python development standards
     such as cyclomatic complexity, coupling, and modularity bounds using static
-    code metrics instead of mockup simulations.
+    pure code metrics computations.
     
     Enforces OMNI ZERO-MOCK Policy and Monadic Error Handling.
     """

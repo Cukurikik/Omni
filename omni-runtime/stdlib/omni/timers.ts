@@ -8,8 +8,11 @@
 // ==========================================
 
 declare const OmniNative: {
-    syscall: (command: string, args: Record<string, unknown>) => Record<string, unknown>;
-    registerCallback: (id: string, fn: Function) => void;
+  syscall: (
+    command: string,
+    args: Record<string, unknown>,
+  ) => Record<string, unknown>;
+  registerCallback: (id: string, fn: Function) => void;
 };
 
 /**
@@ -18,20 +21,20 @@ declare const OmniNative: {
  * @returns timerId yang bisa digunakan untuk clearTimeout
  */
 export function setTimeout(callback: () => void, delayMs: number): string {
-    const callbackId = `timer_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-    OmniNative.registerCallback(callbackId, callback);
-    const res = OmniNative.syscall("timer_set_timeout", {
-        callbackId,
-        delayMs,
-    });
-    return res.timerId as string;
+  const callbackId = `timer_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  OmniNative.registerCallback(callbackId, callback);
+  const res = OmniNative.syscall("timer_set_timeout", {
+    callbackId,
+    delayMs,
+  });
+  return res.timerId as string;
 }
 
 /**
  * Batalkan timer yang dijadwalkan.
  */
 export function clearTimeout(timerId: string): void {
-    OmniNative.syscall("timer_clear", { timerId });
+  OmniNative.syscall("timer_clear", { timerId });
 }
 
 /**
@@ -40,20 +43,20 @@ export function clearTimeout(timerId: string): void {
  * @returns intervalId yang bisa digunakan untuk clearInterval
  */
 export function setInterval(callback: () => void, intervalMs: number): string {
-    const callbackId = `interval_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-    OmniNative.registerCallback(callbackId, callback);
-    const res = OmniNative.syscall("timer_set_interval", {
-        callbackId,
-        intervalMs,
-    });
-    return res.intervalId as string;
+  const callbackId = `interval_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  OmniNative.registerCallback(callbackId, callback);
+  const res = OmniNative.syscall("timer_set_interval", {
+    callbackId,
+    intervalMs,
+  });
+  return res.intervalId as string;
 }
 
 /**
  * Batalkan interval yang berjalan.
  */
 export function clearInterval(intervalId: string): void {
-    OmniNative.syscall("timer_clear", { timerId: intervalId });
+  OmniNative.syscall("timer_clear", { timerId: intervalId });
 }
 
 /**
@@ -61,7 +64,7 @@ export function clearInterval(intervalId: string): void {
  * ⚡ Go time.Sleep() — true sleep, bukan busy-wait.
  */
 export function sleep(ms: number): void {
-    OmniNative.syscall("timer_sleep", { ms });
+  OmniNative.syscall("timer_sleep", { ms });
 }
 
 /**
@@ -69,17 +72,17 @@ export function sleep(ms: number): void {
  * ⚡ Go time.Now().UnixNano()
  */
 export function hrtime(): bigint {
-    const res = OmniNative.syscall("timer_hrtime", {});
-    return BigInt(res.result as string);
+  const res = OmniNative.syscall("timer_hrtime", {});
+  return BigInt(res.result as string);
 }
 
 export const timers = {
-    setTimeout,
-    clearTimeout,
-    setInterval,
-    clearInterval,
-    sleep,
-    hrtime,
+  setTimeout,
+  clearTimeout,
+  setInterval,
+  clearInterval,
+  sleep,
+  hrtime,
 };
 
 export default timers;

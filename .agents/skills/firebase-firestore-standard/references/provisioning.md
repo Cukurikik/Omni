@@ -33,7 +33,7 @@ This will use the default database with the Standard edition. To use a different
   }
 }
 ```
- 
+
 ### 2. Create `firestore.rules`
 
 Create a file named `firestore.rules`. A good starting point (locking down the database) is:
@@ -48,7 +48,8 @@ service cloud.firestore {
   }
 }
 ```
-*See [security_rules.md](security_rules.md) for how to write actual rules.*
+
+_See [security_rules.md](security_rules.md) for how to write actual rules._
 
 ### 3. Create `firestore.indexes.json`
 
@@ -61,10 +62,10 @@ Create a file named `firestore.indexes.json` with an empty configuration to star
 }
 ```
 
-*See [indexes.md](indexes.md) for how to configure indexes.*
-
+_See [indexes.md](indexes.md) for how to configure indexes._
 
 ## Deploy rules and indexes
+
 ```bash
 # To deploy all rules and indexes
 npx -y firebase-tools@latest deploy --only firestore

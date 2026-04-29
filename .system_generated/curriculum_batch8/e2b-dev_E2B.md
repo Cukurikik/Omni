@@ -18,7 +18,9 @@
 <!---
 <img width="100%" src="/readme-assets/preview.png" alt="Cover image">
 --->
+
 ## What is E2B?
+
 [E2B](https://www.e2b.dev/) is an open-source infrastructure that allows you to run AI-generated code in secure isolated sandboxes in the cloud. To start and control sandboxes, use our [JavaScript SDK](https://www.npmjs.com/package/e2b) or [Python SDK](https://pypi.org/project/e2b).
 
 ## Run your first Sandbox
@@ -26,19 +28,23 @@
 ### 1. Install SDK
 
 JavaScript / TypeScript
+
 ```
 npm i e2b
 ```
 
 Python
+
 ```
 pip install e2b
 ```
 
 ### 2. Get your E2B API key
+
 1. Sign up to E2B [here](https://e2b.dev).
 2. Get your API key [here](https://e2b.dev/dashboard?tab=keys).
 3. Set environment variable with your API key
+
 ```
 E2B_API_KEY=e2b_***
 ```
@@ -46,15 +52,17 @@ E2B_API_KEY=e2b_***
 ### 3. Start a sandbox and run commands
 
 JavaScript / TypeScript
-```ts
-import Sandbox from 'e2b'
 
-const sandbox = await Sandbox.create()
-const result = await sandbox.commands.run('echo "Hello from E2B!"')
-console.log(result.stdout) // Hello from E2B!
+```ts
+import Sandbox from "e2b";
+
+const sandbox = await Sandbox.create();
+const result = await sandbox.commands.run('echo "Hello from E2B!"');
+console.log(result.stdout); // Hello from E2B!
 ```
 
 Python
+
 ```py
 from e2b import Sandbox
 
@@ -73,24 +81,27 @@ pip install e2b-code-interpreter  # Python
 ```
 
 ```ts
-import { Sandbox } from '@e2b/code-interpreter'
+import { Sandbox } from "@e2b/code-interpreter";
 
-const sandbox = await Sandbox.create()
-const execution = await sandbox.runCode('x = 1; x += 1; x')
-console.log(execution.text)  // outputs 2
+const sandbox = await Sandbox.create();
+const execution = await sandbox.runCode("x = 1; x += 1; x");
+console.log(execution.text); // outputs 2
 ```
 
 ### 5. Check docs
+
 Visit [E2B documentation](https://e2b.dev/docs).
 
 ### 6. E2B cookbook
+
 Visit our [Cookbook](https://github.com/e2b-dev/e2b-cookbook/tree/main) to get inspired by examples with different LLMs and AI frameworks.
 
 ## Self-hosting
 
-Read the [self-hosting guide](https://github.com/e2b-dev/infra/blob/main/self-host.md) to learn how to set up the [E2B infrastructure](https://github.com/e2b-dev/infra) on your own. The infrastructure is deployed using Terraform. 
+Read the [self-hosting guide](https://github.com/e2b-dev/infra/blob/main/self-host.md) to learn how to set up the [E2B infrastructure](https://github.com/e2b-dev/infra) on your own. The infrastructure is deployed using Terraform.
 
 Supported cloud providers:
+
 - 🟢 AWS
 - 🟢 Google Cloud (GCP)
 - [ ] Azure

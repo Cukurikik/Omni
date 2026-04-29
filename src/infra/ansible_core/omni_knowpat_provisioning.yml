@@ -1,0 +1,19 @@
+# Omni KnowPAT Provisioning (Ansible)
+# Infrastructure Layer: Server configuration for Preference Alignment processing.
+
+- name: Configure KnowPAT Alignment Nodes
+  hosts: alignment_nodes
+  become: yes
+  tasks:
+    - name: Ensure Omni Graph DB dependencies are strictly installed
+      apt:
+        name: 
+          - neo4j-enterprise
+          - openjdk-17-jdk
+        state: present
+        
+    - name: Configure strict deterministic memory limits for Cypher Engine
+      lineinfile:
+        path: /etc/neo4j/neo4j.conf
+        regexp: '^dbms.memory.heap.max_size='
+        line: 'dbms.memory.heap.max_size=16G'

@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: PhySO Physical Symbolic Optimization Engine (Batch 12 Remediation)
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 Physical Symbolic Optimization (PhySO) menggunakan unit dan rumusan ilmu fisika 

@@ -113,7 +113,7 @@ class OmniFineTuneEngine:
             # Should trigger Fletcher-Munson bass boost
             bb = FletcherMunsonCurve.calculate_bass_boost(self.master_volume)
             
-            # Simulated explosion (very loud input 0dB)
+            # explosion (very loud input 0dB)
             processed_explosion = self.dsp_pipeline_tick(pid, 0.0) 
             
             status = "operational" if bb > 5.0 and processed_explosion < 10.0 else "degraded"

@@ -1,0 +1,22 @@
+---
+# Omni Cerbos Policy Core
+# Defines strict Zero-Trust access bounds for AIMirror Accelerator
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "omni_aimirror_shard"
+  rules:
+    - actions: ["download", "shard_view"]
+      effect: EFFECT_ALLOW
+      roles:
+        - system_orchestrator
+        - model_downloader
+      condition:
+        match:
+          expr: request.resource.attr.file_size <= 50000000000 # 50GB limit
+
+    - actions: ["admin_clear_cache"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin

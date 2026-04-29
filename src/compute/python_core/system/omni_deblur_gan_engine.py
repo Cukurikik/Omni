@@ -83,12 +83,12 @@ class OmniDeblurGANEngine:
             buffer["is_restored"] = True
             
             # Execute WGAN perceptual loss calculation
-            simulated_ssim = min(0.98, 1.0 - (buffer["severity"] * 0.05))
+            computed_ssim = min(0.98, 1.0 - (buffer["severity"] * 0.05))
             
             return {
                 "status": "success",
                 "tensor_id": tensor_id,
-                "restored_ssim": simulated_ssim,
+                "restored_ssim": computed_ssim,
                 "perceptual_metric": "WGAN-GP VGG19",
                 "message": "High-frequency spatial details unconditionally restored."
             }

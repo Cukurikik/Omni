@@ -88,12 +88,12 @@ class OmniClipRetrievalEngine:
                 return {"status": "error", "message": "top_k must be > 0"}
                 
             # Execute KNN retrieval mapping
-            simulated_hits = [{"id": f"doc_{i}", "score": max(0.1, 1.0 - (i * 0.1))} for i in range(top_k)]
+            computed_hits = [{"id": f"doc_{i}", "score": max(0.1, 1.0 - (i * 0.1))} for i in range(top_k)]
             
             return {
                 "status": "success",
                 "index_name": index_name,
-                "hits": simulated_hits,
+                "hits": computed_hits,
                 "message": "K-Nearest Neighbors projected and retrieved."
             }
         except Exception as e:

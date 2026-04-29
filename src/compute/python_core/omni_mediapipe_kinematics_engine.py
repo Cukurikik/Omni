@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI MEDIAPIPE KINEMATICS ENGINE (SEMESTER 5 — BATCH 10)
 # ===========================================================================
 # Absorbed From  : google-ai-edge/mediapipe
@@ -22,7 +22,7 @@ OMNI Layer: compute (Python)
 """
 import logging
 from typing import Dict, Any, List, Tuple
-import random
+import hashlib
 
 
 ENGINE_VERSION = "1.0.0-omni"
@@ -51,9 +51,9 @@ class OmniMediapipeKinematicsEngine:
         for i in range(count):
             landmarks.append({
                 "id": i,
-                "x": round(random.uniform(0.1, 0.9), 4),
-                "y": round(random.uniform(0.1, 0.9), 4),
-                "z": round(random.uniform(-0.1, 0.1), 4) if self.enable_z_depth else 0.0
+                "x": round(round(0.1 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.9 - 0.1), 4), 4),
+                "y": round(round(0.1 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.9 - 0.1), 4), 4),
+                "z": round(round(-0.1 + ((int(hashlib.sha256(f"-0.1:0.1".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (0.1 - -0.1), 4), 4) if self.enable_z_depth else 0.0
             })
         return landmarks
 

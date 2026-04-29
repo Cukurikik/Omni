@@ -20,7 +20,7 @@ inputs:
 
   event_name:
     required: false
-    default: 'push'
+    default: "push"
     description: >-
       Target event to trigger notification. Notify only push by default.
 

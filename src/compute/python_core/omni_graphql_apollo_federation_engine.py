@@ -31,7 +31,7 @@ class OmniGraphqlApolloFederationEngine:
             if len(requested_fields) > self.capacity_bounds:
                 return Err(ValueError(f"Mathematical bounds vectors geometry boundaries Loops Maps logic Variable Configurations equations lengths Variables Constraints vectors Arrays limits bounds {self.capacity_bounds}!"))
                 
-            # Simulated federated graph resolution query logic Loops Sets limit Sequences variables Maps Matrices Strings mapping lengths
+            # federated graph resolution query logic Loops Sets limit Sequences variables Maps Matrices Strings mapping lengths
             global_schema = set()
             for sg in subgraphs:
                 resolves = sg.get("resolves", [])

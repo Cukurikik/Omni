@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniVideoWavesurferEngine — Production-Grade Video-Audio Canvas Synchronization
@@ -163,5 +163,16 @@ export class OmniVideoWavesurferEngine {
         // Draw precision cursor tracking playhead
         ctx.fillStyle = this.profile.cursorColor;
         ctx.fillRect(progressX, 0, 1, height);
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "WavesurferResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }

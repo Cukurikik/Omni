@@ -5,9 +5,10 @@
 // Logic Inherited: Go / Network Layer (Service Mesh Proxy + Load Balancing)
 // ===========================================================================
 
-package servicemesh
+package go_core
 
 import (
+	"errors"
 	"fmt"
 	"math/rand"
 	"sync"
@@ -100,7 +101,7 @@ type OmniServiceMeshEngine struct {
 	totalEndpoints  atomic.Int64
 }
 
-func NewEngine() *OmniServiceMeshEngine {
+func NewServiceMeshEngine() *OmniServiceMeshEngine {
 	return &OmniServiceMeshEngine{
 		services: make(map[string]*Service),
 	}

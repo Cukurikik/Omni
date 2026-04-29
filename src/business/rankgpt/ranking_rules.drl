@@ -1,0 +1,21 @@
+package omni.business.rankgpt;
+
+import omni.rankgpt.SearchQuery;
+import omni.rankgpt.OmniResult;
+
+rule "Boost Fresh Content"
+    when
+        $query : SearchQuery( requiresRecency == true, $docs : retrievedDocuments )
+    then
+        // Drools business rule modifying the ranking vector
+        $query.applyRecencyBoost(1.5);
+        $query.setResult(new OmniResult<>(true, null));
+end
+
+rule "Penalize Low Authority Domains"
+    when
+        $query : SearchQuery( $docs : retrievedDocuments )
+    then
+        $query.applyDomainPenalty(0.3);
+        $query.setResult(new OmniResult<>(true, null));
+end

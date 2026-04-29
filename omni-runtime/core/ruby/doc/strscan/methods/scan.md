@@ -1,5 +1,5 @@
 call-seq:
-  scan(pattern) -> substring or nil
+scan(pattern) -> substring or nil
 
 Attempts to [match][17] the given `pattern`
 at the beginning of the [target substring][3].

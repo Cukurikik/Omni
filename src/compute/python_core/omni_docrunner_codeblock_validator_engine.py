@@ -10,6 +10,7 @@ Algorithmic Primitive:
     detect duplicate code blocks, and compute a coverage score
     (ratio of validated blocks to total blocks).
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import re
 import sys, os

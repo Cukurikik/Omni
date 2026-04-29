@@ -25,7 +25,7 @@ class AdversarialEvaluator:
     """Execute a red-team evaluation against arbitrary generated scripts."""
     @staticmethod
     def is_malicious(code: str) -> bool:
-        # A hardcoded set of forbidden syscalls for evaluation
+        # Forbidden syscall whitelist for evaluation
         """Execute is malicious operation for AdversarialEvaluator engine."""
         dangerous = ["os.system", "subprocess.call", "pty.spawn", "rm -rf"]
         return any(d in code for d in dangerous)

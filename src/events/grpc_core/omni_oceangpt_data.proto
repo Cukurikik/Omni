@@ -1,0 +1,16 @@
+// Omni OceanGPT Marine Data Event (gRPC proto)
+// Ref: OceanGPT/OceanGPT — ACL 2024
+syntax = "proto3";
+package omni.oceangpt;
+service OceanDataService {
+  rpc QueryOcean (OceanQuery) returns (OceanResponse);
+}
+message OceanQuery {
+  string question = 1;
+  string domain = 2;
+}
+message OceanResponse {
+  string answer = 1;
+  string domain = 2;
+  double confidence = 3;
+}

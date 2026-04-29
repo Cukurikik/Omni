@@ -28,7 +28,7 @@ class OmniKubernetesPodSchedulerEngine:
             pending_pods = []
             allocated_cpu = 0
             
-            # Simulated array iteration mapping boundary intersections constraints limits!
+            # Array iteration mapping boundary intersections constraints limits!
             for pod in pods_allocation:
                 pod_name = pod.get("name", "UNKNOWN_POD")
                 req_cpu = int(pod.get("cpu_m", 0))

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Executive Dashboard</title>
+    <style>
+        :root { --omni-bg: #0f172a; --omni-text: #f8fafc; --omni-accent: #3b82f6; }
+        body { background: var(--omni-bg); color: var(--omni-text); font-family: system-ui, sans-serif; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; padding: 2rem; }
+        .card { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+    <header style="padding: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <h1>OMNI Global Nexus</h1>
+    </header>
+    <main class="grid">
+        <div class="card" id="throughput-card">
+            <h3>System Throughput</h3>
+            <div id="throughput-val">Loading...</div>
+        </div>
+        <div class="card" id="latency-card">
+            <h3>P99 Latency</h3>
+            <div id="latency-val">Loading...</div>
+        </div>
+    </main>
+</body>
+</html>

@@ -9,6 +9,7 @@ Algorithmic Primitive:
     per-category totals, rolling balance, and budget variance analysis
     (actual vs. planned spending per category).
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import sys, os
 from src.compute.python_core.omni_base_engine import Result, Ok, Err

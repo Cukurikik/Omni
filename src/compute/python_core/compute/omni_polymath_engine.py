@@ -42,7 +42,7 @@ class OmniPolymathEngine:
     def execute_library_stemmer(self) -> Dict[str, Any]:
         start_time = time.time()
         
-        # Simulated continuous audio wave
+        # continuous audio wave
         # The jump from 0.2 to 0.9 is a "Kick drum" transient!
         standard_wave = [0.1, 0.2, 0.9, 0.5, 0.1, 0.1, 0.8, 0.4, 0.2]
         

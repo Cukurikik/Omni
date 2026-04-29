@@ -1,0 +1,29 @@
+type Course {
+  id: ID!
+  title: String!
+  difficulty: DifficultyLevel!
+  modules: [Module!]!
+  tags: [String!]!
+}
+
+type Module {
+  id: ID!
+  title: String!
+  contentUrl: String!
+  durationMinutes: Int!
+}
+
+enum DifficultyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+type Query {
+  getCourse(id: ID!): Course
+  listCoursesByTag(tag: String!): [Course!]!
+}
+
+type Mutation {
+  enrollUser(userId: ID!, courseId: ID!): Boolean!
+}

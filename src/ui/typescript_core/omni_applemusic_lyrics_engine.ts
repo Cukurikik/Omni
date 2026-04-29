@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 // omni_applemusic_lyrics_engine.ts
 // Production-Grade Apple Music-Style Lyrics Engine
@@ -210,6 +210,17 @@ export class OmniApplemusicLyricsEngine {
             activeIndex: this.activeLineIndex,
             currentTimeMs: this.currentTimeMs,
             style: { ...this.style },
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniApplemusicLyricsEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

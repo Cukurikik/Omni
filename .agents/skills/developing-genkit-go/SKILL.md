@@ -49,20 +49,21 @@ func main() {
 
 Load the appropriate reference based on what you need:
 
-| Feature | Reference | When to load |
-| --- | --- | --- |
-| Initialization | [references/getting-started.md](references/getting-started.md) | Setting up `genkit.Init`, plugins, the `*Genkit` instance pattern |
-| Generation | [references/generation.md](references/generation.md) | `Generate`, `GenerateText`, `GenerateData`, streaming, output formats |
-| Prompts | [references/prompts.md](references/prompts.md) | `DefinePrompt`, `DefineDataPrompt`, `.prompt` files, schemas |
-| Tools | [references/tools.md](references/tools.md) | `DefineTool`, tool interrupts, `RestartWith`/`RespondWith` |
-| Flows & HTTP | [references/flows-and-http.md](references/flows-and-http.md) | `DefineFlow`, `DefineStreamingFlow`, `genkit.Handler`, HTTP serving |
-| Model Providers | [references/providers.md](references/providers.md) | Google AI, Vertex AI, Anthropic, OpenAI-compatible, Ollama setup |
+| Feature         | Reference                                                      | When to load                                                          |
+| --------------- | -------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Initialization  | [references/getting-started.md](references/getting-started.md) | Setting up `genkit.Init`, plugins, the `*Genkit` instance pattern     |
+| Generation      | [references/generation.md](references/generation.md)           | `Generate`, `GenerateText`, `GenerateData`, streaming, output formats |
+| Prompts         | [references/prompts.md](references/prompts.md)                 | `DefinePrompt`, `DefineDataPrompt`, `.prompt` files, schemas          |
+| Tools           | [references/tools.md](references/tools.md)                     | `DefineTool`, tool interrupts, `RestartWith`/`RespondWith`            |
+| Flows & HTTP    | [references/flows-and-http.md](references/flows-and-http.md)   | `DefineFlow`, `DefineStreamingFlow`, `genkit.Handler`, HTTP serving   |
+| Model Providers | [references/providers.md](references/providers.md)             | Google AI, Vertex AI, Anthropic, OpenAI-compatible, Ollama setup      |
 
 ## Genkit CLI
 
 Check if installed: `genkit --version`
 
 **Installation:**
+
 ```bash
 curl -sL cli.genkit.dev | bash
 ```

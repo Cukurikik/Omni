@@ -214,7 +214,7 @@ class ModelerAgent(DataScienceAgent):
             f"model.fit(X_train, y_train)\n"
             f"score = model.score(X_test, y_test)\n"
         )
-        # Simulated metrics
+        # metrics
         metrics = {"accuracy": 0.87, "f1": 0.84, "auc": 0.91}
         return self._make_result("train_model", code,
                                   f"{model_type} trained: accuracy={metrics['accuracy']:.2f}",

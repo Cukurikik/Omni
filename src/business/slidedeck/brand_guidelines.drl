@@ -1,0 +1,11 @@
+package rules.slidedeck
+import omni.slidedeck.Slide
+import omni.common.OmniResult
+
+rule "Enforce Brand Colors"
+when
+    $slide : Slide( backgroundColor != "#FFFFFF", isCorporate == true )
+then
+    $slide.overrideColor("#FFFFFF");
+    insert(new OmniResult(false, "Corporate slides must have a white background", false));
+end

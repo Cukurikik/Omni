@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}{{ t('restore.title') }}{% endblock
+%} {% block content %}
+<div
+  class="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6"
+>
+  <img
+    src="{{ url_for('static', filename='images/logo.gif') }}"
+    alt="DockFlare Logo"
+    class="w-24 h-24 animate-pulse"
+  />
+  <div class="space-y-2">
+    <h1 class="text-3xl font-semibold">{{ t('restore.hold_tight') }}</h1>
+    <p class="text-lg opacity-80">{{ t('restore.flavor_text') }}</p>
+  </div>
+  <div class="bg-base-200 rounded-box px-6 py-4 text-left">
+    <p class="font-medium">{{ t('restore.whats_happening') }}</p>
+    <ul class="list-disc list-inside opacity-80 text-left">
+      <li>{{ t('restore.secrets_imported') }}</li>
+      <li>{{ t('restore.agents_warming_up') }}</li>
+      <li>{{ t('restore.refresh_in', seconds=countdown_seconds) }}</li>
+    </ul>
+  </div>
+  <progress
+    class="progress progress-primary w-64"
+    value="0"
+    max="{{ countdown_seconds }}"
+    id="progress"
+  ></progress>
+</div>
+
+<script>
+  (function() {
+    const seconds = {{ countdown_seconds }};
+    const redirectUrl = "{{ url_for('web.login') }}";
+    const pingUrl = "{{ url_for('web.ping') }}";
+    const countdownEl = document.getElementById('countdown');
+    const progressEl = document.getElementById('progress');
+    let remaining = seconds;
+
+    const pollForReady = () => {
+      fetch(pingUrl, { cache: 'no-store' })
+        .then(response => {
+          if (response.ok) {
+            window.location.replace(redirectUrl);
+            return;
+          }
+          setTimeout(pollForReady, 1000);
+        })
+        .catch(() => {
+          setTimeout(pollForReady, 1000);
+        });
+    };
+
+    const tick = () => {
+      remaining -= 1;
+      if (remaining < 0) {
+        clearInterval(timerId);
+        countdownEl.textContent = 0;
+        progressEl.value = seconds;
+        pollForReady();
+        return;
+      }
+      countdownEl.textContent = remaining;
+      progressEl.value = seconds - remaining;
+    };
+
+    countdownEl.textContent = seconds;
+    progressEl.setAttribute('max', seconds);
+    progressEl.value = 0;
+    const timerId = setInterval(tick, 1000);
+  })();
+</script>
+{% endblock %}

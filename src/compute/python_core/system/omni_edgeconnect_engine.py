@@ -85,12 +85,12 @@ class OmniEdgeConnectEngine:
             canvas["inpainted"] = True
             
             # Execute SSIM recovery based on severity
-            simulated_recovery_ssim = max(0.85, 0.99 - (canvas["damage"] * 0.15))
+            computed_recovery_ssim = max(0.85, 0.99 - (canvas["damage"] * 0.15))
             
             return {
                 "status": "success",
                 "canvas_id": canvas_id,
-                "ssim": simulated_recovery_ssim,
+                "ssim": computed_recovery_ssim,
                 "steps": ["edge_generation", "color_completion"],
                 "message": "Plausible structural realities gracefully restored."
             }

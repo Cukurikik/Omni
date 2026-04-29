@@ -1,0 +1,46 @@
+# OMNI GraphQL Business Layer: Promptify Templates Schema
+# Defines the structured payload inputs for Prompt Engineering workflows.
+
+type JsonSchemaProperty {
+    key: String!
+    type: String!
+    description: String
+}
+
+type PromptTemplate {
+    id: ID!
+    version: Int!
+    systemInstruction: String!
+    inputVariables: [String!]!
+    outputSchema: [JsonSchemaProperty!]!
+    isActive: Boolean!
+}
+
+input TemplateCreateInput {
+    systemInstruction: String!
+    inputVariables: [String!]!
+    outputSchema: [SchemaPropertyInput!]!
+}
+
+input SchemaPropertyInput {
+    key: String!
+    type: String!
+    description: String
+}
+
+type StructuredExecutionResult {
+    success: Boolean!
+    rawOutput: String!
+    parsedJson: String
+    errorMsg: String
+}
+
+type Query {
+    getTemplate(id: ID!): PromptTemplate
+    listActiveTemplates: [PromptTemplate!]!
+}
+
+type Mutation {
+    createTemplate(input: TemplateCreateInput!): PromptTemplate!
+    executePrompt(templateId: ID!, variables: String!): StructuredExecutionResult!
+}

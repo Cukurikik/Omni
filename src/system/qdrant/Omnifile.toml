@@ -1,0 +1,3 @@
+[package]
+name = "omni-qdrant"
+version = "1.0.0"

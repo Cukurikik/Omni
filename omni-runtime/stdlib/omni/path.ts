@@ -8,7 +8,10 @@
 // ==========================================
 
 declare const OmniNative: {
-    syscall: (command: string, args: Record<string, unknown>) => Record<string, unknown>;
+  syscall: (
+    command: string,
+    args: Record<string, unknown>,
+  ) => Record<string, unknown>;
 };
 
 /**
@@ -16,8 +19,8 @@ declare const OmniNative: {
  * ⚡ Go filepath.Join() — auto-normalize separator
  */
 export function join(...paths: string[]): string {
-    const res = OmniNative.syscall("path_join", { paths });
-    return res.result as string;
+  const res = OmniNative.syscall("path_join", { paths });
+  return res.result as string;
 }
 
 /**
@@ -25,8 +28,8 @@ export function join(...paths: string[]): string {
  * ⚡ Go filepath.Abs() — tidak perlu process.cwd() hacks
  */
 export function resolve(...paths: string[]): string {
-    const res = OmniNative.syscall("path_resolve", { paths });
-    return res.result as string;
+  const res = OmniNative.syscall("path_resolve", { paths });
+  return res.result as string;
 }
 
 /**
@@ -34,8 +37,8 @@ export function resolve(...paths: string[]): string {
  * Contoh: extname("video.mp4") → ".mp4"
  */
 export function extname(filename: string): string {
-    const res = OmniNative.syscall("path_ext", { filename });
-    return res.result as string;
+  const res = OmniNative.syscall("path_ext", { filename });
+  return res.result as string;
 }
 
 /**
@@ -43,8 +46,8 @@ export function extname(filename: string): string {
  * Contoh: basename("/usr/bin/omni") → "omni"
  */
 export function basename(filepath: string, ext?: string): string {
-    const res = OmniNative.syscall("path_basename", { filepath, ext: ext || "" });
-    return res.result as string;
+  const res = OmniNative.syscall("path_basename", { filepath, ext: ext || "" });
+  return res.result as string;
 }
 
 /**
@@ -52,76 +55,82 @@ export function basename(filepath: string, ext?: string): string {
  * Contoh: dirname("/usr/bin/omni") → "/usr/bin"
  */
 export function dirname(filepath: string): string {
-    const res = OmniNative.syscall("path_dirname", { filepath });
-    return res.result as string;
+  const res = OmniNative.syscall("path_dirname", { filepath });
+  return res.result as string;
 }
 
 /**
  * Normalize path (hapus ./ dan ../)
  */
 export function normalize(filepath: string): string {
-    const res = OmniNative.syscall("path_normalize", { filepath });
-    return res.result as string;
+  const res = OmniNative.syscall("path_normalize", { filepath });
+  return res.result as string;
 }
 
 /**
  * Cek apakah path adalah absolute.
  */
 export function isAbsolute(filepath: string): boolean {
-    const res = OmniNative.syscall("path_is_absolute", { filepath });
-    return res.result as boolean;
+  const res = OmniNative.syscall("path_is_absolute", { filepath });
+  return res.result as boolean;
 }
 
 /**
  * Hitung relative path dari 'from' ke 'to'.
  */
 export function relative(from: string, to: string): string {
-    const res = OmniNative.syscall("path_relative", { from, to });
-    return res.result as string;
+  const res = OmniNative.syscall("path_relative", { from, to });
+  return res.result as string;
 }
 
 /**
  * Parse path menjadi komponen { root, dir, base, ext, name }.
  */
 export function parse(filepath: string): {
+  root: string;
+  dir: string;
+  base: string;
+  ext: string;
+  name: string;
+} {
+  const res = OmniNative.syscall("path_parse", { filepath });
+  return res.result as {
     root: string;
     dir: string;
     base: string;
     ext: string;
     name: string;
-} {
-    const res = OmniNative.syscall("path_parse", { filepath });
-    return res.result as { root: string; dir: string; base: string; ext: string; name: string };
+  };
 }
 
 /**
  * Platform separator ('\\' di Windows, '/' di Linux/Mac)
  */
 export function sep(): string {
-    const res = OmniNative.syscall("path_sep", {});
-    return res.result as string;
+  const res = OmniNative.syscall("path_sep", {});
+  return res.result as string;
 }
 
 /**
  * Platform delimiter (';' di Windows, ':' di Linux/Mac)
  */
 export function delimiter(): string {
-    const res = OmniNative.syscall("path_delimiter", {});
-    return res.result as string;
+  const res = OmniNative.syscall("path_delimiter", {});
+  return res.result as string;
 }
 
 export const path = {
-    join,
-    resolve,
-    extname,
-    basename,
-    dirname,
-    normalize,
-    isAbsolute,
-    relative,
-    parse,
-    sep,
-    delimiter,
+  join,
+  resolve,
+  extname,
+  basename,
+  dirname,
+  normalize,
+  isAbsolute,
+  relative,
+  parse,
+  sep,
+  delimiter,
 };
 
 export default path;

@@ -1,0 +1,28 @@
+@schema
+type HierarchicalIronyDetection {
+  ironyId: ID!
+  divergenceMagnitude: Float!
+  textPolarity: Float!
+  visualPolarity: Float!
+  isHighlySarcastic: Boolean!
+}
+
+@schema
+type MultimodalSource {
+  sourceId: ID!
+  imageUrl: String!
+  tweetContent: String!
+  ironyScore: Float!
+}
+
+type Query {
+  getIronyEvaluation(sourceId: ID!): HierarchicalIronyDetection
+  streamSarcasmNodes: [MultimodalSource!]!
+}
+
+type Mutation {
+  registerDivergentPolarity(sourceId: ID!, textPolarity: Float!, visualPolarity: Float!): HierarchicalIronyDetection
+}
+
+# Ensure polarity remains geometrically bounded
+directive @polarityBound(minPolarity: Float = -1.0, maxPolarity: Float = 1.0) on FIELD_DEFINITION

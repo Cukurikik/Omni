@@ -1,0 +1,11 @@
+package rules.appbuilder
+import omni.appbuilder.TenantQuota
+import omni.common.OmniResult
+
+rule "Enforce API Quota Constraints"
+when
+    $quota : TenantQuota( callsThisMonth > monthlyLimit )
+then
+    $quota.suspendAccess("Monthly API limit exceeded");
+    insert(new OmniResult(false, "Quota Exceeded", false));
+end

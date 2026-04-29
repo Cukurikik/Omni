@@ -1,0 +1,11 @@
+package rules.urbangpt
+import omni.urbangpt.TrafficPrediction
+import omni.common.OmniResult
+
+rule "Flag High Congestion Prediction"
+when
+    $prediction : TrafficPrediction( congestionProbability > 0.85 )
+then
+    $prediction.triggerAlert();
+    insert(new OmniResult(true, "High congestion alert dispatched to municipal systems", true));
+end

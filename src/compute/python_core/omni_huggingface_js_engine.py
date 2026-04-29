@@ -232,7 +232,7 @@ class InferenceRouter:
             "model": request.model_id,
             "provider": request.provider.value,
             "status": "completed",
-            "generated_text": f"[simulated output for {request.model_id}]",
+            "generated_text": f"[Output for {request.model_id}]",
         }
         self._request_log.append(output)
         return Ok(output)

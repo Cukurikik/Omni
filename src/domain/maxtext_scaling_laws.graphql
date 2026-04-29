@@ -1,0 +1,16 @@
+# OMNI Domain Layer - MaxText Scaling Laws
+@schema
+type ModelScalingConfig {
+  parameters: Float!
+  tokensTrained: Float!
+  computeFlops: Float!
+}
+
+type Query {
+  checkChinchillaCompliance(config: ModelScalingConfigInput!): Boolean!
+}
+
+input ModelScalingConfigInput {
+  parameters: Float!
+  tokensTrained: Float!
+}

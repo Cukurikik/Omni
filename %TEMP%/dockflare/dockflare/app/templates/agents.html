@@ -1,0 +1,1887 @@
+{% extends "base.html" %} {% block title %}{{ t('agents.title') }}{% endblock %}
+{% block content %}
+
+<section
+  class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+>
+  <div class="card-body">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between border-b border-base-300 pb-3 mb-6"
+    >
+      <h1 class="card-title text-2xl sm:text-3xl">
+        {{ t('agents.agents_management') }}
+      </h1>
+      <div
+        class="flex flex-col sm:flex-row items-center gap-2 mt-4 sm:mt-0 w-full sm:w-auto"
+      >
+        <button
+          id="btn-force-reconcile"
+          class="btn btn-ghost btn-sm w-full sm:w-auto"
+        >
+          {{ t('agents.force_reconciliation') }}
+        </button>
+        <button
+          id="btn-generate-key"
+          class="btn btn-primary btn-sm w-full sm:w-auto"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 mr-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v-2.25L15.188 8.43c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+            />
+          </svg>
+          {{ t('agents.generate_new_api_key') }}
+        </button>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto min-w-0 agents-table-container">
+      <table class="table table-zebra w-full table-responsive">
+        <colgroup class="hidden md:table-column-group">
+          <col style="width: 10%" />
+          <col style="width: 13%" />
+          <col style="width: 6%" />
+          <col style="width: 13%" />
+          <col style="width: 11%" />
+          <col style="width: 10%" />
+          <col style="width: 9%" />
+          <col style="width: 11%" />
+          <col style="width: 9%" />
+          <col style="width: 6%" />
+          <col style="width: 2%" />
+        </colgroup>
+        <thead>
+          <tr class="border-b border-base-300">
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.agent_id') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.display_name') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.version') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.status') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50 text-center"
+            >
+              {{ t('agents.heart_beat') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.assigned_tunnel') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.migration') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.cloudflared_version') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.origin_ip') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50"
+            >
+              {{ t('agents.tunnel_status') }}
+            </th>
+            <th
+              class="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-base-content/50 text-center"
+            >
+              {{ t('common.actions') }}
+            </th>
+          </tr>
+        </thead>
+        <tbody id="agents-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CF Service Token Panel -->
+<section
+  class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+>
+  <div class="card-body">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between border-b border-base-300 pb-3 mb-4"
+    >
+      <div>
+        <h2 class="card-title text-xl">
+          {{ t('agents.cf_zero_trust_title') }}
+        </h2>
+        <p class="text-sm text-base-content/60 mt-1">
+          {{ t('agents.cf_zero_trust_desc') }}
+        </p>
+      </div>
+      <div class="flex items-center gap-2 mt-4 sm:mt-0">
+        <span
+          id="cf-token-badge"
+          class="badge badge-ghost badge-md hidden"
+        ></span>
+        <button id="btn-cf-token-setup" class="btn btn-primary btn-sm hidden">
+          {{ t('agents.cf_zero_trust_setup_btn') }}
+        </button>
+        <button
+          id="btn-cf-token-remove"
+          class="btn btn-error btn-outline btn-sm hidden"
+        >
+          {{ t('agents.cf_zero_trust_remove_btn') }}
+        </button>
+      </div>
+    </div>
+    <div id="cf-token-status-area" class="text-sm text-base-content/60">
+      {{ t('agents.cf_zero_trust_checking') }}
+    </div>
+  </div>
+</section>
+
+<!-- Active API Keys Section -->
+<section
+  class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+>
+  <div class="card-body">
+    <h2 class="card-title text-xl border-b border-base-300 pb-3 mb-6">
+      {{ t('agents.active_api_keys') }}
+    </h2>
+    <div class="overflow-x-auto active-keys-table-container">
+      <table
+        class="table table-zebra table-sm w-full api-keys-table table-responsive"
+      >
+        <colgroup class="hidden md:table-column-group">
+          <col class="col-key" />
+          <col class="col-owner" />
+          <col class="col-created" />
+          <col class="col-status" />
+          <col class="col-actions" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="px-4 py-3">{{ t('agents.key_partial') }}</th>
+            <th class="px-4 py-3">{{ t('agents.owner') }}</th>
+            <th class="px-4 py-3">{{ t('agents.created_at') }}</th>
+            <th class="px-4 py-3">{{ t('common.status') }}</th>
+            <th class="px-4 py-3 text-right">{{ t('common.actions') }}</th>
+          </tr>
+        </thead>
+        <tbody id="active-keys-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Revoked API Keys Section -->
+<section
+  class="card bg-base-100 shadow-xl mb-8 sm:mb-12 transition-all duration-300 hover:shadow-2xl"
+>
+  <div class="card-body">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between border-b border-base-300 pb-3 mb-6"
+    >
+      <h2 class="card-title text-xl">
+        {{ t('agents.revoked_keys') }}
+        <span id="revoked-count-badge" class="badge badge-ghost badge-sm ml-2"
+          >0</span
+        >
+      </h2>
+      <div class="flex items-center gap-2 mt-4 sm:mt-0">
+        <button
+          id="btn-cleanup-expired"
+          class="btn btn-ghost btn-sm"
+          title="{{ t('agents.remove_old_keys') }}"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 mr-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          {{ t('agents.auto_cleanup') }}
+        </button>
+        <button id="btn-clear-all-revoked" class="btn btn-warning btn-sm">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 mr-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+            />
+          </svg>
+          {{ t('agents.clear_all') }}
+        </button>
+      </div>
+    </div>
+    <div class="overflow-x-auto revoked-keys-table-container">
+      <table
+        class="table table-zebra table-sm w-full api-keys-table table-responsive"
+      >
+        <colgroup class="hidden md:table-column-group">
+          <col class="col-key" />
+          <col class="col-owner" />
+          <col class="col-created" />
+          <col class="col-status" />
+          <col class="col-actions" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="px-4 py-3">{{ t('agents.full_api_key') }}</th>
+            <th class="px-4 py-3">{{ t('agents.owner') }}</th>
+            <th class="px-4 py-3">{{ t('agents.revoked_at') }}</th>
+            <th class="px-4 py-3">{{ t('agents.auto_delete') }}</th>
+            <th class="px-4 py-3 text-right">{{ t('common.actions') }}</th>
+          </tr>
+        </thead>
+        <tbody id="revoked-keys-table-body"></tbody>
+      </table>
+      <div
+        id="no-revoked-keys"
+        class="text-center p-8 text-base-content/60 hidden"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12 mx-auto mb-4 opacity-30"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <p class="text-lg font-medium">{{ t('agents.no_revoked_keys') }}</p>
+        <p class="text-sm">{{ t('agents.revoked_keys_desc') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  id="agent-floating-menu"
+  class="fixed z-[999] hidden shadow-lg bg-base-100 border border-base-300 rounded-box"
+  style="min-width: 13rem"
+>
+  <ul class="menu menu-sm p-2" id="agent-floating-menu-list"></ul>
+</div>
+{% endblock %} {% block modals %}
+
+<dialog id="modal-generate-key" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ t('agents.generate_new_agent_key') }}</h3>
+    <form id="form-generate-key" class="py-4">
+      <div class="form-control w-full">
+        <label class="label" for="owner-input"
+          ><span class="label-text"
+            >{{ t('agents.owner_optional') }}</span
+          ></label
+        >
+        <input
+          type="text"
+          id="owner-input"
+          name="owner"
+          placeholder="{{ t('agents.owner_example') }}"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="modal-action">
+        <button type="submit" class="btn btn-primary">
+          {{ t('agents.generate_new_api_key') }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-ghost"
+          onclick="document.getElementById('modal-generate-key').close()"
+        >
+          {{ t('common.cancel') }}
+        </button>
+      </div>
+    </form>
+    <div id="generated-key-container" class="mt-4 hidden prose">
+      <p class="text-error">{{ t('agents.copy_key_now') }}</p>
+      <div class="relative bg-base-200 p-3 rounded-md">
+        <code class="font-mono break-all" id="generated-key-text"></code>
+        <button
+          id="btn-copy-key"
+          class="btn btn-ghost btn-sm absolute top-1 right-1"
+        >
+          {{ t('common.copy') }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+
+<dialog id="modal-enroll-agent" class="modal">
+  <div class="modal-box w-11/12 max-w-lg">
+    <h3 class="font-bold text-lg">{{ t('agents.enroll_agent') }}</h3>
+    <p class="py-4">{{ t('agents.select_existing_or_create') }}</p>
+    <form id="form-enroll-agent">
+      <input type="hidden" id="enroll-agent-id" name="agent_id" />
+      <div class="form-control w-full">
+        <label class="label" for="enroll-tunnel-select"
+          ><span class="label-text"
+            >{{ t('agents.existing_tunnels') }}</span
+          ></label
+        >
+        <select id="enroll-tunnel-select" class="select select-bordered">
+          <option disabled selected>{{ t('agents.loading_tunnels') }}</option>
+        </select>
+      </div>
+      <div class="divider">OR</div>
+      <div class="form-control w-full">
+        <label class="label" for="enroll-new-tunnel-name"
+          ><span class="label-text"
+            >{{ t('agents.create_new_tunnel') }}</span
+          ></label
+        >
+        <input
+          type="text"
+          id="enroll-new-tunnel-name"
+          placeholder="{{ t('agents.new_tunnel_name_example') }}"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="modal-action">
+        <button type="submit" class="btn btn-primary">
+          {{ t('agents.enroll_agent') }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-ghost"
+          onclick="document.getElementById('modal-enroll-agent').close()"
+        >
+          {{ t('common.cancel') }}
+        </button>
+      </div>
+    </form>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+
+<dialog id="modal-migration-assistant" class="modal">
+  <div class="modal-box w-11/12 max-w-4xl">
+    <h3 class="font-bold text-lg">{{ t('agents.migration_assistant') }}</h3>
+    <div id="migration-content" class="py-4"></div>
+    <div class="modal-action">
+      <button
+        type="button"
+        class="btn btn-ghost"
+        onclick="document.getElementById('modal-migration-assistant').close()"
+      >
+        {{ t('common.close') }}
+      </button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+
+<dialog id="modal-rename-agent" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ t('agents.rename_agent') }}</h3>
+    <form id="form-rename-agent" class="py-4">
+      <input type="hidden" id="rename-agent-id" name="agent_id" />
+      <div class="form-control w-full">
+        <label class="label" for="rename-display-name"
+          ><span class="label-text">{{ t('agents.display_name') }}</span></label
+        >
+        <input
+          type="text"
+          id="rename-display-name"
+          name="display_name"
+          placeholder="{{ t('agents.owner_example') }}"
+          class="input input-bordered w-full"
+          required
+        />
+        <label class="label">
+          <span class="label-text-alt">{{ t('agents.name_persists') }}</span>
+        </label>
+      </div>
+      <div class="modal-action">
+        <button type="submit" class="btn btn-primary">
+          {{ t('agents.save_name') }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-ghost"
+          onclick="document.getElementById('modal-rename-agent').close()"
+        >
+          {{ t('common.cancel') }}
+        </button>
+      </div>
+    </form>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+
+<dialog id="modal-deploy-agent" class="modal">
+  <div class="modal-box w-11/12 max-w-3xl">
+    <h3 class="font-bold text-lg">{{ t('agents.deploy_agent') }}</h3>
+    <div class="tabs tabs-boxed mt-4 mb-4">
+      <a
+        class="tab tab-active"
+        id="tab-quick-deploy"
+        onclick="switchDeployTab('quick')"
+        >{{ t('agents.deploy_quick') }}</a
+      >
+      <a
+        class="tab"
+        id="tab-compose-snippet"
+        onclick="switchDeployTab('compose')"
+        >{{ t('agents.deploy_compose_snippet') }}</a
+      >
+    </div>
+    <div id="deploy-tab-quick">
+      <p class="text-sm text-base-content/60 mb-2">
+        {{ t('agents.deploy_quick_desc') }}
+      </p>
+      <div class="relative bg-base-200 p-3 rounded-md">
+        <pre
+          class="font-mono text-xs break-all whitespace-pre-wrap"
+          id="deploy-script-content"
+        ></pre>
+        <button
+          class="btn btn-ghost btn-sm absolute top-1 right-1"
+          id="btn-copy-script"
+        >
+          {{ t('common.copy') }}
+        </button>
+      </div>
+    </div>
+    <div id="deploy-tab-compose" class="hidden">
+      <p class="text-sm text-base-content/60 mb-2">
+        {{ t('agents.deploy_compose_desc') }}
+      </p>
+      <div class="relative bg-base-200 p-3 rounded-md">
+        <pre
+          class="font-mono text-xs break-all whitespace-pre-wrap"
+          id="deploy-compose-content"
+        ></pre>
+        <button
+          class="btn btn-ghost btn-sm absolute top-1 right-1"
+          id="btn-copy-compose"
+        >
+          {{ t('common.copy') }}
+        </button>
+      </div>
+    </div>
+    <div class="modal-action">
+      <button
+        type="button"
+        class="btn btn-ghost"
+        onclick="document.getElementById('modal-deploy-agent').close()"
+      >
+        {{ t('common.close') }}
+      </button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+
+<dialog id="modal-rolled-key" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">{{ t('agents.key_rolled_success') }}</h3>
+    <div class="py-4 prose">
+      <p class="text-error">{{ t('agents.copy_key_now') }}</p>
+      <div class="relative bg-base-200 p-3 rounded-md">
+        <code class="font-mono break-all text-sm" id="rolled-key-text"></code>
+        <button
+          id="btn-copy-rolled-key"
+          class="btn btn-ghost btn-sm absolute top-1 right-1"
+        >
+          {{ t('common.copy') }}
+        </button>
+      </div>
+      <p class="text-sm mt-4">{{ t('agents.update_agent_config') }}</p>
+    </div>
+    <div class="modal-action">
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="document.getElementById('modal-rolled-key').close()"
+      >
+        {{ t('common.ok') }}
+      </button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>{{ t('common.close') }}</button>
+  </form>
+</dialog>
+{% endblock %} {% block scripts %}
+<style>
+  .led-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+  }
+
+  .led-strip {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    background-color: #1f2937;
+    border-radius: 4px;
+    border: 1px solid #374151;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .led-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .led-dot.active {
+    box-shadow:
+      0 0 4px currentColor,
+      0 0 8px currentColor;
+  }
+
+  .led-dot.inactive {
+    background-color: #374151;
+    opacity: 0.3;
+  }
+
+  /* LED Colors by State */
+  .led-strip.healthy .led-dot.active {
+    background-color: #10b981;
+    color: #10b981;
+  }
+
+  .led-strip.warning .led-dot.active {
+    background-color: #f59e0b;
+    color: #f59e0b;
+  }
+
+  .led-strip.critical .led-dot.active {
+    background-color: #ef4444;
+    color: #ef4444;
+    animation: led-pulse-critical 1s ease-in-out infinite alternate;
+  }
+
+  .led-strip.expired .led-dot {
+    background-color: #374151;
+    opacity: 0.2;
+  }
+
+  .led-strip.expired .led-warning {
+    display: block;
+  }
+
+  .led-strip.offline .led-dot {
+    background-color: #6b7280;
+    opacity: 0.4;
+  }
+
+  .led-warning {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 6px;
+    height: 6px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    display: none;
+    animation: led-warning-blink 1s ease-in-out infinite;
+  }
+
+  /* Dropdown fix for table overflow */
+  .dropdown-end .dropdown-content {
+    position: absolute !important;
+    right: 0 !important;
+    top: 100% !important;
+    transform: none !important;
+    z-index: 1000 !important;
+  }
+
+  /* Ensure dropdown container allows overflow for keys tables */
+  .active-keys-table-container,
+  .revoked-keys-table-container {
+    overflow: visible !important;
+  }
+
+  .active-keys-table-container .table,
+  .revoked-keys-table-container .table {
+    overflow: visible !important;
+  }
+
+  /* API Keys table layout with fixed column widths */
+  :root {
+    --api-keys-col-key: 25%;
+    --api-keys-col-owner: 20%;
+    --api-keys-col-created: 22%;
+    --api-keys-col-status: 20%;
+    --api-keys-col-actions: 13%;
+  }
+
+  .api-keys-table {
+    table-layout: fixed;
+  }
+
+  .api-keys-table col.col-key {
+    width: var(--api-keys-col-key);
+  }
+
+  .api-keys-table col.col-owner {
+    width: var(--api-keys-col-owner);
+  }
+
+  .api-keys-table col.col-created {
+    width: var(--api-keys-col-created);
+  }
+
+  .api-keys-table col.col-status {
+    width: var(--api-keys-col-status);
+  }
+
+  .api-keys-table col.col-actions {
+    width: var(--api-keys-col-actions);
+  }
+
+  .api-keys-table th,
+  .api-keys-table td {
+    vertical-align: middle;
+  }
+
+  .api-keys-table .cell-top {
+    vertical-align: top !important;
+  }
+
+  /* Animations */
+  @keyframes led-pulse-critical {
+    0% {
+      opacity: 1;
+      box-shadow:
+        0 0 4px currentColor,
+        0 0 8px currentColor;
+    }
+    100% {
+      opacity: 0.4;
+      box-shadow:
+        0 0 2px currentColor,
+        0 0 4px currentColor;
+    }
+  }
+
+  @keyframes led-warning-blink {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes led-sweep {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  .led-container:hover .led-strip {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+
+  /* Heartbeat reset animation */
+  .led-strip.heartbeat-reset {
+    animation: led-reset-flash 0.5s ease-out;
+  }
+
+  @keyframes led-reset-flash {
+    0% {
+      background-color: #1f2937;
+    }
+    50% {
+      background-color: #065f46;
+    }
+    100% {
+      background-color: #1f2937;
+    }
+  }
+</style>
+
+<script>
+  function switchDeployTab(tab) {
+    const quickEl = document.getElementById("deploy-tab-quick");
+    const composeEl = document.getElementById("deploy-tab-compose");
+    const tabQuick = document.getElementById("tab-quick-deploy");
+    const tabCompose = document.getElementById("tab-compose-snippet");
+    if (tab === "quick") {
+      quickEl.classList.remove("hidden");
+      composeEl.classList.add("hidden");
+      tabQuick.classList.add("tab-active");
+      tabCompose.classList.remove("tab-active");
+    } else {
+      quickEl.classList.add("hidden");
+      composeEl.classList.remove("hidden");
+      tabQuick.classList.remove("tab-active");
+      tabCompose.classList.add("tab-active");
+    }
+  }
+
+  async function loadCfTokenStatus() {
+    const badge = document.getElementById("cf-token-badge");
+    const setupBtn = document.getElementById("btn-cf-token-setup");
+    const removeBtn = document.getElementById("btn-cf-token-remove");
+    const statusArea = document.getElementById("cf-token-status-area");
+
+    const result = await apiCall("/api/v2/agents/cf-service-token/status");
+    if (!result) return;
+
+    badge.classList.remove("hidden");
+    if (result.configured) {
+      badge.textContent = t("js.text.cf_configured");
+      badge.className = "badge badge-success badge-md";
+      setupBtn.classList.add("hidden");
+      removeBtn.classList.remove("hidden");
+      statusArea.innerHTML = t("js.text.cf_active", {
+        client_id: `<code class="font-mono text-xs">${result.client_id}</code>`,
+      });
+    } else {
+      badge.textContent = t("js.text.cf_not_configured");
+      badge.className = "badge badge-warning badge-md";
+      setupBtn.classList.remove("hidden");
+      removeBtn.classList.add("hidden");
+      statusArea.innerHTML = t("js.text.cf_setup_required", {
+        settings_url: "/settings#general-settings",
+      });
+    }
+  }
+
+  async function apiCall(url, method = "GET", body = null) {
+    const options = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const apiKeyMeta = document.querySelector('meta[name="dockflare-api-key"]');
+    if (apiKeyMeta && apiKeyMeta.content) {
+      options.headers["Authorization"] = `Bearer ${apiKeyMeta.content}`;
+    }
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok) {
+        const errorData = await res.json();
+        await dfAlert(
+          `API Error (${res.status}): ${errorData.message || "Something went wrong."}`,
+          "API Error",
+        );
+        return null;
+      }
+      return await res.json();
+    } catch (error) {
+      console.error("Network or parsing error:", error);
+      await dfAlert(
+        "An unexpected error occurred. Please check your network connection.",
+        "Error",
+      );
+      return null;
+    }
+  }
+
+  function createLedStrip(agentId, lastSeen, isOnline) {
+    const ledCount = 15; // 15 LEDs for 30 seconds (each LED = 2 seconds)
+
+    if (!lastSeen || !isOnline) {
+      const offlineLeds = Array.from(
+        { length: ledCount },
+        () => '<div class="led-dot inactive"></div>',
+      ).join("");
+
+      return `
+        <div class="led-container" data-agent-id="${agentId}">
+          <div class="led-strip offline">
+            ${offlineLeds}
+            <div class="led-warning"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    const now = new Date();
+    const lastSeenTime = new Date(lastSeen);
+    const secondsSinceLastSeen = Math.floor((now - lastSeenTime) / 1000);
+    const maxAge = 30; // 30 seconds heartbeat interval
+
+    const activeLeds = Math.max(
+      0,
+      Math.ceil(((maxAge - secondsSinceLastSeen) / maxAge) * ledCount),
+    );
+
+    let stripClass = "healthy";
+    let labelText = "Active";
+    let labelClass = "text-success";
+
+    const healthPercentage = (activeLeds / ledCount) * 100;
+
+    if (healthPercentage < 20) {
+      stripClass = "critical";
+      labelText = t("js.text.critical");
+      labelClass = "text-error";
+    } else if (healthPercentage < 47) {
+      stripClass = "warning";
+      labelText = t("js.text.warning");
+      labelClass = "text-warning";
+    }
+
+    if (secondsSinceLastSeen > maxAge) {
+      stripClass = "expired";
+      labelText = "Lost";
+      labelClass = "text-error";
+    }
+
+    const leds = Array.from({ length: ledCount }, (_, index) => {
+      const isActive = index < activeLeds;
+      return `<div class="led-dot ${isActive ? "active" : "inactive"}"></div>`;
+    }).join("");
+
+    return `
+      <div class="led-container" data-agent-id="${agentId}" data-last-seen="${lastSeen}">
+        <div class="led-strip ${stripClass}">
+          ${leds}
+          <div class="led-warning"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  const getStatusBadge = (status) => {
+    if (!status)
+      return `<span class="badge badge-ghost badge-sm">Unknown</span>`;
+    status = status.toLowerCase();
+    let badgeClass = "badge-ghost";
+    if (status === "connected") badgeClass = "badge-success";
+    if (status === "disconnected") badgeClass = "badge-error";
+    if (status === "enrolled") badgeClass = "badge-info";
+    return `<span class="badge ${badgeClass} badge-sm">${status}</span>`;
+  };
+
+  const getTunnelStatusBadge = (tunnelStatus) => {
+    if (!tunnelStatus || !tunnelStatus.status) {
+      return `<span class="badge badge-ghost badge-sm">Unknown</span>`;
+    }
+    const status = tunnelStatus.status.toLowerCase();
+    let badgeClass = "badge-ghost";
+    if (status === "healthy") badgeClass = "badge-success";
+    if (status === "degraded") badgeClass = "badge-warning";
+    if (status === "down" || status === "error") badgeClass = "badge-error";
+    if (status === "inactive") badgeClass = "badge-ghost";
+    if (status === "pending") badgeClass = "badge-info";
+    if (status === "running") badgeClass = "badge-success";
+    if (["exited", "stopped", "created"].includes(status))
+      badgeClass = "badge-warning";
+    if (["not_found", "not_running"].includes(status))
+      badgeClass = "badge-error";
+    return `<span class="badge ${badgeClass} badge-sm">${status}</span>`;
+  };
+
+  const copyToClipboard = (text, buttonElement) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        const originalText = buttonElement.innerHTML;
+        buttonElement.innerHTML = "Copied!";
+        setTimeout(() => {
+          buttonElement.innerHTML = "Copy";
+        }, 2000);
+      },
+      async (err) => {
+        await dfAlert("Failed to copy text: " + err, "Error");
+      },
+    );
+  };
+
+  const agentsTableBody = document.getElementById("agents-table-body");
+  const activeKeysTableBody = document.getElementById("active-keys-table-body");
+  const revokedKeysTableBody = document.getElementById(
+    "revoked-keys-table-body",
+  );
+  const revokedCountBadge = document.getElementById("revoked-count-badge");
+  const noRevokedKeysMessage = document.getElementById("no-revoked-keys");
+
+  const renderAgentsTable = (agents) => {
+    agentsTableBody.innerHTML = "";
+    if (!agents || Object.keys(agents).length === 0) {
+      agentsTableBody.innerHTML = `<tr><td colspan="10" class="text-center p-4">${t("agents.no_agents_registered")}</td></tr>`;
+      return;
+    }
+    for (const [agentId, agent] of Object.entries(agents)) {
+      const tr = document.createElement("tr");
+
+      const enrollmentBadge = getStatusBadge(agent.status);
+      const healthBadge = getStatusBadge(
+        agent.health || (agent.online ? "connected" : "disconnected"),
+      );
+      const statusHtml = `${enrollmentBadge} ${healthBadge}`;
+
+      const ledStripHtml = createLedStrip(
+        agentId,
+        agent.last_seen,
+        agent.online,
+      );
+      const na = '<span class="text-base-content/30">—</span>';
+      const connectorVersion = agent.connector_version || null;
+      const connectorPlatform = agent.connector_platform || null;
+      const cloudflaredVersion = connectorVersion
+        ? `<span class="text-sm font-medium">${connectorVersion}</span>${connectorPlatform ? `<br><span class="text-xs text-base-content/40 font-normal">${connectorPlatform}</span>` : ""}`
+        : na;
+      const originIp = agent.connector_origin_ip
+        ? `<span class="font-mono text-sm">${agent.connector_origin_ip}</span>`
+        : na;
+
+      const migrationStatus = agent.migration_status;
+      let migrationHtml =
+        '<span class="badge badge-ghost badge-sm">None</span>';
+      if (migrationStatus) {
+        if (migrationStatus.completed_at) {
+          migrationHtml =
+            '<span class="badge badge-success badge-sm">Complete</span>';
+        } else if (
+          migrationStatus.has_conflicts ||
+          migrationStatus.has_orphaned
+        ) {
+          const issues = [];
+          if (migrationStatus.has_conflicts) issues.push("conflicts");
+          if (migrationStatus.has_orphaned) issues.push("orphaned");
+          migrationHtml = `<span class="badge badge-warning badge-sm">Needs attention (${issues.join(", ")})</span>`;
+        } else if (migrationStatus.auto_imported > 0) {
+          migrationHtml = `<span class="badge badge-info badge-sm">Auto-imported ${migrationStatus.auto_imported}</span>`;
+        }
+      }
+
+      tr.innerHTML = `
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.agent_id")}">
+          <span class="font-mono text-xs text-base-content/50 cursor-help" title="${agentId}">${agentId.substring(0, 8)}…</span>
+        </td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.display_name")}">
+          <span class="text-sm font-medium">${agent.display_name || na}</span>
+        </td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.version")}">
+          <span class="text-sm text-base-content/60">${agent.version || na}</span>
+        </td>
+        <td class="px-4 py-3" data-label="${t("agents.status")}">
+          <div class="flex flex-wrap gap-1">${statusHtml}</div>
+        </td>
+        <td class="px-4 py-3 text-center" data-label="${t("agents.heart_beat")}">${ledStripHtml}</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.assigned_tunnel")}">
+          <span class="text-sm">${agent.assigned_tunnel_name || na}</span>
+        </td>
+        <td class="px-4 py-3" data-label="${t("agents.migration")}">${migrationHtml}${migrationStatus && (migrationStatus.has_conflicts || migrationStatus.has_orphaned) ? `<button class="btn btn-xs btn-info ml-2 btn-migration-assistant" data-agent-id="${agentId}" title="Open Migration Assistant">Resolve</button>` : ""}</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.cloudflared_version")}">${cloudflaredVersion}</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.origin_ip")}">${originIp}</td>
+        <td class="px-4 py-3" data-label="${t("agents.tunnel_status")}">${getTunnelStatusBadge(agent.tunnel_status)}</td>
+        <td class="px-4 py-3 text-center" data-label="${t("common.actions")}">
+          <button class="btn btn-ghost btn-sm agent-action-trigger"
+            data-agent-id="${agentId}"
+            data-enrolled="${agent.status === "enrolled"}"
+            data-has-tunnel="${!!agent.assigned_tunnel_name}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+            </svg>
+          </button>
+        </td>
+      `;
+
+      if (agent.online === false) {
+        tr.style.backgroundColor = "#fff5f5";
+        tr.style.borderLeft = "4px solid #f87171";
+      }
+
+      agentsTableBody.appendChild(tr);
+    }
+  };
+
+  const renderApiKeysTable = (apiKeys) => {
+    // Separate active and revoked keys
+    const activeKeys = {};
+    const revokedKeys = {};
+
+    for (const [keyId, meta] of Object.entries(apiKeys)) {
+      if (meta.status === "revoked") {
+        revokedKeys[keyId] = meta;
+      } else {
+        activeKeys[keyId] = meta;
+      }
+    }
+
+    // Render active keys
+    renderActiveKeysTable(activeKeys);
+
+    // Render revoked keys
+    renderRevokedKeysTable(revokedKeys);
+
+    // Update revoked count badge
+    const revokedCount = Object.keys(revokedKeys).length;
+    revokedCountBadge.textContent = revokedCount;
+    revokedCountBadge.className =
+      revokedCount > 0
+        ? "badge badge-warning badge-sm ml-2"
+        : "badge badge-ghost badge-sm ml-2";
+  };
+
+  const renderActiveKeysTable = (activeKeys) => {
+    activeKeysTableBody.innerHTML = "";
+    if (Object.keys(activeKeys).length === 0) {
+      activeKeysTableBody.innerHTML =
+        '<tr><td colspan="5" class="text-center p-4">No active API keys.</td></tr>';
+      return;
+    }
+
+    for (const [keyId, meta] of Object.entries(activeKeys)) {
+      const owner = meta.owner || "<i>N/A</i>";
+      const createdAt = meta.created_at
+        ? new Date(meta.created_at).toLocaleString()
+        : "<i>N/A</i>";
+      const lastUsed = meta.last_used_at
+        ? new Date(meta.last_used_at).toLocaleString()
+        : "Never used";
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="px-4 py-3 whitespace-nowrap font-mono break-all" data-label="${t("agents.key_partial")}">${keyId.substring(0, 8)}...</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.owner")}">${owner}</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.created_at")}">${createdAt}</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("common.status")}">
+          <span class="badge badge-success badge-sm">Active</span>
+          <br><small class="text-xs opacity-60">${lastUsed}</small>
+        </td>
+        <td class="px-4 py-3 text-right" data-label="${t("common.actions")}">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+              </svg>
+            </label>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <a class="btn-deploy-agent" data-key-id="${keyId}">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
+                  </svg>
+                  Deploy Agent
+                </a>
+              </li>
+              <li>
+                <a class="text-error btn-revoke-key" data-key-id="${keyId}">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                  </svg>
+                  Revoke Key
+                </a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      `;
+      activeKeysTableBody.appendChild(tr);
+    }
+  };
+
+  const renderRevokedKeysTable = (revokedKeys) => {
+    revokedKeysTableBody.innerHTML = "";
+    const revokedCount = Object.keys(revokedKeys).length;
+
+    if (revokedCount === 0) {
+      noRevokedKeysMessage.classList.remove("hidden");
+      return;
+    } else {
+      noRevokedKeysMessage.classList.add("hidden");
+    }
+
+    for (const [keyId, meta] of Object.entries(revokedKeys)) {
+      const owner = meta.owner || "<i>N/A</i>";
+      const revokedAt = meta.revoked_at
+        ? new Date(meta.revoked_at).toLocaleString()
+        : "<i>N/A</i>";
+
+      // Calculate days until auto-cleanup (assuming 30 days retention)
+      let autoDeleteInfo = "Unknown";
+      if (meta.revoked_at) {
+        try {
+          const revokedDate = new Date(meta.revoked_at);
+          const now = new Date();
+          const daysSinceRevoked = Math.floor(
+            (now - revokedDate) / (1000 * 60 * 60 * 24),
+          );
+          const daysUntilCleanup = Math.max(0, 30 - daysSinceRevoked);
+
+          if (daysUntilCleanup === 0) {
+            autoDeleteInfo =
+              '<span class="text-warning">Ready for cleanup</span>';
+          } else {
+            autoDeleteInfo = `${daysUntilCleanup} days`;
+          }
+        } catch (e) {
+          autoDeleteInfo = t("js.text.error");
+        }
+      }
+
+      const tr = document.createElement("tr");
+      tr.className = "opacity-60 italic";
+      tr.innerHTML = `
+        <td class="px-4 py-3 font-mono break-all text-sm" data-label="${t("agents.full_api_key")}">
+          <div class="bg-base-200 p-2 rounded border-2 border-dashed">
+            <span class="text-xs opacity-75">Full Key:</span><br>
+            <code class="text-xs">${keyId}</code>
+            <button class="btn btn-xs btn-ghost ml-2 btn-copy-revoked-key" data-key="${keyId}">Copy</button>
+          </div>
+        </td>
+        <td class="px-4 py-3 whitespace-nowrap line-through" data-label="${t("agents.owner")}">${owner}</td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.revoked_at")}">
+          <span class="badge badge-error badge-sm">Revoked</span>
+          <br><small class="text-xs">${revokedAt}</small>
+        </td>
+        <td class="px-4 py-3 whitespace-nowrap" data-label="${t("agents.auto_delete")}">
+          ${autoDeleteInfo}
+        </td>
+        <td class="px-4 py-3 text-right" data-label="${t("common.actions")}">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+              </svg>
+            </label>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <a class="text-error btn-delete-key-permanently" data-key-id="${keyId}">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+                  Delete Permanently
+                </a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      `;
+      revokedKeysTableBody.appendChild(tr);
+    }
+  };
+
+  const fetchData = async () => {
+    const data = await apiCall("/api/v2/overview");
+    if (data) {
+      window.lastFetchedData = data;
+      renderAgentsTable(data.agents || {});
+      renderApiKeysTable(data.agent_keys || {});
+    }
+  };
+
+  const refreshData = () => {
+    fetchData();
+  };
+
+  const updateLedStrips = () => {
+    const ledContainers = document.querySelectorAll(
+      ".led-container[data-last-seen]",
+    );
+    ledContainers.forEach((container) => {
+      const lastSeen = container.getAttribute("data-last-seen");
+      const agentId = container.getAttribute("data-agent-id");
+
+      if (!lastSeen) return;
+
+      const now = new Date();
+      const lastSeenTime = new Date(lastSeen);
+      const secondsSinceLastSeen = Math.floor((now - lastSeenTime) / 1000);
+      const maxAge = 30;
+      const ledCount = 15;
+
+      const activeLeds = Math.max(
+        0,
+        Math.ceil(((maxAge - secondsSinceLastSeen) / maxAge) * ledCount),
+      );
+
+      const ledStrip = container.querySelector(".led-strip");
+      const ledDots = container.querySelectorAll(".led-dot");
+      const ledWarning = container.querySelector(".led-warning");
+
+      let stripClass = "healthy";
+
+      const healthPercentage = (activeLeds / ledCount) * 100;
+
+      if (healthPercentage < 20) {
+        stripClass = "critical";
+      } else if (healthPercentage < 47) {
+        stripClass = "warning";
+      }
+
+      if (secondsSinceLastSeen > maxAge) {
+        stripClass = "expired";
+      }
+
+      // Update strip class
+      ledStrip.className = `led-strip ${stripClass}`;
+
+      // Update LED states
+      ledDots.forEach((dot, index) => {
+        if (index < activeLeds) {
+          dot.className = "led-dot active";
+        } else {
+          dot.className = "led-dot inactive";
+        }
+      });
+
+      // Show/hide warning indicator
+      if (stripClass === "expired") {
+        ledWarning.style.display = "block";
+      } else {
+        ledWarning.style.display = "none";
+      }
+    });
+  };
+
+  setInterval(refreshData, 5000);
+  setInterval(updateLedStrips, 1000); // Update LED strips every second
+
+  const openRenameModal = async (agentId) => {
+    const data = window.lastFetchedData;
+    if (!data || !data.agents || !data.agents[agentId]) {
+      await dfAlert(
+        "Agent data not available. Please refresh the page.",
+        "Error",
+      );
+      return;
+    }
+
+    const agent = data.agents[agentId];
+    document.getElementById("rename-agent-id").value = agentId;
+    document.getElementById("rename-display-name").value =
+      agent.display_name || "";
+    document.getElementById("modal-rename-agent").showModal();
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    fetchData();
+    loadCfTokenStatus();
+    updateLedStrips();
+
+    document
+      .getElementById("btn-generate-key")
+      .addEventListener("click", () => {
+        document
+          .getElementById("generated-key-container")
+          .classList.add("hidden");
+        document.getElementById("form-generate-key").reset();
+        document.getElementById("form-generate-key").classList.remove("hidden");
+        document.getElementById("modal-generate-key").showModal();
+      });
+
+    document.getElementById("btn-copy-key").addEventListener("click", (e) => {
+      const keyText = document.getElementById("generated-key-text").textContent;
+      if (keyText) {
+        copyToClipboard(keyText, e.target);
+      }
+    });
+
+    document
+      .getElementById("btn-copy-rolled-key")
+      .addEventListener("click", (e) => {
+        const keyText = document.getElementById("rolled-key-text").textContent;
+        if (keyText) {
+          copyToClipboard(keyText, e.target);
+        }
+      });
+
+    document
+      .getElementById("form-generate-key")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const owner = document.getElementById("owner-input").value.trim();
+        const result = await apiCall("/api/v2/agents/generate-key", "POST", {
+          owner,
+        });
+        if (result && result.key) {
+          document.getElementById("generated-key-text").textContent =
+            result.key;
+          document
+            .getElementById("generated-key-container")
+            .classList.remove("hidden");
+          document.getElementById("form-generate-key").classList.add("hidden");
+          fetchData();
+        }
+      });
+
+    document
+      .getElementById("btn-force-reconcile")
+      .addEventListener("click", async () => {
+        const confirmed = await dfConfirm(
+          "This will start a full reconciliation of all services against Cloudflare. This can be useful to fix any drift between DockFlare and Cloudflare. Continue?",
+          "Force Reconciliation",
+        );
+        if (confirmed) {
+          const result = await apiCall("/api/v2/reconcile", "POST");
+          if (result) {
+            await dfAlert(
+              "Reconciliation process has been started. You can monitor its progress on the Dashboard page.",
+              "Success",
+            );
+          }
+        }
+      });
+
+    const agentFloatingMenu = document.getElementById("agent-floating-menu");
+    const agentFloatingMenuList = document.getElementById(
+      "agent-floating-menu-list",
+    );
+
+    const hideAgentMenu = () => {
+      agentFloatingMenu.classList.add("hidden");
+      agentFloatingMenu._trigger = null;
+    };
+
+    const showAgentMenu = (btn) => {
+      const agentId = btn.dataset.agentId;
+      const isEnrolled = btn.dataset.enrolled === "true";
+      const hasTunnel = btn.dataset.hasTunnel === "true";
+
+      agentFloatingMenuList.innerHTML = `
+        <li ${isEnrolled && hasTunnel ? 'class="disabled"' : ""}>
+          <a class="btn-enroll" data-agent-id="${agentId}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM3 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 009.374 21c-2.331 0-4.512-.645-6.374-1.766z" /></svg>
+            Enroll Agent
+          </a>
+        </li>
+        <li>
+          <a class="btn-rename-agent" data-agent-id="${agentId}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+            Rename Agent
+          </a>
+        </li>
+        <li class="pointer-events-none"><div class="divider my-1"></div></li>
+        <li ${!hasTunnel ? 'class="disabled"' : ""}>
+          <a class="btn-trigger-migration" data-agent-id="${agentId}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+            Trigger Migration
+          </a>
+        </li>
+        <li ${!isEnrolled ? 'class="disabled"' : ""}>
+          <a class="btn-redeploy-tunnel" data-agent-id="${agentId}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+            Redeploy Tunnel
+          </a>
+        </li>
+        <li ${!isEnrolled ? 'class="disabled"' : ""}>
+          <a class="btn-roll-key" data-agent-id="${agentId}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v-2.25L15.188 8.43c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
+            Roll API Key
+          </a>
+        </li>
+        <li class="pointer-events-none"><div class="divider my-1"></div></li>
+        <li>
+          <a class="btn-remove text-error" data-agent-id="${agentId}">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+            Remove Agent
+          </a>
+        </li>
+      `;
+
+      agentFloatingMenu.classList.remove("hidden");
+      const rect = btn.getBoundingClientRect();
+      const menuH = agentFloatingMenu.offsetHeight;
+      const menuW = agentFloatingMenu.offsetWidth;
+      const top =
+        window.innerHeight - rect.bottom >= menuH
+          ? rect.bottom + 4
+          : rect.top - menuH - 4;
+      const left = Math.max(4, rect.right - menuW);
+      agentFloatingMenu.style.top = top + "px";
+      agentFloatingMenu.style.left = left + "px";
+      agentFloatingMenu._trigger = btn;
+    };
+
+    document.addEventListener("click", (e) => {
+      const trigger = e.target.closest(".agent-action-trigger");
+      if (trigger) {
+        e.stopPropagation();
+        if (agentFloatingMenu._trigger === trigger) {
+          hideAgentMenu();
+        } else {
+          showAgentMenu(trigger);
+        }
+        return;
+      }
+      if (!e.target.closest("#agent-floating-menu")) {
+        hideAgentMenu();
+      }
+    });
+
+    document.addEventListener("scroll", hideAgentMenu, true);
+    window.addEventListener("resize", hideAgentMenu);
+
+    document.addEventListener("click", async (e) => {
+      if (
+        !e.target.closest("#agents-table-body") &&
+        !e.target.closest("#agent-floating-menu")
+      )
+        return;
+      if (e.target.closest(".agent-action-trigger")) return;
+      hideAgentMenu();
+      if (e.target.closest(".btn-enroll")) {
+        const agentId = e.target
+          .closest(".btn-enroll")
+          .getAttribute("data-agent-id");
+        document.getElementById("enroll-agent-id").value = agentId;
+        document.getElementById("form-enroll-agent").reset();
+
+        const tunnelSelect = document.getElementById("enroll-tunnel-select");
+        tunnelSelect.innerHTML = `<option value="">${t("js.text.select_existing_tunnel")}</option>`;
+
+        if (
+          window.lastFetchedData &&
+          window.lastFetchedData.all_account_tunnels
+        ) {
+          const tunnels = window.lastFetchedData.all_account_tunnels;
+          if (Object.keys(tunnels).length === 0) {
+            tunnelSelect.innerHTML += `<option disabled>${t("js.text.no_existing_tunnels")}</option>`;
+          } else {
+            for (const [tunnelId, tunnel] of Object.entries(tunnels)) {
+              if (tunnel && tunnel.name) {
+                const option = document.createElement("option");
+                option.value = tunnel.name;
+                option.dataset.tunnelId = tunnelId;
+                option.textContent = tunnel.name;
+                tunnelSelect.appendChild(option);
+              }
+            }
+          }
+        }
+
+        document.getElementById("modal-enroll-agent").showModal();
+      } else if (e.target.closest(".btn-remove")) {
+        const agentId = e.target
+          .closest(".btn-remove")
+          .getAttribute("data-agent-id");
+        const confirmed = await dfConfirm(
+          `Are you sure you want to remove agent "${agentId}"? This will also delete the associated Cloudflare tunnel and all related resources.`,
+          "Remove Agent",
+        );
+        if (confirmed) {
+          const success = await apiCall(
+            `/api/v2/agents/${agentId}/remove`,
+            "POST",
+          );
+          if (success) {
+            await dfAlert("Agent removed successfully.", "Success");
+            fetchData();
+          }
+        }
+      } else if (e.target.closest(".btn-roll-key")) {
+        const agentId = e.target
+          .closest(".btn-roll-key")
+          .getAttribute("data-agent-id");
+        const confirmed = await dfConfirm(
+          `Are you sure you want to roll the API key for agent "${agentId}"? The agent will need to be updated with the new key.`,
+          "Roll API Key",
+        );
+        if (confirmed) {
+          const result = await apiCall(
+            `/api/v2/agents/${agentId}/roll-key`,
+            "POST",
+          );
+          if (result && result.new_key) {
+            document.getElementById("rolled-key-text").textContent =
+              result.new_key;
+            document.getElementById("modal-rolled-key").showModal();
+            fetchData();
+          }
+        }
+      } else if (e.target.closest(".btn-trigger-migration")) {
+        const agentId = e.target
+          .closest(".btn-trigger-migration")
+          .getAttribute("data-agent-id");
+        const confirmed = await dfConfirm(
+          `Trigger migration analysis for agent "${agentId}"? This will analyze the assigned tunnel for migration opportunities.`,
+          "Trigger Migration",
+        );
+        if (confirmed) {
+          const result = await apiCall(
+            `/api/v2/agents/${agentId}/trigger-migration`,
+            "POST",
+          );
+          if (result && result.status === "success") {
+            await dfAlert(
+              `Migration analysis completed successfully!\n\nImported: ${result.result.imported_count} rules\nConflicts: ${result.result.conflicts.length}\nOrphaned: ${result.result.orphaned.length}`,
+              "Migration Complete",
+            );
+            fetchData();
+          }
+        }
+      } else if (e.target.closest(".btn-redeploy-tunnel")) {
+        const agentId = e.target
+          .closest(".btn-redeploy-tunnel")
+          .getAttribute("data-agent-id");
+        const confirmed = await dfConfirm(
+          `Redeploy tunnel container for agent "${agentId}"? This will restart the cloudflared tunnel container.`,
+          "Redeploy Tunnel",
+        );
+        if (confirmed) {
+          const result = await apiCall(
+            `/api/v2/agents/${agentId}/redeploy-tunnel`,
+            "POST",
+          );
+          if (result && result.status === "success") {
+            await dfAlert(
+              "Tunnel redeploy command queued successfully. The agent will execute the restart on its next poll cycle (within 30 seconds).",
+              "Success",
+            );
+            fetchData();
+          }
+        }
+      } else if (e.target.closest(".btn-rename-agent")) {
+        const agentId = e.target
+          .closest(".btn-rename-agent")
+          .getAttribute("data-agent-id");
+        openRenameModal(agentId);
+      }
+    });
+
+    document
+      .getElementById("form-enroll-agent")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const agentId = document.getElementById("enroll-agent-id").value;
+        const selectedTunnelName = document.getElementById(
+          "enroll-tunnel-select",
+        ).value;
+        const newTunnelName = document
+          .getElementById("enroll-new-tunnel-name")
+          .value.trim();
+
+        let tunnelIdentifier = "";
+
+        if (newTunnelName) {
+          tunnelIdentifier = newTunnelName;
+        } else if (selectedTunnelName) {
+          tunnelIdentifier = selectedTunnelName;
+        } else {
+          await dfAlert(
+            "Please select an existing tunnel or enter a new tunnel name.",
+            "Error",
+          );
+          return;
+        }
+
+        const body = { tunnel_name: tunnelIdentifier };
+        const success = await apiCall(
+          `/api/v2/agents/${agentId}/enroll`,
+          "POST",
+          body,
+        );
+
+        if (success) {
+          await dfAlert("Agent enrolled successfully.", "Success");
+          document.getElementById("modal-enroll-agent").close();
+          fetchData();
+        }
+      });
+
+    // Event listeners for active keys table
+    activeKeysTableBody.addEventListener("click", async (e) => {
+      const revokeBtn = e.target.closest(".btn-revoke-key");
+      if (revokeBtn) {
+        const keyId = revokeBtn.getAttribute("data-key-id");
+        const confirmed = await dfConfirm(
+          `Are you sure you want to revoke API key "${keyId.substring(0, 8)}..."? This action is irreversible.`,
+          "Revoke API Key",
+        );
+        if (confirmed) {
+          const success = await apiCall("/api/v2/agents/revoke-key", "POST", {
+            key: keyId,
+          });
+          if (success) {
+            await dfAlert("API key revoked successfully.", "Success");
+            fetchData();
+          }
+        }
+      }
+    });
+
+    // Event listeners for revoked keys table
+    revokedKeysTableBody.addEventListener("click", async (e) => {
+      const deleteBtn = e.target.closest(".btn-delete-key-permanently");
+      if (deleteBtn) {
+        const keyId = deleteBtn.getAttribute("data-key-id");
+        const confirmed = await dfConfirm(
+          `Are you sure you want to permanently delete this revoked API key? This cannot be undone.\n\nKey: ${keyId.substring(0, 8)}...`,
+          "Delete API Key",
+        );
+        if (confirmed) {
+          try {
+            const success = await apiCall(
+              `/api/v2/agents/keys/${keyId}`,
+              "DELETE",
+            );
+            if (success) {
+              await dfAlert("API key permanently deleted.", "Success");
+              fetchData();
+            }
+          } catch (error) {
+            await dfAlert(
+              "Failed to delete API key. Please try again.",
+              "Error",
+            );
+          }
+        }
+      } else if (e.target.classList.contains("btn-copy-revoked-key")) {
+        const keyText = e.target.getAttribute("data-key");
+        copyToClipboard(keyText, e.target);
+      }
+    });
+
+    // Clear all revoked keys button
+    document
+      .getElementById("btn-clear-all-revoked")
+      .addEventListener("click", async () => {
+        const revokedCount = document.querySelectorAll(
+          "#revoked-keys-table-body tr",
+        ).length;
+        if (revokedCount === 0) {
+          await dfAlert("No revoked keys to clear.", "Info");
+          return;
+        }
+
+        const confirmed = await dfConfirm(
+          `Are you sure you want to permanently delete all ${revokedCount} revoked API keys? This cannot be undone.`,
+          "Clear All Revoked Keys",
+        );
+        if (confirmed) {
+          try {
+            const result = await apiCall(
+              "/api/v2/agents/keys/revoked",
+              "DELETE",
+            );
+            if (result) {
+              await dfAlert(
+                `Successfully deleted ${result.deleted_count} revoked keys.`,
+                "Success",
+              );
+              fetchData();
+            }
+          } catch (error) {
+            await dfAlert(
+              "Failed to clear revoked keys. Please try again.",
+              "Error",
+            );
+          }
+        }
+      });
+
+    // Auto cleanup button
+    document
+      .getElementById("btn-cleanup-expired")
+      .addEventListener("click", async () => {
+        const confirmed = await dfConfirm(
+          "This will permanently delete revoked API keys older than 30 days. Continue?",
+          "Auto Cleanup",
+        );
+        if (confirmed) {
+          try {
+            const result = await apiCall(
+              "/api/v2/agents/keys/cleanup",
+              "POST",
+              { retention_days: 30 },
+            );
+            if (result) {
+              if (result.cleaned_count > 0) {
+                await dfAlert(
+                  `Auto-cleanup completed: ${result.cleaned_count} expired keys removed.`,
+                  "Success",
+                );
+                fetchData();
+              } else {
+                await dfAlert("No expired keys found to clean up.", "Info");
+              }
+            }
+          } catch (error) {
+            await dfAlert("Auto-cleanup failed. Please try again.", "Error");
+          }
+        }
+      });
+
+    activeKeysTableBody.addEventListener(
+      "click",
+      async (e) => {
+        const deployBtn = e.target.closest(".btn-deploy-agent");
+        if (deployBtn) {
+          const keyId = deployBtn.getAttribute("data-key-id");
+          const info = await apiCall(`/api/v2/agents/deploy-info/${keyId}`);
+          if (info) {
+            document.getElementById("deploy-script-content").textContent =
+              info.script_content;
+            document.getElementById("deploy-compose-content").textContent =
+              info.compose_content;
+            switchDeployTab("quick");
+            document.getElementById("modal-deploy-agent").showModal();
+          }
+        }
+      },
+      true,
+    );
+
+    document
+      .getElementById("btn-copy-script")
+      .addEventListener("click", (e) => {
+        const text = document.getElementById(
+          "deploy-script-content",
+        ).textContent;
+        copyToClipboard(text, e.target);
+      });
+
+    document
+      .getElementById("btn-copy-compose")
+      .addEventListener("click", (e) => {
+        const text = document.getElementById(
+          "deploy-compose-content",
+        ).textContent;
+        copyToClipboard(text, e.target);
+      });
+
+    document
+      .getElementById("btn-cf-token-setup")
+      .addEventListener("click", async () => {
+        const btn = document.getElementById("btn-cf-token-setup");
+        btn.classList.add("loading");
+        btn.disabled = true;
+        const result = await apiCall(
+          "/api/v2/agents/cf-service-token/setup",
+          "POST",
+        );
+        btn.classList.remove("loading");
+        btn.disabled = false;
+        if (result && result.status === "success") {
+          await dfAlert(
+            t("js.alert.cf_setup_success"),
+            t("js.alert.cf_setup_success_title"),
+          );
+          loadCfTokenStatus();
+        }
+      });
+
+    document
+      .getElementById("btn-cf-token-remove")
+      .addEventListener("click", async () => {
+        const confirmed = await dfConfirm(
+          t("js.confirm.cf_remove"),
+          t("js.confirm.cf_remove_title"),
+        );
+        if (confirmed) {
+          const result = await apiCall(
+            "/api/v2/agents/cf-service-token",
+            "DELETE",
+          );
+          if (result && result.status === "success") {
+            await dfAlert(
+              t("js.alert.cf_removed"),
+              t("js.alert.cf_removed_title"),
+            );
+            loadCfTokenStatus();
+          }
+        }
+      });
+
+    document
+      .getElementById("form-rename-agent")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const agentId = document.getElementById("rename-agent-id").value;
+        const displayName = document
+          .getElementById("rename-display-name")
+          .value.trim();
+
+        if (!displayName) {
+          await dfAlert("Please enter a display name.", "Validation Error");
+          return;
+        }
+
+        try {
+          const result = await apiCall(
+            `/api/v2/agents/${agentId}/rename`,
+            "POST",
+            { display_name: displayName },
+          );
+          if (result && result.status === "success") {
+            await dfAlert("Agent renamed successfully.", "Success");
+            document.getElementById("modal-rename-agent").close();
+            fetchData();
+          }
+        } catch (error) {
+          console.error("Rename failed:", error);
+          await dfAlert(
+            "Failed to rename agent. Please check the logs.",
+            "Error",
+          );
+        }
+      });
+  });
+</script>
+{% endblock %}

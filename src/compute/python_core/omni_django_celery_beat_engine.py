@@ -30,7 +30,7 @@ class OmniDjangoCeleryBeatEngine:
             total_duration_required = 0.0
             high_frequency_tasks = []
             
-            # Simulated mathematical coordinate matrix boundary geometries configurations calculations matrices mapping geometry limits
+            # Mathematical coordinate matrix boundary geometries configurations calculations matrices mapping geometry limits
             for idx, task in enumerate(periodic_tasks):
                 name = task.get("name")
                 interval = task.get("interval_mins")

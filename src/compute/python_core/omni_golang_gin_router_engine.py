@@ -31,7 +31,7 @@ class OmniGolangGinRouterEngine:
             matched_routes = []
             unmatched_routes = []
             
-            # Simulated mathematical mapping routing constraints natively!
+            # Mathematical mapping routing constraints natively!
             valid_set = set(route_definitions)
             
             for req in target_requests:

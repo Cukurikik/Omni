@@ -1,0 +1,44 @@
+// OMNI Temporal Workflow Definition for Fuzz4All Pipeline
+// Using pseudo-Temporal DSL mapped to OMNI Runtime
+
+Workflow Fuzz4AllMutationPipeline {
+    Id = "fuzz4all-pipeline-v1"
+    TaskQueue = "OMNI_SECURITY_QUEUE"
+    
+    // Strict limits on workflow execution to prevent runaway fuzzing
+    ExecutionTimeout = 3600s // 1 Hour Max
+    TaskTimeout = 60s
+    
+    RetryPolicy {
+        InitialInterval = 1s
+        MaximumInterval = 10s
+        MaximumAttempts = 3 // Bounded retries
+    }
+
+    Activity GenerateMutations {
+        Input = [TargetAST, BaseSeed]
+        Timeout = 300s
+    }
+
+    Activity CalculateEntropy {
+        Input = [GeneratedPayloads]
+        Timeout = 60s
+    }
+
+    Activity ExecuteFuzzRun {
+        Input = [TargetBinary, HighEntropyPayloads]
+        Timeout = 1800s
+    }
+
+    Flow {
+        mutations = await GenerateMutations(Context.Target, Context.Seed);
+        entropy = await CalculateEntropy(mutations);
+        
+        if (entropy.Average > 4.5) { // Shannon Entropy Threshold
+            results = await ExecuteFuzzRun(Context.Target, mutations);
+            return results;
+        } else {
+            return "OMNI_FAIL: Generated mutations lacked sufficient entropy.";
+        }
+    }
+}

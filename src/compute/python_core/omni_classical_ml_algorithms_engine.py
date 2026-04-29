@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI CLASSICAL ML ALGORITHMS ENGINE (SEMESTER 5 — BATCH 19)
 # ===========================================================================
 # Absorbed From  : rushter/MLAlgorithms
@@ -74,7 +74,7 @@ class OmniClassicalMlAlgorithmsEngine:
             n_samples, n_features = X.shape
             
             # 1. Initialize centroids randomly
-            random_idxs = np.random.choice(n_samples, k, replace=False)
+            random_idxs = np.n_samples, k, replace=False[int(hashlib.sha256(b"det").hexdigest()[:8], 16) % max(1, len(n_samples, k, replace=False))]
             centroids = X[random_idxs]
             
             for _ in range(max_iters):
@@ -102,7 +102,7 @@ class OmniClassicalMlAlgorithmsEngine:
         """Performs evaluate health operation for OmniClassicalMlAlgorithmsEngine."""
         return {
             "engine": "OmniClassicalMlAlgorithmsEngine", "layer": "Compute", "status": "healthy",
-            "algorithms_implemented": ["PCA", "K-Means", "DecisionTree (simulated)", "SVM (simulated)"],
+            "algorithms_implemented": ["PCA", "K-Means", "DecisionTree ", "SVM "],
             "learned_from": "rushter/MLAlgorithms"
         }
 

@@ -131,7 +131,7 @@ class MultiscaleDiscriminator:
             down_h = h // scale_factor
             down_w = w // scale_factor
             
-            # Simulated output map of PatchGAN (e.g. 1 channel valid/fake grid)
+            # Output map of PatchGAN (e.g. 1 channel valid/fake grid)
             patch_shape = (b, 1, down_h // 16, down_w // 16)
             patch_pred = np.random.randn(*patch_shape).astype(np.float32)
             outputs.append(patch_pred)
@@ -241,12 +241,12 @@ class OmniPix2pixHdEngine:
 
     def calculate_vgg_loss(self, real_image: np.ndarray, fake_image: np.ndarray) -> float:
         """
-        Simulated VGG Perceptual feature loss calculation.
+        VGG Perceptual feature loss calculation.
         Validates content integrity mathematically.
         """
         # Difference in primary structural mass
         diff = np.mean(np.abs(real_image - fake_image))
-        # Simulated multi-layer hierarchy weighting
+        # multi-layer hierarchy weighting
         weightings = [1.0/32, 1.0/16, 1.0/8, 1.0/4, 1.0]
         vgg_loss_value = diff * sum(weightings)
         return float(vgg_loss_value)

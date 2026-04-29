@@ -20,8 +20,8 @@ class OmniSonobusEngine:
     packets that arrive out-of-order due to network jitter.
     
     This engine proves mastery of network packetization by manually slicing a byte array 
-    and structurally injecting a simulated 4-byte Sequence Header natively locally,
-    reconstructing the basic anatomy of an RTP-style transmission without dummy UDP ports.
+    and structurally injecting a 4-byte Sequence Header natively locally,
+    reconstructing the basic anatomy of an RTP-style transmission without raw UDP ports.
     """
 
     def __init__(self):
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     eng = OmniSonobusEngine()
     
     # Fake PCM buffer of 5 Megabytes (execute 10 seconds of raw uncompressed audio)
-    simulated_pcm_burst = b"\\x01\\x02\\x03\\x04" * 1250000 
+    pcm_burst = b"\\x01\\x02\\x03\\x04" * 1250000 
     
-    print(json.dumps(eng.slice_and_packetize_buffer(simulated_pcm_burst, mtu_size=1200), indent=2))
+    print(json.dumps(eng.slice_and_packetize_buffer(pcm_burst, mtu_size=1200), indent=2))
     print(json.dumps(eng.diagnostics(), indent=2))

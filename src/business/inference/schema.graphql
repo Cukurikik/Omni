@@ -1,0 +1,56 @@
+// OMNI FRAMEWORK: BATCH 38
+// ENGINE: XINFERENCE CLUSTER GRAPHQL (GRAPHQL)
+// DOMAIN: BUSINESS / SCHEMA
+// ZERO MOCK - PRODUCTION READY
+// ==========================================
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  "Fetch status of a loaded model"
+  getModelStatus(modelId: ID!): ModelStatus!
+  
+  "List all models currently scaled across the cluster"
+  listActiveModels: [Model!]!
+}
+
+type Mutation {
+  "Dispatch a distributed inference task"
+  dispatchInference(input: InferenceInput!): InferenceResult!
+}
+
+input InferenceInput {
+  modelId: ID!
+  prompt: String!
+  temperature: Float = 0.7
+  maxTokens: Int = 2048
+}
+
+type Model {
+  id: ID!
+  name: String!
+  vramAllocated: Int!
+  status: ModelStatus!
+}
+
+enum ModelStatus {
+  LOADING
+  ACTIVE
+  FAILED
+  SCALING
+}
+
+type InferenceResult {
+  taskId: ID!
+  output: String
+  latencyMs: Int!
+  error: OmniError
+}
+
+type OmniError {
+  code: String!
+  message: String!
+}

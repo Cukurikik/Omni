@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI MODELSCOPE MAAS ORCHESTRATOR ENGINE (SEMESTER 5 — BATCH 28)
@@ -46,6 +46,17 @@ export class OmniModelscopeMaasOrchestratorEngine {
             status: "healthy",
             models_tracked: this.registry.size,
             learned_from: "modelscope/modelscope"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniModelscopeMaasOrchestratorEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

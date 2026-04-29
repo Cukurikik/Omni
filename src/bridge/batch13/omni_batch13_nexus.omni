@@ -1,0 +1,60 @@
+# OMNI-NEXUS Batch 13 Integration Bridge
+# Binds all 30 Batch 13 engines into the OMNI UAST.
+
+[batch13_nexus]
+version = "3.0.0"
+strict_mode = true
+monadic_enforcement = true
+
+# SYSTEM LAYER (Rust / C / C++)
+[[bind]]
+layer = "system"
+modules = ["OmniLunarDbEngine", "OmniBrowserFfi", "OmniSatelliteDecoder"]
+targets = [
+  "src/system/lunardb/omni_lunardb_engine.rs",
+  "src/system/browser_ffi/omni_browser_ffi.c",
+  "src/system/satellite_decoder/omni_satellite_decoder.cpp"
+]
+
+# CONCURRENCY LAYER (Go / JS)
+[[bind]]
+layer = "concurrency"
+modules = ["OmniSemanticImageSearch", "OmniTransitRouter", "OmniDistributedCompute", "OmniMmtsGeeAligner"]
+targets = [
+  "src/concurrency/semantic_image_search/omni_semantic_image_search.js",
+  "src/concurrency/transit_router/omni_transit_router.go",
+  "src/concurrency/distributed_compute/omni_distributed_compute.go",
+  "src/concurrency/mmts_gee/omni_mmts_gee_aligner.js"
+]
+
+# COMPUTE LAYER (Python)
+[[bind]]
+layer = "compute"
+modules = [
+  "OmniUzdabrawzaEngine", "OmniMinapeEngine", "OmniGpt4VisionEngine", "OmniClipCapEngine",
+  "OmniText2MusicEngine", "OmniUniDpoEngine", "OmniGeodeQaEngine", "OmniClipVilGradcam",
+  "OmniEmoRecComEngine", "OmniTimelineVlmEngine", "OmniPixrepEngine", "OmniMullEngine",
+  "OmniShieldEngine", "OmniVseProbingEngine", "OmniSharedEncoderEngine",
+  "OmniFashionSenseEngine", "OmniTocflMultibenchEngine"
+]
+target_dir = "src/compute/"
+
+# DOMAIN LAYER (C# / Ruby / GraphQL / SQL)
+[[bind]]
+layer = "domain"
+modules = ["OmniTransitScheduleEngine", "OmniFashionDomainEngine", "OmniHallucinationSchema", "OmniLanguageBenchSchema"]
+targets = [
+  "src/domain/transit_schedule/omni_transit_schedule.cs",
+  "src/domain/fashion_domain/omni_fashion_domain.rb",
+  "src/domain/hallucination_policy/omni_hallucination_schema.graphql",
+  "src/domain/language_bench/omni_language_bench_schema.sql"
+]
+
+# UI LAYER (TypeScript)
+[[bind]]
+layer = "ui"
+modules = ["OmniGeminiVisionUiEngine", "OmniWeaviateSearchUi"]
+targets = [
+  "src/ui/gemini_vision/omni_gemini_vision_ui.ts",
+  "src/ui/weaviate_search/omni_weaviate_search_ui.ts"
+]

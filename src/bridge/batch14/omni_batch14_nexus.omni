@@ -1,0 +1,62 @@
+# OMNI-NEXUS Batch 14 Integration Bridge
+# Binds all 30 Batch 14 engines into the OMNI UAST.
+
+[batch14_nexus]
+version = "3.0.0"
+strict_mode = true
+monadic_enforcement = true
+
+# SYSTEM LAYER (C++ / Rust / C)
+[[bind]]
+layer = "system"
+modules = ["OmniMobileMllmEngine", "OmniOcrDocEngine", "OmniAudioTokenizerKernel"]
+targets = [
+  "src/system/mobile_mllm/omni_mobile_mllm_engine.cpp",
+  "src/system/ocr_doc/omni_ocr_doc_engine.rs",
+  "src/system/audio_tokenizer/omni_audio_tokenizer_kernel.c"
+]
+
+# CONCURRENCY LAYER (Go / JS)
+[[bind]]
+layer = "concurrency"
+modules = ["OmniDataPipeline", "OmniVoiceDispatcher", "OmniDocExtractor", "OmniStreamInference"]
+targets = [
+  "src/concurrency/data_pipeline/omni_data_pipeline.go",
+  "src/concurrency/voice_dispatcher/omni_voice_dispatcher.js",
+  "src/concurrency/doc_extractor/omni_doc_extractor.go",
+  "src/concurrency/stream_inference/omni_stream_inference.js"
+]
+
+# COMPUTE LAYER (Python)
+[[bind]]
+layer = "compute"
+modules = [
+  "OmniShowOEngine", "OmniQwenVlFinetuneEngine", "OmniDeTikZifyEngine", "OmniDataDesignerEngine",
+  "OmniMossTtsEngine", "OmniMetaTransformerEngine", "OmniParlorEngine", "OmniPixeltableEngine",
+  "OmniMultimodalGptEngine", "OmniOvisEngine", "OmniSdtEngine", "OmniAiRunnerEngine",
+  "OmniHaLlmVisionEngine", "OmniUformEngine", "OmniCocaEngine"
+]
+target_dir = "src/compute/"
+
+# DOMAIN LAYER (Ruby / GraphQL)
+[[bind]]
+layer = "domain"
+modules = ["OmniVlmArchRegistryEngine", "OmniMultimodalResearchSchema"]
+targets = [
+  "src/domain/vlm_arch_registry/omni_vlm_arch_registry.rb",
+  "src/domain/multimodal_research/omni_multimodal_research_schema.graphql"
+]
+
+# UI LAYER (Kotlin / Dart / TypeScript)
+[[bind]]
+layer = "ui"
+modules = [
+  "OmniVoiceSdkAndroidEngine", "OmniVoiceSdkFlutterEngine",
+  "OmniVoiceSdkIonicEngine", "OmniJapaneseLlmExplorer"
+]
+targets = [
+  "src/ui/voice_sdk_android/omni_voice_sdk_android.kt",
+  "src/ui/voice_sdk_flutter/omni_voice_sdk_flutter.dart",
+  "src/ui/voice_sdk_ionic/omni_voice_sdk_ionic.ts",
+  "src/ui/japanese_llm_explorer/omni_japanese_llm_explorer.ts"
+]

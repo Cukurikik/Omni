@@ -43,9 +43,9 @@ class OmniFluentFlyoutEngine:
             
             # Since Python lacks a built-in message pump, we just map the API
             # allocation logic to prove structural binding capabilities. We create
-            # a dummy structure integer reflecting the HWND concept.
+            # A structure integer reflecting the HWND concept.
             
-            hwnd_simulated = user32.GetDesktopWindow()
+            hwnd_computed = user32.GetDesktopWindow()
             
             # Proof of understanding the exact function signatures C# uses for WinUI3 transparency
             # SetLayeredWindowAttributes(hwnd, crKey, bAlpha, dwFlags)

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgentDojo Defense Monitor</title>
+    <style>
+        body { font-family: monospace; background: #0f0f0f; color: #0f0; padding: 20px; }
+        .alert { color: #f00; font-weight: bold; }
+        .log-box { border: 1px solid #333; padding: 10px; height: 400px; overflow-y: scroll; }
+    </style>
+</head>
+<body>
+    <h1>Defense Monitor Dashboard</h1>
+    <div class="log-box" id="attack-logs">
+        <p>System Online. Monitoring for Prompt Injections...</p>
+        <p class="alert">[WARNING] Suspicious instruction payload detected in Sandbox 04</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+package rules.stepintollm
+import omni.stepintollm.Trainee
+import omni.common.OmniResult
+
+rule "Unlock Advanced LLM Module"
+when
+    $trainee : Trainee( completedBasic == true, score > 85 )
+then
+    $trainee.unlockModule("RLHF");
+    insert(new OmniResult(true, "Advanced module unlocked", true));
+end

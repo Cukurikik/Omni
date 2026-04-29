@@ -1,0 +1,6 @@
+// Omni AlpacaFamily Model Registry (GraphQL)
+// Business Layer: Open source LLM model registry schema.
+// Ref: Longyichen/Alpaca-family-library
+type Model { id: ID!; name: String!; baseModel: String!; params: Float!; license: String!; stars: Int! }
+type Query { models(baseModel: String, minStars: Int): [Model!]!; model(id: ID!): Model }
+type Mutation { registerModel(name: String!, baseModel: String!, params: Float!, license: String!): Model! }

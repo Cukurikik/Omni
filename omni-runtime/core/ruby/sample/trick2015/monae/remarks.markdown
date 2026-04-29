@@ -1,4 +1,3 @@
-
 # How to run
 
 ```
@@ -10,6 +9,7 @@ ruby entry.rb | ruby | ruby | ruby
 ```
 
 Confirmed on the following environments:
+
 - ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
 - ruby 2.0.0p353 (2013-11-22) [i386-mingw32]
 

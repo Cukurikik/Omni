@@ -76,7 +76,7 @@ class OmniDamoYoloEngine:
             if dataset_id not in self.datasets:
                 return {"status": "error", "message": f"Dataset {dataset_id} not found."}
             
-            # Simulated FLOPs/Params based on DAMO scale
+            # FLOPs/Params based on DAMO scale
             multiplier = self.supported_scales.index(scale) + 1
             flops_g = 2.5 * math.pow(1.8, multiplier)
             params_m = 4.0 * math.pow(1.7, multiplier)

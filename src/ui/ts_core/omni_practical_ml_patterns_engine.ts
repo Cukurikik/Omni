@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI PRACTICAL ML PATTERNS ENGINE (TRUE LEARNING — BATCH 31)
@@ -40,6 +40,17 @@ export class OmniPracticalMlPatternsEngine {
             layer: "Interface/Patterns",
             status: "healthy",
             learned_from: "MLEveryday/practicalAI-cn"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniPracticalMlPatternsEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

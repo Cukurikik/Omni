@@ -1,0 +1,39 @@
+# OMNI GraphQL Schema for CLoT Humor Data
+# Bounded and strongly typed API contract
+
+type HumorAnalytics {
+    id: ID!
+    tensorMean: Float!
+    humorScore: Float!
+    processedTimestamp: Int!
+    
+    # Connection to the C# Domain Layer
+    # @omni_bridge("business/clot_domain")
+}
+
+type Query {
+    """
+    Fetch humor analytics by ID.
+    Hard limit imposed by OMNI GraphQL resolver.
+    """
+    getHumorAnalysis(id: ID!): HumorAnalytics
+    
+    """
+    Fetch batch humor analytics.
+    Max limit: 100 records per request to prevent DB starvation.
+    """
+    listHumorAnalysis(limit: Int = 100): [HumorAnalytics!]!
+}
+
+type Mutation {
+    """
+    Trigger a new humor classification job.
+    Returns tracking ID.
+    """
+    triggerHumorClassification(inputText: String!): ID!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}

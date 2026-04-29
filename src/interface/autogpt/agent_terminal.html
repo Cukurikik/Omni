@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI AutoGPT - Agent Terminal</title>
+    <style>
+        body { margin: 0; background-color: #0c0c0c; color: #00ff00; font-family: "Courier New", Courier, monospace; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        #header { padding: 10px; background-color: #1a1a1a; border-bottom: 1px solid #333; font-weight: bold; color: #fff; }
+        #terminal { flex: 1; padding: 20px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; }
+        .thought { color: #888; }
+        .action { color: #00ffff; }
+        .observation { color: #ffff00; }
+        .error { color: #ff0000; }
+        .cursor { display: inline-block; width: 8px; height: 15px; background-color: #00ff00; animation: blink 1s step-end infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <div id="header">OMNI AutoGPT // Agent ID: AGT-99X // Status: AUTONOMOUS RUN</div>
+    <div id="terminal"></div>
+
+    <script>
+        // OMNI AUTOGPT: Agent Terminal UI
+        // Visualizes the Thought -> Action -> Observation loop in real-time.
+        // Source: Significant-Gravitas/AutoGPT
+
+        const terminal = document.getElementById('terminal');
+        let lines = [
+            { type: 'thought', text: "Analyzing objective: Build a web scraper for financial data." },
+            { type: 'action', text: "Executing tool: [search_web] with query 'top financial news sites API'" },
+            { type: 'observation', text: "Found 3 relevant APIs: Bloomberg, Yahoo Finance, AlphaVantage." },
+            { type: 'thought', text: "AlphaVantage has a free tier. I will write a Python script to query it." },
+            { type: 'action', text: "Executing tool: [write_file] to path '/workspace/scraper.py'" },
+            { type: 'observation', text: "File written successfully." },
+            { type: 'thought', text: "I need to install the requests library before running the script." }
+        ];
+
+        let currentLine = 0;
+
+        function printLine() {
+            if (currentLine >= lines.length) return;
+            
+            const line = lines[currentLine];
+            const div = document.createElement('div');
+            div.className = line.type;
+            
+            const prefix = line.type === 'thought' ? '[THOUGHT] ' :
+                           line.type === 'action' ? '[ACTION]  ' :
+                           '[OBSERVE] ';
+            
+            div.innerText = prefix + line.text;
+            terminal.appendChild(div);
+            
+            // Auto-scroll
+            terminal.scrollTop = terminal.scrollHeight;
+            
+            currentLine++;
+            
+            // Simulate variable latency between agent steps
+            setTimeout(printLine, Math.random() * 2000 + 500);
+        }
+
+        // Start simulation
+        setTimeout(printLine, 1000);
+    </script>
+</body>
+</html>

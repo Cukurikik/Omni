@@ -16,7 +16,6 @@
 package go_core
 
 import (
-	"errors"
 )
 
 const PulseAudioEngineVersion = "1.0.0-omni"

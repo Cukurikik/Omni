@@ -10,6 +10,7 @@ Algorithmic Primitive:
     alerts when stock falls below safety thresholds, and calculate
     billing totals with configurable tax and discount rates.
 """
+from typing import Dict, Any, List, Optional, Tuple, Union, Callable
 from __future__ import annotations
 import sys, os
 from datetime import datetime

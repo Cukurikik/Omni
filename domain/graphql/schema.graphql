@@ -11,7 +11,7 @@ schema {
 type Query {
   "Mendapatkan Status Arbitrase dari Engine C++"
   getHFTStatus: MarketStatus!
-  
+
   "Memeriksa Riwayat Transaksi Ledger"
   getOrderBook(limit: Int): [TradeOrder!]!
 }

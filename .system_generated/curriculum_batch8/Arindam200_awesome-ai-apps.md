@@ -160,8 +160,6 @@ This repository is a comprehensive collection of **80+ practical examples, tutor
     </td>
   </tr>
 
-   
-
 </table>
 
 ### 💎 Become a Sponsor

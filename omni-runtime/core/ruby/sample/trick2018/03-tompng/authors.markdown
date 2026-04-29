@@ -1,3 +1,3 @@
-* Tomoya Ishida (tompng)
-  * tomoyapenguin@gmail.com
-  * cctld: jp
+- Tomoya Ishida (tompng)
+    - tomoyapenguin@gmail.com
+    - cctld: jp

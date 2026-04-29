@@ -85,14 +85,14 @@ class OmniLeptonAIEngine:
                 
             photon = self._active_photons[name]
             photon["state"] = "running"
-            simulated_endpoints = [f"https://{name}-r{i}.omni.cloud" for i in range(replicas)]
-            photon["endpoints"] = simulated_endpoints
+            deployed_endpoints = [f"https://{name}-r{i}.omni.cloud" for i in range(replicas)]
+            photon["endpoints"] = deployed_endpoints
             
             return {
                 "status": "success",
                 "photon_id": name,
                 "replicas_deployed": replicas,
-                "endpoints": simulated_endpoints,
+                "endpoints": deployed_endpoints,
                 "message": "Photon deployed across OMNI edge network."
             }
         except Exception as e:

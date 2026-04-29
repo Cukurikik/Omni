@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI FEDOT AutoML Engine
 =========================
 Production-grade automated machine learning pipeline engine inspired by
@@ -17,7 +17,6 @@ import hashlib
 import json
 import math
 import os
-import random
 import time
 import copy
 from abc import ABC, abstractmethod
@@ -367,7 +366,7 @@ class Pipeline:
     def __post_init__(self):
         if not self.pipeline_id:
             self.pipeline_id = hashlib.sha256(
-                f"{time.time()}_{random.random()}".encode()
+                f"{time.time()}_{(int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0)}".encode()
             ).hexdigest()[:10]
         self.complexity = len(self.nodes)
 

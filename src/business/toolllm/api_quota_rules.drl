@@ -1,0 +1,11 @@
+package rules.toolllm
+import omni.toolllm.ApiRequest
+import omni.common.OmniResult
+
+rule "Enforce External API Quota"
+when
+    $req : ApiRequest( userTier == "free", dailyUsage > 100 )
+then
+    $req.reject("Quota exceeded");
+    insert(new OmniResult(false, "API quota exceeded for free tier", false));
+end

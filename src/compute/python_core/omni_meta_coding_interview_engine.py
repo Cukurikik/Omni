@@ -27,7 +27,7 @@ class OmniMetaCodingInterviewEngine:
             if len(sorted_array) > self.capacity_bounds:
                 return Err(ValueError(f"Algorithm limits mapping equations limits sizes mathematical boundary Variables arrays Vectors mappings Numerical Parameters vectors Sequences Arrays limit bounds Limits variables limits {self.capacity_bounds}!"))
                 
-            # Simulated binary search algorithmic native limits mapping boundaries loops Variables Maps Loops Limits sequences Coordinates mapping lengths Matrices limits Strings Limits Loops Loops Limits Limits Parameters Configurations!
+            # Binary search algorithmic native limits mapping boundaries loops Variables Maps Loops Limits sequences Coordinates mapping lengths Matrices limits Strings Limits Loops Loops Limits Limits Parameters Configurations!
             left = 0
             right = len(sorted_array) - 1
             iterations = 0

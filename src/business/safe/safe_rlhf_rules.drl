@@ -1,0 +1,25 @@
+// Safe RLHF safety violation rules
+// Drools business rules engine for policy enforcement
+
+package dev.omniframework.rlhf.rules;
+
+import dev.omniframework.core.OmniResult;
+
+global OmniResult result;
+
+rule "Check Maximum Reward Constraint"
+    when
+        $reward: Double( doubleValue > 10.0 )
+    then
+        // Hard constraint on RL rewards to prevent reward hacking
+        result.setError("Reward violates maximum safe bound");
+        result.setOk(false);
+end
+
+rule "Check Negative Reward Penalty"
+    when
+        $reward: Double( doubleValue < -100.0 )
+    then
+        result.setError("Agent catastrophic failure threshold breached");
+        result.setOk(false);
+end

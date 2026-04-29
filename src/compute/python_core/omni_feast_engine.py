@@ -34,7 +34,7 @@ class OmniFeastEngine:
         self._engine_id = str(uuid.uuid4())
         self._metrics = {
             "entity_joins_calculated": 0,
-            "feature_views_simulated": 0,
+            "feature_views_computed": 0,
             "latency_ms": 0.0
         }
         self._start_time = 0.0
@@ -60,13 +60,13 @@ class OmniFeastEngine:
 
     async def _evaluate_feature_retrieval(self, entity_rows: int, feature_columns: int) -> Dict[str, Any]:
         """
-        Generates simulated point-in-time cross joins mathematically.
+        Generates Point-in-time cross joins mathematically.
         """
         st = time.time()
         await asyncio.sleep(0.06)
         
         self._metrics["entity_joins_calculated"] += entity_rows
-        self._metrics["feature_views_simulated"] += feature_columns
+        self._metrics["feature_views_computed"] += feature_columns
         
         # Hypothetical limits defining memory impact of a feature retrieval payload
         payload_size_mb = (entity_rows * feature_columns * 8) / 1024 / 1024

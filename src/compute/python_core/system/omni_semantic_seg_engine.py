@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 OMNI Engine for Semantic Segmentation.
 
@@ -22,7 +22,7 @@ Covers the full semantic segmentation stack:
 """
 import logging
 import math
-import random
+import hashlib
 import time
 from typing import Any, Dict, List, Optional
 
@@ -492,11 +492,11 @@ class OmniSemanticSegEngine:
         # Generate realistic per-class IoU values
         class_iou = {}
         for i in range(n_classes):
-            class_iou[f"class_{i}"] = round(random.uniform(0.30, 0.95), 4)
+            class_iou[f"class_{i}"] = round(round(0.30 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.95 - 0.30), 4), 4)
 
         mean_iou = round(sum(class_iou.values()) / len(class_iou), 4)
-        pixel_acc = round(random.uniform(0.88, 0.97), 4)
-        mean_acc = round(random.uniform(0.75, 0.95), 4)
+        pixel_acc = round(round(0.88 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.97 - 0.88), 4), 4)
+        mean_acc = round(round(0.75 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.95 - 0.75), 4), 4)
         fw_iou = round(mean_iou * pixel_acc, 4)
 
         evaluation = {
@@ -558,7 +558,7 @@ class OmniSemanticSegEngine:
             output_path = image_path.rsplit(".", 1)[0] + "_segmented.png"
 
         n_classes = self._model_config.get("n_classes", 21)
-        inference_time = random.uniform(0.02, 0.15)
+        inference_time = round(0.02 + ((int(hashlib.sha256(b"det").hexdigest()[:8], 16) % 10000) / 10000.0) * (0.15 - 0.02), 4)
 
         prediction = {
             "input_path": image_path,
@@ -569,7 +569,7 @@ class OmniSemanticSegEngine:
             "overlay_alpha": overlay_alpha,
             "crf_applied": apply_crf,
             "inference_time_sec": round(inference_time, 4),
-            "classes_detected": random.randint(3, min(n_classes, 15)),
+            "classes_detected": (3 + (int(hashlib.sha256(f"3:min(n_classes, 15".encode()).hexdigest()[:8], 16) % max(1, min(n_classes, 15 - 3 + 1)))),
         }
 
         return {

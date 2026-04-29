@@ -4,7 +4,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 class OmniCandyManagerEngine(OmniBaseEngine):
     """
     Evaluates order routing delivery capacities deterministically validating constraint bounds
-    simulating delivery timelines over acyclic task paths.
+    computing delivery timelines over acyclic task paths.
     """
     
     def __init__(self, day_capacity: int):
@@ -53,7 +53,7 @@ class OmniCandyManagerEngine(OmniBaseEngine):
         
         processed = []
         for o_id, _, vol in sorted_orders:
-            # Simulate a full resolution clearing bounding vector logic
+            # Full resolution clearing bounding vector logic
             self.orders[o_id]["status"] = "fulfilled"
             self.current_load -= vol
             processed.append(o_id)

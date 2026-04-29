@@ -26,7 +26,7 @@ class OmniXbyYProblemSolvingEngine:
             x_val = target_x.lower().strip()
             y_val = dependency_y.lower().strip()
             
-            # Simulated mathematical mapping string sizes constraint extraction natively
+            # Mathematical mapping string sizes constraint extraction natively
             if y_val not in self.allowed_y_matrix:
                 return Ok({
                     "stack_validation_check": False,

@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Orange3 Engine — Data Mining and Visual Programming.
 
 Assimilated from: biolab/orange3
@@ -47,7 +47,7 @@ class OmniOrange3Engine:
         num_folds = params.get("num_folds", 3)
 
         X = np.random.rand(num_samples, num_features)
-        y = np.random.randint(0, 2, num_samples)
+        y = np.(0 + (int(hashlib.sha256(f"0:2, num_samples".encode()).hexdigest()[:8], 16) % max(1, 2, num_samples - 0 + 1)))
         
         domain = Orange.data.Domain(
             [Orange.data.ContinuousVariable(f"f{i}") for i in range(num_features)],

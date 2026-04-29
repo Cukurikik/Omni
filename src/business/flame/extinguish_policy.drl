@@ -1,0 +1,11 @@
+package rules.flame
+import omni.flame.FireIncident
+import omni.common.OmniResult
+
+rule "Trigger Automated Extinguisher"
+when
+    $incident : FireIncident( tempCelsius > 600, confidence > 0.95 )
+then
+    $incident.activateSuppression();
+    insert(new OmniResult(true, "Halon system activated in sector 4", true));
+end

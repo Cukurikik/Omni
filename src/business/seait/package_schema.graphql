@@ -1,0 +1,16 @@
+type Package {
+  id: ID!
+  name: String!
+  version: String!
+  dependencies: [Package!]!
+}
+
+type OmniResultPackage {
+  value: Package
+  error: String
+  isOk: Boolean!
+}
+
+type Query {
+  resolvePackageRequirements(packageName: String!): OmniResultPackage!
+}

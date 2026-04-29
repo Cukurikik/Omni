@@ -1,0 +1,26 @@
+# KG-RAG GraphQL Schema
+type OmniResult {
+  isOk: Boolean!
+  error: String
+}
+
+type KGNode {
+  id: ID!
+  label: String!
+  properties: String
+}
+
+type KGEdge {
+  source: ID!
+  target: ID!
+  relation: String!
+}
+
+type Query {
+  getNode(id: ID!): KGNode
+  getNeighbors(id: ID!, hop: Int!): [KGNode!]!
+}
+
+type Mutation {
+  addTriplet(source: ID!, relation: String!, target: ID!): OmniResult!
+}

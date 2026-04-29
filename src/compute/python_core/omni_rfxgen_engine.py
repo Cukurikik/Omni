@@ -1,4 +1,4 @@
-"""
+﻿"""
 OMNI Rfxgen Engine
 ==================
 Production-grade engine for the OMNI Framework.
@@ -52,7 +52,7 @@ class OmniRFXGenEngine:
             t = np.linspace(0, duration, n_samples, endpoint=False)
             
             # Procedural white noise generation
-            noise = np.random.uniform(-1.0, 1.0, n_samples)
+            noise = np.round(-1.0 + ((int(hashlib.sha256(f"-1.0:1.0, n_samples".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (1.0, n_samples - -1.0), 4)
             
             # Map procedural envelope
             envelope = np.exp(-decay_rate * t) 

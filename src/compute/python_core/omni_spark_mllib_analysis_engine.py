@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: Apache Spark MLlib Analysis Engine (Batch 12 Remediation)
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 Pada kerangka komputasi terdistribusi Apache Spark MLlib, metode Alternating Least Squares (ALS)

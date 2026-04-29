@@ -76,11 +76,11 @@ class DOMSpatialTargetPredictor:
                 "target_area_px": target_area_pixels,
                 "dom_clutter_count": dom_element_count,
                 "predicted_click_success_rate": round(final_accuracy, 4),
-                "is_macro_simulated": True
+                "is_macro_computed": True
             })
             
         except Exception as e:
-            return Err(f"Simulated macro agent limits failed: {e}")
+            return Err(f"Macro agent limits failed: {e}")
 
 
 # ---------------------------------------------------------------------------

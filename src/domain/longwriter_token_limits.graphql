@@ -1,0 +1,15 @@
+# OMNI Domain Layer - LongWriter Token Limits
+@schema
+type TokenConfig {
+  maxContextTokens: Int!
+  generationLimit: Int!
+}
+
+type Query {
+  validateGenerationCapacity(config: TokenConfigInput!): Boolean!
+}
+
+input TokenConfigInput {
+  maxContextTokens: Int!
+  generationLimit: Int!
+}

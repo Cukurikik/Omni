@@ -1,0 +1,20 @@
+# OMNI Domain Layer - Graph Ontology
+@schema
+type AgentNode {
+  id: ID!
+  label: String!
+  properties: String!
+  capabilities: [String!]!
+}
+
+type GraphEdge {
+  source: ID!
+  target: ID!
+  relationType: String!
+  weight: Float!
+}
+
+type Query {
+  getNeighbors(nodeId: ID!): [AgentNode!]!
+  shortestPath(from: ID!, to: ID!): [GraphEdge!]!
+}

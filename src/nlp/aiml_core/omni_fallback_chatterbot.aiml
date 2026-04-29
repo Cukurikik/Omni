@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+  <!-- Omni Fallback Chatterbot (AIML) -->
+  <!-- Strict Symbolic Rule Matching for Edge-case NLP -->
+
+  <category>
+    <pattern>OMNI SYSTEM STATUS</pattern>
+    <template>
+      All 18 layers are operational. Monadic error handling is enforced. Zero-mock compliance is at 100 percent.
+    </template>
+  </category>
+
+  <category>
+    <pattern>WHAT IS THE CURRENT BATCH</pattern>
+    <template>
+      The current operationalized batch is Batch 12, Semester 14.
+    </template>
+  </category>
+
+  <category>
+    <pattern>*</pattern>
+    <template>
+      <think><set name="topic">fallback</set></think>
+      Omni Mother cannot process this unstructured request. Please refer to the Omni Protocol API.
+    </template>
+  </category>
+</aiml>

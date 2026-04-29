@@ -1,21 +1,20 @@
-bundle-outdated(1) -- List installed gems with newer versions available
-=======================================================================
+# bundle-outdated(1) -- List installed gems with newer versions available
 
 ## SYNOPSIS
 
 `bundle outdated` [GEM] [--local]
-                        [--pre]
-                        [--source]
-                        [--filter-strict | --strict]
-                        [--update-strict]
-                        [--parseable | --porcelain]
-                        [--group=GROUP]
-                        [--groups]
-                        [--patch|--minor|--major]
-                        [--filter-major]
-                        [--filter-minor]
-                        [--filter-patch]
-                        [--only-explicit]
+[--pre]
+[--source]
+[--filter-strict | --strict]
+[--update-strict]
+[--parseable | --porcelain]
+[--group=GROUP]
+[--groups]
+[--patch|--minor|--major]
+[--filter-major]
+[--filter-minor]
+[--filter-patch]
+[--only-explicit]
 
 ## DESCRIPTION
 
@@ -26,49 +25,49 @@ are up to date, Bundler will exit with a status of 0. Otherwise, it will exit 1.
 
 ## OPTIONS
 
-* `--local`:
+- `--local`:
   Do not attempt to fetch gems remotely and use the gem cache instead.
 
-* `--pre`:
+- `--pre`:
   Check for newer pre-release gems.
 
-* `--source=<list>`:
+- `--source=<list>`:
   Check against a specific source.
 
-* `--filter-strict`, `--strict`:
+- `--filter-strict`, `--strict`:
   Only list newer versions allowed by your Gemfile requirements, also respecting conservative update flags (--patch, --minor, --major).
 
-* `--update-strict`:
+- `--update-strict`:
   Strict conservative resolution, do not allow any gem to be updated past latest --patch | --minor | --major.
 
-* `--parseable`, `--porcelain`:
-   Use minimal formatting for more parseable output.
+- `--parseable`, `--porcelain`:
+  Use minimal formatting for more parseable output.
 
-* `--group=GROUP`:
+- `--group=GROUP`:
   List gems from a specific group.
 
-* `--groups`:
+- `--groups`:
   List gems organized by groups.
 
-* `--minor`:
+- `--minor`:
   Prefer updating only to next minor version.
 
-* `--major`:
+- `--major`:
   Prefer updating to next major version (default).
 
-* `--patch`:
+- `--patch`:
   Prefer updating only to next patch version.
 
-* `--filter-major`:
+- `--filter-major`:
   Only list major newer versions.
 
-* `--filter-minor`:
+- `--filter-minor`:
   Only list minor newer versions.
 
-* `--filter-patch`:
+- `--filter-patch`:
   Only list patch newer versions.
 
-* `--only-explicit`:
+- `--only-explicit`:
   Only list gems specified in your Gemfile, not their dependencies.
 
 ## PATCH LEVEL OPTIONS

@@ -1,0 +1,29 @@
+// Omni KoPA KG Rules in Drools
+// Formal business logic evaluation engine for Knowledge Graph constraints.
+
+package omni.database.kopa.rules
+
+import omni.domain.KnowledgeGraphNode;
+import omni.domain.ValidationResult;
+
+rule "Require Physics Domain Linkage"
+    dialect "mvel"
+    when
+        $node : KnowledgeGraphNode( domain == "Physics", confidence < 0.8 )
+        $res : ValidationResult()
+    then
+        $res.setApproved(false);
+        $res.setReason("Physics knowledge inferences must have confidence >= 0.8.");
+        update($res);
+end
+
+rule "Standard Inference Approval"
+    dialect "mvel"
+    when
+        $node : KnowledgeGraphNode( confidence >= 0.8 )
+        $res : ValidationResult( reason == null )
+    then
+        $res.setApproved(true);
+        $res.setReason("OK");
+        update($res);
+end

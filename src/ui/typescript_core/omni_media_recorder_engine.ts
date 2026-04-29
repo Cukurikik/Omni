@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+﻿/// <reference lib="dom" />
 /// <reference types="node" />
 /**
  * OmniMediaRecorderEngine — Production-Grade WebRTC/MediaRecorder Engine
@@ -142,4 +142,15 @@ export class OmniMediaRecorderEngine {
       }
     });
   }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "RecorderResult",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
+    }
 }

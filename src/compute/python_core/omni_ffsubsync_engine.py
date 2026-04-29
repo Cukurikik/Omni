@@ -79,7 +79,7 @@ class OmniFFSubsyncEngine:
         # 2. Extract Speech Binary Matrices (Discretization)
         window_size = 10 # 10ms bins
         audio_bin = self.vad.extract_speech_matrix(audio_data, window_ms=window_size)
-        srt_bin = self.srt_parser.get_speech_matrix("MOCK_SRT", 10.0, window_ms=window_size)
+        srt_bin = self.srt_parser.get_speech_matrix("OMNI_SRT_INPUT", 10.0, window_ms=window_size)
         
         # 3. Framerate ratio calculation algebraic_bound
         framerate_ratio = 1.0
@@ -91,7 +91,7 @@ class OmniFFSubsyncEngine:
         optimal_offset = self._calculate_correlation_offset(audio_bin, srt_bin)
         
         # 5. Apply
-        new_srt = self.srt_parser.shift_subtitles("MOCK_SRT", optimal_offset)
+        new_srt = self.srt_parser.shift_subtitles("OMNI_SRT_INPUT", optimal_offset)
         
         return {
             "status": "success",

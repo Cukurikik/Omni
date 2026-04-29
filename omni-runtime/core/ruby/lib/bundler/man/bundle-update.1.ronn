@@ -1,23 +1,22 @@
-bundle-update(1) -- Update your gems to the latest available versions
-=====================================================================
+# bundle-update(1) -- Update your gems to the latest available versions
 
 ## SYNOPSIS
 
-`bundle update` <*gems> [--all]
-                        [--group=NAME]
-                        [--source=NAME]
-                        [--local]
-                        [--ruby]
-                        [--bundler[=VERSION]]
-                        [--force]
-                        [--full-index]
-                        [--gemfile=GEMFILE]
-                        [--jobs=NUMBER]
-                        [--quiet]
-                        [--patch|--minor|--major]
-                        [--pre]
-                        [--strict]
-                        [--conservative]
+`bundle update` <\*gems> [--all]
+[--group=NAME]
+[--source=NAME]
+[--local]
+[--ruby]
+[--bundler[=VERSION]]
+[--force]
+[--full-index]
+[--gemfile=GEMFILE]
+[--jobs=NUMBER]
+[--quiet]
+[--patch|--minor|--major]
+[--pre]
+[--strict]
+[--conservative]
 
 ## DESCRIPTION
 
@@ -31,64 +30,64 @@ gem.
 
 ## OPTIONS
 
-* `--all`:
+- `--all`:
   Update all gems specified in Gemfile.
 
-* `--group=<list>`, `-g=<list>`:
+- `--group=<list>`, `-g=<list>`:
   Only update the gems in the specified group. For instance, you can update all gems
   in the development group with `bundle update --group development`. You can also
   call `bundle update rails --group test` to update the rails gem and all gems in
   the test group, for example.
 
-* `--source=<list>`:
+- `--source=<list>`:
   The name of a `:git` or `:path` source used in the Gemfile(5). For
   instance, with a `:git` source of `http://github.com/rails/rails.git`,
   you would call `bundle update --source rails`
 
-* `--local`:
+- `--local`:
   Do not attempt to fetch gems remotely and use the gem cache instead.
 
-* `--ruby`:
+- `--ruby`:
   Update the locked version of Ruby to the current version of Ruby.
 
-* `--bundler[=BUNDLER]`:
+- `--bundler[=BUNDLER]`:
   Update the locked version of bundler to the invoked bundler version.
 
-* `--force`, `--redownload`:
+- `--force`, `--redownload`:
   Force reinstalling every gem, even if already installed.
 
-* `--full-index`:
+- `--full-index`:
   Fall back to using the single-file index of all gems.
 
-* `--gemfile=GEMFILE`:
+- `--gemfile=GEMFILE`:
   Use the specified gemfile instead of [`Gemfile(5)`][Gemfile(5)].
 
-* `--jobs=<number>`, `-j=<number>`:
+- `--jobs=<number>`, `-j=<number>`:
   Specify the number of jobs to run in parallel. The default is the number of
   available processors.
 
-* `--retry=[<number>]`:
+- `--retry=[<number>]`:
   Retry failed network or git requests for <number> times.
 
-* `--quiet`:
+- `--quiet`:
   Only output warnings and errors.
 
-* `--patch`:
+- `--patch`:
   Prefer updating only to next patch version.
 
-* `--minor`:
+- `--minor`:
   Prefer updating only to next minor version.
 
-* `--major`:
+- `--major`:
   Prefer updating to next major version (default).
 
-* `--pre`:
+- `--pre`:
   Always choose the highest allowed version, regardless of prerelease status.
 
-* `--strict`:
+- `--strict`:
   Do not allow any gem to be updated past latest `--patch` | `--minor` | `--major`.
 
-* `--conservative`:
+- `--conservative`:
   Use bundle install conservative update behavior and do not allow indirect dependencies to be updated.
 
 ## UPDATING ALL GEMS
@@ -221,16 +220,16 @@ Version 1.14 introduced 4 patch-level options that will influence how gem
 versions are resolved. One of the following options can be used: `--patch`,
 `--minor` or `--major`. `--strict` can be added to further influence resolution.
 
-* `--patch`:
+- `--patch`:
   Prefer updating only to next patch version.
 
-* `--minor`:
+- `--minor`:
   Prefer updating only to next minor version.
 
-* `--major`:
+- `--major`:
   Prefer updating to next major version (default).
 
-* `--strict`:
+- `--strict`:
   Do not allow any gem to be updated past latest `--patch` | `--minor` | `--major`.
 
 When Bundler is resolving what versions to use to satisfy declared
@@ -324,36 +323,36 @@ move is up to 1.4.4 and 2.0.4.
 In general, when working with an application managed with bundler, you should
 use the following workflow:
 
-* After you create your Gemfile(5) for the first time, run
+- After you create your Gemfile(5) for the first time, run
 
     $ bundle install
 
-* Check the resulting `Gemfile.lock` into version control
+- Check the resulting `Gemfile.lock` into version control
 
     $ git add Gemfile.lock
 
-* When checking out this repository on another development machine, run
+- When checking out this repository on another development machine, run
 
     $ bundle install
 
-* When checking out this repository on a deployment machine, run
+- When checking out this repository on a deployment machine, run
 
     $ bundle install --deployment
 
-* After changing the Gemfile(5) to reflect a new or update dependency, run
+- After changing the Gemfile(5) to reflect a new or update dependency, run
 
     $ bundle install
 
-* Make sure to check the updated `Gemfile.lock` into version control
+- Make sure to check the updated `Gemfile.lock` into version control
 
     $ git add Gemfile.lock
 
-* If [bundle install(1)](bundle-install.1.html) reports a conflict, manually update the specific
+- If [bundle install(1)](bundle-install.1.html) reports a conflict, manually update the specific
   gems that you changed in the Gemfile(5)
 
     $ bundle update rails thin
 
-* If you want to update all the gems to the latest possible versions that
+- If you want to update all the gems to the latest possible versions that
   still match the gems listed in the Gemfile(5), run
 
     $ bundle update --all

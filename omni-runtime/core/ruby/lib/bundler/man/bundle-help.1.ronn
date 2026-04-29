@@ -1,5 +1,4 @@
-bundle-help(1) -- Displays detailed help for each subcommand
-============================================================
+# bundle-help(1) -- Displays detailed help for each subcommand
 
 ## SYNOPSIS
 

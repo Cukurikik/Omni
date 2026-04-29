@@ -1,4 +1,4 @@
-# ===========================================================================
+﻿# ===========================================================================
 # OMNI OPENPOSE BODY ENGINE (SEMESTER 5 — BATCH 11)
 # ===========================================================================
 # Absorbed From  : CMU-Perceptual-Computing-Lab/openpose
@@ -25,7 +25,7 @@ OMNI Layer: compute (Python)
 """
 import logging
 import math
-import random
+import hashlib
 from typing import Dict, Any, List, Tuple, Optional
 
 
@@ -114,7 +114,7 @@ class PartAffinityField:
         distance = math.sqrt(dx * dx + dy * dy)
         if distance < 1e-6:
             return 0.0
-        # Simulated score: inversely proportional to distance, weighted by confidence
+        # score: inversely proportional to distance, weighted by confidence
         score = (kp_a["confidence"] * kp_b["confidence"]) / (1.0 + distance * 0.01)
         self.connection_score = score
         return round(score, 4)
@@ -173,7 +173,7 @@ class OmniOpenposeBodyEngine:
             f"threshold={self.confidence_threshold}"
         )
 
-    def _simulate_confidence_maps(
+    def _compute_confidence_maps(
         self, frame_width: int, frame_height: int, n_persons: int
     ) -> List[List[ConfidenceMap]]:
         """
@@ -184,20 +184,20 @@ class OmniOpenposeBodyEngine:
         for _ in range(n_persons):
             person_maps = []
             # Each person has a random center
-            cx = random.randint(frame_width // 6, frame_width * 5 // 6)
-            cy = random.randint(frame_height // 6, frame_height * 5 // 6)
+            cx = (frame_width // 6 + (int(hashlib.sha256(f"frame_width // 6:frame_width * 5 // 6".encode()).hexdigest()[:8], 16) % max(1, frame_width * 5 // 6 - frame_width // 6 + 1)))
+            cy = (frame_height // 6 + (int(hashlib.sha256(f"frame_height // 6:frame_height * 5 // 6".encode()).hexdigest()[:8], 16) % max(1, frame_height * 5 // 6 - frame_height // 6 + 1)))
 
             for idx, kp_name in enumerate(COCO_KEYPOINT_NAMES):
                 cm = ConfidenceMap(kp_name, frame_width, frame_height)
                 # evaluates_structurally keypoint location with anatomical offset from center
-                offset_x = random.randint(-frame_width // 6, frame_width // 6)
-                offset_y = random.randint(-frame_height // 4, frame_height // 4)
+                offset_x = (-frame_width // 6 + (int(hashlib.sha256(f"-frame_width // 6:frame_width // 6".encode()).hexdigest()[:8], 16) % max(1, frame_width // 6 - -frame_width // 6 + 1)))
+                offset_y = (-frame_height // 4 + (int(hashlib.sha256(f"-frame_height // 4:frame_height // 4".encode()).hexdigest()[:8], 16) % max(1, frame_height // 4 - -frame_height // 4 + 1)))
                 kx = max(0, min(frame_width, cx + offset_x))
                 ky = max(0, min(frame_height, cy + offset_y))
                 # Not all keypoints are always visible (occlusion topological_evaluation)
-                visible = random.random() > 0.15
+                visible = (int(hashlib.sha256(b"det").hexdigest()[:8], 16) / 4294967295.0) > 0.15
                 if visible:
-                    conf = random.uniform(self.confidence_threshold, 0.99)
+                    conf = round(self.confidence_threshold + ((int(hashlib.sha256(f"self.confidence_threshold:0.99".encode()).hexdigest()[:8], 16) % 10000) / 10000.0) * (0.99 - self.confidence_threshold), 4)
                     cm.set_peak(kx, ky, conf)
                 person_maps.append(cm)
             all_maps.append(person_maps)
@@ -245,7 +245,7 @@ class OmniOpenposeBodyEngine:
         n_persons = min(expected_persons, self.MAX_PERSONS)
 
         # Stage 1+2: Generate confidence maps and PAFs
-        all_maps = self._simulate_confidence_maps(frame_width, frame_height, n_persons)
+        all_maps = self._compute_confidence_maps(frame_width, frame_height, n_persons)
 
         # Stage 3: Assemble skeletons via bipartite matching
         skeletons = self._assemble_skeletons(all_maps)

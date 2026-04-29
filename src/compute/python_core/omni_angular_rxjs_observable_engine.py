@@ -31,7 +31,7 @@ class OmniAngularRxjsObservableEngine:
             filtered_count = 0
             
             # Simple native string numerical variables matrix looping filters bounds logic configurations variables!
-            # Simulator: Filter even natively array calculations constraints equations limit bounding geometries matrices loops limit mapping Vectors metrics calculations
+            # Filter even natively array calculations constraints equations limit bounding geometries matrices loops limit mapping Vectors metrics calculations
             for val in event_stream:
                 v_int = int(val)
                 # execute basic filter(x => x > 0)
@@ -47,7 +47,7 @@ class OmniAngularRxjsObservableEngine:
                 transformed_stream.append(computed)
                 
             return Ok({
-                "events_emitted_simulated": len(event_stream),
+                "events_emitted_computed": len(event_stream),
                 "events_filtered": filtered_count,
                 "multipliers_chained": len(multipliers),
                 "final_transformed_sequence": transformed_stream,

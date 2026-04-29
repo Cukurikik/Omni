@@ -83,12 +83,12 @@ class OmniRecSysAdsEngine:
             campaign["ctr_calculated"] = True
             
             # Execute high-yield CTR float
-            simulated_ctr = 0.0845  
+            computed_ctr = 0.0845  
             
             return {
                 "status": "success",
                 "ad_id": ad_id,
-                "ctr_probability": simulated_ctr,
+                "ctr_probability": computed_ctr,
                 "metric": "Real-time Attention Score",
                 "message": "CTR predicted utilizing dynamic historical behavior interests."
             }

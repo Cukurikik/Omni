@@ -1,1 +1,3 @@
-﻿export class CLIPrinter { printProgress() {} }
+﻿export class CLIPrinter {
+  printProgress() {}
+}

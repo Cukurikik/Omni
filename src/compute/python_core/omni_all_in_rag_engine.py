@@ -34,7 +34,7 @@ class OmniAllInRagEngine:
         """
         try:
             # RAG pipelines require assembling retrieved parts with Llm prompts.
-            # Using simple assembly strategy simulating the all-in-rag approach.
+            # Using simple assembly strategy computing the all-in-rag approach.
             assembled = f"Query: {query}\nContext: {' | '.join(context_docs)}"
             # Synthesized mocked output based on context
             return Ok(f"Synthesized Answer for RAG: {assembled}")

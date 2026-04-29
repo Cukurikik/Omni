@@ -1,0 +1,8 @@
+[package]
+name = "omni-vllm"
+version = "1.0.0"
+edition = "omni-2025"
+
+[dependencies]
+omni-std = "^2.0"
+omni-tensor = "^1.5"

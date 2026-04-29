@@ -3,20 +3,20 @@ name: Annocheck
 on:
   push:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   pull_request:
     paths-ignore:
-      - 'doc/**'
-      - '**/man/*'
-      - '**.md'
-      - '**.rdoc'
-      - '**/.document'
-      - '.*.yml'
+      - "doc/**"
+      - "**/man/*"
+      - "**.md"
+      - "**.rdoc"
+      - "**/.document"
+      - ".*.yml"
   merge_group:
 
 concurrency:
@@ -55,7 +55,7 @@ jobs:
       # FIXME: Drop skipping options
       # https://bugs.ruby-lang.org/issues/18061
       # https://sourceware.org/annobin/annobin.html/Test-pie.html
-      TEST_ANNOCHECK_OPTS: '--skip-pie --skip-gaps'
+      TEST_ANNOCHECK_OPTS: "--skip-pie --skip-gaps"
 
     steps:
       - run: id
@@ -75,7 +75,7 @@ jobs:
 
       - uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1.299.0
         with:
-          ruby-version: '3.1'
+          ruby-version: "3.1"
           bundler: none
 
       # Minimal flags to pass the check.

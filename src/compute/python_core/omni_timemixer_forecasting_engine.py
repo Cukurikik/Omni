@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: TimeMixer Spatial-Temporal Forecasting Engine
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 Teknik Peramalan Runtun Waktu (Time-Series Forecasting) TimeMixer bekerja 

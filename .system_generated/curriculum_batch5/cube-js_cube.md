@@ -1,4 +1,5 @@
 ![]()
+
 <p align="center">
   <a href="https://cube.dev?ref=github-readme"><img src="https://raw.githubusercontent.com/cube-js/cube/master/docs/content/cube-core-logo.png" alt="Cube Core — Open-Source Semantic Layer" width="300px"></a>
 </p>
@@ -10,7 +11,7 @@
 [![GitHub Actions](https://github.com/cube-js/cube/workflows/Build/badge.svg)](https://github.com/cube-js/cube/actions?query=workflow%3ABuild+branch%3Amaster)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcube-js%2Fcube.js.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcube-js%2Fcube.js?ref=badge_shield)
 
-__Cube Core is an open-source semantic layer.__ Cube Core can be used to build embedded analytics in your applications, create your own business intelligence tool or provide context about data to AI agents. Cube Core is headless and comes with multiple APIs for embedded analytics and BI: REST, GraphQL, and SQL.
+**Cube Core is an open-source semantic layer.** Cube Core can be used to build embedded analytics in your applications, create your own business intelligence tool or provide context about data to AI agents. Cube Core is headless and comes with multiple APIs for embedded analytics and BI: REST, GraphQL, and SQL.
 
 If you are looking for a fully integrated platform, check out [Cube](https://cube.dev), a modern AI-first business intelligence platform. We use Cube Core to power it.
 
@@ -67,12 +68,12 @@ For a step-by-step guide, [see the docs](https://cube.dev/docs/getting-started-d
 
 There are many ways you can contribute to Cube Core! Here are a few possibilities:
 
-* Star this repo and follow us on [X](https://twitter.com/the_cube_dev).
-* Add Cube to your stack on [Stackshare](https://stackshare.io/cube-js).
-* Upvote issues with 👍 reaction so we know what the demand is for particular issues to prioritize them within the roadmap.
-* Create issues every time you feel something is missing or goes wrong.
-* Ask questions on [Stack Overflow with cube.js tag](https://stackoverflow.com/questions/tagged/cube.js) if others might have these questions as well.
-* Provide pull requests for all open issues and especially for those with [help wanted](https://github.com/cube-js/cube/issues?q=is%3Aissue+is%3Aopen+label%3A"help+wanted") and [good first issue](https://github.com/cube-js/cube/issues?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue") labels.
+- Star this repo and follow us on [X](https://twitter.com/the_cube_dev).
+- Add Cube to your stack on [Stackshare](https://stackshare.io/cube-js).
+- Upvote issues with 👍 reaction so we know what the demand is for particular issues to prioritize them within the roadmap.
+- Create issues every time you feel something is missing or goes wrong.
+- Ask questions on [Stack Overflow with cube.js tag](https://stackoverflow.com/questions/tagged/cube.js) if others might have these questions as well.
+- Provide pull requests for all open issues and especially for those with [help wanted](https://github.com/cube-js/cube/issues?q=is%3Aissue+is%3Aopen+label%3A"help+wanted") and [good first issue](https://github.com/cube-js/cube/issues?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue") labels.
 
 All sorts of contributions are **welcome and extremely helpful** 🙌 Please refer to [the contribution guide](https://github.com/cube-js/cube/blob/master/CONTRIBUTING.md) for more information.
 
@@ -81,6 +82,5 @@ All sorts of contributions are **welcome and extremely helpful** 🙌 Please ref
 Cube Client is [MIT licensed](./packages/cubejs-client-core/LICENSE).
 
 Cube Backend is [Apache 2.0 licensed](./packages/cubejs-server/LICENSE).
-
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcube-js%2Fcube.js.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcube-js%2Fcube.js?ref=badge_large)

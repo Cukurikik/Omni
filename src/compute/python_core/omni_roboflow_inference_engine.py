@@ -138,7 +138,7 @@ class OmniRoboflowInferenceEngine:
             
         self.inference_count += 1
         
-        # Simulated raw predictions from model
+        # raw predictions from model
         # format: [x1, y1, x2, y2]
         raw_boxes = np.array([
             [10, 10, 50, 50],

@@ -34,6 +34,6 @@ class OmniParlorEngine:
             if not prompt:
                 return Err(ValueError("Prompt required for Parlor session."))
                 
-            return Ok("parlor_session_dummy_id")
+            return Ok(f"parlor_session_{uuid.uuid4().hex[:8]}")
         except Exception as e:
             return Err(e)

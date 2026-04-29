@@ -77,7 +77,7 @@ class OmniAudioGPTEngine:
         if task == AudioGPTTaskContext.AUDIO_GENERATION:
             return {"result_audio_uri": f"file://output/gen_sound_{uuid.uuid4().hex[:4]}.wav", "model": self.foundation_models["audio_gen"]}
         elif task == AudioGPTTaskContext.SPEECH_RECOGNITION:
-            return {"transcription": "This is a simulated transcription.", "model": self.foundation_models["asr"]}
+            return {"transcription": "This is a Transcription.", "model": self.foundation_models["asr"]}
         else:
             return {"result_audio_uri": "file://output/processing_complete.wav", "status": "success"}
 

@@ -1,0 +1,14 @@
+# Omni ChatFAQ Access Policy (Cerbos)
+# Security Layer: ABAC for conversational AI RAG operations.
+# Ref: ChatFAQ/ChatFAQ
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: omni.chatfaq.session
+  rules:
+    - actions: ["query", "retrieve", "generate"]
+      effect: EFFECT_ALLOW
+      roles: [user, admin, omni_system]
+    - actions: ["delete_history", "export_data"]
+      effect: EFFECT_DENY
+      roles: [user]

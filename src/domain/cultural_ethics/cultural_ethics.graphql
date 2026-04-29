@@ -1,0 +1,28 @@
+# OMNI Engine: cultural-ethics
+# GraphQL Schema defining the absolute boundaries for Culturally Grounded generation limits
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  "Assess the validity of a culturally tied asset generation response"
+  validateCulturalNorm(contextId: ID!, confidenceScore: Float!): CulturalEthicsResult!
+}
+
+type Mutation {
+  "Map new cultural restriction geometry"
+  mapNewEthicsBoundary(region: String!, strictness: Float!): CulturalEthicsResult!
+}
+
+type CulturalEthicsResult {
+    isValid: Boolean!
+    groundingRequired: Boolean!
+    error: CulturalEthicsError
+}
+
+type CulturalEthicsError {
+    message: String!
+    code: String!
+}

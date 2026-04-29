@@ -57,7 +57,7 @@ class OmniSimulatedAnnealingOptimizerEngine:
         self, current_cost: float, new_cost: float, epoch: int
     ) -> Result[Dict[str, Any], Exception]:
         """
-        Determines if the simulated system should adopt the new structural state 
+        Determines if the System should adopt the new structural state 
         given cost boundaries and exponential thermal probability.
         """
         try:

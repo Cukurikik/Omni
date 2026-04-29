@@ -1,0 +1,11 @@
+package rules.accelerate
+import omni.accelerate.HardwareSpec
+import omni.common.OmniResult
+
+rule "Verify bf16 Support"
+when
+    $hw : HardwareSpec( architecture == "ampere" || architecture == "hopper" )
+then
+    $hw.enableBf16();
+    insert(new OmniResult(true, "bfloat16 enabled", true));
+end

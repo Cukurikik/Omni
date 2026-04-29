@@ -1,0 +1,29 @@
+[package]
+name        = "omni-semester14-batch10"
+version     = "1.0.0"
+authors     = ["ANTIGRAVITY MOTHER <mother@omni.nexus>"]
+description = "OMNI Semester 14 Batch 10: 30 Repositories, 70+ Production Files"
+license     = "OMNI-Open"
+edition     = "omni-2026"
+
+[dependencies]
+omni-std      = "^3.0"
+omni-tensor   = "^2.1"
+omni-vision   = "^1.5"
+omni-agent    = "^1.8"
+omni-graph    = "^1.2"
+omni-audio    = "^1.4"
+omni-temporal = "^2.0"
+omni-rules    = "^1.1"
+
+[permissions]
+allow_net    = ["api.openai.com", "huggingface.co", "github.com", "0.0.0.0/0"]
+allow_fs     = ["/tmp/omni_batch10/**", "/models/**", "/data/**"]
+allow_thread = true
+allow_gpu    = true
+allow_ebpf   = true
+
+[build]
+target       = ["wasm32", "x86_64-linux", "aarch64-apple", "x86_64-windows"]
+optimize     = "release"
+llvm_passes  = ["vectorize", "inline", "unroll", "fuse-ops"]

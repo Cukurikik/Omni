@@ -50,7 +50,7 @@ class OmniText2SQLEngine:
                 
             import transformers
                 
-            # Simulated generated SQL
+            # generated SQL
             generated_sql = "SELECT id FROM tables WHERE active = 1"
             return {"status": "success", "sql": generated_sql}
         except ImportError:

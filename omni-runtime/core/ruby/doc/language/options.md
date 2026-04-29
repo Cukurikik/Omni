@@ -87,7 +87,7 @@ $ ruby -an -e 'p $F' desiderata.txt
 
 For the splitting,
 the default record separator is `$/`,
-and the default field separator  is `$;`.
+and the default field separator is `$;`.
 
 See also:
 
@@ -556,7 +556,6 @@ The ruby code:
 
 - Begins after the first line beginning with `'#!` and containing string `'ruby'`.
 - Ends before any one of:
-
     - End-of-file.
     - A line consisting of `'__END__'`,
     - Character `Ctrl-D` or `Ctrl-Z`.

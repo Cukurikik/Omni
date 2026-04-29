@@ -1,7 +1,7 @@
 """
 OMNI ENGINEERING CORE
 Unit: FISSURE RF Security Analysis Engine (Batch 12 Remediation)
-Status: PRODUCTION (HARDCODED)
+Status: PRODUCTION
 
 FUNDAMENTAL:
 FISSURE (RF and Reverse Engineering Framework) membongkar ancaman dari frekuensi 

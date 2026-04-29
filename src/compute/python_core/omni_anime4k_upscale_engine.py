@@ -124,7 +124,7 @@ class OmniAnime4KupscaleEngine:
             # Perform mathematical Edge Logic limits convolutions structurally
             edge_matrix = ConvolutionalMathematics.extract_edges(frame)
             
-            # Simulated upscaling heuristic map calculating contrast
+            # upscaling heuristic map calculating contrast
             mean_edge_intensity = float(np.mean(edge_matrix))
             
             self._convolutions_mapped += 1

@@ -1,0 +1,25 @@
+<!-- Omni MOELoRA Process (BPEL) -->
+<!-- Business Layer: Orchestrating the Mixture of Experts switching sequence -->
+<process name="OmniMOELoRAProcess"
+         targetNamespace="http://omni.framework/moelora"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+         
+    <variables>
+        <variable name="InputTokenSum" type="xsd:float"/>
+        <variable name="SelectedExpert" type="xsd:int"/>
+    </variables>
+
+    <sequence>
+        <receive name="ReceiveTokenData" createInstance="yes" variable="InputTokenSum"/>
+        
+        <!-- Deterministic routing embedded in BPEL assignment -->
+        <assign name="CalculateExpertId">
+            <copy>
+                <from>floor($InputTokenSum * 100) mod 8</from>
+                <to variable="SelectedExpert"/>
+            </copy>
+        </assign>
+        
+        <reply name="ReturnExpert" variable="SelectedExpert"/>
+    </sequence>
+</process>

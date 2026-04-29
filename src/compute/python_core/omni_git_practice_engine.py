@@ -5,7 +5,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 class OmniGitPracticeEngine(OmniBaseEngine):
     """
     Implements a strict Directed Acyclic Graph (DAG) state-machine over
-    simulated source control workflows, verifying topological paths for convergence (rebases, merges).
+    Source control workflows, verifying topological paths for convergence (rebases, merges).
     """
     
     def __init__(self):

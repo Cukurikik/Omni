@@ -74,7 +74,7 @@ class OmniAudiowaveformEngine:
 
 if __name__ == "__main__":
     eng = OmniAudiowaveformEngine()
-    # Physical simulated uncompressed matrix test (16384 floats representing a fraction of a second)
+    # Physical Uncompressed matrix test (16384 floats representing a fraction of a second)
     standard_signal = [math.sin(x * 0.05) * math.cos(x * 0.01) for x in range(16384)]
     
     print(json.dumps(eng.generate_waveform_peaks(standard_signal, 256), indent=2))

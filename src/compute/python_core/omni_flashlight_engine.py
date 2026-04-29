@@ -9,7 +9,7 @@ Extracted Patterns:
   - Variable wrapper for tensors (autograd trace tracking)
   - Base Function abstraction for forward/backward
   - Dynamic computational graph construction via tracing
-  - Device/Memory layout abstractions (Device simulated)
+  - Device/Memory layout abstractions (Device computed)
   - Custom implementations of Loss (MSE) and core ops (MatMul, ReLU)
   - Topological sort for backpropagation
 
@@ -433,7 +433,7 @@ class OmniFlashlightEngine:
     Features:
       - Variable wrapper execute C++ flashlight Tensors
       - Dynamic backward pass / computational graph via Function nodes
-      - High-performance simulated kernels for Mul, MatMul, Add, ReLU
+      - High-performance Kernels for Mul, MatMul, Add, ReLU
       - Parameter tracking via Module abstraction
       - Custom MSE Loss integration with autograd
       - SGD Optimizer
@@ -470,7 +470,7 @@ class OmniFlashlightEngine:
         return relu(x)
 
     def compile_model_graph(self) -> Dict[str, Any]:
-        """Provides a simulated view of graph compilation step."""
+        """Provides a view of graph compilation step."""
         return {
             "status": "compiled",
             "backend": "numpy_sim",

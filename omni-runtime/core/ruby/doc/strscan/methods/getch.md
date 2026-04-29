@@ -1,12 +1,11 @@
 call-seq:
-  getch -> character or nil
+getch -> character or nil
 
 Returns the next (possibly multibyte) character,
 if available:
 
 - If the [position][2]
   is at the beginning of a character:
-
     - Returns the character.
     - Increments the [character position][7] by 1.
     - Increments the [byte position][2]

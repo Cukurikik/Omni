@@ -107,7 +107,7 @@ class CRAFTDetector:
 
     def detect(self, image_width: int, image_height: int, text_regions: List[Dict[str, Any]]) -> List[BoundingBox]:
         """
-        Detects text bounding boxes from simulated character region maps.
+        Detects text bounding boxes from Character region maps.
 
         Args:
             image_width: Input image width.

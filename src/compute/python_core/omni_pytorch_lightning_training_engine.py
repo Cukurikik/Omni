@@ -56,7 +56,7 @@ class OmniPytorchLightningTrainingEngine:
             
             return Ok({
                 "total_epochs_recorded": len(epoch_records),
-                "simulated_epochs_run": ran_epochs,
+                "epochs_run": ran_epochs,
                 "best_validation_loss": round(best_loss, 5),
                 "early_stopping_triggered": early_stopped_epoch != -1,
                 "epoch_saturation_ratio": round(ran_epochs / self.capacity_bounds, 4)

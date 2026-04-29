@@ -1,4 +1,4 @@
-import { z } from "zod";
+﻿import { z } from "zod";
 
 // ===========================================================================
 // OMNI COMPUTER VISION RECIPES ENGINE (SEMESTER 5 — BATCH 27)
@@ -54,6 +54,17 @@ export class OmniComputerVisionRecipesEngine {
             status: "healthy",
             nodes_indexed: this.catalog.size,
             learned_from: "microsoft/computervision-recipes"
+        };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniComputerVisionRecipesEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
         };
     }
 }

@@ -3,7 +3,7 @@ from src.compute.python_core.omni_base_engine import OmniBaseEngine, Result
 
 class OmniPrismaOrmEngine(OmniBaseEngine):
     """
-    Simulates abstract schema compilation parsing abstract vectors mapping relational definitions
+    Abstract schema compilation parsing abstract vectors mapping relational definitions
     deterministically resolving cross-node geometry limits. 
     """
     

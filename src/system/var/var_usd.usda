@@ -1,0 +1,24 @@
+#usda 1.0
+(
+    doc = """OMNI Divine Memory Integration: Inspired by VAR
+             System Layer - OpenUSD declaration for Vision Generation scenes.
+             Bounded strictly to primitive compositions."""
+)
+
+def Xform "VAR_Scale_Environment"
+{
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+    # Physical constraint: Max resolution mapped to scale properties
+    custom int max_resolution_constraint = 1024
+
+    def Mesh "Scale_0_Base"
+    {
+        int[] faceVertexCounts = [4]
+        int[] faceVertexIndices = [0, 1, 2, 3]
+        point3f[] points = [(-1, -1, 0), (1, -1, 0), (1, 1, 0), (-1, 1, 0)]
+        
+        color3f[] primvars:displayColor = [(0.1, 0.1, 0.1)]
+    }
+}

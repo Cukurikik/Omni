@@ -1,4 +1,4 @@
-// ===========================================================================
+﻿// ===========================================================================
 // OMNI REACTIVE UI ENGINE (SEMESTER 5 — BATCH 8)
 // ===========================================================================
 // Absorbed From  : streamlit/streamlit, gradio-app/gradio
@@ -54,5 +54,16 @@ export class OmniReactiveUiEngine {
         return { engine: "OmniReactiveUiEngine", layer: "Interface", status: "healthy",
                  active_states: this.stateTree.size,
                  learned_from: ["streamlit/streamlit", "gradio-app/gradio"] };
+    }
+
+    // --- Registry Interface ---
+    diagnostics(): Record<string, unknown> {
+        return {
+            engine: "OmniReactiveUiEngine",
+            version: "1.0.0",
+            status: "operational",
+            layer: "ui",
+            language: "TypeScript",
+        };
     }
 }
