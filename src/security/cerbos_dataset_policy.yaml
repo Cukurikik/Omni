@@ -1,0 +1,21 @@
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: finetune_dataset
+  rules:
+    - actions: ["read", "write"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+    - actions: ["read"]
+      effect: EFFECT_DENY
+      roles: ["user"]
+      condition:
+        match:
+          expr: request.resource.attr.pii_score > 0.0 # Strict denial if any PII is detected
+    - actions: ["delete"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          expr: request.resource.attr.is_immutable == true

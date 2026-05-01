@@ -1,0 +1,34 @@
+# OMNI Engine — Cerbos Access Control
+# Layer: Security
+# Implements: Cerbos Resource Policy definitions
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: employee_record
+  rules:
+    - actions: ['read', 'update', 'delete']
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+
+    - actions: ['read', 'update']
+      effect: EFFECT_ALLOW
+      roles:
+        - manager
+      condition:
+        match:
+          expr: request.resource.attr.department == request.principal.attr.department
+
+    - actions: ['read']
+      effect: EFFECT_ALLOW
+      roles:
+        - employee
+      condition:
+        match:
+          expr: request.resource.attr.id == request.principal.attr.id
+
+    # OMNI Monadic alignment: Deny by default triggers Result::Fail("Cerbos Deny")
+    - actions: ['*']
+      effect: EFFECT_DENY
+      roles: ['*']

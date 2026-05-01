@@ -1,0 +1,153 @@
+---
+# OMNI Engine — Model & Dataset Access Policy (Cerbos)
+# Domain: Resource-level access control for ML assets
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "1.0"
+  resource: "training_job"
+  rules:
+    # Admins can do everything
+    - actions: ["create", "read", "update", "delete", "pause", "resume", "cancel"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    # Lead researchers can create and manage their own jobs
+    - actions: ["create", "read", "update", "pause", "resume"]
+      effect: EFFECT_ALLOW
+      roles: ["lead_researcher"]
+      condition:
+        match:
+          any:
+            of:
+              - expr: request.resource.attr.owner_id == request.principal.id
+              - expr: request.resource.attr.team_id == request.principal.attr.team_id
+
+    # Researchers can create and read jobs
+    - actions: ["create", "read"]
+      effect: EFFECT_ALLOW
+      roles: ["researcher"]
+      condition:
+        match:
+          expr: request.resource.attr.owner_id == request.principal.id
+
+    # Engineers can read all jobs in their team
+    - actions: ["read"]
+      effect: EFFECT_ALLOW
+      roles: ["engineer"]
+      condition:
+        match:
+          expr: request.resource.attr.team_id == request.principal.attr.team_id
+
+    # Viewers can only read completed jobs
+    - actions: ["read"]
+      effect: EFFECT_ALLOW
+      roles: ["viewer"]
+      condition:
+        match:
+          expr: request.resource.attr.status == "completed"
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "1.0"
+  resource: "model_registry"
+  rules:
+    - actions: ["register", "read", "promote", "archive", "delete"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    - actions: ["register", "read", "promote"]
+      effect: EFFECT_ALLOW
+      roles: ["lead_researcher"]
+      condition:
+        match:
+          any:
+            of:
+              - expr: request.resource.attr.owner_id == request.principal.id
+              - expr: "\"promote\" not in request.action"
+
+    - actions: ["read"]
+      effect: EFFECT_ALLOW
+      roles: ["researcher", "engineer", "viewer"]
+
+    # Only admins and leads can promote to production
+    - actions: ["promote"]
+      effect: EFFECT_DENY
+      roles: ["researcher", "engineer", "viewer"]
+      condition:
+        match:
+          expr: request.resource.attr.target_stage == "production"
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "1.0"
+  resource: "dataset"
+  rules:
+    - actions: ["read", "create", "update", "delete"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    - actions: ["read", "create"]
+      effect: EFFECT_ALLOW
+      roles: ["lead_researcher", "researcher"]
+      condition:
+        match:
+          any:
+            of:
+              - expr: request.resource.attr.visibility == "public"
+              - expr: request.resource.attr.team_id == request.principal.attr.team_id
+
+    - actions: ["read"]
+      effect: EFFECT_ALLOW
+      roles: ["engineer", "viewer"]
+      condition:
+        match:
+          expr: request.resource.attr.visibility == "public"
+
+    # PII datasets require explicit clearance
+    - actions: ["read", "create", "update"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.contains_pii == true
+              - expr: "\"pii_cleared\" not in request.principal.attr.clearances"
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "1.0"
+  resource: "gpu_cluster"
+  rules:
+    - actions: ["allocate", "release", "monitor", "scale"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    - actions: ["allocate", "release", "monitor"]
+      effect: EFFECT_ALLOW
+      roles: ["lead_researcher"]
+      condition:
+        match:
+          expr: request.resource.attr.requested_gpus <= 8
+
+    - actions: ["allocate", "monitor"]
+      effect: EFFECT_ALLOW
+      roles: ["researcher"]
+      condition:
+        match:
+          expr: request.resource.attr.requested_gpus <= 4
+
+    - actions: ["monitor"]
+      effect: EFFECT_ALLOW
+      roles: ["engineer"]
+
+    # Budget constraint
+    - actions: ["allocate"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          expr: request.principal.attr.budget_remaining <= 0

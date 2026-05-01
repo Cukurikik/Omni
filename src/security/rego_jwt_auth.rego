@@ -1,0 +1,1 @@
+package auth; allow { input.size <= 1024 }

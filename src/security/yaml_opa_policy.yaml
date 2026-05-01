@@ -1,0 +1,1 @@
+rules: [{action: allow, size_limit: 1024}]

@@ -1,0 +1,1 @@
+package rbac; allow { input.role == "admin" }

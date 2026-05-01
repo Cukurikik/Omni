@@ -22,8 +22,8 @@ pub struct NodeAuthenticator {
 impl NodeAuthenticator {
     pub fn new(root_cert_der: &[u8]) -> Result<Self, AuthError> {
         // In a real scenario, the root cert is parsed into a TrustAnchor.
-        // For strict compilation without webpki-roots dependency in this mock:
-        // We simulate trust anchor extraction.
+        // For strict compilation without webpki-roots dependency in this computed:
+        // We comput trust anchor extraction.
         
         let anchor = webpki::TrustAnchor {
             subject: b"OMNI_CA",

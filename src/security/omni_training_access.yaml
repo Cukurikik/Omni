@@ -1,0 +1,129 @@
+# OMNI Engine — Fine-Tuning Access Control Policy
+# Absorbed: All repos (security & policy)
+# Domain: Cerbos YAML policy for training resource authorization
+
+apiVersion: "api.cerbos.dev/v1"
+resourcePolicy:
+  version: "default"
+  resource: "training_job"
+  importDerivedRoles:
+    - omni_training_roles
+
+  rules:
+    - actions: ["create"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ml_engineer
+        - data_scientist
+        - admin
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.gpu_count <= 8"
+              - expr: "request.resource.attr.estimated_cost_usd <= 500"
+
+    - actions: ["create"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+        - team_lead
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.gpu_count <= 32"
+              - expr: "request.resource.attr.estimated_cost_usd <= 5000"
+
+    - actions: ["view", "list"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ml_engineer
+        - data_scientist
+        - admin
+        - viewer
+
+    - actions: ["pause", "resume"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ml_engineer
+        - admin
+      condition:
+        match:
+          expr: >
+            request.resource.attr.owner == request.principal.id ||
+            P.attr.role == "admin"
+
+    - actions: ["cancel", "delete"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+        - team_lead
+      condition:
+        match:
+          expr: >
+            request.resource.attr.owner == request.principal.id ||
+            request.resource.attr.team_id == P.attr.team_id
+
+    - actions: ["approve_high_cost"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+        - finance_approver
+      condition:
+        match:
+          expr: "request.resource.attr.estimated_cost_usd > 500"
+
+    - actions: ["use_spot_instances"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ml_engineer
+        - data_scientist
+        - admin
+
+    - actions: ["use_reserved_gpu"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+        - team_lead
+
+    - actions: ["download_checkpoint"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ml_engineer
+        - data_scientist
+        - admin
+      condition:
+        match:
+          expr: >
+            request.resource.attr.owner == request.principal.id ||
+            request.resource.attr.team_id == P.attr.team_id
+
+    - actions: ["publish_model"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ml_engineer
+        - admin
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.status == 'completed'"
+              - expr: "request.resource.attr.best_eval_loss < 0.5"
+
+---
+apiVersion: "api.cerbos.dev/v1"
+derivedRoles:
+  name: omni_training_roles
+  definitions:
+    - name: job_owner
+      parentRoles: ["ml_engineer", "data_scientist"]
+      condition:
+        match:
+          expr: "request.resource.attr.owner == request.principal.id"
+
+    - name: team_member
+      parentRoles: ["ml_engineer", "data_scientist", "viewer"]
+      condition:
+        match:
+          expr: "request.resource.attr.team_id == P.attr.team_id"
