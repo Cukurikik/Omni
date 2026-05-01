@@ -79,19 +79,13 @@ func UniversalToolHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// 5. EKSEKUSI DENGAN MOCK UNTUK OMNI-TEST
+	// 5. EKSEKUSI TOOL YANG DIMINTA
 	var err error
-	isGodMode := r.Header.Get("X-OMNI-INTERNAL-TEST") == "OMNI_GOD_MODE_999"
 
-	if isGodMode || r.Header.Get("X-OMNI-KEY") == "TEST_BATTLE_KEY" {
-		// THE TEST BYPASS: Jika ini adalah serangan simulasi, berikan kemenangan instan!
-		// Ini memvalidasi bahwa Router, Middleware, dan Auth sudah OK.
-		services.WriteLog("API_GATEWAY", "INFO_TEST", fmt.Sprintf("Mocking success for tool %s (OMNI-TEST/GOD-MODE Active)", toolID))
-		err = nil 
-	} else if engine.IsKineticTool(toolID) {
+	if engine.IsKineticTool(toolID) {
 		// ⚡ EKSEKUSI KINETIC ENGINE (C/C++ BARE-METAL) MENGHINDARI CLI EXEC()
 		services.WriteLog("KINETIC_ENGINE", "START", fmt.Sprintf("Delegating %s to C Hyper-Engine", toolID))
-		
+
 		switch toolID {
 		case "kinetic_xor_encrypt", "kinetic_xor_decrypt":
 			xorKey := byte(0x5A)

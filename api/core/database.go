@@ -1,96 +1,294 @@
 package core
 
 import (
+	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
 
+	_ "github.com/jackc/pgx/v5/stdlib"
 	"cloud.google.com/go/firestore"
 )
 
 // ==========================================
-// 🗄️ OMNI-DB: DATABASE AGNOSTIC INTERFACE
-// ==========================================
-// Kita hancurkan monopoli vendor database. Jenderal Golang sekarang
-// menggunakan Interface murni. Developer bebas menyambungkan
-// PostgreSQL, MongoDB, Firebase, atau LocalWAL hanya dengan
-// mengubah SATU kata di appconfig.json → "database.engine".
-//
-// Filosofi: Kedaulatan Universal
-//   Developer TIDAK BOLEH terkunci oleh vendor manapun.
-//   Engine diganti tanpa mengubah satu baris aplikasi pun.
+// OMNI-DB: DATABASE AGNOSTIC INTERFACE
 // ==========================================
 
-// OmniDatabase adalah kontrak Hukum Alam yang harus dipatuhi
-// oleh SETIAP implementasi database di alam semesta OMNI.
 type OmniDatabase interface {
-	// SaveJob menyimpan rekaman job baru ke database
 	SaveJob(record JobRecord) error
-	// GetJob mengambil rekaman job berdasarkan ID
 	GetJob(jobID string) (JobRecord, error)
-	// UpdateJob memperbarui field-field tertentu dari sebuah job
 	UpdateJob(jobID string, fields map[string]interface{}) error
-	// DeleteJob menghapus rekaman job berdasarkan ID
 	DeleteJob(jobID string) error
-	// ListJobs mengambil N rekaman job terbaru
 	ListJobs(limit int) ([]JobRecord, error)
-	// Ping memverifikasi koneksi ke database masih hidup
 	Ping() error
-	// Close menutup koneksi database (graceful shutdown)
 	Close() error
 }
 
-// DB adalah pointer global ke Database Aktif.
-// Seluruh kode OMNI memanggil: core.DB.SaveJob(...), core.DB.GetJob(...)
-// tanpa peduli apakah di baliknya PostgreSQL, Firebase, atau LocalWAL.
 var DB OmniDatabase
 
-// InitDatabase membaca appconfig.json → database.engine, lalu otomatis
-// menyambungkan ke implementasi yang tepat.
-//
-// Dipanggil SATU KALI di bootstrap.Ignite() setelah LoadAppConfig().
 func InitDatabase() {
 	if AppConfig == nil {
-		log.Println("⚠️ [OMNI-DB] AppConfig belum dimuat! Fallback ke LocalWAL.")
+		log.Println("[OMNI-DB] AppConfig not loaded! Fallback to LocalWAL.")
 		DB = NewLocalWAL()
 		return
 	}
 
 	engine := AppConfig.Database.Engine
-	log.Printf("🗄️ [OMNI-DB] Menginisialisasi Database Engine: %s", engine)
+	log.Printf("[OMNI-DB] Initializing Database Engine: %s", engine)
 
 	switch engine {
 	case "firebase":
-		// Firebase Firestore sudah ditangani oleh firebase_db.go
-		// OMNI-DB membungkusnya dengan adapter yang patuh pada interface
 		DB = NewFirebaseAdapter()
-		log.Println("✅ [OMNI-DB] Firebase Adapter terpasang. Kedaulatan terjaga.")
+		log.Println("[OMNI-DB] Firebase Adapter connected.")
 
 	case "postgres":
-		// Placeholder — implementasi PostgreSQL connector via pgx
-		log.Println("⚠️ [OMNI-DB] PostgreSQL connector belum terimplementasi penuh.")
-		log.Println("   ℹ️  Fallback ke LocalWAL. Implementasi pgx akan datang di patch berikutnya.")
-		DB = NewLocalWAL()
+		// Parse PostgreSQL connection URL or use defaults
+		pgURL := AppConfig.Database.URL
+		if pgURL == "" {
+			pgURL = "postgresql://postgres:postgres@localhost:5432/omni?sslmode=disable"
+		}
+
+		pgDB, err := NewPostgreSQL(pgURL)
+		if err != nil {
+			log.Printf("[OMNI-DB] PostgreSQL connection failed: %v", err)
+			log.Println("[OMNI-DB] Falling back to LocalWAL.")
+			DB = NewLocalWAL()
+		} else {
+			DB = pgDB
+			log.Println("[OMNI-DB] PostgreSQL connected successfully.")
+		}
 
 	case "local":
 		DB = NewLocalWAL()
-		log.Println("✅ [OMNI-DB] LocalWAL (Write-Ahead Log) terpasang. Zero dependency.")
+		log.Println("[OMNI-DB] LocalWAL active. Zero dependency.")
 
 	default:
-		log.Printf("⚠️ [OMNI-DB] Engine '%s' tidak dikenali. Fallback ke LocalWAL.", engine)
+		log.Printf("[OMNI-DB] Engine '%s' unrecognized. Fallback to LocalWAL.", engine)
 		DB = NewLocalWAL()
 	}
 }
 
 // ==========================================
-// 🔥 FIREBASE ADAPTER: Membungkus OmniDB Firestore
+// POSTGRESQL IMPLEMENTATION
 // ==========================================
-// Adapter ini mendelegasikan ke firebase_db.go (yang sudah ada)
-// sambil mematuhi kontrak OmniDatabase interface.
+
+type postgresDB struct {
+	db *sql.DB
+}
+
+func NewPostgreSQL(connURL string) (OmniDatabase, error) {
+	// Parse and validate URL
+	if !strings.HasPrefix(connURL, "postgres://") && !strings.HasPrefix(connURL, "postgresql://") {
+		connURL = "postgresql://" + connURL
+	}
+
+	db, err := sql.Open("pgx", connURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open PostgreSQL connection: %w", err)
+	}
+
+	// Configure connection pool
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(5)
+	db.SetConnMaxLifetime(5 * time.Minute)
+
+	// Verify connection
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	if err := db.PingContext(ctx); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("failed to ping PostgreSQL: %w", err)
+	}
+
+	// Ensure jobs table exists
+	if err := createJobsTable(ctx, db); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("failed to create jobs table: %w", err)
+	}
+
+	return &postgresDB{db: db}, nil
+}
+
+func createJobsTable(ctx context.Context, db *sql.DB) error {
+	query := `
+		CREATE TABLE IF NOT EXISTS omni_jobs (
+			job_id TEXT PRIMARY KEY,
+			tool_id TEXT NOT NULL,
+			status TEXT NOT NULL DEFAULT 'pending',
+			input_file TEXT,
+			output_file TEXT,
+			input_size BIGINT DEFAULT 0,
+			error_msg TEXT,
+			created_at BIGINT NOT NULL,
+			finished_at BIGINT
+		);
+		CREATE INDEX IF NOT EXISTS idx_omni_jobs_created ON omni_jobs(created_at DESC);
+		CREATE INDEX IF NOT EXISTS idx_omni_jobs_status ON omni_jobs(status);
+	`
+	_, err := db.ExecContext(ctx, query)
+	return err
+}
+
+func (p *postgresDB) SaveJob(record JobRecord) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	query := `
+		INSERT INTO omni_jobs (job_id, tool_id, status, input_file, output_file, input_size, error_msg, created_at, finished_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+		ON CONFLICT (job_id) DO UPDATE SET
+			status = EXCLUDED.status,
+			output_file = EXCLUDED.output_file,
+			error_msg = EXCLUDED.error_msg,
+			finished_at = EXCLUDED.finished_at
+	`
+
+	_, err := p.db.ExecContext(ctx, query,
+		record.JobID,
+		record.ToolID,
+		record.Status,
+		record.InputFile,
+		record.OutputFile,
+		record.InputSize,
+		record.Error,
+		record.CreatedAt,
+		record.FinishedAt,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to save job: %w", err)
+	}
+	return nil
+}
+
+func (p *postgresDB) GetJob(jobID string) (JobRecord, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	query := `SELECT job_id, tool_id, status, input_file, output_file, input_size, error_msg, created_at, finished_at FROM omni_jobs WHERE job_id = $1`
+
+	var record JobRecord
+	err := p.db.QueryRowContext(ctx, query, jobID).Scan(
+		&record.JobID,
+		&record.ToolID,
+		&record.Status,
+		&record.InputFile,
+		&record.OutputFile,
+		&record.InputSize,
+		&record.Error,
+		&record.CreatedAt,
+		&record.FinishedAt,
+	)
+
+	if err == sql.ErrNoRows {
+		return JobRecord{}, fmt.Errorf("job %s not found", jobID)
+	}
+	if err != nil {
+		return JobRecord{}, fmt.Errorf("failed to get job: %w", err)
+	}
+
+	return record, nil
+}
+
+func (p *postgresDB) UpdateJob(jobID string, fields map[string]interface{}) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Build dynamic update query
+	setClauses := []string{}
+	args := []interface{}{}
+	argIdx := 1
+
+	for field, value := range fields {
+		// Map Go field names to DB column names
+		colName := field
+		switch field {
+		case "Error":
+			colName = "error_msg"
+		case "OutputFile":
+			colName = "output_file"
+		}
+		setClauses = append(setClauses, fmt.Sprintf("%s = $%d", colName, argIdx))
+		args = append(args, value)
+		argIdx++
+	}
+
+	if len(setClauses) == 0 {
+		return fmt.Errorf("no fields to update")
+	}
+
+	query := fmt.Sprintf("UPDATE omni_jobs SET %s WHERE job_id = $%d",
+		strings.Join(setClauses, ", "), argIdx)
+	args = append(args, jobID)
+
+	_, err := p.db.ExecContext(ctx, query, args...)
+	return err
+}
+
+func (p *postgresDB) DeleteJob(jobID string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	_, err := p.db.ExecContext(ctx, "DELETE FROM omni_jobs WHERE job_id = $1", jobID)
+	return err
+}
+
+func (p *postgresDB) ListJobs(limit int) ([]JobRecord, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	query := `SELECT job_id, tool_id, status, input_file, output_file, input_size, error_msg, created_at, finished_at
+		FROM omni_jobs ORDER BY created_at DESC LIMIT $1`
+
+	rows, err := p.db.QueryContext(ctx, query, limit)
+	if err != nil {
+		return nil, fmt.Errorf("failed to list jobs: %w", err)
+	}
+	defer rows.Close()
+
+	var records []JobRecord
+	for rows.Next() {
+		var record JobRecord
+		if err := rows.Scan(
+			&record.JobID,
+			&record.ToolID,
+			&record.Status,
+			&record.InputFile,
+			&record.OutputFile,
+			&record.InputSize,
+			&record.Error,
+			&record.CreatedAt,
+			&record.FinishedAt,
+		); err != nil {
+			return nil, fmt.Errorf("failed to scan job row: %w", err)
+		}
+		records = append(records, record)
+	}
+
+	return records, rows.Err()
+}
+
+func (p *postgresDB) Ping() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	return p.db.PingContext(ctx)
+}
+
+func (p *postgresDB) Close() error {
+	return p.db.Close()
+}
+
+// ==========================================
+// FIREBASE ADAPTER
+// ==========================================
 
 type firebaseAdapter struct{}
 
@@ -100,7 +298,7 @@ func NewFirebaseAdapter() OmniDatabase {
 
 func (f *firebaseAdapter) SaveJob(record JobRecord) error {
 	if !IsFirebaseReady() {
-		return fmt.Errorf("firebase belum terkoneksi")
+		return fmt.Errorf("firebase not connected")
 	}
 	RecordJobHistory(record)
 	return nil
@@ -108,7 +306,7 @@ func (f *firebaseAdapter) SaveJob(record JobRecord) error {
 
 func (f *firebaseAdapter) GetJob(jobID string) (JobRecord, error) {
 	if !IsFirebaseReady() {
-		return JobRecord{}, fmt.Errorf("firebase belum terkoneksi")
+		return JobRecord{}, fmt.Errorf("firebase not connected")
 	}
 	doc, err := OmniDB.Collection("OmniJobs").Doc(jobID).Get(FireCtx)
 	if err != nil {
@@ -123,7 +321,7 @@ func (f *firebaseAdapter) GetJob(jobID string) (JobRecord, error) {
 
 func (f *firebaseAdapter) UpdateJob(jobID string, fields map[string]interface{}) error {
 	if !IsFirebaseReady() {
-		return fmt.Errorf("firebase belum terkoneksi")
+		return fmt.Errorf("firebase not connected")
 	}
 	_, err := OmniDB.Collection("OmniJobs").Doc(jobID).Set(FireCtx, fields, firestore.MergeAll)
 	return err
@@ -131,7 +329,7 @@ func (f *firebaseAdapter) UpdateJob(jobID string, fields map[string]interface{})
 
 func (f *firebaseAdapter) DeleteJob(jobID string) error {
 	if !IsFirebaseReady() {
-		return fmt.Errorf("firebase belum terkoneksi")
+		return fmt.Errorf("firebase not connected")
 	}
 	_, err := OmniDB.Collection("OmniJobs").Doc(jobID).Delete(FireCtx)
 	return err
@@ -139,7 +337,7 @@ func (f *firebaseAdapter) DeleteJob(jobID string) error {
 
 func (f *firebaseAdapter) ListJobs(limit int) ([]JobRecord, error) {
 	if !IsFirebaseReady() {
-		return nil, fmt.Errorf("firebase belum terkoneksi")
+		return nil, fmt.Errorf("firebase not connected")
 	}
 	iter := OmniDB.Collection("OmniJobs").OrderBy("created_at", firestore.Desc).Limit(limit).Documents(FireCtx)
 	defer iter.Stop()
@@ -160,7 +358,7 @@ func (f *firebaseAdapter) ListJobs(limit int) ([]JobRecord, error) {
 
 func (f *firebaseAdapter) Ping() error {
 	if !IsFirebaseReady() {
-		return fmt.Errorf("firebase belum terkoneksi")
+		return fmt.Errorf("firebase not connected")
 	}
 	return nil
 }
@@ -171,11 +369,8 @@ func (f *firebaseAdapter) Close() error {
 }
 
 // ==========================================
-// 💾 LOCAL-WAL: ZERO-DEPENDENCY FILE DATABASE
+// LOCAL-WAL: ZERO-DEPENDENCY FILE DATABASE
 // ==========================================
-// Write-Ahead Log berbasis file JSON untuk mode offline/standalone.
-// Tidak membutuhkan PostgreSQL, Firebase, atau koneksi internet apapun.
-// Data disimpan di: release/omni_wal/jobs.json
 
 type localWAL struct {
 	mu       sync.RWMutex
@@ -194,13 +389,10 @@ func NewLocalWAL() OmniDatabase {
 		walPath: walPath,
 	}
 
-	// Muat data yang sudah ada (jika file ada)
 	wal.loadFromDisk()
-
-	// Background flush: tulis ke disk setiap 30 detik jika ada perubahan
 	go wal.autoFlush()
 
-	log.Printf("💾 [LOCAL-WAL] Database file aktif di: %s", walPath)
+	log.Printf("[LOCAL-WAL] Database file active at: %s", walPath)
 	return wal
 }
 
@@ -222,7 +414,7 @@ func (w *localWAL) GetJob(jobID string) (JobRecord, error) {
 
 	rec, ok := w.jobs[jobID]
 	if !ok {
-		return JobRecord{}, fmt.Errorf("job %s tidak ditemukan", jobID)
+		return JobRecord{}, fmt.Errorf("job %s not found", jobID)
 	}
 	return rec, nil
 }
@@ -233,20 +425,19 @@ func (w *localWAL) UpdateJob(jobID string, fields map[string]interface{}) error 
 
 	rec, ok := w.jobs[jobID]
 	if !ok {
-		return fmt.Errorf("job %s tidak ditemukan untuk diupdate", jobID)
+		return fmt.Errorf("job %s not found for update", jobID)
 	}
 
-	// Update field yang diberikan
-	if v, ok := fields["status"]; ok {
+	if v, ok := fields["Status"]; ok {
 		rec.Status = v.(string)
 	}
-	if v, ok := fields["output_file"]; ok {
+	if v, ok := fields["OutputFile"]; ok {
 		rec.OutputFile = v.(string)
 	}
-	if v, ok := fields["error"]; ok {
+	if v, ok := fields["Error"]; ok {
 		rec.Error = v.(string)
 	}
-	if v, ok := fields["finished_at"]; ok {
+	if v, ok := fields["FinishedAt"]; ok {
 		rec.FinishedAt = v.(int64)
 	}
 
@@ -273,7 +464,6 @@ func (w *localWAL) ListJobs(limit int) ([]JobRecord, error) {
 		records = append(records, rec)
 	}
 
-	// Sederhana: ambil N terakhir (tanpa sorting untuk performa)
 	if len(records) > limit {
 		records = records[len(records)-limit:]
 	}
@@ -281,31 +471,29 @@ func (w *localWAL) ListJobs(limit int) ([]JobRecord, error) {
 }
 
 func (w *localWAL) Ping() error {
-	return nil // LocalWAL selalu hidup
+	return nil
 }
 
 func (w *localWAL) Close() error {
 	return w.flushToDisk()
 }
 
-// --- Internal Methods ---
-
 func (w *localWAL) loadFromDisk() {
 	data, err := os.ReadFile(w.walPath)
 	if err != nil {
-		return // File belum ada — fresh start
+		return
 	}
 
 	var records []JobRecord
 	if err := json.Unmarshal(data, &records); err != nil {
-		log.Printf("⚠️ [LOCAL-WAL] File WAL rusak, memulai database baru: %v", err)
+		log.Printf("[LOCAL-WAL] WAL file corrupted, starting fresh: %v", err)
 		return
 	}
 
 	for _, rec := range records {
 		w.jobs[rec.JobID] = rec
 	}
-	log.Printf("💾 [LOCAL-WAL] Dimuat %d rekaman job dari disk.", len(records))
+	log.Printf("[LOCAL-WAL] Loaded %d job records from disk.", len(records))
 }
 
 func (w *localWAL) flushToDisk() error {
@@ -336,7 +524,7 @@ func (w *localWAL) autoFlush() {
 
 		if needsFlush {
 			if err := w.flushToDisk(); err != nil {
-				log.Printf("⚠️ [LOCAL-WAL] Gagal flush ke disk: %v", err)
+				log.Printf("[LOCAL-WAL] Failed to flush: %v", err)
 			} else {
 				w.mu.Lock()
 				w.modified = false
@@ -345,3 +533,6 @@ func (w *localWAL) autoFlush() {
 		}
 	}
 }
+
+// Suppress unused import warning
+var _ = url.Parse
