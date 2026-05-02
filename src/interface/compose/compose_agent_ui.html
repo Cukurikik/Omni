@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Compose Agent UI</title></head><body>
+<div id="app"><h1>OMNI Compose Agent Dashboard</h1><div id="agents"></div><div id="tasks"></div></div>
+<script>
+class ComposeUI{constructor(){this.agents=[];this.tasks=[];}
+addAgent(id,role){this.agents.push({id,role,status:'idle'});this.render();}
+createTask(id,desc){this.tasks.push({id,desc,status:'pending'});this.render();}
+render(){const a=document.getElementById('agents');const t=document.getElementById('tasks');
+if(a)a.innerHTML='<h2>Agents</h2>'+this.agents.map(x=>`<div>${x.id} (${x.role}) - ${x.status}</div>`).join('');
+if(t)t.innerHTML='<h2>Tasks</h2>'+this.tasks.map(x=>`<div>${x.id}: ${x.desc} [${x.status}]</div>`).join('');}}
+const ui=new ComposeUI();ui.addAgent('agent-1','planner');ui.addAgent('agent-2','executor');
+</script></body></html>

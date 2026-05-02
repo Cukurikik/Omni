@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>AI Bootcamp Portal</title></head><body>
+<div id="app"><h1>OMNI AI Bootcamp</h1><div id="courses"></div><div id="progress"></div></div>
+<script>
+class BootcampPortal{constructor(){this.courses=[];this.progress={};}
+addCourse(id,title,modules){this.courses.push({id,title,modules,enrolled:false});this.render();}
+enroll(courseId){const c=this.courses.find(x=>x.id===courseId);if(c){c.enrolled=true;this.progress[courseId]=0;this.render();}}
+updateProgress(courseId,pct){if(this.progress[courseId]!==undefined){this.progress[courseId]=Math.min(100,pct);this.render();}}
+render(){const el=document.getElementById('courses');if(el)el.innerHTML=this.courses.map(c=>`<div><b>${c.title}</b> ${c.enrolled?`Progress: ${this.progress[c.id]||0}%`:'<button onclick="portal.enroll(\''+c.id+'\')">Enroll</button>'}</div>`).join('');}}
+const portal=new BootcampPortal();portal.addCourse('ml101','Machine Learning Fundamentals',12);portal.addCourse('dl201','Deep Learning Advanced',8);
+</script></body></html>

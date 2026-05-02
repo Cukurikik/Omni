@@ -1,0 +1,5 @@
+# @omni-domain Business Layer (Data Schema)
+type Query { dataPrepJobs(status: String): [DataPrepJob!]! dataPrepJob(id: ID!): DataPrepJob }
+type Mutation { createDataPrepJob(input: CreateDataPrepJobInput!): DataPrepJob! updateJobStatus(id: ID!, status: String!): DataPrepJob! }
+type DataPrepJob { id: ID! name: String! status: String! inputPath: String! outputPath: String! recordCount: Int createdAt: String! }
+input CreateDataPrepJobInput { name: String! inputPath: String! outputPath: String! }

@@ -1,0 +1,5 @@
+// @omni-domain Business Layer (Medical Imaging Rules)
+package omni.business.medical
+rule "Critical Finding Alert" when $scan : MedicalScan(severity == "critical", reviewed == false) then $scan.setAlert(true); $scan.setReviewed(true); update($scan); end
+rule "Normal Finding Archive" when $scan : MedicalScan(severity == "normal", age > 30) then $scan.setArchived(true); update($scan); end
+rule "Follow-up Required" when $scan : MedicalScan(severity == "moderate", followUpScheduled == false) then $scan.setFollowUpScheduled(true); $scan.setFollowUpDays(14); update($scan); end

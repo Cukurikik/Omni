@@ -1,0 +1,7 @@
+# @omni-domain Business Layer (KG-RAG Schema)
+type Query { searchDocuments(query: String!, topK: Int): [Document!]! getEntity(id: ID!): Entity subgraph(seed: ID!, hops: Int): Subgraph }
+type Document { id: ID! title: String! content: String! score: Float! }
+type Entity { id: ID! label: String! properties: JSON relations: [Relation!]! }
+type Relation { source: Entity! type: String! target: Entity! }
+type Subgraph { nodes: [Entity!]! edges: [Relation!]! }
+scalar JSON
