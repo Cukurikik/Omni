@@ -1,0 +1,16 @@
+"# OMNI Domain Layer - Fondant Manifest Schema\
+@schema\
+type DatasetManifest {\
+  datasetId: ID!\
+  basePath: String!\
+  fields: [FieldSchema!]!\
+}\
+\
+type FieldSchema {\
+  name: String!\
+  arrowType: String!\
+}\
+\
+type Query {\
+  validateManifestComplete
+<truncated 37 bytes>

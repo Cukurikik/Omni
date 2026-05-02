@@ -1,0 +1,12 @@
+"# OMNI Domain Layer - FiT3D Spatial Constraints\
+@schema\
+type CameraIntrinsics {\
+  focalLengthX: Float!\
+  focalLengthY: Float!\
+  principalPointX: Float!\
+  principalPointY: Float!\
+}\
+\
+type Query {\
+  validateCameraIntrinsics(intrinsics: CameraIntrin
+<truncated 165 bytes>
