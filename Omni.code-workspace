@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "build",
+			"path": "build"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.go": "go",
+			"*.rs": "rust",
+			"*.ts": "typescript",
+			"*.tsx": "typescriptreact",
+			"*.py": "python"
+		},
+		"typescript.tsdk": "ui/node_modules/typescript/lib",
+		"r.lsp.promptToInstall": false,
+		"git.ignoreLimitWarning": true,
+		"powershell.cwd": "Omni"
+	}
+}
