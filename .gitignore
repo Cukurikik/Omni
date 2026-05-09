@@ -57,6 +57,7 @@ native-node/build/
 bin/clang-format.zip
 bin/pandoc-3.1.12.3/
 bin/ffmpeg-8.1-essentials_build/
+bin/ffmpeg-8.1-essentials.zip
 bin/qpdf-11.9.1-msvc64/
 
 # ── Compiled Executables ──
