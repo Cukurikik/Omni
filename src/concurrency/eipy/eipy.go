@@ -8,7 +8,7 @@ import (
 // Bounded scheduling algorithms isolating representations avoiding thread limit panics sequentially mapping mathematical loops.
 
 type EipyEnsembleScheduler struct {
-	MaxThreadNodes int
+	MaxThreadNodes  int
 	CurrentlyMapped int
 }
 

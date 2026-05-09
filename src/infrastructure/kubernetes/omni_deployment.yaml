@@ -1,0 +1,43 @@
+# OMNI Framework - Kubernetes Deployment Manifest
+# Deploys the Go API Gateway and Python GPU Inference workers
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omni-gpu-worker
+  labels:
+    app: omni-gpu
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omni-gpu
+  template:
+    metadata:
+      labels:
+        app: omni-gpu
+    spec:
+      containers:
+      - name: omni-inference
+        image: omni-registry.local/gpu-worker:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: 1 # Request 1 GPU per pod
+          requests:
+            memory: "16Gi"
+            cpu: "4"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omni-gpu-service
+spec:
+  selector:
+    app: omni-gpu
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP

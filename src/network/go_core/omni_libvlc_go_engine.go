@@ -6,7 +6,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -46,17 +46,19 @@ type StreamSession struct {
 // session management, transcoding configuration, and network
 // media resolution.
 type OmniLibvlcGoEngine struct {
-	mu           sync.RWMutex
-	sessions     map[string]*StreamSession
-	mediaCache   map[string]*MediaInfo
-	maxSessions  int
-	defaultVol   int
-	totalPlayed  int64
+	mu          sync.RWMutex
+	sessions    map[string]*StreamSession
+	mediaCache  map[string]*MediaInfo
+	maxSessions int
+	defaultVol  int
+	totalPlayed int64
 }
 
 // NewOmniLibvlcGoEngine creates a new VLC streaming engine.
 func NewOmniLibvlcGoEngine(maxSessions int) *OmniLibvlcGoEngine {
-	if maxSessions < 1 { maxSessions = 16 }
+	if maxSessions < 1 {
+		maxSessions = 16
+	}
 	return &OmniLibvlcGoEngine{
 		sessions:    make(map[string]*StreamSession),
 		mediaCache:  make(map[string]*MediaInfo),
@@ -225,3 +227,4 @@ func (e *OmniLibvlcGoEngine) GetStats() map[string]interface{} {
 		"totalPlayedMin": math.Round(float64(e.totalPlayed)/60000*100) / 100,
 	}
 }
+

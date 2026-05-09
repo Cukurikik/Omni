@@ -2,7 +2,8 @@ package omni_compute
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func ScheduleGPUJob(ctx context.Context, jobID string) result.Result[bool] {

@@ -1,4 +1,4 @@
-package omni_spline_3d
+package network
 
 import (
 	"net/http"

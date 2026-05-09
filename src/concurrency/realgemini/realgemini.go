@@ -1,11 +1,11 @@
 package realgemini
 
 import (
-	"time"
-	"errors"
-	"fmt"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
+	"fmt"
+	"time"
 )
 
 // Result is a monadic wrapper for error handling
@@ -84,8 +84,8 @@ func (e *RealGeminiEngine) ProcessInteraction(payload MultimodalPayload) Result[
 
 func (e *RealGeminiEngine) Diagnostics() map[string]interface{} {
 	return map[string]interface{}{
-		"status":   "online",
+		"status":    "online",
 		"component": "RealGeminiEngine",
-		"active":   e.sessionActive,
+		"active":    e.sessionActive,
 	}
 }

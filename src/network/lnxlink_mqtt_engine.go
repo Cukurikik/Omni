@@ -81,29 +81,29 @@ const (
 
 // SensorReading represents a single sensor data point.
 type SensorReading struct {
-	SensorName  string            `json:"sensor_name"`
-	SensorType  SensorType        `json:"sensor_type"`
-	Value       interface{}       `json:"value"`
-	Unit        string            `json:"unit,omitempty"`
-	Attributes  map[string]interface{} `json:"attributes,omitempty"`
-	Timestamp   time.Time         `json:"timestamp"`
-	MachineID   string            `json:"machine_id"`
-	Available   bool              `json:"available"`
+	SensorName string                 `json:"sensor_name"`
+	SensorType SensorType             `json:"sensor_type"`
+	Value      interface{}            `json:"value"`
+	Unit       string                 `json:"unit,omitempty"`
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	Timestamp  time.Time              `json:"timestamp"`
+	MachineID  string                 `json:"machine_id"`
+	Available  bool                   `json:"available"`
 }
 
 // HASSDiscoveryPayload is the MQTT autodiscovery payload for Home Assistant.
 type HASSDiscoveryPayload struct {
-	Name                string `json:"name"`
-	UniqueID            string `json:"unique_id"`
-	StateTopic          string `json:"state_topic"`
-	CommandTopic        string `json:"command_topic,omitempty"`
-	AvailabilityTopic   string `json:"availability_topic"`
-	DeviceClass         string `json:"device_class,omitempty"`
-	UnitOfMeasurement   string `json:"unit_of_measurement,omitempty"`
-	ValueTemplate       string `json:"value_template,omitempty"`
-	Icon                string `json:"icon,omitempty"`
-	PayloadAvailable    string `json:"payload_available"`
-	PayloadNotAvailable string `json:"payload_not_available"`
+	Name                string         `json:"name"`
+	UniqueID            string         `json:"unique_id"`
+	StateTopic          string         `json:"state_topic"`
+	CommandTopic        string         `json:"command_topic,omitempty"`
+	AvailabilityTopic   string         `json:"availability_topic"`
+	DeviceClass         string         `json:"device_class,omitempty"`
+	UnitOfMeasurement   string         `json:"unit_of_measurement,omitempty"`
+	ValueTemplate       string         `json:"value_template,omitempty"`
+	Icon                string         `json:"icon,omitempty"`
+	PayloadAvailable    string         `json:"payload_available"`
+	PayloadNotAvailable string         `json:"payload_not_available"`
 	Device              HASSDeviceInfo `json:"device"`
 }
 
@@ -779,15 +779,15 @@ func (e *LNXlinkMQTTEngine) recordResultInternal(result CommandResult) error {
 type MediaAction string
 
 const (
-	MediaPlay      MediaAction = "play"
-	MediaPause     MediaAction = "pause"
-	MediaStop      MediaAction = "stop"
-	MediaNext      MediaAction = "next"
-	MediaPrevious  MediaAction = "previous"
-	MediaVolumeUp  MediaAction = "volume_up"
+	MediaPlay       MediaAction = "play"
+	MediaPause      MediaAction = "pause"
+	MediaStop       MediaAction = "stop"
+	MediaNext       MediaAction = "next"
+	MediaPrevious   MediaAction = "previous"
+	MediaVolumeUp   MediaAction = "volume_up"
 	MediaVolumeDown MediaAction = "volume_down"
 	MediaVolumeMute MediaAction = "volume_mute"
-	MediaSetVolume MediaAction = "set_volume"
+	MediaSetVolume  MediaAction = "set_volume"
 )
 
 // ControlMediaPlayer sends a media player command to a machine.
@@ -912,28 +912,28 @@ func (e *LNXlinkMQTTEngine) Diagnostics() map[string]interface{} {
 	defer e.mu.RUnlock()
 
 	return map[string]interface{}{
-		"engine":             "OmniLNXlinkMQTTEngine",
-		"version":            e.engineVersion,
-		"uptime":             time.Since(e.startedAt).String(),
-		"started_at":         e.startedAt,
-		"broker_host":        e.brokerConfig.Host,
-		"broker_port":        e.brokerConfig.Port,
-		"broker_tls":         e.brokerConfig.TLSEnabled,
-		"total_machines":     e.stats.TotalMachines,
-		"total_readings":     e.stats.TotalReadings,
-		"total_cmds_sent":    e.stats.TotalCommandsSent,
-		"total_cmds_ok":      e.stats.TotalCommandsOK,
-		"total_cmds_failed":  e.stats.TotalCommandsFailed,
-		"total_msgs_in":      e.stats.TotalMessagesIn,
-		"total_msgs_out":     e.stats.TotalMessagesOut,
-		"total_automations":  e.stats.TotalAutomations,
-		"total_rules_fired":  e.stats.TotalRulesFired,
-		"discovery_count":    e.stats.DiscoveryPublished,
-		"pending_commands":   len(e.pendingCmds),
-		"subscriptions":      len(e.subscriptions),
-		"message_log_size":   len(e.messageLog),
-		"last_activity":      e.stats.LastActivity,
-		"status":             "OPERATIONAL",
+		"engine":            "OmniLNXlinkMQTTEngine",
+		"version":           e.engineVersion,
+		"uptime":            time.Since(e.startedAt).String(),
+		"started_at":        e.startedAt,
+		"broker_host":       e.brokerConfig.Host,
+		"broker_port":       e.brokerConfig.Port,
+		"broker_tls":        e.brokerConfig.TLSEnabled,
+		"total_machines":    e.stats.TotalMachines,
+		"total_readings":    e.stats.TotalReadings,
+		"total_cmds_sent":   e.stats.TotalCommandsSent,
+		"total_cmds_ok":     e.stats.TotalCommandsOK,
+		"total_cmds_failed": e.stats.TotalCommandsFailed,
+		"total_msgs_in":     e.stats.TotalMessagesIn,
+		"total_msgs_out":    e.stats.TotalMessagesOut,
+		"total_automations": e.stats.TotalAutomations,
+		"total_rules_fired": e.stats.TotalRulesFired,
+		"discovery_count":   e.stats.DiscoveryPublished,
+		"pending_commands":  len(e.pendingCmds),
+		"subscriptions":     len(e.subscriptions),
+		"message_log_size":  len(e.messageLog),
+		"last_activity":     e.stats.LastActivity,
+		"status":            "OPERATIONAL",
 	}
 }
 

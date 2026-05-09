@@ -5,7 +5,7 @@
 // Logic Inherited: Go / Network Layer (Token Bucket + Sliding Window)
 // ===========================================================================
 
-package go_core
+package network_gocore
 
 import (
 	"sync"
@@ -15,8 +15,8 @@ import (
 
 // Result represents the outcome of a rate limit check.
 type RateLimiterResult struct {
-	Allowed   bool
-	Remaining int64
+	Allowed    bool
+	Remaining  int64
 	RetryAfter time.Duration
 	Limit      int64
 	Window     time.Duration
@@ -27,14 +27,14 @@ type RateLimiterResult struct {
 // If no tokens available, request is rejected.
 
 type TokenBucket struct {
-	rate       float64   // tokens per second
-	maxTokens  float64   // bucket capacity
-	tokens     float64   // current tokens
+	rate       float64 // tokens per second
+	maxTokens  float64 // bucket capacity
+	tokens     float64 // current tokens
 	lastRefill time.Time
 	mu         sync.Mutex
 
-	totalAllowed  atomic.Uint64
-	totalDenied   atomic.Uint64
+	totalAllowed atomic.Uint64
+	totalDenied  atomic.Uint64
 }
 
 func NewTokenBucket(ratePerSecond float64, burst int) *TokenBucket {
@@ -92,11 +92,11 @@ func (tb *TokenBucket) AllowN(n int) RateLimiterResult {
 // Counts requests in a sliding time window.
 
 type SlidingWindow struct {
-	windowSize time.Duration
+	windowSize  time.Duration
 	maxRequests int64
-	slots      []windowSlot
-	slotCount  int
-	mu         sync.Mutex
+	slots       []windowSlot
+	slotCount   int
+	mu          sync.Mutex
 
 	totalAllowed atomic.Uint64
 	totalDenied  atomic.Uint64
@@ -174,8 +174,8 @@ func (sw *SlidingWindow) Allow() RateLimiterResult {
 // Manages separate rate limits per key (e.g., per IP, per user).
 
 type PerKeyLimiter struct {
-	factory func() *TokenBucket
-	buckets sync.Map // key -> *TokenBucket
+	factory   func() *TokenBucket
+	buckets   sync.Map // key -> *TokenBucket
 	totalKeys atomic.Int64
 }
 
@@ -245,11 +245,11 @@ func (e *OmniRateLimiterEngine) Diagnostics() map[string]interface{} {
 	defer e.mu.RUnlock()
 
 	return map[string]interface{}{
-		"engine":              "OmniRateLimiterEngine",
-		"layer":               "Go Network",
-		"token_buckets":       len(e.tokenBuckets),
-		"sliding_windows":     len(e.slidingWindows),
-		"per_key_limiters":    len(e.perKeyLimiters),
+		"engine":           "OmniRateLimiterEngine",
+		"layer":            "Go Network",
+		"token_buckets":    len(e.tokenBuckets),
+		"sliding_windows":  len(e.slidingWindows),
+		"per_key_limiters": len(e.perKeyLimiters),
 		"learned_logic": []string{
 			"token-bucket-algorithm",
 			"sliding-window-counter",
@@ -262,3 +262,4 @@ func (e *OmniRateLimiterEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

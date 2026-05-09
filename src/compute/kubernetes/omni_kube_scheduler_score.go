@@ -22,10 +22,10 @@ func ErrScoreResult(err string) ScoreResult {
 }
 
 type NodeMetrics struct {
-	ID                 string
-	CPUAvailableMil    int
-	MemoryAvailableMB  int
-	PodCount           int
+	ID                string
+	CPUAvailableMil   int
+	MemoryAvailableMB int
+	PodCount          int
 }
 
 type PodRequirements struct {
@@ -55,7 +55,7 @@ func ComputeNodeScores(nodes []NodeMetrics, podReq PodRequirements) ScoreResult 
 
 		// Balanced resource allocation average
 		finalScore := (cpuScore + memScore) / 2
-		
+
 		// Small heuristic penalization for current pod counts to encourage spread
 		finalScore -= node.PodCount / 10
 		if finalScore < 1 {

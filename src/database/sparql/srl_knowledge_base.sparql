@@ -1,0 +1,8 @@
+PREFIX srl: <http://omni.org/srl/ontology#>
+
+SELECT ?subject ?predicate ?object
+WHERE {
+  ?subject srl:hasRole "AGENT" .
+  ?object srl:hasRole "PATIENT" .
+  ?subject ?predicate ?object .
+}

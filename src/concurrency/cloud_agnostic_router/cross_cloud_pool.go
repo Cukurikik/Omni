@@ -1,8 +1,8 @@
 package concurrency
 
 import (
-	"time"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -22,7 +22,7 @@ func (p *CrossCloudPool) MaintainBgpSessionsAsync() OmniResult {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
-	// Simulate high-throughput Go routine maintaining BGP/TCP sessions 
+	// Simulate high-throughput Go routine maintaining BGP/TCP sessions
 	// simultaneously across AWS Direct Connect, Google Cloud Interconnect, and Azure ExpressRoute
 	time.Sleep(15 * time.Millisecond)
 

@@ -1,4 +1,4 @@
-package omni_lodash_native
+package network
 
 import (
 	"net/http"

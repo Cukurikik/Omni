@@ -2,7 +2,7 @@
 // Network Layer: Load-balanced multi-provider LLM gateway routing.
 // Ref: missingstudio/gateway — AI Gateway infrastructure.
 
-package go_core
+package network_gocore
 
 import (
 	"crypto/sha256"
@@ -38,3 +38,4 @@ func ComputeRequestHash(payload []byte) string {
 	h := sha256.Sum256(payload)
 	return hex.EncodeToString(h[:8])
 }
+

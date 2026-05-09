@@ -38,12 +38,12 @@ import (
 type HTTPMethod string
 
 const (
-	MethodGET    HTTPMethod = "GET"
-	MethodPOST   HTTPMethod = "POST"
-	MethodPUT    HTTPMethod = "PUT"
-	MethodDELETE HTTPMethod = "DELETE"
-	MethodPATCH  HTTPMethod = "PATCH"
-	MethodHEAD   HTTPMethod = "HEAD"
+	MethodGET     HTTPMethod = "GET"
+	MethodPOST    HTTPMethod = "POST"
+	MethodPUT     HTTPMethod = "PUT"
+	MethodDELETE  HTTPMethod = "DELETE"
+	MethodPATCH   HTTPMethod = "PATCH"
+	MethodHEAD    HTTPMethod = "HEAD"
 	MethodOPTIONS HTTPMethod = "OPTIONS"
 )
 
@@ -112,16 +112,16 @@ type RequestSpec struct {
 
 // TestSpec defines a single API test specification.
 type TestSpec struct {
-	Name           string       `json:"name"`
-	Request        RequestSpec  `json:"request"`
-	Response       ResponseSpec `json:"response"`
-	Skip           bool         `json:"skip,omitempty"`
-	RetryCount     int          `json:"retry_count,omitempty"`
-	RetryDelay     int          `json:"retry_delay_ms,omitempty"`
-	DependsOn      string       `json:"depends_on,omitempty"`
-	BeforeTest     string       `json:"before_test,omitempty"`
-	AfterTest      string       `json:"after_test,omitempty"`
-	Tags           []string     `json:"tags,omitempty"`
+	Name       string       `json:"name"`
+	Request    RequestSpec  `json:"request"`
+	Response   ResponseSpec `json:"response"`
+	Skip       bool         `json:"skip,omitempty"`
+	RetryCount int          `json:"retry_count,omitempty"`
+	RetryDelay int          `json:"retry_delay_ms,omitempty"`
+	DependsOn  string       `json:"depends_on,omitempty"`
+	BeforeTest string       `json:"before_test,omitempty"`
+	AfterTest  string       `json:"after_test,omitempty"`
+	Tags       []string     `json:"tags,omitempty"`
 }
 
 // SuiteConfig defines suite-level configuration.
@@ -148,7 +148,7 @@ type TestSuite struct {
 
 // ApiTestValidationError represents a single validation failure.
 type ApiTestValidationError struct {
-	Type     string `json:"type"`     // status, header, json_data, json_schema, body
+	Type     string `json:"type"` // status, header, json_data, json_schema, body
 	Expected string `json:"expected"`
 	Actual   string `json:"actual"`
 	Message  string `json:"message"`
@@ -156,28 +156,28 @@ type ApiTestValidationError struct {
 
 // SpecResult holds the result of a single spec execution.
 type SpecResult struct {
-	Name             string            `json:"name"`
-	Status           SpecStatus        `json:"status"`
-	StatusCode       int               `json:"response_status_code"`
-	Duration         time.Duration     `json:"duration"`
-	DurationMs       float64           `json:"duration_ms"`
-	Errors           []ApiTestValidationError `json:"errors,omitempty"`
-	ResponseHeaders  map[string]string `json:"response_headers,omitempty"`
-	ResponseBody     string            `json:"response_body,omitempty"`
-	RetryAttempts    int               `json:"retry_attempts"`
+	Name            string                   `json:"name"`
+	Status          SpecStatus               `json:"status"`
+	StatusCode      int                      `json:"response_status_code"`
+	Duration        time.Duration            `json:"duration"`
+	DurationMs      float64                  `json:"duration_ms"`
+	Errors          []ApiTestValidationError `json:"errors,omitempty"`
+	ResponseHeaders map[string]string        `json:"response_headers,omitempty"`
+	ResponseBody    string                   `json:"response_body,omitempty"`
+	RetryAttempts   int                      `json:"retry_attempts"`
 }
 
 // SuiteResult holds the result of a suite execution.
 type SuiteResult struct {
-	Name      string       `json:"name"`
-	Specs     []SpecResult `json:"specs"`
-	Passed    int          `json:"passed"`
-	Failed    int          `json:"failed"`
-	Skipped   int          `json:"skipped"`
-	Errors    int          `json:"errors"`
-	Total     int          `json:"total"`
-	Duration  time.Duration `json:"duration"`
-	DurationMs float64     `json:"duration_ms"`
+	Name       string        `json:"name"`
+	Specs      []SpecResult  `json:"specs"`
+	Passed     int           `json:"passed"`
+	Failed     int           `json:"failed"`
+	Skipped    int           `json:"skipped"`
+	Errors     int           `json:"errors"`
+	Total      int           `json:"total"`
+	Duration   time.Duration `json:"duration"`
+	DurationMs float64       `json:"duration_ms"`
 }
 
 // RunResult holds the result of all suites.
@@ -197,9 +197,9 @@ type RunResult struct {
 
 // APIClient executes HTTP requests.
 type APIClient struct {
-	client       *http.Client
-	baseURL      string
-	defaultHdrs  map[string]string
+	client      *http.Client
+	baseURL     string
+	defaultHdrs map[string]string
 }
 
 func NewAPIClient(config SuiteConfig) *APIClient {
@@ -549,12 +549,12 @@ func generateJUnitXML(result RunResult) string {
 
 // JustAPITestEngine is the OMNI production engine for declarative API testing.
 type JustAPITestEngine struct {
-	mu        sync.RWMutex
-	suites    []TestSuite
-	runs      []RunResult
-	dataDir   string
-	startedAt time.Time
-	totalRuns int64
+	mu         sync.RWMutex
+	suites     []TestSuite
+	runs       []RunResult
+	dataDir    string
+	startedAt  time.Time
+	totalRuns  int64
 	totalSpecs int64
 }
 

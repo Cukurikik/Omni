@@ -1,10 +1,11 @@
 package events
 
 import (
-	"time"
-	"errors"
 	"context"
 	"encoding/json"
+	"errors"
+	"time"
+
 	"github.com/segmentio/kafka-go"
 )
 
@@ -31,15 +32,15 @@ func NewMetricsProducer(brokers []string, topic string) (*MetricsProducer, error
 	if len(brokers) == 0 {
 		return nil, errors.New("kafka brokers list cannot be empty")
 	}
-	
+
 	writer := &kafka.Writer{
-		Addr:                   kafka.TCP(brokers...),
-		Topic:                  topic,
-		Balancer:               &kafka.LeastBytes{},
-		BatchSize:              100,
-		BatchTimeout:           10 * time.Millisecond,
-		RequiredAcks:           kafka.RequireAll,
-		MaxAttempts:            3,
+		Addr:         kafka.TCP(brokers...),
+		Topic:        topic,
+		Balancer:     &kafka.LeastBytes{},
+		BatchSize:    100,
+		BatchTimeout: 10 * time.Millisecond,
+		RequiredAcks: kafka.RequireAll,
+		MaxAttempts:  3,
 	}
 
 	return &MetricsProducer{writer: writer}, nil

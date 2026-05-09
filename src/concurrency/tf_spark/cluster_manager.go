@@ -26,8 +26,8 @@ type TFNode struct {
 }
 
 type TFClusterManager struct {
-	mu     sync.RWMutex
-	nodes  map[string]*TFNode
+	mu    sync.RWMutex
+	nodes map[string]*TFNode
 }
 
 func NewTFClusterManager() *TFClusterManager {

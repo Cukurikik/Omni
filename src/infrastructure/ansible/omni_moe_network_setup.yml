@@ -1,0 +1,10 @@
+# OMNI MOTHER: Ansible Playbook for Network Tuning
+- name: Optimize Network for Deep Learning
+  hosts: all
+  become: yes
+  tasks:
+    - name: Set TCP window size
+      sysctl:
+        name: net.core.rmem_max
+        value: '16777216'
+        state: present

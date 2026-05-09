@@ -1,9 +1,9 @@
 package gpt4all
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI GPT4ALL: Edge Telemetry Client (Go)
@@ -11,12 +11,12 @@ import (
 // Source: nomic-ai/gpt4all
 
 type EdgeMetrics struct {
-	DeviceID      string
-	ModelName     string
-	CPUUsagePct   float64
-	RAMUsageMB    int
-	TokensPerSec  float64
-	Timestamp     int64
+	DeviceID     string
+	ModelName    string
+	CPUUsagePct  float64
+	RAMUsageMB   int
+	TokensPerSec float64
+	Timestamp    int64
 }
 
 type EdgeTelemetryClient struct {
@@ -60,7 +60,7 @@ func (c *EdgeTelemetryClient) StartCloudSync(ctx context.Context) {
 				return
 			case m := <-c.telemetryChan:
 				// Simulated network push
-				fmt.Printf("[Syncing to %s] Device: %s | Model: %s | TPS: %.1f\n", 
+				fmt.Printf("[Syncing to %s] Device: %s | Model: %s | TPS: %.1f\n",
 					c.serverURL, m.DeviceID, m.ModelName, m.TokensPerSec)
 			}
 		}

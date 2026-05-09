@@ -1,4 +1,4 @@
-package omni_braintree
+package network
 
 import "sync"
 

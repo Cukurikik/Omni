@@ -1,0 +1,19 @@
+module omni_policy 1.0;
+
+require {
+    type omni_exec_t;
+    type omni_log_t;
+    type omni_port_t;
+    class process { transition sigchld };
+    class file { read write open execute };
+    class tcp_socket { bind create listen accept };
+}
+
+# Allow OMNI executable to transition
+allow init_t omni_exec_t:file { read execute open };
+
+# Allow writing to OMNI logs
+allow omni_t omni_log_t:file { read write open append };
+
+# Allow networking on specific port
+allow omni_t omni_port_t:tcp_socket { create bind listen accept };

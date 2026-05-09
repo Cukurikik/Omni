@@ -1,14 +1,10 @@
 package concurrency
 
-import (
-)
-
 // Result is the monadic result type for this engine.
 type Result struct {
 	Value interface{}
 	Error error
 }
-
 
 type VisualQError struct {
 	Msg string

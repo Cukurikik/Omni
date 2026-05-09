@@ -1,9 +1,9 @@
 package autogen
 
 import (
-	"time"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"time"
 )
 
 // OMNI AUTOGEN: State Transition
@@ -46,7 +46,7 @@ func (s *StateTracker) RecordTransition(session, from, to, reason string, tokens
 	// Serialize and emit
 	data, _ := json.Marshal(transition)
 	fmt.Printf("[OMNI AutoGen] State Transition: %s\n", string(data))
-	
+
 	// Example of monadic action: if emission fails, we log locally but do not crash
 }
 

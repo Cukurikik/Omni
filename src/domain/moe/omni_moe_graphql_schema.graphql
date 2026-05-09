@@ -1,0 +1,53 @@
+# OMNI MOTHER Production Zero-Mock GraphQL Schema
+# Domain-driven schema contract for the Omni MoE API.
+
+type Query {
+  # Retrieve a specific Expert's metadata
+  getExpertDetails(expertId: ID!): Expert
+
+  # Check cluster health and active nodes
+  getClusterStatus: ClusterHealth!
+}
+
+type Mutation {
+  # Submit a prompt for MoE generation
+  generateText(input: InferenceRequest!): InferenceResponse!
+  
+  # Stream text generation via WebSockets (mapped via subscriptions in some implementations)
+  streamText(input: InferenceRequest!): String!
+}
+
+input InferenceRequest {
+  prompt: String!
+  tenantId: ID!
+  maxTokens: Int = 100
+  temperature: Float = 0.8
+  requiredDomain: String
+}
+
+type InferenceResponse {
+  id: ID!
+  text: String!
+  finishReason: String!
+  usage: UsageStats!
+  routedExperts: [Expert!]!
+}
+
+type UsageStats {
+  promptTokens: Int!
+  completionTokens: Int!
+  totalTokens: Int!
+}
+
+type Expert {
+  id: ID!
+  domain: String!
+  parameterCountBillion: Float!
+  isActive: Boolean!
+}
+
+type ClusterHealth {
+  status: String!
+  activeNodes: Int!
+  p99LatencyMs: Float!
+}

@@ -1,4 +1,4 @@
-package omni_parallax_core
+package network
 
 import (
 	"net/http"

@@ -1,8 +1,8 @@
 package marqo
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"hash/fnv"
 	"sync"
 )

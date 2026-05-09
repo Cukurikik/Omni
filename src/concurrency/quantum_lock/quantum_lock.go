@@ -1,8 +1,5 @@
 package concurrency
 
-import (
-)
-
 type QuantumLockError struct {
 	Msg string
 }
@@ -38,9 +35,9 @@ func (e *QuantumLockEngine) EvaluateStateCoherence(lockHoldTimeMs int64, concurr
 
 	// Observer effect probability
 	collapseProbability := float64(concurrentObservers) * 0.05
-	
+
 	if collapseProbability > 0.99 {
-		 return Result{nil, &QuantumLockError{Msg: "Wavefunction irreversibly collapsed by extreme observation mass"}}
+		return Result{nil, &QuantumLockError{Msg: "Wavefunction irreversibly collapsed by extreme observation mass"}}
 	}
 
 	return Result{map[string]interface{}{

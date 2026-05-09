@@ -1,0 +1,357 @@
+openapi: 3.1.0
+info:
+  title: Omni-Guru Function Library
+  version: "1.0"
+  description: >
+    REST API untuk Omni Mother — menguasai seluruh katalog teknologi.
+    Digunakan sebagai function-calling backend untuk LLM (Omni-Guru system prompt).
+servers:
+  - url: https://api.omniguru.example.com
+    description: Production
+
+paths:
+  /health:
+    get:
+      operationId: health_check
+      summary: Health check endpoint.
+      responses:
+        '200':
+          description: Service is healthy.
+
+  /generate_code:
+    post:
+      operationId: generate_code
+      summary: Generate source code for a given language / framework.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateCodeRequest'
+      responses:
+        '200':
+          description: Code generated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateCodeResponse'
+
+  /run_code:
+    post:
+      operationId: run_code
+      summary: Compile (if needed) and execute code inside an isolated container.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunCodeRequest'
+      responses:
+        '200':
+          description: Execution finished.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunCodeResponse'
+        '504':
+          description: Execution timed out.
+
+  /run_simulation:
+    post:
+      operationId: run_simulation
+      summary: Execute a hardware / network simulation (gem5, QEMU, ns-3, ...).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunSimulationRequest'
+      responses:
+        '200':
+          description: Simulation finished; logs & artifacts stored.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunSimulationResponse'
+
+  /verify_formal:
+    post:
+      operationId: verify_formal
+      summary: Run a formal verification / theorem proving task.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyFormalRequest'
+      responses:
+        '200':
+          description: Proof result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyFormalResponse'
+
+  /apply_infra:
+    post:
+      operationId: apply_infra
+      summary: Apply infrastructure as code (Terraform / Pulumi / Ansible / CloudFormation).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyInfraRequest'
+      responses:
+        '200':
+          description: Infra applied, plan & output stored.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplyInfraResponse'
+
+  /query_database:
+    post:
+      operationId: query_database
+      summary: Execute a query against a DB (SQL, Graph, Time-Series, ...).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryDatabaseRequest'
+      responses:
+        '200':
+          description: Query result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryDatabaseResponse'
+
+  /publish_event:
+    post:
+      operationId: publish_event
+      summary: Publish message to a streaming system (Kafka, NATS, MQTT, ZeroMQ).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishEventRequest'
+      responses:
+        '200':
+          description: Ack with message ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishEventResponse'
+
+components:
+  schemas:
+    GenerateCodeRequest:
+      type: object
+      required: [language, description]
+      properties:
+        language:
+          type: string
+          description: Target language / framework (e.g. "Rust", "React Native", "Coq").
+        description:
+          type: string
+          description: Human-readable description of what the code should do.
+        filename:
+          type: string
+          description: Optional preferred filename (e.g. "main.rs").
+        version:
+          type: string
+          description: Optional version tag (e.g. "stable", "nightly").
+        extra_context:
+          type: string
+          description: Optional additional files or snippets for reference.
+
+    GenerateCodeResponse:
+      type: object
+      properties:
+        source_code:
+          type: string
+        filename:
+          type: string
+        language:
+          type: string
+        artifact_url:
+          type: string
+
+    RunCodeRequest:
+      type: object
+      required: [language, source_code]
+      properties:
+        language:
+          type: string
+        source_code:
+          type: string
+        stdin:
+          type: string
+        timeout_seconds:
+          type: integer
+          default: 20
+
+    RunCodeResponse:
+      type: object
+      properties:
+        stdout:
+          type: string
+        stderr:
+          type: string
+        exit_code:
+          type: integer
+        execution_time_ms:
+          type: number
+        artifact_url:
+          type: string
+
+    RunSimulationRequest:
+      type: object
+      required: [simulator, config]
+      properties:
+        simulator:
+          type: string
+          description: "gem5 | QEMU | ns-3 | Simics | Sniper | ZSim"
+        config:
+          type: string
+        binary:
+          type: string
+        timeout_seconds:
+          type: integer
+          default: 30
+        extra_args:
+          type: array
+          items:
+            type: string
+
+    RunSimulationResponse:
+      type: object
+      properties:
+        stdout:
+          type: string
+        stderr:
+          type: string
+        exit_code:
+          type: integer
+        result_artifact_url:
+          type: string
+
+    VerifyFormalRequest:
+      type: object
+      required: [tool, source]
+      properties:
+        tool:
+          type: string
+          description: "Coq | Z3 | Dafny | Lean | Isabelle | TLA+ | Alloy | UPPAAL | Tamarin"
+        source:
+          type: string
+        timeout_seconds:
+          type: integer
+          default: 25
+
+    VerifyFormalResponse:
+      type: object
+      properties:
+        proof_status:
+          type: string
+          enum: [proved, disproved, unknown, timeout, error]
+        details:
+          type: string
+        artifact_url:
+          type: string
+
+    ApplyInfraRequest:
+      type: object
+      required: [engine, config]
+      properties:
+        engine:
+          type: string
+          description: "terraform | pulumi | ansible | cloudformation"
+        config:
+          type: string
+        variables:
+          type: object
+          additionalProperties: true
+        plan_only:
+          type: boolean
+          default: false
+        timeout_seconds:
+          type: integer
+          default: 60
+
+    ApplyInfraResponse:
+      type: object
+      properties:
+        plan_output:
+          type: string
+        apply_output:
+          type: string
+        status:
+          type: string
+          enum: [success, failure, timeout]
+        artifact_url:
+          type: string
+
+    QueryDatabaseRequest:
+      type: object
+      required: [engine, query]
+      properties:
+        engine:
+          type: string
+          description: "postgres | mysql | sqlite | neo4j | influxdb | clickhouse | mongodb"
+        connection_string:
+          type: string
+        query:
+          type: string
+        timeout_seconds:
+          type: integer
+          default: 20
+
+    QueryDatabaseResponse:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+        columns:
+          type: array
+          items:
+            type: string
+        execution_time_ms:
+          type: number
+        artifact_url:
+          type: string
+
+    PublishEventRequest:
+      type: object
+      required: [broker, topic, payload]
+      properties:
+        broker:
+          type: string
+          description: "kafka | nats | mqtt | zeromq"
+        topic:
+          type: string
+        payload:
+          type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        timeout_seconds:
+          type: integer
+          default: 10
+
+    PublishEventResponse:
+      type: object
+      properties:
+        message_id:
+          type: string
+        status:
+          type: string
+          enum: [ack, error]
+        error_details:
+          type: string

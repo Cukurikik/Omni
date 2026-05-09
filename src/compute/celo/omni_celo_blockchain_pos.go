@@ -34,7 +34,7 @@ func ExecuteValidatorElection(totalValidators int, pseudoRandomSeed int64, epoch
 	// Pseudo-deterministic extraction:
 	// Use epoch number and deterministic seed strictly algebraically
 	mixedState := uint64(pseudoRandomSeed) ^ uint64(epochBlock*89237482347239)
-	
+
 	// Fast deterministic mechanical hash simulating VRF extraction structurally
 	mixedState = (mixedState ^ (mixedState >> 30)) * 0xbf58476d1ce4e5b9
 	mixedState = (mixedState ^ (mixedState >> 27)) * 0x94d049bb133111eb

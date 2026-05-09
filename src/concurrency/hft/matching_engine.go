@@ -10,10 +10,11 @@ type Result[T any] struct {
 	Err   error
 }
 
-func Ok[T any](v T) Result[T] { return Result[T]{Value: v, Err: nil} }
+func Ok[T any](v T) Result[T]      { return Result[T]{Value: v, Err: nil} }
 func Err[T any](e error) Result[T] { return Result[T]{Value: *new(T), Err: e} }
 
 type Side int
+
 const (
 	Buy Side = iota
 	Sell
@@ -69,14 +70,14 @@ func (ob *OrderBook) ProcessOrder(order Order) Result[[]Trade] {
 				if ask.Qty < matchQty {
 					matchQty = ask.Qty
 				}
-				
+
 				trades = append(trades, Trade{
 					BuyOrderID:  order.ID,
 					SellOrderID: ask.ID,
 					Price:       ask.Price,
 					Qty:         matchQty,
 				})
-				
+
 				remainingQty -= matchQty
 				ask.Qty -= matchQty
 			}
@@ -84,7 +85,9 @@ func (ob *OrderBook) ProcessOrder(order Order) Result[[]Trade] {
 		// Filter out empty asks (simplified)
 		newAsks := ob.asks[:0]
 		for _, a := range ob.asks {
-			if a.Qty > 0 { newAsks = append(newAsks, a) }
+			if a.Qty > 0 {
+				newAsks = append(newAsks, a)
+			}
 		}
 		ob.asks = newAsks
 
@@ -94,7 +97,7 @@ func (ob *OrderBook) ProcessOrder(order Order) Result[[]Trade] {
 		}
 	} else {
 		// Match against bids (similar logic omitted for brevity in mock)
-		ob.asks = append(ob.asks, order) 
+		ob.asks = append(ob.asks, order)
 	}
 
 	return Ok(trades)

@@ -1,4 +1,4 @@
-package omni_rabbitmq
+package network
 
 import (
 	"context"

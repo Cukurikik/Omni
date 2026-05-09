@@ -1,10 +1,10 @@
 package towhee
 
 import (
-	"time"
-	"errors"
 	"context"
+	"errors"
 	"sync"
+	"time"
 )
 
 // Monadic error handling output
@@ -20,11 +20,11 @@ type Payload struct {
 }
 
 type PipelineWorkerPool struct {
-	workers  int
-	tasks    chan Payload
-	results  chan ProcessingResult
-	wg       sync.WaitGroup
-	quit     chan struct{}
+	workers int
+	tasks   chan Payload
+	results chan ProcessingResult
+	wg      sync.WaitGroup
+	quit    chan struct{}
 }
 
 func NewPipelineWorkerPool(numWorkers int, bufferSize int) *PipelineWorkerPool {
@@ -68,8 +68,8 @@ func (p *PipelineWorkerPool) process(task Payload) {
 
 	// Simulating C-FFI call to the SIMD distance calculator or PyTorch Embedding
 	// In production, this bridges over to the Python/C++ layer via Omni Bridge.
-	time.Sleep(10 * time.Millisecond) 
-	
+	time.Sleep(10 * time.Millisecond)
+
 	p.results <- ProcessingResult{
 		JobID:      task.JobID,
 		Embeddings: []float32{0.1, 0.9, -0.4, 1.2}, // Hardware processed stub

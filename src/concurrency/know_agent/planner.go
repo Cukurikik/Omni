@@ -1,8 +1,8 @@
 package knowagent
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
-type Planner struct {}
+type Planner struct{}
 
 func (p *Planner) CreatePlan(goal string) result.Result[[]string] {
 	if goal == "" {

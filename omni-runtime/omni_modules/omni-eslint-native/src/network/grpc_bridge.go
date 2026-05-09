@@ -1,4 +1,4 @@
-package omni_eslint_native
+package network
 
 import "fmt"
 

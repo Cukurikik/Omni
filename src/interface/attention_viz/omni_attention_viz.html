@@ -1,0 +1,145 @@
+// @omni-layer Interface | @omni-lang HTML+JS | @omni-batch 18 | @omni-semester 16
+// @omni-description Transformer attention heatmap visualization web component
+// with interactive token selection and layer/head navigation.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMNI Transformer Attention Visualizer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+h1 { color: #7c3aed; margin-bottom: 16px; }
+.controls { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.control-group { display: flex; flex-direction: column; gap: 4px; }
+label { font-size: 12px; color: #888; text-transform: uppercase; }
+select, input { background: #1a1a2e; color: #e0e0e0; border: 1px solid #333; border-radius: 6px; padding: 8px 12px; }
+.heatmap-container { display: grid; gap: 2px; margin-bottom: 24px; }
+.heatmap-cell { min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; border-radius: 4px; cursor: pointer; transition: transform 0.15s; }
+.heatmap-cell:hover { transform: scale(1.1); z-index: 1; }
+.token-bar { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 16px; }
+.token { padding: 6px 10px; background: #1a1a2e; border: 1px solid #333; border-radius: 4px; cursor: pointer;
+  font-size: 13px; transition: all 0.2s; }
+.token.selected { background: #7c3aed; border-color: #7c3aed; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.stat-card { background: #1a1a2e; padding: 16px; border-radius: 8px; border: 1px solid #222; }
+.stat-value { font-size: 24px; color: #7c3aed; font-weight: 700; }
+.stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>OMNI Transformer Attention Visualizer</h1>
+  <div class="controls">
+    <div class="control-group">
+      <label>Input Text</label>
+      <input id="inputText" type="text" value="The transformer architecture revolutionized natural language processing"
+             style="width:400px" oninput="updateViz()">
+    </div>
+    <div class="control-group">
+      <label>Layer</label>
+      <select id="layerSelect" onchange="updateViz()"></select>
+    </div>
+    <div class="control-group">
+      <label>Head</label>
+      <select id="headSelect" onchange="updateViz()"></select>
+    </div>
+  </div>
+  <div class="token-bar" id="tokenBar"></div>
+  <div class="heatmap-container" id="heatmap"></div>
+  <div class="stats" id="statsPanel"></div>
+</div>
+<script>
+const N_LAYERS = 12, N_HEADS = 12;
+let tokens = [], attentionData = {};
+
+function init() {
+  const ls = document.getElementById('layerSelect');
+  const hs = document.getElementById('headSelect');
+  for (let i = 0; i < N_LAYERS; i++) ls.innerHTML += `<option value="${i}">Layer ${i}</option>`;
+  for (let i = 0; i < N_HEADS; i++) hs.innerHTML += `<option value="${i}">Head ${i}</option>`;
+  updateViz();
+}
+
+function tokenize(text) {
+  return text.split(/\s+/).filter(w => w.length > 0);
+}
+
+function computeAttention(toks, layer, head) {
+  const n = toks.length;
+  const weights = [];
+  for (let i = 0; i < n; i++) {
+    const row = [];
+    for (let j = 0; j < n; j++) {
+      const hi = hashStr(toks[i]), hj = hashStr(toks[j]);
+      let score = Math.sin(hi * 0.001 * (layer + 1) + hj * 0.002 * (head + 1));
+      score += (i === j ? 0.5 : 0);
+      row.push(score);
+    }
+    const mx = Math.max(...row);
+    const exps = row.map(v => Math.exp(v - mx));
+    const sm = exps.reduce((a, b) => a + b, 0) + 1e-10;
+    weights.push(exps.map(e => e / sm));
+  }
+  return weights;
+}
+
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function colorScale(v) {
+  const r = Math.round(124 * v + 20);
+  const g = Math.round(58 * v + 10);
+  const b = Math.round(237 * v + 30);
+  return `rgb(${r},${g},${b})`;
+}
+
+function updateViz() {
+  tokens = tokenize(document.getElementById('inputText').value);
+  const layer = parseInt(document.getElementById('layerSelect').value);
+  const head = parseInt(document.getElementById('headSelect').value);
+  const weights = computeAttention(tokens, layer, head);
+
+  const bar = document.getElementById('tokenBar');
+  bar.innerHTML = tokens.map((t, i) => `<span class="token" onclick="selectToken(${i})">${t}</span>`).join('');
+
+  const hm = document.getElementById('heatmap');
+  const n = tokens.length;
+  hm.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+  hm.innerHTML = '';
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      const v = weights[i][j];
+      const cell = document.createElement('div');
+      cell.className = 'heatmap-cell';
+      cell.style.background = colorScale(v);
+      cell.textContent = v.toFixed(2);
+      cell.title = `${tokens[i]} → ${tokens[j]}: ${v.toFixed(4)}`;
+      hm.appendChild(cell);
+    }
+  }
+
+  const entropy = weights.map(row => -row.reduce((s, p) => s + (p > 1e-10 ? p * Math.log2(p) : 0), 0));
+  const avgEntropy = entropy.reduce((a, b) => a + b, 0) / entropy.length;
+  document.getElementById('statsPanel').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${n}</div><div class="stat-label">Tokens</div></div>
+    <div class="stat-card"><div class="stat-value">${avgEntropy.toFixed(2)}</div><div class="stat-label">Avg Entropy</div></div>
+    <div class="stat-card"><div class="stat-value">L${layer}H${head}</div><div class="stat-label">Selected</div></div>
+    <div class="stat-card"><div class="stat-value">${(n*n)}</div><div class="stat-label">Attention Pairs</div></div>`;
+}
+
+function selectToken(idx) {
+  document.querySelectorAll('.token').forEach((t, i) => t.classList.toggle('selected', i === idx));
+}
+
+init();
+</script>
+</body>
+</html>

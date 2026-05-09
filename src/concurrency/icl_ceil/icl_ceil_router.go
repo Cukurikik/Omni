@@ -26,7 +26,7 @@ func (r *icl_ceilRouter) Execute(ctx context.Context, data []byte) (*icl_ceilRes
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &icl_ceilResult{
 		Success: true,
 		Status:  "computed",

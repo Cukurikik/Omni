@@ -1,4 +1,4 @@
-package omni_postgresql
+package network
 
 import "time"
 

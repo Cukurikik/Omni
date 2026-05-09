@@ -19,7 +19,7 @@ func (r *BenchRouter) EvaluatePenalty(ctx context.Context, penalty float64) (*Bl
 	if penalty < 0.0 || penalty > 1.0 {
 		return nil, errors.New("brevity penalty must be bounded [0,1]")
 	}
-	
+
 	return &BleuResult{
 		Penalty: penalty,
 		Passed:  penalty >= r.MinPenalty,

@@ -14,7 +14,7 @@ func SyncGradients(nodeID int) OmniResult {
 		return OmniResult{Value: nil, Error: errors.New("Invalid node ID")}
 	}
 
-	// Go concurrent gradient synchronization for Colossal-AI 
+	// Go concurrent gradient synchronization for Colossal-AI
 	go func() {
 		// syncing...
 	}()

@@ -45,7 +45,7 @@ func (s *SensorStreamer) process(id int) {
 			s.outChan <- OmniResult{Error: fmt.Errorf("invalid lidar points")}
 			continue
 		}
-		
+
 		// Deterministic lidar point cloud processing math
 		intensity := math.Mod(float64(data.LidarPts), 100.0) / 100.0
 		s.outChan <- OmniResult{Value: fmt.Sprintf("Worker %d T=%.2f: Int=%.2f", id, data.Timestamp, intensity)}

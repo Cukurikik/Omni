@@ -1,4 +1,4 @@
-package omni_svg_morph
+package network
 
 import "fmt"
 

@@ -1,4 +1,4 @@
-package omni_paystack
+package network
 
 import "sync"
 

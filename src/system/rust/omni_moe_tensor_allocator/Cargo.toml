@@ -1,0 +1,14 @@
+[package]
+name = "omni_moe_tensor_allocator"
+version = "3.0.0"
+edition = "2021"
+description = "OMNI Framework - Zero-copy Tensor Allocator for MoE"
+
+[dependencies]
+libc = "0.2"
+cuda-driver-sys = "0.2" # Simulated FFI binding for CUDA
+lazy_static = "1.4.0"
+crossbeam-channel = "0.5"
+
+[lib]
+crate-type = ["cdylib", "rlib"]

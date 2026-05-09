@@ -1,4 +1,4 @@
-package omni_paypal
+package network
 
 import "sync"
 

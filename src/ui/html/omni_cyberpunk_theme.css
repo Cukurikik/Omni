@@ -1,0 +1,25 @@
+/* OMNI MOTHER: Cyberpunk UI Theme */
+
+:root {
+    --cyber-yellow: #fcee0a;
+    --cyber-blue: #00f0ff;
+    --cyber-pink: #ff003c;
+    --cyber-bg: #0d0d0d;
+}
+
+body.omni-cyberpunk-theme {
+    background-color: var(--cyber-bg);
+    color: var(--cyber-yellow);
+    font-family: 'Rajdhani', sans-serif;
+    border: 2px solid var(--cyber-blue);
+    box-shadow: 0 0 10px var(--cyber-pink);
+}
+
+.omni-cyberpunk-theme button {
+    background: transparent;
+    border: 1px solid var(--cyber-yellow);
+    color: var(--cyber-yellow);
+    padding: 10px 20px;
+    text-transform: uppercase;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}

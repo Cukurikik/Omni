@@ -32,29 +32,29 @@ import (
 type AgentRole string
 
 const (
-	RolePlanner    AgentRole = "planner"
-	RoleCoder      AgentRole = "coder"
-	RoleReviewer   AgentRole = "reviewer"
-	RoleTester     AgentRole = "tester"
-	RoleDeployer   AgentRole = "deployer"
-	RoleAuditor    AgentRole = "auditor"
-	RoleDocWriter  AgentRole = "doc_writer"
-	RolePerformance AgentRole = "performance"
-	RoleSecurity   AgentRole = "security"
+	RolePlanner      AgentRole = "planner"
+	RoleCoder        AgentRole = "coder"
+	RoleReviewer     AgentRole = "reviewer"
+	RoleTester       AgentRole = "tester"
+	RoleDeployer     AgentRole = "deployer"
+	RoleAuditor      AgentRole = "auditor"
+	RoleDocWriter    AgentRole = "doc_writer"
+	RolePerformance  AgentRole = "performance"
+	RoleSecurity     AgentRole = "security"
 	RoleOrchestrator AgentRole = "orchestrator"
 )
 
 type PipelinePhase string
 
 const (
-	PhaseDiscovery   PipelinePhase = "discovery"
-	PhasePlanning    PipelinePhase = "planning"
-	PhaseExecution   PipelinePhase = "execution"
-	PhaseReview      PipelinePhase = "review"
-	PhaseTesting     PipelinePhase = "testing"
-	PhaseDelivery    PipelinePhase = "delivery"
-	PhaseShipping    PipelinePhase = "shipping"
-	PhaseMonitoring  PipelinePhase = "monitoring"
+	PhaseDiscovery  PipelinePhase = "discovery"
+	PhasePlanning   PipelinePhase = "planning"
+	PhaseExecution  PipelinePhase = "execution"
+	PhaseReview     PipelinePhase = "review"
+	PhaseTesting    PipelinePhase = "testing"
+	PhaseDelivery   PipelinePhase = "delivery"
+	PhaseShipping   PipelinePhase = "shipping"
+	PhaseMonitoring PipelinePhase = "monitoring"
 )
 
 type PluginStatus string
@@ -68,9 +68,9 @@ const (
 type CertaintyLevel string
 
 const (
-	CertaintyHigh     CertaintyLevel = "high"
-	CertaintyMedium   CertaintyLevel = "medium"
-	CertaintyLow      CertaintyLevel = "low"
+	CertaintyHigh        CertaintyLevel = "high"
+	CertaintyMedium      CertaintyLevel = "medium"
+	CertaintyLow         CertaintyLevel = "low"
 	CertaintySpeculative CertaintyLevel = "speculative"
 )
 
@@ -80,17 +80,17 @@ const (
 
 // AgentDefinition defines a single agent in the system.
 type AgentDefinition struct {
-	ID          string            `json:"id"`
-	Name        string            `json:"name"`
-	Role        AgentRole         `json:"role"`
-	Model       string            `json:"model"`
-	SystemPrompt string           `json:"system_prompt"`
-	Skills      []string          `json:"skills"`
-	InputTypes  []string          `json:"input_types"`
-	OutputTypes []string          `json:"output_types"`
-	MaxTokens   int               `json:"max_tokens"`
-	Temperature float64           `json:"temperature"`
-	Metadata    map[string]string `json:"metadata,omitempty"`
+	ID           string            `json:"id"`
+	Name         string            `json:"name"`
+	Role         AgentRole         `json:"role"`
+	Model        string            `json:"model"`
+	SystemPrompt string            `json:"system_prompt"`
+	Skills       []string          `json:"skills"`
+	InputTypes   []string          `json:"input_types"`
+	OutputTypes  []string          `json:"output_types"`
+	MaxTokens    int               `json:"max_tokens"`
+	Temperature  float64           `json:"temperature"`
+	Metadata     map[string]string `json:"metadata,omitempty"`
 }
 
 // PluginDefinition defines a plugin package.
@@ -109,31 +109,31 @@ type PluginDefinition struct {
 
 // SkillDefinition defines a reusable skill.
 type SkillDefinition struct {
-	ID          string   `json:"id"`
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Plugin      string   `json:"plugin"`
-	InputSchema map[string]string `json:"input_schema,omitempty"`
+	ID           string            `json:"id"`
+	Name         string            `json:"name"`
+	Description  string            `json:"description"`
+	Plugin       string            `json:"plugin"`
+	InputSchema  map[string]string `json:"input_schema,omitempty"`
 	OutputSchema map[string]string `json:"output_schema,omitempty"`
-	Tags        []string `json:"tags"`
+	Tags         []string          `json:"tags"`
 }
 
 // PipelineDefinition defines a phase-gated pipeline.
 type PipelineDefinition struct {
-	ID          string         `json:"id"`
-	Name        string         `json:"name"`
-	Description string         `json:"description"`
-	Phases      []PhaseConfig  `json:"phases"`
-	CreatedAt   time.Time      `json:"created_at"`
+	ID          string        `json:"id"`
+	Name        string        `json:"name"`
+	Description string        `json:"description"`
+	Phases      []PhaseConfig `json:"phases"`
+	CreatedAt   time.Time     `json:"created_at"`
 }
 
 // PhaseConfig defines a single pipeline phase.
 type PhaseConfig struct {
-	Phase      PipelinePhase `json:"phase"`
-	Agent      string        `json:"agent"`
-	Skills     []string      `json:"skills"`
-	Gate       *GateConfig   `json:"gate,omitempty"`
-	Timeout    time.Duration `json:"timeout,omitempty"`
+	Phase   PipelinePhase `json:"phase"`
+	Agent   string        `json:"agent"`
+	Skills  []string      `json:"skills"`
+	Gate    *GateConfig   `json:"gate,omitempty"`
+	Timeout time.Duration `json:"timeout,omitempty"`
 }
 
 // GateConfig defines quality gates between phases.
@@ -160,42 +160,42 @@ type Finding struct {
 
 // PipelineRun2 tracks pipeline execution state.
 type PipelineRun2 struct {
-	RunID       string                    `json:"run_id"`
-	PipelineID  string                    `json:"pipeline_id"`
-	Status      string                    `json:"status"`
-	CurrentPhase PipelinePhase            `json:"current_phase"`
-	PhaseResults []PhaseResult2           `json:"phase_results"`
-	Findings    []Finding                `json:"findings"`
-	State       map[string]interface{}   `json:"state"`
-	StartedAt   time.Time                `json:"started_at"`
-	CompletedAt *time.Time               `json:"completed_at,omitempty"`
-	Duration    time.Duration            `json:"duration"`
-	TotalTokens int                      `json:"total_tokens"`
+	RunID        string                 `json:"run_id"`
+	PipelineID   string                 `json:"pipeline_id"`
+	Status       string                 `json:"status"`
+	CurrentPhase PipelinePhase          `json:"current_phase"`
+	PhaseResults []PhaseResult2         `json:"phase_results"`
+	Findings     []Finding              `json:"findings"`
+	State        map[string]interface{} `json:"state"`
+	StartedAt    time.Time              `json:"started_at"`
+	CompletedAt  *time.Time             `json:"completed_at,omitempty"`
+	Duration     time.Duration          `json:"duration"`
+	TotalTokens  int                    `json:"total_tokens"`
 }
 
 // PhaseResult2 captures results of a phase.
 type PhaseResult2 struct {
-	Phase     PipelinePhase `json:"phase"`
-	Agent     string        `json:"agent"`
-	Status    string        `json:"status"` // passed, failed, gated,skipped
-	Output    string        `json:"output,omitempty"`
-	Findings  []Finding     `json:"findings,omitempty"`
-	GatePassed bool         `json:"gate_passed"`
-	Duration  time.Duration `json:"duration"`
-	Tokens    int           `json:"tokens"`
+	Phase      PipelinePhase `json:"phase"`
+	Agent      string        `json:"agent"`
+	Status     string        `json:"status"` // passed, failed, gated,skipped
+	Output     string        `json:"output,omitempty"`
+	Findings   []Finding     `json:"findings,omitempty"`
+	GatePassed bool          `json:"gate_passed"`
+	Duration   time.Duration `json:"duration"`
+	Tokens     int           `json:"tokens"`
 }
 
 // TaskDefinition represents a discovered task.
 type TaskDefinition struct {
-	ID          string   `json:"id"`
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	Priority    int      `json:"priority"` // 1-10
-	Complexity  string   `json:"complexity"` // trivial, simple, moderate, complex, epic
-	Tags        []string `json:"tags"`
-	FilePaths   []string `json:"file_paths"`
-	Status      string   `json:"status"` // pending, in_progress, completed
-	AssignedTo  string   `json:"assigned_to,omitempty"`
+	ID          string    `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Priority    int       `json:"priority"`   // 1-10
+	Complexity  string    `json:"complexity"` // trivial, simple, moderate, complex, epic
+	Tags        []string  `json:"tags"`
+	FilePaths   []string  `json:"file_paths"`
+	Status      string    `json:"status"` // pending, in_progress, completed
+	AssignedTo  string    `json:"assigned_to,omitempty"`
 	CreatedAt   time.Time `json:"created_at"`
 }
 
@@ -402,16 +402,16 @@ func (ca *CodeAnalyzer) AnalyzeFile(content string, filePath string) []Finding {
 			}
 
 			findings = append(findings, Finding{
-				ID:        fmt.Sprintf("%s-%s-%d", category, filepath.Base(filePath), line),
-				Category:  category,
-				Title:     fmt.Sprintf("%s detected", category),
+				ID:          fmt.Sprintf("%s-%s-%d", category, filepath.Base(filePath), line),
+				Category:    category,
+				Title:       fmt.Sprintf("%s detected", category),
 				Description: matchText,
-				Certainty: certainty,
-				FilePath:  filePath,
-				Line:      line,
-				Severity:  severity,
-				Agent:     "code-analyzer",
-				Timestamp: time.Now().UTC(),
+				Certainty:   certainty,
+				FilePath:    filePath,
+				Line:        line,
+				Severity:    severity,
+				Agent:       "code-analyzer",
+				Timestamp:   time.Now().UTC(),
 			})
 		}
 	}
@@ -526,16 +526,16 @@ func (pe *PipelineExecutor) GetRun(runID string) (*PipelineRun2, bool) {
 
 // AgentSysOrchestratorEngine is the OMNI production agent orchestration engine.
 type AgentSysOrchestratorEngine struct {
-	mu         sync.RWMutex
-	plugins    *PluginRegistry2
-	skills     *SkillRegistry2
-	agents     map[string]*AgentDefinition
-	pipelines  map[string]*PipelineDefinition
-	tasks      []TaskDefinition
-	executor   *PipelineExecutor
-	analyzer   *CodeAnalyzer
-	dataDir    string
-	startedAt  time.Time
+	mu        sync.RWMutex
+	plugins   *PluginRegistry2
+	skills    *SkillRegistry2
+	agents    map[string]*AgentDefinition
+	pipelines map[string]*PipelineDefinition
+	tasks     []TaskDefinition
+	executor  *PipelineExecutor
+	analyzer  *CodeAnalyzer
+	dataDir   string
+	startedAt time.Time
 
 	// Stats
 	totalCommands  int64
@@ -709,7 +709,7 @@ func (e *AgentSysOrchestratorEngine) AddTask(title, description string, priority
 	defer e.mu.Unlock()
 	h := sha256.Sum256([]byte(fmt.Sprintf("task-%d-%s", time.Now().UnixNano(), title)))
 	task := TaskDefinition{
-		ID: hex.EncodeToString(h[:6]),
+		ID:    hex.EncodeToString(h[:6]),
 		Title: title, Description: description,
 		Priority: priority, Complexity: complexity,
 		Status: "pending", CreatedAt: time.Now().UTC(),
@@ -779,11 +779,11 @@ func (e *AgentSysOrchestratorEngine) Diagnostics() map[string]interface{} {
 			"agents":          len(e.agents),
 			"pipelines":       len(e.pipelines),
 			"tasks":           len(e.tasks),
-			"total_commands":   e.totalCommands,
-			"total_pipelines":  e.totalPipelines,
-			"total_findings":   e.totalFindings,
+			"total_commands":  e.totalCommands,
+			"total_pipelines": e.totalPipelines,
+			"total_findings":  e.totalFindings,
 		},
-		"plugins":    pluginNames,
+		"plugins": pluginNames,
 		"capabilities": []string{
 			"plugin_registry", "skill_registry", "agent_orchestration",
 			"phase_gated_pipelines", "task_discovery", "code_analysis",

@@ -1,6 +1,6 @@
 package temporalorchestrator
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
 type WorkflowEngine struct {
 	activeWorkflows int

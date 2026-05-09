@@ -1,0 +1,76 @@
+// @omni-layer Vector | @omni-lang GGML Config | @omni-batch 18 | @omni-semester 16
+// @omni-description GGML quantization config for OMNI transformer models:
+// model conversion specs for CPU inference with Q4, Q5, Q8 quantization.
+schema: ggml-quantization/v1
+
+models:
+  tempo-forecaster:
+    architecture: gpt2
+    context_length: 512
+    embedding_length: 768
+    attention_heads: 12
+    layers: 6
+    vocab_size: 32000
+    quantization_levels:
+      - type: Q4_K_M
+        bits: 4
+        block_size: 256
+        estimated_size_mb: 62
+        perplexity_delta: "+0.15"
+      - type: Q5_K_M
+        bits: 5
+        block_size: 256
+        estimated_size_mb: 78
+        perplexity_delta: "+0.08"
+      - type: Q8_0
+        bits: 8
+        block_size: 32
+        estimated_size_mb: 125
+        perplexity_delta: "+0.02"
+      - type: F16
+        bits: 16
+        estimated_size_mb: 250
+        perplexity_delta: "0.00"
+    tensor_split:
+      - embedding: F16
+      - attention.qkv: Q4_K_M
+      - attention.output: Q5_K_M
+      - ffn.gate: Q4_K_M
+      - ffn.up: Q4_K_M
+      - ffn.down: Q5_K_M
+      - output: F16
+
+  bert-ner:
+    architecture: bert
+    context_length: 512
+    embedding_length: 768
+    attention_heads: 12
+    layers: 12
+    vocab_size: 30522
+    quantization_levels:
+      - type: Q4_K_M
+        estimated_size_mb: 55
+      - type: Q8_0
+        estimated_size_mb: 110
+
+  video-classifier:
+    architecture: vit
+    context_length: 196
+    embedding_length: 768
+    attention_heads: 12
+    layers: 12
+    patch_size: 16
+    num_frames: 16
+    quantization_levels:
+      - type: Q4_K_M
+        estimated_size_mb: 150
+      - type: Q8_0
+        estimated_size_mb: 300
+
+conversion:
+  tool: "omni ggml convert"
+  options:
+    - "--outtype {quant_type}"
+    - "--vocab-type bpe"
+    - "--pad-vocab"
+    - "--concurrency 4"

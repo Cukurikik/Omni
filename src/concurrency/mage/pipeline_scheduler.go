@@ -1,8 +1,8 @@
 package mage
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"sync"
 )
 

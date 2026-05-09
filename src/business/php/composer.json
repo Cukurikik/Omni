@@ -1,0 +1,8 @@
+{
+    "name": "omniframework/moe-invoice-generator",
+    "description": "OMNI Framework - PHP PDF Invoice Generator for MoE API usage",
+    "require": {
+        "tecnickcom/tcpdf": "^6.6",
+        "ext-pdo": "*"
+    }
+}

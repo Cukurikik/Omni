@@ -36,7 +36,7 @@ func (g *GradientAccumulator) SubmitLocalGradients(workerID int, localGrads map[
 		if _, exists := g.gradients[paramName]; !exists {
 			g.gradients[paramName] = make([]float32, len(gradArray))
 		}
-		
+
 		for i, v := range gradArray {
 			g.gradients[paramName][i] += v
 		}
@@ -60,13 +60,13 @@ func (g *GradientAccumulator) WaitForGlobalGradients() OmniResult {
 
 	// Reset for next iteration (Backprop cycle)
 	g.pending = g.expected
-	
+
 	// Copy to return
 	globalCopy := make(map[string][]float32)
 	for k, v := range g.gradients {
 		globalCopy[k] = v
 	}
-	
+
 	// Zero out gradients deterministically for next step
 	for k := range g.gradients {
 		for i := range g.gradients[k] {

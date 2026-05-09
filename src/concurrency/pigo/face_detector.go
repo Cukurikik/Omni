@@ -60,11 +60,13 @@ func (e *FaceDetectorEngine) DetectFaces(img *image.Gray) ([]FaceBox, error) {
 		wg.Add(1)
 		go func(bandIdx int) {
 			defer wg.Done()
-			
+
 			startY := bandIdx * bandHeight
 			endY := (bandIdx + 1) * bandHeight
-			if endY > height { endY = height }
-			
+			if endY > height {
+				endY = height
+			}
+
 			// Cascade classifier applied within this band region
 			centerRow := (startY + endY) / 2
 			mu.Lock()

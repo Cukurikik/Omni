@@ -36,26 +36,26 @@ func GenerateDeterministicExperimentId(metadata ExperimentMetadata) HashResult {
 	if metadata.Algorithm == "" || metadata.DatasetHash == "" {
 		return ErrHashResult("Algorithm and Dataset components must not be blank.")
 	}
-	
+
 	// Order hyperparameters lexicographically to maintain determinism
 	var hpKeys []string
 	for k := range metadata.Hyperparameters {
 		hpKeys = append(hpKeys, k)
 	}
 	sort.Strings(hpKeys)
-	
+
 	// Build deterministic string buffer
 	var bufferString string
 	bufferString += "ALG:" + metadata.Algorithm + "|"
 	bufferString += "DATA:" + metadata.DatasetHash + "|"
-	
+
 	for _, k := range hpKeys {
 		bufferString += fmt.Sprintf("%s:%f|", k, metadata.Hyperparameters[k])
 	}
-	
+
 	hasher := sha256.New()
 	hasher.Write([]byte(bufferString))
 	hashed := hex.EncodeToString(hasher.Sum(nil))
-	
+
 	return OkHashResult(hashed)
 }

@@ -1,4 +1,4 @@
-package omni_date_fns
+package network
 
 import (
 	"context"

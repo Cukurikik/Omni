@@ -41,10 +41,10 @@ type KVBlock struct {
 
 // OmniVLLMEngine orchestrates memory blocks for fast continuous batching (PagedAttention math model).
 type OmniVLLMEngine struct {
-	mu           sync.RWMutex
-	memoryPool   []KVBlock
-	blockSize    int
-	
+	mu         sync.RWMutex
+	memoryPool []KVBlock
+	blockSize  int
+
 	// Metrics
 	requestsServed atomic.Int64
 	tokensGen      atomic.Int64

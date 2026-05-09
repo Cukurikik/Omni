@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (r *dspyRouter) RouteRequest(ctx context.Context, payload []float64) dspyRe
 	}
 
 	start := time.Now()
-	
+
 	// Routing logic simulation
 	select {
 	case <-time.After(15 * time.Millisecond):
@@ -48,3 +48,4 @@ func (r *dspyRouter) RouteRequest(ctx context.Context, payload []float64) dspyRe
 		return dspyResult{Value: 0, IsResolved: false, Error: fmt.Errorf("request timeout: %v", ctx.Err())}
 	}
 }
+

@@ -2,7 +2,8 @@ package langchain_prefect
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func ExecuteLangchainFlow(ctx context.Context, flowID string) result.Result[bool] {

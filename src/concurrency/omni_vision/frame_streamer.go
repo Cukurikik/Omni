@@ -2,7 +2,8 @@ package omni_vision
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func StreamFrame(ctx context.Context, frameData []byte) result.Result[bool] {

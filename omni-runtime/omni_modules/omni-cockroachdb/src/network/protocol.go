@@ -1,4 +1,4 @@
-package omni_cockroachdb
+package network
 
 import (
 	"encoding/binary"

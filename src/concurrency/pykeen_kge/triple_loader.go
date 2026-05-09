@@ -62,7 +62,7 @@ func (l *TripleLoader) workerLoop(id int) {
 		}
 		if valid {
 			// Ready for model consumption
-			_ = batch 
+			_ = batch
 		}
 	}
 }

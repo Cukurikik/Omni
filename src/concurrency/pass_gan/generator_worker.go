@@ -43,7 +43,7 @@ func (w *GeneratorWorker) RequestPasswords(count int) OmniResult {
 
 func (w *GeneratorWorker) generateLoop(workerID int) {
 	defer w.wg.Done()
-	
+
 	// Deterministic character mapping based on seed offset
 	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%"
 
@@ -51,13 +51,13 @@ func (w *GeneratorWorker) generateLoop(workerID int) {
 		// Mathematical deterministic password generation simulation
 		length := 8 + (taskID % 8) // Range 8 to 15
 		result := make([]byte, length)
-		
+
 		for i := 0; i < length; i++ {
 			// Deterministic pseudo-random index
 			idx := (workerID*31 + taskID*17 + i*7) % len(charset)
 			result[i] = charset[idx]
 		}
-		
+
 		w.resultQueue <- string(result)
 	}
 }

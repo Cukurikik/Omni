@@ -24,7 +24,7 @@ import (
 type VideoPrivacy int
 
 const (
-	PrivacyPublic   VideoPrivacy = iota
+	PrivacyPublic VideoPrivacy = iota
 	PrivacyFriends
 	PrivacyPrivate
 )
@@ -44,14 +44,14 @@ func (p VideoPrivacy) String() string {
 
 // VideoMeta contains all metadata for a TikTok upload.
 type VideoMeta struct {
-	FilePath    string
-	Caption     string
-	Hashtags    []string
-	Privacy     VideoPrivacy
-	AllowDuet   bool
-	AllowStitch bool
+	FilePath     string
+	Caption      string
+	Hashtags     []string
+	Privacy      VideoPrivacy
+	AllowDuet    bool
+	AllowStitch  bool
 	AllowComment bool
-	ScheduleAt  *time.Time // nil = post immediately
+	ScheduleAt   *time.Time // nil = post immediately
 }
 
 // UploadStatus tracks progress of a single upload.
@@ -105,10 +105,10 @@ const rateLimitDelay = 60 * time.Second
 
 // TikTokUploader manages the upload pipeline.
 type TikTokUploader struct {
-	session     *SessionCookie
-	queue       []VideoMeta
-	results     []UploadResult
-	mu          sync.Mutex
+	session      *SessionCookie
+	queue        []VideoMeta
+	results      []UploadResult
+	mu           sync.Mutex
 	delayBetween time.Duration
 }
 

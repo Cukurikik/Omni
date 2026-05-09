@@ -1,0 +1,22 @@
+# OMNI Framework - Cerbos Policy for TableFormer Database Queries
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "omni:db:tableformer"
+  rules:
+    - actions: ["query", "encode"]
+      effect: EFFECT_ALLOW
+      roles:
+        - data_analyst
+        - system_service
+      condition:
+        match:
+          expr: request.resource.attr.classification == "public"
+
+    - actions: ["query", "encode"]
+      effect: EFFECT_ALLOW
+      roles:
+        - financial_analyst
+      condition:
+        match:
+          expr: request.resource.attr.classification in ["public", "confidential"]

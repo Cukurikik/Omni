@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  omni-guru:
+    build: .
+    image: ghcr.io/yourorg/omni-guru:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - ARTIFACT_BUCKET=/artifacts
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - artifacts:/artifacts
+    depends_on:
+      - minio
+      - qdrant
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  artifacts:
+  minio_data:
+  qdrant_data:

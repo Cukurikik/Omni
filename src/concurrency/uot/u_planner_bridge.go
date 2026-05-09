@@ -2,7 +2,8 @@ package uot
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func EvaluateUncertainty(ctx context.Context, entropy float64) result.Result[string] {

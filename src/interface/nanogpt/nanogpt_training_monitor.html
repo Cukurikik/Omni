@@ -1,0 +1,63 @@
+<!-- @omni-layer Interface | @omni-source karpathy/nanoGPT -->
+<!-- @omni-description NanoGPT training monitor: live loss curves, LR schedule, -->
+<!-- gradient norm, and throughput visualization. -->
+<!-- @omni-lang HTML | @omni-batch 16 | @omni-semester 16 -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMNI NanoGPT Monitor</title>
+<style>
+:root{--bg:#0a0a1a;--card:#12122a;--accent:#7c3aed;--green:#10b981;--text:#e2e8f0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem;}
+h1{background:linear-gradient(90deg,var(--accent),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.6rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;}
+.card{background:var(--card);border-radius:10px;padding:1.2rem;border:1px solid rgba(255,255,255,0.05);}
+.card h3{color:var(--accent);font-size:0.9rem;margin-bottom:0.8rem;}
+canvas{width:100%;height:200px;border-radius:6px;}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:1rem;}
+.metric{text-align:center;background:rgba(124,58,237,0.1);padding:0.6rem;border-radius:8px;}
+.metric .val{font-size:1.3rem;font-weight:700;color:var(--accent);}
+.metric .lbl{font-size:0.65rem;opacity:0.5;margin-top:0.2rem;}
+button{background:var(--accent);border:none;color:#fff;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;margin-right:0.5rem;}
+</style></head><body>
+<h1>⚡ NanoGPT Training Monitor</h1>
+<div class="metrics">
+<div class="metric"><div class="val" id="m-step">0</div><div class="lbl">Step</div></div>
+<div class="metric"><div class="val" id="m-loss">-</div><div class="lbl">Train Loss</div></div>
+<div class="metric"><div class="val" id="m-lr">-</div><div class="lbl">LR</div></div>
+<div class="metric"><div class="val" id="m-tps">-</div><div class="lbl">Tok/s</div></div>
+</div>
+<div class="grid">
+<div class="card"><h3>Loss Curve</h3><canvas id="loss-chart"></canvas></div>
+<div class="card"><h3>Gradient Norm</h3><canvas id="grad-chart"></canvas></div>
+<div class="card"><h3>Learning Rate</h3><canvas id="lr-chart"></canvas></div>
+<div class="card"><h3>Throughput</h3><canvas id="tps-chart"></canvas></div>
+</div>
+<div style="margin-top:1rem"><button onclick="simulateTraining()">Start Training</button><button onclick="resetCharts()">Reset</button></div>
+<script>
+const charts={};let data={loss:[],grad:[],lr:[],tps:[]};let step=0;
+function initChart(id,color){const c=document.getElementById(id);charts[id]=c.getContext('2d');c.width=c.offsetWidth;c.height=200;}
+['loss-chart','grad-chart','lr-chart','tps-chart'].forEach(id=>initChart(id,'#7c3aed'));
+function drawLine(id,vals,color){const ctx=charts[id];if(!ctx)return;const c=ctx.canvas;ctx.clearRect(0,0,c.width,c.height);
+ctx.fillStyle='#12122a';ctx.fillRect(0,0,c.width,c.height);if(vals.length<2)return;
+const mx=Math.max(...vals,0.001),mn=Math.min(...vals);const rng=mx-mn||1;
+ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();
+vals.forEach((v,i)=>{const x=i/(vals.length-1)*c.width;const y=c.height-((v-mn)/rng)*(c.height-20)-10;
+i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});ctx.stroke();}
+function simulateTraining(){const iv=setInterval(()=>{step++;
+const loss=3.0*Math.exp(-step*0.005)+0.5+Math.random()*0.1;
+const grad=1.0/(1+step*0.01)+Math.random()*0.05;
+const maxSteps=600;const warmup=20;
+const lr=step<warmup?6e-4*step/warmup:6e-4*0.1+0.5*(1+Math.cos(Math.PI*step/maxSteps))*(6e-4-6e-5);
+const tps=50000+step*100+Math.random()*5000;
+data.loss.push(loss);data.grad.push(grad);data.lr.push(lr*1e4);data.tps.push(tps/1000);
+drawLine('loss-chart',data.loss,'#ef4444');drawLine('grad-chart',data.grad,'#f59e0b');
+drawLine('lr-chart',data.lr,'#10b981');drawLine('tps-chart',data.tps,'#3b82f6');
+document.getElementById('m-step').textContent=step;
+document.getElementById('m-loss').textContent=loss.toFixed(3);
+document.getElementById('m-lr').textContent=lr.toExponential(2);
+document.getElementById('m-tps').textContent=Math.round(tps);
+if(step>=300)clearInterval(iv);},50);}
+function resetCharts(){step=0;data={loss:[],grad:[],lr:[],tps:[]};
+['loss-chart','grad-chart','lr-chart','tps-chart'].forEach(id=>{const ctx=charts[id];ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);});
+document.getElementById('m-step').textContent='0';}
+</script></body></html>

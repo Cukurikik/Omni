@@ -1,8 +1,8 @@
 package robocode
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 type OmniResult struct {

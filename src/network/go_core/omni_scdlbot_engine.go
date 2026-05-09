@@ -6,10 +6,9 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
-	"errors"
 	"fmt"
 	"math"
 	"net/url"
@@ -47,27 +46,27 @@ type DownloadRequest struct {
 
 // DownloadResult represents a completed download.
 type DownloadResult struct {
-	RequestID   string
-	FilePath    string
-	FileSize    int64
-	Format      string
-	DurationMs  int64
-	DownloadMs  int64
-	Throughput  float64
+	RequestID  string
+	FilePath   string
+	FileSize   int64
+	Format     string
+	DurationMs int64
+	DownloadMs int64
+	Throughput float64
 }
 
 // OmniScdlbotEngine manages concurrent audio downloads from
 // multiple platforms (SoundCloud, YouTube, Bandcamp, etc.)
 // with rate limiting, retry logic, and format negotiation.
 type OmniScdlbotEngine struct {
-	mu             sync.RWMutex
-	maxConcurrent  int
-	retryAttempts  int
-	timeoutSec     int
+	mu              sync.RWMutex
+	maxConcurrent   int
+	retryAttempts   int
+	timeoutSec      int
 	activeDownloads map[string]*DownloadRequest
-	completedCount int
-	failedCount    int
-	totalBytesRecv int64
+	completedCount  int
+	failedCount     int
+	totalBytesRecv  int64
 }
 
 // NewOmniScdlbotEngine creates a new download engine.
@@ -82,9 +81,9 @@ func NewOmniScdlbotEngine(maxConcurrent, retryAttempts, timeoutSec int) *OmniScd
 		timeoutSec = 30
 	}
 	return &OmniScdlbotEngine{
-		maxConcurrent:  maxConcurrent,
-		retryAttempts:  retryAttempts,
-		timeoutSec:     timeoutSec,
+		maxConcurrent:   maxConcurrent,
+		retryAttempts:   retryAttempts,
+		timeoutSec:      timeoutSec,
 		activeDownloads: make(map[string]*DownloadRequest),
 	}
 }
@@ -150,12 +149,12 @@ func (e *OmniScdlbotEngine) SubmitDownload(id, rawURL, format, quality string) (
 	}
 
 	req := &DownloadRequest{
-		ID:       id,
-		URL:      rawURL,
-		Platform: platformInfo["platform"].(string),
-		Format:   format,
-		Quality:  quality,
-		Status:   "queued",
+		ID:        id,
+		URL:       rawURL,
+		Platform:  platformInfo["platform"].(string),
+		Format:    format,
+		Quality:   quality,
+		Status:    "queued",
 		StartedAt: time.Now(),
 	}
 	e.activeDownloads[id] = req
@@ -192,12 +191,12 @@ func (e *OmniScdlbotEngine) UpdateProgress(id string, bytesRecv, totalSize int64
 	}
 
 	return map[string]interface{}{
-		"status":     "success",
-		"progress":   math.Round(req.Progress*100) / 100,
-		"bytesRecv":  bytesRecv,
-		"totalSize":  totalSize,
+		"status":        "success",
+		"progress":      math.Round(req.Progress*100) / 100,
+		"bytesRecv":     bytesRecv,
+		"totalSize":     totalSize,
 		"throughputKBs": math.Round(throughput*100) / 100,
-		"elapsedSec": math.Round(elapsed*100) / 100,
+		"elapsedSec":    math.Round(elapsed*100) / 100,
 	}, nil
 }
 
@@ -224,14 +223,14 @@ func (e *OmniScdlbotEngine) CompleteDownload(id, filePath string, fileSize, dura
 	ext := path.Ext(filePath)
 
 	return map[string]interface{}{
-		"status":       "success",
+		"status": "success",
 		"result": map[string]interface{}{
-			"requestId":  id,
-			"filePath":   filePath,
-			"fileSize":   fileSize,
-			"format":     strings.TrimPrefix(ext, "."),
-			"durationMs": durationMs,
-			"downloadMs": elapsed,
+			"requestId":     id,
+			"filePath":      filePath,
+			"fileSize":      fileSize,
+			"format":        strings.TrimPrefix(ext, "."),
+			"durationMs":    durationMs,
+			"downloadMs":    elapsed,
 			"throughputKBs": math.Round(throughput*100) / 100,
 		},
 		"completedTotal": e.completedCount,
@@ -256,3 +255,4 @@ func (e *OmniScdlbotEngine) GetStats() map[string]interface{} {
 
 // Ensure compilation check
 var _ error = (*ScdlbotError)(nil)
+

@@ -47,7 +47,7 @@ func (s *ValleStreamer) StreamPCM(pcmData []byte) OmniAudioResult {
 
 		chunk := pcmData[totalWritten:end]
 		n, err := s.writer.Write(chunk)
-		
+
 		if err != nil {
 			return OmniAudioResult{
 				BytesWritten: totalWritten,

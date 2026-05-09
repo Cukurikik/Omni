@@ -5,10 +5,9 @@
 // Logic Inherited: Go / Network Layer (Service Mesh Proxy + Load Balancing)
 // ===========================================================================
 
-package go_core
+package network_gocore
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 	"sync"
@@ -20,7 +19,7 @@ import (
 type EndpointHealth int
 
 const (
-	Healthy   EndpointHealth = iota
+	Healthy EndpointHealth = iota
 	Degraded
 	Unhealthy
 	Unknown
@@ -95,10 +94,10 @@ type OmniServiceMeshEngine struct {
 	services map[string]*Service
 	mu       sync.RWMutex
 
-	totalRouted     atomic.Uint64
-	totalRetried    atomic.Uint64
-	totalFailed     atomic.Uint64
-	totalEndpoints  atomic.Int64
+	totalRouted    atomic.Uint64
+	totalRetried   atomic.Uint64
+	totalFailed    atomic.Uint64
+	totalEndpoints atomic.Int64
 }
 
 func NewServiceMeshEngine() *OmniServiceMeshEngine {
@@ -264,14 +263,14 @@ func (e *OmniServiceMeshEngine) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":           "OmniServiceMeshEngine",
-		"layer":            "Go Network",
-		"total_services":   len(e.services),
-		"total_endpoints":  e.totalEndpoints.Load(),
-		"total_routed":     e.totalRouted.Load(),
-		"total_retried":    e.totalRetried.Load(),
-		"total_failed":     e.totalFailed.Load(),
-		"services":         serviceList,
+		"engine":          "OmniServiceMeshEngine",
+		"layer":           "Go Network",
+		"total_services":  len(e.services),
+		"total_endpoints": e.totalEndpoints.Load(),
+		"total_routed":    e.totalRouted.Load(),
+		"total_retried":   e.totalRetried.Load(),
+		"total_failed":    e.totalFailed.Load(),
+		"services":        serviceList,
 		"learned_logic": []string{
 			"round-robin-load-balancing",
 			"least-connections-selection",
@@ -284,3 +283,4 @@ func (e *OmniServiceMeshEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

@@ -83,7 +83,7 @@ func CalculateOptimalVerticalSeam(energyMatrix [][]float64) SeamResult {
 		if prevX < width-1 && dp[y][prevX+1] < bestVal {
 			bestX = prevX + 1
 		}
-		
+
 		path[y] = bestX
 	}
 

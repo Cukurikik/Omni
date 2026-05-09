@@ -1,0 +1,19 @@
+# OMNI Framework - API Gateway Dockerfile
+# Packages the Go Ensemble Router into a minimal Alpine container.
+
+FROM golang:1.21-alpine AS builder
+
+WORKDIR /app
+COPY src/network/go/ ./
+RUN go mod init omni_gateway || true
+RUN go get github.com/gorilla/websocket || true
+RUN CGO_ENABLED=0 GOOS=linux go build -o omni_gateway omni_ensemble_router.go
+
+FROM alpine:3.18
+WORKDIR /opt/omni
+
+COPY --from=builder /app/omni_gateway .
+
+EXPOSE 8080 8081
+
+CMD ["./omni_gateway"]

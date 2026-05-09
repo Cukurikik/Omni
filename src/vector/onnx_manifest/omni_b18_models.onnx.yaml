@@ -1,0 +1,99 @@
+// @omni-layer Vector | @omni-lang ONNX YAML | @omni-batch 18 | @omni-semester 16
+// @omni-description ONNX model manifest for OMNI transformer models:
+// operator definitions, IO specifications, and quantization metadata.
+schema: onnx-model-manifest/v1
+metadata:
+  name: omni-transformer-b18
+  version: "1.0.0"
+  producer: "OMNI Framework"
+  batch: 18
+  semester: 16
+
+models:
+  - id: tempo-forecaster
+    opset_version: 17
+    ir_version: 9
+    doc_string: "TEMPO time series forecaster with decomposition and soft prompts"
+    inputs:
+      - name: input_series
+        type: float32
+        shape: [batch, n_series, lookback]
+    outputs:
+      - name: forecast
+        type: float32
+        shape: [batch, n_series, horizon]
+    quantization:
+      method: dynamic
+      bits: 8
+      calibration_samples: 1000
+
+  - id: hiformer-segmentor
+    opset_version: 17
+    inputs:
+      - name: pixel_values
+        type: float32
+        shape: [batch, 3, 224, 224]
+    outputs:
+      - name: segmentation_mask
+        type: int64
+        shape: [batch, 224, 224]
+    quantization:
+      method: static
+      bits: 8
+
+  - id: bert-ner
+    opset_version: 17
+    inputs:
+      - name: input_ids
+        type: int64
+        shape: [batch, seq_len]
+      - name: attention_mask
+        type: int64
+        shape: [batch, seq_len]
+    outputs:
+      - name: logits
+        type: float32
+        shape: [batch, seq_len, n_labels]
+    quantization:
+      method: dynamic
+      bits: 8
+
+  - id: video-classifier
+    opset_version: 17
+    inputs:
+      - name: frames
+        type: float32
+        shape: [batch, n_frames, 3, 224, 224]
+    outputs:
+      - name: class_logits
+        type: float32
+        shape: [batch, n_classes]
+
+  - id: knowledge-editor
+    opset_version: 17
+    inputs:
+      - name: edit_embedding
+        type: float32
+        shape: [d_model]
+      - name: target_layer_weights
+        type: float32
+        shape: [d_model, d_model]
+    outputs:
+      - name: updated_weights
+        type: float32
+        shape: [d_model, d_model]
+
+operators:
+  custom:
+    - name: OmniLinearAttention
+      domain: dev.omni
+      version: 1
+      doc: "O(n) linear attention with ELU+1 feature map"
+    - name: OmniRoPE
+      domain: dev.omni
+      version: 1
+      doc: "Rotary position embedding"
+    - name: OmniSoftPrompt
+      domain: dev.omni
+      version: 1
+      doc: "Soft prompt injection for adaptation"

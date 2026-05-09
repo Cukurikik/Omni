@@ -1,0 +1,54 @@
+{
+  "list": [
+    {
+      "title": "Steins;Gate",
+      "developer": "MAGES. Inc.",
+      "release_year": 2009,
+      "tags": ["Sci-Fi", "Time Travel", "Thriller", "Masterpiece"],
+      "platforms": ["Windows", "Steam Deck", "Android", "iOS", "Consoles"],
+      "description": "A group of friends invent a microwave that can send emails to the past, entangling them in a conspiracy surrounding SERN and the fate of humanity.",
+      "vndb_id": "v2002"
+    },
+    {
+      "title": "Clannad",
+      "developer": "Key",
+      "release_year": 2004,
+      "tags": ["Drama", "Romance", "Nakige", "Slice of Life"],
+      "platforms": ["Windows", "Steam Deck", "Android", "Consoles"],
+      "description": "Tomoya Okazaki is a delinquent who finds his life changing after meeting Nagisa Furukawa, a girl repeating her senior year due to illness.",
+      "vndb_id": "v4"
+    },
+    {
+      "title": "Doki Doki Literature Club!",
+      "developer": "Team Salvato",
+      "release_year": 2017,
+      "tags": ["Psychological Horror", "Romance", "Meta", "Free"],
+      "platforms": ["Windows", "macOS", "Linux", "Consoles"],
+      "description": "Join the Literature Club! It's always been a dream of yours to make something special out of the things you love.",
+      "vndb_id": "v21905"
+    },
+    {
+      "title": "Muv-Luv Alternative",
+      "developer": "âge",
+      "release_year": 2006,
+      "tags": ["Mecha", "Sci-Fi", "Action", "Kamige"],
+      "platforms": ["Windows", "Steam Deck", "Consoles"],
+      "description": "Takeru wakes up three years after the end of Unlimited to find himself back in his room. He must use his knowledge to save humanity from the BETA.",
+      "vndb_id": "v92"
+    },
+    {
+      "title": "Fate/stay night",
+      "developer": "Type-Moon",
+      "release_year": 2004,
+      "tags": ["Action", "Fantasy", "Magic", "Urban Fantasy"],
+      "platforms": ["Windows", "Android", "iOS", "Consoles"],
+      "description": "Shirou Emiya finds himself thrust into the Fifth Holy Grail War, a secret magical tournament where participants fight to the death for a wish-granting chalice.",
+      "vndb_id": "v11"
+    }
+  ],
+  "metadata": {
+    "curator": "OMNI Mother",
+    "inspiration": "sergree/awesome-visual-novels",
+    "updated_at": "2026-05-04T00:00:00Z"
+  }
+}

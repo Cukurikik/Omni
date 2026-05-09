@@ -1,4 +1,4 @@
-package omni_gsap
+package network
 
 import "time"
 

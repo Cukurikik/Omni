@@ -1,4 +1,4 @@
-package omni_typed_js
+package network
 
 import (
 	"context"

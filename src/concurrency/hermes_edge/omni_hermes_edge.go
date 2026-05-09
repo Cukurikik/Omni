@@ -1,12 +1,12 @@
 package hermes_edge
 
 import (
-	"time"
-	"errors"
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"sync"
+	"time"
 )
 
 // OMNI Hermes Edge Pipeline
@@ -28,10 +28,10 @@ type EventPacket struct {
 }
 
 type OmniHermesEdge struct {
-	mu           sync.RWMutex
-	eventStream  chan EventPacket
+	mu             sync.RWMutex
+	eventStream    chan EventPacket
 	processedBytes uint64
-	active        bool
+	active         bool
 }
 
 func NewOmniHermesEdge(bufferSize int) (*OmniHermesEdge, error) {
@@ -44,7 +44,7 @@ func NewOmniHermesEdge(bufferSize int) (*OmniHermesEdge, error) {
 	}, nil
 }
 
-// IngestData accepts raw edge data, calculates a cryptographic SHA256 signature for integrity, 
+// IngestData accepts raw edge data, calculates a cryptographic SHA256 signature for integrity,
 // and drops it into a non-blocking channel for high-throughput concurrency processing.
 func (h *OmniHermesEdge) IngestData(dataType PayloadType, rawData []byte) (string, error) {
 	h.mu.RLock()

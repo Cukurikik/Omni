@@ -1,8 +1,8 @@
 package imagetagging
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"sync"
 )
 
@@ -41,7 +41,7 @@ func (p *BatchInferencePool) Start(ctx context.Context) {
 
 func (p *BatchInferencePool) batchProcessor(ctx context.Context) {
 	defer p.wg.Done()
-	
+
 	buffer := make([]ImageRequest, 0, p.batchSize)
 
 	for {
@@ -58,7 +58,7 @@ func (p *BatchInferencePool) batchProcessor(ctx context.Context) {
 				}
 				return
 			}
-			
+
 			buffer = append(buffer, req)
 			if len(buffer) == p.batchSize {
 				p.executeBatch(buffer)

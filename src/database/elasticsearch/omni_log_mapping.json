@@ -1,0 +1,19 @@
+{
+  "index_patterns": ["omni-logs-*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 3,
+      "number_of_replicas": 1
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "level": { "type": "keyword" },
+        "service": { "type": "keyword" },
+        "message": { "type": "text" },
+        "trace_id": { "type": "keyword" },
+        "latency_ms": { "type": "float" }
+      }
+    }
+  }
+}

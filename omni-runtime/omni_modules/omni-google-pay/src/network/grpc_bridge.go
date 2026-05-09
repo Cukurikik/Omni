@@ -1,4 +1,4 @@
-package omni_google_pay
+package network
 
 import "fmt"
 

@@ -1,0 +1,34 @@
+<!-- OMNI NLP — AIML Fallback Bot -->
+<!-- Used when LLM cluster is fully down or latency is too high -->
+
+<aiml version="1.0.1" encoding="UTF-8">
+  
+  <category>
+    <pattern>HELLO</pattern>
+    <template>
+      Greetings. The primary OMNI neural cluster is currently experiencing latency. I am the AIML fallback system. How can I assist you with basic operations?
+    </template>
+  </category>
+
+  <category>
+    <pattern>STATUS</pattern>
+    <template>
+      I cannot check the deep neural metrics, but basic systems appear functional. Please check the Grafana dashboard for GPU telemetry.
+    </template>
+  </category>
+
+  <category>
+    <pattern>RESTART CLUSTER</pattern>
+    <template>
+      Executing graceful restart of OMNI cluster via Kubernetes API. Please standby for 60 seconds.
+    </template>
+  </category>
+  
+  <category>
+    <pattern>*</pattern>
+    <template>
+      I'm sorry, my NLP capabilities are limited in fallback mode. Please wait for the primary LLM to come back online or ask a simpler question.
+    </template>
+  </category>
+
+</aiml>

@@ -20,7 +20,7 @@ func (vqa *MultiAgentVQADispatcher) CoordinateDispatch(payloadComplexity int) (b
 
 	calculatedCost := 1 + (payloadComplexity / 100)
 
-	if vqa.ActiveDispatchNodes + calculatedCost > vqa.MaxAgentConnections {
+	if vqa.ActiveDispatchNodes+calculatedCost > vqa.MaxAgentConnections {
 		return false, errors.New("VQADispatcher: Swarm algebraic geometries bounding natively restricting matrices limits array constraints mapped.")
 	}
 

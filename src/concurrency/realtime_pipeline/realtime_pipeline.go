@@ -1,8 +1,8 @@
 package streaming
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 )
 
 // RealtimePipeline adopts the jamiepine/voicebox paradigm.
@@ -21,7 +21,7 @@ func NewRealtimeVoicePipeline() *RealtimePipeline {
 // EstablishDuplexConnection initiates the 2-way Voice API.
 func (rp *RealtimePipeline) EstablishDuplexConnection(ctx context.Context) error {
 	fmt.Printf("🎙️ [VOICEBOX-STREAMING] Membuka Kanal WebRTC Dua-Arah (Full-Duplex)...\n")
-	
+
 	if rp.WebRTCActive {
 		fmt.Printf("   ... Menyambungkan ke Input/Output Audio Sistem (Latency < 200ms)...\n")
 	}

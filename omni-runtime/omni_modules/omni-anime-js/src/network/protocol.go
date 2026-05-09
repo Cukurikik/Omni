@@ -1,4 +1,4 @@
-package omni_anime_js
+package network
 
 import (
 	"encoding/binary"

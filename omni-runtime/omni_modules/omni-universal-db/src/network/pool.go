@@ -1,7 +1,7 @@
 // OMNI-UNIVERSAL-DB: Network Layer (Go)
 // Goroutines serving as NoSQL & Cache multi-million concurrent connection meshes.
 
-package universaldb
+package network
 
 import (
     "fmt"

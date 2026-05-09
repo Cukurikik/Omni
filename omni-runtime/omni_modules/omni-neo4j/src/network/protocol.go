@@ -1,4 +1,4 @@
-package omni_neo4j
+package network
 
 import (
 	"encoding/binary"

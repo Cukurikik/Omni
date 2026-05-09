@@ -1,8 +1,5 @@
 package concurrency
 
-import (
-)
-
 type OMGMError struct {
 	Msg string
 }

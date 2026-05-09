@@ -1,10 +1,10 @@
 package graph
 
 import (
-	"time"
 	"errors"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 type Graph struct {
@@ -45,13 +45,13 @@ func (s *NodeSampler) GenerateRandomWalks() OmniResult {
 
 	totalWalks := len(nodes) * s.numWalks
 	results := make([][]int, totalWalks)
-	
+
 	// Create job queue
 	type Job struct {
 		startNode int
 		idx       int
 	}
-	
+
 	jobs := make(chan Job, totalWalks)
 	var wg sync.WaitGroup
 
@@ -60,10 +60,10 @@ func (s *NodeSampler) GenerateRandomWalks() OmniResult {
 		wg.Add(1)
 		go func(workerID int) {
 			defer wg.Done()
-			
+
 			// Thread-local random generator to avoid global lock contention
 			rng := rand.New(rand.NewSource(time.Now().UnixNano() + int64(workerID)))
-			
+
 			for job := range jobs {
 				walk := make([]int, s.walkLength)
 				curr := job.startNode
@@ -75,7 +75,7 @@ func (s *NodeSampler) GenerateRandomWalks() OmniResult {
 						// Absorbing state if no neighbors
 						break
 					}
-					
+
 					// Uniform random sampling
 					nextIdx := rng.Intn(len(neighbors))
 					curr = neighbors[nextIdx]
@@ -94,7 +94,7 @@ func (s *NodeSampler) GenerateRandomWalks() OmniResult {
 			idx++
 		}
 	}
-	
+
 	close(jobs)
 	wg.Wait()
 

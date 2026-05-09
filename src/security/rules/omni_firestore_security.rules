@@ -1,0 +1,56 @@
+rules_version = '2';
+
+// Omni Firestore Security Rules
+// Security Layer
+// Enforces Enterprise-grade zero-trust access logic for Firestore databases
+// storing Omni telemetry and user configurations.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.role == 'admin';
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function hasValidSchema(requiredFields) {
+      return request.resource.data.keys().hasAll(requiredFields);
+    }
+
+    // Telemetry Collection: Only backend services (Admin SDK) can write.
+    // Authenticated users can read their own organization's telemetry.
+    match /omni_telemetry/{docId} {
+      allow read: if isAuthenticated() && request.auth.token.org_id == resource.data.org_id;
+      allow write: if isAdmin(); // Enforced via IAM / Service Account in production
+    }
+
+    // User Configurations Collection
+    match /users/{userId} {
+      // Users can read their own profile, admins can read all
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Users can update their own profile, but cannot elevate their role
+      allow update: if isOwner(userId) 
+                    && hasValidSchema(['displayName', 'theme'])
+                    && !('role' in request.resource.data)
+                    && request.resource.data.quota == resource.data.quota; // Prevent quota tampering
+                    
+      // Only admins can create or delete user records directly in Firestore
+      allow create, delete: if isAdmin();
+    }
+    
+    // Model Registry Collection (Public read, Admin write)
+    match /omni_models/{modelId} {
+      allow read: if isAuthenticated() && resource.data.visibility == 'public';
+      allow write: if isAdmin();
+    }
+  }
+}

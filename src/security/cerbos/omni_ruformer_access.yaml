@@ -1,0 +1,22 @@
+# OMNI Cerbos Policy for Multi-lingual Model Access
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "omni:model:ruformer"
+  rules:
+    - actions: ["inference", "fine-tune"]
+      effect: EFFECT_ALLOW
+      roles:
+        - ai_researcher
+        - admin
+      condition:
+        match:
+          expr: request.resource.attr.region == "EU"
+
+    - actions: ["inference"]
+      effect: EFFECT_ALLOW
+      roles:
+        - api_client
+      condition:
+        match:
+          expr: request.principal.attr.quota_remaining > 0

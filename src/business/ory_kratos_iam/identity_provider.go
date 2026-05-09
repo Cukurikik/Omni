@@ -1,8 +1,8 @@
 package orykratosiam
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
-type IdentityProvider struct {}
+type IdentityProvider struct{}
 
 func (i *IdentityProvider) VerifyIdentity(id string) result.Result[bool] {
 	if id == "" {

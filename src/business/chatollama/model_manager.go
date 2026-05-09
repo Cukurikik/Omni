@@ -1,10 +1,10 @@
 package chatollama
 
 import (
-	"time"
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"time"
 )
 
 // OMNI CHATOLLAMA: Model Manager

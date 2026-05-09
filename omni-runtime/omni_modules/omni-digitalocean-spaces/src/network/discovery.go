@@ -1,4 +1,4 @@
-package omni_digitalocean_spaces
+package network
 
 import "sync"
 

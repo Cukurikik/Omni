@@ -1,0 +1,46 @@
+# OMNI Security — Cerbos Roles Definition
+# Defines the hierarchical RBAC structure for the framework
+
+apiVersion: api.cerbos.dev/v1
+principalPolicy:
+  version: default
+  principal: admin
+  rules:
+    - resource: omni_model
+      actions:
+        - name: create
+          effect: EFFECT_ALLOW
+        - name: read
+          effect: EFFECT_ALLOW
+        - name: update
+          effect: EFFECT_ALLOW
+        - name: delete
+          effect: EFFECT_ALLOW
+        - name: finetune
+          effect: EFFECT_ALLOW
+
+---
+apiVersion: api.cerbos.dev/v1
+principalPolicy:
+  version: default
+  principal: enterprise_user
+  rules:
+    - resource: omni_model
+      actions:
+        - name: read
+          effect: EFFECT_ALLOW
+        - name: infer
+          effect: EFFECT_ALLOW
+        - name: finetune
+          effect: EFFECT_ALLOW
+
+---
+apiVersion: api.cerbos.dev/v1
+principalPolicy:
+  version: default
+  principal: standard_user
+  rules:
+    - resource: omni_model
+      actions:
+        - name: infer
+          effect: EFFECT_ALLOW

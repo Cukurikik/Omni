@@ -1,4 +1,4 @@
-package omni_afterpay
+package network
 
 import (
 	"net/http"

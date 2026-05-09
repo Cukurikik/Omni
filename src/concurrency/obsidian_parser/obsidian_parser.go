@@ -1,6 +1,7 @@
 package vault
 
 import (
+	"log"
 	"strings"
 )
 
@@ -8,7 +9,7 @@ import (
 // 📓 OMNI VAULT: Obsidian Context Ingestion (Phase 80)
 // ==========================================
 // Skrip Native Golang ini akan membedah seluruh folder
-// Obsidian Tuan, Menerjemahkan MarkDown wikilinks [[Link]], 
+// Obsidian Tuan, Menerjemahkan MarkDown wikilinks [[Link]],
 // dan menyuntikkan Context Tokennya ke dalam Gemini API.
 
 func extractFrontmatter(content string) string {
@@ -23,7 +24,7 @@ func parseWikilinks(content string) []string {
 
 func ObsidianParserMain() {
 	log.Println("📓 [OMNI-OBSIDIAN] Memindai direktori lokal 'Vault/Omni_Notes'...")
-	
+
 	// Simulasi membaca isi file
 	simulatedMarkdown := `
 	---

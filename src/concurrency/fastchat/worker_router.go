@@ -1,8 +1,8 @@
 package fastchat
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 	"sync"
 )
 

@@ -6,9 +6,9 @@ import (
 )
 
 var (
-	ErrFileTooLarge    = errors.New("file exceeds maximum upload size limit")
-	ErrDisallowedType  = errors.New("file type blocked by magic byte signature")
-	ErrShortBuffer     = errors.New("file buffer too short for magic byte analysis")
+	ErrFileTooLarge   = errors.New("file exceeds maximum upload size limit")
+	ErrDisallowedType = errors.New("file type blocked by magic byte signature")
+	ErrShortBuffer    = errors.New("file buffer too short for magic byte analysis")
 )
 
 // OMNI MOTHER SYSTEM - SECURITY LAYER
@@ -24,8 +24,8 @@ const (
 )
 
 var magicSignatures = map[AllowedMimeType][]byte{
-	MimePDF:  {0x25, 0x50, 0x44, 0x46, 0x2D},             // %PDF-
-	MimeJPEG: {0xFF, 0xD8, 0xFF},                         // JPEG start
+	MimePDF:  {0x25, 0x50, 0x44, 0x46, 0x2D},                   // %PDF-
+	MimeJPEG: {0xFF, 0xD8, 0xFF},                               // JPEG start
 	MimePNG:  {0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A}, // PNG start
 }
 

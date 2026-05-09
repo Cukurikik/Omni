@@ -1,8 +1,8 @@
 package concurrency
 
 import (
-	"time"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -23,7 +23,7 @@ func (t *TensorParallelizer) Calculate11DTensorsAsync(tensorSize int64) OmniResu
 	defer t.mu.Unlock()
 
 	// Simulate high-throughput Go routine managing 11-dimensional tensor mathematics.
-	// Modeling M-Theory string dynamics requires solving millions of coupled 
+	// Modeling M-Theory string dynamics requires solving millions of coupled
 	// non-linear differential equations across 11 dimensions simultaneously.
 	// This worker parallelizes the Riemann curvature tensor calculations across the cluster.
 	time.Sleep(20 * time.Millisecond)

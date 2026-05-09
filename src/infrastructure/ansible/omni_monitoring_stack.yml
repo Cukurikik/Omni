@@ -1,0 +1,122 @@
+# OMNI Infrastructure — Ansible Monitoring Stack Deployment
+# Prometheus + Grafana + AlertManager for inference monitoring.
+---
+- name: Deploy OMNI Inference Monitoring Stack
+  hosts: monitoring
+  become: true
+  vars:
+    prometheus_version: "2.50.0"
+    grafana_version: "10.3.0"
+    alertmanager_version: "0.27.0"
+    retention_days: 30
+    scrape_interval: "15s"
+    inference_targets:
+      - "gpu-node-1:9090"
+      - "gpu-node-2:9090"
+      - "gpu-node-3:9090"
+
+  tasks:
+    - name: Create monitoring directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - /opt/monitoring/prometheus
+        - /opt/monitoring/grafana
+        - /opt/monitoring/alertmanager
+        - /opt/monitoring/prometheus/data
+        - /opt/monitoring/grafana/data
+
+    - name: Deploy Prometheus configuration
+      copy:
+        dest: /opt/monitoring/prometheus/prometheus.yml
+        content: |
+          global:
+            scrape_interval: {{ scrape_interval }}
+            evaluation_interval: 15s
+          alerting:
+            alertmanagers:
+              - static_configs:
+                  - targets: ['localhost:9093']
+          rule_files:
+            - /opt/monitoring/prometheus/alerts.yml
+          scrape_configs:
+            - job_name: 'omni-inference'
+              static_configs:
+                - targets: {{ inference_targets | to_json }}
+              metrics_path: /metrics
+              scrape_interval: 10s
+            - job_name: 'node-exporter'
+              static_configs:
+                - targets: {{ inference_targets | map('regex_replace', ':9090', ':9100') | list | to_json }}
+            - job_name: 'gpu-exporter'
+              static_configs:
+                - targets: {{ inference_targets | map('regex_replace', ':9090', ':9400') | list | to_json }}
+      notify: Restart Prometheus
+
+    - name: Deploy alert rules
+      copy:
+        dest: /opt/monitoring/prometheus/alerts.yml
+        content: |
+          groups:
+            - name: omni-inference
+              rules:
+                - alert: HighLatency
+                  expr: histogram_quantile(0.95, rate(inference_latency_seconds_bucket[5m])) > 1
+                  for: 5m
+                  labels:
+                    severity: warning
+                  annotations:
+                    summary: "P95 inference latency > 1s"
+                - alert: HighErrorRate
+                  expr: rate(inference_errors_total[5m]) / rate(inference_requests_total[5m]) > 0.05
+                  for: 2m
+                  labels:
+                    severity: critical
+                  annotations:
+                    summary: "Error rate exceeds 5%"
+                - alert: GPUMemoryHigh
+                  expr: gpu_memory_used_bytes / gpu_memory_total_bytes > 0.95
+                  for: 5m
+                  labels:
+                    severity: critical
+                - alert: ModelDown
+                  expr: up{job="omni-inference"} == 0
+                  for: 1m
+                  labels:
+                    severity: critical
+      notify: Restart Prometheus
+
+    - name: Start Prometheus container
+      docker_container:
+        name: prometheus
+        image: "prom/prometheus:v{{ prometheus_version }}"
+        ports: ["9090:9090"]
+        volumes:
+          - "/opt/monitoring/prometheus:/etc/prometheus"
+          - "/opt/monitoring/prometheus/data:/prometheus"
+        command:
+          - "--config.file=/etc/prometheus/prometheus.yml"
+          - "--storage.tsdb.retention.time={{ retention_days }}d"
+          - "--web.enable-lifecycle"
+        restart_policy: unless-stopped
+
+    - name: Start Grafana container
+      docker_container:
+        name: grafana
+        image: "grafana/grafana:{{ grafana_version }}"
+        ports: ["3000:3000"]
+        volumes:
+          - "/opt/monitoring/grafana/data:/var/lib/grafana"
+        env:
+          GF_SECURITY_ADMIN_PASSWORD: "omni-secure-pwd"
+          GF_AUTH_ANONYMOUS_ENABLED: "false"
+          GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+        restart_policy: unless-stopped
+
+  handlers:
+    - name: Restart Prometheus
+      docker_container:
+        name: prometheus
+        restart: true

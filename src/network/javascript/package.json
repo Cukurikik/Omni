@@ -1,0 +1,13 @@
+{
+  "name": "omni-moe-websocket",
+  "version": "3.0.0",
+  "description": "OMNI Framework - WebSocket Server for Real-time MoE Streaming",
+  "main": "omni_moe_websocket.js",
+  "scripts": {
+    "start": "node omni_moe_websocket.js"
+  },
+  "dependencies": {
+    "ws": "^8.16.0",
+    "ioredis": "^5.3.2"
+  }
+}

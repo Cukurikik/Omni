@@ -11,7 +11,7 @@ type OmniResult struct {
 }
 
 type GradientUpdate struct {
-	WorkerID int
+	WorkerID  int
 	Gradients []float64
 }
 
@@ -50,7 +50,7 @@ func (p *ParameterServer) ApplyGradients(update GradientUpdate) OmniResult {
 func (p *ParameterServer) GetParams() []float64 {
 	p.mu.RLock()
 	defer p.mu.RUnlock()
-	
+
 	// Return a copy to ensure thread safety
 	paramsCopy := make([]float64, len(p.params))
 	copy(paramsCopy, p.params)

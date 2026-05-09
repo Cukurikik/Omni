@@ -1,0 +1,63 @@
+---
+# OMNI Deployment Layer
+# Ansible Playbook to automate the orchestration, configuration, and rolling updates
+# across the distributed Omni Unikernel and VM fleet.
+
+- name: Deploy OMNI Universal Binary Updates
+  hosts: omni_cluster
+  become: yes
+  serial: 1  # Ensures a true rolling update (one node at a time)
+  
+  vars:
+    omni_binary_path: "/opt/omni/bin/omni_universal_binary.so"
+    omni_service_name: "omni-inference"
+    omni_artifact_url: "https://nexus.omniframework.dev/releases/latest/omni_universal_binary.so"
+
+  tasks:
+    - name: Pre-Flight Check - Verify Node Memory
+      assert:
+        that:
+          - ansible_memtotal_mb >= 8192
+        fail_msg: "OMNI Requirement failed: Node must have at least 8GB RAM."
+
+    - name: Drain traffic from node (HAProxy integration)
+      command: "echo 'disable server omni_backend/{{ inventory_hostname }}' | socat stdio /var/run/haproxy.sock"
+      ignore_errors: yes
+
+    - name: Stop the OMNI inference service safely
+      systemd:
+        name: "{{ omni_service_name }}"
+        state: stopped
+
+    - name: Download the latest compiled Universal Binary from Nexus
+      get_url:
+        url: "{{ omni_artifact_url }}"
+        dest: "{{ omni_binary_path }}"
+        mode: '0755'
+        owner: omni
+        group: omni
+
+    - name: Update strict permission bounds for Zero-Trust policy
+      file:
+        path: "{{ omni_binary_path }}"
+        state: file
+        attributes: '+i' # Immutable flag to prevent malicious modifications
+
+    - name: Restart OMNI inference service
+      systemd:
+        name: "{{ omni_service_name }}"
+        state: started
+        daemon_reload: yes
+
+    - name: Post-Flight Check - Verify Service Health
+      uri:
+        url: "http://localhost:8080/health"
+        return_content: yes
+      register: health_check
+      until: health_check.status == 200
+      retries: 5
+      delay: 5
+
+    - name: Restore traffic to node
+      command: "echo 'enable server omni_backend/{{ inventory_hostname }}' | socat stdio /var/run/haproxy.sock"
+      ignore_errors: yes

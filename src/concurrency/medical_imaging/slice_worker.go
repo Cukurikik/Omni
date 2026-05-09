@@ -45,11 +45,11 @@ func (w *SliceWorker) process(id int) {
 			w.results <- OmniResult{Error: fmt.Errorf("invalid intensity %.2f", task.Intensity)}
 			continue
 		}
-		
+
 		// Deterministic filtering mathematical simulation
 		normalized := task.Intensity / 255.0
 		contrastEnhanced := normalized * normalized // simple curve
-		
+
 		w.results <- OmniResult{Value: fmt.Sprintf("Worker %d | Scan %s Slice %d | Enhanced: %.4f", id, task.ScanID, task.SliceIdx, contrastEnhanced)}
 	}
 }

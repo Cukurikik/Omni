@@ -1,0 +1,55 @@
+#=============================================================================
+# OMNI DOMAIN LAYER — MRI RECONSTRUCTION SCHEMA (GRAPHQL)
+# BATCH: 31 | SEMESTER: 16
+# DESCRIPTION: Type-safe GraphQL schema contract for the SLATER MRI 
+#              reconstruction pipeline in medical domains.
+# INSPIRED BY: icon-lab/SLATER
+#=============================================================================
+
+@schema
+type MRIReconstructionJob {
+  id: ID!
+  patientId: String!
+  status: ReconstructionStatus!
+  inputResolution: String!
+  outputResolution: String
+  startTime: String!
+  completionTime: String
+  artifactUrl: String
+  confidenceScore: Float
+}
+
+enum ReconstructionStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+input KSpaceDataInput {
+  patientId: String!
+  rawDataUri: String!
+  resolution: String!
+  undersamplingFactor: Float!
+}
+
+type Query {
+  """
+  Retrieve the status of an active MRI reconstruction job.
+  """
+  getReconstructionJob(id: ID!): MRIReconstructionJob
+}
+
+type Mutation {
+  """
+  Submit under-sampled K-Space data to the SLATER transformer pipeline.
+  """
+  submitReconstruction(input: KSpaceDataInput!): MRIReconstructionJob!
+}
+
+type Subscription {
+  """
+  Real-time updates for an MRI reconstruction job.
+  """
+  reconstructionStatusUpdated(jobId: ID!): MRIReconstructionJob!
+}

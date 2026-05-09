@@ -58,7 +58,7 @@ func (p *WorkerPool) worker(ctx context.Context) {
 			if !ok {
 				return
 			}
-			
+
 			// Mocking Cgo call to Rust SimHash and Python Cleaner
 			simHashMock := uint64(len(doc.Content) * 12345)
 			cleanedMock := "cleaned " + doc.ID

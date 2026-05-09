@@ -1,0 +1,106 @@
+# OMNI Infrastructure Layer
+# Ansible Playbook: Omni Cluster Initialization
+# Based on ansible/ansible.
+# Automates the configuration of bare-metal Ubuntu/RHEL servers, installing dependencies,
+# and launching the Omni Universal Engine cluster nodes.
+
+---
+- name: Bootstrap Omni Universal Engine Cluster
+  hosts: omni_workers
+  become: yes
+  vars:
+    omni_version: "3.0.0-OMNI-MOTHER-NEXUS"
+    omni_install_dir: "/opt/omni"
+    nexus_registry: "https://nexus.omniframework.dev/releases"
+
+  tasks:
+    - name: Ensure baseline system dependencies are present (LLVM, Cmake, Build-essential)
+      package:
+        name:
+          - llvm-16
+          - clang-16
+          - cmake
+          - build-essential
+          - curl
+          - libssl-dev
+          - jq
+        state: present
+        update_cache: yes
+
+    - name: Create Omni installation directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+      loop:
+        - "{{ omni_install_dir }}/bin"
+        - "{{ omni_install_dir }}/lib"
+        - "{{ omni_install_dir }}/etc"
+        - "/var/log/omni"
+
+    - name: Download Omni Universal Binary (Simulated tarball fetch)
+      get_url:
+        url: "{{ nexus_registry }}/omni-v{{ omni_version }}-linux-x86_64.tar.gz"
+        dest: "/tmp/omni_release.tar.gz"
+        mode: '0644'
+      # In reality, we check sums or signatures here
+
+    - name: Extract Omni binaries into installation path
+      unarchive:
+        src: "/tmp/omni_release.tar.gz"
+        dest: "{{ omni_install_dir }}/bin/"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+      ignore_errors: yes # Ignored for simulation since the URL doesn't exist yet
+
+    - name: Generate base Omnifile.toml configuration for the Node
+      copy:
+        dest: "{{ omni_install_dir }}/etc/Omnifile.toml"
+        content: |
+          [node]
+          environment = "production"
+          log_level = "info"
+          cabi_memory_limit = "80%"
+
+          [network]
+          bind_address = "0.0.0.0"
+          grpc_port = 50051
+
+          [security]
+          mtls_enabled = true
+          spire_socket = "/tmp/spire-agent/public/api.sock"
+
+    - name: Configure systemd service for Omni Universal Engine
+      copy:
+        dest: /etc/systemd/system/omni-engine.service
+        content: |
+          [Unit]
+          Description=Omni Universal Engine
+          After=network.target
+
+          [Service]
+          Type=simple
+          ExecStart={{ omni_install_dir }}/bin/omnikernel start --config {{ omni_install_dir }}/etc/Omnifile.toml
+          Restart=on-failure
+          LimitNOFILE=1048576
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Enable and start Omni Universal Engine service
+      systemd:
+        name: omni-engine
+        enabled: yes
+        state: restarted
+        daemon_reload: yes
+
+    - name: Verify Engine Status (Health Check)
+      command: "{{ omni_install_dir }}/bin/omni health-check"
+      register: health_status
+      ignore_errors: yes
+
+    - name: Display Health Status
+      debug:
+        msg: "OMNI Ansible: Node Bootstrapped. Status -> {{ health_status.stdout | default('Simulated OK') }}"

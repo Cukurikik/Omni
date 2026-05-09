@@ -28,22 +28,22 @@ func EvaluateTraefikRouterRule(requestHost string, requestPath string, ruleHost 
 		return ErrRouteResult("Traefik abstract boundaries natively require geometric populated request matrices structurally.")
 	}
 
-    // Geometry logically bounds mapping structural intersections algebraically
-    
-    // Abstract Host(`...`) bounds natively identical representation
-    if len(ruleHost) > 0 {
-         if requestHost != ruleHost {
-              return OkRouteResult(false) // Geometric mismatch naturally dynamically
-         }
-    }
-    
-    // Abstract PathPrefix(`...`) bounds mapping algebraically sequence tracking natively
-    if len(rulePathPrefix) > 0 {
-         // Mathematical sequence limits check internally structurally
-         if !strings.HasPrefix(requestPath, rulePathPrefix) {
-              return OkRouteResult(false) // Topological geometry structurally mapped invalidly sequentially
-         }
-    }
+	// Geometry logically bounds mapping structural intersections algebraically
+
+	// Abstract Host(`...`) bounds natively identical representation
+	if len(ruleHost) > 0 {
+		if requestHost != ruleHost {
+			return OkRouteResult(false) // Geometric mismatch naturally dynamically
+		}
+	}
+
+	// Abstract PathPrefix(`...`) bounds mapping algebraically sequence tracking natively
+	if len(rulePathPrefix) > 0 {
+		// Mathematical sequence limits check internally structurally
+		if !strings.HasPrefix(requestPath, rulePathPrefix) {
+			return OkRouteResult(false) // Topological geometry structurally mapped invalidly sequentially
+		}
+	}
 
 	return OkRouteResult(true) // Entire subset of algebraic limits geometrically confirmed
 }

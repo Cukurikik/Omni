@@ -1,10 +1,10 @@
 package zimaos_blue
 
 import (
-	"time"
-	"errors"
 	"context"
+	"errors"
 	"sync"
+	"time"
 )
 
 // OMNI ZimaOS Runtime Engine
@@ -110,9 +110,9 @@ func (z *OmniZimaOSRuntime) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":       "OmniZimaOSRuntime",
-		"total_agents": len(z.instances),
+		"engine":        "OmniZimaOSRuntime",
+		"total_agents":  len(z.instances),
 		"active_agents": activeCount,
-		"status":       "Operational",
+		"status":        "Operational",
 	}
 }

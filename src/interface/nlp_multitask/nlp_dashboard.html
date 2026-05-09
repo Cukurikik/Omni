@@ -1,0 +1,82 @@
+<!-- @omni-layer Interface | @omni-source TheophileBlard/french-sentiment + dmlc/torchblocks | @omni-lang HTML
+     @omni-description NLP multi-task dashboard: unified interface for sentiment,
+     NER, classification with real-time metrics and model comparison. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMNI NLP Multi-Task Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#0a0e17;color:#e2e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1f36,#0d1224);padding:18px 28px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:1.4rem;background:linear-gradient(135deg,#22d3ee,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tabs{display:flex;gap:6px}
+.tab{padding:6px 16px;border-radius:8px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;transition:all 0.2s}
+.tab.active{background:#60a5fa;color:white}.tab:not(.active){background:#1e293b;color:#94a3b8}
+.main{display:grid;grid-template-columns:1fr 260px;gap:16px;padding:20px}
+.task-panel{display:flex;flex-direction:column;gap:12px}
+.card{background:#1a1f36;border-radius:12px;padding:16px}
+.card h3{color:#93c5fd;font-size:0.95rem;margin-bottom:12px}
+.input-area{width:100%;min-height:100px;background:#0a0e17;border:1px solid #334155;border-radius:8px;padding:12px;color:#e2e8f0;font-size:0.9rem;resize:vertical}
+.result-row{display:flex;justify-content:space-between;padding:6px 0;font-size:0.85rem;border-bottom:1px solid #1e293b20}
+.ner-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:600;margin:2px}
+.stat{background:#1a1f36;border-radius:8px;padding:12px}
+.stat-value{font-size:1.3rem;font-weight:700;color:#60a5fa}
+.stat-label{font-size:0.7rem;color:#64748b;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🧠 OMNI NLP Multi-Task Dashboard</h1>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('sentiment')">Sentiment</button>
+    <button class="tab" onclick="switchTab('ner')">NER</button>
+    <button class="tab" onclick="switchTab('classify')">Classification</button>
+  </div>
+</div>
+<div class="main">
+  <div class="task-panel">
+    <div class="card">
+      <h3 id="taskTitle">📝 Sentiment Analysis</h3>
+      <textarea class="input-area" id="textInput" placeholder="Enter text to analyze...">Le service était excellent et la nourriture délicieuse.</textarea>
+      <button style="margin-top:10px;padding:8px 20px;background:linear-gradient(135deg,#60a5fa,#a78bfa);border:none;border-radius:8px;color:white;font-weight:600;cursor:pointer" onclick="runAnalysis()">Analyze</button>
+    </div>
+    <div class="card" id="resultPanel">
+      <h3>Results</h3>
+      <div id="results" style="color:#64748b;font-size:0.85rem">Click Analyze to see results</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="stat" id="stat1"><div class="stat-value">0</div><div class="stat-label">Analyses</div></div>
+    <div class="stat" id="stat2"><div class="stat-value">0ms</div><div class="stat-label">Avg Latency</div></div>
+    <div class="stat" id="stat3"><div class="stat-value">-</div><div class="stat-label">Confidence</div></div>
+    <div class="stat" id="stat4"><div class="stat-value">3</div><div class="stat-label">Tasks</div></div>
+    <div class="card"><h3 style="font-size:0.85rem">Languages</h3>
+      <div style="font-size:0.8rem;color:#94a3b8;margin-top:4px">🇫🇷 French • 🇬🇧 English • 🇩🇪 German • 🇪🇸 Spanish</div>
+    </div>
+  </div>
+</div>
+<script>
+let mode="sentiment",count=0,totalLatency=0;
+const labels=["very_negative","negative","neutral","positive","very_positive"];
+const colors={"very_negative":"#dc2626","negative":"#ef4444","neutral":"#64748b","positive":"#10b981","very_positive":"#059669"};
+const nerTags=[{text:"Paris",tag:"LOC",color:"#60a5fa"},{text:"Google",tag:"ORG",color:"#a78bfa"},{text:"Marie",tag:"PER",color:"#22d3ee"}];
+function switchTab(t){mode=t;document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');const titles={sentiment:"📝 Sentiment Analysis",ner:"🏷️ Named Entity Recognition",classify:"📊 Text Classification"};
+document.getElementById('taskTitle').textContent=titles[t]||t}
+function runAnalysis(){const text=document.getElementById('textInput').value;if(!text)return;
+const start=performance.now();count++;
+if(mode==="sentiment"){const scores=labels.map((_,i)=>Math.random());const total=scores.reduce((a,b)=>a+b);
+const probs=scores.map(s=>s/total);const bestIdx=probs.indexOf(Math.max(...probs));
+document.getElementById('results').innerHTML=labels.map((l,i)=>`<div class="result-row"><span style="color:${colors[l]}">${l.replace('_',' ')}</span><span>${(probs[i]*100).toFixed(1)}%</span></div>`).join('');}
+else if(mode==="ner"){document.getElementById('results').innerHTML=nerTags.map(e=>`<span class="ner-tag" style="background:${e.color}20;color:${e.color};border:1px solid ${e.color}40">${e.text} [${e.tag}]</span>`).join('');}
+else{document.getElementById('results').innerHTML=['News','Sports','Tech','Entertainment'].map(c=>`<div class="result-row"><span>${c}</span><span style="color:#60a5fa">${(Math.random()*100).toFixed(1)}%</span></div>`).join('');}
+const lat=performance.now()-start;totalLatency+=lat;
+document.getElementById('stat1').querySelector('.stat-value').textContent=count;
+document.getElementById('stat2').querySelector('.stat-value').textContent=(totalLatency/count).toFixed(0)+'ms';
+document.getElementById('stat3').querySelector('.stat-value').textContent=(70+Math.random()*25).toFixed(1)+'%';}
+</script>
+</body>
+</html>

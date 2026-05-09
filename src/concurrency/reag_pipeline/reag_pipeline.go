@@ -1,8 +1,5 @@
 package concurrency
 
-import (
-)
-
 type ReAGPipelineError struct {
 	Msg string
 }
@@ -37,9 +34,9 @@ func (e *ReAGPipelineEngine) ScheduleRetrievalBounds(activeGoroutines int, curre
 
 	// Throttle based on structural latency limits
 	throttle_probability := currentLatencyMs / 500.0
-	
+
 	if throttle_probability > 0.95 {
-		 return Result{nil, &ReAGPipelineError{Msg: "Latency geometrically blocks reasoning stream"}}
+		return Result{nil, &ReAGPipelineError{Msg: "Latency geometrically blocks reasoning stream"}}
 	}
 
 	return Result{map[string]interface{}{

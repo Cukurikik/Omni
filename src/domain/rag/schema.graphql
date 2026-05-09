@@ -1,0 +1,69 @@
+#=============================================================================
+# OMNI DOMAIN LAYER — RAG SCHEMA (GRAPHQL)
+# BATCH: 31 | SEMESTER: 16
+# DESCRIPTION: Type-safe GraphQL schema contract for Retrieval-Augmented 
+#              Generation AI systems.
+# INSPIRED BY: hoangsonww/RAG-LangChain-AI-System
+#=============================================================================
+
+"""
+Omni RAG Document Representation
+"""
+@schema
+type RAGDocument {
+  id: ID!
+  content: String!
+  metadata: DocumentMetadata!
+  embedding: [Float!]!
+  score: Float
+}
+
+"""
+Metadata associated with indexed RAG documents
+"""
+type DocumentMetadata {
+  source: String!
+  author: String
+  timestamp: String!
+  category: String
+  permissions: [String!]!
+}
+
+"""
+Query input for RAG Search
+"""
+input RAGQueryInput {
+  queryText: String!
+  topK: Int = 5
+  similarityThreshold: Float = 0.75
+  filters: MetadataFilter
+}
+
+input MetadataFilter {
+  category: String
+  source: String
+}
+
+"""
+Result of a RAG query response
+"""
+type RAGResponse {
+  answer: String!
+  sources: [RAGDocument!]!
+  generationTimeMs: Int!
+  confidence: Float!
+}
+
+type Query {
+  """
+  Executes a semantic search and returns an AI-generated answer based on retrieved documents.
+  """
+  askRAG(input: RAGQueryInput!): RAGResponse!
+}
+
+type Mutation {
+  """
+  Ingests a new document into the Vector Database (FAISS/Chroma).
+  """
+  ingestDocument(content: String!, metadata: String!): RAGDocument!
+}

@@ -16,13 +16,13 @@ type Frame struct {
 }
 
 type FrameRingBuffer struct {
-	frames     []Frame
-	head       int
-	tail       int
-	count      int
-	capacity   int
-	mu         sync.Mutex
-	cond       *sync.Cond
+	frames   []Frame
+	head     int
+	tail     int
+	count    int
+	capacity int
+	mu       sync.Mutex
+	cond     *sync.Cond
 }
 
 func NewFrameRingBuffer(capacity int) *FrameRingBuffer {

@@ -1,4 +1,4 @@
-package omni_graphql_federation
+package network
 
 import "fmt"
 

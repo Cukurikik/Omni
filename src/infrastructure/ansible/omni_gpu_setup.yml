@@ -1,0 +1,64 @@
+---
+# OMNI Framework - GPU Node Provisioning (Ansible)
+# Playbook to set up fresh Ubuntu machines with NVIDIA drivers and Docker
+
+- name: Provision OMNI GPU Inference Nodes
+  hosts: gpu_workers
+  become: yes
+  vars:
+    docker_version: "5:24.0.5-1~ubuntu.22.04~jammy"
+    nvidia_driver_version: "535"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install prerequisite packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Install NVIDIA Drivers
+      apt:
+        name: "nvidia-driver-{{ nvidia_driver_version }}"
+        state: present
+      notify: Reboot Server
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Install Docker Engine
+      apt:
+        name: 
+          - docker-ce={{ docker_version }}
+          - docker-ce-cli={{ docker_version }}
+          - containerd.io
+        state: present
+
+    - name: Install NVIDIA Container Toolkit
+      shell: |
+        distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+        curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add -
+        curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list
+        apt-get update && apt-get install -y nvidia-container-toolkit
+        systemctl restart docker
+      args:
+        creates: /usr/bin/nvidia-container-toolkit
+
+  handlers:
+    - name: Reboot Server
+      reboot:
+        msg: "OMNI Infra: Rebooting to apply NVIDIA drivers"

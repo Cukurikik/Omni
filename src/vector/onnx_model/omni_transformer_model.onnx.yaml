@@ -1,0 +1,124 @@
+# @omni-layer Vector | @omni-lang ONNX (Model Config) | @omni-batch 17
+# @omni-description ONNX model manifest: schema definition for portable
+# model export with operator set, I/O shapes, and quantization config.
+
+ir_version: 9
+opset_import:
+  - domain: ""
+    version: 20
+  - domain: "ai.onnx.ml"
+    version: 4
+
+producer_name: "omni-framework"
+producer_version: "17.0.0"
+model_version: 1
+doc_string: "OMNI Batch 17 Transformer Inference Model"
+domain: "omni.ai"
+
+graph:
+  name: "omni_transformer_graph"
+  doc_string: "Multi-head attention transformer for NLP inference"
+
+  input:
+    - name: "input_ids"
+      type:
+        tensor_type:
+          elem_type: INT64
+          shape:
+            dim:
+              - dim_param: "batch_size"
+              - dim_param: "seq_len"
+
+    - name: "attention_mask"
+      type:
+        tensor_type:
+          elem_type: INT64
+          shape:
+            dim:
+              - dim_param: "batch_size"
+              - dim_param: "seq_len"
+
+  output:
+    - name: "logits"
+      type:
+        tensor_type:
+          elem_type: FLOAT
+          shape:
+            dim:
+              - dim_param: "batch_size"
+              - dim_param: "seq_len"
+              - dim_value: 32000
+
+    - name: "hidden_states"
+      type:
+        tensor_type:
+          elem_type: FLOAT
+          shape:
+            dim:
+              - dim_param: "batch_size"
+              - dim_param: "seq_len"
+              - dim_value: 768
+
+  node:
+    - op_type: "Gather"
+      name: "embedding_lookup"
+      input: ["embedding_table", "input_ids"]
+      output: ["embedded"]
+      domain: ""
+
+    - op_type: "LayerNormalization"
+      name: "layer_norm_0"
+      input: ["embedded", "ln0_weight", "ln0_bias"]
+      output: ["normed_0"]
+      attribute:
+        - name: "epsilon"
+          type: FLOAT
+          f: 0.00001
+
+    - op_type: "Attention"
+      name: "mha_0"
+      input: ["normed_0", "normed_0", "normed_0", "attention_mask"]
+      output: ["attn_out_0"]
+      domain: ""
+      attribute:
+        - name: "num_heads"
+          type: INT
+          i: 12
+
+    - op_type: "MatMul"
+      name: "ffn_up"
+      input: ["attn_out_0", "ffn_up_weight"]
+      output: ["ffn_hidden"]
+
+    - op_type: "Gelu"
+      name: "ffn_activation"
+      input: ["ffn_hidden"]
+      output: ["ffn_activated"]
+      attribute:
+        - name: "approximate"
+          type: STRING
+          s: "tanh"
+
+    - op_type: "MatMul"
+      name: "ffn_down"
+      input: ["ffn_activated", "ffn_down_weight"]
+      output: ["hidden_states"]
+
+    - op_type: "MatMul"
+      name: "lm_head"
+      input: ["hidden_states", "lm_head_weight"]
+      output: ["logits"]
+
+metadata_props:
+  - key: "omni_batch"
+    value: "17"
+  - key: "omni_layer"
+    value: "vector_embedding"
+  - key: "quantization"
+    value: "dynamic_int8"
+  - key: "target_runtime"
+    value: "onnxruntime,tensorrt,openvino"
+  - key: "max_sequence_length"
+    value: "4096"
+  - key: "vocabulary_size"
+    value: "32000"

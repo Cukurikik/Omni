@@ -1,4 +1,4 @@
-package omni_p5_js
+package network
 
 import "sync"
 

@@ -1,0 +1,58 @@
+---
+# OMNI Framework - Deploy MoE Cluster (Ansible)
+# Automates the setup of NVIDIA Drivers, Docker, and the Omni MoE Runtime on target nodes.
+
+- name: Provision OMNI Multi-Node MoE Cluster
+  hosts: moe_workers
+  become: yes
+  vars:
+    nvidia_driver_version: "535"
+    omni_runtime_version: "v3.0.0-OMNI-MOTHER-NEXUS"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install build essentials and linux headers
+      apt:
+        name: 
+          - build-essential
+          - linux-headers-{{ ansible_kernel }}
+        state: present
+
+    - name: Install NVIDIA Drivers (for CUDA & TensorRT-LLM)
+      apt:
+        name: "nvidia-driver-{{ nvidia_driver_version }}"
+        state: present
+      notify: Reboot Node
+
+    - name: Install NVIDIA Container Toolkit
+      shell: |
+        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+        apt-get update
+        apt-get install -y nvidia-container-toolkit
+      args:
+        creates: /usr/bin/nvidia-ctk
+
+    - name: Configure Docker to use NVIDIA runtime
+      command: nvidia-ctk runtime configure --runtime=docker
+      notify: Restart Docker
+
+    - name: Pull OMNI MoE Runtime Image (vLLM/SGLang based)
+      docker_image:
+        name: "nexus.omniframework.dev/omni-moe-runtime:{{ omni_runtime_version }}"
+        source: pull
+
+  handlers:
+    - name: Reboot Node
+      reboot:
+        msg: "Rebooting to apply NVIDIA drivers"
+        reboot_timeout: 600
+
+    - name: Restart Docker
+      service:
+        name: docker
+        state: restarted

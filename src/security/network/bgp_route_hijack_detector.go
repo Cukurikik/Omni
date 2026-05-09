@@ -32,9 +32,9 @@ type PathAttribute struct {
 
 // BGP Attribute Type Codes
 const (
-	AttrOrigin     = 1
-	AttrAsPath     = 2
-	AttrNextHop    = 3
+	AttrOrigin  = 1
+	AttrAsPath  = 2
+	AttrNextHop = 3
 )
 
 // RoaRecord (Route Origin Authorization)
@@ -101,7 +101,7 @@ func (d *BgpHijackDetector) AnalyzeUpdate(update *BgpUpdate) ([]string, error) {
 func (d *BgpHijackDetector) validateAgainstRoa(prefix *net.IPNet, originAsn uint32) bool {
 	// A strictly enforced BGP router drops packets with status "Invalid".
 	// "NotFound" or "Valid" are permitted.
-	
+
 	for _, roa := range d.RoaDatabase {
 		// Check if prefix overlaps
 		if roa.Prefix.Contains(prefix.IP) {

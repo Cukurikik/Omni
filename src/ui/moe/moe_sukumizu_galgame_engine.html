@@ -1,0 +1,91 @@
+<!-- 
+moe_sukumizu_galgame_engine.html — Interface / UI
+Layer: Interface / Web — TyranoBuilder AVG Engine Integration
+
+Inspired by `SpoaLove/Sukumizu_Paradise`.
+This HTML file serves as the web canvas for a visual novel game engine. 
+It connects to the MoE backend (via WebSocket) to receive dynamically generated 
+dialogue and scene instructions, rendering the game in real-time on the canvas.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI AVG Interactive Story Engine</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #111; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        #game-container { position: relative; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        #game-canvas { background-color: #222; box-shadow: 0 0 20px rgba(0,0,0,0.8); max-width: 100%; max-height: 100%; aspect-ratio: 16/9; }
+        #dialogue-box { position: absolute; bottom: 5%; width: 80%; height: 25%; background: rgba(0, 0, 0, 0.7); border: 2px solid #555; border-radius: 10px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }
+        #speaker-name { font-weight: bold; font-size: 1.5rem; color: #ff99cc; margin-bottom: 10px; }
+        #dialogue-text { font-size: 1.2rem; line-height: 1.5; flex-grow: 1; }
+        #status-indicator { position: absolute; top: 10px; right: 10px; padding: 5px 10px; background: rgba(255,0,0,0.5); border-radius: 5px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <!-- Main game rendering canvas (Pixi.js / Live2D would hook here) -->
+    <canvas id="game-canvas" width="1920" height="1080"></canvas>
+    
+    <div id="dialogue-box">
+        <div id="speaker-name">System</div>
+        <div id="dialogue-text">Connecting to OMNI MoE Narrative Engine...</div>
+    </div>
+    
+    <div id="status-indicator">Disconnected</div>
+</div>
+
+<script>
+    const speakerEl = document.getElementById('speaker-name');
+    const textEl = document.getElementById('dialogue-text');
+    const statusEl = document.getElementById('status-indicator');
+
+    // Connect to MoE Expert #6 (Creative Writing / Narrative)
+    const ws = new WebSocket('ws://localhost:8080/api/v1/avg/stream');
+
+    ws.onopen = () => {
+        statusEl.textContent = "Connected to MoE";
+        statusEl.style.background = "rgba(0,255,0,0.5)";
+        textEl.textContent = "Engine ready. Awaiting LLM script generation...";
+    };
+
+    ws.onmessage = (event) => {
+        try {
+            // Expected payload from MoE: {"speaker": "Alice", "text": "Hello!", "emotion": "smile", "background": "school.jpg"}
+            const data = JSON.parse(event.data);
+            
+            if (data.speaker) speakerEl.textContent = data.speaker;
+            if (data.text) typeText(data.text);
+            
+            // Here you would trigger PixiJS background changes or Live2D expression changes
+            if (data.emotion) {
+                console.log(`[Galgame Engine] Triggering Emotion: ${data.emotion}`);
+            }
+        } catch (e) {
+            console.error("Failed to parse MoE payload", e);
+        }
+    };
+
+    ws.onclose = () => {
+        statusEl.textContent = "Disconnected";
+        statusEl.style.background = "rgba(255,0,0,0.5)";
+    };
+
+    function typeText(text) {
+        textEl.textContent = "";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                textEl.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 20); // 20ms per character typing effect
+            }
+        }
+        typeWriter();
+    }
+</script>
+
+</body>
+</html>

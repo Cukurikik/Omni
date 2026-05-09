@@ -1,4 +1,4 @@
-package omni_pdf_generator
+package network
 
 import "sync"
 

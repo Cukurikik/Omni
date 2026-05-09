@@ -1,0 +1,38 @@
+package com.omni.rules;
+
+import com.omni.models.InferenceRequest;
+import com.omni.models.RouteDecision;
+
+// Omni Drools Rules (Natural Language & Rules Layer)
+// Evaluates incoming inference requests and dynamically routes them 
+// to the appropriate Transformer model based on latency, cost, and complexity.
+
+rule "Route Simple Text to Fast Model"
+    when
+        $req : InferenceRequest( modality == "text", sequenceLength < 512, priority == "low" )
+        $decision : RouteDecision()
+    then
+        $decision.setTargetModel("Omni-Mini-Text");
+        $decision.setComputeTier("CPU");
+        System.out.println("Routed to fast CPU tier due to low complexity.");
+end
+
+rule "Route Multimodal to Heavy GPU Cluster"
+    when
+        $req : InferenceRequest( modality == "multimodal", requiresVision == true )
+        $decision : RouteDecision()
+    then
+        $decision.setTargetModel("Omni-GPT4o-Multimodal");
+        $decision.setComputeTier("A100-GPU-Cluster");
+        System.out.println("Routed to A100 GPU cluster due to multimodal requirements.");
+end
+
+rule "Route High Priority Sequence to Dedicated Node"
+    when
+        $req : InferenceRequest( priority == "critical", sequenceLength >= 4096 )
+        $decision : RouteDecision()
+    then
+        $decision.setTargetModel("Omni-LongContext-Pro");
+        $decision.setComputeTier("H100-Dedicated");
+        System.out.println("Routed to H100 dedicated tier for high-priority long context.");
+end

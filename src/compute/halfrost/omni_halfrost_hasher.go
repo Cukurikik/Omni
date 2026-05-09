@@ -54,7 +54,7 @@ func (c *ConsistentHashRing) AddNode(node string) {
 		hash := c.getRawHash(replicaKey)
 		c.nodes = append(c.nodes, NodeHash{Hash: hash, Node: node})
 	}
-	
+
 	// Sort by hash to form the ring
 	sort.Slice(c.nodes, func(i, j int) bool {
 		return c.nodes[i].Hash < c.nodes[j].Hash
@@ -65,18 +65,18 @@ func (c *ConsistentHashRing) GetNode(key string) HashRingResult {
 	if len(c.nodes) == 0 {
 		return ErrHashRingResult("Hash ring is empty.")
 	}
-	
+
 	hash := c.getRawHash(key)
-	
+
 	// Binary search to find the first node with hash >= request hash
 	idx := sort.Search(len(c.nodes), func(i int) bool {
 		return c.nodes[i].Hash >= hash
 	})
-	
+
 	// Wrap around the ring
 	if idx >= len(c.nodes) {
 		idx = 0
 	}
-	
+
 	return OkHashRingResult(c.nodes[idx].Node)
 }

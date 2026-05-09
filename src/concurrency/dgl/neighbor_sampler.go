@@ -16,6 +16,6 @@ func SampleNeighbors(nodeID int, maxNeighbors int) OmniResult {
 
 	// Go concurrent neighbor sampling for large graphs
 	sampled := []int{nodeID + 1, nodeID + 2} // simulated
-	
+
 	return OmniResult{Value: sampled, Error: nil}
 }

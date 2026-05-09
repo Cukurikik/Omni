@@ -2,7 +2,8 @@ package llmebench
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func RunDataset(ctx context.Context, datasetID string) result.Result[bool] {

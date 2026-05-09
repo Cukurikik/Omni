@@ -11,9 +11,9 @@ type OmniResult struct {
 }
 
 type ActionEvent struct {
-	ID        string
-	Cmd       string
-	Params    map[string]interface{}
+	ID     string
+	Cmd    string
+	Params map[string]interface{}
 }
 
 type EventLoopWorker struct {
@@ -46,13 +46,13 @@ func (w *EventLoopWorker) Start() {
 
 func (w *EventLoopWorker) eventLoop() {
 	defer w.wg.Done()
-	
+
 	for action := range w.actionQueue {
 		if action.Cmd == "" {
 			w.results <- OmniResult{Error: errors.New("empty command received")}
 			continue
 		}
-		
+
 		// Map and dispatch logic
 		processed := w.dispatchToSystem(action)
 		w.results <- OmniResult{Data: processed}

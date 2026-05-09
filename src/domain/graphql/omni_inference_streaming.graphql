@@ -1,0 +1,153 @@
+// OMNI Domain — GraphQL Inference Streaming Schema
+// Subscription-based streaming and real-time model monitoring.
+
+type Query {
+  inferenceQueue: QueueStatus!
+  modelBenchmark(modelId: ID!, benchmarkName: String!): BenchmarkResult
+  compareModels(modelIds: [ID!]!): [ModelComparison!]!
+  searchModels(query: String!, filters: ModelFilters): [ModelSearchResult!]!
+  costEstimate(modelId: ID!, tokensPerDay: Long!): CostEstimate!
+}
+
+type Mutation {
+  submitBatchInference(input: BatchInferenceInput!): BatchJob!
+  cancelBatchJob(jobId: ID!): BatchJob!
+  cloneModel(sourceId: ID!, newName: String!): Model!
+  mergeModels(input: MergeModelsInput!): MergeJob!
+  quantizeModel(input: QuantizeInput!): QuantizeJob!
+}
+
+type Subscription {
+  tokenStream(requestId: ID!): StreamToken!
+  batchProgress(jobId: ID!): BatchProgress!
+  gpuMetrics(nodeId: String): GPUMetrics!
+}
+
+input BatchInferenceInput {
+  modelId: ID!
+  prompts: [String!]!
+  maxTokens: Int = 256
+  temperature: Float = 0.7
+  priority: Int = 0
+}
+
+input MergeModelsInput {
+  sourceModels: [ID!]!
+  method: MergeMethod!
+  interpolation: Float = 0.5
+  outputName: String!
+}
+
+input QuantizeInput {
+  modelId: ID!
+  bits: Int! # 2, 3, 4, 8
+  method: QuantMethod!
+  calibrationDataset: String
+}
+
+input ModelFilters {
+  architecture: String
+  minParams: Long
+  maxParams: Long
+  status: ModelStatus
+  tags: [String!]
+}
+
+enum MergeMethod { LINEAR SLERP TIES DARE }
+enum QuantMethod { GPTQ AWQ GGUF }
+enum ModelStatus { DRAFT VALIDATED STAGING PRODUCTION ARCHIVED }
+
+type StreamToken {
+  token: String!
+  index: Int!
+  finished: Boolean!
+  logprob: Float
+}
+
+type BatchJob {
+  id: ID!
+  modelId: ID!
+  totalPrompts: Int!
+  completedPrompts: Int!
+  status: String!
+  createdAt: DateTime!
+}
+
+type BatchProgress {
+  jobId: ID!
+  completed: Int!
+  total: Int!
+  currentPrompt: String
+  estimatedRemainingMs: Long
+}
+
+type GPUMetrics {
+  nodeId: String!
+  gpuIndex: Int!
+  utilization: Float!
+  memoryUsedMB: Long!
+  memoryTotalMB: Long!
+  temperatureC: Float!
+  powerWatts: Float!
+  timestamp: DateTime!
+}
+
+type BenchmarkResult {
+  modelId: ID!
+  benchmarkName: String!
+  score: Float!
+  details: JSON!
+  ranAt: DateTime!
+}
+
+type ModelComparison {
+  modelId: ID!
+  name: String!
+  scores: JSON!
+  latencyMs: Float!
+  parameters: Long!
+}
+
+type ModelSearchResult {
+  model: Model!
+  relevanceScore: Float!
+  matchedFields: [String!]!
+}
+
+type CostEstimate {
+  dailyCostUsd: Float!
+  monthlyEstimate: Float!
+  gpuHoursPerDay: Float!
+  breakdown: JSON!
+}
+
+type MergeJob {
+  id: ID!
+  status: String!
+  method: MergeMethod!
+  progress: Float!
+}
+
+type QuantizeJob {
+  id: ID!
+  status: String!
+  originalSizeMB: Long!
+  quantizedSizeMB: Long
+  compressionRatio: Float
+}
+
+type QueueStatus {
+  pending: Int!
+  processing: Int!
+  avgWaitMs: Float!
+}
+
+type Model {
+  id: ID!
+  name: String!
+  architecture: String!
+}
+
+scalar DateTime
+scalar JSON
+scalar Long

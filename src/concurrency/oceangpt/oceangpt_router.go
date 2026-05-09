@@ -26,7 +26,7 @@ func (r *oceangptRouter) Execute(ctx context.Context, data []byte) (*oceangptRes
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &oceangptResult{
 		Success: true,
 		Status:  "computed",

@@ -4,9 +4,9 @@ package concurrency
 // Concurrency Layer - Go Worker Pool for LLM Throughput execution
 
 import (
-	"time"
 	"context"
 	"sync"
+	"time"
 )
 
 type OmniError struct {
@@ -22,7 +22,7 @@ type OmniResult[T any] struct {
 	Error *OmniError
 }
 
-func Ok[T any](val T) OmniResult[T] { return OmniResult[T]{IsOk: true, Value: val} }
+func Ok[T any](val T) OmniResult[T]           { return OmniResult[T]{IsOk: true, Value: val} }
 func Err[T any](err *OmniError) OmniResult[T] { return OmniResult[T]{IsOk: false, Error: err} }
 
 // Physical limits
@@ -50,14 +50,14 @@ func ProcessFlexWorkload(ctx context.Context, tasks <-chan InferenceTask, result
 					if !ok {
 						return // Channel closed
 					}
-					
+
 					// Hardware constraint simulation: block if timeout exceeded
 					taskCtx, cancel := context.WithTimeout(ctx, TASK_TIMEOUT)
-					
+
 					// Zero-mock: In physical code this invokes TensorRT or vLLM C bindings
 					// We simulate processing
 					time.Sleep(10 * time.Millisecond)
-					
+
 					select {
 					case <-taskCtx.Done():
 						results <- Err[string](&OmniError{Code: 408, Message: "GPU Execution Timeout"})

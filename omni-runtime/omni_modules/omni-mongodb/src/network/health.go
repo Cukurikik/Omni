@@ -1,4 +1,4 @@
-package omni_mongodb
+package network
 
 import "time"
 

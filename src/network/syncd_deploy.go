@@ -31,21 +31,21 @@ type DeployTarget struct {
 
 // SyncdDeployConfig defines the deployment pipeline.
 type SyncdDeployConfig struct {
-	ProjectName   string
-	SourceDir     string
-	Targets       []DeployTarget
-	ExcludeFiles  []string
-	PreDeployHook string   // shell command to run before deploy
-	PostDeployHook string  // shell command to run after deploy
-	HealthCheckURL string  // URL to verify after deploy
-	MaxParallel   int      // concurrent deployments
-	KeepReleases  int      // number of releases to keep for rollback
+	ProjectName    string
+	SourceDir      string
+	Targets        []DeployTarget
+	ExcludeFiles   []string
+	PreDeployHook  string // shell command to run before deploy
+	PostDeployHook string // shell command to run after deploy
+	HealthCheckURL string // URL to verify after deploy
+	MaxParallel    int    // concurrent deployments
+	KeepReleases   int    // number of releases to keep for rollback
 }
 
 // DeployStatus tracks a single server's deployment state.
 type DeployResult struct {
 	Target      DeployTarget
-	Status      string    // "success", "failed", "rolled_back"
+	Status      string // "success", "failed", "rolled_back"
 	StartedAt   time.Time
 	CompletedAt time.Time
 	ElapsedMs   int64
@@ -110,10 +110,10 @@ func (rh *ReleaseHistory) Count() int {
 // ---- Deploy Engine --------------------------------------------------------
 
 type SyncdDeployer struct {
-	config   SyncdDeployConfig
-	history  map[string]*ReleaseHistory // target.Name → history
-	results  []DeployResult
-	mu       sync.Mutex
+	config  SyncdDeployConfig
+	history map[string]*ReleaseHistory // target.Name → history
+	results []DeployResult
+	mu      sync.Mutex
 }
 
 func NewSyncdDeployer(config SyncdDeployConfig) *SyncdDeployer {
@@ -178,7 +178,9 @@ func (d *SyncdDeployer) Deploy() []DeployResult {
 	// Summary
 	succeeded := 0
 	for _, r := range results {
-		if r.Status == "success" { succeeded++ }
+		if r.Status == "success" {
+			succeeded++
+		}
 	}
 	fmt.Printf("[SYNCD-OMNI-GO] ═══ Deployment complete: %d/%d succeeded ═══\n",
 		succeeded, len(results))

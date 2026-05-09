@@ -1,0 +1,18 @@
+# OMNI Database — SPARQL Query
+# Retrieves entities related to an inferred concept in Graph-RAG
+
+PREFIX omni: <http://omni.framework/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?entity ?label ?relationship
+WHERE {
+  # Find all concepts related to "Artificial Neural Network"
+  ?entity omni:relatedTo omni:ArtificialNeuralNetwork .
+  ?entity rdfs:label ?label .
+  
+  # Also fetch the specific type of relationship
+  OPTIONAL {
+    ?entity omni:relationshipType ?relationship .
+  }
+}
+LIMIT 50

@@ -102,16 +102,16 @@ const (
 // ---- Webhook Payload ------------------------------------------------------
 
 type WebhookPayload struct {
-	EventType  GitHubEventType
-	Action     string
-	Repository RepoInfo
-	Sender     UserInfo
+	EventType   GitHubEventType
+	Action      string
+	Repository  RepoInfo
+	Sender      UserInfo
 	PullRequest *PRInfo
 	Issue       *IssueInfo
-	Comment    *CommentInfo
-	Ref        string
-	RawJSON    []byte
-	ReceivedAt time.Time
+	Comment     *CommentInfo
+	Ref         string
+	RawJSON     []byte
+	ReceivedAt  time.Time
 }
 
 type RepoInfo struct {
@@ -157,31 +157,31 @@ type CommentInfo struct {
 // ---- Repo AI Configuration ------------------------------------------------
 
 type RepoAIConfig struct {
-	RepoFullName     string
-	Enabled          bool
-	AutoReview       bool
-	AutoFix          bool
-	ReviewStyle      string // "thorough", "concise", "security-focused"
-	IgnoreDrafts     bool
-	IgnoredPaths     []string
+	RepoFullName      string
+	Enabled           bool
+	AutoReview        bool
+	AutoFix           bool
+	ReviewStyle       string // "thorough", "concise", "security-focused"
+	IgnoreDrafts      bool
+	IgnoredPaths      []string
 	MaxFilesPerReview int
-	AIModel          string
-	SystemPrompt     string
-	Labels           map[string]string // label -> AI behavior
+	AIModel           string
+	SystemPrompt      string
+	Labels            map[string]string // label -> AI behavior
 }
 
 func DefaultRepoConfig(repoFullName string) *RepoAIConfig {
 	return &RepoAIConfig{
-		RepoFullName:     repoFullName,
-		Enabled:          true,
-		AutoReview:       true,
-		AutoFix:          false,
-		ReviewStyle:      "thorough",
-		IgnoreDrafts:     true,
-		IgnoredPaths:     []string{"*.lock", "*.sum", "vendor/", "node_modules/"},
+		RepoFullName:      repoFullName,
+		Enabled:           true,
+		AutoReview:        true,
+		AutoFix:           false,
+		ReviewStyle:       "thorough",
+		IgnoreDrafts:      true,
+		IgnoredPaths:      []string{"*.lock", "*.sum", "vendor/", "node_modules/"},
 		MaxFilesPerReview: 50,
-		AIModel:          "claude-sonnet-4-20250514",
-		SystemPrompt:     "You are a senior code reviewer. Provide clear, actionable feedback.",
+		AIModel:           "claude-sonnet-4-20250514",
+		SystemPrompt:      "You are a senior code reviewer. Provide clear, actionable feedback.",
 	}
 }
 
@@ -194,10 +194,10 @@ type ConversationMessage struct {
 }
 
 type PRConversation struct {
-	mu       sync.Mutex
-	RepoName string
-	PRNumber int
-	Messages []ConversationMessage
+	mu          sync.Mutex
+	RepoName    string
+	PRNumber    int
+	Messages    []ConversationMessage
 	ReviewCount int
 	LastReview  time.Time
 }
@@ -224,17 +224,17 @@ func (c *PRConversation) GetContext(maxMessages int) []ConversationMessage {
 // ---- Job Queue Entry ------------------------------------------------------
 
 type WebhookJob struct {
-	ID        string
-	Payload   *WebhookPayload
-	Priority  JobPriority
-	Attempts  int
+	ID         string
+	Payload    *WebhookPayload
+	Priority   JobPriority
+	Attempts   int
 	MaxRetries int
-	Status    string // "pending", "processing", "complete", "failed"
-	Result    string
-	CreatedAt time.Time
-	StartedAt time.Time
-	EndedAt   time.Time
-	Error     string
+	Status     string // "pending", "processing", "complete", "failed"
+	Result     string
+	CreatedAt  time.Time
+	StartedAt  time.Time
+	EndedAt    time.Time
+	Error      string
 }
 
 // ---- Rate Limiter ---------------------------------------------------------
@@ -297,15 +297,15 @@ func VerifyWebhookSignature(payload []byte, signature, secret string) bool {
 // ---- Review Result --------------------------------------------------------
 
 type ReviewResult struct {
-	PRNumber     int
-	RepoName     string
-	Summary      string
-	Comments     []ReviewComment
-	Approval     string // "approve", "request_changes", "comment"
-	Severity     string // "info", "warning", "critical"
+	PRNumber      int
+	RepoName      string
+	Summary       string
+	Comments      []ReviewComment
+	Approval      string // "approve", "request_changes", "comment"
+	Severity      string // "info", "warning", "critical"
 	FilesReviewed int
 	IssuesFound   int
-	Duration     time.Duration
+	Duration      time.Duration
 }
 
 type ReviewComment struct {
@@ -319,17 +319,17 @@ type ReviewComment struct {
 // ---- Claude Hub Engine (Main) ---------------------------------------------
 
 type ClaudeHubEngine struct {
-	mu              sync.RWMutex
-	webhookSecret   string
-	repoConfigs     map[string]*RepoAIConfig
-	conversations   map[string]*PRConversation // key: "owner/repo#123"
-	jobQueue        []*WebhookJob
-	rateLimiter     *RateLimiter
-	totalEvents     atomic.Uint64
-	totalReviews    atomic.Uint64
-	totalJobs       atomic.Uint64
-	workers         int
-	stopCh          chan struct{}
+	mu            sync.RWMutex
+	webhookSecret string
+	repoConfigs   map[string]*RepoAIConfig
+	conversations map[string]*PRConversation // key: "owner/repo#123"
+	jobQueue      []*WebhookJob
+	rateLimiter   *RateLimiter
+	totalEvents   atomic.Uint64
+	totalReviews  atomic.Uint64
+	totalJobs     atomic.Uint64
+	workers       int
+	stopCh        chan struct{}
 }
 
 func NewClaudeHubEngine(webhookSecret string, workers int) *ClaudeHubEngine {
@@ -774,16 +774,16 @@ func (e *ClaudeHubEngine) Stats() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":          "Claude Hub Webhook Engine",
-		"version":         "1.0.0-omni",
+		"engine":           "Claude Hub Webhook Engine",
+		"version":          "1.0.0-omni",
 		"repos_registered": len(e.repoConfigs),
-		"conversations":   len(e.conversations),
-		"total_events":    e.totalEvents.Load(),
-		"total_reviews":   e.totalReviews.Load(),
-		"total_jobs":      e.totalJobs.Load(),
-		"pending_jobs":    pendingJobs,
-		"completed_jobs":  completedJobs,
-		"failed_jobs":     failedJobs,
-		"workers":         e.workers,
+		"conversations":    len(e.conversations),
+		"total_events":     e.totalEvents.Load(),
+		"total_reviews":    e.totalReviews.Load(),
+		"total_jobs":       e.totalJobs.Load(),
+		"pending_jobs":     pendingJobs,
+		"completed_jobs":   completedJobs,
+		"failed_jobs":      failedJobs,
+		"workers":          e.workers,
 	}
 }

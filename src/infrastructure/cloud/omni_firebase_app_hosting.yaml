@@ -1,0 +1,40 @@
+# Omni Firebase App Hosting Configuration
+# Infrastructure & Cloud Layer
+# Defines the deployment configuration for the Omni Next.js / Angular
+# monitoring dashboard via Firebase App Hosting.
+
+# Environment variables automatically populated via Cloud Secret Manager
+env:
+  - variable: OMNI_NEXUS_API_KEY
+    secret: projects/omni-mother/secrets/omni_nexus_api_key/versions/latest
+  - variable: DATABASE_URL
+    secret: projects/omni-mother/secrets/postgres_url/versions/latest
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: omni-mother-production
+
+# Build settings
+build:
+  buildCommand: npm run build
+  outputDirectory: .next
+  
+  # Ensure the environment uses Node 20
+  nodeVersion: "20"
+  
+  # Concurrency limits for server-side rendering (SSR)
+  concurrency: 100
+  
+  # Minimum instances to prevent cold starts on the dashboard
+  minInstances: 2
+  maxInstances: 50
+
+# Caching directives for static assets and API routes
+headers:
+  - source: "/_next/static/(.*)"
+    headers:
+      - key: "Cache-Control"
+        value: "public, max-age=31536000, immutable"
+  
+  - source: "/api/telemetry/(.*)"
+    headers:
+      - key: "Cache-Control"
+        value: "s-maxage=60, stale-while-revalidate=30"

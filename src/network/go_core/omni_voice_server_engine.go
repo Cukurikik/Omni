@@ -14,7 +14,7 @@
 // @since 2026.4.0
 // @tags ["voip", "server", "udp", "teamspeak"]
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -208,7 +208,7 @@ func (s *OmniVoiceServerEngine) handleJoin(id ClientID, addr *net.UDPAddr) {
 		LastActive: time.Now(),
 	}
 	s.clients[id] = client
-	
+
 	lobby := s.channels["lobby"]
 	lobby.mu.Lock()
 	lobby.Clients[id] = client
@@ -263,15 +263,16 @@ func (s *OmniVoiceServerEngine) pruneDisconnected() {
 	for id, client := range s.clients {
 		if now.Sub(client.LastActive) > 30*time.Second {
 			log.Printf("Client timed out: %s", id)
-			
+
 			// Remove from channel
 			if ch, ok := s.channels[client.CurrentCh]; ok {
 				ch.mu.Lock()
 				delete(ch.Clients, id)
 				ch.mu.Unlock()
 			}
-			
+
 			delete(s.clients, id)
 		}
 	}
 }
+

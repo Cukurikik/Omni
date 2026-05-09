@@ -1,11 +1,12 @@
 package fedml
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
 	"io"
 	"sync"
+	"time"
+
 	// Mocking grpc for standalone compilation
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -33,8 +34,8 @@ type FedMLStream interface {
 }
 
 type FederationBridge struct {
-	mu           sync.RWMutex
-	globalModel  []float32
+	mu            sync.RWMutex
+	globalModel   []float32
 	activeWorkers map[string]time.Time
 }
 

@@ -1,8 +1,8 @@
 package hyde
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 type OmniResult struct {

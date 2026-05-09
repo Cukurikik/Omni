@@ -1,0 +1,81 @@
+%!PS-Adobe-3.0
+%%Title: OMNI Transformer Architecture Map
+%%Creator: Omni C-ABI Graph Exporter
+%%BoundingBox: 0 0 612 792
+%%EndComments
+
+% OMNI UI & Visualization Layer
+% PostScript code to directly render a high-quality vector graph of the 
+% current Transformer topology. Can be piped directly to a printer or distilled to PDF.
+
+/Helvetica findfont 12 scalefont setfont
+
+% Draw a box for a neural network layer
+/DrawLayerBox {
+    % Expects: x y width height title
+    /title exch def
+    /h exch def
+    /w exch def
+    /y exch def
+    /x exch def
+    
+    newpath
+    x y moveto
+    w 0 rlineto
+    0 h rlineto
+    w neg 0 rlineto
+    closepath
+    0.9 setgray fill
+    
+    newpath
+    x y moveto
+    w 0 rlineto
+    0 h rlineto
+    w neg 0 rlineto
+    closepath
+    0 setgray stroke
+    
+    % Center text
+    x 10 add y h 2 div add 4 sub moveto
+    0 setgray
+    title show
+} def
+
+% Draw a connecting arrow
+/DrawArrow {
+    % Expects: x1 y1 x2 y2
+    /y2 exch def
+    /x2 exch def
+    /y1 exch def
+    /x1 exch def
+    
+    newpath
+    x1 y1 moveto
+    x2 y2 lineto
+    stroke
+} def
+
+% --- Render the OMNI Architecture ---
+
+% Input Embeddings
+100 700 200 40 (Input Embeddings & Pos Encoding) DrawLayerBox
+
+% Arrow Down
+200 700 200 660 DrawArrow
+
+% Self-Attention Block 1
+100 620 200 40 (Multi-Head Self Attention) DrawLayerBox
+
+% Arrow Down
+200 620 200 580 DrawArrow
+
+% Feed Forward Block 1
+100 540 200 40 (Position-wise Feed Forward) DrawLayerBox
+
+% Output
+200 540 200 500 DrawArrow
+150 480 moveto
+(To Universal Binary Compiler...) show
+
+showpage
+%%EOF

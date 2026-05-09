@@ -6,7 +6,7 @@
 // Domain Layer      : Concurrency (Go Core)
 // ===========================================================================
 
-package go_core
+package network_gocore
 
 import (
 	"encoding/json"
@@ -39,7 +39,7 @@ func protocol_listener_daemon(protocol string, hub_channel chan<- AudioStreamReq
 
 func audio_sink_multiplexer(requests <-chan AudioStreamRequest, status_out chan<- AudioLockStatus) {
 	current_lock := AudioLockStatus{GrantedTo: "NONE", IsLocked: false}
-	
+
 	for req := range requests {
 		if !current_lock.IsLocked || current_lock.GrantedTo == req.Protocol {
 			current_lock.GrantedTo = req.Protocol
@@ -81,14 +81,15 @@ func init_rpiaudio_receiver() {
 	duration := time.Since(start_time).Milliseconds()
 
 	diag_report := map[string]interface{}{
-		"status": "success",
-		"engine": "OmniRpiAudioReceiverEngine",
-		"mode": "native-goroutine-daemon-multiplexer",
+		"status":          "success",
+		"engine":          "OmniRpiAudioReceiverEngine",
+		"mode":            "native-goroutine-daemon-multiplexer",
 		"events_resolved": locks_granted,
 		"compute_time_ms": duration,
-		"learned_logic": []string{"multichannel-daemon-locks", "exclusive-sink-broker", "goroutine-concurrency-safety"},
+		"learned_logic":   []string{"multichannel-daemon-locks", "exclusive-sink-broker", "goroutine-concurrency-safety"},
 	}
 
 	json_bytes, _ := json.MarshalIndent(diag_report, "", "  ")
 	fmt.Println(string(json_bytes))
 }
+

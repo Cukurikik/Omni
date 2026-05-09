@@ -1,0 +1,80 @@
+# OMNI Database Layer — SPARQL Queries for Model Knowledge Graph
+# Semantic web queries for model ontology and linked data.
+
+PREFIX omni: <http://omniframework.dev/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+# Query: Find all deployed models with their metrics
+SELECT ?model ?name ?architecture ?accuracy ?latency ?deployEnv
+WHERE {
+  ?model a omni:TransformerModel ;
+         omni:name ?name ;
+         omni:architecture ?architecture ;
+         omni:status "deployed" .
+  OPTIONAL { ?model omni:accuracy ?accuracy . }
+  OPTIONAL { ?model omni:latencyP50Ms ?latency . }
+  OPTIONAL {
+    ?model omni:hasDeployment ?deploy .
+    ?deploy omni:environment ?deployEnv .
+  }
+}
+ORDER BY DESC(?accuracy)
+
+# ---
+
+# Query: Model lineage - find parent/child relationships
+SELECT ?child ?childName ?parent ?parentName ?derivationMethod
+WHERE {
+  ?child a omni:TransformerModel ;
+         omni:name ?childName ;
+         omni:derivedFrom ?lineage .
+  ?lineage omni:parentModel ?parent ;
+           omni:method ?derivationMethod .
+  ?parent omni:name ?parentName .
+}
+
+# ---
+
+# Query: Find models trained on specific dataset
+SELECT ?model ?modelName ?dataset ?datasetSize ?trainDate
+WHERE {
+  ?model a omni:TransformerModel ;
+         omni:name ?modelName ;
+         omni:trainedOn ?training .
+  ?training omni:dataset ?dataset ;
+            omni:completedAt ?trainDate .
+  ?dataset omni:sampleCount ?datasetSize .
+  FILTER (?datasetSize > 100000)
+}
+ORDER BY DESC(?trainDate)
+
+# ---
+
+# Query: Aggregate metrics across model families
+SELECT ?architecture (COUNT(?model) AS ?count) (AVG(?accuracy) AS ?avgAccuracy) (MIN(?latency) AS ?bestLatency)
+WHERE {
+  ?model a omni:TransformerModel ;
+         omni:architecture ?architecture ;
+         omni:accuracy ?accuracy ;
+         omni:latencyP50Ms ?latency .
+}
+GROUP BY ?architecture
+HAVING (COUNT(?model) > 1)
+
+# ---
+
+# Query: Find similar models by embedding distance
+SELECT ?modelA ?modelB ?similarity
+WHERE {
+  ?modelA a omni:TransformerModel ;
+          omni:embedding ?embA .
+  ?modelB a omni:TransformerModel ;
+          omni:embedding ?embB .
+  FILTER (?modelA != ?modelB)
+  BIND (omni:cosineSimilarity(?embA, ?embB) AS ?similarity)
+  FILTER (?similarity > 0.8)
+}
+ORDER BY DESC(?similarity)
+LIMIT 20

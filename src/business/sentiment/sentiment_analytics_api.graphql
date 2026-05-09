@@ -1,0 +1,102 @@
+// @omni-layer Business | @omni-source TheophileBlard/french-sentiment | @omni-lang GraphQL
+# @omni-description Sentiment analytics API: GraphQL schema for multilingual
+# sentiment tracking, trend analysis, and brand monitoring.
+
+type SentimentAnalysis {
+  id: ID!
+  text: String!
+  language: String!
+  label: SentimentLabel!
+  confidence: Float!
+  probabilities: SentimentProbabilities!
+  source: String
+  analyzedAt: DateTime!
+}
+
+enum SentimentLabel {
+  VERY_NEGATIVE
+  NEGATIVE
+  NEUTRAL
+  POSITIVE
+  VERY_POSITIVE
+}
+
+type SentimentProbabilities {
+  veryNegative: Float!
+  negative: Float!
+  neutral: Float!
+  positive: Float!
+  veryPositive: Float!
+}
+
+type SentimentTrend {
+  period: String!
+  avgSentiment: Float!
+  distribution: SentimentDistribution!
+  totalAnalyses: Int!
+  dominantLabel: SentimentLabel!
+}
+
+type SentimentDistribution {
+  veryNegative: Int!
+  negative: Int!
+  neutral: Int!
+  positive: Int!
+  veryPositive: Int!
+}
+
+type BrandMention {
+  brand: String!
+  totalMentions: Int!
+  avgSentiment: Float!
+  trend: [SentimentTrend!]!
+  topPositive: [SentimentAnalysis!]!
+  topNegative: [SentimentAnalysis!]!
+}
+
+type LanguageBreakdown {
+  language: String!
+  count: Int!
+  avgConfidence: Float!
+  dominantSentiment: SentimentLabel!
+}
+
+input AnalyzeInput {
+  text: String!
+  language: String = "auto"
+  source: String
+  brand: String
+}
+
+input BatchAnalyzeInput {
+  items: [AnalyzeInput!]!
+}
+
+type BatchResult {
+  results: [SentimentAnalysis!]!
+  totalProcessed: Int!
+  avgConfidence: Float!
+  distribution: SentimentDistribution!
+}
+
+type Query {
+  analysis(id: ID!): SentimentAnalysis
+  recentAnalyses(limit: Int = 20, language: String): [SentimentAnalysis!]!
+  sentimentTrend(brand: String, periodDays: Int = 30): [SentimentTrend!]!
+  brandMention(brand: String!): BrandMention
+  languageBreakdown: [LanguageBreakdown!]!
+  overallStats: SentimentDistribution!
+}
+
+type Mutation {
+  analyze(input: AnalyzeInput!): SentimentAnalysis!
+  batchAnalyze(input: BatchAnalyzeInput!): BatchResult!
+  deleteAnalysis(id: ID!): Boolean!
+}
+
+type Subscription {
+  newAnalysis(brand: String): SentimentAnalysis!
+  sentimentAlert(threshold: Float!): SentimentAnalysis!
+}
+
+scalar DateTime

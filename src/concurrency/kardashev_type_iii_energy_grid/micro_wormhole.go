@@ -1,8 +1,8 @@
 package concurrency
 
 import (
-	"time"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {

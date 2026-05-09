@@ -1,7 +1,6 @@
 package network
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"

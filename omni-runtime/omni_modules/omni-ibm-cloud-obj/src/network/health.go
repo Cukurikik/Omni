@@ -1,4 +1,4 @@
-package omni_ibm_cloud_obj
+package network
 
 import "time"
 

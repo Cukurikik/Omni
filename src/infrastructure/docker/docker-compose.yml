@@ -1,0 +1,126 @@
+// OMNI Infrastructure — Docker Compose for Local Development
+// Full inference stack: API, model server, Redis, Prometheus, Grafana.
+
+version: "3.9"
+
+services:
+  omni-inference:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile.inference
+    ports:
+      - "8080:8080"
+      - "50051:50051"
+    environment:
+      - MODEL_ID=omni-7b
+      - MAX_BATCH_SIZE=32
+      - NUM_WORKERS=4
+      - REDIS_URL=redis://redis:6379
+      - LOG_LEVEL=info
+    volumes:
+      - model-weights:/models:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  omni-gateway:
+    build:
+      context: ../../src/network/nodejs
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - UPSTREAM_URL=http://omni-inference:8080
+      - RATE_LIMIT=100
+      - PORT=8080
+    depends_on:
+      - omni-inference
+    restart: unless-stopped
+
+  omni-embedding:
+    build:
+      context: ../../src/network/python_server
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - MODEL_NAME=omni-embed-v2
+      - CACHE_SIZE=10000
+      - PORT=8082
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  prometheus:
+    image: prom/prometheus:v2.50.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=7d"
+
+  grafana:
+    image: grafana/grafana:10.3.0
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=omni-admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=omni
+      - RABBITMQ_DEFAULT_PASS=omni-secret
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  model-weights:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+  rabbitmq-data:
+
+networks:
+  default:
+    name: omni-network

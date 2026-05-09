@@ -1,0 +1,37 @@
+// @omni-layer Database | @omni-lang Gremlin | @omni-batch 18 | @omni-semester 16
+// @omni-description Gremlin graph traversals for transformer model dependency
+// graph: model lineage, dataset provenance, and inference path optimization.
+
+// === Create model vertices ===
+g.addV('model').property('model_id', 'tempo-forecaster').property('type', 'timeseries').property('params_m', 125).property('version', '1.0.0')
+g.addV('model').property('model_id', 'hiformer-seg').property('type', 'segmentation').property('params_m', 85).property('version', '1.0.0')
+g.addV('model').property('model_id', 'bert-ner').property('type', 'ner').property('params_m', 110).property('version', '1.0.0')
+g.addV('model').property('model_id', 'video-cls').property('type', 'video').property('params_m', 300).property('version', '1.0.0')
+
+// === Create dataset vertices ===
+g.addV('dataset').property('name', 'etth1').property('domain', 'energy').property('samples', 17420)
+g.addV('dataset').property('name', 'conll2003').property('domain', 'nlp').property('samples', 22137)
+g.addV('dataset').property('name', 'kinetics400').property('domain', 'video').property('samples', 306245)
+
+// === Create training edges ===
+g.V().has('model_id', 'tempo-forecaster').addE('trained_on').to(g.V().has('name', 'etth1')).property('epochs', 50).property('best_mae', 0.38)
+g.V().has('model_id', 'bert-ner').addE('trained_on').to(g.V().has('name', 'conll2003')).property('epochs', 30).property('best_f1', 0.92)
+g.V().has('model_id', 'video-cls').addE('trained_on').to(g.V().has('name', 'kinetics400')).property('epochs', 100).property('best_acc', 0.78)
+
+// === Query: Find all models and their training datasets ===
+g.V().hasLabel('model').as('m').out('trained_on').as('d').select('m', 'd').by('model_id').by('name')
+
+// === Query: Model lineage - find parent models ===
+g.V().has('model_id', 'bert-ner').repeat(out('derived_from')).until(outE('derived_from').count().is(0)).path().by('model_id')
+
+// === Query: Most connected models (hub analysis) ===
+g.V().hasLabel('model').project('model', 'connections').by('model_id').by(bothE().count()).order().by(select('connections'), desc).limit(10)
+
+// === Query: Find models suitable for a task ===
+g.V().hasLabel('model').has('type', 'ner').has('params_m', lte(200)).order().by('params_m', asc).valueMap('model_id', 'params_m', 'version')
+
+// === Query: Shared dataset usage ===
+g.V().has('name', 'conll2003').in('trained_on').valueMap('model_id', 'type')
+
+// === Query: Inference path optimization ===
+g.V().has('model_id', 'tempo-forecaster').outE('deployed_on').as('e').inV().as('cluster').select('e', 'cluster').by('latency_ms').by('region')

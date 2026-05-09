@@ -1,4 +1,4 @@
-package omni_bcrypt_native
+package network
 
 import "fmt"
 

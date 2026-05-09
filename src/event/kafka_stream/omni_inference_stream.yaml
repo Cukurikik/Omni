@@ -1,0 +1,109 @@
+# @omni-layer Event | @omni-lang KStreams (Kafka Streams Topology DSL) | @omni-batch 17
+# @omni-description Streaming inference pipeline: Kafka Streams topology
+# for real-time inference request routing, result aggregation, and DLQ.
+
+# Kafka Streams Topology Definition (YAML DSL)
+# Deploy with: omni stream deploy --topology omni_inference_stream.yaml
+
+topology:
+  name: omni-inference-stream
+  application_id: omni.inference.stream.v1
+  bootstrap_servers: "${KAFKA_BROKERS}"
+  default_key_serde: StringSerde
+  default_value_serde: JsonSerde
+
+sources:
+  - name: inference-requests
+    topic: omni.inference.requests
+    key_type: String
+    value_type: InferenceRequest
+    partitions: 12
+
+  - name: model-updates
+    topic: omni.model.updates
+    key_type: String
+    value_type: ModelUpdate
+
+processors:
+  # Step 1: Validate and route requests
+  - name: request-validator
+    type: filter
+    source: inference-requests
+    predicate: "value.text != null && value.model_id != null"
+    dlq_topic: omni.inference.dlq
+
+  # Step 2: Enrich with model metadata (KTable join)
+  - name: model-enrichment
+    type: left-join
+    left: request-validator
+    right:
+      source: model-updates
+      materialized_as: model-store
+    key_extractor: "value.model_id"
+    joiner: |
+      {
+        "request": left,
+        "model": right,
+        "enriched_at": now()
+      }
+
+  # Step 3: Route to model-specific topics
+  - name: model-router
+    type: branch
+    source: model-enrichment
+    branches:
+      - name: sentiment-branch
+        predicate: "value.model.task_type == 'sentiment'"
+        sink: omni.inference.sentiment
+
+      - name: ner-branch
+        predicate: "value.model.task_type == 'ner'"
+        sink: omni.inference.ner
+
+      - name: generation-branch
+        predicate: "value.model.task_type == 'generation'"
+        sink: omni.inference.generation
+
+      - name: default-branch
+        predicate: "true"
+        sink: omni.inference.generic
+
+  # Step 4: Aggregate results
+  - name: result-aggregator
+    type: aggregate
+    source: inference-results
+    group_by: "value.model_id"
+    window:
+      type: tumbling
+      size: 1m
+    initializer: '{"count": 0, "total_latency": 0, "errors": 0}'
+    aggregator: |
+      {
+        "count": agg.count + 1,
+        "total_latency": agg.total_latency + value.latency_ms,
+        "avg_latency": (agg.total_latency + value.latency_ms) / (agg.count + 1),
+        "errors": agg.errors + (value.status == "error" ? 1 : 0)
+      }
+    sink: omni.inference.metrics
+
+sinks:
+  - name: inference-results
+    topic: omni.inference.results
+
+  - name: metrics-output
+    topic: omni.inference.metrics
+    retention_ms: 604800000  # 7 days
+
+  - name: dlq-output
+    topic: omni.inference.dlq
+    retention_ms: 1209600000  # 14 days
+
+state_stores:
+  - name: model-store
+    type: persistent-key-value
+    changelog: omni.model.changelog
+
+monitoring:
+  metrics_reporter: prometheus
+  metrics_port: 9090
+  health_check_path: /health

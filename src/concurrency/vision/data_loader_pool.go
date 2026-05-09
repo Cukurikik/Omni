@@ -1,10 +1,10 @@
 package vision
 
 import (
-	"time"
 	"errors"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 type ImageRequest struct {
@@ -64,7 +64,7 @@ func (p *DataLoaderPool) LoadBatch(requests []ImageRequest) OmniResult {
 			// e.g. rng := rand.New(...)
 			// startX := rng.Intn(img.Width - p.cropWidth)
 			// ptr := C.omni_random_crop(img.Ptr, ...)
-			
+
 			// For structural representation:
 			time.Sleep(10 * time.Millisecond) // Simulated IO/Decode
 			batch.Labels[idx] = r.Label

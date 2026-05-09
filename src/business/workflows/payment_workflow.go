@@ -1,6 +1,9 @@
 package workflows
 
 import (
+	"context"
+	"errors"
+	"time"
 )
 
 type PaymentResult struct {
@@ -8,7 +11,7 @@ type PaymentResult struct {
 	Success       bool
 }
 
-// OmniPaymentSaga models a reliable workflow execution 
+// OmniPaymentSaga models a reliable workflow execution
 // replacing temporal for pure Go orchestration
 func OmniPaymentSaga(ctx context.Context, amount float64, accountID string) (*PaymentResult, error) {
 	if amount <= 0 {

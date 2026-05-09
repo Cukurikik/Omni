@@ -1,0 +1,51 @@
+{
+    "listeners": {
+        "*:8080": {
+            "pass": "routes"
+        }
+    },
+    "routes": [
+        {
+            "match": {
+                "uri": "/v1/python/*"
+            },
+            "action": {
+                "pass": "applications/omni_python"
+            }
+        },
+        {
+            "match": {
+                "uri": "/v1/php/*"
+            },
+            "action": {
+                "pass": "applications/omni_php"
+            }
+        },
+        {
+            "match": {
+                "uri": "/*"
+            },
+            "action": {
+                "pass": "applications/omni_go"
+            }
+        }
+    ],
+    "applications": {
+        "omni_python": {
+            "type": "python",
+            "processes": 5,
+            "path": "/opt/omni/src/interface/python",
+            "module": "omni_wsgi"
+        },
+        "omni_php": {
+            "type": "php",
+            "processes": 5,
+            "root": "/opt/omni/src/interface/php",
+            "script": "index.php"
+        },
+        "omni_go": {
+            "type": "external",
+            "executable": "/opt/omni/bin/omni_universal_binary"
+        }
+    }
+}

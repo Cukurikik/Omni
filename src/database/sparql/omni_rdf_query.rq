@@ -1,0 +1,18 @@
+# OMNI Semantic Web Ontology Query (SPARQL)
+# Retrieves all AI models deployed in the OMNI cluster that support "Zero-Shot Classification"
+
+PREFIX omni: <http://omniframework.dev/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?modelName ?framework ?memoryReq
+WHERE {
+  ?model rdf:type omni:MachineLearningModel ;
+         omni:hasName ?modelName ;
+         omni:builtWith ?framework ;
+         omni:requiresMemory ?memoryReq ;
+         omni:supportsTask omni:ZeroShotClassification .
+         
+  FILTER (?memoryReq < 80) # Models that fit on a single A100/H100
+}
+ORDER BY ?memoryReq

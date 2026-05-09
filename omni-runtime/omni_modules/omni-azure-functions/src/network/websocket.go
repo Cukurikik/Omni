@@ -1,4 +1,4 @@
-package omni_azure_functions
+package network
 
 import "fmt"
 

@@ -1,8 +1,8 @@
 package agents
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"sync"
 )
 

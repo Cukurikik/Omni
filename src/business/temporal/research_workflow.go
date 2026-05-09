@@ -1,7 +1,8 @@
-package temporal
+package omnitemporal
 
 import (
 	"time"
+
 	"go.temporal.io/sdk/workflow"
 )
 

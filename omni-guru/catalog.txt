@@ -1,0 +1,601 @@
+# Omni-Guru Technology Catalog
+# One entry per line — loaded into Qdrant vector store for semantic search
+
+# === SYSTEM LAYER ===
+Assembly x86
+Assembly ARM
+Assembly RISC-V
+Assembly MIPS
+C
+C++
+Rust
+Zig
+Odin
+D
+Nim
+V
+Jai
+Carbon
+Fortran
+Ada
+SPARK
+Pascal
+Objective-C
+Vala
+Beef
+Chapel
+BLISS
+PL/I
+PL/M
+B
+BCPL
+IMP
+Coral 66
+Mary
+Mesa
+Modula-2
+Modula-3
+Oberon
+Active Oberon
+Zonnon
+Sing#
+Spec#
+System C#
+ParaSail
+Ivory
+PreScheme
+Clay
+BitC
+Cyclone
+ATS
+ATS2
+F*
+Koka
+Lean 4
+Idris 2
+Agda
+Coq
+Isabelle/HOL
+HOL Light
+Metamath
+Mizar
+ACL2
+PVS
+TLA+
+PlusCal
+P
+P4
+Promela
+Spin
+UPPAAL
+NuSMV
+Cadence SMV
+SAL
+Maude
+ELAN
+ASF+SDF
+Stratego/XT
+TXL
+DMS
+Rascal
+Spoofax
+MPS
+Xtext
+EMFText
+MontiCore
+JastAdd
+Polyglot
+Tamarin
+Escher
+Dafny
+Whiley
+VeriFast
+Viper
+Nagini
+Prusti
+Creusot
+RustBelt
+RefinedRust
+Flux
+Aeneas
+Electrolysis
+Gillian
+Cerberus
+CN
+VIP
+VCC
+Boogie
+Why3
+Frama-C
+Krakatoa
+Jessie
+Caduceus
+Larch
+JML
+VDM-SL
+VDM++
+RAISE
+ACT ONE
+LOTOS
+Estelle
+SDL
+TTCN-3
+E-LOTOS
+MSC
+UML
+SysML
+AADL
+MARTE
+EAST-ADL
+AUTOSAR
+OSEK/VDX
+Trampoline
+Erika Enterprise
+
+# === RTOS & KERNELS ===
+FreeRTOS
+Zephyr
+NuttX
+RIOT
+Contiki-NG
+TinyOS
+LiteOS
+Huawei LiteOS
+AliOS Things
+RT-Thread
+Mbed OS
+Azure RTOS
+ThreadX
+VxWorks
+QNX
+Integrity
+LynxOS
+PikeOS
+seL4
+OKL4
+NOVA
+Hedron
+Genode
+Fiasco.OC
+L4Re
+Pistachio
+
+# === HYPERVISORS ===
+Xen
+KVM
+bhyve
+Hyper-V
+VMware ESXi
+VirtualBox
+QEMU
+Bochs
+Simics
+
+# === SIMULATORS ===
+GEM5
+gem5
+SST
+Manifold
+Sniper
+ZSim
+Graphite
+McPAT
+CACTI
+DRAMSim2
+Ramulator
+USIMM
+NVMain
+NVSim
+DESTINY
+3D-ICE
+HotSpot
+HotSniper
+Wattch
+SimpleScalar
+Multi2Sim
+MacSim
+Accel-Sim
+GPGPU-Sim
+Barra
+MIAOW
+
+# === PROCESSOR ARCHITECTURES ===
+RISC-V
+OpenRISC
+OpenSPARC
+LEON
+NOEL-V
+GRLIB
+Plasma
+ZPU
+ZPUino
+MicroBlaze
+PicoBlaze
+Nios II
+Nios V
+ARM Cortex-M0
+ARM Cortex-M0+
+ARM Cortex-M3
+ARM Cortex-M4
+ARM Cortex-M7
+ARM Cortex-M23
+ARM Cortex-M33
+ARM Cortex-M55
+ARM Cortex-M85
+ARM Cortex-R4
+ARM Cortex-R5
+ARM Cortex-R52
+ARM Cortex-R82
+ARM Cortex-A5
+ARM Cortex-A7
+ARM Cortex-A53
+ARM Cortex-A55
+ARM Cortex-A72
+ARM Cortex-A73
+ARM Cortex-A75
+ARM Cortex-A76
+ARM Cortex-A77
+ARM Cortex-A78
+ARM Cortex-X1
+ARM Cortex-X2
+ARM Cortex-X3
+ARM Cortex-X4
+ARM Neoverse N1
+ARM Neoverse N2
+ARM Neoverse V1
+ARM Neoverse V2
+ARM Neoverse E1
+ARM Mali GPU
+ARM Immortalis GPU
+ARM Ethos NPU
+CHERI
+CHERI-RISC-V
+CHERI-MIPS
+CHERI-ARM
+CheriBSD
+ARM Morello
+
+# === CONCURRENCY & NETWORKING ===
+Go
+JavaScript
+TypeScript
+Erlang
+Elixir
+Gleam
+Ballerina
+Pony
+Clojure
+Haskell
+Kotlin
+Scala
+Java
+Curry
+Alice ML
+E language
+Joule
+Orc
+Oz
+Mozart
+JoCaml
+Concurrent ML
+MultiLisp
+Concurrent Haskell
+Parallel Haskell
+NESL
+ZPL
+Chapel
+X10
+Fortress
+Co-Array Fortran
+UPC
+Titanium
+Split-C
+SHMEM
+GASNet
+ARMCI
+BSPlib
+MulticoreBSP
+Charm++
+HPX
+TBB Intel
+Cilk
+OpenCilk
+OpenMP
+MPI
+PVM
+CUDA
+OpenCL
+SYCL
+HIP AMD
+oneAPI Intel
+DPC++
+OpenACC
+Metal Apple
+Halide
+Taichi
+
+# === COMPUTATIONAL & AI ===
+Python
+Julia
+R
+Mojo
+Swift for TensorFlow
+Prolog
+Mercury
+Wolfram Language
+Mathematica
+MATLAB
+Octave
+Scilab
+SAS
+SPSS
+Stata
+J language
+K language
+APL
+BQN
+Q language
+Spark SQL
+HiveQL
+Pig Latin
+MLIR
+ONNX
+GGML
+TensorFlow
+PyTorch
+JAX
+Triton OpenAI
+PennyLane
+
+# === INTERFACE ===
+HTML
+CSS
+React
+Vue
+Svelte
+Solid
+Qwik
+Astro
+XAML
+XSLT
+XPath
+XQuery
+SwiftUI
+Kotlin Compose
+Dart
+Flutter
+React Native
+QML
+
+# === BUSINESS & ENTERPRISE ===
+Java Spring Boot
+C# ASP.NET
+Kotlin Ktor
+GraphQL
+Ruby on Rails
+PHP Laravel
+Temporal SDK
+Drools
+BPEL
+SAP ABAP
+MUMPS
+COBOL
+RPG
+Natural
+
+# === SECURITY & POLICY ===
+Rego OPA
+Cerbos
+Cedar AWS
+AWS IAM
+Azure Policy
+Google Cloud IAM
+ProVerif
+CryptoVerif
+AVISPA
+
+# === INFRASTRUCTURE ===
+Terraform
+Pulumi
+Ansible
+CloudFormation
+AWS CDK
+Crossplane
+Chef
+Puppet
+SaltStack
+Vagrant
+Packer
+Docker
+Kubernetes
+Helm
+Kustomize
+Flux CD
+ArgoCD
+Nix
+CUE
+Dhall
+Jsonnet
+Bicep
+HCL HashiCorp
+Pkl Pkl-lang
+
+# === DATABASE & QUERY ===
+PostgreSQL
+MySQL
+SQLite
+Microsoft SQL Server
+Oracle Database
+Neo4j Cypher
+Gremlin
+SPARQL
+InfluxDB Flux
+ArangoDB AQL
+MDX
+DAX
+TigerGraph GSQL
+Cassandra CQL
+MongoDB MQL
+pgvector
+Weaviate GraphQL
+ClickHouse SQL
+DuckDB SQL
+
+# === EVENT & STREAMING ===
+Apache Kafka
+RabbitMQ
+MQTT
+gRPC
+NATS
+ZeroMQ
+DDS
+Zenoh
+eCAL
+Apache Pulsar
+Redis Streams
+
+# === CONSTRAINT & OPTIMIZATION ===
+MiniZinc
+Gecode
+Gurobi
+CPLEX
+Z3 SMT
+CLP FD
+ECLiPSe Prolog
+
+# === HARDWARE DESCRIPTION ===
+VHDL
+Verilog
+SystemVerilog
+Chisel Scala
+SpinalHDL
+BSV Bluespec
+Lava Haskell
+MyHDL Python
+Cocotb
+Verilator
+Yosys
+OpenROAD
+OpenLane
+
+# === QUANTUM COMPUTING ===
+Qiskit
+Cirq Google
+Q# Microsoft
+OpenQASM 3.0
+Quipper
+Silq
+Twist
+PennyLane
+Amazon Braket
+Azure Quantum
+
+# === METAPROGRAMMING & DSL ===
+Lisp
+Scheme
+Common Lisp
+Racket
+Emacs Lisp
+Elixir macros
+Julia macros
+Nim macros
+Zig comptime
+Rust proc-macros
+Template Haskell
+C++ template metaprogramming
+D templates
+Haxe macros
+ANTLR
+PEG parsers
+
+# === TESTING & VERIFICATION ===
+QuickCheck
+Hypothesis Python
+Proptest Rust
+FsCheck F#
+ScalaCheck
+fast-check TypeScript
+KeY Java
+
+# === GAME & SIMULATION ===
+Unity C#
+Unreal Engine C++
+Godot GDScript
+CryEngine Lua
+GameMaker Language
+PICO-8
+TIC-80
+
+# === BLOCKCHAIN & SMART CONTRACTS ===
+Solidity
+Move
+Rust Substrate
+Vyper
+Cairo
+Clarity
+DAML
+Cadence
+Pact
+Plutus Haskell
+Marlowe
+Scilla
+
+# === ESOTERIC & HISTORICAL ===
+Brainfuck
+Malbolge
+INTERCAL
+Befunge
+Piet
+Whitespace
+LOLCODE
+Shakespeare
+Chef language
+BIT
+Ook!
+Chicken
+ArnoldC
+Cow
+Rockstar
+Velato
+Haifu
+ALGOL 60
+ALGOL 68
+Forth
+Factor
+Joy
+
+# === MARKUP & CONFIGURATION ===
+Markdown
+AsciiDoc
+reStructuredText
+Org-Mode
+LaTeX
+JSON
+YAML
+TOML
+XML
+CSV
+INI
+HOCON
+Dhall
+CUE
+Jsonnet
+Bicep
+Nix expressions
+HCL
+Pkl
+
+# === VISUAL & LOW-CODE ===
+Scratch MIT
+Blockly Google
+Node-RED
+LabVIEW
+Simulink
+Stateflow
+App Inventor
+Mendix
+OutSystems
+Power Fx
+Appian
+Pega
+Blue Prism

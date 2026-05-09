@@ -13,7 +13,7 @@
  * @since 2026.4.0
  */
 
-package go_core
+package network_gocore
 
 import (
 	"time"
@@ -84,6 +84,7 @@ func (e *OmniCheckrrEngine) ExecuteMassValidation() CheckrrResult {
 
 	processedCount := len(e.validationQueue)
 	e.validationQueue = nil
-	
+
 	return CheckrrOk(processedCount)
 }
+

@@ -1,0 +1,9 @@
+{
+  "topology": {
+    "racks": 4,
+    "nodes_per_rack": 8,
+    "experts_per_node": 2,
+    "network": "InfiniBand HDR",
+    "switch_latency_ns": 130
+  }
+}

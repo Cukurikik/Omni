@@ -1,6 +1,6 @@
 // Omni AutoAgents Question Router (Go)
 // Ref: AutoLLM/AutoAgents — MIT
-package go_core
+package network_gocore
 
 import "strings"
 
@@ -24,7 +24,9 @@ func DecomposeQuestion(question string) []string {
 	var cleaned []string
 	for _, p := range parts {
 		t := strings.TrimSpace(p)
-		if t != "" { cleaned = append(cleaned, t) }
+		if t != "" {
+			cleaned = append(cleaned, t)
+		}
 	}
 	return cleaned
 }
@@ -33,8 +35,11 @@ func PlanSteps(subQuestions []string) []AgentStep {
 	steps := make([]AgentStep, len(subQuestions))
 	for i, sq := range subQuestions {
 		tool := "reason"
-		if strings.Contains(sq, "?") { tool = "search" }
+		if strings.Contains(sq, "?") {
+			tool = "search"
+		}
 		steps[i] = AgentStep{Step: i + 1, Question: sq, Tool: tool, Status: "pending"}
 	}
 	return steps
 }
+

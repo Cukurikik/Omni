@@ -26,7 +26,7 @@ func (r *reflect_roboticsRouter) Execute(ctx context.Context, data []byte) (*ref
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &reflect_roboticsResult{
 		Success: true,
 		Status:  "computed",

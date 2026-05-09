@@ -1,11 +1,27 @@
 // Omni LLMeBench API Router (Go)
 // Ref: qcri/LLMeBench
-package go_core
+package network_gocore
+
 import "errors"
-type BenchRequest struct { Task string; Input string; Lang string; NShots int }
-type BenchResult struct { Score float64; Metric string }
+
+type BenchRequest struct {
+	Task   string
+	Input  string
+	Lang   string
+	NShots int
+}
+type BenchResult struct {
+	Score  float64
+	Metric string
+}
+
 func ValidateRequest(req *BenchRequest) error {
-	if req.Task == "" { return errors.New("OMNI_ERR: task required") }
-	if req.Input == "" { return errors.New("OMNI_ERR: input required") }
+	if req.Task == "" {
+		return errors.New("OMNI_ERR: task required")
+	}
+	if req.Input == "" {
+		return errors.New("OMNI_ERR: input required")
+	}
 	return nil
 }
+

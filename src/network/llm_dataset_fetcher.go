@@ -20,7 +20,7 @@ func FetchDatasetChunk(url string, offset int, limit int) FetchResult {
 	if err != nil {
 		return FetchResult{Err: err}
 	}
-	
+
 	q := req.URL.Query()
 	q.Add("offset", string(rune(offset)))
 	q.Add("limit", string(rune(limit)))

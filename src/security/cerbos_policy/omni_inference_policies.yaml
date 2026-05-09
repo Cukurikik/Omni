@@ -1,0 +1,114 @@
+# @omni-layer Security | @omni-lang Cerbos | @omni-batch 17
+# @omni-description Inference access control: Cerbos policy for fine-grained
+# RBAC on model inference, data access, and deployment permissions.
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "inference:model"
+  rules:
+    # Admin: full access to all operations
+    - actions: ["*"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    # Data Scientist: inference, evaluate, deploy to staging
+    - actions: ["infer", "evaluate", "deploy:staging", "view"]
+      effect: EFFECT_ALLOW
+      roles: ["data_scientist"]
+      condition:
+        match:
+          expr: request.resource.attr.status == "active"
+
+    # Developer: inference and view only
+    - actions: ["infer", "view"]
+      effect: EFFECT_ALLOW
+      roles: ["developer"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.status == "active"
+              - expr: request.resource.attr.data_classification != "restricted"
+
+    # Analyst: view and evaluate only
+    - actions: ["view", "evaluate"]
+      effect: EFFECT_ALLOW
+      roles: ["analyst"]
+      condition:
+        match:
+          expr: request.resource.attr.data_classification in ["public", "internal"]
+
+    # Rate limiting: block if quota exceeded
+    - actions: ["infer"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          expr: request.resource.attr.quota_remaining <= 0
+
+    # Confidential data: require additional clearance
+    - actions: ["infer"]
+      effect: EFFECT_DENY
+      roles: ["developer", "analyst"]
+      condition:
+        match:
+          expr: request.resource.attr.data_classification == "confidential"
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "inference:deployment"
+  rules:
+    - actions: ["deploy:production"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.tests_passed == true
+              - expr: request.resource.attr.accuracy >= 0.85
+              - expr: request.resource.attr.approved_by != ""
+
+    - actions: ["deploy:staging"]
+      effect: EFFECT_ALLOW
+      roles: ["admin", "data_scientist"]
+
+    - actions: ["deploy:production", "deploy:staging"]
+      effect: EFFECT_DENY
+      roles: ["developer", "analyst"]
+
+    - actions: ["rollback"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "inference:data"
+  rules:
+    - actions: ["read", "write", "delete"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    - actions: ["read"]
+      effect: EFFECT_ALLOW
+      roles: ["data_scientist", "developer", "analyst"]
+      condition:
+        match:
+          expr: request.resource.attr.data_classification in ["public", "internal"]
+
+    - actions: ["write"]
+      effect: EFFECT_ALLOW
+      roles: ["data_scientist"]
+      condition:
+        match:
+          expr: request.resource.attr.data_classification != "restricted"
+
+    - actions: ["delete"]
+      effect: EFFECT_DENY
+      roles: ["developer", "analyst"]

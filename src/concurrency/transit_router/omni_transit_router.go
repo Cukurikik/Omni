@@ -10,9 +10,9 @@ import (
 // Absorbing itinero/transit multimodal routing logic with Dijkstra shortest path.
 
 type StopNode struct {
-	ID   string
-	Lat  float64
-	Lon  float64
+	ID  string
+	Lat float64
+	Lon float64
 }
 
 type RouteEdge struct {
@@ -28,10 +28,10 @@ type RouteResult struct {
 }
 
 type OmniTransitRouter struct {
-	mu       sync.RWMutex
-	stops    map[string]StopNode
-	edges    map[string][]RouteEdge
-	queries  int64
+	mu      sync.RWMutex
+	stops   map[string]StopNode
+	edges   map[string][]RouteEdge
+	queries int64
 }
 
 func NewOmniTransitRouter() *OmniTransitRouter {

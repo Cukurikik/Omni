@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package omni.moe.grpc;
+
+service OmniMoEInference {
+  // Unary call for single batch inference
+  rpc GenerateText (GenerateRequest) returns (GenerateResponse);
+  
+  // Bidirectional streaming for continuous interactive inference
+  rpc StreamGenerate (stream StreamRequest) returns (stream StreamResponse);
+}
+
+message GenerateRequest {
+  string prompt = 1;
+  int32 max_tokens = 2;
+  float temperature = 3;
+  string tenant_id = 4;
+}
+
+message GenerateResponse {
+  string generated_text = 1;
+  int32 tokens_used = 2;
+  double compute_time_ms = 3;
+}
+
+message StreamRequest {
+  string prompt_chunk = 1;
+  string session_id = 2;
+}
+
+message StreamResponse {
+  string text_delta = 1;
+  bool is_finished = 2;
+}

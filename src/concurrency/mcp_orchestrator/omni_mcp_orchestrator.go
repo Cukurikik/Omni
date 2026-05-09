@@ -1,11 +1,11 @@
 package concurrency
 
 import (
-	"time"
-	"fmt"
 	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
 	"sync"
+	"time"
 )
 
 // OMNI MCP Orchestrator Engine — Concurrency Layer
@@ -80,7 +80,7 @@ func (o *OmniMcpOrchestrator) OrchestrateTool(payload McpToolPayload) McpExecuti
 	if payload.RequiresFs {
 		mutationFactor += 5
 	}
-	
+
 	outputSize := len(payload.PayloadData) * mutationFactor
 
 	// Cleanup session

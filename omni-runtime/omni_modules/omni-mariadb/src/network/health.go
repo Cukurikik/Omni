@@ -1,4 +1,4 @@
-package omni_mariadb
+package network
 
 import "time"
 

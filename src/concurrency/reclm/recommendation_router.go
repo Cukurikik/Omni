@@ -2,11 +2,12 @@ package reclm
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 type RecQuery struct {
-	UserID string
+	UserID     string
 	Candidates []string
 }
 

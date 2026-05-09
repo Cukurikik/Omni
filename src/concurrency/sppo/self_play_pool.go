@@ -1,8 +1,8 @@
 package sppo
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 type OmniResult struct {

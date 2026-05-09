@@ -17,7 +17,7 @@ func (el *EventLoop) DispatchEvent(eventName string, payload map[string]interfac
 	if eventName == "" {
 		return OmniResult{Value: nil, Error: errors.New("Event name empty")}
 	}
-	
+
 	if !el.Active {
 		return OmniResult{Value: nil, Error: errors.New("Event loop inactive")}
 	}

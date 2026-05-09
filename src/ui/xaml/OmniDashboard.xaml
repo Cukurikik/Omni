@@ -1,0 +1,103 @@
+<!-- OMNI Interface Layer — WPF XAML Model Dashboard -->
+<Window x:Class="Omni.Dashboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OMNI Model Dashboard" Height="720" Width="1280"
+        Background="#0a0e1a" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#131829"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MetricLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#8b92a8"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+        <Style x:Key="MetricValue" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#e2e8f0"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#0f1320" Padding="20,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="⚡" FontSize="24" Margin="0,0,8,0"/>
+                <TextBlock Text="OMNI Model Dashboard" Foreground="#6366f1"
+                          FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock Text="v2.0" Foreground="#4b5563" FontSize="12"
+                          Margin="12,4,0,0" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="12">
+            <StackPanel>
+                <!-- Metrics Row -->
+                <UniformGrid Columns="4" Margin="0,0,0,16">
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MetricLabel}" Text="Active Models"/>
+                            <TextBlock Style="{StaticResource MetricValue}" Text="12" x:Name="ActiveModels"/>
+                            <TextBlock Foreground="#22c55e" FontSize="11" Text="↑ 2 from yesterday"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MetricLabel}" Text="Avg Latency"/>
+                            <TextBlock Style="{StaticResource MetricValue}" Text="42ms" x:Name="AvgLatency"/>
+                            <TextBlock Foreground="#22c55e" FontSize="11" Text="↓ 8ms improvement"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MetricLabel}" Text="Throughput"/>
+                            <TextBlock Style="{StaticResource MetricValue}" Text="1.2K/s" x:Name="Throughput"/>
+                            <TextBlock Foreground="#6366f1" FontSize="11" Text="Stable"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MetricLabel}" Text="GPU Utilization"/>
+                            <TextBlock Style="{StaticResource MetricValue}" Text="72%" x:Name="GpuUtil"/>
+                            <ProgressBar Value="72" Maximum="100" Height="4" Margin="0,8,0,0"
+                                        Foreground="#6366f1" Background="#1e2740"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+                <!-- Model List -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Deployed Models" Foreground="#e2e8f0" FontSize="16"
+                                  FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <DataGrid x:Name="ModelGrid" AutoGenerateColumns="False"
+                                 Background="Transparent" BorderThickness="0"
+                                 RowBackground="#131829" AlternatingRowBackground="#0f1320"
+                                 Foreground="#e2e8f0" FontFamily="Segoe UI" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Model" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Version" Binding="{Binding Version}" Width="80"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                                <DataGridTextColumn Header="Latency" Binding="{Binding Latency}" Width="80"/>
+                                <DataGridTextColumn Header="RPS" Binding="{Binding RPS}" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

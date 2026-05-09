@@ -19,7 +19,7 @@ func (r *RagRouter) ProcessBM25(ctx context.Context, score float64) (*BM25Result
 	if score < 0 {
 		return nil, errors.New("invalid negative bm25 score")
 	}
-	
+
 	return &BM25Result{
 		Score: score,
 		Match: score >= r.MinScore,

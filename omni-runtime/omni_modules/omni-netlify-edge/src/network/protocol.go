@@ -1,4 +1,4 @@
-package omni_netlify_edge
+package network
 
 import (
 	"encoding/binary"

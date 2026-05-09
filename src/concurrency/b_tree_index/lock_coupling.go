@@ -1,9 +1,8 @@
 package concurrency
 
 import (
-	"time"
-	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -28,11 +27,11 @@ func (t *LockCouplingTracker) CrabTraverse(parentNodeId, childNodeId int) OmniRe
 
 	// "Crabbing" or "Lock Coupling" in B-Trees:
 	// Acquire lock on child BEFORE releasing lock on parent to prevent race conditions during page splits
-	
+
 	t.lockedNodes[childNodeId] = true
 	time.Sleep(1 * time.Microsecond) // Simulate pointer traversal
 	delete(t.lockedNodes, parentNodeId)
-	
+
 	// fmt.Printf("BTree: Crabbing lock from Node %d -> Node %d\n", parentNodeId, childNodeId)
 
 	return OmniResult{Value: true}

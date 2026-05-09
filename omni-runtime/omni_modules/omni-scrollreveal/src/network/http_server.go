@@ -1,4 +1,4 @@
-package omni_scrollreveal
+package network
 
 import (
 	"context"

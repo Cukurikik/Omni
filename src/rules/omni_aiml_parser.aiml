@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1">
+  <!-- 
+    Omni AIML Fallback Parser
+    Natural Language Layer
+    Acts as a deterministic fallback for system queries when the LLM is down
+    or for strict system-administration routing intents.
+  -->
+
+  <category>
+    <pattern>STATUS</pattern>
+    <template>
+      Omni Mother Nexus is fully operational. 15 Sub-Agents active. Zero-mock protocols enforced.
+    </template>
+  </category>
+
+  <category>
+    <pattern>REBOOT CLUSTER</pattern>
+    <template>
+      Initiating graceful shutdown of Temporal workflows. Re-syncing Elixir actors. Cluster restart in 5 seconds.
+    </template>
+  </category>
+
+  <category>
+    <pattern>WHAT IS OMNI</pattern>
+    <template>
+      OMNI is a polylingual framework unifying all programming languages into a single LLVM runtime, orchestrated by the Mother Agent.
+    </template>
+  </category>
+
+  <category>
+    <pattern>CHECK GPU *</pattern>
+    <template>
+      Querying OpenCL kernel statistics for GPU ID: <star/>. VRAM allocation is optimal.
+    </template>
+  </category>
+
+  <!-- Catch-all routes to the Transformer Engine -->
+  <category>
+    <pattern>*</pattern>
+    <template>
+      ROUTING_TO_TRANSFORMER_ENGINE
+    </template>
+  </category>
+
+</aiml>

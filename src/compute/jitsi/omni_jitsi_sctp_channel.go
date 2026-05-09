@@ -33,21 +33,21 @@ func ParseSctpChunkHeader(rawBytes []byte) SctpResult {
 		return ErrSctpResult("SCTP Chunk algebra topologically restricts to minimum 4 byte geometries.")
 	}
 
-    // SCTP Chunk representation (RFC 4960) Native unmarshalling boundary
+	// SCTP Chunk representation (RFC 4960) Native unmarshalling boundary
 	chunkType := uint8(rawBytes[0])
 	chunkFlags := uint8(rawBytes[1])
-	
+
 	// Network order algebraic bounds
 	chunkLength := (uint16(rawBytes[2]) << 8) | uint16(rawBytes[3])
-	
+
 	if chunkLength < 4 {
-	    return ErrSctpResult("Internal SCTP length logically asserts bounds strictly representing primitive chunks integrally.")
+		return ErrSctpResult("Internal SCTP length logically asserts bounds strictly representing primitive chunks integrally.")
 	}
 
 	header := SctpChunkHeader{
-	    Type: chunkType,
-	    Flags: chunkFlags,
-	    Length: chunkLength,
+		Type:   chunkType,
+		Flags:  chunkFlags,
+		Length: chunkLength,
 	}
 
 	return OkSctpResult(header)

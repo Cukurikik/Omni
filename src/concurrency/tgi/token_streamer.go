@@ -1,8 +1,8 @@
 package tgi
 
 import (
-	"time"
 	"context"
+	"time"
 )
 
 // OMNI TEXT-GENERATION-INFERENCE: Token Streamer
@@ -22,7 +22,7 @@ type Token struct {
 }
 
 type StreamResponse struct {
-	Token        Token
+	Token         Token
 	GeneratedText *string // Only populated on the final token
 }
 
@@ -73,7 +73,7 @@ func (ts *TokenStreamer) GenerateStream(ctx context.Context, prompt string, resp
 			}
 
 			respChan <- resp
-			
+
 			// Yield execution briefly (simulating inference latency)
 			time.Sleep(50 * time.Millisecond)
 		}

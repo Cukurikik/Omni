@@ -1,0 +1,40 @@
+# OMNI Infrastructure — AWS CloudFormation VPC Setup
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'OMNI Secure VPC for isolated LLM deployments'
+
+Resources:
+  OmniVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: omni-secure-vpc
+
+  OmniPrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref OmniVPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      Tags:
+        - Key: Name
+          Value: omni-private-subnet
+
+  OmniSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow gRPC inference traffic from within VPC
+      VpcId: !Ref OmniVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 50051
+          ToPort: 50051
+          CidrIp: 10.0.0.0/16
+
+Outputs:
+  VpcId:
+    Description: Omni VPC ID
+    Value: !Ref OmniVPC

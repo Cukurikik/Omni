@@ -1,8 +1,8 @@
 package chromadbflux
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
-type Client struct {}
+type Client struct{}
 
 func (c *Client) Connect(url string) result.Result[bool] {
 	if url == "" {

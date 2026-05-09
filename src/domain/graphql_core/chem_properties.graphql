@@ -1,0 +1,9 @@
+type ChemicalProperty {
+  smiles: String!
+  molecularWeight: Float
+  solubility: Float
+}
+
+extend type Query {
+  predictProperties(smiles: String!): ChemicalProperty!
+}

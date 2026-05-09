@@ -1,4 +1,4 @@
-package omni_vercel_edge
+package network
 
 import (
 	"context"

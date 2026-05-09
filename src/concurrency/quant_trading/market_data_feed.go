@@ -34,7 +34,7 @@ func (m *MarketDataFeed) Subscribe(symbol string) (chan MarketTick, OmniResult) 
 	}
 
 	ch := make(chan MarketTick, 1000)
-	
+
 	m.mu.Lock()
 	m.subscribers[symbol] = ch
 	m.mu.Unlock()

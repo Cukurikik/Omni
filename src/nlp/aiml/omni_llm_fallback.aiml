@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OMNI Framework - AIML Fallback -->
+<!-- Used when the LLM is down or taking too long, providing immediate conversational fallbacks -->
+<aiml version="2.0">
+
+  <category>
+    <pattern>HELLO</pattern>
+    <template>
+      <random>
+        <li>Hello! I am OMNI. How can I assist you with your AI pipelines today?</li>
+        <li>Hi there! OMNI system ready.</li>
+        <li>Greetings, architect.</li>
+      </random>
+    </template>
+  </category>
+
+  <category>
+    <pattern>WHAT IS MY VRAM LIMIT</pattern>
+    <template>
+      I cannot check your hardware directly from AIML, but you can configure limits in the Omni batch optimizer module.
+    </template>
+  </category>
+
+  <category>
+    <pattern>*</pattern>
+    <template>
+      The primary LLM generator is currently experiencing high latency. I am the AIML fallback system. Please wait a moment and try again.
+    </template>
+  </category>
+
+</aiml>

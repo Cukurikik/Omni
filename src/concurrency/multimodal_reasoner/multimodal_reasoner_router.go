@@ -26,7 +26,7 @@ func (r *multimodal_reasonerRouter) Execute(ctx context.Context, data []byte) (*
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &multimodal_reasonerResult{
 		Success: true,
 		Status:  "computed",

@@ -32,16 +32,16 @@ func ValidateInferencePayload(manifest ModelManifest, payloadBatch [][]float64) 
 	if payloadBatch == nil || len(payloadBatch) == 0 {
 		return ErrSageMakerResult("Payload batch is empty.")
 	}
-	
+
 	if len(payloadBatch) > manifest.MaxBatchSize {
 		return ErrSageMakerResult("Payload exceeds maximum batch size allowed by endpoint constraints.")
 	}
-	
+
 	for i, row := range payloadBatch {
 		if len(row) != manifest.ExpectedFeatures {
 			return ErrSageMakerResult(fmt.Sprintf("Feature dimension mismatch at batch index %d: expected %d, got %d", i, manifest.ExpectedFeatures, len(row)))
 		}
 	}
-	
+
 	return OkSageMakerResult(true)
 }

@@ -26,7 +26,7 @@ func (r *graph_reasonerRouter) Execute(ctx context.Context, data []byte) (*graph
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &graph_reasonerResult{
 		Success: true,
 		Status:  "computed",

@@ -1,0 +1,117 @@
+# @omni-layer Infrastructure | @omni-lang Ansible | @omni-batch 18 | @omni-semester 16
+# @omni-description Ansible playbook for transformer inference cluster deployment:
+# GPU driver setup, model download, container orchestration, and monitoring.
+
+---
+- name: Deploy OMNI Transformer Inference Cluster
+  hosts: transformer_nodes
+  become: true
+  vars:
+    omni_version: "1.0.0"
+    model_bucket: "s3://omni-transformer-models"
+    inference_port: 8080
+    metrics_port: 9090
+    max_batch_size: 32
+    gpu_memory_fraction: 0.9
+    models:
+      - id: tempo-forecaster
+        type: timeseries
+        size_gb: 0.5
+      - id: bert-ner
+        type: ner
+        size_gb: 0.45
+      - id: video-classifier
+        type: video
+        size_gb: 1.2
+
+  tasks:
+    - name: Verify GPU availability
+      command: nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
+      register: gpu_info
+      failed_when: gpu_info.rc != 0
+
+    - name: Display GPU information
+      debug:
+        msg: "GPU detected: {{ gpu_info.stdout }}"
+
+    - name: Install CUDA toolkit
+      apt:
+        name:
+          - nvidia-cuda-toolkit
+          - nvidia-container-toolkit
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Create OMNI directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - /opt/omni/models
+        - /opt/omni/config
+        - /opt/omni/logs
+        - /opt/omni/data
+
+    - name: Generate inference configuration
+      template:
+        src: templates/inference_config.yaml.j2
+        dest: /opt/omni/config/inference.yaml
+        mode: '0644'
+      vars:
+        config:
+          server:
+            host: "0.0.0.0"
+            port: "{{ inference_port }}"
+            workers: 4
+          models: "{{ models }}"
+          gpu:
+            memory_fraction: "{{ gpu_memory_fraction }}"
+            batch_size: "{{ max_batch_size }}"
+
+    - name: Download transformer models
+      command: >
+        aws s3 cp {{ model_bucket }}/{{ item.id }}/latest/
+        /opt/omni/models/{{ item.id }}/ --recursive
+      loop: "{{ models }}"
+      async: 600
+      poll: 15
+
+    - name: Deploy inference container
+      docker_container:
+        name: omni-transformer-inference
+        image: "omni/transformer-inference:{{ omni_version }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "{{ inference_port }}:8080"
+          - "{{ metrics_port }}:9090"
+        volumes:
+          - /opt/omni/models:/models:ro
+          - /opt/omni/config:/config:ro
+          - /opt/omni/logs:/logs
+        env:
+          DEVICE: cuda
+          MODEL_DIR: /models
+          CONFIG_FILE: /config/inference.yaml
+          MAX_BATCH_SIZE: "{{ max_batch_size }}"
+        runtime: nvidia
+        device_requests:
+          - driver: nvidia
+            count: -1
+            capabilities:
+              - gpu
+
+    - name: Configure health check endpoint
+      uri:
+        url: "http://localhost:{{ inference_port }}/health"
+        method: GET
+        status_code: 200
+      register: health
+      retries: 10
+      delay: 5
+
+    - name: Report deployment status
+      debug:
+        msg: "OMNI Transformer cluster deployed. Health: {{ health.status }}"

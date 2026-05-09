@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -25,7 +25,7 @@ func NewConsumerCoordinator() *ConsumerCoordinator {
 	c := &ConsumerCoordinator{
 		consumers: make(map[string]ConsumerStatus),
 	}
-	
+
 	go c.sessionTimeoutLoop()
 	return c
 }

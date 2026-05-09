@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -37,7 +37,7 @@ func (c *MergeCoordinator) Merge(nodeRegs HllRegisters) OmniResult {
 
 	// Distributed HLL Merge: Take the element-wise maximum of the registers
 	time.Sleep(1 * time.Millisecond) // Zero-mock SIMD simulation
-	
+
 	for i := 0; i < len(c.globalRegisters); i++ {
 		if nodeRegs.Data[i] > c.globalRegisters[i] {
 			c.globalRegisters[i] = nodeRegs.Data[i]

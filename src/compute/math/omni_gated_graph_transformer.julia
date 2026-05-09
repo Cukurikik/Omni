@@ -1,0 +1,69 @@
+# OMNI Compute & Math Layer
+# Gated Graph Transformers
+# Inspired by chaitjo/gated-graph-transformers.
+# Implemented in Julia for high-performance matrix and graph operations.
+
+module OmniGatedGraph
+
+using LinearAlgebra
+using SparseArrays
+
+struct GatedGraphTransformerLayer
+    hidden_dim::Int
+    num_heads::Int
+    W_q::Matrix{Float64}
+    W_k::Matrix{Float64}
+    W_v::Matrix{Float64}
+    W_gate::Matrix{Float64}
+end
+
+function initialize_layer(hidden_dim::Int, num_heads::Int)
+    return GatedGraphTransformerLayer(
+        hidden_dim, 
+        num_heads,
+        randn(hidden_dim, hidden_dim) .* 0.02,
+        randn(hidden_dim, hidden_dim) .* 0.02,
+        randn(hidden_dim, hidden_dim) .* 0.02,
+        randn(hidden_dim, hidden_dim) .* 0.02
+    )
+end
+
+function forward(layer::GatedGraphTransformerLayer, node_features::Matrix{Float64}, adjacency_matrix::SparseMatrixCSC{Float64, Int})
+    # node_features: [num_nodes, hidden_dim]
+    
+    Q = node_features * layer.W_q
+    K = node_features * layer.W_k
+    V = node_features * layer.W_v
+    
+    # Standard Attention Scores
+    # [num_nodes, num_nodes]
+    attention_scores = (Q * K') ./ sqrt(layer.hidden_dim / layer.num_heads)
+    
+    # Structural Inductive Bias: Gating via the Adjacency Matrix
+    # We compute a gate that modulates attention based on graph connectivity
+    E_gates = adjacency_matrix * (node_features * layer.W_gate)
+    gate_scores = 1.0 ./ (1.0 .+ exp.(.-E_gates)) # Sigmoid
+    
+    # Apply structural masking: nodes only attend to neighbors if graph topology dictates
+    # or the gate allows soft-attention to distant nodes.
+    gated_attention = attention_scores .* gate_scores
+    
+    # Softmax over the neighbors
+    attention_weights = exp.(gated_attention) ./ sum(exp.(gated_attention), dims=2)
+    
+    # Output features
+    output_features = attention_weights * V
+    
+    return output_features
+end
+
+# Omni Universal Binary Bridge Entrypoint
+function omni_execute_gated_graph(features_ptr::Ptr{Float64}, adj_ptr::Ptr{Float64}, num_nodes::Int, dim::Int)
+    println("OMNI Julia: Executing Gated Graph Transformer over ", num_nodes, " nodes.")
+    # Zero-copy mapping from C-ABI pointers to Julia Arrays would occur here
+    # layer = initialize_layer(dim, 4)
+    # out = forward(layer, features, adj)
+    return 0
+end
+
+end # module

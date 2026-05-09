@@ -1,0 +1,26 @@
+<!-- OMNI Business Layer - BPEL Workflow -->
+<process name="OmniTransactionProcess" targetNamespace="http://omni.framework/bpel"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:tns="http://omni.framework/bpel"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <partnerLinks>
+        <partnerLink name="client" partnerLinkType="tns:OmniInterface" myRole="OmniService"/>
+    </partnerLinks>
+
+    <variables>
+        <variable name="input" messageType="tns:OmniRequestMessage"/>
+        <variable name="output" messageType="tns:OmniResponseMessage"/>
+    </variables>
+
+    <sequence>
+        <receive partnerLink="client" operation="processTransaction" variable="input" createInstance="yes"/>
+        <assign>
+            <copy>
+                <from>'OMNI Transaction Acknowledged'</from>
+                <to>$output.result</to>
+            </copy>
+        </assign>
+        <reply partnerLink="client" operation="processTransaction" variable="output"/>
+    </sequence>
+</process>

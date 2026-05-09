@@ -1,4 +1,4 @@
-package omni_aliyun_oss
+package network
 
 import "time"
 

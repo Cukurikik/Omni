@@ -2,7 +2,8 @@ package omni_audio
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func MixAudioBuffers(ctx context.Context, a []float32, b []float32) result.Result[[]float32] {

@@ -1,0 +1,22 @@
+<!-- OMNI Framework - WPF XAML for Warren Buffet NLP Dashboard -->
+<Window x:Class="OmniFramework.UI.OmniWarrenBuffetDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OMNI Warren Buffet Analysis" Height="450" Width="800" Background="#1E1E1E">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Warren Buffet Letter NLP Insights" Foreground="#58A6FF" FontSize="24" FontWeight="Bold" Grid.Row="0"/>
+
+        <TextBox x:Name="LetterTextBox" Grid.Row="1" Margin="0,20,0,20" Background="#2D2D30" Foreground="White" TextWrapping="Wrap" AcceptsReturn="True" Text="Paste letter excerpt here..."/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock x:Name="StatusText" Foreground="Orange" VerticalAlignment="Center" Margin="0,0,20,0"/>
+            <Button Content="Analyze Text" Width="120" Height="35" Background="#238636" Foreground="White" Click="AnalyzeButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -3,11 +3,12 @@ package camel_agents
 import (
 	"context"
 	"sync"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 type AgentWorker struct {
-	ID string
+	ID   string
 	Role string
 }
 

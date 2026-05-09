@@ -1,10 +1,10 @@
 package findataframe
 
 import (
-	"time"
-	"errors"
 	"context"
+	"errors"
 	"sync"
+	"time"
 )
 
 // OMNI CONCURRENCY LAYER: Market Data Consumer
@@ -73,7 +73,7 @@ func (p *MarketConsumerPool) processTick(tick MarketTick) OmniResult {
 
 	series := p.timeseries[tick.Symbol]
 	series = append(series, tick.Price)
-	
+
 	// Keep buffer bounded
 	if len(series) > p.bufferSize {
 		series = series[1:]

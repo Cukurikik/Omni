@@ -26,7 +26,7 @@ func (r *multi_agent_uiRouter) Execute(ctx context.Context, data []byte) (*multi
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &multi_agent_uiResult{
 		Success: true,
 		Status:  "computed",

@@ -1,4 +1,4 @@
-package omni_influxdb
+package network
 
 import (
 	"net/http"

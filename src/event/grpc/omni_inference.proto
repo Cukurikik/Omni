@@ -1,0 +1,26 @@
+// OMNI Event — gRPC Protobuf Definition
+syntax = "proto3";
+
+package omni.inference;
+option go_package = "omni/grpc/inference";
+
+service OmniInferenceService {
+  // Bi-directional streaming for real-time LLM interaction
+  rpc StreamInference(stream InferenceRequest) returns (stream InferenceResponse);
+  
+  // Single request for non-streaming completions
+  rpc Complete(InferenceRequest) returns (InferenceResponse);
+}
+
+message InferenceRequest {
+  string model_name = 1;
+  string prompt = 2;
+  float temperature = 3;
+  int32 max_tokens = 4;
+}
+
+message InferenceResponse {
+  string token = 1;
+  bool is_finished = 2;
+  double generation_time_ms = 3;
+}

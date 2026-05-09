@@ -13,10 +13,7 @@
  * @since 2026.4.0
  */
 
-package go_core
-
-import (
-)
+package network_gocore
 
 const PulseAudioEngineVersion = "1.0.0-omni"
 
@@ -44,7 +41,7 @@ func ErrPulse(code PulseAudioErrorCode) PulseResult {
 }
 
 type OmniPulseAudioControlEngine struct {
-	connected bool
+	connected    bool
 	activeVolume int
 }
 
@@ -85,3 +82,4 @@ func (e *OmniPulseAudioControlEngine) AdjustVolume(delta int) PulseResult {
 func (e *OmniPulseAudioControlEngine) FetchCurrentVolume() int {
 	return e.activeVolume
 }
+

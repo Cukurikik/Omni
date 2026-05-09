@@ -1,4 +1,4 @@
-package omni_bitpay
+package network
 
 import "sync"
 

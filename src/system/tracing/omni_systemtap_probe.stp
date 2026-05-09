@@ -1,0 +1,55 @@
+#!/usr/bin/stap
+
+/* 
+ * OMNI Kernel & Tracing Layer
+ * SystemTap script to actively probe the Linux kernel during Omni Universal Binary execution.
+ * Tracks I/O latencies and page faults strictly tied to the Omni process for deep profiling.
+ */
+
+global io_time
+global page_faults
+
+probe process("omni_universal_binary").mark("inference_start") {
+    printf("OMNI Profiler: Inference Cycle Initiated at %d\n", gettimeofday_us())
+}
+
+probe process("omni_universal_binary").mark("inference_end") {
+    printf("OMNI Profiler: Inference Cycle Completed at %d\n", gettimeofday_us())
+}
+
+/* Track synchronous read syscalls originating from Omni */
+probe syscall.read {
+    if (execname() == "omni_universal_binary") {
+        io_time[tid()] = gettimeofday_us()
+    }
+}
+
+probe syscall.read.return {
+    if (execname() == "omni_universal_binary") {
+        t = gettimeofday_us()
+        s = io_time[tid()]
+        if (s) {
+            latency = t - s
+            if (latency > 5000) { # Warn if IO read exceeds 5ms
+                printf("OMNI I/O WARNING: Slow read %d us on tid %d\n", latency, tid())
+            }
+            delete io_time[tid()]
+        }
+    }
+}
+
+/* Track page faults to verify zero-copy pinning effectiveness */
+probe vm.pagefault {
+    if (execname() == "omni_universal_binary") {
+        page_faults[tid()] <<< 1
+    }
+}
+
+probe timer.s(10) {
+    printf("--- OMNI Page Fault Report (Last 10s) ---\n")
+    foreach (thread in page_faults- limit 5) {
+        printf("Thread %d: %d faults\n", thread, @count(page_faults[thread]))
+    }
+    delete page_faults
+    printf("-----------------------------------------\n")
+}

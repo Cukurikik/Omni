@@ -2,7 +2,8 @@ package alpharec
 
 import (
 	"sync"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 type AlphaCache struct {

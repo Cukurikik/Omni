@@ -1,0 +1,97 @@
+# omni_schema.graphql — Main GraphQL Schema
+# Layer: Network / GraphQL
+#
+# Unified GraphQL contract for accessing OMNI Framework capabilities
+# including model routing, document embeddings, and system telemetry.
+
+type Query {
+    # System Status
+    systemHealth: HealthStatus!
+    activeNodes: [ComputeNode!]!
+    
+    # Model Metadata
+    availableModels: [AIModel!]!
+    
+    # Knowledge Base
+    searchDocuments(query: String!, topK: Int = 5): [SearchResult!]!
+}
+
+type Mutation {
+    # Inference Generation
+    generateText(input: InferenceInput!): InferenceOutput!
+    
+    # VRP Routing
+    optimizeRoute(request: RouteRequest!): RouteResponse!
+    
+    # Document Ingestion
+    ingestDocument(title: String!, content: String!): DocumentStatus!
+}
+
+# --- Types ---
+
+type HealthStatus {
+    status: String!
+    uptimeSeconds: Int!
+    version: String!
+}
+
+type ComputeNode {
+    id: ID!
+    ipAddress: String!
+    vramUsage: Float!
+    status: String!
+}
+
+type AIModel {
+    id: ID!
+    name: String!
+    architecture: String!
+    contextWindow: Int!
+}
+
+type SearchResult {
+    documentId: ID!
+    title: String!
+    snippet: String!
+    similarityScore: Float!
+}
+
+type InferenceOutput {
+    response: String!
+    tokensUsed: Int!
+    latencyMs: Int!
+}
+
+type RouteResponse {
+    totalDistance: Float!
+    routes: [[Int!]!]!
+}
+
+type DocumentStatus {
+    documentId: ID!
+    chunksCreated: Int!
+    status: String!
+}
+
+# --- Inputs ---
+
+input InferenceInput {
+    prompt: String!
+    modelId: String!
+    temperature: Float = 0.7
+    maxTokens: Int = 1024
+}
+
+input RouteRequest {
+    depotX: Float!
+    depotY: Float!
+    customers: [CustomerInput!]!
+    vehicleCapacity: Float!
+}
+
+input CustomerInput {
+    id: Int!
+    x: Float!
+    y: Float!
+    demand: Float!
+}

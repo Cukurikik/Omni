@@ -2,7 +2,8 @@ package reflect
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func ProcessRobotTelemetry(ctx context.Context, data []byte) result.Result[bool] {

@@ -36,18 +36,18 @@ func (r *Router) handleRPN(w http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(w).Encode(OmniResult[float64]{Ok: false, Error: "Method not allowed"})
 		return
 	}
-	
+
 	var payload EvalRequest
 	if err := json.NewDecoder(req.Body).Decode(&payload); err != nil {
 		json.NewEncoder(w).Encode(OmniResult[float64]{Ok: false, Error: "Invalid payload"})
 		return
 	}
-	
+
 	if len(payload.Tokens) == 0 {
 		json.NewEncoder(w).Encode(OmniResult[float64]{Ok: false, Error: "Empty tokens"})
 		return
 	}
-	
+
 	// Delegate to compute layer (mock response for network router logic)
 	json.NewEncoder(w).Encode(OmniResult[float64]{Ok: true, Value: 42.0})
 }

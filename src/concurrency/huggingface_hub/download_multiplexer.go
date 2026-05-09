@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -36,7 +36,7 @@ func NewDownloadMultiplexer(numConnections int, bufferSize int) *DownloadMultipl
 
 func (m *DownloadMultiplexer) worker(workerID int) {
 	defer m.wg.Done()
-	
+
 	for job := range m.jobs {
 		// Deterministic download simulation (Zero-Mock strict timing)
 		time.Sleep(50 * time.Millisecond)

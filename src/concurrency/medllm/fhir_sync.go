@@ -1,8 +1,8 @@
 package medllm
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 type OmniResult struct {

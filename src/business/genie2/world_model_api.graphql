@@ -1,0 +1,93 @@
+# @omni-layer Business | @omni-source lucidrains/genie2-pytorch | @omni-lang GraphQL
+# @omni-description World model API: GraphQL schema for interactive environment
+# sessions, trajectory browsing, and action space management.
+
+type WorldSession {
+  id: ID!
+  name: String!
+  status: SessionStatus!
+  codebookSize: Int!
+  nActions: Int!
+  currentFrame: FrameState!
+  history: [FrameState!]!
+  totalSteps: Int!
+  createdAt: DateTime!
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ERROR
+}
+
+type FrameState {
+  frameId: Int!
+  tokens: [Int!]!
+  action: Int
+  timestamp: DateTime!
+}
+
+type ActionSpace {
+  nActions: Int!
+  actionLabels: [String!]!
+  latentDim: Int!
+}
+
+type TrajectoryStats {
+  sessionId: ID!
+  totalFrames: Int!
+  uniqueActions: Int!
+  avgTokenDiversity: Float!
+  reward: Float!
+}
+
+type GenerationResult {
+  sessionId: ID!
+  framesGenerated: Int!
+  actionsApplied: [Int!]!
+  finalTokens: [Int!]!
+  reward: Float!
+}
+
+input CreateSessionInput {
+  name: String!
+  codebookSize: Int = 512
+  nActions: Int = 8
+  nTokensPerFrame: Int = 64
+  initialTokens: [Int!]
+}
+
+input StepInput {
+  sessionId: ID!
+  actionId: Int!
+}
+
+input RolloutInput {
+  sessionId: ID!
+  actions: [Int!]!
+}
+
+type Query {
+  session(id: ID!): WorldSession
+  activeSessions(limit: Int = 20): [WorldSession!]!
+  trajectoryStats(sessionId: ID!): TrajectoryStats!
+  actionSpace: ActionSpace!
+  sessionHistory(sessionId: ID!, offset: Int = 0, limit: Int = 50): [FrameState!]!
+}
+
+type Mutation {
+  createSession(input: CreateSessionInput!): WorldSession!
+  stepSession(input: StepInput!): FrameState!
+  rolloutSession(input: RolloutInput!): GenerationResult!
+  pauseSession(id: ID!): WorldSession!
+  resetSession(id: ID!): WorldSession!
+  deleteSession(id: ID!): Boolean!
+}
+
+type Subscription {
+  frameGenerated(sessionId: ID!): FrameState!
+  sessionStatusChanged(sessionId: ID!): WorldSession!
+}
+
+scalar DateTime

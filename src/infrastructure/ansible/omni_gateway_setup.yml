@@ -1,0 +1,9 @@
+# OMNI MOTHER: Ansible Playbook for gRPC Gateway
+- name: Setup Gateway Nodes
+  hosts: gateway_cluster
+  tasks:
+    - name: Deploy Go Gateway Binary
+      copy:
+        src: ./bin/omni_grpc_gateway
+        dest: /usr/local/bin/omni_grpc_gateway
+        mode: '0755'

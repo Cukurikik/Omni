@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Human-Machine Interface</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .panel { background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); width: 400px; }
+        .status { margin-bottom: 1rem; font-size: 1.2rem; display: flex; justify-content: space-between; }
+        .indicator { width: 12px; height: 12px; border-radius: 50%; background: #00ff88; display: inline-block; box-shadow: 0 0 10px #00ff88; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <div class="status">
+            <span>OMNI Nexus Link</span>
+            <span class="indicator"></span>
+        </div>
+        <p>Neural streams synchronized.</p>
+        <button style="width: 100%; padding: 10px; background: #007bff; border: none; color: white; border-radius: 6px; cursor: pointer;">Initiate Diagnostic</button>
+    </div>
+    <script>
+        console.log("OMNI HMI Mounted.");
+    </script>
+</body>
+</html>

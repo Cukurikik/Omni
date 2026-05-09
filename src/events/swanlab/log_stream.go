@@ -1,14 +1,13 @@
 package swanlab
 
 import (
-	"time"
-	"fmt"
 	"context"
-	"log"
+	"fmt"
+	"time"
 )
 
 // OMNI SWANLAB: Log Stream
-// Go channel-based streaming service that ingests real-time training logs 
+// Go channel-based streaming service that ingests real-time training logs
 // from running experiments and flushes them to database or WebSockets.
 // Source: SwanHubX/SwanLab
 

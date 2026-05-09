@@ -1,0 +1,91 @@
+# @omni-layer Database | @omni-lang SPARQL | @omni-batch 17
+# @omni-description RDF ontology queries: SPARQL endpoint for querying
+# OMNI knowledge base with reasoning, federated search, and inference.
+
+PREFIX omni: <https://omniframework.dev/ontology#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# === Query 1: All concepts with their types and confidence ===
+SELECT ?concept ?type ?confidence ?source
+WHERE {
+    ?concept rdf:type omni:Concept .
+    ?concept omni:conceptType ?type .
+    ?concept omni:confidence ?confidence .
+    OPTIONAL { ?concept omni:source ?source }
+}
+ORDER BY DESC(?confidence)
+LIMIT 100 ;
+
+# === Query 2: Taxonomy hierarchy (transitive closure) ===
+SELECT ?child ?parent ?depth
+WHERE {
+    ?child omni:isA+ ?parent .
+    {
+        SELECT ?child (COUNT(?mid) AS ?depth)
+        WHERE { ?child omni:isA+ ?mid . ?mid omni:isA* ?parent }
+        GROUP BY ?child
+    }
+}
+ORDER BY ?depth ;
+
+# === Query 3: Find all properties inherited from ancestors ===
+SELECT ?concept ?property ?value ?inheritedFrom
+WHERE {
+    ?concept omni:isA* ?ancestor .
+    ?ancestor omni:hasProperty ?propNode .
+    ?propNode omni:propertyName ?property .
+    ?propNode omni:propertyValue ?value .
+    BIND(?ancestor AS ?inheritedFrom)
+}
+ORDER BY ?concept ?property ;
+
+# === Query 4: Semantic similarity via embedding distance ===
+SELECT ?concept ?similarity
+WHERE {
+    ?concept rdf:type omni:Concept .
+    ?concept omni:embedding ?embedding .
+    BIND(omni:cosineSimilarity(?embedding, $queryEmbedding) AS ?similarity)
+    FILTER(?similarity > 0.7)
+}
+ORDER BY DESC(?similarity)
+LIMIT 10 ;
+
+# === Query 5: Cross-domain relation discovery ===
+SELECT ?subject ?predicate ?object ?subjectType ?objectType ?confidence
+WHERE {
+    ?subject ?predicate ?object .
+    ?subject rdf:type omni:Concept .
+    ?object rdf:type omni:Concept .
+    ?subject omni:conceptType ?subjectType .
+    ?object omni:conceptType ?objectType .
+    FILTER(?subjectType != ?objectType)
+    OPTIONAL { ?predicate omni:confidence ?confidence }
+}
+ORDER BY DESC(?confidence) ;
+
+# === Query 6: Knowledge gap detection (orphan concepts) ===
+SELECT ?concept ?type ?confidence
+WHERE {
+    ?concept rdf:type omni:Concept .
+    ?concept omni:conceptType ?type .
+    ?concept omni:confidence ?confidence .
+    FILTER NOT EXISTS { ?concept omni:isA ?parent }
+    FILTER NOT EXISTS { ?child omni:isA ?concept }
+    FILTER NOT EXISTS { ?concept ?anyRelation ?other . FILTER(?anyRelation != rdf:type && ?anyRelation != omni:conceptType && ?anyRelation != omni:confidence) }
+}
+ORDER BY ?confidence ;
+
+# === Query 7: Ontology statistics ===
+SELECT
+    (COUNT(DISTINCT ?concept) AS ?totalConcepts)
+    (COUNT(DISTINCT ?relation) AS ?totalRelations)
+    (AVG(?confidence) AS ?avgConfidence)
+WHERE {
+    { ?concept rdf:type omni:Concept . ?concept omni:confidence ?confidence }
+    UNION
+    { ?s ?relation ?o . ?s rdf:type omni:Concept . ?o rdf:type omni:Concept }
+} ;

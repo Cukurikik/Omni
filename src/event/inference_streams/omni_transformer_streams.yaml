@@ -1,0 +1,118 @@
+# @omni-layer Event | @omni-lang YAML/Kafka | @omni-batch 18 | @omni-semester 16
+# @omni-description Kafka Streams topology for transformer inference event
+# routing, model A/B testing, and real-time analytics pipeline.
+
+apiVersion: kafka.omni.dev/v1
+kind: StreamsTopology
+metadata:
+  name: omni-transformer-streams
+  namespace: omni-inference
+  labels:
+    app: omni-transformer
+    batch: "18"
+    layer: event
+
+spec:
+  applicationId: omni-transformer-inference-streams
+  bootstrapServers: kafka.omni.internal:9092
+  numStreamThreads: 4
+  stateDir: /var/lib/omni/kafka-state
+
+  serdes:
+    keySerializer: org.apache.kafka.common.serialization.StringSerializer
+    valueSerializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    schemaRegistry: http://schema-registry.omni.internal:8081
+
+  topics:
+    input:
+      - name: omni.inference.requests
+        partitions: 16
+        replicationFactor: 3
+        config:
+          retention.ms: 604800000
+          cleanup.policy: delete
+    output:
+      - name: omni.inference.results
+        partitions: 16
+        replicationFactor: 3
+      - name: omni.inference.metrics
+        partitions: 8
+        replicationFactor: 3
+      - name: omni.inference.errors
+        partitions: 4
+        replicationFactor: 3
+      - name: omni.model.ab-test
+        partitions: 8
+        replicationFactor: 3
+
+  topology:
+    source:
+      name: inference-requests
+      topic: omni.inference.requests
+
+    processors:
+      - name: request-validator
+        type: filter
+        predicate: "record.value.model_id != null && record.value.input != null"
+
+      - name: model-router
+        type: branch
+        branches:
+          - name: timeseries
+            predicate: "record.value.model_type == 'timeseries'"
+            sink: omni.inference.tempo
+          - name: ner
+            predicate: "record.value.model_type == 'ner'"
+            sink: omni.inference.ner
+          - name: video
+            predicate: "record.value.model_type == 'video'"
+            sink: omni.inference.video
+          - name: default
+            predicate: "true"
+            sink: omni.inference.general
+
+      - name: ab-test-splitter
+        type: flatMap
+        logic: |
+          if record.value.ab_test_enabled:
+            yield {model_id: record.value.model_a, variant: 'A', ...record}
+            yield {model_id: record.value.model_b, variant: 'B', ...record}
+          else:
+            yield record
+
+      - name: latency-aggregator
+        type: aggregate
+        windowType: tumbling
+        windowSize: 60s
+        groupBy: model_id
+        aggregations:
+          - field: latency_ms
+            function: avg
+          - field: latency_ms
+            function: percentile_95
+          - field: request_count
+            function: count
+        sink: omni.inference.metrics
+
+      - name: error-detector
+        type: filter
+        predicate: "record.value.status == 'error'"
+        sink: omni.inference.errors
+
+    sinks:
+      - name: results-sink
+        topic: omni.inference.results
+      - name: metrics-sink
+        topic: omni.inference.metrics
+      - name: ab-test-sink
+        topic: omni.model.ab-test
+
+  monitoring:
+    metrics:
+      enabled: true
+      reporter: prometheus
+      port: 9090
+    healthCheck:
+      enabled: true
+      path: /health
+      port: 8080

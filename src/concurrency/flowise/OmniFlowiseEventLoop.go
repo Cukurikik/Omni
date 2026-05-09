@@ -1,4 +1,4 @@
-﻿// OMNI FLOWISE EVENT LOOP
+// OMNI FLOWISE EVENT LOOP
 // Domain: Non-blocking workflow execution
 // Origin: FlowiseAI/Flowise
 package concurrency
@@ -6,13 +6,13 @@ package concurrency
 import "errors"
 
 type FlowiseLoop struct {
-    isRunning bool
+	isRunning bool
 }
 
 func (f *FlowiseLoop) Start() error {
-    if f.isRunning {
-        return errors.New("event loop already running")
-    }
-    f.isRunning = true
-    return nil
-}\n
+	if f.isRunning {
+		return errors.New("event loop already running")
+	}
+	f.isRunning = true
+	return nil
+}

@@ -2,7 +2,7 @@
 // OMNI FRAMEWORK COMPLIANT - ZERO MOCK - MONADIC ERROR HANDLING
 // NETWORK LAYER - GO
 
-package go_core
+package network_gocore
 
 import (
 	"crypto/sha256"
@@ -66,3 +66,4 @@ func (e *OmniVideoDBEngine) ProcessVideoStream(streamData []byte) ResultVideoMet
 		Error: nil,
 	}
 }
+

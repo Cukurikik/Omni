@@ -60,15 +60,15 @@ type OmniOneFlowEngine struct {
 	clusterName string
 	nodes       map[string]*ClusterNode
 	tensors     map[string]*TensorMeta
-	
+
 	// Synchronization primitives
 	barrierCh map[string]chan struct{}
-	
+
 	// Metrics
-	activeJobs   atomic.Int64
-	syncEvents   atomic.Int64
-	totalNodes   atomic.Int32
-	networkTx    atomic.Int64 // bytes transmitted
+	activeJobs atomic.Int64
+	syncEvents atomic.Int64
+	totalNodes atomic.Int32
+	networkTx  atomic.Int64 // bytes transmitted
 }
 
 // NewOmniOneFlowEngine initializes the distributed engine.

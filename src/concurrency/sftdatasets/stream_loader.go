@@ -1,8 +1,8 @@
 package sftdatasets
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 type OmniResult struct {

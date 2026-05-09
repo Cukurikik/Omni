@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: '2010-09-09'
+# @omni-layer Infrastructure | @omni-lang CloudFormation | @omni-batch 17
+# @omni-description Serverless inference stack: AWS CloudFormation template
+# for Lambda-based inference, API Gateway, DynamoDB model registry, and SQS queue.
+
+Description: 'OMNI Serverless Inference Stack - Batch 17'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: production
+    AllowedValues: [production, staging, development]
+  ModelBucketName:
+    Type: String
+    Default: omni-models-serverless
+  MaxConcurrentInferences:
+    Type: Number
+    Default: 100
+    MinValue: 1
+    MaxValue: 1000
+
+Resources:
+  # Model Registry Table
+  ModelRegistryTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'omni-models-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: model_id
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: created_at
+          AttributeType: S
+      KeySchema:
+        - AttributeName: model_id
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: status-index
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: created_at
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      Tags:
+        - Key: Project
+          Value: OMNI
+        - Key: Batch
+          Value: '17'
+
+  # Inference Queue
+  InferenceQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub 'omni-inference-queue-${Environment}'
+      VisibilityTimeout: 300
+      MessageRetentionPeriod: 86400
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt InferenceDLQ.Arn
+        maxReceiveCount: 3
+
+  InferenceDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub 'omni-inference-dlq-${Environment}'
+      MessageRetentionPeriod: 1209600
+
+  # Inference Lambda Function
+  InferenceLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: OmniInferencePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:Query
+                Resource: !GetAtt ModelRegistryTable.Arn
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource: !Sub 'arn:aws:s3:::${ModelBucketName}/*'
+              - Effect: Allow
+                Action:
+                  - sqs:ReceiveMessage
+                  - sqs:DeleteMessage
+                  - sqs:GetQueueAttributes
+                Resource: !GetAtt InferenceQueue.Arn
+
+  InferenceFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub 'omni-inference-${Environment}'
+      Runtime: python3.12
+      Handler: index.handler
+      MemorySize: 3008
+      Timeout: 300
+      Role: !GetAtt InferenceLambdaRole.Arn
+      Environment:
+        Variables:
+          MODEL_TABLE: !Ref ModelRegistryTable
+          MODEL_BUCKET: !Ref ModelBucketName
+          ENVIRONMENT: !Ref Environment
+      ReservedConcurrentExecutions: !Ref MaxConcurrentInferences
+      Code:
+        ZipFile: |
+          import json
+          def handler(event, context):
+              return {'statusCode': 200, 'body': json.dumps({'status': 'ok', 'engine': 'omni-batch17'})}
+
+  # API Gateway
+  InferenceApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub 'omni-inference-api-${Environment}'
+      Description: OMNI Inference API Gateway
+
+Outputs:
+  ModelTableArn:
+    Value: !GetAtt ModelRegistryTable.Arn
+  InferenceQueueUrl:
+    Value: !Ref InferenceQueue
+  InferenceFunctionArn:
+    Value: !GetAtt InferenceFunction.Arn
+  ApiEndpoint:
+    Value: !Sub 'https://${InferenceApi}.execute-api.${AWS::Region}.amazonaws.com'

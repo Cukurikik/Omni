@@ -36,11 +36,11 @@ type RayResult[T any] struct {
 
 // Actor represents a stateful remote worker.
 type Actor struct {
-	ID        string
-	State     map[string]interface{}
-	Mailbox   chan struct{}
-	lastPing  int64
-	isAlive   bool
+	ID       string
+	State    map[string]interface{}
+	Mailbox  chan struct{}
+	lastPing int64
+	isAlive  bool
 }
 
 // OmniRayEngine orchestrates distributed actor topologies.
@@ -82,18 +82,18 @@ func (e *OmniRayEngine) SpawnActor(id string) RayResult[bool] {
 // In a pure zero-mock go implementation, this leverages goroutines with wait groups.
 func (e *OmniRayEngine) ExecuteRemote(ctx context.Context, fn func() error) RayResult[chan error] {
 	e.tasksPending.Add(1)
-	
+
 	resultCh := make(chan error, 1)
-	
+
 	go func() {
 		defer e.tasksPending.Add(-1)
 		defer e.tasksDone.Add(1)
-		
+
 		errCh := make(chan error, 1)
 		go func() {
 			errCh <- fn()
 		}()
-		
+
 		select {
 		case <-ctx.Done():
 			resultCh <- ctx.Err()

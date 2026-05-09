@@ -1,0 +1,68 @@
+# @omni-layer Business | @omni-source xmed-lab/TAM
+# @omni-description GraphQL schema for Token Activation Map explainability API.
+# @omni-lang GraphQL | @omni-batch 16 | @omni-semester 16
+
+type TokenActivationMap {
+  id: ID!
+  model_id: String!
+  image_id: String!
+  target_token: String!
+  target_token_idx: Int!
+  grid_size: Int!
+  relevance_scores: [Float!]!
+  heatmap: [[Float!]!]!
+  max_activation: Float!
+  mean_activation: Float!
+  created_at: String!
+}
+
+type GradientWeightedTAM {
+  id: ID!
+  tam_id: ID!
+  gradient_norm: Float!
+  weighted_activations: [Float!]!
+  top_k_patches: [PatchInfo!]!
+}
+
+type PatchInfo {
+  row: Int!
+  col: Int!
+  activation: Float!
+  relative_importance: Float!
+}
+
+type ExplainabilityReport {
+  model_id: String!
+  image_id: String!
+  query_text: String!
+  tam: TokenActivationMap!
+  grad_tam: GradientWeightedTAM
+  confidence_score: Float!
+  explanation_quality: Float!
+}
+
+input GenerateTAMInput {
+  model_id: String!
+  image_id: String!
+  target_token: String!
+  use_gradient_weighting: Boolean
+  top_k: Int
+}
+
+input BatchTAMInput {
+  requests: [GenerateTAMInput!]!
+  aggregate: Boolean
+}
+
+type Query {
+  getTAM(id: ID!): TokenActivationMap
+  getExplainabilityReport(model_id: String!, image_id: String!): ExplainabilityReport
+  listTAMs(model_id: String!, limit: Int, offset: Int): [TokenActivationMap!]!
+  compareTAMs(tam_ids: [ID!]!): [TokenActivationMap!]!
+}
+
+type Mutation {
+  generateTAM(input: GenerateTAMInput!): TokenActivationMap!
+  batchGenerateTAM(input: BatchTAMInput!): [TokenActivationMap!]!
+  deleteTAM(id: ID!): Boolean!
+}

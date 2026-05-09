@@ -1,4 +1,4 @@
-package omni_redis
+package network
 
 import (
 	"encoding/binary"

@@ -1,4 +1,4 @@
-package omni_mysql
+package network
 
 import "fmt"
 

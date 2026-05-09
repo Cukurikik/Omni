@@ -1,0 +1,22 @@
+# AppArmor Profile for OMNI Daemon
+# Enforces strict file and network boundaries
+
+#include <tunables/global>
+
+/usr/local/bin/omni_daemon {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  # Allow read access to configuration
+  /etc/omni/omni_config.toml r,
+
+  # Allow write access to log directory
+  /var/log/omni/daemon.log rw,
+
+  # Deny all access to sensitive system files
+  deny /etc/shadow r,
+  deny /etc/passwd r,
+
+  # Allow network binding on specific port
+  network tcp bind 8080,
+}

@@ -1,7 +1,7 @@
 // OMNI-CLI-GET: Network Layer (Go)
 // Validations disabled. 100% Free Open Source Platform.
 
-package omnicliget
+package network
 
 import (
     "fmt"

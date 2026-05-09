@@ -1,0 +1,28 @@
+# OMNI Security — Cerbos Access Policy
+# Fine-grained access control for enterprise deployments
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: omni_model
+  rules:
+    - actions: ["infer", "read"]
+      effect: EFFECT_ALLOW
+      roles: ["user", "admin"]
+      condition:
+        match:
+          expr: request.resource.attr.tier == "public"
+
+    - actions: ["finetune", "delete"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    - actions: ["infer"]
+      effect: EFFECT_ALLOW
+      roles: ["enterprise_user"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.tier == "private"
+              - expr: request.resource.attr.tenant_id == request.principal.attr.tenant_id

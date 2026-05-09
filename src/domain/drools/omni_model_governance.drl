@@ -1,0 +1,100 @@
+// OMNI Business Layer — Drools Rules for Model Lifecycle Management
+// Business rules engine for automated model governance decisions.
+
+package omni.model.rules;
+
+import omni.model.rules.ModelDeploymentRequest;
+import omni.model.rules.ModelMetrics;
+import omni.model.rules.GovernanceAction;
+
+declare ModelDeploymentRequest
+    modelName : String
+    version : String
+    accuracy : double
+    latencyMs : double
+    memorySizeMb : long
+    hasSecurityAudit : boolean
+    hasDataPrivacyReview : boolean
+    environment : String  // "staging" | "production"
+end
+
+declare ModelMetrics
+    modelName : String
+    errorRate : double
+    p99LatencyMs : double
+    requestsPerSecond : double
+    gpuUtilization : double
+end
+
+declare GovernanceAction
+    action : String
+    reason : String
+    severity : String
+    modelName : String
+end
+
+// Rule: Block deployment if accuracy below threshold
+rule "Block Low Accuracy Deployment"
+    salience 100
+    when
+        $req : ModelDeploymentRequest(accuracy < 0.85, environment == "production")
+    then
+        insert(new GovernanceAction("BLOCK_DEPLOY",
+            "Model accuracy " + $req.getAccuracy() + " below 0.85 threshold for production",
+            "CRITICAL", $req.getModelName()));
+end
+
+// Rule: Require security audit for production
+rule "Require Security Audit"
+    salience 90
+    when
+        $req : ModelDeploymentRequest(environment == "production", hasSecurityAudit == false)
+    then
+        insert(new GovernanceAction("BLOCK_DEPLOY",
+            "Security audit required for production deployment",
+            "CRITICAL", $req.getModelName()));
+end
+
+// Rule: Warn on high latency
+rule "High Latency Warning"
+    salience 50
+    when
+        $req : ModelDeploymentRequest(latencyMs > 500.0)
+    then
+        insert(new GovernanceAction("WARN",
+            "Latency " + $req.getLatencyMs() + "ms exceeds 500ms SLA threshold",
+            "WARNING", $req.getModelName()));
+end
+
+// Rule: Auto-scale on high load
+rule "Auto Scale Up"
+    salience 70
+    when
+        $metrics : ModelMetrics(gpuUtilization > 80.0, requestsPerSecond > 100.0)
+    then
+        insert(new GovernanceAction("SCALE_UP",
+            "GPU utilization " + $metrics.getGpuUtilization() + "% with " + $metrics.getRequestsPerSecond() + " RPS",
+            "INFO", $metrics.getModelName()));
+end
+
+// Rule: Auto-rollback on high error rate
+rule "Emergency Rollback"
+    salience 100
+    when
+        $metrics : ModelMetrics(errorRate > 0.05)
+    then
+        insert(new GovernanceAction("ROLLBACK",
+            "Error rate " + ($metrics.getErrorRate() * 100) + "% exceeds 5% threshold - initiating rollback",
+            "CRITICAL", $metrics.getModelName()));
+end
+
+// Rule: Memory optimization suggestion
+rule "Memory Optimization"
+    salience 30
+    when
+        $req : ModelDeploymentRequest(memorySizeMb > 30000)
+    then
+        insert(new GovernanceAction("RECOMMEND",
+            "Model size " + $req.getMemorySizeMb() + "MB - recommend INT8 quantization",
+            "INFO", $req.getModelName()));
+end

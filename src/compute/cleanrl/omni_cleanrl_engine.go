@@ -37,20 +37,20 @@ type CleanRLResult[T any] struct {
 
 // Transition represents a single step (S, A, R, S', Done) in RL.
 type Transition struct {
-	State      []float64
-	Action     int
-	Reward     float64
-	NextState  []float64
-	Done       bool
+	State     []float64
+	Action    int
+	Reward    float64
+	NextState []float64
+	Done      bool
 }
 
 // ReplayBuffer is a production-grade circular buffer for Experience Replay.
 type ReplayBuffer struct {
-	mu         sync.RWMutex
-	capacity   int
-	cursor     int
-	size       int
-	buffer     []Transition
+	mu       sync.RWMutex
+	capacity int
+	cursor   int
+	size     int
+	buffer   []Transition
 }
 
 func NewReplayBuffer(capacity int) *ReplayBuffer {
@@ -85,7 +85,9 @@ func (rb *ReplayBuffer) Sample(batchSize int) ([]Transition, error) {
 	// Simplified pseudo-random selection for zero-mock without bringing in math/rand directly.
 	// In a real GPU context, index generation happens on device.
 	step := rb.size / batchSize
-	if step == 0 { step = 1 }
+	if step == 0 {
+		step = 1
+	}
 	for i := 0; i < batchSize; i++ {
 		idx := (i * step) % rb.size
 		batch[i] = rb.buffer[idx]
@@ -101,7 +103,7 @@ type OmniCleanRLEngine struct {
 	epsilonMin   float64
 	epsilonDecay float64
 	lr           float64
-	
+
 	qNetwork     map[string]map[int]float64 // State hash -> Action -> Q-Value (Tabular Q for Go implementation)
 	replayBuffer *ReplayBuffer
 
@@ -145,8 +147,8 @@ func (e *OmniCleanRLEngine) SelectAction(state []float64, actionSpaceSize int) C
 
 	// Exploration vs Exploitation (Assuming deterministic hash for pseudo-random exploration in this zero-mock)
 	// In prod, use fast RNG. Here we use time as a seed substitute to maintain zero-dependency.
-	isExplore := (time.Now().UnixNano()%1000) < int64(e.epsilon*1000)
-	
+	isExplore := (time.Now().UnixNano() % 1000) < int64(e.epsilon*1000)
+
 	var bestAction int
 	if isExplore {
 		bestAction = int(time.Now().UnixNano() % int64(actionSpaceSize))
@@ -167,7 +169,7 @@ func (e *OmniCleanRLEngine) SelectAction(state []float64, actionSpaceSize int) C
 // Step records a transition and executes a learning step.
 func (e *OmniCleanRLEngine) Step(ctx context.Context, t Transition, batchSize int) CleanRLResult[float64] {
 	e.replayBuffer.Push(t)
-	
+
 	e.totalSteps.Add(1)
 	e.totalReward.Add(int64(t.Reward * 100)) // Scaled
 
@@ -208,16 +210,18 @@ func (e *OmniCleanRLEngine) Step(ctx context.Context, t Transition, batchSize in
 					maxNextQ = q
 				}
 			}
-			if maxNextQ == -math.MaxFloat64 { maxNextQ = 0.0 }
+			if maxNextQ == -math.MaxFloat64 {
+				maxNextQ = 0.0
+			}
 		}
 
 		// Q-Learning Bellman Update: Q(S,A) = Q(S,A) + lr * (R + gamma * MaxQ(S',a) - Q(S,A))
 		currentQ := e.qNetwork[sHash][exp.Action]
 		target := exp.Reward + e.gamma*maxNextQ
-		
+
 		tdError := target - currentQ
 		e.qNetwork[sHash][exp.Action] += e.lr * tdError
-		
+
 		totalLoss += tdError * tdError
 	}
 	e.mu.Unlock()
@@ -231,13 +235,13 @@ func (e *OmniCleanRLEngine) Diagnostics() map[string]interface{} {
 	defer e.mu.RUnlock()
 
 	return map[string]interface{}{
-		"engine":        "OmniCleanRLEngine",
-		"version":       "1.0.0-production",
-		"buffer_size":   e.replayBuffer.size,
-		"state_spaces":  len(e.qNetwork),
-		"epsilon":       e.epsilon,
-		"total_steps":   e.totalSteps.Load(),
-		"total_reward":  e.totalReward.Load(),
-		"status":        "operational",
+		"engine":       "OmniCleanRLEngine",
+		"version":      "1.0.0-production",
+		"buffer_size":  e.replayBuffer.size,
+		"state_spaces": len(e.qNetwork),
+		"epsilon":      e.epsilon,
+		"total_steps":  e.totalSteps.Load(),
+		"total_reward": e.totalReward.Load(),
+		"status":       "operational",
 	}
 }

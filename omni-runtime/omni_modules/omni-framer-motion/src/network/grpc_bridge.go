@@ -1,4 +1,4 @@
-package omni_framer_motion
+package network
 
 import "fmt"
 

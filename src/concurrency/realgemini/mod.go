@@ -7,7 +7,6 @@ package realgemini
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"errors"
 )
 
 type RealGeminiFrameError struct {
@@ -55,13 +54,13 @@ func (e *OmniRealGeminiEngine) ProcessVideoFrame(videoBytes []byte, audioBytes [
 	hasher.Write(videoBytes)
 	hasher.Write(audioBytes)
 	digest := hasher.Sum(nil)
-	
+
 	interactionID := hex.EncodeToString(digest[:8])
 	audioSyncHash := hex.EncodeToString(digest[8:16])
 
 	// Calculate deterministic latency bound based on byte density
 	latencyBound := 10 + (int(digest[0]) % 40)
-	
+
 	// Active video inference flag
 	isVideoActive := len(videoBytes) > 1024 // arbitrary structural bound
 

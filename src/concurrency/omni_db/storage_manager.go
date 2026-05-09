@@ -2,7 +2,8 @@ package omni_db
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func WritePageData(ctx context.Context, path string, data []byte) result.Result[bool] {

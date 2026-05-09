@@ -1,0 +1,60 @@
+# @omni-layer Business | @omni-source openai/tiktoken | @omni-lang GraphQL
+# @omni-description Tokenizer management API: CRUD for BPE vocabularies,
+# encode/decode endpoints, and token analytics.
+
+type Vocabulary {
+  id: ID!
+  name: String!
+  vocab_size: Int!
+  n_merges: Int!
+  base_vocab_size: Int!
+  created_at: String!
+  status: String!
+}
+
+type EncodingResult {
+  token_ids: [Int!]!
+  n_tokens: Int!
+  compression_ratio: Float!
+  encoding_time_ms: Float!
+}
+
+type DecodingResult {
+  text: String!
+  n_bytes: Int!
+  n_tokens: Int!
+}
+
+type TokenAnalytics {
+  vocab_id: ID!
+  total_encodings: Int!
+  avg_compression: Float!
+  avg_tokens_per_text: Float!
+  most_frequent_tokens: [TokenFrequency!]!
+}
+
+type TokenFrequency {
+  token_id: Int!
+  token_text: String!
+  frequency: Int!
+  percentage: Float!
+}
+
+input CreateVocabInput {
+  name: String!
+  training_text: String!
+  n_merges: Int!
+}
+
+type Query {
+  getVocabulary(id: ID!): Vocabulary
+  encode(vocab_id: ID!, text: String!): EncodingResult!
+  decode(vocab_id: ID!, token_ids: [Int!]!): DecodingResult!
+  analytics(vocab_id: ID!): TokenAnalytics
+  listVocabularies: [Vocabulary!]!
+}
+
+type Mutation {
+  createVocabulary(input: CreateVocabInput!): Vocabulary!
+  deleteVocabulary(id: ID!): Boolean!
+}

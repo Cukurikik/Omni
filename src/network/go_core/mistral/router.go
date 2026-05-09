@@ -20,9 +20,9 @@ func (r *MistralRouter) ProcessSimilarity(ctx context.Context, dot float64) (*Ve
 	if r.Epsilon < 0 {
 		return nil, errors.New("epsilon cannot be negative")
 	}
-	
+
 	isOrtho := dot > -r.Epsilon && dot < r.Epsilon
-	
+
 	return &VectorResult{
 		DotProduct: dot,
 		Orthogonal: isOrtho,

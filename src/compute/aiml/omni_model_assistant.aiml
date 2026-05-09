@@ -1,0 +1,55 @@
+<!-- OMNI NL/Rules — AIML Chatbot Knowledge Base for Model Interaction -->
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<category>
+  <pattern>LIST MODELS</pattern>
+  <template>Available OMNI models: omni-tiny (125M), omni-small (350M), omni-base (1.3B), omni-7b (7B), omni-13b (13B). Which would you like to use?</template>
+</category>
+
+<category>
+  <pattern>DEPLOY * MODEL</pattern>
+  <template>Deploying <star/> model to OMNI Cloud. Estimated deployment time: 2-5 minutes. I will configure auto-scaling with min=1, max=10 replicas.</template>
+</category>
+
+<category>
+  <pattern>WHAT IS THE STATUS OF *</pattern>
+  <template>Checking status of <star/>... Model is currently deployed with 3 active replicas, average latency 45ms, throughput 1200 tokens/sec.</template>
+</category>
+
+<category>
+  <pattern>TRAIN * ON *</pattern>
+  <template>Initiating training pipeline for <star index="1"/> on dataset <star index="2"/>. Configuration: learning_rate=2e-5, batch_size=4, epochs=3. Training will begin after data validation.</template>
+</category>
+
+<category>
+  <pattern>COMPARE * AND *</pattern>
+  <template>Comparing <star index="1"/> vs <star index="2"/>: Running A/B evaluation on standard benchmarks (MMLU, HumanEval, MT-Bench). Results will be ready in approximately 10 minutes.</template>
+</category>
+
+<category>
+  <pattern>OPTIMIZE * FOR *</pattern>
+  <template>Optimization plan for <star index="1"/> targeting <star index="2"/>: 1) INT8 quantization (-60% memory), 2) KV-cache optimization, 3) Batch scheduling tuning. Shall I proceed?</template>
+</category>
+
+<category>
+  <pattern>HELP</pattern>
+  <template>OMNI AI Commands: LIST MODELS, DEPLOY [model], TRAIN [model] ON [dataset], COMPARE [model1] AND [model2], OPTIMIZE [model] FOR [target], CHECK HEALTH, ROLLBACK [model].</template>
+</category>
+
+<category>
+  <pattern>CHECK HEALTH</pattern>
+  <template>System health: All 3 GPU nodes online. CPU: 45%, GPU: 72%, Memory: 58%. Active models: 5. Queue depth: 12. No alerts.</template>
+</category>
+
+<category>
+  <pattern>ROLLBACK *</pattern>
+  <template>Rolling back <star/> to previous version. Current version will be archived. Estimated downtime: 0 seconds (blue-green deployment).</template>
+</category>
+
+<category>
+  <pattern>*</pattern>
+  <template>I understand you said "<star/>". For model management commands, try: HELP, LIST MODELS, DEPLOY, TRAIN, or CHECK HEALTH.</template>
+</category>
+
+</aiml>

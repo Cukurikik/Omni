@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -36,7 +36,7 @@ func NewHandshakePool(workers int) *HandshakePool {
 
 func (p *HandshakePool) worker(id int) {
 	defer p.wg.Done()
-	
+
 	for event := range p.queue {
 		// Simulate cryptographic handshake processing time
 		time.Sleep(15 * time.Millisecond)

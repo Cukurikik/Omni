@@ -1,9 +1,9 @@
 package rl
 
 import (
-	"time"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"time"
 )
 
 // OMNI RL: Reward Stream

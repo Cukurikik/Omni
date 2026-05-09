@@ -2,7 +2,7 @@
 // OMNI FRAMEWORK COMPLIANT - ZERO MOCK - MONADIC ERROR HANDLING
 // NETWORK / COMPUTE LAYER - GO
 
-package go_core
+package network_gocore
 
 import (
 	"crypto/sha256"
@@ -21,10 +21,10 @@ var (
 
 // EcgMetric represents a single processed timestep
 type EcgMetric struct {
-	Timestamp   uint64
-	Voltage     float64
-	IsAnomaly   bool
-	HeartRate   float64
+	Timestamp uint64
+	Voltage   float64
+	IsAnomaly bool
+	HeartRate float64
 }
 
 // EcgResult represents the monadic completion result
@@ -81,7 +81,7 @@ func (e *OmniEcgByteEngine) ProcessStream(rawBytes []byte) EcgResult {
 		if math.Abs(voltage) > e.threshold {
 			currentTime := uint64(i) // Sample index as mock timestamp for pure deterministic offset
 			if lastPeakTime > 0 {
-				delta := float64(currentTime - lastPeakTime) / float64(e.samplingRate)
+				delta := float64(currentTime-lastPeakTime) / float64(e.samplingRate)
 				if delta > 0.1 { // Prevent double-counting the same peak structure
 					latestRRInterval = delta
 				}
@@ -112,3 +112,4 @@ func (e *OmniEcgByteEngine) ProcessStream(rawBytes []byte) EcgResult {
 
 	return EcgResult{Metrics: metrics, Error: nil}
 }
+

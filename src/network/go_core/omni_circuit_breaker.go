@@ -5,7 +5,7 @@
 // Layer: NETWORK (Go)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-package go_core
+package network_gocore
 
 import (
 	"crypto/sha256"
@@ -251,9 +251,9 @@ type OmniCircuitBreaker struct {
 	mu sync.RWMutex
 
 	// Statistics
-	totalTrips   int64 // atomic — total times circuit opened
-	totalResets  int64 // atomic — total times circuit closed from open
-	createdAt    time.Time
+	totalTrips  int64 // atomic — total times circuit opened
+	totalResets int64 // atomic — total times circuit closed from open
+	createdAt   time.Time
 }
 
 const (
@@ -469,20 +469,20 @@ func (cb *OmniCircuitBreaker) Fingerprint() string {
 
 // Diagnostics returns engine health status for the OMNI Engine Registry.
 type DiagnosticsReport struct {
-	EngineID             string         `json:"engine_id"`
-	Version              string         `json:"version"`
-	Status               string         `json:"status"`
-	CircuitName          string         `json:"circuit_name"`
-	State                string         `json:"state"`
-	HealthScore          float64        `json:"health_score"`
-	ErrorThreshold       float64        `json:"error_threshold"`
-	OpenDuration         string         `json:"open_duration"`
-	Metrics              MetricsSummary `json:"metrics"`
-	TotalTrips           int64          `json:"total_trips"`
-	TotalResets          int64          `json:"total_resets"`
-	ConsecutiveErrors    int64          `json:"consecutive_errors"`
-	Fingerprint          string         `json:"fingerprint"`
-	UptimeSeconds        float64        `json:"uptime_seconds"`
+	EngineID          string         `json:"engine_id"`
+	Version           string         `json:"version"`
+	Status            string         `json:"status"`
+	CircuitName       string         `json:"circuit_name"`
+	State             string         `json:"state"`
+	HealthScore       float64        `json:"health_score"`
+	ErrorThreshold    float64        `json:"error_threshold"`
+	OpenDuration      string         `json:"open_duration"`
+	Metrics           MetricsSummary `json:"metrics"`
+	TotalTrips        int64          `json:"total_trips"`
+	TotalResets       int64          `json:"total_resets"`
+	ConsecutiveErrors int64          `json:"consecutive_errors"`
+	Fingerprint       string         `json:"fingerprint"`
+	UptimeSeconds     float64        `json:"uptime_seconds"`
 }
 
 func (cb *OmniCircuitBreaker) Diagnostics() DiagnosticsReport {
@@ -503,3 +503,4 @@ func (cb *OmniCircuitBreaker) Diagnostics() DiagnosticsReport {
 		UptimeSeconds:     math.Round(time.Since(cb.createdAt).Seconds()*100) / 100,
 	}
 }
+

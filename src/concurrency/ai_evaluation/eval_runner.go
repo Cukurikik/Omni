@@ -40,14 +40,14 @@ func (r *EvalRunner) worker() {
 			r.results <- OmniResult{Error: fmt.Errorf("no metrics provided for %s", job.ModelID)}
 			continue
 		}
-		
+
 		// Calculate simple mean
 		sum := 0.0
 		for _, v := range job.Metrics {
 			sum += v
 		}
 		mean := sum / float64(len(job.Metrics))
-		
+
 		r.results <- OmniResult{Value: fmt.Sprintf("Model %s evaluated. Mean Accuracy: %.4f", job.ModelID, mean)}
 	}
 }

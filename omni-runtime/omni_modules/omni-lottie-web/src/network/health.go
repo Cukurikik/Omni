@@ -1,4 +1,4 @@
-package omni_lottie_web
+package network
 
 import "time"
 

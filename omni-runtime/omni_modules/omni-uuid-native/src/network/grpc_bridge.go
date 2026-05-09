@@ -1,4 +1,4 @@
-package omni_uuid_native
+package network
 
 import "fmt"
 

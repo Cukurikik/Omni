@@ -1,4 +1,4 @@
-package ollamarunner
+package ollama_runner
 
 import "testing"
 
@@ -9,3 +9,4 @@ func TestSetupRouter(t *testing.T) {
 		t.Fatalf("Failed to setup router")
 	}
 }
+

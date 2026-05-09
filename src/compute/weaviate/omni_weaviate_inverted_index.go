@@ -33,9 +33,9 @@ func ComputeBM25Score(termFreqInDoc int, docLength int, avgDocLength float64, to
 
 	tf := float64(termFreqInDoc)
 	dl := float64(docLength)
-	
+
 	// Inverse Document Frequency (IDF) with smoothing
-	idfNum := float64(totalDocs - docsContainingTerm) + 0.5
+	idfNum := float64(totalDocs-docsContainingTerm) + 0.5
 	idfDen := float64(docsContainingTerm) + 0.5
 	idf := math.Log(1.0 + (idfNum / idfDen))
 

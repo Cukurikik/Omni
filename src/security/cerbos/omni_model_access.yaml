@@ -1,0 +1,73 @@
+// OMNI Security Layer — Cerbos Policy for Fine-Grained Model Access
+// Cerbos YAML policy for attribute-based access control.
+// File: omni_model_access_cerbos.yaml
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "omni:model"
+  rules:
+    # Admin: full access
+    - actions: ["*"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    # ML Engineers: manage models
+    - actions: ["create", "update", "train", "evaluate", "deploy"]
+      effect: EFFECT_ALLOW
+      roles: ["ml_engineer"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.organization == request.principal.attr.organization
+
+    # Data Scientists: read + train + evaluate
+    - actions: ["read", "list", "train", "evaluate"]
+      effect: EFFECT_ALLOW
+      roles: ["data_scientist"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.team == request.principal.attr.team
+
+    # Developers: inference only on deployed models
+    - actions: ["infer", "read"]
+      effect: EFFECT_ALLOW
+      roles: ["developer"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.status == "deployed"
+              - expr: request.principal.attr.api_quota_remaining > 0
+
+    # API Users: rate-limited inference
+    - actions: ["infer"]
+      effect: EFFECT_ALLOW
+      roles: ["api_user"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.status == "deployed"
+              - expr: request.resource.attr.is_public == true
+              - expr: request.principal.attr.requests_today < request.principal.attr.daily_limit
+
+    # Block deprecated models from inference
+    - actions: ["infer", "deploy"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          any:
+            of:
+              - expr: request.resource.attr.status == "deprecated"
+              - expr: request.resource.attr.status == "archived"
+
+    # Viewers: read-only
+    - actions: ["read", "list"]
+      effect: EFFECT_ALLOW
+      roles: ["viewer"]

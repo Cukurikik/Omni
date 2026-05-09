@@ -26,7 +26,7 @@ func (r *opengpt_beyondRouter) Execute(ctx context.Context, data []byte) (*openg
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &opengpt_beyondResult{
 		Success: true,
 		Status:  "computed",

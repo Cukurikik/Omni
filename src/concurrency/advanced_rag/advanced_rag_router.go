@@ -26,7 +26,7 @@ func (r *advanced_ragRouter) Execute(ctx context.Context, data []byte) (*advance
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &advanced_ragResult{
 		Success: true,
 		Status:  "computed",

@@ -26,7 +26,7 @@ func (r *uot_planningRouter) Execute(ctx context.Context, data []byte) (*uot_pla
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &uot_planningResult{
 		Success: true,
 		Status:  "computed",

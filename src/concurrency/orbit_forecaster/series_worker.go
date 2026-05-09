@@ -11,14 +11,14 @@ type OmniResult struct {
 }
 
 type TimeSeriesData struct {
-	StreamID string
+	StreamID   string
 	Datapoints []float64
 }
 
 type SeriesWorker struct {
-	tasks chan TimeSeriesData
-	wg    sync.WaitGroup
-	mu    sync.Mutex
+	tasks   chan TimeSeriesData
+	wg      sync.WaitGroup
+	mu      sync.Mutex
 	results map[string]float64
 }
 
@@ -51,7 +51,7 @@ func (w *SeriesWorker) SubmitStream(data TimeSeriesData) OmniResult {
 
 func (w *SeriesWorker) processLoop(workerID int) {
 	defer w.wg.Done()
-	
+
 	for task := range w.tasks {
 		// Deterministic rolling average processing
 		var sum float64 = 0

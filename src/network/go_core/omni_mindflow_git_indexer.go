@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"crypto/sha256"
@@ -25,3 +25,4 @@ func (idx *OmniMindflowGitIndexer) IndexRepository(files []string) (map[string]s
 
 	return result, nil
 }
+

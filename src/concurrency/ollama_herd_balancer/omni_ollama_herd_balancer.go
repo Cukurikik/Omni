@@ -1,10 +1,10 @@
 package ollama_herd
 
 import (
-	"time"
 	"errors"
 	"sync"
 	"sync/atomic"
+	"time"
 )
 
 // OMNI Ollama Herd Balancer — Concurrency / Networking Layer

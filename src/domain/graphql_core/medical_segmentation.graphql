@@ -1,0 +1,14 @@
+type MedicalSegmentationResult {
+  id: ID!
+  scanId: String!
+  segmentationMaskUrl: String!
+  confidenceScore: Float!
+}
+
+extend type Query {
+  getSegmentation(scanId: String!): MedicalSegmentationResult
+}
+
+extend type Mutation {
+  startSegmentation(scanId: String!): MedicalSegmentationResult
+}

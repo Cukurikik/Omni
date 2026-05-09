@@ -1,0 +1,119 @@
+// OMNI Event Layer — gRPC Proto for Inference Service
+// Production protobuf definition for OMNI inference API.
+
+syntax = "proto3";
+
+package omni.inference.v1;
+
+option go_package = "github.com/omni/inference/v1;inferencev1";
+option java_package = "dev.omni.inference.v1";
+option csharp_namespace = "Omni.Inference.V1";
+
+// Inference service
+service InferenceService {
+  // Unary inference
+  rpc Infer(InferenceRequest) returns (InferenceResponse);
+
+  // Server-streaming inference (token by token)
+  rpc StreamInfer(InferenceRequest) returns (stream StreamToken);
+
+  // Batch inference
+  rpc BatchInfer(BatchInferenceRequest) returns (BatchInferenceResponse);
+
+  // Compute embeddings
+  rpc Embed(EmbedRequest) returns (EmbedResponse);
+
+  // Health check
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+
+  // List available models
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse);
+}
+
+message InferenceRequest {
+  string request_id = 1;
+  string model_id = 2;
+  string prompt = 3;
+  int32 max_tokens = 4;
+  float temperature = 5;
+  float top_p = 6;
+  int32 top_k = 7;
+  repeated string stop_sequences = 8;
+  float repetition_penalty = 9;
+  bool stream = 10;
+}
+
+message InferenceResponse {
+  string request_id = 1;
+  string generated_text = 2;
+  int32 tokens_generated = 3;
+  float latency_ms = 4;
+  string finish_reason = 5;
+  TokenUsage usage = 6;
+}
+
+message StreamToken {
+  string delta = 1;
+  int32 token_index = 2;
+  string finish_reason = 3;
+  float logprob = 4;
+}
+
+message BatchInferenceRequest {
+  repeated InferenceRequest requests = 1;
+}
+
+message BatchInferenceResponse {
+  repeated InferenceResponse responses = 1;
+  float total_latency_ms = 2;
+}
+
+message EmbedRequest {
+  string model_id = 1;
+  repeated string texts = 2;
+}
+
+message EmbedResponse {
+  repeated Embedding embeddings = 1;
+  TokenUsage usage = 2;
+}
+
+message Embedding {
+  repeated float values = 1;
+  int32 dimensions = 2;
+}
+
+message TokenUsage {
+  int32 prompt_tokens = 1;
+  int32 completion_tokens = 2;
+  int32 total_tokens = 3;
+}
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  string status = 1;
+  int32 active_requests = 2;
+  int32 total_requests = 3;
+  float avg_latency_ms = 4;
+  map<string, string> model_statuses = 5;
+}
+
+message ListModelsRequest {
+  string status_filter = 1;
+}
+
+message ListModelsResponse {
+  repeated ModelInfo models = 1;
+}
+
+message ModelInfo {
+  string id = 1;
+  string name = 2;
+  string version = 3;
+  string architecture = 4;
+  int64 parameter_count = 5;
+  int32 max_context_length = 6;
+  repeated string supported_tasks = 7;
+  string status = 8;
+}

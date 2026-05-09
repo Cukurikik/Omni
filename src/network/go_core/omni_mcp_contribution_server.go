@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"encoding/json"
@@ -37,3 +37,4 @@ func HandleMCPQuery(reqBody []byte) (MCPResponse, error) {
 
 	return MCPResponse{}, errors.New("unknown MCP command")
 }
+

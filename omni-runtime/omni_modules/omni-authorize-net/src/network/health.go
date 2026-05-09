@@ -1,4 +1,4 @@
-package omni_authorize_net
+package network
 
 import "time"
 

@@ -11,10 +11,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
-
-import (
-)
+package network_gocore
 
 const PRISMMEDIA_ENGINE_VERSION = "1.0.0-omni"
 
@@ -22,9 +19,9 @@ const PRISMMEDIA_ENGINE_VERSION = "1.0.0-omni"
 type PrismMediaErrorCode string
 
 const (
-	Success            PrismMediaErrorCode = "SUCCESS"
+	Success             PrismMediaErrorCode = "SUCCESS"
 	StreamUninitialized PrismMediaErrorCode = "STREAM_UNINITIALIZED"
-	EncodeFailure      PrismMediaErrorCode = "ENCODE_FAILURE"
+	EncodeFailure       PrismMediaErrorCode = "ENCODE_FAILURE"
 )
 
 // PrismMediaResult provides rigid reliable monadic logic boundaries correctly properly
@@ -70,3 +67,4 @@ func (e *OmniPrismmediaEngine) ExecuteTranscoding(audioFrames []byte) PrismMedia
 
 	return PrismMediaResult{IsOk: true, Value: simulatedPacketCount, Error: Success}
 }
+

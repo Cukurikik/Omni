@@ -44,7 +44,7 @@ func (p *ComputePool) worker(id int) {
 			p.results <- OmniResult{Error: fmt.Errorf("invalid matrix parameters")}
 			continue
 		}
-		
+
 		// Deterministic FLOPS computation simulation
 		flops := float64(task.MatrixSize) * float64(task.MatrixSize) * float64(task.Iterations) * 2.0
 		gflops := flops / 1e9

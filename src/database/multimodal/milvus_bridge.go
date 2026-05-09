@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/milvus-io/milvus-sdk-go/v2/client"
 	"github.com/milvus-io/milvus-sdk-go/v2/entity"
 )
@@ -28,14 +29,14 @@ func (b *MilvusBridge) InsertMultimodal(ctx context.Context, collName string, id
 	}
 
 	idCol := entity.NewColumnInt64("id", ids)
-	
+
 	cols := []entity.Column{idCol}
-	
+
 	if len(textEmbeds) > 0 {
 		textCol := entity.NewColumnFloatVector("text_embedding", 512, textEmbeds)
 		cols = append(cols, textCol)
 	}
-	
+
 	if len(imgEmbeds) > 0 {
 		imgCol := entity.NewColumnFloatVector("image_embedding", 512, imgEmbeds)
 		cols = append(cols, imgCol)

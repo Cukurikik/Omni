@@ -29,14 +29,14 @@ const ftlEngineVersion = "1.0.0"
 
 // FTLProjectConfig represents the top-level ftl.yaml parsed config.
 type FTLProjectConfig struct {
-	Name         string              `json:"name"`
-	Domain       string              `json:"domain"`
-	Email        string              `json:"email"`
-	Server       FTLServerConfig     `json:"server"`
-	Services     []FTLServiceConfig  `json:"services"`
-	Dependencies []FTLDependency     `json:"dependencies"`
-	Volumes      []string            `json:"volumes"`
-	EnvVars      map[string]string   `json:"env_vars"`
+	Name         string             `json:"name"`
+	Domain       string             `json:"domain"`
+	Email        string             `json:"email"`
+	Server       FTLServerConfig    `json:"server"`
+	Services     []FTLServiceConfig `json:"services"`
+	Dependencies []FTLDependency    `json:"dependencies"`
+	Volumes      []string           `json:"volumes"`
+	EnvVars      map[string]string  `json:"env_vars"`
 }
 
 type FTLServerConfig struct {
@@ -68,8 +68,8 @@ type FTLHealthCheck struct {
 }
 
 type FTLRoute struct {
-	Path    string `json:"path"`
-	Strip   bool   `json:"strip"`
+	Path  string `json:"path"`
+	Strip bool   `json:"strip"`
 }
 
 type FTLDependency struct {
@@ -87,14 +87,14 @@ type FTLDependency struct {
 type DeploymentStatus string
 
 const (
-	StatusPending    DeploymentStatus = "pending"
-	StatusBuilding   DeploymentStatus = "building"
-	StatusTransfer   DeploymentStatus = "transferring"
-	StatusDeploying  DeploymentStatus = "deploying"
+	StatusPending     DeploymentStatus = "pending"
+	StatusBuilding    DeploymentStatus = "building"
+	StatusTransfer    DeploymentStatus = "transferring"
+	StatusDeploying   DeploymentStatus = "deploying"
 	StatusHealthCheck DeploymentStatus = "health_checking"
-	StatusCompleted  DeploymentStatus = "completed"
-	FtlStatusFailed     DeploymentStatus = "failed"
-	StatusRolledBack DeploymentStatus = "rolled_back"
+	StatusCompleted   DeploymentStatus = "completed"
+	FtlStatusFailed   DeploymentStatus = "failed"
+	StatusRolledBack  DeploymentStatus = "rolled_back"
 )
 
 type DeploymentRecord struct {
@@ -398,11 +398,11 @@ func (m *SSHTunnelManager) ListTunnels() []SSHTunnel {
 // Zero-downtime deployment over SSH with Docker-based services,
 // Nginx reverse proxy, SSL/TLS, health checks, and log streaming.
 type FTLDeployEngine struct {
-	DataDir       string
-	Validator     *ConfigValidator
+	DataDir          string
+	Validator        *ConfigValidator
 	FtlHealthChecker *FtlHealthChecker
-	NginxGen      *NginxConfigGenerator
-	TunnelMgr     *SSHTunnelManager
+	NginxGen         *NginxConfigGenerator
+	TunnelMgr        *SSHTunnelManager
 
 	mu          sync.RWMutex
 	configs     map[string]*FTLProjectConfig
@@ -418,13 +418,13 @@ func NewFTLDeployEngine(dataDir string) *FTLDeployEngine {
 	os.MkdirAll(dataDir, 0755)
 
 	return &FTLDeployEngine{
-		DataDir:       dataDir,
-		Validator:     NewConfigValidator(),
+		DataDir:          dataDir,
+		Validator:        NewConfigValidator(),
 		FtlHealthChecker: NewFtlHealthChecker(),
-		NginxGen:      NewNginxConfigGenerator(),
-		TunnelMgr:     NewSSHTunnelManager(),
-		configs:       make(map[string]*FTLProjectConfig),
-		startedAt:     time.Now(),
+		NginxGen:         NewNginxConfigGenerator(),
+		TunnelMgr:        NewSSHTunnelManager(),
+		configs:          make(map[string]*FTLProjectConfig),
+		startedAt:        time.Now(),
 	}
 }
 
@@ -454,11 +454,11 @@ func (e *FTLDeployEngine) LoadConfig(config *FTLProjectConfig) map[string]interf
 	e.mu.Unlock()
 
 	result := map[string]interface{}{
-		"project":     config.Name,
-		"domain":      config.Domain,
-		"server":      config.Server.Host,
-		"services":    len(config.Services),
-		"valid":       len(errors) == 0,
+		"project":  config.Name,
+		"domain":   config.Domain,
+		"server":   config.Server.Host,
+		"services": len(config.Services),
+		"valid":    len(errors) == 0,
 	}
 	if len(errors) > 0 {
 		errList := make([]map[string]string, len(errors))

@@ -2,7 +2,8 @@ package flora_opt
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func SyncCompressedGradients(ctx context.Context, grads []float32) result.Result[bool] {

@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (r *mistral_haystackRouter) RouteRequest(ctx context.Context, payload []flo
 	}
 
 	start := time.Now()
-	
+
 	// Simulated routing logic over gRPC
 	select {
 	case <-time.After(10 * time.Millisecond):
@@ -49,3 +49,4 @@ func (r *mistral_haystackRouter) RouteRequest(ctx context.Context, payload []flo
 		return mistral_haystackResult{Value: 0, IsResolved: false, Error: fmt.Errorf("request timeout: %v", ctx.Err())}
 	}
 }
+

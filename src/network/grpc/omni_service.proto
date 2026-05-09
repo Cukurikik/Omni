@@ -1,0 +1,69 @@
+// omni_service.proto — Main OMNI gRPC Service Definitions
+// Layer: Network / Interface Definition
+//
+// Central Protobuf definitions for the OMNI inference and control plane,
+// generating type-safe stubs for Go, Rust, Elixir, and C#.
+
+syntax = "proto3";
+
+package omni.v1;
+
+option go_package = "omni/network/grpc_inference;omnipb";
+
+service OmniInferenceService {
+  // Synchronous text completion
+  rpc GenerateCompletion (CompletionRequest) returns (CompletionResponse) {}
+
+  // Streaming text completion
+  rpc StreamCompletion (CompletionRequest) returns (stream CompletionResponse) {}
+
+  // Semantic topic clustering request
+  rpc ClusterTopics (TopicRequest) returns (TopicResponse) {}
+}
+
+service OmniControlPlane {
+  // System health and eBPF metrics
+  rpc GetSystemMetrics (Empty) returns (MetricsResponse) {}
+  
+  // Triggers VRAM to RAM offload for a specific tensor
+  rpc TriggerOffload (OffloadRequest) returns (Empty) {}
+}
+
+message Empty {}
+
+message CompletionRequest {
+  string model_id = 1;
+  string prompt = 2;
+  float temperature = 3;
+  int32 max_tokens = 4;
+}
+
+message CompletionResponse {
+  string id = 1;
+  string content = 2;
+  string finish_reason = 3;
+}
+
+message TopicRequest {
+  repeated string documents = 1;
+  int32 num_topics = 2;
+}
+
+message TopicResponse {
+  message TopicInfo {
+    int32 topic_id = 1;
+    repeated string top_words = 2;
+  }
+  repeated TopicInfo topics = 1;
+}
+
+message MetricsResponse {
+  float vram_usage = 1;
+  float active_connections = 2;
+  float current_tps = 3;
+}
+
+message OffloadRequest {
+  string tensor_name = 1;
+  bool to_cpu = 2; // true for VRAM->RAM, false for RAM->VRAM
+}

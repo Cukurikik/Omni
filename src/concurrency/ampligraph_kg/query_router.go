@@ -47,7 +47,7 @@ func (r *QueryRouter) RouteQuery(query KGQuery) OmniResult {
 	if query.ID == "" || query.Query == "" {
 		return OmniResult{Error: fmt.Errorf("invalid query parameters")}
 	}
-	
+
 	select {
 	case r.taskQueue <- query:
 		return OmniResult{Value: "Query accepted and routed"}

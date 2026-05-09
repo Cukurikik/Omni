@@ -4,9 +4,9 @@ package concurrency
 // CSP-based peer mesh for pipeline-parallel inference
 
 import (
-	"time"
 	"errors"
 	"sync"
+	"time"
 )
 
 const MAX_NODES = 1024

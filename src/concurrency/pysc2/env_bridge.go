@@ -1,8 +1,8 @@
 package pysc2
 
 import (
-	"errors"
 	"context"
+	"errors"
 )
 
 type EnvBridge struct {

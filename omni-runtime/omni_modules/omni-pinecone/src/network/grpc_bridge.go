@@ -1,4 +1,4 @@
-package omni_pinecone
+package network
 
 import "fmt"
 

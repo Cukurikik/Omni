@@ -26,7 +26,7 @@ func (r *bertnet_harvestRouter) Execute(ctx context.Context, data []byte) (*bert
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &bertnet_harvestResult{
 		Success: true,
 		Status:  "computed",

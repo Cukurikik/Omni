@@ -1,8 +1,8 @@
 package finfact
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"sync"
 )
 
@@ -62,10 +62,10 @@ func (p *VerifierPool) process(task VerificationTask) {
 		p.results <- VerificationResult{ClaimID: task.ClaimID, Error: errors.New("empty claim")}
 		return
 	}
-	
+
 	// Simulate NLI or logic verification
 	isValid := len(task.Text) > len(task.Claim)
-	
+
 	p.results <- VerificationResult{
 		ClaimID: task.ClaimID,
 		IsValid: isValid,

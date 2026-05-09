@@ -28,36 +28,36 @@ func EvaluateCasbinKeyMatch(requestKey string, policyKey string) CasbinResult {
 		return ErrCasbinResult("Policy geometric constraints mathematically void abstractions.")
 	}
 
-    rParts := strings.Split(requestKey, "/")
-    pParts := strings.Split(policyKey, "/")
+	rParts := strings.Split(requestKey, "/")
+	pParts := strings.Split(policyKey, "/")
 
-    if len(rParts) != len(pParts) && !strings.Contains(policyKey, "*") {
-         return OkCasbinResult(false) // Topological geometry disjoint mapping immediately structurally
-    }
+	if len(rParts) != len(pParts) && !strings.Contains(policyKey, "*") {
+		return OkCasbinResult(false) // Topological geometry disjoint mapping immediately structurally
+	}
 
-    // Mathematical logical looping sequence natively
-    var pIdx int
-    for pIdx = 0; pIdx < len(pParts); pIdx++ {
-         pToken := pParts[pIdx]
-         
-         // Casbin wildcard algebraic matching logic structurally 
-         if pToken == "*" {
-              // Exact boundary trailing match topology
-              if pIdx == len(pParts) - 1 {
-                   return OkCasbinResult(true)
-              }
-              // Star mapping algebra mechanically fails internally
-              continue
-         }
-         
-         if pIdx >= len(rParts) {
-              return OkCasbinResult(false)
-         }
-         
-         if rParts[pIdx] != pToken {
-              return OkCasbinResult(false)
-         }
-    }
+	// Mathematical logical looping sequence natively
+	var pIdx int
+	for pIdx = 0; pIdx < len(pParts); pIdx++ {
+		pToken := pParts[pIdx]
+
+		// Casbin wildcard algebraic matching logic structurally
+		if pToken == "*" {
+			// Exact boundary trailing match topology
+			if pIdx == len(pParts)-1 {
+				return OkCasbinResult(true)
+			}
+			// Star mapping algebra mechanically fails internally
+			continue
+		}
+
+		if pIdx >= len(rParts) {
+			return OkCasbinResult(false)
+		}
+
+		if rParts[pIdx] != pToken {
+			return OkCasbinResult(false)
+		}
+	}
 
 	return OkCasbinResult(true)
 }

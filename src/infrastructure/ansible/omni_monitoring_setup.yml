@@ -1,0 +1,31 @@
+# OMNI Infrastructure — Ansible Monitoring Setup
+# Provisions Prometheus and Grafana for cluster observability
+
+- name: Setup OMNI Observability Stack
+  hosts: monitoring_nodes
+  become: yes
+  tasks:
+    - name: Ensure Docker is installed
+      apt: name=docker.io state=present
+
+    - name: Start Prometheus container
+      docker_container:
+        name: omni_prometheus
+        image: prom/prometheus:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "9090:9090"
+        volumes:
+          - /etc/omni/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+    - name: Start Grafana container
+      docker_container:
+        name: omni_grafana
+        image: grafana/grafana:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "3000:3000"
+        env:
+          GF_SECURITY_ADMIN_PASSWORD: "omni_secure_pass"

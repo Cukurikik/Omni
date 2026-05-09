@@ -27,9 +27,15 @@ type OmniGoaudioEngine struct {
 
 // NewOmniGoaudioEngine creates a new Go audio DSP engine.
 func NewOmniGoaudioEngine(sampleRate, bitDepth, channels int) *OmniGoaudioEngine {
-	if sampleRate <= 0 { sampleRate = 44100 }
-	if bitDepth <= 0 { bitDepth = 16 }
-	if channels <= 0 { channels = 1 }
+	if sampleRate <= 0 {
+		sampleRate = 44100
+	}
+	if bitDepth <= 0 {
+		bitDepth = 16
+	}
+	if channels <= 0 {
+		channels = 1
+	}
 	return &OmniGoaudioEngine{SampleRate: sampleRate, BitDepth: bitDepth, Channels: channels}
 }
 
@@ -38,8 +44,12 @@ func (e *OmniGoaudioEngine) GenerateSine(frequency float64, durationSec float64,
 	if frequency <= 0 || frequency > float64(e.SampleRate)/2 {
 		return nil, errors.New(fmt.Sprintf("frequency must be (0, %d]", e.SampleRate/2))
 	}
-	if durationSec <= 0 { return nil, errors.New("duration must be > 0") }
-	if amplitude < 0 || amplitude > 1 { return nil, errors.New("amplitude must be [0, 1]") }
+	if durationSec <= 0 {
+		return nil, errors.New("duration must be > 0")
+	}
+	if amplitude < 0 || amplitude > 1 {
+		return nil, errors.New("amplitude must be [0, 1]")
+	}
 
 	numSamples := int(float64(e.SampleRate) * durationSec)
 	samples := make([]float64, numSamples)
@@ -59,7 +69,9 @@ func (e *OmniGoaudioEngine) GenerateSine(frequency float64, durationSec float64,
 
 // GenerateSawtooth produces a sawtooth waveform.
 func (e *OmniGoaudioEngine) GenerateSawtooth(frequency float64, durationSec float64, amplitude float64) (map[string]interface{}, error) {
-	if frequency <= 0 { return nil, errors.New("frequency must be > 0") }
+	if frequency <= 0 {
+		return nil, errors.New("frequency must be > 0")
+	}
 	numSamples := int(float64(e.SampleRate) * durationSec)
 	samples := make([]float64, numSamples)
 	for i := 0; i < numSamples; i++ {
@@ -71,8 +83,12 @@ func (e *OmniGoaudioEngine) GenerateSawtooth(frequency float64, durationSec floa
 
 // ApplyFIRFilter applies a Finite Impulse Response filter.
 func (e *OmniGoaudioEngine) ApplyFIRFilter(samples []float64, coefficients []float64) (map[string]interface{}, error) {
-	if len(samples) == 0 { return nil, errors.New("empty input samples") }
-	if len(coefficients) == 0 { return nil, errors.New("empty filter coefficients") }
+	if len(samples) == 0 {
+		return nil, errors.New("empty input samples")
+	}
+	if len(coefficients) == 0 {
+		return nil, errors.New("empty filter coefficients")
+	}
 
 	output := make([]float64, len(samples))
 	filterLen := len(coefficients)
@@ -97,12 +113,16 @@ func (e *OmniGoaudioEngine) ApplyFIRFilter(samples []float64, coefficients []flo
 
 // Normalize scales samples to [-1.0, 1.0] range.
 func (e *OmniGoaudioEngine) Normalize(samples []float64) (map[string]interface{}, error) {
-	if len(samples) == 0 { return nil, errors.New("empty samples for normalization") }
+	if len(samples) == 0 {
+		return nil, errors.New("empty samples for normalization")
+	}
 
 	peak := 0.0
 	for _, s := range samples {
 		abs := math.Abs(s)
-		if abs > peak { peak = abs }
+		if abs > peak {
+			peak = abs
+		}
 	}
 	if peak < 1e-10 {
 		return map[string]interface{}{"status": "success", "data": map[string]interface{}{
@@ -120,19 +140,25 @@ func (e *OmniGoaudioEngine) Normalize(samples []float64) (map[string]interface{}
 		"status": "success", "data": map[string]interface{}{
 			"samples": normalized, "gainApplied": math.Round(gain*10000) / 10000,
 			"originalPeak": math.Round(peak*1000000) / 1000000,
-			"gainDb": math.Round(20*math.Log10(gain)*100) / 100,
+			"gainDb":       math.Round(20*math.Log10(gain)*100) / 100,
 		},
 	}, nil
 }
 
 // MixSignals mixes multiple audio signals with gains.
 func (e *OmniGoaudioEngine) MixSignals(signals [][]float64, gains []float64) (map[string]interface{}, error) {
-	if len(signals) == 0 { return nil, errors.New("no signals to mix") }
-	if len(gains) != len(signals) { return nil, errors.New("gains count must match signals count") }
+	if len(signals) == 0 {
+		return nil, errors.New("no signals to mix")
+	}
+	if len(gains) != len(signals) {
+		return nil, errors.New("gains count must match signals count")
+	}
 
 	maxLen := 0
 	for _, sig := range signals {
-		if len(sig) > maxLen { maxLen = len(sig) }
+		if len(sig) > maxLen {
+			maxLen = len(sig)
+		}
 	}
 
 	mixed := make([]float64, maxLen)
@@ -145,11 +171,15 @@ func (e *OmniGoaudioEngine) MixSignals(signals [][]float64, gains []float64) (ma
 	peak := 0.0
 	for _, s := range mixed {
 		abs := math.Abs(s)
-		if abs > peak { peak = abs }
+		if abs > peak {
+			peak = abs
+		}
 	}
 	clipped := peak > 1.0
 	if clipped {
-		for i := range mixed { mixed[i] /= peak }
+		for i := range mixed {
+			mixed[i] /= peak
+		}
 	}
 
 	return map[string]interface{}{
@@ -177,8 +207,12 @@ func (e *OmniGoaudioEngine) BuildWavHeader(dataSize int) (map[string]interface{}
 }
 
 func (e *OmniGoaudioEngine) computeRMS(samples []float64) float64 {
-	if len(samples) == 0 { return 0 }
+	if len(samples) == 0 {
+		return 0
+	}
 	var sum float64
-	for _, s := range samples { sum += s * s }
+	for _, s := range samples {
+		sum += s * s
+	}
 	return math.Sqrt(sum / float64(len(samples)))
 }

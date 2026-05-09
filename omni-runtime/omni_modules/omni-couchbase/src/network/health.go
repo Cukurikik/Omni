@@ -1,4 +1,4 @@
-package omni_couchbase
+package network
 
 import "time"
 

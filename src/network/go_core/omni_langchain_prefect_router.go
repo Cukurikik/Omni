@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (r *langchain_prefectRouter) RouteRequest(ctx context.Context, payload []fl
 	}
 
 	start := time.Now()
-	
+
 	// Simulated routing logic over gRPC
 	select {
 	case <-time.After(10 * time.Millisecond):
@@ -49,3 +49,4 @@ func (r *langchain_prefectRouter) RouteRequest(ctx context.Context, payload []fl
 		return langchain_prefectResult{Value: 0, IsResolved: false, Error: fmt.Errorf("request timeout: %v", ctx.Err())}
 	}
 }
+

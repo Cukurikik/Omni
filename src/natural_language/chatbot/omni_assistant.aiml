@@ -1,0 +1,29 @@
+<!-- @omni-layer NaturalLanguage | @omni-lang AIML | @omni-batch 17 -->
+<!-- @omni-description OMNI chatbot: AIML pattern-matching rules for -->
+<!-- model selection Q&A, inference help, and deployment guidance. -->
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+<category><pattern>WHAT IS OMNI</pattern>
+<template>OMNI is a polyglot framework that unifies 50+ programming languages into one runtime via LLVM-Omni compilation. It supports AI inference, deployment, and governance across all platforms.</template></category>
+
+<category><pattern>RECOMMEND A MODEL FOR *</pattern>
+<template>For <star/>, I recommend checking the OMNI Model Registry. Use `omni model search --task <star/>` to find the best match. Consider latency, accuracy, and GPU memory requirements.</template></category>
+
+<category><pattern>HOW TO DEPLOY *</pattern>
+<template>To deploy <star/>: 1) Register with `omni model register`, 2) Build with `omni build --release`, 3) Deploy with `omni cloud deploy --target <star/>`. Use `omni cloud logs` for monitoring.</template></category>
+
+<category><pattern>WHAT LANGUAGES DOES OMNI SUPPORT</pattern>
+<template>OMNI supports 50+ languages including Python, Rust, Go, C/C++, Zig, Julia, TypeScript, Swift, Kotlin, Dart, Solidity, Fortran, CUDA, Prolog, Elixir, Erlang, and many more.</template></category>
+
+<category><pattern>EXPLAIN * ERROR</pattern>
+<template>The <star/> error typically occurs when domain layer segregation is violated. Check that your imports use @omni-bridge interfaces. Run `omni check --strict` for detailed diagnostics.</template></category>
+
+<category><pattern>OPTIMIZE * INFERENCE</pattern>
+<template>To optimize <star/> inference: 1) Enable Flash Attention, 2) Use continuous batching, 3) Apply INT8 quantization, 4) Consider PagedAttention for KV-cache. Run `omni bench` to measure improvement.</template></category>
+
+<category><pattern>COMPARE * AND *</pattern>
+<template>Comparing <star index="1"/> and <star index="2"/>: Use `omni bench --models "<star index="1"/>,<star index="2"/>" --metrics latency,throughput,accuracy` for a detailed comparison report.</template></category>
+
+<category><pattern>HELP</pattern>
+<template>I can help with: model selection, deployment, optimization, error diagnosis, and language guidance. Try asking "recommend a model for sentiment analysis" or "how to deploy transformer".</template></category>
+</aiml>

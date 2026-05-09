@@ -1,7 +1,18 @@
 go 1.26.1
 
 use (
+	.
 	./api
-	./engine
+	./omni-bridge
+	./omni-cli-systems/golang
+	./omni-runtime/net
+	./omni-runtime/nexus-registry
+	./omni-runtime/omni_modules
+	./omni-runtime/stdlib/go
+	./omni_modules/omni-docs-nexus
 	./src
+	./src/compute/python_core
+	./tools/omnicli
+	./tools/omnidoc
+	./tools/omnils
 )

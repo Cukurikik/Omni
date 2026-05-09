@@ -1,0 +1,48 @@
+# Omni Helm Chart Values (YAML)
+# Infrastructure Layer
+# Configurations for deploying the Omni Transformer Cluster via Kubernetes.
+
+replicaCount: 3
+
+image:
+  repository: nexus.omniframework.dev/omni-universal-binary
+  pullPolicy: IfNotPresent
+  tag: "3.0.0"
+
+# Requesting exact hardware constraints to ensure GPU allocation
+resources:
+  limits:
+    nvidia.com/gpu: 1
+    memory: 64Gi
+  requests:
+    cpu: 16
+    memory: 32Gi
+
+service:
+  type: ClusterIP
+  port: 50051
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+  hosts:
+    - host: api.omni-nexus.dev
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+# Environment config map mapping to Omnifile.toml
+env:
+  OMNI_EXECUTION_MODE: "GPU"
+  OMNI_LOG_LEVEL: "INFO"
+
+tolerations:
+  - key: "nvidia.com/gpu"
+    operator: "Exists"
+    effect: "NoSchedule"
+
+nodeSelector:
+  accelerator: nvidia-a100

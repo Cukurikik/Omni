@@ -1,0 +1,30 @@
+# OMNI Universal Makefile
+# Orchestrates building C/C++/Rust kernels into the final Universal Binary
+
+CC = clang
+CXX = clang++
+RUSTC = rustc
+
+CFLAGS = -O3 -Wall -Wextra -fPIC -mavx512f
+CXXFLAGS = -std=c++20 $(CFLAGS)
+RUSTFLAGS = -O --edition 2021
+
+OUT_DIR = build
+TARGET = $(OUT_DIR)/omni_kernel.so
+
+all: prep $(TARGET)
+
+prep:
+	mkdir -p $(OUT_DIR)
+
+$(OUT_DIR)/c_alloc.o: src/system/c/omni_x86_allocator.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OUT_DIR)/cpp_tensor.o: src/system/cpp/omni_tensor_accelerator.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(TARGET): $(OUT_DIR)/c_alloc.o $(OUT_DIR)/cpp_tensor.o
+	$(CXX) -shared -o $@ $^
+
+clean:
+	rm -rf $(OUT_DIR)

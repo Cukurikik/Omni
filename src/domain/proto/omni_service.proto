@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package omni.service;
+
+option go_package = "omni/service";
+
+// The OMNI Polyglot Bridge Service
+service OmniBridge {
+  // Execute a business transaction across layers
+  rpc ExecuteTransaction (TransactionRequest) returns (TransactionResponse);
+  
+  // Stream metrics from the system layer to the business layer
+  rpc StreamMetrics (MetricsRequest) returns (stream MetricsResponse);
+}
+
+message TransactionRequest {
+  string transaction_id = 1;
+  string payload = 2;
+  string source_layer = 3;
+}
+
+message TransactionResponse {
+  string transaction_id = 1;
+  string status = 2;
+  string result = 3;
+  string processed_by = 4;
+}
+
+message MetricsRequest {
+  string system_id = 1;
+}
+
+message MetricsResponse {
+  string metric_name = 1;
+  double value = 2;
+  string timestamp = 3;
+}

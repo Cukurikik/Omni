@@ -19,12 +19,12 @@ func (r *UnityRouter) ProcessQuaternion(ctx context.Context, mag float64) (*Quat
 	if mag < 0 {
 		return nil, errors.New("magnitude cannot be negative")
 	}
-	
+
 	diff := mag - 1.0
 	if diff < 0 {
 		diff = -diff
 	}
-	
+
 	return &QuatResult{
 		Magnitude:  mag,
 		Normalized: diff <= r.Epsilon,

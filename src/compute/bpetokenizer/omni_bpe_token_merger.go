@@ -33,7 +33,7 @@ func ExtractBPEPairs(vocab map[string]int) PairResult {
 		// Simulate characters separated by space for algorithm validation
 		// e.g. "l o w <\w>"
 		symbols := extractSymbols(wordString)
-		
+
 		if len(symbols) < 2 {
 			continue
 		}
@@ -50,13 +50,13 @@ func ExtractBPEPairs(vocab map[string]int) PairResult {
 func extractSymbols(s string) []string {
 	var symbols []string
 	wordBytes := []byte(s)
-	
+
 	// Simply map ascii abstractly for BPE test execution
 	for _, b := range wordBytes {
 		symbols = append(symbols, string(b))
 	}
 	// append terminal symbol abstractly
 	symbols = append(symbols, "<\\w>")
-	
+
 	return symbols
 }

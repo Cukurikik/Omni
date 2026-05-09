@@ -1,8 +1,8 @@
 package concurrency
 
 import (
-	"time"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -60,11 +60,11 @@ func (t *TelemetryStream) StartSimulatedHardwareStream() {
 			data := TelemetryData{
 				Timestamp: time.Now().UnixNano(),
 				Joints: []float64{
-					step * 0.1, 
-					0.5, 
-					-0.5, 
-					step * 0.05, 
-					0.0, 
+					step * 0.1,
+					0.5,
+					-0.5,
+					step * 0.05,
+					0.0,
 					0.0,
 				},
 				Voltage: 24.0 - (float64(int(step)%10) * 0.1),

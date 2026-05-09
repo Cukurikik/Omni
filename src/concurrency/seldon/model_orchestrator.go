@@ -1,20 +1,20 @@
 package seldon
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
 	"sync"
+	"time"
 )
 
 // OMNI Go Concurrency Layer: Seldon Model Orchestrator
 // Thread-safe routing and circuit breaking for Seldon-core ML deployments.
 
 type SeldonDeployment struct {
-	ID         string
-	Endpoint   string
-	IsActive   bool
-	mu         sync.RWMutex
+	ID       string
+	Endpoint string
+	IsActive bool
+	mu       sync.RWMutex
 }
 
 type Orchestrator struct {
@@ -56,6 +56,7 @@ func (o *Orchestrator) RouteInference(ctx context.Context, depID string, payload
 	dep.mu.RLock()
 	active := dep.IsActive
 	endpoint := dep.Endpoint
+	_ = endpoint // Used in production gRPC call
 	dep.mu.RUnlock()
 
 	if !active {

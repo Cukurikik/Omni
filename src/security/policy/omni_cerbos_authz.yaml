@@ -1,0 +1,38 @@
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: "omni:inference:model"
+  rules:
+    - actions: ["execute", "read_weights"]
+      effect: EFFECT_ALLOW
+      roles:
+        - "omni_researcher"
+        - "omni_admin"
+      condition:
+        match:
+          expr: request.resource.attr.tier == request.principal.attr.tier
+
+    - actions: ["fine_tune", "update_weights"]
+      effect: EFFECT_ALLOW
+      roles:
+        - "omni_admin"
+
+    - actions: ["execute"]
+      effect: EFFECT_ALLOW
+      roles:
+        - "omni_public"
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.is_public == true
+              - expr: request.principal.attr.daily_quota_used < 1000
+
+    - actions: ["delete"]
+      effect: EFFECT_DENY
+      roles:
+        - "*"
+      condition:
+        match:
+          expr: request.resource.attr.is_immutable == true

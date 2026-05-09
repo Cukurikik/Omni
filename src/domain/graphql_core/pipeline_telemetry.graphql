@@ -1,0 +1,9 @@
+type PipelineTelemetry {
+  stage: Int!
+  throughput: Float!
+  latencyMs: Float!
+}
+
+extend type Subscription {
+  pipelineTelemetryStream(pipelineId: ID!): PipelineTelemetry!
+}

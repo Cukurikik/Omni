@@ -51,25 +51,25 @@ const (
 type SetupPhase string
 
 const (
-	PhasePrecheck     SetupPhase = "precheck"
-	PhaseDownload     SetupPhase = "download"
-	PhaseInstall      SetupPhase = "install"
-	PhaseConfigure    SetupPhase = "configure"
-	PhaseExtensions   SetupPhase = "extensions"
-	PhaseVerify       SetupPhase = "verify"
-	PhaseComplete     SetupPhase = "complete"
-	PhaseFailed       SetupPhase = "failed"
+	PhasePrecheck   SetupPhase = "precheck"
+	PhaseDownload   SetupPhase = "download"
+	PhaseInstall    SetupPhase = "install"
+	PhaseConfigure  SetupPhase = "configure"
+	PhaseExtensions SetupPhase = "extensions"
+	PhaseVerify     SetupPhase = "verify"
+	PhaseComplete   SetupPhase = "complete"
+	PhaseFailed     SetupPhase = "failed"
 )
 
 // ExtensionState represents installation status of an extension.
 type ExtensionState string
 
 const (
-	ExtInstalled   ExtensionState = "installed"
-	ExtNotFound    ExtensionState = "not_found"
-	ExtOutdated    ExtensionState = "outdated"
-	ExtDisabled    ExtensionState = "disabled"
-	ExtError       ExtensionState = "error"
+	ExtInstalled ExtensionState = "installed"
+	ExtNotFound  ExtensionState = "not_found"
+	ExtOutdated  ExtensionState = "outdated"
+	ExtDisabled  ExtensionState = "disabled"
+	ExtError     ExtensionState = "error"
 )
 
 // ─────────────────────────────────────────────
@@ -90,26 +90,26 @@ type IDEExtension struct {
 
 // IDEConfiguration represents a complete IDE configuration profile.
 type IDEConfiguration struct {
-	IDE           IDEType                `json:"ide"`
-	ProfileName   string                 `json:"profile_name"`
-	Settings      map[string]interface{} `json:"settings"`
-	KeyBindings   map[string]string      `json:"key_bindings"`
-	Extensions    []IDEExtension         `json:"extensions"`
-	Snippets      map[string]interface{} `json:"snippets"`
-	Theme         string                 `json:"theme"`
-	FontFamily    string                 `json:"font_family"`
-	FontSize      int                    `json:"font_size"`
-	TabSize       int                    `json:"tab_size"`
-	UseSpaces     bool                   `json:"use_spaces"`
-	AutoSave      bool                   `json:"auto_save"`
-	FormatOnSave  bool                   `json:"format_on_save"`
-	WordWrap      string                 `json:"word_wrap"`
-	TerminalFont  string                 `json:"terminal_font"`
-	TerminalSize  int                    `json:"terminal_font_size"`
-	CustomPaths   map[string]string      `json:"custom_paths"`
-	Version       string                 `json:"version"`
-	CreatedAt     string                 `json:"created_at"`
-	Checksum      string                 `json:"checksum"`
+	IDE          IDEType                `json:"ide"`
+	ProfileName  string                 `json:"profile_name"`
+	Settings     map[string]interface{} `json:"settings"`
+	KeyBindings  map[string]string      `json:"key_bindings"`
+	Extensions   []IDEExtension         `json:"extensions"`
+	Snippets     map[string]interface{} `json:"snippets"`
+	Theme        string                 `json:"theme"`
+	FontFamily   string                 `json:"font_family"`
+	FontSize     int                    `json:"font_size"`
+	TabSize      int                    `json:"tab_size"`
+	UseSpaces    bool                   `json:"use_spaces"`
+	AutoSave     bool                   `json:"auto_save"`
+	FormatOnSave bool                   `json:"format_on_save"`
+	WordWrap     string                 `json:"word_wrap"`
+	TerminalFont string                 `json:"terminal_font"`
+	TerminalSize int                    `json:"terminal_font_size"`
+	CustomPaths  map[string]string      `json:"custom_paths"`
+	Version      string                 `json:"version"`
+	CreatedAt    string                 `json:"created_at"`
+	Checksum     string                 `json:"checksum"`
 }
 
 // SystemRequirement represents a system dependency check.
@@ -125,27 +125,27 @@ type SystemRequirement struct {
 
 // SetupProgress tracks the setup wizard's progress.
 type SetupProgress struct {
-	Phase           SetupPhase `json:"phase"`
-	StepIndex       int        `json:"step_index"`
-	TotalSteps      int        `json:"total_steps"`
-	CurrentStep     string     `json:"current_step"`
-	ProgressPct     float64    `json:"progress_pct"`
-	StartedAt       time.Time  `json:"started_at"`
-	ElapsedMs       int64      `json:"elapsed_ms"`
-	Messages        []string   `json:"messages"`
-	Warnings        []string   `json:"warnings"`
-	Errors          []string   `json:"errors"`
+	Phase       SetupPhase `json:"phase"`
+	StepIndex   int        `json:"step_index"`
+	TotalSteps  int        `json:"total_steps"`
+	CurrentStep string     `json:"current_step"`
+	ProgressPct float64    `json:"progress_pct"`
+	StartedAt   time.Time  `json:"started_at"`
+	ElapsedMs   int64      `json:"elapsed_ms"`
+	Messages    []string   `json:"messages"`
+	Warnings    []string   `json:"warnings"`
+	Errors      []string   `json:"errors"`
 }
 
 // HealthCheckResult holds the result of an environment health check.
 type HealthCheckResult struct {
-	IDE             IDEType                 `json:"ide"`
-	Healthy         bool                    `json:"healthy"`
-	Score           int                     `json:"score"`
-	MaxScore        int                     `json:"max_score"`
-	Checks          []HealthCheck           `json:"checks"`
-	Recommendations []string                `json:"recommendations"`
-	CheckedAt       time.Time               `json:"checked_at"`
+	IDE             IDEType       `json:"ide"`
+	Healthy         bool          `json:"healthy"`
+	Score           int           `json:"score"`
+	MaxScore        int           `json:"max_score"`
+	Checks          []HealthCheck `json:"checks"`
+	Recommendations []string      `json:"recommendations"`
+	CheckedAt       time.Time     `json:"checked_at"`
 }
 
 // HealthCheck represents a single health check item.
@@ -319,53 +319,53 @@ func (cpm *ConfigProfileManager) CreateOmniProfile(ide IDEType) *IDEConfiguratio
 	}
 
 	config.Settings = map[string]interface{}{
-		"editor.fontSize":                 config.FontSize,
-		"editor.fontFamily":               config.FontFamily,
-		"editor.fontLigatures":            true,
-		"editor.tabSize":                  config.TabSize,
-		"editor.insertSpaces":             config.UseSpaces,
-		"editor.formatOnSave":             config.FormatOnSave,
-		"editor.minimap.enabled":          false,
-		"editor.renderWhitespace":         "boundary",
+		"editor.fontSize":                        config.FontSize,
+		"editor.fontFamily":                      config.FontFamily,
+		"editor.fontLigatures":                   true,
+		"editor.tabSize":                         config.TabSize,
+		"editor.insertSpaces":                    config.UseSpaces,
+		"editor.formatOnSave":                    config.FormatOnSave,
+		"editor.minimap.enabled":                 false,
+		"editor.renderWhitespace":                "boundary",
 		"editor.bracketPairColorization.enabled": true,
-		"editor.guides.bracketPairs":      "active",
-		"editor.stickyScroll.enabled":     true,
-		"editor.inlineSuggest.enabled":    true,
-		"editor.linkedEditing":            true,
-		"editor.suggest.showStatusBar":    true,
-		"editor.accessibilitySupport":     "off",
-		"editor.cursorBlinking":           "smooth",
-		"editor.cursorSmoothCaretAnimation": "on",
-		"editor.smoothScrolling":          true,
-		"terminal.integrated.fontSize":    config.TerminalSize,
-		"terminal.integrated.fontFamily":  config.TerminalFont,
-		"terminal.integrated.cursorBlinking": true,
-		"files.autoSave":                  "afterDelay",
-		"files.autoSaveDelay":             1000,
-		"files.trimTrailingWhitespace":    true,
-		"files.insertFinalNewline":        true,
-		"workbench.colorTheme":            config.Theme,
-		"workbench.iconTheme":             "material-icon-theme",
-		"workbench.startupEditor":         "none",
-		"workbench.sideBar.location":      "left",
-		"workbench.tree.indent":           16,
-		"explorer.confirmDelete":          false,
-		"explorer.confirmDragAndDrop":     false,
-		"search.smartCase":                true,
-		"telemetry.telemetryLevel":        "off",
-		"security.workspace.trust.enabled": false,
+		"editor.guides.bracketPairs":             "active",
+		"editor.stickyScroll.enabled":            true,
+		"editor.inlineSuggest.enabled":           true,
+		"editor.linkedEditing":                   true,
+		"editor.suggest.showStatusBar":           true,
+		"editor.accessibilitySupport":            "off",
+		"editor.cursorBlinking":                  "smooth",
+		"editor.cursorSmoothCaretAnimation":      "on",
+		"editor.smoothScrolling":                 true,
+		"terminal.integrated.fontSize":           config.TerminalSize,
+		"terminal.integrated.fontFamily":         config.TerminalFont,
+		"terminal.integrated.cursorBlinking":     true,
+		"files.autoSave":                         "afterDelay",
+		"files.autoSaveDelay":                    1000,
+		"files.trimTrailingWhitespace":           true,
+		"files.insertFinalNewline":               true,
+		"workbench.colorTheme":                   config.Theme,
+		"workbench.iconTheme":                    "material-icon-theme",
+		"workbench.startupEditor":                "none",
+		"workbench.sideBar.location":             "left",
+		"workbench.tree.indent":                  16,
+		"explorer.confirmDelete":                 false,
+		"explorer.confirmDragAndDrop":            false,
+		"search.smartCase":                       true,
+		"telemetry.telemetryLevel":               "off",
+		"security.workspace.trust.enabled":       false,
 	}
 
 	config.KeyBindings = map[string]string{
-		"ctrl+shift+p":       "workbench.action.showCommands",
-		"ctrl+`":             "workbench.action.terminal.toggleTerminal",
-		"ctrl+shift+`":       "workbench.action.terminal.new",
-		"ctrl+b":             "workbench.action.toggleSidebarVisibility",
-		"ctrl+shift+e":       "workbench.view.explorer",
-		"ctrl+shift+f":       "workbench.view.search",
-		"ctrl+shift+g":       "workbench.view.scm",
-		"ctrl+shift+d":       "workbench.view.debug",
-		"ctrl+shift+x":       "workbench.view.extensions",
+		"ctrl+shift+p": "workbench.action.showCommands",
+		"ctrl+`":       "workbench.action.terminal.toggleTerminal",
+		"ctrl+shift+`": "workbench.action.terminal.new",
+		"ctrl+b":       "workbench.action.toggleSidebarVisibility",
+		"ctrl+shift+e": "workbench.view.explorer",
+		"ctrl+shift+f": "workbench.view.search",
+		"ctrl+shift+g": "workbench.view.scm",
+		"ctrl+shift+d": "workbench.view.debug",
+		"ctrl+shift+x": "workbench.view.extensions",
 	}
 
 	config.Extensions = cpm.getOmniExtensions(ide)
@@ -822,20 +822,20 @@ func (dm *DownloadManager) verifyChecksum(filePath string, expected string) bool
 
 // IDESetupWizardEngine is the OMNI production engine for IDE provisioning.
 type IDESetupWizardEngine struct {
-	mu           sync.RWMutex
-	detector     *PlatformDetector
-	profiles     *ConfigProfileManager
-	applicator   *ConfigApplicator
-	healthCheck  *WizardHealthChecker
-	downloads    *DownloadManager
-	startedAt    time.Time
+	mu          sync.RWMutex
+	detector    *PlatformDetector
+	profiles    *ConfigProfileManager
+	applicator  *ConfigApplicator
+	healthCheck *WizardHealthChecker
+	downloads   *DownloadManager
+	startedAt   time.Time
 
 	// Stats
-	totalSetups     int
+	totalSetups       int
 	totalHealthChecks int
-	totalExtensions int
-	totalProfiles   int
-	errors          []string
+	totalExtensions   int
+	totalProfiles     int
+	errors            []string
 }
 
 // NewIDESetupWizardEngine creates a new wizard engine.

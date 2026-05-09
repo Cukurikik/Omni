@@ -1,10 +1,10 @@
 package llm
 
 import (
-	"time"
-	"errors"
 	"context"
+	"errors"
 	"sync"
+	"time"
 )
 
 type InferenceRequest struct {

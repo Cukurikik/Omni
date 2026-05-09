@@ -53,11 +53,11 @@ type OmniGorseEngine struct {
 	globalMean     float64
 	userBiases     map[string]float64
 	itemBiases     map[string]float64
-	
+
 	// Metrics
-	totalRatings   atomic.Int64
-	trainEpochs    atomic.Int64
-	isTrained      atomic.Bool
+	totalRatings atomic.Int64
+	trainEpochs  atomic.Int64
+	isTrained    atomic.Bool
 }
 
 // NewOmniGorseEngine initializes the recommender with given hyperparameters.
@@ -143,7 +143,7 @@ func (e *OmniGorseEngine) Train(ctx context.Context, ratings []UserItemRating, e
 				e.itemFactors[r.ItemID][i] += e.learningRate * (err*uf - e.regularization*itf)
 			}
 		}
-		
+
 		finalRMSE = math.Sqrt(sqErrSum / float64(len(ratings)))
 		e.trainEpochs.Add(1)
 	}
@@ -156,12 +156,12 @@ func (e *OmniGorseEngine) Train(ctx context.Context, ratings []UserItemRating, e
 func (e *OmniGorseEngine) predictInternal(userID, itemID string) float64 {
 	uBias := e.userBiases[userID]
 	iBias := e.itemBiases[itemID]
-	
+
 	pred := e.globalMean + uBias + iBias
-	
+
 	uFactors, hasU := e.userFactors[userID]
 	iFactors, hasI := e.itemFactors[itemID]
-	
+
 	if hasU && hasI {
 		for i := 0; i < e.latentDim; i++ {
 			pred += uFactors[i] * iFactors[i]
@@ -209,7 +209,7 @@ func (e *OmniGorseEngine) Recommend(userID string, topN int) GorseResult[[]strin
 	if topN > len(scores) {
 		topN = len(scores)
 	}
-	
+
 	for i := 0; i < topN; i++ {
 		maxIdx := i
 		for j := i + 1; j < len(scores); j++ {

@@ -13,10 +13,7 @@
  * @since 2026.4.0
  */
 
-package go_core
-
-import (
-)
+package network_gocore
 
 const AirsonicEngineVersion = "1.0.0-omni"
 
@@ -71,7 +68,7 @@ func (e *OmniAirsonicRefixEngine) RequestMediaChunk(streamId string, chunkSize i
 		return ErrAirsonic(AirsonicStreamNotFound)
 	}
 
-	if chunkSize <= 0 || chunkSize > 1024*1024*5 { // Mock 5MB bandwidth cap 
+	if chunkSize <= 0 || chunkSize > 1024*1024*5 { // Mock 5MB bandwidth cap
 		return ErrAirsonic(AirsonicBandwidthExceeded)
 	}
 
@@ -80,3 +77,4 @@ func (e *OmniAirsonicRefixEngine) RequestMediaChunk(streamId string, chunkSize i
 
 	return OkAirsonic(e.activeStreams[streamId]) // returning the new physical byte boundary offset natively
 }
+

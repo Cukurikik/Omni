@@ -1,4 +1,4 @@
-package omni_zod_native
+package network
 
 import (
 	"net/http"

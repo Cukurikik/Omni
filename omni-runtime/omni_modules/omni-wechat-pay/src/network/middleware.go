@@ -1,4 +1,4 @@
-package omni_wechat_pay
+package network
 
 import (
 	"net/http"

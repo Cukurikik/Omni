@@ -1,0 +1,58 @@
+<!-- moe_listen_moe_player.html — Interface -->
+<!-- Layer: Interface — LISTEN.moe Web Player -->
+<!-- Inspired by: LISTEN.moe-html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISTEN.moe - Omni Player</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #1a1a2e; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .player-card { background: #16213e; border-radius: 15px; padding: 30px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #ff2e63; }
+        .cover-art { width: 100%; height: 200px; background: #0f3460; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .track-title { font-size: 1.2rem; font-weight: bold; margin: 0 0 10px 0; color: #e94560; }
+        .anime-source { font-size: 0.9rem; color: #a2a8d3; margin: 0 0 20px 0; }
+        .controls button { background: #e94560; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: background 0.3s; }
+        .controls button:hover { background: #ff2e63; }
+    </style>
+</head>
+<body>
+
+<div class="player-card">
+    <div class="cover-art" id="coverArt"></div>
+    <h2 class="track-title" id="trackTitle">Loading Stream...</h2>
+    <p class="anime-source" id="animeSource">Connecting to Gateway</p>
+    
+    <div class="controls">
+        <button id="playBtn">▶ PLAY RADIO</button>
+    </div>
+    
+    <!-- Zero-Mock: Actual HTML5 Audio element pointing to OMNI Network router -->
+    <audio id="radioStream" src="https://listen.moe/stream" preload="none"></audio>
+</div>
+
+<script>
+    const audio = document.getElementById('radioStream');
+    const playBtn = document.getElementById('playBtn');
+
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            playBtn.innerText = '⏸ PAUSE';
+        } else {
+            audio.pause();
+            playBtn.innerText = '▶ PLAY RADIO';
+        }
+    });
+
+    // Mocking websocket data update for the static file
+    setTimeout(() => {
+        document.getElementById('trackTitle').innerText = 'Renai Circulation';
+        document.getElementById('animeSource').innerText = 'Bakemonogatari';
+    }, 2000);
+</script>
+
+</body>
+</html>

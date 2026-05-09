@@ -62,7 +62,7 @@ func (q *DocumentQueue) worker(id int) {
 
 		// Deterministic processing representation
 		_ = fmt.Sprintf("Worker %d processing document %s (%d pages)", id, task.ID, task.PageCount)
-		
+
 		q.mu.Lock()
 		q.state[task.ID] = "completed"
 		q.mu.Unlock()

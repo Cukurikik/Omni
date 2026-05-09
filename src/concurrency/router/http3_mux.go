@@ -1,6 +1,8 @@
 package router
 
 import (
+	"context"
+	"errors"
 	"net/http"
 	"sync"
 )
@@ -32,10 +34,10 @@ func (m *OmniHttp3Mux) Dispatch(ctx context.Context, path string, req *http.Requ
 	m.mu.RLock()
 	handler, exists := m.routes[path]
 	m.mu.RUnlock()
-	
+
 	if !exists {
 		return nil, errors.New("route not found")
 	}
-	
+
 	return handler(ctx, req)
 }

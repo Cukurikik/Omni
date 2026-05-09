@@ -53,7 +53,7 @@ func (f *StreamForecaster) processLoop() {
 			f.results <- OmniResult{Error: errors.New("empty series data")}
 			continue
 		}
-		
+
 		// Mathematical sliding window validation before forecasting
 		variance := f.computeVariance(data.Series)
 		if variance < 1e-6 {

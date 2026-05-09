@@ -1,0 +1,54 @@
+# Omni Firebase Data Connect Schema (GraphQL)
+# Database & Domain Layer
+# Provisions strongly typed PostgreSQL tables, pgvector columns, and
+# GraphQL endpoints using Firebase Data Connect.
+
+# The primary model configuration table
+type Model @table {
+  id: UUID! @default(expr: "uuid_generate_v4()")
+  name: String! @unique
+  architecture: String!
+  totalParameters: Int64!
+  isActive: Boolean! @default(value: true)
+  
+  # Tracks who created the model
+  createdBy: String! 
+  createdAt: Timestamp! @default(expr: "request.time")
+  
+  # Relationship to training runs
+  runs: [TrainingRun!]! @relation
+}
+
+# The training runs table with vector embeddings for semantic search over run logs
+type TrainingRun @table {
+  id: UUID! @default(expr: "uuid_generate_v4()")
+  model: Model!
+  epoch: Int!
+  finalLoss: Float!
+  
+  # Vector representation of the training summary for RAG retrieval
+  summaryEmbedding: Vector @col(size: 768)
+  summaryText: String!
+  
+  completedAt: Timestamp! @default(expr: "request.time")
+}
+
+# Queries
+extend type Query {
+  # Semantic search over training summaries
+  searchTrainingRuns(queryVector: Vector! @col(size: 768), threshold: Float! = 0.5): [TrainingRun!]!
+    @sql(
+      """
+      SELECT * FROM "TrainingRun"
+      WHERE "summaryEmbedding" <=> $1 < $2
+      ORDER BY "summaryEmbedding" <=> $1
+      LIMIT 10
+      """
+    )
+}
+
+# Mutations
+extend type Mutation {
+  # Transactional deployment of a new model run
+  deployModelRun(modelId: UUID!, epoch: Int!, loss: Float!, text: String!, embed: Vector! @col(size: 768)): TrainingRun!
+}

@@ -1,10 +1,11 @@
 package rl
 
 import (
-	"time"
-	"fmt"
 	"context"
 	"encoding/json"
+	"fmt"
+	"time"
+
 	"github.com/segmentio/kafka-go"
 )
 
@@ -12,13 +13,13 @@ import (
 // Go producer for streaming RL training metrics to OMNI Kafka Event Bus
 
 type PPOMetric struct {
-	Timestamp      int64   `json:"timestamp"`
-	Episode        int     `json:"episode"`
-	TotalReward    float64 `json:"total_reward"`
-	ActorLoss      float64 `json:"actor_loss"`
-	CriticLoss     float64 `json:"critic_loss"`
-	Entropy        float64 `json:"entropy"`
-	LearningRate   float64 `json:"learning_rate"`
+	Timestamp    int64   `json:"timestamp"`
+	Episode      int     `json:"episode"`
+	TotalReward  float64 `json:"total_reward"`
+	ActorLoss    float64 `json:"actor_loss"`
+	CriticLoss   float64 `json:"critic_loss"`
+	Entropy      float64 `json:"entropy"`
+	LearningRate float64 `json:"learning_rate"`
 }
 
 type MetricsProducer struct {
@@ -40,7 +41,7 @@ func NewMetricsProducer(brokers []string, topic string) *MetricsProducer {
 // PushMetric sends a strict JSON-encoded metric to the Kafka cluster
 func (p *MetricsProducer) PushMetric(ctx context.Context, metric PPOMetric) error {
 	metric.Timestamp = time.Now().UnixNano()
-	
+
 	bytes, err := json.Marshal(metric)
 	if err != nil {
 		return fmt.Errorf("failed to marshal metric: %w", err)

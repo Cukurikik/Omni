@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[node name="OmniClashArena" type="Node2D"]
+# OMNI MOTHER: Godot 2D Arena Scene (Production Grade)
+# Represents the visual battleground for the AI LLM Clash.
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.0, 0.0, 0.0, 1 )
+
+[node name="GraphRoot" type="Node2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0

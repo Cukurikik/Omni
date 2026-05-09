@@ -1,0 +1,14 @@
+# OMNI MOTHER: Ansible Playbook for PiKV Cluster
+- name: Setup PiKV Cache Nodes
+  hosts: pikv_cluster
+  become: yes
+  tasks:
+    - name: Ensure NCCL and InfiniBand drivers are loaded
+      modprobe:
+        name: ib_umad
+        state: present
+    - name: Deploy PiKV Daemon
+      copy:
+        src: ./bin/omni_pikv_daemon
+        dest: /usr/local/bin/omni_pikv_daemon
+        mode: '0755'

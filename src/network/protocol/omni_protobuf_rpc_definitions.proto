@@ -1,0 +1,64 @@
+// OMNI Network & API Layer
+// Protobuf RPC Definitions
+// Based on protocolbuffers/protobuf.
+// Defines the strict gRPC contracts between Omni's Microservices and the Universal Binary.
+
+syntax = "proto3";
+
+package omni.rpc.v1;
+
+option go_package = "github.com/omniframework/omni/api/rpc";
+option java_package = "dev.omni.api.rpc";
+
+// --- Omni Cluster Services ---
+
+service OmniClusterManager {
+  // Registers a new compute node to the Omni network
+  rpc RegisterNode (NodeRegistrationRequest) returns (NodeRegistrationResponse);
+  
+  // Streams real-time telemetry from edge nodes
+  rpc StreamTelemetry (stream TelemetryUpdate) returns (TelemetryAck);
+}
+
+service OmniComputeEngine {
+  // Dispatches a batch inference job
+  rpc ExecuteInference (InferenceJob) returns (InferenceResult);
+}
+
+// --- Messages ---
+
+message NodeRegistrationRequest {
+  string node_id = 1;
+  string architecture = 2; // "x86_64", "aarch64", "wasm32"
+  uint32 available_vram_gb = 3;
+}
+
+message NodeRegistrationResponse {
+  string cluster_token = 1;
+  string target_endpoint = 2;
+  bool accepted = 3;
+}
+
+message TelemetryUpdate {
+  string node_id = 1;
+  float cpu_utilization = 2;
+  float memory_utilization = 3;
+  uint64 active_cabi_allocations = 4;
+}
+
+message TelemetryAck {
+  bool received = 1;
+}
+
+message InferenceJob {
+  string job_id = 1;
+  string model_name = 2;
+  bytes input_tensor_data = 3; // Raw bytes mapping to C-ABI OmniTensor
+}
+
+message InferenceResult {
+  string job_id = 1;
+  int32 status_code = 2;
+  bytes output_tensor_data = 3;
+  float latency_ms = 4;
+}

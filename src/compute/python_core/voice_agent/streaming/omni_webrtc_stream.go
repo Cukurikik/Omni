@@ -21,7 +21,7 @@ type WebRTCVoiceAgent struct {
 func InitWebRTCAudioStream(sessionID string) *WebRTCVoiceAgent {
 	log.Printf("🎙️📡 [WEBRTC-AGENT] Melakukan negosiasi ICE Session: %s...\n", sessionID)
 	log.Println("🎙️📡 [WEBRTC-AGENT] DTLS Transport didirikan. VAD (Voice Activity Detection) Aktif.")
-	
+
 	return &WebRTCVoiceAgent{
 		SessionID:  sessionID,
 		IsActive:   true,

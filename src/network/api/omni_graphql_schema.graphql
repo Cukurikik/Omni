@@ -1,0 +1,60 @@
+# OMNI API & Database Layer
+# GraphQL schema representing the Omni Transformer Semantic Knowledge Graph.
+# Enables clients to query internal model states, attention correlations, and inference metadata.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  "Fetches the real-time state of the Omni compute cluster"
+  clusterStatus: ClusterStatus!
+
+  "Queries a specific inference transaction by its UUID"
+  inferenceLog(transactionId: ID!): InferenceTransaction
+
+  "Explores the semantic relationships discovered by the Attention Heads"
+  attentionGraph(layer: Int!, head: Int!): AttentionNode
+}
+
+type Mutation {
+  "Submits a prompt for generation. Returns a transaction ID for streaming."
+  submitInference(prompt: String!, parameters: GenerationParams): ID!
+}
+
+type ClusterStatus {
+  activeNodes: Int!
+  availableGpus: Int!
+  systemLoad: Float!
+  omniVersion: String!
+}
+
+type InferenceTransaction {
+  id: ID!
+  prompt: String!
+  response: String
+  tokensGenerated: Int!
+  durationMs: Int!
+  modelUsed: String!
+}
+
+type AttentionNode {
+  layerIndex: Int!
+  headIndex: Int!
+  "The conceptual cluster this head has specialized in (e.g., 'Syntax', 'Translation')"
+  specialization: String!
+  "Nodes that this head strongly correlates with"
+  coAttendsWith: [AttentionConnection!]!
+}
+
+type AttentionConnection {
+  targetNode: AttentionNode!
+  weight: Float!
+}
+
+input GenerationParams {
+  temperature: Float = 0.7
+  maxTokens: Int = 1024
+  topP: Float = 0.9
+}

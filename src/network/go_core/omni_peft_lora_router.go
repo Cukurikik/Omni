@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (r *peft_loraRouter) RouteRequest(ctx context.Context, payload []float64) p
 	}
 
 	start := time.Now()
-	
+
 	// Routing logic simulation
 	select {
 	case <-time.After(15 * time.Millisecond):
@@ -48,3 +48,4 @@ func (r *peft_loraRouter) RouteRequest(ctx context.Context, payload []float64) p
 		return peft_loraResult{Value: 0, IsResolved: false, Error: fmt.Errorf("request timeout: %v", ctx.Err())}
 	}
 }
+

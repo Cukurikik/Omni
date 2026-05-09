@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -123,7 +123,7 @@ func (e *OmniFFmpegBatchQueueEngine) processSingleJob(ctx context.Context, job T
 
 	// Using CommandContext guarantees FFmpeg is killed if the Go parent context dies
 	cmd := exec.CommandContext(ctx, "ffmpeg", fullArgs...)
-	
+
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("FFMPEG_CRASH: code=%w, output=%s", err, string(output))
@@ -131,3 +131,4 @@ func (e *OmniFFmpegBatchQueueEngine) processSingleJob(ctx context.Context, job T
 
 	return nil
 }
+

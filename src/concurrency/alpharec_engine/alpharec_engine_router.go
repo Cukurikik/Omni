@@ -26,7 +26,7 @@ func (r *alpharec_engineRouter) Execute(ctx context.Context, data []byte) (*alph
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &alpharec_engineResult{
 		Success: true,
 		Status:  "computed",

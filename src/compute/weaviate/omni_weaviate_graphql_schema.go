@@ -38,7 +38,7 @@ func ValidateSchema(c Class) Result {
 	if c.Class == "" {
 		return Err("Class name cannot be empty.")
 	}
-	
+
 	if strings.ToUpper(c.Class[:1]) != c.Class[:1] {
 		return Err("Weaviate class name must start with a capital letter.")
 	}
@@ -50,7 +50,7 @@ func ValidateSchema(c Class) Result {
 		if len(prop.DataType) == 0 {
 			return Err("Property must have at least one data type.")
 		}
-		
+
 		dt := prop.DataType[0]
 		validTypes := map[string]bool{"text": true, "int": true, "number": true, "boolean": true}
 		if !validTypes[dt] {

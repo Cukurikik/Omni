@@ -1,9 +1,9 @@
 package privategpt
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI PRIVATEGPT: Privacy Audit Logger
@@ -59,7 +59,7 @@ func (al *AuditLogger) Start(ctx context.Context) {
 				return
 			case event := <-al.logChannel:
 				// Simulated secure write to disk
-				fmt.Printf("[AUDIT] %d | User: %s | Action: %s | Doc: %s\n", 
+				fmt.Printf("[AUDIT] %d | User: %s | Action: %s | Doc: %s\n",
 					event.Timestamp, event.User, event.Action, event.Document)
 			}
 		}

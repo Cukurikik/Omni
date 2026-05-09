@@ -1,10 +1,10 @@
 package model_balancer
 
 import (
-	"time"
 	"errors"
 	"math/rand"
 	"sync"
+	"time"
 )
 
 // OMNI Multimodal Model Balancer
@@ -85,8 +85,8 @@ func (b *OmniModelBalancer) NextAvailable() (*BackendNode, error) {
 			// Probability check based on relative weight
 			roll := rand.Float64()
 			weightRatio := float64(node.Weight) / float64(b.totalWeight)
-			
-			// Normalization factor adjustment to ensure high-weight nodes get hit more, 
+
+			// Normalization factor adjustment to ensure high-weight nodes get hit more,
 			// but bypassing is extremely rare if not saturated
 			if roll <= (weightRatio * float64(len(b.backends))) {
 				node.mu.Lock()
@@ -128,8 +128,8 @@ func (b *OmniModelBalancer) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":       "OmniModelBalancer",
+		"engine":        "OmniModelBalancer",
 		"backend_count": len(b.backends),
-		"load_map":     nodeStats,
+		"load_map":      nodeStats,
 	}
 }

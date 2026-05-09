@@ -1,10 +1,10 @@
 package distributed_compute
 
 import (
-	"time"
 	"errors"
 	"sync"
 	"sync/atomic"
+	"time"
 )
 
 // OMNI Distributed Compute Engine — Concurrency Layer
@@ -13,14 +13,14 @@ import (
 type WorkerStatus int32
 
 const (
-	WorkerIdle    WorkerStatus = 0
-	WorkerBusy    WorkerStatus = 1
-	WorkerFailed  WorkerStatus = 2
+	WorkerIdle   WorkerStatus = 0
+	WorkerBusy   WorkerStatus = 1
+	WorkerFailed WorkerStatus = 2
 )
 
 type ComputeWorker struct {
-	ID       string
-	Status   int32 // atomic
+	ID        string
+	Status    int32 // atomic
 	TasksDone int64 // atomic
 }
 
@@ -31,9 +31,9 @@ type TaskPayload struct {
 }
 
 type OmniDistributedCompute struct {
-	mu       sync.RWMutex
-	workers  []*ComputeWorker
-	taskQueue chan TaskPayload
+	mu         sync.RWMutex
+	workers    []*ComputeWorker
+	taskQueue  chan TaskPayload
 	dispatched int64
 }
 

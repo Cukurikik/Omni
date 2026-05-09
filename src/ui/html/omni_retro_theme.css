@@ -1,0 +1,25 @@
+/* OMNI MOTHER: Retro CRT Theme */
+/* For debugging dashboards in a hacker style */
+
+body.omni-retro-theme {
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.omni-retro-theme .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 9999;
+    position: absolute;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.2) 10%, rgba(0,0,0,0.1) 100%);
+    opacity: 0.1;
+    animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}

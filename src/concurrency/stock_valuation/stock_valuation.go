@@ -49,14 +49,14 @@ func (e *ValuationEngine) CalculateDCFMatrix(cashFlows []float64, riskPremium fl
 
 	var dcf float64
 	for t, flow := range cashFlows {
-        // Enforce time dimensionality
+		// Enforce time dimensionality
 		year := float64(t + 1)
 		discountFactor := math.Pow(1.0+discountRate, year)
-		
+
 		if math.IsInf(discountFactor, 1) {
-		     return Err[float64]("Mathematical overflow: discount factor diverges")
+			return Err[float64]("Mathematical overflow: discount factor diverges")
 		}
-		
+
 		dcf += flow / discountFactor
 	}
 
@@ -64,21 +64,21 @@ func (e *ValuationEngine) CalculateDCFMatrix(cashFlows []float64, riskPremium fl
 }
 
 func (e *ValuationEngine) ComputeVolatilitySpread(highs []float64, lows []float64) Result[float64] {
-     if len(highs) != len(lows) {
-         return Err[float64]("Dimension mismatch between high and low vectors")
-     }
-     if len(highs) == 0 {
-         return Err[float64]("Input array degenerate")
-     }
-     
-     var spreadSum float64
-     for i := 0; i < len(highs); i++ {
-          diff := highs[i] - lows[i]
-          if diff < 0 {
-               return Err[float64]("Market logic violation: low > high")
-          }
-          spreadSum += diff
-     }
-     
-     return Ok(spreadSum / float64(len(highs)))
+	if len(highs) != len(lows) {
+		return Err[float64]("Dimension mismatch between high and low vectors")
+	}
+	if len(highs) == 0 {
+		return Err[float64]("Input array degenerate")
+	}
+
+	var spreadSum float64
+	for i := 0; i < len(highs); i++ {
+		diff := highs[i] - lows[i]
+		if diff < 0 {
+			return Err[float64]("Market logic violation: low > high")
+		}
+		spreadSum += diff
+	}
+
+	return Ok(spreadSum / float64(len(highs)))
 }

@@ -1,0 +1,30 @@
+% OMNI Framework - Datalog Rules for OMNI AI Model Access
+% Determines role-based access to various endpoints based on logical facts
+
+% Facts: User roles
+user_role("alice", "ml_engineer").
+user_role("bob", "data_analyst").
+user_role("charlie", "guest").
+
+% Facts: Model classifications
+model_class("ghn3_hypernet", "restricted").
+model_class("liputan6_summary", "public").
+model_class("ruformers", "confidential").
+
+% Facts: Role permissions
+role_can_access("ml_engineer", "restricted").
+role_can_access("ml_engineer", "confidential").
+role_can_access("ml_engineer", "public").
+role_can_access("data_analyst", "confidential").
+role_can_access("data_analyst", "public").
+role_can_access("guest", "public").
+
+% Rule: A user can query a model if their role permits the model's classification
+can_query_model(User, Model) :-
+    user_role(User, Role),
+    model_class(Model, Class),
+    role_can_access(Role, Class).
+
+% Example Evaluation:
+% can_query_model("bob", "ruformers") -> True
+% can_query_model("charlie", "ghn3_hypernet") -> False

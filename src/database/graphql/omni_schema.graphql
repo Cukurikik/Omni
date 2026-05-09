@@ -1,0 +1,53 @@
+# OMNI Database — GraphQL Schema
+# Unified Data Graph for querying OMNI metrics and models
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  "Get the current status of the entire OMNI cluster"
+  clusterStatus: ClusterStatus!
+  
+  "Retrieve a specific model by ID"
+  model(id: ID!): Model
+  
+  "List all active models"
+  activeModels: [Model!]!
+}
+
+type Mutation {
+  "Deploy a new model into the cluster"
+  deployModel(input: DeployModelInput!): DeploymentResult!
+  
+  "Halt a running deployment"
+  haltDeployment(id: ID!): Boolean!
+}
+
+type ClusterStatus {
+  activeNodes: Int!
+  totalGpuMemoryTb: Float!
+  currentTps: Int!
+  health: String!
+}
+
+type Model {
+  id: ID!
+  name: String!
+  parametersBillion: Float!
+  status: String!
+  framework: String!
+}
+
+input DeployModelInput {
+  name: String!
+  huggingfaceUri: String!
+  replicas: Int!
+}
+
+type DeploymentResult {
+  success: Boolean!
+  deploymentId: ID
+  error: String
+}

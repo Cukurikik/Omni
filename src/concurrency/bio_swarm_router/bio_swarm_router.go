@@ -1,14 +1,10 @@
 package concurrency
 
-import (
-)
-
 // Result is the monadic result type for this engine.
 type Result struct {
 	Value interface{}
 	Error error
 }
-
 
 type BioSwarmError struct {
 	Msg string
@@ -32,7 +28,7 @@ func (e *BioSwarmRouterEngine) ComputeRoutingProbability(nodePheromoneLevel floa
 	if nodePheromoneLevel < 0 || totalPheromoneMass <= 0 {
 		return Result{nil, &BioSwarmError{Msg: "Pheromone limits geometrically void"}}
 	}
-	
+
 	if nodePheromoneLevel > totalPheromoneMass {
 		return Result{nil, &BioSwarmError{Msg: "Topological node density exceeds systemic limits"}}
 	}

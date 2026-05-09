@@ -1,0 +1,61 @@
+#=============================================================================
+# OMNI DOMAIN LAYER — SWARMS AGENT SCHEMA (GRAPHQL)
+# BATCH: 31 | SEMESTER: 16
+# DESCRIPTION: GraphQL contract for multi-agent Swarms framework orchestration.
+# INSPIRED BY: The-Swarm-Corporation/Cookbook
+#=============================================================================
+
+@schema
+type SwarmAgent {
+  id: ID!
+  role: String!
+  modelName: String!
+  status: AgentStatus!
+  assignedTasks: [AgentTask!]!
+}
+
+enum AgentStatus {
+  IDLE
+  WORKING
+  OFFLINE
+  ERROR
+}
+
+type AgentTask {
+  id: ID!
+  description: String!
+  priority: Int!
+  status: TaskStatus!
+  result: String
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+type Query {
+  """
+  Get all active agents currently operating within the Swarm.
+  """
+  getActiveAgents: [SwarmAgent!]!
+  
+  """
+  Query a specific task's status and execution result.
+  """
+  getTaskStatus(taskId: ID!): AgentTask
+}
+
+type Mutation {
+  """
+  Spawns a new intelligent agent into the Swarm ecosystem.
+  """
+  spawnAgent(role: String!, modelName: String!): SwarmAgent!
+  
+  """
+  Dispatches a natural language task to the Swarm orchestrator.
+  """
+  dispatchTask(description: String!, priority: Int = 1): AgentTask!
+}

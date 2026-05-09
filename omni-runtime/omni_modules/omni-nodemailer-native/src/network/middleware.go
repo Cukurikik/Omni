@@ -1,4 +1,4 @@
-package omni_nodemailer_native
+package network
 
 import (
 	"net/http"

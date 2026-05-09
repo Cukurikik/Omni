@@ -22,7 +22,7 @@ func (ws *WorkflowScheduler) OrchestrateTools(tools []string) OmniResult {
 	var wg sync.WaitGroup
 	results := make([]string, len(tools))
 	var mu sync.Mutex
-	
+
 	semaphore := make(chan struct{}, ws.AgentWorkers)
 
 	for i, t := range tools {
@@ -30,13 +30,13 @@ func (ws *WorkflowScheduler) OrchestrateTools(tools []string) OmniResult {
 		go func(idx int, tool string) {
 			defer wg.Done()
 			semaphore <- struct{}{}
-			
+
 			status := "Tool Executed: " + tool
-			
+
 			mu.Lock()
 			results[idx] = status
 			mu.Unlock()
-			
+
 			<-semaphore
 		}(i, t)
 	}

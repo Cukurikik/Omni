@@ -6,7 +6,7 @@
 // Domain Layer      : Concurrency (Go Core)
 // ===========================================================================
 
-package go_core
+package network_gocore
 
 import (
 	"encoding/json"
@@ -19,7 +19,7 @@ import (
 // fires instrument samples based on a precise grid (e.g., 16 steps at 120 BPM).
 // To prevent audio jitter during live performance, triggering these events must
 // be completely decoupled into concurrent threads tied to a rock-solid timer ticker.
-// 
+//
 // Omni proves comprehension of this architectural constraint by implementing
 // the 16-step grid native to Go Goroutines and time.Ticker!
 
@@ -36,10 +36,10 @@ func simulateAudioTrigger(instrument string, step int, wg *sync.WaitGroup, resul
 
 func (d *DrumMachine) PlaySequence(stepsToPlay int) map[string]interface{} {
 	stepDurationMs := time.Duration(15000/d.BPM) * time.Millisecond // equivalent to 1/16th note timing
-	
+
 	resultsChannel := make(chan string, 100)
 	var wg sync.WaitGroup
-	
+
 	ticker := time.NewTicker(stepDurationMs)
 	defer ticker.Stop()
 
@@ -55,7 +55,7 @@ func (d *DrumMachine) PlaySequence(stepsToPlay int) map[string]interface{} {
 
 		// Fire concurrent Goroutines for every active instrument on this step!
 		for instrument, sequence := range d.PatternGrid {
-			if sequence[stepCount % 16] { 
+			if sequence[stepCount%16] {
 				wg.Add(1)
 				go simulateAudioTrigger(instrument, stepCount, &wg, resultsChannel)
 				triggersFired++
@@ -70,13 +70,13 @@ func (d *DrumMachine) PlaySequence(stepsToPlay int) map[string]interface{} {
 	durationMs := time.Since(startTime).Milliseconds()
 
 	return map[string]interface{}{
-		"status": "success",
-		"mode": "native-goroutine-step-sequencer",
-		"bpm": d.BPM,
-		"steps_played": stepsToPlay,
+		"status":                    "success",
+		"mode":                      "native-goroutine-step-sequencer",
+		"bpm":                       d.BPM,
+		"steps_played":              stepsToPlay,
 		"concurrent_triggers_fired": triggersFired,
-		"compute_time_ms": durationMs,
-		"learned_logic": []string{"high-precision-ticker", "concurrent-goroutine-dispatch", "pattern-matrix-sequencing"},
+		"compute_time_ms":           durationMs,
+		"learned_logic":             []string{"high-precision-ticker", "concurrent-goroutine-dispatch", "pattern-matrix-sequencing"},
 	}
 }
 
@@ -91,7 +91,8 @@ func init_hydrogen() {
 
 	// Play 8 steps (Half a bar)
 	report := machine.PlaySequence(8)
-	
+
 	out, _ := json.MarshalIndent(report, "", "  ")
 	fmt.Println(string(out))
 }
+

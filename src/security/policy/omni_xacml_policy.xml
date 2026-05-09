@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OMNI Security & Policy Layer -->
+<!-- XACML (eXtensible Access Control Markup Language) Policy -->
+<!-- Defines strict Attribute-Based Access Control (ABAC) for enterprise deployments -->
+
+<Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+        PolicyId="OmniEnterpriseAccessPolicy"
+        RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+        Version="1.0">
+
+    <Description>
+        Controls access to the Omni Universal Binary's core inference engines
+        based on user clearance, geographical location, and requested hardware target.
+    </Description>
+
+    <Target>
+        <AnyOf>
+            <AllOf>
+                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">omni:engine:execute</AttributeValue>
+                    <AttributeDesignator MustBePresent="true"
+                                         Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                         AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                                         DataType="http://www.w3.org/2001/XMLSchema#string"/>
+                </Match>
+            </AllOf>
+        </AnyOf>
+    </Target>
+
+    <!-- Rule 1: Allow High-Clearance Researchers to access A100 GPU cluster -->
+    <Rule RuleId="AllowResearcherGpuAccess" Effect="Permit">
+        <Target>
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">cluster_a100</AttributeValue>
+                        <AttributeDesignator MustBePresent="true"
+                                             Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                             AttributeId="omni:resource:hardware-target"
+                                             DataType="http://www.w3.org/2001/XMLSchema#string"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Condition>
+            <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">level_5_researcher</AttributeValue>
+                <AttributeDesignator MustBePresent="true"
+                                     Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                     AttributeId="omni:subject:clearance-level"
+                                     DataType="http://www.w3.org/2001/XMLSchema#string"/>
+            </Apply>
+        </Condition>
+    </Rule>
+
+    <!-- Rule 2: Deny all other access to high-tier hardware -->
+    <Rule RuleId="DenyUnauthorizedHardwareAccess" Effect="Deny" />
+
+</Policy>

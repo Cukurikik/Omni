@@ -49,22 +49,22 @@ func (d *AILearnDAG) AddEdge(from, to string) {
 func (d *AILearnDAG) GenerateExecutionPlan() DAGResult {
 	var queue []string
 	var plan []string
-	
+
 	// Enqueue all nodes with 0 in-degree
 	for node, degree := range d.inDegree {
 		if degree == 0 {
 			queue = append(queue, node)
 		}
 	}
-	
+
 	count := 0
-	
+
 	for len(queue) > 0 {
 		curr := queue[0]
 		queue = queue[1:] // Dequeue
 		plan = append(plan, curr)
 		count++
-		
+
 		for _, neighbor := range d.edges[curr] {
 			d.inDegree[neighbor]--
 			if d.inDegree[neighbor] == 0 {
@@ -72,10 +72,10 @@ func (d *AILearnDAG) GenerateExecutionPlan() DAGResult {
 			}
 		}
 	}
-	
+
 	if count != len(d.inDegree) { // Cycle detected
 		return ErrDAGResult("Acyclic execution failed: DAG contains a cycle.")
 	}
-	
+
 	return OkDAGResult(plan)
 }

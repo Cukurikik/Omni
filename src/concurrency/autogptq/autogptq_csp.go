@@ -20,7 +20,7 @@ type OmniResult[T any] struct {
 	Error *OmniError
 }
 
-func Ok[T any](val T) OmniResult[T] { return OmniResult[T]{IsOk: true, Value: val} }
+func Ok[T any](val T) OmniResult[T]           { return OmniResult[T]{IsOk: true, Value: val} }
 func Err[T any](err *OmniError) OmniResult[T] { return OmniResult[T]{IsOk: false, Error: err} }
 
 // Physical limit mapping quantization operations to GPU stream queues
@@ -45,7 +45,7 @@ func (r *QuantizationRouter) SubmitTensor(data []byte) OmniResult[bool] {
 	}
 
 	atomic.AddInt32(&r.queueSize, 1)
-	
+
 	// Zero-mock: Non-blocking channel write to physical worker
 	select {
 	case r.channel <- data:

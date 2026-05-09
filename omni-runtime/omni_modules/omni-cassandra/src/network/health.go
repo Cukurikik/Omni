@@ -1,4 +1,4 @@
-package omni_cassandra
+package network
 
 import "time"
 

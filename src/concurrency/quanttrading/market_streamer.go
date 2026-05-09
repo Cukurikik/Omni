@@ -50,9 +50,9 @@ func (s *MarketStreamer) PublishTick(tick MarketTick) OmniResult {
 	if !s.isActive {
 		return OmniResult{Error: errors.New("streamer is inactive")}
 	}
-	
+
 	if tick.Bid <= 0 || tick.Ask <= 0 || tick.Bid >= tick.Ask {
-	    return OmniResult{Error: errors.New("invalid tick data logic")}
+		return OmniResult{Error: errors.New("invalid tick data logic")}
 	}
 
 	subs, exists := s.subscribers[tick.Symbol]

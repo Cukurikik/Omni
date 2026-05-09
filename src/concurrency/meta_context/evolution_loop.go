@@ -2,7 +2,8 @@ package meta_context
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func RunEvolutionEpoch(ctx context.Context, generation int) result.Result[int] {

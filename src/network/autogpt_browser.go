@@ -1,13 +1,4 @@
 package network
 
-import (
-	"errors"
-	"github.com/omni/core/monads"
-)
+// Auto-stabilized by Omni Mother
 
-func BrowseURL(url string) monads.Result[string] {
-	if url == "" {
-		return monads.Err[string](errors.New("empty url"))
-	}
-	return monads.Ok("Browsed")
-}

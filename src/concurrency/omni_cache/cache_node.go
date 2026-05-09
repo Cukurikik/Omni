@@ -2,7 +2,8 @@ package omni_cache
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func SetCacheItem(ctx context.Context, key, val string) result.Result[bool] {

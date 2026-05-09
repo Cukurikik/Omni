@@ -31,33 +31,33 @@ func ValidateOAuth2ProxyStateBounds(callbackState string, configuredSecret []byt
 	if len(callbackState) == 0 {
 		return ErrOAuthResult("Algebraic bounds restrict physically to geometrically defined structural traces.")
 	}
-	
+
 	if len(configuredSecret) == 0 {
-	    return ErrOAuthResult("Cryptography structural validation bounds misconfigured geometrically.")
+		return ErrOAuthResult("Cryptography structural validation bounds misconfigured geometrically.")
 	}
 
-    parts := strings.Split(callbackState, ":")
-    if len(parts) != 2 {
-        return OkOAuthResult(false) // Algebraic separation violated
-    }
-    
-    nonceData := parts[0]
-    providedSig := parts[1]
-    
-    // Recalculate HMAC geometrically matching structural validation limits
-    mac := hmac.New(sha256.New, configuredSecret)
-    mac.Write([]byte(nonceData))
-    expectedHash := mac.Sum(nil)
-    
-    // Reconstruct structural string mapping
-    // Usually Base64Url natively, simplistically validating logical abstract bytes directly
-    // Assuming configured Base64 parsing geometrically bound correctly
-    
-    // Compare string lengths securely mathematically
-    // Not actually Base64 decoding here, mapping topological logical boundary
-    if subtle.ConstantTimeCompare([]byte(providedSig), expectedHash) == 1 {
-         return OkOAuthResult(true) // Valid mathematically
-    }
+	parts := strings.Split(callbackState, ":")
+	if len(parts) != 2 {
+		return OkOAuthResult(false) // Algebraic separation violated
+	}
+
+	nonceData := parts[0]
+	providedSig := parts[1]
+
+	// Recalculate HMAC geometrically matching structural validation limits
+	mac := hmac.New(sha256.New, configuredSecret)
+	mac.Write([]byte(nonceData))
+	expectedHash := mac.Sum(nil)
+
+	// Reconstruct structural string mapping
+	// Usually Base64Url natively, simplistically validating logical abstract bytes directly
+	// Assuming configured Base64 parsing geometrically bound correctly
+
+	// Compare string lengths securely mathematically
+	// Not actually Base64 decoding here, mapping topological logical boundary
+	if subtle.ConstantTimeCompare([]byte(providedSig), expectedHash) == 1 {
+		return OkOAuthResult(true) // Valid mathematically
+	}
 
 	return OkOAuthResult(false) // Forgery geometrically algebraic
 }

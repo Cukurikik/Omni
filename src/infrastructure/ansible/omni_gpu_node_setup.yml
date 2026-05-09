@@ -1,0 +1,112 @@
+# OMNI Infrastructure Layer — Ansible Playbook for GPU Node Setup
+# Provision and configure GPU inference nodes.
+
+---
+- name: OMNI GPU Inference Node Setup
+  hosts: gpu_nodes
+  become: true
+  vars:
+    cuda_version: "12.4"
+    nvidia_driver_version: "550"
+    omni_model_dir: "/opt/omni/models"
+    omni_config_dir: "/opt/omni/config"
+    inference_port: 8080
+    health_port: 8081
+
+  tasks:
+    - name: Install NVIDIA drivers
+      apt:
+        name:
+          - "nvidia-driver-{{ nvidia_driver_version }}"
+          - nvidia-utils-{{ nvidia_driver_version }}
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install CUDA toolkit
+      apt:
+        name: "cuda-toolkit-{{ cuda_version | replace('.', '-') }}"
+        state: present
+
+    - name: Verify GPU detection
+      command: nvidia-smi
+      register: gpu_check
+      failed_when: gpu_check.rc != 0
+
+    - name: Display GPU info
+      debug:
+        msg: "{{ gpu_check.stdout_lines | first }}"
+
+    - name: Create OMNI directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ omni_model_dir }}"
+        - "{{ omni_config_dir }}"
+        - /var/log/omni
+
+    - name: Deploy inference configuration
+      template:
+        src: templates/inference_config.yaml.j2
+        dest: "{{ omni_config_dir }}/config.yaml"
+        mode: "0644"
+      notify: Restart inference service
+
+    - name: Install Python dependencies
+      pip:
+        name:
+          - torch>=2.0
+          - numpy
+          - safetensors
+          - grpcio
+          - prometheus-client
+        state: present
+
+    - name: Deploy OMNI inference service
+      template:
+        src: templates/omni-inference.service.j2
+        dest: /etc/systemd/system/omni-inference.service
+        mode: "0644"
+      notify:
+        - Reload systemd
+        - Restart inference service
+
+    - name: Enable and start inference service
+      systemd:
+        name: omni-inference
+        enabled: yes
+        state: started
+
+    - name: Configure firewall rules
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      loop:
+        - "{{ inference_port }}"
+        - "{{ health_port }}"
+
+    - name: Setup log rotation
+      copy:
+        content: |
+          /var/log/omni/*.log {
+            daily
+            rotate 14
+            compress
+            delaycompress
+            missingok
+            notifempty
+          }
+        dest: /etc/logrotate.d/omni
+
+  handlers:
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: Restart inference service
+      systemd:
+        name: omni-inference
+        state: restarted

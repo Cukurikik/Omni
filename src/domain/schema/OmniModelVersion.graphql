@@ -1,0 +1,486 @@
+// OmniModelVersion.graphql — GraphQL Schema for Model Registry API
+// Inspired by: OMNI model governance + versioning requirements
+// Layer: Domain / GraphQL
+//
+// Schema-first API contract for model registration, versioning,
+// deployment status tracking, and A/B test configuration.
+
+type Query {
+  """Fetch a model by its unique identifier."""
+  model(id: ID!): Model
+
+  """List all registered models with optional filtering."""
+  models(
+    filter: ModelFilter
+    pagination: PaginationInput
+    sort: ModelSortInput
+  ): ModelConnection!
+
+  """Get a specific model version."""
+  modelVersion(modelId: ID!, versionId: ID!): ModelVersion
+
+  """List all active deployments."""
+  deployments(environment: Environment): [Deployment!]!
+
+  """Get experiment results for A/B testing."""
+  experiment(id: ID!): Experiment
+
+  """Search models by semantic query."""
+  searchModels(query: String!, limit: Int = 10): [ModelSearchResult!]!
+}
+
+type Mutation {
+  """Register a new model in the registry."""
+  registerModel(input: RegisterModelInput!): RegisterModelPayload!
+
+  """Publish a new version of an existing model."""
+  publishVersion(input: PublishVersionInput!): PublishVersionPayload!
+
+  """Deploy a model version to an environment."""
+  deployModel(input: DeployModelInput!): DeployModelPayload!
+
+  """Rollback a deployment to a previous version."""
+  rollbackDeployment(input: RollbackInput!): DeployModelPayload!
+
+  """Start an A/B test experiment."""
+  createExperiment(input: CreateExperimentInput!): Experiment!
+
+  """Update model metadata."""
+  updateModel(id: ID!, input: UpdateModelInput!): Model!
+
+  """Archive a model (soft delete)."""
+  archiveModel(id: ID!): Model!
+}
+
+type Subscription {
+  """Subscribe to training progress updates."""
+  trainingProgress(runId: ID!): TrainingUpdate!
+
+  """Subscribe to deployment status changes."""
+  deploymentStatus(deploymentId: ID!): DeploymentStatusUpdate!
+
+  """Subscribe to model health metrics."""
+  modelHealth(modelId: ID!, interval: Int = 30): HealthMetrics!
+}
+
+# =====================
+# Core Types
+# =====================
+
+type Model {
+  id: ID!
+  name: String!
+  description: String!
+  owner: User!
+  architecture: Architecture!
+  tags: [String!]!
+  status: ModelStatus!
+  license: String!
+  versions: [ModelVersion!]!
+  latestVersion: ModelVersion
+  deployments: [Deployment!]!
+  metrics: ModelMetrics
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ModelVersion {
+  id: ID!
+  modelId: ID!
+  version: SemanticVersion!
+  artifactHash: String!
+  artifactUri: String!
+  metadataUri: String
+  parameterCount: BigInt!
+  modelSizeMb: Float!
+  framework: Framework!
+  trainedOn: DatasetInfo
+  evaluationMetrics: EvaluationMetrics
+  changelog: String
+  verified: Boolean!
+  verificationCount: Int!
+  createdAt: DateTime!
+  createdBy: User!
+}
+
+type Architecture {
+  name: String!
+  numLayers: Int!
+  hiddenSize: Int!
+  numHeads: Int!
+  vocabSize: Int
+  maxSequenceLength: Int!
+  modalities: [Modality!]!
+  ffMultiplier: Int!
+  precision: Precision!
+}
+
+type Deployment {
+  id: ID!
+  modelId: ID!
+  versionId: ID!
+  environment: Environment!
+  region: String!
+  replicas: Int!
+  status: DeploymentStatus!
+  endpoint: String
+  health: HealthMetrics
+  config: DeploymentConfig
+  deployedAt: DateTime!
+  deployedBy: User!
+}
+
+type Experiment {
+  id: ID!
+  name: String!
+  description: String
+  controlModel: ExperimentArm!
+  treatmentModels: [ExperimentArm!]!
+  trafficSplit: [Float!]!
+  metric: String!
+  status: ExperimentStatus!
+  startDate: DateTime!
+  endDate: DateTime
+  results: ExperimentResults
+}
+
+# =====================
+# Metrics & Evaluation
+# =====================
+
+type ModelMetrics {
+  accuracy: Float
+  f1Score: Float
+  precision: Float
+  recall: Float
+  latencyP50Ms: Float
+  latencyP95Ms: Float
+  latencyP99Ms: Float
+  throughputRps: Float
+  errorRate: Float
+}
+
+type EvaluationMetrics {
+  taskMetrics: [TaskMetric!]!
+  benchmarkScores: [BenchmarkScore!]!
+  computedAt: DateTime!
+}
+
+type TaskMetric {
+  taskName: String!
+  metricName: String!
+  value: Float!
+  split: DataSplit!
+}
+
+type BenchmarkScore {
+  benchmarkName: String!
+  score: Float!
+  rank: Int
+}
+
+type HealthMetrics {
+  isHealthy: Boolean!
+  latencyMs: Float!
+  errorRate: Float!
+  memoryUsageMb: Float!
+  gpuUtilization: Float
+  requestsPerSecond: Float!
+  lastChecked: DateTime!
+}
+
+type TrainingUpdate {
+  runId: ID!
+  step: Int!
+  totalSteps: Int!
+  loss: Float!
+  learningRate: Float!
+  metrics: [KeyValueFloat!]!
+  eta: String
+  timestamp: DateTime!
+}
+
+# =====================
+# Enums
+# =====================
+
+enum ModelStatus {
+  DRAFT
+  ACTIVE
+  DEPRECATED
+  ARCHIVED
+}
+
+enum DeploymentStatus {
+  PENDING
+  DEPLOYING
+  RUNNING
+  SCALING
+  DRAINING
+  FAILED
+  TERMINATED
+}
+
+enum Environment {
+  DEVELOPMENT
+  STAGING
+  PRODUCTION
+  EDGE
+}
+
+enum Framework {
+  PYTORCH
+  TENSORFLOW
+  ONNX
+  OMNI
+  JAX
+  TENSORRT
+}
+
+enum Modality {
+  TEXT
+  IMAGE
+  AUDIO
+  VIDEO
+  MULTIMODAL
+}
+
+enum Precision {
+  FP32
+  FP16
+  BF16
+  INT8
+  INT4
+}
+
+enum DataSplit {
+  TRAIN
+  VALIDATION
+  TEST
+}
+
+enum ExperimentStatus {
+  DRAFT
+  RUNNING
+  COMPLETED
+  CANCELLED
+}
+
+# =====================
+# Input Types
+# =====================
+
+input RegisterModelInput {
+  name: String!
+  description: String!
+  tags: [String!]
+  license: String
+  architecture: ArchitectureInput!
+}
+
+input ArchitectureInput {
+  name: String!
+  numLayers: Int!
+  hiddenSize: Int!
+  numHeads: Int!
+  vocabSize: Int
+  maxSequenceLength: Int!
+  modalities: [Modality!]!
+  ffMultiplier: Int = 4
+  precision: Precision = BF16
+}
+
+input PublishVersionInput {
+  modelId: ID!
+  version: String!
+  artifactUri: String!
+  metadataUri: String
+  parameterCount: BigInt!
+  modelSizeMb: Float!
+  framework: Framework!
+  changelog: String
+}
+
+input DeployModelInput {
+  modelId: ID!
+  versionId: ID!
+  environment: Environment!
+  region: String!
+  replicas: Int = 1
+  config: DeploymentConfigInput
+}
+
+input DeploymentConfigInput {
+  maxBatchSize: Int
+  maxSequenceLength: Int
+  gpuType: String
+  autoscaleMin: Int
+  autoscaleMax: Int
+  healthCheckIntervalSeconds: Int
+}
+
+input RollbackInput {
+  deploymentId: ID!
+  targetVersionId: ID!
+  reason: String
+}
+
+input CreateExperimentInput {
+  name: String!
+  description: String
+  controlModelId: ID!
+  controlVersionId: ID!
+  treatmentModelIds: [ID!]!
+  treatmentVersionIds: [ID!]!
+  trafficSplit: [Float!]!
+  metric: String!
+  durationDays: Int!
+}
+
+input UpdateModelInput {
+  description: String
+  tags: [String!]
+  license: String
+  status: ModelStatus
+}
+
+input ModelFilter {
+  status: ModelStatus
+  framework: Framework
+  modality: Modality
+  tags: [String!]
+  owner: ID
+  minParams: BigInt
+  maxParams: BigInt
+}
+
+input PaginationInput {
+  first: Int
+  after: String
+  last: Int
+  before: String
+}
+
+input ModelSortInput {
+  field: ModelSortField!
+  order: SortOrder!
+}
+
+enum ModelSortField {
+  NAME
+  CREATED_AT
+  UPDATED_AT
+  PARAMETER_COUNT
+  ACCURACY
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+# =====================
+# Payload / Connection Types
+# =====================
+
+type RegisterModelPayload {
+  model: Model!
+  success: Boolean!
+  message: String
+}
+
+type PublishVersionPayload {
+  version: ModelVersion!
+  success: Boolean!
+  validationErrors: [String!]
+}
+
+type DeployModelPayload {
+  deployment: Deployment!
+  success: Boolean!
+  message: String
+}
+
+type ModelConnection {
+  edges: [ModelEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ModelEdge {
+  node: Model!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type ModelSearchResult {
+  model: Model!
+  score: Float!
+  matchedFields: [String!]!
+}
+
+# =====================
+# Supporting Types
+# =====================
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type SemanticVersion {
+  major: Int!
+  minor: Int!
+  patch: Int!
+  display: String!
+}
+
+type DatasetInfo {
+  name: String!
+  version: String
+  numSamples: BigInt
+  splits: [DataSplit!]
+}
+
+type DeploymentConfig {
+  maxBatchSize: Int!
+  maxSequenceLength: Int!
+  gpuType: String
+  autoscaleMin: Int!
+  autoscaleMax: Int!
+}
+
+type ExperimentArm {
+  modelId: ID!
+  versionId: ID!
+  trafficPercent: Float!
+}
+
+type ExperimentResults {
+  winner: ID
+  pValue: Float
+  effectSize: Float
+  armResults: [ArmResult!]!
+}
+
+type ArmResult {
+  modelId: ID!
+  metricValue: Float!
+  sampleSize: Int!
+  confidenceInterval: [Float!]!
+}
+
+type KeyValueFloat {
+  key: String!
+  value: Float!
+}
+
+scalar DateTime
+scalar BigInt

@@ -44,7 +44,7 @@ func (p *InferencePool) worker(id int) {
 			p.results <- OmniResult{Error: fmt.Errorf("invalid observation %v", task.Observation)}
 			continue
 		}
-		
+
 		// Deterministic inference calculation
 		posterior := (task.Observation * 0.8) / ((task.Observation * 0.8) + (1-task.Observation)*0.2)
 		p.results <- OmniResult{Value: fmt.Sprintf("Node %s posterior: %.4f", task.NodeID, posterior)}

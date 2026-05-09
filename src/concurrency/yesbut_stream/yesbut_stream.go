@@ -81,7 +81,7 @@ func (e *YesButEngine) ValidateDataPairing(textTokens int, imgSize int) Result[b
 	}
 
 	ratio := float64(textTokens) / float64(imgSize)
-	
+
 	// Information theoretic bound for 'yesbut' contradiction
 	if ratio > 50.0 || ratio < 0.02 {
 		return Err[bool]("Modality imbalance creates divergent contradiction states")

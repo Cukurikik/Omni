@@ -1,0 +1,74 @@
+# @omni-layer Business | @omni-source langchain-ai/langchain | @omni-lang GraphQL
+# @omni-description Agent orchestration API: manages tool registries, execution
+# traces, and multi-agent collaboration workflows.
+
+type Tool {
+  name: String!
+  description: String!
+  call_count: Int!
+  avg_latency_ms: Float
+  last_used: String
+}
+
+type AgentStep {
+  step: Int!
+  thought: String!
+  tool_used: String!
+  input: String!
+  observation: String!
+  duration_ms: Float!
+}
+
+type AgentExecution {
+  id: ID!
+  query: String!
+  steps: [AgentStep!]!
+  final_answer: String!
+  total_ms: Float!
+  tools_used: [String!]!
+  status: String!
+  created_at: String!
+}
+
+type AgentStats {
+  total_executions: Int!
+  avg_steps: Float!
+  avg_latency_ms: Float!
+  most_used_tools: [ToolUsage!]!
+  success_rate: Float!
+}
+
+type ToolUsage {
+  tool: String!
+  count: Int!
+  percentage: Float!
+}
+
+input ExecuteAgentInput {
+  query: String!
+  max_steps: Int
+  tools: [String!]
+  temperature: Float
+}
+
+input RegisterToolInput {
+  name: String!
+  description: String!
+}
+
+type Query {
+  getExecution(id: ID!): AgentExecution
+  listExecutions(limit: Int, offset: Int): [AgentExecution!]!
+  getAgentStats: AgentStats!
+  listTools: [Tool!]!
+}
+
+type Mutation {
+  executeAgent(input: ExecuteAgentInput!): AgentExecution!
+  registerTool(input: RegisterToolInput!): Tool!
+  removeTool(name: String!): Boolean!
+}
+
+type Subscription {
+  agentStepAdded(executionId: ID!): AgentStep!
+}

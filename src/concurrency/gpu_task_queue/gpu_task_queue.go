@@ -1,14 +1,10 @@
 package concurrency
 
-import (
-)
-
 // Result is the monadic result type for this engine.
 type Result struct {
 	Value interface{}
 	Error error
 }
-
 
 type GPUQueueError struct {
 	Msg string
@@ -62,6 +58,6 @@ func (e *GPUTaskQueueEngine) ComputeMutexWaitProbability(queueLength int, dispat
 
 	return Result{map[string]interface{}{
 		"expected_wait_sec": waitExpectedSec,
-		"probability_lock":  waitExpectedSec > 1.0, 
+		"probability_lock":  waitExpectedSec > 1.0,
 	}, nil}
 }

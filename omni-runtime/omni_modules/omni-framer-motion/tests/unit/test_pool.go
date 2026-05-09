@@ -1,13 +1,14 @@
 package omni_framer_motion_test
 
 import (
+	"omni/modules/omni-framer-motion/src/network"
     "context"
     "testing"
     "time"
 )
 
 func TestConnectionPool(t *testing.T) {
-    pool := NewConnectionPool("localhost:5432", 10, 5*time.Second)
+    pool := network.NewConnectionPool("localhost:5432", 10, 5*time.Second)
     conn, err := pool.Acquire(context.Background())
     if err != nil { t.Fatal(err) }
     pool.Release(conn)

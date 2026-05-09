@@ -19,7 +19,7 @@ func (r *VerseRouter) RouteMatching(ctx context.Context, score float64) (*MatchR
 	if score < 0 {
 		return nil, errors.New("matching score cannot be negative")
 	}
-	
+
 	return &MatchResult{
 		Score:   score,
 		Matched: score >= r.MinScore,

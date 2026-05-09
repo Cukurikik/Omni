@@ -1,4 +1,4 @@
-package omni_supabase_storage
+package network
 
 import (
 	"context"

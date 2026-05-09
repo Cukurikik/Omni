@@ -2,7 +2,8 @@ package advanced_rag
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func ExecuteRAGQuery(ctx context.Context, query string) result.Result[[]string] {

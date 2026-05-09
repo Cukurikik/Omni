@@ -25,11 +25,11 @@ type PHIRedactor struct {
 func NewPHIRedactor() *PHIRedactor {
 	return &PHIRedactor{
 		// Standard US SSN format
-		ssnPattern:   regexp.MustCompile(`\b\d{3}-\d{2}-\d{4}\b`),
-		
+		ssnPattern: regexp.MustCompile(`\b\d{3}-\d{2}-\d{4}\b`),
+
 		// North American phone numbers
 		phonePattern: regexp.MustCompile(`\b\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b`),
-		
+
 		// Basic email structure
 		emailPattern: regexp.MustCompile(`\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b`),
 	}

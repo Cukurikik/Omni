@@ -26,7 +26,7 @@ func (r *reclm_engineRouter) Execute(ctx context.Context, data []byte) (*reclm_e
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &reclm_engineResult{
 		Success: true,
 		Status:  "computed",

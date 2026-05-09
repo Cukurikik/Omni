@@ -1,0 +1,120 @@
+# ==============================================================================
+# OMNI NEXUS - UNIVERSAL PYTHON REQUIREMENTS (V3.2 - STABILIZED)
+# ==============================================================================
+
+# --- [CORE] SYSTEM & UPGRADE ---
+# Run: python -m pip install --upgrade pip setuptools wheel
+
+# --- [COMPUTE] AI & DEEP LEARNING ---
+torch>=2.2.0
+torchvision
+torchaudio
+jax[cuda12_pip]
+flax
+tensorflow>=2.15.0
+keras>=3.0.0
+
+# --- [COMPUTE] LLM & GENERATIVE ---
+transformers>=4.40.0
+accelerate>=0.30.0
+diffusers>=0.27.0
+bitsandbytes>=0.43.0
+peft>=0.10.0
+trl>=0.8.0
+einops>=0.7.0
+sentencepiece>=0.2.0
+tokenizers>=0.19.0
+safetensors>=0.4.0
+
+# --- [COMPUTE] DATA SCIENCE & NUMERICAL ---
+numpy>=1.26.0
+pandas>=2.2.0
+scipy>=1.13.0
+scikit-learn>=1.4.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.20.0
+statsmodels>=0.14.0
+
+# --- [DATA] RAG & VECTOR SEARCH ---
+langchain>=0.1.0
+langchain-community
+llama-index>=0.10.0
+qdrant-client>=1.9.0
+chromadb>=0.5.0
+pinecone-client>=4.0.0
+sentence-transformers>=2.7.0
+faiss-cpu>=1.8.0
+pymilvus>=2.4.0
+
+# --- [NETWORK] APIS & SERVICES ---
+fastapi[all]>=0.111.0
+uvicorn[standard]>=0.29.0
+httpx>=0.27.0
+grpcio>=1.62.0
+grpcio-tools>=1.62.0
+protobuf>=4.25.0
+python-multipart>=0.0.9
+
+# --- [EVENT] STREAMING ---
+confluent-kafka>=2.4.0
+pika>=1.3.0
+paho-mqtt>=2.1.0
+websockets>=12.0
+
+# --- [DATABASE] CONNECTORS ---
+neo4j>=5.19.0
+pymongo>=4.7.0
+influxdb-client>=1.42.0
+rdflib>=7.0.0
+redis>=5.0.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+mysql-connector-python>=8.4.0
+
+# --- [OPTIMIZATION] MATH ---
+ortools>=9.9.0
+cvxpy>=1.4.0
+pulp>=2.8.0
+# PySCIPOpt requires system-level SCIP installation, omitting for direct pip safety
+
+# --- [SCIENTIFIC] HPC ---
+dask[complete]>=2024.4.0
+ray[default]>=2.10.0
+numba>=0.59.0
+cupy-cuda12x>=13.0.0
+
+# --- [SECURITY] POLICY ---
+checkov>=3.2.0
+opa-python-client>=1.0.0
+cryptography>=42.0.0
+
+# --- [SYMBOLIC] NLP & RULES ---
+nltk>=3.8.0
+spacy>=3.7.0
+experta>=1.9.0
+
+# --- [BLOCKCHAIN] WEB3 ---
+web3>=6.17.0
+eth-abi>=5.1.0
+py-solc-x>=2.0.0
+
+# --- [INFRA] CLOUD ---
+boto3>=1.34.0
+google-cloud-storage>=2.16.0
+azure-storage-blob>=12.19.0
+pulumi>=3.113.0
+ansible>=9.5.0
+
+# --- [INTERFACE] UI ---
+streamlit>=1.33.0
+gradio>=4.26.0
+rich>=13.7.0
+tqdm>=4.66.0
+python-dotenv>=1.0.1
+pydantic>=2.7.0
+pydantic-settings>=2.2.0
+
+# --- [TESTING] ---
+pytest>=8.1.0
+hypothesis>=6.100.0

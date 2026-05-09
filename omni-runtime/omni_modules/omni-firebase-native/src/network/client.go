@@ -1,4 +1,4 @@
-package omni_firebase_native
+package network
 
 import (
 	"context"

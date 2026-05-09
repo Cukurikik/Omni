@@ -11,7 +11,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.1
 
-package go_core
+package network_gocore
 
 import (
 	"crypto/sha256"
@@ -104,11 +104,11 @@ func (m ModalityType) String() string {
 // MultimodalPayload represents a single chunk of multimodal data
 // flowing through the relay pipeline.
 type MultimodalPayload struct {
-	ID        string       `json:"id"`
-	Modality  ModalityType `json:"modality"`
-	Data      []byte       `json:"data"`
-	Timestamp int64        `json:"timestamp_ns"`
-	Checksum  string       `json:"checksum_sha256"`
+	ID        string            `json:"id"`
+	Modality  ModalityType      `json:"modality"`
+	Data      []byte            `json:"data"`
+	Timestamp int64             `json:"timestamp_ns"`
+	Checksum  string            `json:"checksum_sha256"`
 	Metadata  map[string]string `json:"metadata,omitempty"`
 }
 
@@ -346,13 +346,13 @@ func (r *OmniMultimodalRelay) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":          "OmniMultimodalRelay",
-		"version":         "1.1.0-omni-zeromock",
-		"layer":           "network/go_core",
-		"total_channels":  len(r.channels),
-		"channels":        channelStats,
-		"mock_patterns":   "zero",
-		"concurrency":     "goroutine+channel CSP",
+		"engine":         "OmniMultimodalRelay",
+		"version":        "1.1.0-omni-zeromock",
+		"layer":          "network/go_core",
+		"total_channels": len(r.channels),
+		"channels":       channelStats,
+		"mock_patterns":  "zero",
+		"concurrency":    "goroutine+channel CSP",
 	}
 }
 
@@ -365,3 +365,4 @@ func (r *OmniMultimodalRelay) DiagnosticsJSON() RelayResult[string] {
 	}
 	return RelayOk(string(jsonBytes))
 }
+

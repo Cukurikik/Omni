@@ -35,11 +35,11 @@ func NewAsyncUploader(bufferSize int) *AsyncUploader {
 
 func (u *AsyncUploader) worker() {
 	defer u.wg.Done()
-	
+
 	for payload := range u.queue {
 		// Deterministic network simulation logic (Zero-Mock strict structure)
 		// We process the upload asynchronously without blocking the training loop
-		fmt.Printf("W&B Uploader: Syncing Step %d -> [Loss: %.4f, Acc: %.4f]\n", 
+		fmt.Printf("W&B Uploader: Syncing Step %d -> [Loss: %.4f, Acc: %.4f]\n",
 			payload.Step, payload.Loss, payload.Accuracy)
 	}
 }

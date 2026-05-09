@@ -13,7 +13,7 @@
 // providing built-in backpressure (buffered channels) and graceful shutdown
 // (context cancellation) without any external dependencies.
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -59,12 +59,12 @@ type Subscriber struct {
 
 // RelayStats tracks real-time metrics.
 type RelayStats struct {
-	PacketsRelayed   uint64
-	BytesRelayed     uint64
-	SubscriberCount  int
-	DroppedPackets   uint64
-	PeakSubscribers  int
-	UptimeSeconds    float64
+	PacketsRelayed  uint64
+	BytesRelayed    uint64
+	SubscriberCount int
+	DroppedPackets  uint64
+	PeakSubscribers int
+	UptimeSeconds   float64
 }
 
 // OmniStreamingRelayEngine is the core fan-out relay.
@@ -213,17 +213,17 @@ func (e *OmniStreamingRelayEngine) GetStats() RelayStats {
 func (e *OmniStreamingRelayEngine) Diagnostics() map[string]interface{} {
 	stats := e.GetStats()
 	return map[string]interface{}{
-		"engine":            "OmniStreamingRelayEngine",
-		"layer":             "Go Network",
-		"relay_id":          e.config.RelayID,
-		"subscribers":       stats.SubscriberCount,
-		"peak_subscribers":  stats.PeakSubscribers,
-		"packets_relayed":   stats.PacketsRelayed,
-		"bytes_relayed":     stats.BytesRelayed,
-		"dropped_packets":   stats.DroppedPackets,
-		"uptime_seconds":    stats.UptimeSeconds,
-		"buffer_size":       e.config.BufferSize,
-		"max_subscribers":   e.config.MaxSubscribers,
+		"engine":           "OmniStreamingRelayEngine",
+		"layer":            "Go Network",
+		"relay_id":         e.config.RelayID,
+		"subscribers":      stats.SubscriberCount,
+		"peak_subscribers": stats.PeakSubscribers,
+		"packets_relayed":  stats.PacketsRelayed,
+		"bytes_relayed":    stats.BytesRelayed,
+		"dropped_packets":  stats.DroppedPackets,
+		"uptime_seconds":   stats.UptimeSeconds,
+		"buffer_size":      e.config.BufferSize,
+		"max_subscribers":  e.config.MaxSubscribers,
 		"learned_logic": []string{
 			"goroutine-fan-out-broadcast",
 			"non-blocking-channel-send",
@@ -233,3 +233,4 @@ func (e *OmniStreamingRelayEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

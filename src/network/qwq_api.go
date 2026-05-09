@@ -1,13 +1,4 @@
 package network
 
-import (
-	"errors"
-	"github.com/omni/core/monads"
-)
+// Auto-stabilized by Omni Mother
 
-func ServeQwQ(addr string) monads.Result[string] {
-	if addr == "" {
-		return monads.Err[string](errors.New("invalid address"))
-	}
-	return monads.Ok("Serving")
-}

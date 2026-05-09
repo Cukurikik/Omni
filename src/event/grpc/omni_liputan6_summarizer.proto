@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package omni.nlp.summarization;
+
+option go_package = "omni/event/grpc";
+
+// OMNI Framework - gRPC Definition for Liputan6 Indonesian Summarization
+service LiputanSummarizer {
+    rpc SummarizeNews (SummarizationRequest) returns (SummarizationResponse);
+    rpc StreamSummaries (stream SummarizationRequest) returns (stream SummarizationResponse);
+}
+
+message SummarizationRequest {
+    string document_id = 1;
+    string full_text = 2;
+    int32 max_length = 3;
+    int32 min_length = 4;
+}
+
+message SummarizationResponse {
+    string document_id = 1;
+    string summary = 2;
+    float confidence_score = 3;
+    string model_used = 4;
+}

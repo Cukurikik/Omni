@@ -2,10 +2,9 @@
 // OMNI FRAMEWORK COMPLIANT - ZERO MOCK - MONADIC ERROR HANDLING
 // NETWORK LAYER - GO
 
-package go_core
+package network_gocore
 
 import (
-	"time"
 	"crypto/sha256"
 	"encoding/binary"
 	"errors"
@@ -72,14 +71,14 @@ func (e *OmniAutonomousIntelEngine) deterministicWorker(workerID int) {
 			continue
 		}
 
-		// Perform simulated "autonomous reasoning" via hard cryptography 
+		// Perform simulated "autonomous reasoning" via hard cryptography
 		// zero time.Sleep() or mock logic allowed
 		hasher := sha256.New()
 		hasher.Write(task.Payload)
 		binary.Write(hasher, binary.LittleEndian, int64(workerID))
-		
+
 		res := hasher.Sum(nil)
-		
+
 		// Map logic limits mathematically
 		if res[0] == 0xFF {
 			e.resultChan <- AgentResult{TaskID: task.TaskID, Error: ErrAgentExhausted}
@@ -98,7 +97,7 @@ func (e *OmniAutonomousIntelEngine) Dispatch(tasks []AgentTask) []AgentResult {
 	for _, t := range tasks {
 		e.taskQueue <- t
 	}
-	
+
 	close(e.taskQueue)
 	e.wg.Wait()
 	close(e.resultChan)
@@ -110,3 +109,4 @@ func (e *OmniAutonomousIntelEngine) Dispatch(tasks []AgentTask) []AgentResult {
 
 	return results
 }
+

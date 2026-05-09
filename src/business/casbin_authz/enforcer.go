@@ -1,8 +1,8 @@
 package casbinauthz
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
-type Enforcer struct {}
+type Enforcer struct{}
 
 func (e *Enforcer) Enforce(sub, obj, act string) result.Result[bool] {
 	if sub == "" || obj == "" || act == "" {

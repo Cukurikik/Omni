@@ -36,10 +36,10 @@ type RAGResult[T any] struct {
 
 // Document represents a multimodal chunk (text + image features).
 type Document struct {
-	ID         string
-	Text       string
-	Embedding  []float64 // CLIP or Text embedding
-	Modality   string    // "text", "image", "multimodal"
+	ID        string
+	Text      string
+	Embedding []float64 // CLIP or Text embedding
+	Modality  string    // "text", "image", "multimodal"
 }
 
 // OmniMultimodalRAGEngine orchestrates cross-modal vector retrieval.
@@ -113,7 +113,7 @@ func (e *OmniMultimodalRAGEngine) Retrieve(ctx context.Context, queryEmbedding [
 			return RAGResult[[]Document]{Err: ctx.Err()}
 		default:
 		}
-		
+
 		score := cosineSimilarity(queryEmbedding, d.Embedding)
 		results = append(results, scoredDoc{doc: d, score: score})
 	}

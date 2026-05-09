@@ -17,7 +17,7 @@
 // external dependencies—no message broker, no Redis, no Kafka needed
 // for moderate-scale systems (up to ~10k events/sec on a single node).
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,35 +34,35 @@ import (
 
 // WebhookEvent represents an event to be delivered.
 type WebhookEvent struct {
-	ID            string
-	EventType     string // "payment.completed", "user.created", etc.
-	Payload       []byte
-	TargetURL     string
+	ID             string
+	EventType      string // "payment.completed", "user.created", etc.
+	Payload        []byte
+	TargetURL      string
 	IdempotencyKey string
-	Timestamp     time.Time
-	Attempt       int
-	MaxRetries    int
+	Timestamp      time.Time
+	Attempt        int
+	MaxRetries     int
 }
 
 // DeliveryResult tracks the outcome of a delivery attempt.
 type DeliveryResult struct {
-	EventID      string
-	Success      bool
-	StatusCode   int
-	Attempt      int
-	Error        string
-	Duration     time.Duration
-	DeliveredAt  time.Time
+	EventID     string
+	Success     bool
+	StatusCode  int
+	Attempt     int
+	Error       string
+	Duration    time.Duration
+	DeliveredAt time.Time
 }
 
 // WebhookEndpoint represents a registered webhook subscriber.
 type WebhookEndpoint struct {
-	ID          string
-	URL         string
-	Secret      string // HMAC signing secret
-	EventTypes  []string
-	Active      bool
-	CreatedAt   time.Time
+	ID         string
+	URL        string
+	Secret     string // HMAC signing secret
+	EventTypes []string
+	Active     bool
+	CreatedAt  time.Time
 }
 
 // OrchestratorConfig configures the webhook engine.
@@ -91,25 +91,25 @@ func DefaultOrchestratorConfig() OrchestratorConfig {
 
 // OrchestratorStats tracks runtime metrics atomically.
 type OrchestratorStats struct {
-	EventsQueued     uint64
-	EventsDelivered  uint64
-	EventsFailed     uint64
-	EventsRetried    uint64
-	TotalDeliveryMs  uint64
+	EventsQueued    uint64
+	EventsDelivered uint64
+	EventsFailed    uint64
+	EventsRetried   uint64
+	TotalDeliveryMs uint64
 }
 
 // OmniWebhookOrchestratorEngine is the core webhook delivery system.
 type OmniWebhookOrchestratorEngine struct {
-	config     OrchestratorConfig
-	endpoints  map[string]*WebhookEndpoint
-	mu         sync.RWMutex
-	eventQueue chan WebhookEvent
-	results    []DeliveryResult
-	resultsMu  sync.Mutex
-	stats      OrchestratorStats
-	ctx        context.Context
-	cancel     context.CancelFunc
-	wg         sync.WaitGroup
+	config         OrchestratorConfig
+	endpoints      map[string]*WebhookEndpoint
+	mu             sync.RWMutex
+	eventQueue     chan WebhookEvent
+	results        []DeliveryResult
+	resultsMu      sync.Mutex
+	stats          OrchestratorStats
+	ctx            context.Context
+	cancel         context.CancelFunc
+	wg             sync.WaitGroup
 	idempotencySet sync.Map // Tracks delivered idempotency keys
 }
 
@@ -346,16 +346,16 @@ func (e *OmniWebhookOrchestratorEngine) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":             "OmniWebhookOrchestratorEngine",
-		"layer":              "Go Network",
-		"worker_count":       e.config.WorkerCount,
-		"queue_capacity":     e.config.QueueSize,
+		"engine":               "OmniWebhookOrchestratorEngine",
+		"layer":                "Go Network",
+		"worker_count":         e.config.WorkerCount,
+		"queue_capacity":       e.config.QueueSize,
 		"registered_endpoints": endpointCount,
-		"events_queued":      stats.EventsQueued,
-		"events_delivered":   stats.EventsDelivered,
-		"events_failed":      stats.EventsFailed,
-		"events_retried":     stats.EventsRetried,
-		"avg_delivery_ms":    math.Round(avgDelivery*100) / 100,
+		"events_queued":        stats.EventsQueued,
+		"events_delivered":     stats.EventsDelivered,
+		"events_failed":        stats.EventsFailed,
+		"events_retried":       stats.EventsRetried,
+		"avg_delivery_ms":      math.Round(avgDelivery*100) / 100,
 		"learned_logic": []string{
 			"worker-pool-goroutine-pattern",
 			"exponential-backoff-with-jitter",
@@ -366,3 +366,4 @@ func (e *OmniWebhookOrchestratorEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

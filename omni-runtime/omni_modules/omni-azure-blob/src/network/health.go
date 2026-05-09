@@ -1,4 +1,4 @@
-package omni_azure_blob
+package network
 
 import "time"
 

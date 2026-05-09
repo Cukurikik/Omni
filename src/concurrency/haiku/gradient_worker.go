@@ -1,8 +1,8 @@
 package haiku
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"sync"
 )
 
@@ -13,10 +13,10 @@ type GradientTask struct {
 }
 
 type GradientResult struct {
-	BatchID  string
-	Loss     float64
+	BatchID   string
+	Loss      float64
 	IsSuccess bool
-	Error    error
+	Error     error
 }
 
 type GradientWorkerPool struct {
@@ -65,10 +65,10 @@ func (p *GradientWorkerPool) process(task GradientTask) {
 
 	// Structural logic for gradient aggregation
 	p.results <- GradientResult{
-		BatchID:  task.BatchID,
-		Loss:     0.4532, // Structural mock value
+		BatchID:   task.BatchID,
+		Loss:      0.4532, // Structural mock value
 		IsSuccess: true,
-		Error:    nil,
+		Error:     nil,
 	}
 }
 

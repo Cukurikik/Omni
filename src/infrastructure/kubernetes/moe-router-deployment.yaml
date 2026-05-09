@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omni-moe-api-gateway
+  namespace: omni-system
+  labels:
+    app: omni-moe-gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omni-moe-gateway
+  template:
+    metadata:
+      labels:
+        app: omni-moe-gateway
+    spec:
+      containers:
+      - name: gateway
+        image: nexus.omniframework.dev/omni-go-gateway:v3.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: REDIS_HOST
+          value: "omni-redis:6379"
+        - name: CERBOS_URL
+          value: "http://omni-cerbos:3592"
+        resources:
+          requests:
+            cpu: "2"
+            memory: "4Gi"
+          limits:
+            cpu: "4"
+            memory: "8Gi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10

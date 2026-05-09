@@ -1,0 +1,59 @@
+<!-- @omni-layer Interface | @omni-source xmed-lab/TAM -->
+<!-- @omni-description TAM Heatmap Viewer: interactive token activation map -->
+<!-- visualization for MLLM explainability. -->
+<!-- @omni-lang HTML | @omni-batch 16 | @omni-semester 16 -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMNI TAM Viewer</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--accent:#58a6ff;--text:#c9d1d9;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);display:flex;justify-content:center;padding:2rem;}
+.app{max-width:900px;width:100%;}
+h1{font-size:1.8rem;color:var(--accent);margin-bottom:1rem;}
+.viewer{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.panel{background:var(--card);border-radius:12px;padding:1.5rem;border:1px solid rgba(255,255,255,0.05);}
+canvas{width:100%;border-radius:8px;cursor:crosshair;}
+.controls{margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;}
+.controls button{background:var(--accent);border:none;color:#000;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;font-size:0.8rem;}
+.info{margin-top:1rem;font-size:0.8rem;opacity:0.7;}
+.legend{display:flex;gap:0.25rem;margin-top:0.5rem;height:16px;}
+.legend div{flex:1;border-radius:2px;}
+</style></head><body>
+<div class="app">
+<h1>🔬 Token Activation Map Viewer</h1>
+<div class="viewer">
+<div class="panel"><h3 style="margin-bottom:0.5rem;color:var(--accent)">Activation Heatmap</h3>
+<canvas id="heatmap" width="336" height="336"></canvas>
+<div class="controls">
+<button onclick="generateTAM()">Generate TAM</button>
+<button onclick="toggleOverlay()">Toggle Overlay</button>
+</div>
+<div class="legend" id="legend"></div>
+</div>
+<div class="panel"><h3 style="margin-bottom:0.5rem;color:var(--accent)">Patch Details</h3>
+<div id="details" class="info">Click heatmap to inspect patches</div>
+<canvas id="patch-view" width="336" height="200"></canvas>
+<div class="info" id="stats"></div>
+</div>
+</div>
+</div>
+<script>
+const cv=document.getElementById('heatmap'),ctx=cv.getContext('2d');
+const pv=document.getElementById('patch-view'),pctx=pv.getContext('2d');
+let grid=24,data=[];
+function generateTAM(){data=[];for(let i=0;i<grid*grid;i++){data.push(Math.pow(Math.random(),2));}
+const max=Math.max(...data);data=data.map(v=>v/max);drawHeatmap();updateStats();}
+function drawHeatmap(){const s=cv.width/grid;for(let i=0;i<grid;i++)for(let j=0;j<grid;j++){const v=data[i*grid+j];const r=Math.floor(v*255),g=Math.floor((1-v)*50),b=Math.floor((1-v)*200);ctx.fillStyle=`rgb(${r},${g},${b})`;ctx.fillRect(j*s,i*s,s,s);}}
+function toggleOverlay(){ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillRect(0,0,cv.width,cv.height);}
+function updateStats(){const avg=data.reduce((a,b)=>a+b,0)/data.length;const top=data.filter(v=>v>0.7).length;
+document.getElementById('stats').innerHTML=`Mean: ${avg.toFixed(3)} | Top patches: ${top} | Grid: ${grid}x${grid}`;}
+cv.addEventListener('click',e=>{const rect=cv.getBoundingClientRect();const x=Math.floor((e.clientX-rect.left)/rect.width*grid);
+const y=Math.floor((e.clientY-rect.top)/rect.height*grid);const idx=y*grid+x;
+document.getElementById('details').innerHTML=`Patch [${y},${x}] | Activation: ${(data[idx]||0).toFixed(4)} | Rank: ${data.slice().sort((a,b)=>b-a).indexOf(data[idx])+1}`;
+pctx.clearRect(0,0,pv.width,pv.height);const barW=pv.width/grid;
+for(let j=0;j<grid;j++){const v=data[y*grid+j];pctx.fillStyle=j===x?'#58a6ff':'#30363d';pctx.fillRect(j*barW,pv.height*(1-v),barW-1,pv.height*v);}});
+const leg=document.getElementById('legend');for(let i=0;i<20;i++){const d=document.createElement('div');
+d.style.background=`rgb(${Math.floor(i/20*255)},${Math.floor((1-i/20)*50)},${Math.floor((1-i/20)*200)})`;leg.appendChild(d);}
+generateTAM();
+</script></body></html>

@@ -1,0 +1,19 @@
+# OMNI Framework - SPARQL Query for IndicTrans Language Capabilities
+# Retrieves supported languages and ISO codes from the NLP Knowledge Graph
+
+PREFIX omni: <http://omni.framework/ontology/nlp#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?languageName ?isoCode ?modelType
+WHERE {
+  ?model a omni:TranslationModel ;
+         omni:modelName "IndicTrans2" ;
+         omni:supportsLanguage ?lang .
+         
+  ?lang rdfs:label ?languageName ;
+        omni:isoCode ?isoCode .
+        
+  OPTIONAL { ?model omni:architecture ?modelType }
+}
+ORDER BY ?languageName
+LIMIT 50

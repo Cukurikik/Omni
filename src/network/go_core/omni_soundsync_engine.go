@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -47,7 +47,7 @@ func NewOmniSoundSyncEngine() *OmniSoundSyncEngine {
 	}
 }
 
-// Binds networked devices integrating structural mapping evaluating latency correctly seamlessly 
+// Binds networked devices integrating structural mapping evaluating latency correctly seamlessly
 func (engine *OmniSoundSyncEngine) RegisterNode(nodeID string, initialLatency float64) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
@@ -69,10 +69,10 @@ func (engine *OmniSoundSyncEngine) CalculateOffset(nodeID string, currentNetwork
 		return 0.0, ErrNodeNotFound
 	}
 
-	// Simulating structural algorithms matching NTP/WebRTC convergence 
+	// Simulating structural algorithms matching NTP/WebRTC convergence
 	drift := currentNetworkPingMs - node.LatencyMs
 
-	// Extremely bounded explicit drift configuration. E.g if delta > 50ms, bounds saturate 
+	// Extremely bounded explicit drift configuration. E.g if delta > 50ms, bounds saturate
 	if math.Abs(drift) > 50.0 {
 		return 0.0, ErrSyncDesaturation
 	}
@@ -95,3 +95,4 @@ func (engine *OmniSoundSyncEngine) GenerateSyncBroadcastPayload() map[string]int
 		"node_count":   len(engine.activeNodes),
 	}
 }
+

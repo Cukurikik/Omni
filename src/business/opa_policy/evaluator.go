@@ -1,8 +1,8 @@
 package opapolicy
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
-type Evaluator struct {}
+type Evaluator struct{}
 
 func (e *Evaluator) EvaluatePolicy(input map[string]interface{}) result.Result[bool] {
 	if input == nil {

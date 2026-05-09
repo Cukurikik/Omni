@@ -33,7 +33,9 @@ const (
 
 func (p ChannelProvider) String() string {
 	names := [...]string{"discord", "slack", "telegram", "sms", "email", "webhook"}
-	if int(p) < len(names) { return names[p] }
+	if int(p) < len(names) {
+		return names[p]
+	}
 	return "unknown"
 }
 
@@ -42,19 +44,19 @@ type ChannelConfig struct {
 	Provider   ChannelProvider
 	APIKey     string
 	WebhookURL string
-	ChatID     string   // Telegram chat ID, Discord channel ID, etc.
+	ChatID     string // Telegram chat ID, Discord channel ID, etc.
 	IsEnabled  bool
-	Priority   int      // lower = higher priority (for failover)
+	Priority   int // lower = higher priority (for failover)
 }
 
 // NormalizedMessage is the provider-agnostic message format.
 type NormalizedMessage struct {
 	ID          string
 	From        string
-	To          string    // channel reference
+	To          string // channel reference
 	Content     string
-	ContentType string    // "text", "markdown", "html"
-	Attachments []string  // URLs
+	ContentType string   // "text", "markdown", "html"
+	Attachments []string // URLs
 	Timestamp   time.Time
 	Provider    ChannelProvider
 }
@@ -73,10 +75,10 @@ type DeliveryStatus struct {
 // ---- Multi-Channel Router -------------------------------------------------
 
 type OpendiaMCPBridge struct {
-	channels  map[ChannelProvider]*ChannelConfig
-	outbox    []NormalizedMessage
+	channels   map[ChannelProvider]*ChannelConfig
+	outbox     []NormalizedMessage
 	deliveries map[string]*DeliveryStatus
-	mu        sync.RWMutex
+	mu         sync.RWMutex
 	maxRetries int
 }
 
@@ -187,12 +189,12 @@ func (b *OpendiaMCPBridge) Broadcast(content string, from string) []*DeliverySta
 	var results []*DeliveryStatus
 	for _, prov := range providers {
 		msg := NormalizedMessage{
-			ID:        fmt.Sprintf("bc-%d-%s", time.Now().UnixNano(), prov),
-			From:      from,
-			Content:   content,
+			ID:          fmt.Sprintf("bc-%d-%s", time.Now().UnixNano(), prov),
+			From:        from,
+			Content:     content,
 			ContentType: "text",
-			Timestamp: time.Now(),
-			Provider:  prov,
+			Timestamp:   time.Now(),
+			Provider:    prov,
 		}
 		results = append(results, b.Send(msg))
 	}

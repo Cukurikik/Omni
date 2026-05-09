@@ -1,0 +1,42 @@
+---
+- name: Deploy OMNI Framework to Production Nodes
+  hosts: omni_cluster
+  become: yes
+  vars:
+    omni_version: "3.0.0-OMNI-MOTHER-NEXUS"
+    install_dir: "/opt/omni"
+
+  tasks:
+    - name: Ensure install directory exists
+      file:
+        path: "{{ install_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download OMNI Universal Binary
+      get_url:
+        url: "https://nexus.omniframework.dev/releases/{{ omni_version }}/omni-linux-amd64"
+        dest: "/usr/local/bin/omni"
+        mode: '0755'
+
+    - name: Create OMNI Systemd Service
+      copy:
+        dest: /etc/systemd/system/omni.service
+        content: |
+          [Unit]
+          Description=OMNI Framework Daemon
+          After=network.target
+
+          [Service]
+          ExecStart=/usr/local/bin/omni daemon start
+          Restart=always
+          User=root
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start OMNI Service
+      systemd:
+        name: omni
+        state: started
+        enabled: yes

@@ -1,4 +1,4 @@
-package omni_coinbase_commerce
+package network
 
 import (
 	"net/http"

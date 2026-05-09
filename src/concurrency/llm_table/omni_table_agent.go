@@ -3,11 +3,12 @@ package llm_table
 import (
 	"context"
 	"fmt"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 type TableAnalyticsRequest struct {
-	Query string
+	Query   string
 	TableID string
 }
 

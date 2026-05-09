@@ -1,9 +1,9 @@
 package diffusers
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI DIFFUSERS: Pipeline Worker
@@ -63,7 +63,7 @@ func (w *PipelineWorker) Start(ctx context.Context) {
 
 func (w *PipelineWorker) executeDiffusion(req GenRequest) {
 	fmt.Printf("[Diffusers Worker] Starting generation for: %s\n", req.Prompt)
-	
+
 	// Simulate GPU execution time (e.g., SDXL takes a few seconds)
 	time.Sleep(3 * time.Second)
 

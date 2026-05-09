@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -36,13 +36,13 @@ func NewHashingQueue(workers int) *HashingQueue {
 
 func (q *HashingQueue) worker(id int) {
 	defer q.wg.Done()
-	
+
 	for req := range q.queue {
 		// Simulate CPU bound work relative to cost (2^cost base)
 		// For zero-mock deterministic testing we use a scaled sleep
-		ms := (1 << (req.Cost - 4)) * 5 
+		ms := (1 << (req.Cost - 4)) * 5
 		time.Sleep(time.Duration(ms) * time.Millisecond)
-		
+
 		fmt.Printf("Bcrypt Worker [%d]: Hashed %s at Cost %d\n", id, req.ReqID, req.Cost)
 	}
 }

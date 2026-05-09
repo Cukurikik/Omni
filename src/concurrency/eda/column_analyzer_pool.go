@@ -41,7 +41,7 @@ func (p *ColumnAnalyzerPool) AnalyzeColumns(columns []ColumnData) OmniResult {
 
 	results := make([]ColumnStats, len(columns))
 	errChan := make(chan error, len(columns))
-	
+
 	var wg sync.WaitGroup
 	semaphore := make(chan struct{}, p.workers)
 
@@ -49,7 +49,7 @@ func (p *ColumnAnalyzerPool) AnalyzeColumns(columns []ColumnData) OmniResult {
 		wg.Add(1)
 		go func(idx int, c ColumnData) {
 			defer wg.Done()
-			semaphore <- struct{}{} // Acquire token
+			semaphore <- struct{}{}        // Acquire token
 			defer func() { <-semaphore }() // Release token
 
 			if len(c.Values) == 0 {

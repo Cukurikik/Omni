@@ -1,9 +1,9 @@
 package vlm_live
 
 import (
-	"errors"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"sync"
 	"sync/atomic"
 )
@@ -19,16 +19,16 @@ type StreamFrame struct {
 }
 
 type VlmLiveSession struct {
-	ID        string
-	IsActive  bool
+	ID         string
+	IsActive   bool
 	FrameCount uint64
-	LastHash  string
+	LastHash   string
 }
 
 type OmniVlmLiveStreamer struct {
-	mu       sync.RWMutex
-	sessions map[string]*VlmLiveSession
-	dropped  uint64
+	mu        sync.RWMutex
+	sessions  map[string]*VlmLiveSession
+	dropped   uint64
 	processed uint64
 }
 
@@ -85,10 +85,10 @@ func (v *OmniVlmLiveStreamer) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":       "OmniVlmLiveStreamer",
-		"active_sessions": active,
+		"engine":           "OmniVlmLiveStreamer",
+		"active_sessions":  active,
 		"processed_frames": atomic.LoadUint64(&v.processed),
 		"dropped_frames":   atomic.LoadUint64(&v.dropped),
-		"status":       "Operational",
+		"status":           "Operational",
 	}
 }

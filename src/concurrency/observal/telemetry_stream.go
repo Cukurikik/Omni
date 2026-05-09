@@ -1,8 +1,8 @@
 package observal
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 type OmniResult struct {
@@ -24,9 +24,9 @@ func (ts *TelemetryStreamer) ProcessEvents() OmniResult {
 	if ts.EventChannel == nil {
 		return OmniResult{Value: nil, Error: errors.New("channel is nil")}
 	}
-	
+
 	processedCount := 0
-	
+
 	// Non-blocking processing simulation
 	select {
 	case event := <-ts.EventChannel:
@@ -37,6 +37,6 @@ func (ts *TelemetryStreamer) ProcessEvents() OmniResult {
 	case <-time.After(10 * time.Millisecond):
 		// Timeout
 	}
-	
+
 	return OmniResult{Value: processedCount, Error: nil}
 }

@@ -1,0 +1,80 @@
+# @omni-layer Business | @omni-source OscarKjell/text | @omni-lang GraphQL
+# @omni-description Text analytics API: GraphQL schema for text embedding,
+# similarity search, clustering, and analytics operations.
+
+type TextEmbedding {
+  id: ID!
+  text: String!
+  embedding: [Float!]!
+  dim: Int!
+  norm: Float!
+  model: String!
+  createdAt: DateTime!
+}
+
+type SimilarityResult {
+  textA: String!
+  textB: String!
+  cosineSimilarity: Float!
+  euclideanDistance: Float!
+}
+
+type ClusterResult {
+  clusterId: Int!
+  centroid: [Float!]!
+  members: [TextEmbedding!]!
+  size: Int!
+  avgIntraDistance: Float!
+}
+
+type PCAProjection {
+  points: [ProjectedPoint!]!
+  varianceExplained: [Float!]!
+  nComponents: Int!
+}
+
+type ProjectedPoint {
+  x: Float!
+  y: Float!
+  label: String
+}
+
+type TextAnalyticsStats {
+  totalEmbeddings: Int!
+  avgDim: Float!
+  avgNorm: Float!
+  modelsUsed: [String!]!
+}
+
+input EmbedInput {
+  text: String!
+  model: String = "default"
+}
+
+input BatchEmbedInput {
+  texts: [String!]!
+  model: String = "default"
+}
+
+input ClusterInput {
+  embeddingIds: [ID!]!
+  k: Int = 3
+  method: String = "kmeans"
+}
+
+type Query {
+  embedding(id: ID!): TextEmbedding
+  searchSimilar(text: String!, topK: Int = 5): [SimilarityResult!]!
+  clusters(input: ClusterInput!): [ClusterResult!]!
+  pcaProjection(embeddingIds: [ID!]!, nComponents: Int = 2): PCAProjection!
+  stats: TextAnalyticsStats!
+}
+
+type Mutation {
+  embed(input: EmbedInput!): TextEmbedding!
+  batchEmbed(input: BatchEmbedInput!): [TextEmbedding!]!
+  deleteEmbedding(id: ID!): Boolean!
+  recomputeClusters(k: Int = 5): [ClusterResult!]!
+}
+
+scalar DateTime

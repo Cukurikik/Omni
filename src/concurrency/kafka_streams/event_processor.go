@@ -1,6 +1,6 @@
 package kafkastreams
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
 type EventProcessor struct {
 	topic string

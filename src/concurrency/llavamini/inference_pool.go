@@ -16,6 +16,6 @@ func CreateInferencePool(size int) OmniResult {
 
 	// Go concurrent inference worker pool for LLaVA-Mini
 	poolChan := make(chan int, size)
-	
+
 	return OmniResult{Value: poolChan, Error: nil}
 }

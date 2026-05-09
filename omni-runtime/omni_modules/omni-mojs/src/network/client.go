@@ -1,4 +1,4 @@
-package omni_mojs
+package network
 
 import (
 	"context"

@@ -2,7 +2,8 @@ package gpt4all_unity
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func RegisterUnityModel(ctx context.Context, path string) result.Result[string] {

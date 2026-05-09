@@ -1,0 +1,34 @@
+# OMNI Framework - Master Makefile
+# Coordinates the build of multi-language modules before delegating to `omni build`
+
+.PHONY: all system network compute clean test
+
+all: system network compute
+	@echo "OMNI Make: Build complete. Ready for 'omni build --universe'."
+
+system:
+	@echo "OMNI Make: Building System Layer (Rust/C++/D)..."
+	cd src/system/rust && cargo build --release
+	cd src/system/cpp && g++ -O3 -shared -o libomni_slm.so omni_domain_slm_quantizer.cpp
+	# Add D compilation here
+
+network:
+	@echo "OMNI Make: Building Network Layer (Go/Erlang)..."
+	cd src/network/go && go build -o omni_gateway omni_grpc_gateway.go
+	cd src/network/erlang && erlc omni_llm_router.erl
+
+compute:
+	@echo "OMNI Make: Validating Compute Layer (Python/Julia/R)..."
+	python3 -m py_compile src/compute/python/*.py
+	# Julia and R are dynamically executed
+
+clean:
+	@echo "OMNI Make: Cleaning build artifacts..."
+	rm -rf src/system/rust/target
+	rm -f src/system/cpp/*.so
+	rm -f src/network/go/omni_gateway
+	rm -f src/network/erlang/*.beam
+
+test:
+	@echo "OMNI Make: Running cross-layer tests..."
+	cd src/testing/jest && npm test

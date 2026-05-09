@@ -1,9 +1,10 @@
 package supabase
 
 import (
-	"time"
-	"fmt"
 	"crypto/rsa"
+	"fmt"
+	"time"
+
 	"github.com/golang-jwt/jwt/v5"
 )
 

@@ -51,7 +51,7 @@ func (m *TrackMixer) SubmitTrack(chunk TrackChunk) OmniResult {
 
 func (m *TrackMixer) mixLoop(mixerID int) {
 	defer m.wg.Done()
-	
+
 	for chunk := range m.trackBuffer {
 		m.mu.Lock()
 		// Deterministically append notes to the master mix for the given instrument

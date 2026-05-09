@@ -1,4 +1,4 @@
-package omni_prettier_native
+package network
 
 import (
 	"context"

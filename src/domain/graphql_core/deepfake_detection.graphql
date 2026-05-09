@@ -1,0 +1,10 @@
+type DeepfakeAnalysis {
+  videoId: ID!
+  isFake: Boolean!
+  probability: Float!
+  analyzedAt: String!
+}
+
+extend type Mutation {
+  analyzeVideo(videoUrl: String!): DeepfakeAnalysis!
+}

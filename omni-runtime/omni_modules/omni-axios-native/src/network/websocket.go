@@ -1,4 +1,4 @@
-package omni_axios_native
+package network
 
 import "fmt"
 

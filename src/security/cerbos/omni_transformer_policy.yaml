@@ -1,0 +1,30 @@
+---
+# OMNI Framework - Cerbos Policy for Transformer APIs
+# Regulates which roles can access expensive LLM endpoints (e.g. inference, training)
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "transformer_api"
+  rules:
+    - actions: ["infer_text", "infer_image"]
+      effect: EFFECT_ALLOW
+      roles:
+        - "developer"
+        - "enterprise_user"
+        - "admin"
+      condition:
+        match:
+          expr: request.resource.attr.is_public == true || request.principal.roles.exists(r, r == "admin")
+
+    - actions: ["train_model", "quantize_model"]
+      effect: EFFECT_ALLOW
+      roles:
+        - "admin"
+        - "ml_engineer"
+        
+    - actions: ["view_billing"]
+      effect: EFFECT_ALLOW
+      roles:
+        - "admin"
+        - "finance"

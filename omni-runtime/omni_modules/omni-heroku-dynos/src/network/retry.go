@@ -1,4 +1,4 @@
-package omni_heroku_dynos
+package network
 
 import (
 	"context"

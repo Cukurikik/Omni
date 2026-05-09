@@ -26,7 +26,7 @@ func (r *blagptRouter) Execute(ctx context.Context, data []byte) (*blagptResult,
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &blagptResult{
 		Success: true,
 		Status:  "computed",

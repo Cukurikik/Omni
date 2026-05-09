@@ -26,7 +26,7 @@ func (r *vision_agentRouter) Execute(ctx context.Context, data []byte) (*vision_
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &vision_agentResult{
 		Success: true,
 		Status:  "computed",

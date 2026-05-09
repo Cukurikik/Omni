@@ -40,21 +40,21 @@ type CogResult[T any] struct {
 // ModelDefinition represents the declarative environment for an ML model.
 type ModelDefinition struct {
 	Build struct {
-		GPU          bool     `json:"gpu"`
+		GPU           bool     `json:"gpu"`
 		PythonVersion string   `json:"python_version"`
-		SystemPkgs   []string `json:"system_packages"`
-		PythonPkgs   []string `json:"python_packages"`
-		RunCommands  []string `json:"run"`
+		SystemPkgs    []string `json:"system_packages"`
+		PythonPkgs    []string `json:"python_packages"`
+		RunCommands   []string `json:"run"`
 	} `json:"build"`
 	Predict string `json:"predict"` // Path to prediction script
 }
 
 // OmniCogEngine orchestrates lightweight ML container boundaries.
 type OmniCogEngine struct {
-	mu            sync.RWMutex
-	activeModels  map[string]ModelDefinition
-	containerIDs  map[string]string // maps model name to docker/OCI container ID
-	
+	mu           sync.RWMutex
+	activeModels map[string]ModelDefinition
+	containerIDs map[string]string // maps model name to docker/OCI container ID
+
 	// Metrics
 	buildsTriggered atomic.Int64
 	buildsFailed    atomic.Int64

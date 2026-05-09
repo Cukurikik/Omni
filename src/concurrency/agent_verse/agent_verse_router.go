@@ -26,7 +26,7 @@ func (r *agent_verseRouter) Execute(ctx context.Context, data []byte) (*agent_ve
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &agent_verseResult{
 		Success: true,
 		Status:  "computed",

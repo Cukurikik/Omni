@@ -26,7 +26,7 @@ func (r *federated_llmRouter) Execute(ctx context.Context, data []byte) (*federa
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &federated_llmResult{
 		Success: true,
 		Status:  "computed",

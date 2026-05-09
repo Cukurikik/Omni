@@ -1,4 +1,4 @@
-package omni_glassmorphism
+package network
 
 import "time"
 

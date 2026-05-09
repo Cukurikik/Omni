@@ -1,4 +1,4 @@
-package omni_supabase_edge
+package network
 
 import (
 	"net/http"

@@ -1,0 +1,60 @@
+# OMNI Framework - GraphQL Schema for TextGenerator.io
+# Provides a structured graph interface to OMNI generative AI capabilities
+
+type Query {
+  # Query model availability and system status
+  systemStatus: SystemStatus!
+  availableModels(type: ModelType): [AIModel!]!
+}
+
+type Mutation {
+  # Generate text from a prompt
+  generateText(input: TextGenerationInput!): TextGenerationResult!
+  
+  # Transcribe audio using Audiolizr backend
+  transcribeAudio(input: AudioInput!): TranscriptionResult!
+}
+
+enum ModelType {
+  NLP
+  VISION
+  AUDIO
+  MULTIMODAL
+}
+
+type SystemStatus {
+  status: String!
+  activeComputeNodes: Int!
+  version: String!
+}
+
+type AIModel {
+  id: ID!
+  name: String!
+  type: ModelType!
+  parametersBillion: Float
+}
+
+input TextGenerationInput {
+  prompt: String!
+  maxTokens: Int = 256
+  temperature: Float = 0.7
+  modelId: ID!
+}
+
+type TextGenerationResult {
+  id: ID!
+  generatedText: String!
+  computeLatencyMs: Int!
+  tokensUsed: Int!
+}
+
+input AudioInput {
+  audioBase64: String!
+  languageHint: String
+}
+
+type TranscriptionResult {
+  text: String!
+  confidence: Float!
+}

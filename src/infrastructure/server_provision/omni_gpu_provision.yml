@@ -1,0 +1,140 @@
+# @omni-layer Infrastructure | @omni-lang Ansible YAML | @omni-batch 17
+# @omni-description GPU server provisioning: Ansible playbook for deploying
+# OMNI inference stack with NVIDIA drivers, Docker, and model pre-loading.
+
+---
+- name: OMNI Inference Server Provisioning
+  hosts: gpu_servers
+  become: true
+  vars:
+    cuda_version: "12.4"
+    docker_compose_version: "2.24.0"
+    model_cache_dir: "/opt/omni/models"
+    inference_port: 8080
+    grpc_port: 50051
+    metrics_port: 9090
+    max_gpu_memory_fraction: 0.9
+    log_level: "info"
+
+  pre_tasks:
+    - name: Validate GPU hardware
+      ansible.builtin.command: lspci | grep -i nvidia
+      register: gpu_check
+      changed_when: false
+      failed_when: gpu_check.rc != 0
+
+    - name: Check system requirements
+      ansible.builtin.assert:
+        that:
+          - ansible_memtotal_mb >= 16384
+          - ansible_processor_vcpus >= 4
+        fail_msg: "Insufficient resources: need 16GB RAM and 4 vCPUs minimum"
+
+  tasks:
+    - name: Install NVIDIA CUDA Toolkit
+      ansible.builtin.apt:
+        name:
+          - "cuda-toolkit-{{ cuda_version | replace('.', '-') }}"
+          - nvidia-driver-550
+          - nvidia-container-toolkit
+        state: present
+        update_cache: true
+      notify: restart-docker
+
+    - name: Install Docker CE
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Configure NVIDIA Container Runtime
+      ansible.builtin.template:
+        src: daemon.json.j2
+        dest: /etc/docker/daemon.json
+        mode: '0644'
+      notify: restart-docker
+
+    - name: Create model cache directory
+      ansible.builtin.file:
+        path: "{{ model_cache_dir }}"
+        state: directory
+        mode: '0755'
+        owner: omni
+        group: omni
+
+    - name: Deploy OMNI Inference Docker Compose
+      ansible.builtin.template:
+        src: docker-compose.yml.j2
+        dest: /opt/omni/docker-compose.yml
+        mode: '0644'
+      notify: restart-inference
+
+    - name: Deploy inference server configuration
+      ansible.builtin.copy:
+        content: |
+          [server]
+          host = "0.0.0.0"
+          http_port = {{ inference_port }}
+          grpc_port = {{ grpc_port }}
+          metrics_port = {{ metrics_port }}
+          log_level = "{{ log_level }}"
+
+          [gpu]
+          max_memory_fraction = {{ max_gpu_memory_fraction }}
+          enable_flash_attention = true
+          enable_paged_attention = true
+
+          [cache]
+          model_cache_dir = "{{ model_cache_dir }}"
+          max_cache_size_gb = 50
+          eviction_policy = "lru"
+
+          [performance]
+          max_batch_size = 32
+          max_sequence_length = 4096
+          num_workers = 4
+          enable_continuous_batching = true
+        dest: /opt/omni/config.toml
+        mode: '0644'
+      notify: restart-inference
+
+    - name: Start OMNI inference stack
+      community.docker.docker_compose:
+        project_src: /opt/omni
+        state: present
+        pull: true
+
+    - name: Wait for inference server health check
+      ansible.builtin.uri:
+        url: "http://localhost:{{ inference_port }}/health"
+        method: GET
+        status_code: 200
+      register: health_check
+      retries: 30
+      delay: 5
+      until: health_check.status == 200
+
+    - name: Configure Prometheus metrics scraping
+      ansible.builtin.copy:
+        content: |
+          - job_name: 'omni-inference'
+            static_configs:
+              - targets: ['localhost:{{ metrics_port }}']
+            metrics_path: /metrics
+            scrape_interval: 15s
+        dest: /etc/prometheus/targets/omni-inference.yml
+        mode: '0644'
+
+  handlers:
+    - name: restart-docker
+      ansible.builtin.service:
+        name: docker
+        state: restarted
+
+    - name: restart-inference
+      community.docker.docker_compose:
+        project_src: /opt/omni
+        state: present
+        restarted: true

@@ -1,0 +1,114 @@
+# @omni-layer Business | @omni-source HamedBabaei/LLMs4OL | @omni-lang GraphQL
+# @omni-description Ontology management API: GraphQL schema for ontology CRUD,
+# concept browsing, taxonomy navigation, and relation querying.
+
+type OntologyConcept {
+  id: ID!
+  name: String!
+  conceptType: ConceptType!
+  confidence: Float!
+  parent: OntologyConcept
+  children: [OntologyConcept!]!
+  relations: [ConceptRelation!]!
+  metadata: ConceptMetadata!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum ConceptType {
+  ENTITY
+  PROCESS
+  ATTRIBUTE
+  RELATION
+  EVENT
+  STATE
+  ROLE
+  QUALITY
+}
+
+type ConceptRelation {
+  id: ID!
+  subject: OntologyConcept!
+  predicate: RelationType!
+  object: OntologyConcept!
+  confidence: Float!
+  source: String!
+}
+
+enum RelationType {
+  IS_A
+  PART_OF
+  HAS_PROPERTY
+  CAUSES
+  PRECEDES
+  SIMILAR_TO
+  OPPOSITE_OF
+}
+
+type ConceptMetadata {
+  sourceCorpus: String
+  extractionMethod: String!
+  llmModel: String
+  embeddingDim: Int!
+  lastValidated: DateTime
+}
+
+type TaxonomyTree {
+  root: OntologyConcept!
+  depth: Int!
+  totalNodes: Int!
+  leafCount: Int!
+}
+
+type OntologyStats {
+  totalConcepts: Int!
+  totalRelations: Int!
+  totalTaxonomyEdges: Int!
+  conceptTypeDistribution: [TypeCount!]!
+  avgConfidence: Float!
+}
+
+type TypeCount {
+  type: ConceptType!
+  count: Int!
+}
+
+input ConceptInput {
+  name: String!
+  conceptType: ConceptType
+  parentId: ID
+  context: String
+}
+
+input RelationInput {
+  subjectId: ID!
+  predicate: RelationType!
+  objectId: ID!
+  confidence: Float
+}
+
+type Query {
+  concept(id: ID!): OntologyConcept
+  searchConcepts(query: String!, limit: Int = 10): [OntologyConcept!]!
+  taxonomyTree(rootId: ID): TaxonomyTree!
+  relationsOf(conceptId: ID!, type: RelationType): [ConceptRelation!]!
+  ontologyStats: OntologyStats!
+  conceptsByType(type: ConceptType!, limit: Int = 50): [OntologyConcept!]!
+}
+
+type Mutation {
+  createConcept(input: ConceptInput!): OntologyConcept!
+  updateConcept(id: ID!, input: ConceptInput!): OntologyConcept!
+  deleteConcept(id: ID!): Boolean!
+  addRelation(input: RelationInput!): ConceptRelation!
+  removeRelation(id: ID!): Boolean!
+  buildOntology(terms: [String!]!, method: String = "llm_zero_shot"): OntologyStats!
+  revalidateConfidences(threshold: Float = 0.5): Int!
+}
+
+type Subscription {
+  ontologyUpdated: OntologyConcept!
+  newRelationDiscovered: ConceptRelation!
+}
+
+scalar DateTime

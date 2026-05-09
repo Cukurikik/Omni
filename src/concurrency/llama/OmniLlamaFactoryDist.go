@@ -1,4 +1,4 @@
-﻿// OMNI LLAMA FACTORY DISTRIBUTED
+// OMNI LLAMA FACTORY DISTRIBUTED
 // Domain: Distributed PEFT Trainer
 // Origin: hiyouga/LlamaFactory
 package concurrency
@@ -6,12 +6,12 @@ package concurrency
 import "errors"
 
 type DistCoordinator struct {
-    nodes []string
+	nodes []string
 }
 
 func (d *DistCoordinator) SyncWeights() error {
-    if len(d.nodes) == 0 {
-        return errors.New("no nodes available for weight sync")
-    }
-    return nil
-}\n
+	if len(d.nodes) == 0 {
+		return errors.New("no nodes available for weight sync")
+	}
+	return nil
+}

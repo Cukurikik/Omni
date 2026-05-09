@@ -26,7 +26,7 @@ func (r *gpt4all_unityRouter) Execute(ctx context.Context, data []byte) (*gpt4al
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &gpt4all_unityResult{
 		Success: true,
 		Status:  "computed",

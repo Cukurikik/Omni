@@ -29,16 +29,16 @@ func ValidateJWTSegmentBounds(tokenSegment string) JWTValidationResult {
 		return ErrJWTResult("Segment boundary logically devoid of algebraic structure.")
 	}
 
-    // JWT mathematically forbids '=' padding.
-    if strings.Contains(tokenSegment, "=") {
-        return ErrJWTResult("Malformed strict structural representation constraint: JWT padding unconditionally rejected algebraically.")
-    }
-    
-    // Native Decode process
-    decodedBytes, err := base64.RawURLEncoding.DecodeString(tokenSegment)
-    if err != nil {
-        return ErrJWTResult("Failed decoding algebraic representation parameters logically.")
-    }
+	// JWT mathematically forbids '=' padding.
+	if strings.Contains(tokenSegment, "=") {
+		return ErrJWTResult("Malformed strict structural representation constraint: JWT padding unconditionally rejected algebraically.")
+	}
+
+	// Native Decode process
+	decodedBytes, err := base64.RawURLEncoding.DecodeString(tokenSegment)
+	if err != nil {
+		return ErrJWTResult("Failed decoding algebraic representation parameters logically.")
+	}
 
 	return OkJWTResult(decodedBytes)
 }

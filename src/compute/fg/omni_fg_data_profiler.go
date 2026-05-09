@@ -45,7 +45,7 @@ func NewReservoirProfiler(k int) (*ReservoirProfiler, error) {
 func (p *ReservoirProfiler) ProcessStream(dataStream <-chan float64) ResultStruct {
 	for value := range dataStream {
 		p.count++
-		
+
 		if len(p.reservoir) < p.k {
 			p.reservoir = append(p.reservoir, value)
 		} else {
@@ -56,10 +56,10 @@ func (p *ReservoirProfiler) ProcessStream(dataStream <-chan float64) ResultStruc
 			}
 		}
 	}
-	
+
 	if len(p.reservoir) == 0 {
 		return ErrFloat64Slice("No data streamed into profiler.")
 	}
-	
+
 	return OkFloat64Slice(p.reservoir)
 }

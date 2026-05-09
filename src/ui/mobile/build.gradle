@@ -1,0 +1,77 @@
+// OMNI Build & Mobile Layer
+// Gradle build script for the Android Kotlin Multiplatform (KMP) client.
+// Integrates the compiled C++ Omni Universal Binary (libomni.so) via JNI/NDK.
+
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.multiplatform'
+}
+
+android {
+    namespace 'com.omni.inference'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 34
+        
+        // Define CMake instructions to link against the Omni Universal Binary
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++20 -O3 -flto"
+                arguments "-DOMNI_TARGET=android", "-DANDROID_STL=c++_shared"
+            }
+        }
+        
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            // Points to the JNI wrapper that binds Kotlin to Omni C-ABI
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+}
+
+kotlin {
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+    
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+            }
+        }
+        androidMain {
+            dependencies {
+                // Android-specific logging or lifecycle libs
+                implementation 'androidx.core:core-ktx:1.12.0'
+            }
+        }
+        iosMain {
+            // iOS native dependencies mapped to Omni
+        }
+    }
+}
+
+// Custom Gradle task to copy the pre-compiled universal binary into the JNI libs folder
+task copyOmniUniversalBinary(type: Copy) {
+    from '../../build/android/libomni_universal_binary.so'
+    into 'src/main/jniLibs/arm64-v8a/'
+}
+
+preBuild.dependsOn copyOmniUniversalBinary

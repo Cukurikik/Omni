@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package omni.inference.v1;
+
+// OMNI Network & RPC Layer
+// Protobuf definitions for node-to-node RPC communications inside the Omni cluster.
+// Enforces strict typing for the zero-copy C-ABI boundary.
+
+option go_package = "github.com/omniframework/omni-go/rpc;omnirpc";
+option java_multiple_files = true;
+option java_package = "com.omni.inference.rpc";
+
+service OmniInferenceService {
+    // Standard blocking inference call
+    rpc ExecuteInference (InferenceRequest) returns (InferenceResponse);
+
+    // Bi-directional streaming for real-time robotic control or audio generation
+    rpc StreamInference (stream InferenceChunk) returns (stream InferenceChunk);
+}
+
+message InferenceRequest {
+    string model_id = 1;
+    repeated float input_tensor = 2 [packed = true];
+    int32 sequence_length = 3;
+    
+    // Hyper-parameters mapped directly to the Omni Native engine
+    float temperature = 4;
+    int32 max_tokens = 5;
+    
+    // Authorization bound to Cerbos/Rego rules
+    string auth_token = 6;
+}
+
+message InferenceResponse {
+    string status = 1;
+    repeated float output_tensor = 2 [packed = true];
+    int32 tokens_generated = 3;
+    int32 duration_ms = 4;
+}
+
+// Used for high-speed streaming
+message InferenceChunk {
+    int32 sequence_index = 1;
+    bytes raw_memory_buffer = 2; // Directly maps to pinned arrays via C-ABI
+}

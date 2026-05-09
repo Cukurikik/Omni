@@ -6,6 +6,9 @@
 		{
 			"name": "build",
 			"path": "build"
+		},
+		{
+			"path": "../omni-mother"
 		}
 	],
 	"settings": {
@@ -19,6 +22,8 @@
 		"typescript.tsdk": "ui/node_modules/typescript/lib",
 		"r.lsp.promptToInstall": false,
 		"git.ignoreLimitWarning": true,
-		"powershell.cwd": "Omni"
+		"powershell.cwd": "Omni",
+		"nxConsole.nxWorkspacePath": "",
+		"java.compile.nullAnalysis.mode": "automatic"
 	}
 }

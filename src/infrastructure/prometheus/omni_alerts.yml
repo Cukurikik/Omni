@@ -1,0 +1,21 @@
+# OMNI Framework Prometheus Alerting Rules
+groups:
+- name: omni_cluster_alerts
+  rules:
+  - alert: OmniNodeHighCPULoad
+    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle", job="omni_nodes"}[5m])) * 100) > 90
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU load on OMNI Node {{ $labels.instance }}"
+      description: "CPU load has been > 90% for more than 5 minutes."
+
+  - alert: OmniDaemonDown
+    expr: up{job="omni_daemon"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "OMNI Daemon is down on {{ $labels.instance }}"
+      description: "The core OMNI daemon process has stopped responding."

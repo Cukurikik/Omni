@@ -26,7 +26,7 @@ func (r *code_synthRouter) Execute(ctx context.Context, data []byte) (*code_synt
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &code_synthResult{
 		Success: true,
 		Status:  "computed",

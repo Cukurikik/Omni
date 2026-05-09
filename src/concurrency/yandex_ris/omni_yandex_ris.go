@@ -60,7 +60,7 @@ func (y *OmniYandexRisEngine) CrawlAndSearch(target RisTarget) RisResult {
 	matchedHex := hex.EncodeToString(hasher.Sum(nil))
 
 	matchesEncountered := int(target.Signature[0]) % 50 // Deterministic matches count based on signature byte
-	
+
 	if matchesEncountered == 0 {
 		matchesEncountered = 1
 	}

@@ -1,0 +1,75 @@
+// @omni-layer Security | @omni-lang YAML/Cerbos | @omni-batch 18 | @omni-semester 16
+// @omni-description Cerbos resource policy for transformer model access:
+// fine-grained RBAC with conditions for model type, data sensitivity, and audit.
+
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "transformer_model"
+  rules:
+    - actions: ["inference", "explain"]
+      effect: EFFECT_ALLOW
+      roles: ["admin", "ml_engineer", "analyst", "developer"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.active == true"
+              - expr: "request.resource.attr.params_million <= 7000"
+
+    - actions: ["inference"]
+      effect: EFFECT_ALLOW
+      roles: ["viewer"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.model_type in ['ner', 'classification']"
+              - expr: "request.resource.attr.active == true"
+              - expr: "request.principal.attr.request_count < 100"
+
+    - actions: ["train", "fine_tune"]
+      effect: EFFECT_ALLOW
+      roles: ["admin", "ml_engineer"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.model_type != 'production'"
+              - expr: "request.principal.attr.gpu_quota_remaining > 0"
+
+    - actions: ["edit_knowledge"]
+      effect: EFFECT_ALLOW
+      roles: ["admin", "knowledge_curator"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: "request.resource.attr.model_type in ['ner', 'classification']"
+              - expr: "request.principal.attr.verified == true"
+
+    - actions: ["delete", "deprecate"]
+      effect: EFFECT_ALLOW
+      roles: ["admin"]
+
+    - actions: ["view_metrics", "view_logs"]
+      effect: EFFECT_ALLOW
+      roles: ["admin", "ml_engineer", "analyst", "sre"]
+
+    - actions: ["weight_sync"]
+      effect: EFFECT_ALLOW
+      roles: ["admin", "ml_engineer"]
+      condition:
+        match:
+          expr: "request.principal.attr.cluster_access == true"
+
+    - actions: ["*"]
+      effect: EFFECT_DENY
+      roles: ["blocked"]
+
+  schemas:
+    principalSchema:
+      ref: "cerbos:///transformer_principal.json"
+    resourceSchema:
+      ref: "cerbos:///transformer_model.json"

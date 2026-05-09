@@ -1,0 +1,132 @@
+# @omni-layer Business | @omni-lang Drools | @omni-batch 18 | @omni-semester 16
+# @omni-description Drools rules for transformer inference routing: SLA-based
+# model selection, A/B test traffic splitting, and cost optimization.
+
+package omni.transformer.routing
+
+import omni.transformer.routing.InferenceRequest
+import omni.transformer.routing.RoutingDecision
+import omni.transformer.routing.ModelCapability
+
+declare InferenceRequest
+    requestId : String
+    modelType : String
+    priority : String
+    inputTokens : int
+    slaLatencyMs : int
+    userTier : String
+    abTestGroup : String
+end
+
+declare RoutingDecision
+    requestId : String
+    selectedModel : String
+    reason : String
+    estimatedLatencyMs : int
+    costPerToken : double
+end
+
+declare ModelCapability
+    modelId : String
+    modelType : String
+    maxTokens : int
+    avgLatencyMs : int
+    costPerToken : double
+    available : boolean
+end
+
+# Route urgent requests to fastest available model
+rule "Route Urgent to Fast Model"
+    salience 100
+    when
+        $req : InferenceRequest(priority == "urgent", slaLatencyMs < 100)
+        $model : ModelCapability(modelType == $req.modelType, avgLatencyMs < 100, available == true)
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "Urgent request routed to low-latency model",
+            $model.getAvgLatencyMs(),
+            $model.getCostPerToken()
+        ));
+end
+
+# Route enterprise tier to dedicated models
+rule "Enterprise Tier Routing"
+    salience 90
+    when
+        $req : InferenceRequest(userTier == "enterprise")
+        $model : ModelCapability(modelType == $req.modelType, available == true)
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "Enterprise tier - dedicated model allocation",
+            $model.getAvgLatencyMs(),
+            $model.getCostPerToken() * 0.8
+        ));
+end
+
+# A/B test traffic splitting
+rule "AB Test Group A"
+    salience 80
+    when
+        $req : InferenceRequest(abTestGroup == "A")
+        $model : ModelCapability(modelId matches ".*-v1$", modelType == $req.modelType, available == true)
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "A/B Test - Group A (baseline model)",
+            $model.getAvgLatencyMs(),
+            $model.getCostPerToken()
+        ));
+end
+
+rule "AB Test Group B"
+    salience 80
+    when
+        $req : InferenceRequest(abTestGroup == "B")
+        $model : ModelCapability(modelId matches ".*-v2$", modelType == $req.modelType, available == true)
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "A/B Test - Group B (candidate model)",
+            $model.getAvgLatencyMs(),
+            $model.getCostPerToken()
+        ));
+end
+
+# Cost optimization for batch requests
+rule "Cost Optimized Batch Routing"
+    salience 50
+    when
+        $req : InferenceRequest(priority == "low", inputTokens > 1000)
+        $model : ModelCapability(modelType == $req.modelType, available == true, costPerToken < 0.001)
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "Cost-optimized routing for batch workload",
+            $model.getAvgLatencyMs(),
+            $model.getCostPerToken()
+        ));
+end
+
+# Default fallback
+rule "Default Routing"
+    salience 10
+    when
+        $req : InferenceRequest()
+        not RoutingDecision(requestId == $req.requestId)
+        $model : ModelCapability(modelType == $req.modelType, available == true)
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "Default routing - first available model",
+            $model.getAvgLatencyMs(),
+            $model.getCostPerToken()
+        ));
+end

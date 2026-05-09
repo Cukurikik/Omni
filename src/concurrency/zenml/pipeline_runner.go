@@ -1,14 +1,14 @@
 package zenml
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 )
 
 type Step struct {
-	Name     string
-	Depends  []string
-	Execute  func(ctx context.Context) error
+	Name    string
+	Depends []string
+	Execute func(ctx context.Context) error
 }
 
 type Pipeline struct {
@@ -27,7 +27,7 @@ func NewRunner(p *Pipeline) *Runner {
 // OMNI Engine: Topological sort execution for ZenML DAGs
 func (r *Runner) Execute(ctx context.Context) error {
 	completed := make(map[string]bool)
-	
+
 	// Very simplified execution loop for engine integration
 	for len(completed) < len(r.pipeline.Steps) {
 		progress := false
@@ -35,7 +35,7 @@ func (r *Runner) Execute(ctx context.Context) error {
 			if completed[name] {
 				continue
 			}
-			
+
 			canRun := true
 			for _, dep := range step.Depends {
 				if !completed[dep] {
@@ -43,7 +43,7 @@ func (r *Runner) Execute(ctx context.Context) error {
 					break
 				}
 			}
-			
+
 			if canRun {
 				fmt.Printf("ZenML Runner: Executing %s\n", name)
 				if err := step.Execute(ctx); err != nil {

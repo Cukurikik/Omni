@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OMNI Framework - BPEL Workflow for Abstractive Summarization Pipeline -->
+<process name="OmniSummarizationWorkflow"
+         targetNamespace="http://omni.framework/bpel/summarization"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:tns="http://omni.framework/bpel/summarization"
+         xmlns:sum="http://omni.framework/services/liputan6">
+
+    <partnerLinks>
+        <partnerLink name="client" partnerLinkType="tns:SummarizationClient" myRole="SummarizerService"/>
+        <partnerLink name="liputan6Service" partnerLinkType="sum:Liputan6API" partnerRole="SummarizerProvider"/>
+    </partnerLinks>
+
+    <variables>
+        <variable name="request" messageType="tns:SummarizeRequestMsg"/>
+        <variable name="response" messageType="tns:SummarizeResponseMsg"/>
+        <variable name="serviceRequest" messageType="sum:APIRequestMsg"/>
+        <variable name="serviceResponse" messageType="sum:APIResponseMsg"/>
+    </variables>
+
+    <sequence>
+        <receive partnerLink="client" operation="processDocument" variable="request" createInstance="yes"/>
+        
+        <!-- Map request data -->
+        <assign>
+            <copy>
+                <from variable="request" part="documentText"/>
+                <to variable="serviceRequest" part="text"/>
+            </copy>
+        </assign>
+
+        <!-- Invoke Python Backend Summarizer -->
+        <invoke partnerLink="liputan6Service" operation="generateSummary" inputVariable="serviceRequest" outputVariable="serviceResponse"/>
+
+        <!-- Prepare Response -->
+        <assign>
+            <copy>
+                <from variable="serviceResponse" part="summaryText"/>
+                <to variable="response" part="summary"/>
+            </copy>
+        </assign>
+
+        <reply partnerLink="client" operation="processDocument" variable="response"/>
+    </sequence>
+</process>

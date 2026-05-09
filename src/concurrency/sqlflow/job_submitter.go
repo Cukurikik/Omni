@@ -1,11 +1,11 @@
 package sqlflow
 
 import (
-	"time"
+	"context"
 	"errors"
 	"fmt"
-	"context"
 	"sync"
+	"time"
 )
 
 // OMNI Concurrency Layer: SQLFlow Job Submitter (Go)
@@ -72,7 +72,7 @@ func (s *JobSubmitter) executeJob(job *MLJob) {
 
 	// Strictly monadic execution pipeline
 	err := s.runTrainLoop(job)
-	
+
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if err != nil {
@@ -91,7 +91,7 @@ func (s *JobSubmitter) runTrainLoop(job *MLJob) error {
 func (s *JobSubmitter) GetStatus(jobID string) (JobStatus, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	
+
 	job, exists := s.jobs[jobID]
 	if !exists {
 		return "", errors.New("job not found")

@@ -2,7 +2,7 @@
 // 🌐 omni-runtime/network/event_loop.go — OMNI Event Loop & Goroutines
 // ============================================================
 
-package runtime
+package network
 
 import (
     "errors"

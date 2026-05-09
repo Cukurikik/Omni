@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (r *trl_ppoRouter) RouteRequest(ctx context.Context, payload []float64) trl
 	}
 
 	start := time.Now()
-	
+
 	// Routing logic simulation
 	select {
 	case <-time.After(15 * time.Millisecond):
@@ -48,3 +48,4 @@ func (r *trl_ppoRouter) RouteRequest(ctx context.Context, payload []float64) trl
 		return trl_ppoResult{Value: 0, IsResolved: false, Error: fmt.Errorf("request timeout: %v", ctx.Err())}
 	}
 }
+

@@ -44,7 +44,7 @@ func MultiplexEvents(log []EtcdEvent, watchers []EtcdWatcher) EtcdResult {
 		if watcher.FromRevision <= 0 {
 			return ErrEtcdResult("Revision must be strictly positive.")
 		}
-		
+
 		deliveredCount := 0
 		for _, event := range log {
 			// Delivery constraints: Event must be at or after Requested Revision,
@@ -56,7 +56,7 @@ func MultiplexEvents(log []EtcdEvent, watchers []EtcdWatcher) EtcdResult {
 			}
 		}
 		// Abstractly recording that watcher index received N events
-		deliveries = append(deliveries, string(rune(idx)) + " received " + string(rune(deliveredCount)))
+		deliveries = append(deliveries, string(rune(idx))+" received "+string(rune(deliveredCount)))
 	}
 
 	return OkEtcdResult(deliveries)

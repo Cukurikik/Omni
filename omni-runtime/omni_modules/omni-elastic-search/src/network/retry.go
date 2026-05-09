@@ -1,4 +1,4 @@
-package omni_elastic_search
+package network
 
 import (
 	"context"

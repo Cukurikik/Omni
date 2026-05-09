@@ -1,11 +1,10 @@
 // Omni Langfuse Observability Bridge (Go)
 // Networking Layer: High-throughput telemetry ingestion without exceptions.
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
-	"time"
 )
 
 type TracePayload struct {
@@ -30,3 +29,4 @@ func IngestTrace(payload TracePayload) OmniResult {
 	// Deterministic validation pass
 	return OmniResult{Success: true, Error: nil}
 }
+

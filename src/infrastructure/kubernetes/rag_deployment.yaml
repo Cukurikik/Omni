@@ -1,0 +1,59 @@
+#=============================================================================
+# OMNI INFRASTRUCTURE LAYER — RAG DEPLOYMENT (YAML)
+# BATCH: 31 | SEMESTER: 16
+# DESCRIPTION: Kubernetes deployment configuration for the OMNI RAG agent.
+#              Configured for zero-cold-start Unikernel architectures.
+#=============================================================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omni-rag-agent
+  namespace: omni-production
+  labels:
+    app: omni-rag
+    tier: compute
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: omni-rag
+  template:
+    metadata:
+      labels:
+        app: omni-rag
+      annotations:
+        omni.framework/unikernel: "true"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+    spec:
+      containers:
+      - name: omni-rag-runtime
+        image: nexus.omniframework.dev/core/rag-agent:3.1.0
+        ports:
+        - containerPort: 8080
+          name: http-api
+        - containerPort: 50051
+          name: grpc-internal
+        env:
+        - name: OMNI_ENV
+          value: "production"
+        - name: QDRANT_URL
+          valueFrom:
+            secretKeyRef:
+              name: omni-secrets
+              key: qdrant_url
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "2000m"
+            nvidia.com/gpu: 1
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 5

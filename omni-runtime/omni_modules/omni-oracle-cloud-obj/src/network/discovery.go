@@ -1,4 +1,4 @@
-package omni_oracle_cloud_obj
+package network
 
 import "sync"
 

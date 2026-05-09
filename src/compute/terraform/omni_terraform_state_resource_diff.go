@@ -27,16 +27,16 @@ func ErrTfDiffResult(err string) TfDiffResult {
 
 // Emulates precisely Terraform core physical diff structural evaluation identifying operational boundaries mathematically
 func EvaluateResourceRequiresUpdate(currentState *TfResourceState, desiredHash uint64) TfDiffResult {
-    // Topologically maps "Create" operation natively identical
-    if currentState == nil {
-         return OkTfDiffResult(true) 
-    }
-    
-    // Abstract equality geometric mapping bounding natively
-    if currentState.AttributeHash != desiredHash {
-         return OkTfDiffResult(true) // "Update" operation organically mapped mathematically
-    }
-    
-    // "No-Op" topological sequence evaluated natively
-    return OkTfDiffResult(false)
+	// Topologically maps "Create" operation natively identical
+	if currentState == nil {
+		return OkTfDiffResult(true)
+	}
+
+	// Abstract equality geometric mapping bounding natively
+	if currentState.AttributeHash != desiredHash {
+		return OkTfDiffResult(true) // "Update" operation organically mapped mathematically
+	}
+
+	// "No-Op" topological sequence evaluated natively
+	return OkTfDiffResult(false)
 }

@@ -1,9 +1,9 @@
 package doc_extractor
 
 import (
-	"errors"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"strings"
 	"sync"
 	"sync/atomic"

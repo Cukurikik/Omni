@@ -22,7 +22,7 @@ type OmniResult[T any] struct {
 	Error *OmniError
 }
 
-func Ok[T any](val T) OmniResult[T] { return OmniResult[T]{IsOk: true, Value: val} }
+func Ok[T any](val T) OmniResult[T]           { return OmniResult[T]{IsOk: true, Value: val} }
 func Err[T any](err *OmniError) OmniResult[T] { return OmniResult[T]{IsOk: false, Error: err} }
 
 // Physical hardware bounded worker limits
@@ -50,9 +50,9 @@ func (p *RAGIngestionPool) SubmitTask(ctx context.Context, documentData []byte) 
 	go func(data []byte) {
 		defer p.wg.Done()
 		defer atomic.AddInt32(&p.workerCount, -1)
-		
+
 		// Simulate RAG vectorization chunking inside worker bounds
-		_ = len(data) 
+		_ = len(data)
 	}(documentData)
 
 	return Ok(true)

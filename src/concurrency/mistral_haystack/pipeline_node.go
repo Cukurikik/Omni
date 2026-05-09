@@ -2,7 +2,8 @@ package mistral_haystack
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 type Document struct {

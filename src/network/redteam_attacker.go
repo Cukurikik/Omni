@@ -18,10 +18,10 @@ func FloodProbe(endpoint string, concurrency int, packets int) AttackResult {
 
 	// Implementation of concurrent probing for red teaming load testing
 	latencies := make([]time.Duration, 0, packets)
-	
-	// Mock executing safe concurrency 
+
+	// Mock executing safe concurrency
 	for i := 0; i < packets; i++ {
-		latencies = append(latencies, time.Millisecond * 10)
+		latencies = append(latencies, time.Millisecond*10)
 	}
 
 	return AttackResult{Latencies: latencies, Err: nil}

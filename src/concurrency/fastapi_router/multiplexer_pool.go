@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -37,7 +37,7 @@ func NewMultiplexerPool(numWorkers int, bufferSize int) *MultiplexerPool {
 
 func (p *MultiplexerPool) worker(workerID int) {
 	defer p.wg.Done()
-	
+
 	for req := range p.reqQueue {
 		// Simulate routing overhead deterministically
 		time.Sleep(2 * time.Millisecond)

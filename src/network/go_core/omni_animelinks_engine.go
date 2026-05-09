@@ -6,10 +6,9 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
-	"log"
 	"errors"
 	"fmt"
 	"math"
@@ -44,19 +43,23 @@ type LinkCatalog struct {
 // mirror verification, link health checking, and rate-limited
 // batch retrieval for media content aggregation.
 type OmniAnimelinksEngine struct {
-	mu            sync.RWMutex
-	catalogs      map[string]*LinkCatalog
-	linkIndex     map[string]*LinkEntry
-	healthChecks  int
-	healthPassed  int
-	maxMirrors    int
-	linkTTLHours  int
+	mu           sync.RWMutex
+	catalogs     map[string]*LinkCatalog
+	linkIndex    map[string]*LinkEntry
+	healthChecks int
+	healthPassed int
+	maxMirrors   int
+	linkTTLHours int
 }
 
 // NewOmniAnimelinksEngine creates a new link aggregation engine.
 func NewOmniAnimelinksEngine(maxMirrors, linkTTLHours int) *OmniAnimelinksEngine {
-	if maxMirrors < 1 { maxMirrors = 5 }
-	if linkTTLHours < 1 { linkTTLHours = 24 }
+	if maxMirrors < 1 {
+		maxMirrors = 5
+	}
+	if linkTTLHours < 1 {
+		linkTTLHours = 24
+	}
 	return &OmniAnimelinksEngine{
 		catalogs:     make(map[string]*LinkCatalog),
 		linkIndex:    make(map[string]*LinkEntry),
@@ -110,9 +113,9 @@ func (e *OmniAnimelinksEngine) AddLink(category, id, sourceURL, quality, format 
 	e.linkIndex[id] = entry
 
 	return map[string]interface{}{
-		"status":  "success",
-		"link":    map[string]interface{}{"id": id, "host": u.Hostname(), "quality": quality, "format": format, "sizeBytes": sizeBytes},
-		"catalog": category,
+		"status":         "success",
+		"link":           map[string]interface{}{"id": id, "host": u.Hostname(), "quality": quality, "format": format, "sizeBytes": sizeBytes},
+		"catalog":        category,
 		"totalInCatalog": len(cat.Entries),
 	}, nil
 }
@@ -144,10 +147,14 @@ func (e *OmniAnimelinksEngine) VerifyLink(linkID string, isHealthy bool) (map[st
 	}
 	entry.Verified = isHealthy
 	e.healthChecks++
-	if isHealthy { e.healthPassed++ }
+	if isHealthy {
+		e.healthPassed++
+	}
 
 	passRate := 0.0
-	if e.healthChecks > 0 { passRate = float64(e.healthPassed) / float64(e.healthChecks) * 100 }
+	if e.healthChecks > 0 {
+		passRate = float64(e.healthPassed) / float64(e.healthChecks) * 100
+	}
 
 	return map[string]interface{}{
 		"status":     "success",
@@ -169,8 +176,12 @@ func (e *OmniAnimelinksEngine) QueryCatalog(category, quality, format string) (m
 
 	var results []map[string]interface{}
 	for _, entry := range cat.Entries {
-		if quality != "" && !strings.EqualFold(entry.Quality, quality) { continue }
-		if format != "" && !strings.EqualFold(entry.Format, format) { continue }
+		if quality != "" && !strings.EqualFold(entry.Quality, quality) {
+			continue
+		}
+		if format != "" && !strings.EqualFold(entry.Format, format) {
+			continue
+		}
 		results = append(results, map[string]interface{}{
 			"id": entry.ID, "sourceURL": entry.SourceURL, "quality": entry.Quality,
 			"format": entry.Format, "sizeBytes": entry.SizeBytes, "verified": entry.Verified,
@@ -192,12 +203,16 @@ func (e *OmniAnimelinksEngine) GetStats() map[string]interface{} {
 	defer e.mu.RUnlock()
 
 	totalLinks := 0
-	for _, cat := range e.catalogs { totalLinks += len(cat.Entries) }
+	for _, cat := range e.catalogs {
+		totalLinks += len(cat.Entries)
+	}
 	var totalSize int64
-	for _, entry := range e.linkIndex { totalSize += entry.SizeBytes }
+	for _, entry := range e.linkIndex {
+		totalSize += entry.SizeBytes
+	}
 
 	return map[string]interface{}{
-		"status":       "success",
+		"status":        "success",
 		"totalCatalogs": len(e.catalogs),
 		"totalLinks":    totalLinks,
 		"totalSizeMB":   math.Round(float64(totalSize)/1048576*100) / 100,
@@ -205,3 +220,4 @@ func (e *OmniAnimelinksEngine) GetStats() map[string]interface{} {
 		"healthPassed":  e.healthPassed,
 	}
 }
+

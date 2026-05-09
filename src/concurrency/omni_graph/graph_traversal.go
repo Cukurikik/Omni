@@ -2,7 +2,8 @@ package omni_graph
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func TraverseGraph(ctx context.Context, startNodeID int) result.Result[[]int] {

@@ -1,0 +1,71 @@
+# @omni-layer Business | @omni-source all-repos-combined | @omni-lang GraphQL
+# @omni-description Unified OMNI Batch 17 API: master GraphQL schema aggregating
+# all 30 repository domains into one cohesive API surface.
+
+type OmniHealthCheck {
+  status: String!
+  version: String!
+  uptime: Int!
+  engines: [EngineStatus!]!
+}
+
+type EngineStatus {
+  name: String!
+  layer: OmniLayer!
+  status: String!
+  language: String!
+  repository: String!
+}
+
+enum OmniLayer {
+  COMPUTE
+  SYSTEM
+  CONCURRENCY
+  BUSINESS
+  INTERFACE
+}
+
+type BatchManifest {
+  batchId: Int!
+  semester: Int!
+  totalFiles: Int!
+  layers: [LayerManifest!]!
+  repositories: [String!]!
+  createdAt: DateTime!
+}
+
+type LayerManifest {
+  layer: OmniLayer!
+  fileCount: Int!
+  languages: [String!]!
+  engines: [String!]!
+}
+
+type OmniBuildStatus {
+  target: String!
+  status: String!
+  errors: Int!
+  warnings: Int!
+  duration_ms: Float!
+}
+
+type Query {
+  health: OmniHealthCheck!
+  batchManifest(batchId: Int!): BatchManifest!
+  engineStatus(name: String!): EngineStatus!
+  buildStatus(target: String!): OmniBuildStatus!
+  allEngines(layer: OmniLayer): [EngineStatus!]!
+}
+
+type Mutation {
+  triggerBuild(target: String!, release: Boolean = false): OmniBuildStatus!
+  deployEngine(name: String!, target: String!): EngineStatus!
+  revalidateAll: BatchManifest!
+}
+
+type Subscription {
+  buildProgress(target: String!): OmniBuildStatus!
+  engineHealthChanged: EngineStatus!
+}
+
+scalar DateTime

@@ -42,9 +42,9 @@ type TimeSeries struct {
 
 // OmniDartsEngine provides mathematical forecasting algorithms (Exponential Smoothing, MA).
 type OmniDartsEngine struct {
-	mu           sync.RWMutex
-	seriesStore  map[string]TimeSeries
-	
+	mu          sync.RWMutex
+	seriesStore map[string]TimeSeries
+
 	// Config
 	alpha float64 // Smoothing factor for level
 	beta  float64 // Smoothing factor for trend
@@ -188,12 +188,12 @@ func (e *OmniDartsEngine) Diagnostics() map[string]interface{} {
 	defer e.mu.RUnlock()
 
 	return map[string]interface{}{
-		"engine":          "OmniDartsEngine",
-		"version":         "1.0.0-production",
-		"series_stored":   e.seriesStored.Load(),
-		"forecasts_done":  e.forecastsDone.Load(),
-		"alpha":           e.alpha,
-		"beta":            e.beta,
-		"status":          "operational",
+		"engine":         "OmniDartsEngine",
+		"version":        "1.0.0-production",
+		"series_stored":  e.seriesStored.Load(),
+		"forecasts_done": e.forecastsDone.Load(),
+		"alpha":          e.alpha,
+		"beta":           e.beta,
+		"status":         "operational",
 	}
 }

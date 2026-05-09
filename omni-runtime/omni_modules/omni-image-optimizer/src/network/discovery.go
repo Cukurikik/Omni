@@ -1,4 +1,4 @@
-package omni_image_optimizer
+package network
 
 import "sync"
 

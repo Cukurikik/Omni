@@ -1,4 +1,4 @@
-package omni_apple_pay
+package network
 
 import (
 	"encoding/binary"

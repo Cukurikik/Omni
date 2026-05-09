@@ -1,0 +1,29 @@
+# OMNI Framework - Cerbos Policy for Optipfair Bias Audit Access
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "omni:audit:optipfair"
+  rules:
+    - actions: ["view", "export"]
+      effect: EFFECT_ALLOW
+      roles:
+        - compliance_officer
+        - admin
+        - ai_ethics_board
+
+    - actions: ["trigger_audit"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+        - ml_engineer
+      condition:
+        match:
+          expr: request.resource.attr.model_environment == "staging"
+
+    - actions: ["view"]
+      effect: EFFECT_ALLOW
+      roles:
+        - data_scientist
+      condition:
+        match:
+          expr: request.principal.attr.department == request.resource.attr.department

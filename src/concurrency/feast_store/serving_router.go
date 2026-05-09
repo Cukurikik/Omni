@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -37,12 +37,12 @@ func NewServingRouter(numWorkers int, queueSize int) *ServingRouter {
 
 func (r *ServingRouter) worker() {
 	defer r.wg.Done()
-	
+
 	for req := range r.reqQueue {
 		// Deterministic routing simulation using consistent hashing pattern
 		// In reality, this would call the Redis FFI C layer
 		time.Sleep(10 * time.Millisecond) // Simulated network/FFI latency
-		
+
 		res := fmt.Sprintf("OK:[%s] -> %d features", req.EntityID, len(req.Features))
 		req.Response <- res
 	}
@@ -50,7 +50,7 @@ func (r *ServingRouter) worker() {
 
 func (r *ServingRouter) ServeFeatures(entityID string, features []string) OmniResult {
 	resChan := make(chan string, 1)
-	
+
 	select {
 	case r.reqQueue <- FeatureRequest{EntityID: entityID, Features: features, Response: resChan}:
 		val := <-resChan

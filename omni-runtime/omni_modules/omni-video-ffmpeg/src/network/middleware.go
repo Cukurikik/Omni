@@ -1,4 +1,4 @@
-package omni_video_ffmpeg
+package network
 
 import (
 	"net/http"

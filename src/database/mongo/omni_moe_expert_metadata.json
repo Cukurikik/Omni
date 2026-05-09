@@ -1,0 +1,22 @@
+{
+  "OMNI_Schema_Version": "1.0",
+  "collection": "moe_expert_metadata",
+  "document": {
+    "expert_id": "math_logic_01",
+    "domain": "Mathematics",
+    "layer_index": 4,
+    "quantization": "FP8",
+    "status": "active",
+    "performance_metrics": {
+      "avg_latency_ms": 12.4,
+      "total_tokens_processed": 14502300,
+      "routing_frequency": 0.15
+    },
+    "routing_heuristics": [
+      "contains_numbers",
+      "contains_equations",
+      "requires_step_by_step"
+    ],
+    "last_distillation_date": "2026-05-01T00:00:00Z"
+  }
+}

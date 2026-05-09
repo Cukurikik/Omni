@@ -26,7 +26,7 @@ func (r *symbolic_solverRouter) Execute(ctx context.Context, data []byte) (*symb
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &symbolic_solverResult{
 		Success: true,
 		Status:  "computed",

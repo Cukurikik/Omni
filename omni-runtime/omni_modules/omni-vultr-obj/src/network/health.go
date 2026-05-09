@@ -1,4 +1,4 @@
-package omni_vultr_obj
+package network
 
 import "time"
 

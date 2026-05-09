@@ -1,4 +1,4 @@
-package omni_midtrans
+package network
 
 import (
 	"net/http"

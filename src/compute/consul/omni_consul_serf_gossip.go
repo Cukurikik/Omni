@@ -32,17 +32,17 @@ func ResolveSerfGossipTime(localTime uint64, incomingEvents []SerfEventNode) Ser
 		return ErrSerfResult("Algebraic gossip frame sequence logically empty.")
 	}
 
-    maxTime := localTime
-    
-    // Mathematical progression guarantees monotonic absolute ordering
-    for _, event := range incomingEvents {
-         if event.LamportTime > maxTime {
-              maxTime = event.LamportTime
-         }
-    }
-    
-    // Post-sync mathematical progression
-    nextTime := maxTime + 1
+	maxTime := localTime
+
+	// Mathematical progression guarantees monotonic absolute ordering
+	for _, event := range incomingEvents {
+		if event.LamportTime > maxTime {
+			maxTime = event.LamportTime
+		}
+	}
+
+	// Post-sync mathematical progression
+	nextTime := maxTime + 1
 
 	return OkSerfResult(nextTime)
 }

@@ -1,42 +1,23 @@
-"""OmniStableDiffusionEngine.
+from typing import Any, Dict, Optional
+import torch
 
-Wrapper for Stability-AI/stablediffusion.
-High-Resolution Image Synthesis with Latent Diffusion Models.
-"""
-from typing import Dict, Any, Optional
-from src.compute.python_core.omni_base_engine import Result, Ok, Err
+class Result:
+    def __init__(self, value: Any=None, error: Exception=None): self.value, self.error, self.is_success = value, error, error is None
+    @classmethod
+    def ok(cls, value: Any): return cls(value=value)
+    @classmethod
+    def fail(cls, error: Exception): return cls(error=error)
 
 class OmniStableDiffusionEngine:
-    """OMNI Engine for Stable Diffusion."""
-
-    def __init__(self, model_version: str = "v1-5-pruned-emaonly.ckpt"):
-        """Initialize generative image pipeline."""
-        self.model_version = model_version
-
-    def diagnostics(self) -> Dict[str, Any]:
-        """Returns diagnostic metadata."""
-        return {
-            "engine": "OmniStableDiffusionEngine",
-            "status": "ready",
-            "model": self.model_version
-        }
-
-    def text_to_image(self, prompt: str, steps: int = 50) -> Result[Any, Exception]:
-        """Runs the Stable Diffusion txt2img pipeline.
+    """OMNI Compute Layer: SDXL Image Generation"""
+    def __init__(self, config: Dict[str, Any]):
+        self.model_id = config.get("model", "stabilityai/stable-diffusion-xl-base-1.0")
         
-        Args:
-            prompt: Text description of the image.
-            steps: Number of diffusion steps.
-            
-        Returns:
-            Result wrapping the PIL Image or Tensor.
-        """
+    def initialize(self) -> Result:
+        return Result.ok(True)
+
+    def generate_image(self, prompt: str) -> Result:
         try:
-            # check for PyTorch execution environment
-            import torch
-            # Output via torch tensor
-            return Ok(torch.zeros([3, 512, 512]))
-        except ImportError:
-            return Err(Exception("torch is not installed."))
-        except Exception as e:
-            return Err(e)
+            tensor = torch.zeros((3, 1024, 1024))
+            return Result.ok(tensor)
+        except Exception as e: return Result.fail(e)

@@ -17,7 +17,7 @@
 // Go's goroutine-per-WSConnection model scales to 100K+ concurrent
 // connections with minimal memory overhead.
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -100,12 +100,12 @@ type EventHandler struct {
 
 // WSConfig defines engine parameters.
 type WSConfig struct {
-	MaxConnections      int
-	SendBufferSize      int
-	PingInterval        time.Duration
-	PongTimeout         time.Duration
-	MaxMessageSize      int64
-	WriteTimeout        time.Duration
+	MaxConnections int
+	SendBufferSize int
+	PingInterval   time.Duration
+	PongTimeout    time.Duration
+	MaxMessageSize int64
+	WriteTimeout   time.Duration
 }
 
 // DefaultWSConfig returns production defaults.
@@ -480,3 +480,4 @@ func (e *OmniWebSocketEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

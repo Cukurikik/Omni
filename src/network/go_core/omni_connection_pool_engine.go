@@ -5,7 +5,7 @@
 // Logic Inherited: Go / Network Layer (Connection Pool Management)
 // ===========================================================================
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -17,11 +17,11 @@ import (
 
 // Connection represents a pooled connection.
 type Connection struct {
-	ID        uint64
-	CreatedAt time.Time
+	ID         uint64
+	CreatedAt  time.Time
 	LastUsedAt time.Time
-	InUse     bool
-	Health    bool
+	InUse      bool
+	Health     bool
 }
 
 // PoolConfig configures the connection pool.
@@ -59,17 +59,17 @@ type OmniConnectionPoolEngine struct {
 	cond   *sync.Cond
 	closed bool
 
-	nextID        atomic.Uint64
-	openCount     atomic.Int64
-	inUseCount    atomic.Int64
+	nextID     atomic.Uint64
+	openCount  atomic.Int64
+	inUseCount atomic.Int64
 
-	totalAcquired  atomic.Uint64
-	totalReleased  atomic.Uint64
-	totalCreated   atomic.Uint64
-	totalClosed    atomic.Uint64
-	totalExpired   atomic.Uint64
-	totalWaits     atomic.Uint64
-	totalTimeouts  atomic.Uint64
+	totalAcquired atomic.Uint64
+	totalReleased atomic.Uint64
+	totalCreated  atomic.Uint64
+	totalClosed   atomic.Uint64
+	totalExpired  atomic.Uint64
+	totalWaits    atomic.Uint64
+	totalTimeouts atomic.Uint64
 }
 
 func NewPool(config PoolConfig) *OmniConnectionPoolEngine {
@@ -222,29 +222,29 @@ func (p *OmniConnectionPoolEngine) Close() {
 // Stats returns current pool statistics.
 func (p *OmniConnectionPoolEngine) Stats() map[string]int64 {
 	return map[string]int64{
-		"open":    p.openCount.Load(),
-		"in_use":  p.inUseCount.Load(),
-		"idle":    int64(len(p.idle)),
+		"open":   p.openCount.Load(),
+		"in_use": p.inUseCount.Load(),
+		"idle":   int64(len(p.idle)),
 	}
 }
 
 // Diagnostics returns engine diagnostics.
 func (p *OmniConnectionPoolEngine) Diagnostics() map[string]interface{} {
 	return map[string]interface{}{
-		"engine":          "OmniConnectionPoolEngine",
-		"layer":           "Go Network",
-		"max_open":        p.config.MaxOpen,
-		"max_idle":        p.config.MaxIdle,
-		"open_count":      p.openCount.Load(),
-		"in_use_count":    p.inUseCount.Load(),
-		"idle_count":      len(p.idle),
-		"total_acquired":  p.totalAcquired.Load(),
-		"total_released":  p.totalReleased.Load(),
-		"total_created":   p.totalCreated.Load(),
-		"total_closed":    p.totalClosed.Load(),
-		"total_expired":   p.totalExpired.Load(),
-		"total_waits":     p.totalWaits.Load(),
-		"total_timeouts":  p.totalTimeouts.Load(),
+		"engine":         "OmniConnectionPoolEngine",
+		"layer":          "Go Network",
+		"max_open":       p.config.MaxOpen,
+		"max_idle":       p.config.MaxIdle,
+		"open_count":     p.openCount.Load(),
+		"in_use_count":   p.inUseCount.Load(),
+		"idle_count":     len(p.idle),
+		"total_acquired": p.totalAcquired.Load(),
+		"total_released": p.totalReleased.Load(),
+		"total_created":  p.totalCreated.Load(),
+		"total_closed":   p.totalClosed.Load(),
+		"total_expired":  p.totalExpired.Load(),
+		"total_waits":    p.totalWaits.Load(),
+		"total_timeouts": p.totalTimeouts.Load(),
 		"learned_logic": []string{
 			"hikaricp-connection-pool",
 			"lifo-idle-connection-reuse",
@@ -257,3 +257,4 @@ func (p *OmniConnectionPoolEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

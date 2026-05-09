@@ -2,7 +2,8 @@ package llm_api
 
 import (
 	"net/http"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func HandleLLMRequest(w http.ResponseWriter, r *http.Request) result.Result[bool] {

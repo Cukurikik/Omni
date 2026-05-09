@@ -44,9 +44,9 @@ func (s *MetricStreamer) process(id int) {
 			s.outChan <- OmniResult{Error: fmt.Errorf("invalid loss %f in batch %s", batch.Loss, batch.BatchID)}
 			continue
 		}
-		
+
 		// Deterministic moving average simulation
-		smoothedLoss := batch.Loss * 0.9 + 0.1
+		smoothedLoss := batch.Loss*0.9 + 0.1
 		s.outChan <- OmniResult{Value: fmt.Sprintf("Worker %d logged %s: smoothed_loss %.4f", id, batch.BatchID, smoothedLoss)}
 	}
 }

@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -36,7 +36,7 @@ func NewEventLoop(bufferSize int) *EventLoop {
 
 func (e *EventLoop) loop() {
 	defer e.wg.Done()
-	
+
 	for req := range e.reqQueue {
 		// Deterministic async I/O simulation
 		time.Sleep(1 * time.Millisecond) // micro-sleep mimicking epoll wait

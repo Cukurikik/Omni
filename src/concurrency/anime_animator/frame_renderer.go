@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -51,16 +51,16 @@ func (r *FrameRenderer) SubmitFrame(req FrameRequest) OmniResult {
 
 func (r *FrameRenderer) renderLoop(workerID int) {
 	defer r.wg.Done()
-	
+
 	// Deterministic interval calculation for frame pacing
 	frameDuration := time.Second / time.Duration(r.fps)
 
 	for req := range r.requestQueue {
 		start := time.Now()
-		
+
 		// Deterministic rendering representation
 		renderedData := fmt.Sprintf("FRAME_%d_RENDERED[Y:%.2f, P:%.2f]", req.FrameID, req.Yaw, req.Pitch)
-		
+
 		r.mu.Lock()
 		r.buffer[req.FrameID] = renderedData
 		r.mu.Unlock()

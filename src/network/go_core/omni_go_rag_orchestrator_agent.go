@@ -3,7 +3,7 @@
 // Implements production-grade Agentic RAG Orchestrator with tool routing.
 // Absorbs patterns from: github.com/langchain-ai/langchain, OpenClaw agent architecture
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -25,12 +25,12 @@ type AgentAction struct {
 
 // AgentPlan represents the full execution trace of an agent.
 type AgentPlan struct {
-	Query      string
-	Steps      []AgentAction
+	Query       string
+	Steps       []AgentAction
 	FinalAnswer string
-	TotalMs    int64
-	ToolsUsed  int
-	IsComplete bool
+	TotalMs     int64
+	ToolsUsed   int
+	IsComplete  bool
 }
 
 // ToolDefinition represents a tool that the agent can invoke.
@@ -56,9 +56,9 @@ type OrchestratorResult struct {
 // RAGOrchestrator orchestrates retrieval-augmented generation
 // with agentic tool-use and multi-step reasoning.
 type RAGOrchestrator struct {
-	tools       map[string]ToolDefinition
-	maxSteps    int
-	documents   []RAGDocument
+	tools     map[string]ToolDefinition
+	maxSteps  int
+	documents []RAGDocument
 }
 
 // NewRAGOrchestrator creates a new orchestrator with the given configuration.
@@ -234,3 +234,4 @@ func (o *RAGOrchestrator) Diagnostics() map[string]interface{} {
 		"status":        "operational",
 	}
 }
+

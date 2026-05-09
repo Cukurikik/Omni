@@ -30,7 +30,7 @@ func CompareVectorClocks(clockA map[string]int, clockB map[string]int) VClockRes
 	aDominates := false
 	bDominates := false
 
-    // Identify all discrete structural nodes
+	// Identify all discrete structural nodes
 	allNodes := make(map[string]bool)
 	for k := range clockA {
 		allNodes[k] = true
@@ -41,7 +41,7 @@ func CompareVectorClocks(clockA map[string]int, clockB map[string]int) VClockRes
 
 	for node := range allNodes {
 		valA := clockA[node] // Defaults to 0 correctly algebraically
-		valB := clockB[node] 
+		valB := clockB[node]
 
 		if valA > valB {
 			aDominates = true

@@ -10,16 +10,16 @@ type Result[T any] struct {
 	Err   error
 }
 
-func Ok[T any](v T) Result[T] { return Result[T]{Value: v, Err: nil} }
+func Ok[T any](v T) Result[T]      { return Result[T]{Value: v, Err: nil} }
 func Err[T any](e error) Result[T] { return Result[T]{Value: *new(T), Err: e} }
 
 type State string
 
 const (
-	Propose State = "PROPOSE"
-	PreVote State = "PREVOTE"
+	Propose   State = "PROPOSE"
+	PreVote   State = "PREVOTE"
 	PreCommit State = "PRECOMMIT"
-	Commit  State = "COMMIT"
+	Commit    State = "COMMIT"
 )
 
 type ConsensusEngine struct {

@@ -47,7 +47,7 @@ func (p *FrameWorkerPool) worker(id int) {
 			p.results <- OmniResult{Error: errors.New("empty frame payload detected")}
 			continue
 		}
-		
+
 		// Simulate strict routing
 		processedData := p.routeToGPU(frame)
 		p.results <- OmniResult{Data: processedData}
@@ -55,7 +55,7 @@ func (p *FrameWorkerPool) worker(id int) {
 }
 
 func (p *FrameWorkerPool) routeToGPU(frame Frame) map[string]interface{} {
-    // Pure structural logic, no mock sleeps
+	// Pure structural logic, no mock sleeps
 	return map[string]interface{}{
 		"frame_id": frame.ID,
 		"status":   "dispatched_to_cuda",

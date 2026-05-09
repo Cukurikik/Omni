@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 3.20)
+project(OmniFramework VERSION 3.0.0 LANGUAGES C CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Enable aggressive optimizations
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -flto")
+
+# Define sources
+set(SYSTEM_SOURCES
+    src/system/c/omni_x86_allocator.c
+    src/system/cpp/omni_tensor_accelerator.cpp
+)
+
+# Add shared library
+add_library(omni_core SHARED ${SYSTEM_SOURCES})
+
+# Target properties
+set_target_properties(omni_core PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION 3
+)
+
+# Include directories
+target_include_directories(omni_core PUBLIC include)
+
+# Install rules
+install(TARGETS omni_core DESTINATION lib)

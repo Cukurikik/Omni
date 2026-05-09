@@ -1,0 +1,31 @@
+# OMNI Infrastructure — Ansible GPU Node Setup
+# Configures raw Ubuntu nodes with NVIDIA drivers and Docker
+
+- name: Configure OMNI Inference Nodes
+  hosts: gpu_cluster
+  become: yes
+  tasks:
+    - name: Install system dependencies
+      apt:
+        name: 
+          - build-essential
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add NVIDIA package repositories
+      shell: |
+        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+    - name: Install NVIDIA Container Toolkit
+      apt:
+        name: nvidia-container-toolkit
+        state: present
+        update_cache: yes
+
+    - name: Restart Docker Daemon
+      systemd:
+        name: docker
+        state: restarted

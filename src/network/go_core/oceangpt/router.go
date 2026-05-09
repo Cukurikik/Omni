@@ -19,7 +19,7 @@ func (r *OceanRouter) EvaluateWave(ctx context.Context, rms float64) (*AcousticR
 	if rms < 0 {
 		return nil, errors.New("negative RMS calculated")
 	}
-	
+
 	return &AcousticResult{
 		RMSValue: rms,
 		Signal:   rms > r.NoiseFloor,

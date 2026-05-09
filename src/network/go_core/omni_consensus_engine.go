@@ -8,10 +8,9 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.2
 
-package go_core
+package network_gocore
 
 import (
-	"log"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
@@ -120,10 +119,10 @@ type OmniConsensusNode struct {
 	peers      []string
 
 	// Metrics
-	totalVotesReceived atomic.Int64
+	totalVotesReceived    atomic.Int64
 	totalEntriesCommitted atomic.Int64
-	termChanges atomic.Int64
-	createdAt time.Time
+	termChanges           atomic.Int64
+	createdAt             time.Time
 }
 
 // NewConsensusNode creates a new Raft consensus node.
@@ -310,23 +309,24 @@ func (n *OmniConsensusNode) Diagnostics() map[string]interface{} {
 	lastIdx, lastTerm := n.lastLogInfo()
 
 	return map[string]interface{}{
-		"engine":            "OmniConsensusNode",
-		"version":           "1.1.0-omni-zeromock",
-		"layer":             "network/go_core",
-		"nodeId":            n.id,
-		"role":              n.role.String(),
-		"currentTerm":       n.currentTerm,
-		"votedFor":          n.votedFor,
-		"logLength":         len(n.log),
-		"lastLogIndex":      lastIdx,
-		"lastLogTerm":       lastTerm,
-		"commitIndex":       n.commitIndex,
-		"lastApplied":       n.lastApplied,
-		"peers":             n.peers,
-		"totalVotes":        n.totalVotesReceived.Load(),
-		"totalCommitted":    n.totalEntriesCommitted.Load(),
-		"termChanges":       n.termChanges.Load(),
-		"uptimeSeconds":     time.Since(n.createdAt).Seconds(),
-		"mockPatterns":      "zero",
+		"engine":         "OmniConsensusNode",
+		"version":        "1.1.0-omni-zeromock",
+		"layer":          "network/go_core",
+		"nodeId":         n.id,
+		"role":           n.role.String(),
+		"currentTerm":    n.currentTerm,
+		"votedFor":       n.votedFor,
+		"logLength":      len(n.log),
+		"lastLogIndex":   lastIdx,
+		"lastLogTerm":    lastTerm,
+		"commitIndex":    n.commitIndex,
+		"lastApplied":    n.lastApplied,
+		"peers":          n.peers,
+		"totalVotes":     n.totalVotesReceived.Load(),
+		"totalCommitted": n.totalEntriesCommitted.Load(),
+		"termChanges":    n.termChanges.Load(),
+		"uptimeSeconds":  time.Since(n.createdAt).Seconds(),
+		"mockPatterns":   "zero",
 	}
 }
+

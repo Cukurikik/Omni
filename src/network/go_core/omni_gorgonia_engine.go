@@ -19,7 +19,7 @@
 //
 // OMNI Layer: network (Go)
 
-package go_core
+package network_gocore
 
 import (
 	"fmt"
@@ -330,19 +330,19 @@ func (op OpType) String() string {
 
 // Node represents a computation node in the graph.
 type Node struct {
-	ID       int
-	Name     string
-	Op       OpType
-	Value    *Tensor
-	Grad     *Tensor
-	Inputs   []*Node
-	IsParam  bool // Learnable parameter
+	ID      int
+	Name    string
+	Op      OpType
+	Value   *Tensor
+	Grad    *Tensor
+	Inputs  []*Node
+	IsParam bool // Learnable parameter
 }
 
 // ExprGraph is the computation graph container.
 type ExprGraph struct {
-	mu    sync.Mutex
-	nodes []*Node
+	mu     sync.Mutex
+	nodes  []*Node
 	nextID int
 }
 
@@ -453,9 +453,9 @@ func CrossEntropyLossOp(g *ExprGraph, pred, target *Node) *Node {
 
 // TapeEntry records a single operation for gradient computation.
 type TapeEntry struct {
-	Node    *Node
-	Inputs  []*Node
-	Op      OpType
+	Node   *Node
+	Inputs []*Node
+	Op     OpType
 }
 
 // TapeMachine executes computation graph and records tape for backprop.
@@ -886,3 +886,4 @@ func (e *OmniGorgoniaEngine) Diagnostics() map[string]interface{} {
 		"status":       "operational",
 	}
 }
+

@@ -1,0 +1,33 @@
+// OMNI Business — Drools Rules Engine
+// Dynamic billing and rate limiting based on business context
+
+package com.omni.rules
+
+import com.omni.business.InferenceRequest;
+import com.omni.business.UserContext;
+
+rule "Discount for Enterprise Users at Night"
+    when
+        $req : InferenceRequest( tokens > 10000 )
+        $usr : UserContext( tier == "Enterprise", localHour > 22 || localHour < 6 )
+    then
+        $req.applyDiscount(0.30); // 30% off-peak discount
+        System.out.println("Applied 30% off-peak enterprise discount.");
+end
+
+rule "Rate Limit Free Tier"
+    when
+        $req : InferenceRequest( )
+        $usr : UserContext( tier == "Free", requestsThisMinute > 20 )
+    then
+        $req.setBlocked(true);
+        $req.setBlockReason("Rate limit exceeded for Free tier.");
+end
+
+rule "Premium QoS for Critical Models"
+    when
+        $req : InferenceRequest( modelName == "omni-gpt4-medical" )
+    then
+        $req.setPriority("HIGH");
+        $req.routeToReservedCompute();
+end

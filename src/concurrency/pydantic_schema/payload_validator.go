@@ -35,7 +35,7 @@ func NewPayloadValidator(numWorkers int, bufferSize int) *PayloadValidator {
 
 func (v *PayloadValidator) worker() {
 	defer v.wg.Done()
-	
+
 	for payload := range v.queue {
 		// Deterministically simulate validation processing
 		// In reality this calls the Rust JSON FFI then Ruby/Julia rules

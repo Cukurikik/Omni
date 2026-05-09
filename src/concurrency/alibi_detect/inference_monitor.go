@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -34,12 +34,12 @@ func NewInferenceMonitor(bufferSize int) *InferenceMonitor {
 
 func (m *InferenceMonitor) worker() {
 	defer m.wg.Done()
-	
+
 	for record := range m.stream {
 		// Asynchronous monitoring of production inference streams for data drift
 		// Deterministic sleep to simulate buffer aggregation
 		time.Sleep(10 * time.Millisecond)
-		
+
 		// In reality, passes features to the Rust reservoir sampler FFI
 		if len(record.FeatureVector) > 0 {
 			// Silently aggregate

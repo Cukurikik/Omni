@@ -34,7 +34,7 @@ func ResolveChartInstallOrder(charts []string, dependencies map[string][]string)
 				inDegree[dep]++
 			} else {
 				// Implicitly add dependency if not in requested deployment directly
-				inDegree[dep] = 1 
+				inDegree[dep] = 1
 			}
 		}
 	}
@@ -47,7 +47,7 @@ func ResolveChartInstallOrder(charts []string, dependencies map[string][]string)
 	}
 
 	installed := []string{}
-	
+
 	// Kahn's Algorithm
 	for len(queue) > 0 {
 		curr := queue[0]
@@ -70,7 +70,7 @@ func ResolveChartInstallOrder(charts []string, dependencies map[string][]string)
 		}
 	}
 
-	// Reverse list because Kahn's resolves dependencies outward; 
+	// Reverse list because Kahn's resolves dependencies outward;
 	// for Helm, dependencies must be installed BEFORE the parent.
 	finalOrder := make([]string, len(installed))
 	for i, j := 0, len(installed)-1; i < len(installed); i, j = i+1, j-1 {

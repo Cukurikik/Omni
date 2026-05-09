@@ -40,11 +40,11 @@ func (c FigmaColor) ToCSSRGBA() string {
 
 // Typography represents a text style from Figma.
 type FigmaTypography struct {
-	Name       string  `json:"name"`
-	FontFamily string  `json:"fontFamily"`
-	FontWeight int     `json:"fontWeight"`
-	FontSize   float64 `json:"fontSize"`
-	LineHeight float64 `json:"lineHeight"`
+	Name          string  `json:"name"`
+	FontFamily    string  `json:"fontFamily"`
+	FontWeight    int     `json:"fontWeight"`
+	FontSize      float64 `json:"fontSize"`
+	LineHeight    float64 `json:"lineHeight"`
 	LetterSpacing float64 `json:"letterSpacing"`
 }
 
@@ -64,12 +64,12 @@ type FigmaComponentMeta struct {
 
 // DesignTokenSet aggregates all extracted tokens.
 type DesignTokenSet struct {
-	Colors     []FigmaColor        `json:"colors"`
-	Typography []FigmaTypography   `json:"typography"`
-	Spacing    []FigmaSpacing      `json:"spacing"`
-	Components []FigmaComponentMeta `json:"components"`
-	ExtractedAt time.Time          `json:"extractedAt"`
-	FileKey    string              `json:"fileKey"`
+	Colors      []FigmaColor         `json:"colors"`
+	Typography  []FigmaTypography    `json:"typography"`
+	Spacing     []FigmaSpacing       `json:"spacing"`
+	Components  []FigmaComponentMeta `json:"components"`
+	ExtractedAt time.Time            `json:"extractedAt"`
+	FileKey     string               `json:"fileKey"`
 }
 
 // ---- Figma API Client ----------------------------------------------------

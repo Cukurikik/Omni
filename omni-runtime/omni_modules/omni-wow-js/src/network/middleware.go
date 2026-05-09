@@ -1,4 +1,4 @@
-package omni_wow_js
+package network
 
 import (
 	"net/http"

@@ -19,7 +19,7 @@ func (r *CompRouter) ValidateChecksum(ctx context.Context, crc uint32) (*CrcResu
 	if r.Expected == 0 {
 		return nil, errors.New("expected checksum not initialized")
 	}
-	
+
 	return &CrcResult{
 		Checksum: crc,
 		Valid:    crc == r.Expected,

@@ -26,7 +26,7 @@ func (r *mistral_haystackRouter) Execute(ctx context.Context, data []byte) (*mis
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &mistral_haystackResult{
 		Success: true,
 		Status:  "computed",

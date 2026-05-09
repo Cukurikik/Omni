@@ -2,7 +2,8 @@ package omni_stream
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func PublishMessage(ctx context.Context, topic string, msg []byte) result.Result[bool] {

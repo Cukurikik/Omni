@@ -1,4 +1,4 @@
-package omni_socket_io_native
+package network
 
 import "time"
 

@@ -71,18 +71,22 @@ func (e *OmniVistaEngine) CalculateIoU(boxA, boxB BoundingBox) float64 {
 }
 
 func max(a, b float64) float64 {
-	if a > b { return a }
+	if a > b {
+		return a
+	}
 	return b
 }
 func min(a, b float64) float64 {
-	if a < b { return a }
+	if a < b {
+		return a
+	}
 	return b
 }
 
 // NonMaxSuppression filters overlapping bounding boxes based on IoU threshold.
 func (e *OmniVistaEngine) NonMaxSuppression(ctx context.Context, boxes []BoundingBox, iouThreshold float64) VistaResult[[]BoundingBox] {
 	e.framesParsed.Add(1)
-	
+
 	if len(boxes) == 0 {
 		return VistaResult[[]BoundingBox]{Value: []BoundingBox{}}
 	}
@@ -106,9 +110,9 @@ func (e *OmniVistaEngine) NonMaxSuppression(ctx context.Context, boxes []Boundin
 		if !active[i] {
 			continue
 		}
-		
+
 		keep = append(keep, boxes[i])
-		
+
 		for j := i + 1; j < len(boxes); j++ {
 			if !active[j] {
 				continue

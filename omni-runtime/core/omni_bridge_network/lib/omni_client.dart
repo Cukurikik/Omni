@@ -1,0 +1,1 @@
+class OmniClient { const OmniClient(); }

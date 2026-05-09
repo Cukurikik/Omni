@@ -1,0 +1,33 @@
+# OMNI Framework - AppArmor Profile for GHN3 Hypernetwork Execution
+# Enforces strict isolation for the graph hypernetwork compute environment
+# Prevents unauthorized filesystem or network access by arbitrary PyTorch models
+
+#include <tunables/global>
+
+profile omni_ghn3_compute flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+  #include <abstractions/python>
+
+  # Allow network access only to local OMNI gRPC and DB ports
+  network tcp,
+  network udp,
+
+  # Deny all generic file access
+  deny /** rwlkx,
+
+  # Explicitly allow access to OMNI model directories
+  /opt/omni/ghn3/** rw,
+  /opt/omni/ghn3/models/** rk,
+  
+  # Allow execution of the Python interpreter
+  /usr/bin/python3.10 ix,
+  
+  # Allow reading necessary system libraries for PyTorch/CUDA
+  /lib/x86_64-linux-gnu/** rm,
+  /usr/lib/x86_64-linux-gnu/** rm,
+
+  # Explicitly deny access to sensitive host directories
+  deny /etc/shadow rw,
+  deny /root/** rwlkx,
+  deny /home/** rwlkx,
+}

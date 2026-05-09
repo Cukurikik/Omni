@@ -18,7 +18,7 @@
 // concurrent lookups with channel-based result collection enable
 // non-blocking resolution.
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -69,7 +69,7 @@ type DNSRecord struct {
 	Type       RecordType
 	Value      string
 	TTL        time.Duration
-	Priority   int    // For MX records
+	Priority   int // For MX records
 	ResolvedAt time.Time
 	Upstream   string // Which upstream resolved this
 }
@@ -504,17 +504,17 @@ func (e *OmniDNSResolverEngine) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":           "OmniDNSResolverEngine",
-		"layer":            "Go Network",
-		"cache_size":       atomic.LoadInt64(&e.cacheSize),
-		"cache_max":        e.config.CacheMaxEntries,
-		"upstreams":        upstreamInfo,
-		"total_queries":    atomic.LoadUint64(&e.stats.TotalQueries),
-		"cache_hits":       atomic.LoadUint64(&e.stats.CacheHits),
-		"cache_misses":     atomic.LoadUint64(&e.stats.CacheMisses),
-		"negative_hits":    atomic.LoadUint64(&e.stats.NegativeHits),
-		"resolve_fails":    atomic.LoadUint64(&e.stats.ResolveFails),
-		"upstream_errors":  atomic.LoadUint64(&e.stats.UpstreamErrors),
+		"engine":          "OmniDNSResolverEngine",
+		"layer":           "Go Network",
+		"cache_size":      atomic.LoadInt64(&e.cacheSize),
+		"cache_max":       e.config.CacheMaxEntries,
+		"upstreams":       upstreamInfo,
+		"total_queries":   atomic.LoadUint64(&e.stats.TotalQueries),
+		"cache_hits":      atomic.LoadUint64(&e.stats.CacheHits),
+		"cache_misses":    atomic.LoadUint64(&e.stats.CacheMisses),
+		"negative_hits":   atomic.LoadUint64(&e.stats.NegativeHits),
+		"resolve_fails":   atomic.LoadUint64(&e.stats.ResolveFails),
+		"upstream_errors": atomic.LoadUint64(&e.stats.UpstreamErrors),
 		"learned_logic": []string{
 			"singleflight-deduplication",
 			"ttl-aware-cache-eviction",
@@ -526,3 +526,4 @@ func (e *OmniDNSResolverEngine) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

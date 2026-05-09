@@ -1,0 +1,114 @@
+// @omni-layer Event | @omni-lang Protocol Buffers (gRPC) | @omni-batch 17
+// @omni-description Inference streaming service: gRPC service definition for
+// bidirectional streaming inference with model management and health checks.
+
+syntax = "proto3";
+package omni.inference.v1;
+
+option go_package = "omni/inference/v1;inferencev1";
+option java_package = "dev.omni.inference.v1";
+
+// === Core Messages ===
+message InferenceRequest {
+    string request_id = 1;
+    string model_id = 2;
+    repeated int32 input_tokens = 3;
+    float temperature = 4;
+    int32 max_tokens = 5;
+    float top_p = 6;
+    int32 top_k = 7;
+    map<string, string> metadata = 8;
+}
+
+message InferenceResponse {
+    string request_id = 1;
+    string model_id = 2;
+    repeated int32 output_tokens = 3;
+    float confidence = 4;
+    float latency_ms = 5;
+    string status = 6;
+    InferenceMetrics metrics = 7;
+}
+
+message StreamToken {
+    string request_id = 1;
+    int32 token_id = 2;
+    string token_text = 3;
+    float log_prob = 4;
+    bool is_final = 5;
+    int32 sequence_position = 6;
+}
+
+message InferenceMetrics {
+    int32 prompt_tokens = 1;
+    int32 completion_tokens = 2;
+    float tokens_per_second = 3;
+    float gpu_utilization = 4;
+    float memory_usage_mb = 5;
+    float queue_time_ms = 6;
+    float compute_time_ms = 7;
+}
+
+// === Model Management ===
+message ModelInfo {
+    string model_id = 1;
+    string name = 2;
+    string architecture = 3;
+    int64 parameter_count = 4;
+    string quantization = 5;
+    string status = 6;
+    float avg_latency_ms = 7;
+    int64 total_inferences = 8;
+    repeated string supported_tasks = 9;
+}
+
+message ListModelsRequest { string status_filter = 1; }
+message ListModelsResponse { repeated ModelInfo models = 1; }
+
+message LoadModelRequest { string model_id = 1; string device = 2; }
+message LoadModelResponse { string model_id = 1; string status = 2; float load_time_ms = 3; }
+
+message UnloadModelRequest { string model_id = 1; }
+message UnloadModelResponse { bool success = 1; }
+
+// === Health ===
+message HealthRequest {}
+message HealthResponse {
+    string status = 1;
+    int64 uptime_seconds = 2;
+    int32 active_models = 3;
+    int64 total_requests = 4;
+    float avg_latency_ms = 5;
+    repeated GpuStatus gpus = 6;
+}
+
+message GpuStatus {
+    int32 gpu_id = 1;
+    string name = 2;
+    float utilization_percent = 3;
+    float memory_used_mb = 4;
+    float memory_total_mb = 5;
+    float temperature_celsius = 6;
+}
+
+// === Batch Processing ===
+message BatchInferenceRequest { repeated InferenceRequest requests = 1; }
+message BatchInferenceResponse { repeated InferenceResponse responses = 1; float total_latency_ms = 2; }
+
+// === Service Definition ===
+service OmniInferenceService {
+    // Unary inference
+    rpc Infer(InferenceRequest) returns (InferenceResponse);
+    // Streaming token generation
+    rpc StreamInfer(InferenceRequest) returns (stream StreamToken);
+    // Bidirectional streaming
+    rpc BidirectionalInfer(stream InferenceRequest) returns (stream StreamToken);
+    // Batch inference
+    rpc BatchInfer(BatchInferenceRequest) returns (BatchInferenceResponse);
+    // Model management
+    rpc ListModels(ListModelsRequest) returns (ListModelsResponse);
+    rpc LoadModel(LoadModelRequest) returns (LoadModelResponse);
+    rpc UnloadModel(UnloadModelRequest) returns (UnloadModelResponse);
+    // Health check
+    rpc Health(HealthRequest) returns (HealthResponse);
+}

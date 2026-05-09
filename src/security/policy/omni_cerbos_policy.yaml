@@ -1,0 +1,47 @@
+---
+# Omni Cerbos Policy (YAML)
+# Security & Policy Layer
+# Granular authorization for model inference and administration tasks.
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: "omni_model"
+  rules:
+    - actions:
+        - "inference:execute"
+      effect: EFFECT_ALLOW
+      roles:
+        - "developer"
+        - "researcher"
+        - "admin"
+      condition:
+        match:
+          expr: request.resource.attr.status == "ACTIVE"
+
+    - actions:
+        - "model:deploy"
+        - "model:deprecate"
+      effect: EFFECT_ALLOW
+      roles:
+        - "admin"
+
+    - actions:
+        - "model:fine_tune"
+      effect: EFFECT_ALLOW
+      roles:
+        - "researcher"
+        - "admin"
+      condition:
+        match:
+          expr: request.resource.attr.security_tier <= request.principal.attr.clearance
+
+    # Deny inference if quota is exceeded
+    - actions:
+        - "inference:execute"
+      effect: EFFECT_DENY
+      roles:
+        - "*"
+      condition:
+        match:
+          expr: request.principal.attr.token_quota_remaining <= 0

@@ -2,7 +2,6 @@
 package network
 
 import (
-	"errors"
 	"net/http"
 )
 

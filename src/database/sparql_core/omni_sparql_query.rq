@@ -1,0 +1,6 @@
+# OMNI Database Layer: SPARQL Query
+PREFIX ex: <http://example.org/>
+SELECT ?subject ?object
+WHERE {
+  ?subject ex:relatesTo ?object .
+}

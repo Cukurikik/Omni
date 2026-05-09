@@ -1,9 +1,8 @@
 package concurrency
 
 import (
-	"time"
-	"errors"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -24,7 +23,7 @@ func (s *CosmicRayScrubber) ContinuousBackgroundScrubAsync(totalMemoryMb int) Om
 	defer s.mu.Unlock()
 
 	// Simulate low-priority Go routine constantly sweeping through spacecraft RAM.
-	// Reads and rewrites every byte to prevent Single Event Upsets (SEUs) from accumulating 
+	// Reads and rewrites every byte to prevent Single Event Upsets (SEUs) from accumulating
 	// into fatal Double-Bit errors. Runs infinitely in the background of the RTOS.
 	time.Sleep(2 * time.Millisecond)
 

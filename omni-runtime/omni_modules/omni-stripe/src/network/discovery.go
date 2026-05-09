@@ -1,4 +1,4 @@
-package omni_stripe
+package network
 
 import "sync"
 

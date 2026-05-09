@@ -1,9 +1,9 @@
 package llm_table_survey
 
 import (
+	"bytes"
 	"context"
 	"errors"
-	"bytes"
 )
 
 type SurveyResult struct {
@@ -24,10 +24,10 @@ func (r *SurveyRouter) ProcessTable(ctx context.Context, payload []byte) (*Surve
 	if len(payload) == 0 {
 		return nil, errors.New("empty table payload")
 	}
-	
+
 	// Direct byte-level counting fallback (C++ kernel binding point)
 	count := int32(bytes.Count(payload, []byte{r.Delimiter}))
-	
+
 	return &SurveyResult{
 		DelimiterCount: count,
 		Valid:          count > 0,

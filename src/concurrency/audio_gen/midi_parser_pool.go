@@ -1,9 +1,9 @@
 package audiogen
 
 import (
-	"time"
 	"errors"
 	"sync"
+	"time"
 )
 
 type MidiNote struct {
@@ -67,7 +67,7 @@ func (p *MidiParserPool) ParseBatch(midiBuffers [][]byte) OmniResult {
 					{Pitch: 67, Velocity: 90, StartMs: 1000, Duration: 1000},
 				},
 			}
-			
+
 			results[idx] = track
 
 		}(i, buffer)

@@ -36,34 +36,46 @@ func ErrDtlsResult(err string) DtlsResult {
 
 // Exactly simulates Pion DTLS state structural progression mapping algebraically tracking handshakes
 func EvaluateDtlsHandshakeFlight(currentState DtlsState, isServer bool, receivedMessage string) DtlsResult {
-    // Abstract boundary mathematically evaluating strictly RFC sequence boundaries without mocked randomness
-    
-    if isServer {
-        switch currentState {
-            case Flight0:
-                if receivedMessage == "ClientHello" { return OkDtlsResult(Flight2) } 
-            case Flight2:
-                // Server logically responds with HelloVerifyRequest (simulated abstraction implicitly advanced)
-                if receivedMessage == "ClientHello+Cookie" { return OkDtlsResult(Flight4) }
-            case Flight4:
-                // Server logically responded mathematically: ServerHello/Certificate
-                if receivedMessage == "ClientKeyExchange+Finished" { return OkDtlsResult(Flight6) } // Proceed geometrically to completion limits
-            default:
-                return ErrDtlsResult("DTLS semantic sequence invalidly mapped spatially.")
-        }
-    } else {
-        switch currentState {
-            case Flight1:
-                // Client structurally initiated explicitly
-                if receivedMessage == "HelloVerifyRequest" { return OkDtlsResult(Flight3) }
-            case Flight3:
-                if receivedMessage == "ServerHello+Finished" { return OkDtlsResult(Flight5) }
-            case Flight5:
-                if receivedMessage == "FinishedAck" { return OkDtlsResult(Finished) }
-            default:
-                return ErrDtlsResult("Client topological flight mapping explicitly failed geometric sequencing.")
-        }
-    }
-    
-    return ErrDtlsResult("Structural boundary mapping aborted natively.")
+	// Abstract boundary mathematically evaluating strictly RFC sequence boundaries without mocked randomness
+
+	if isServer {
+		switch currentState {
+		case Flight0:
+			if receivedMessage == "ClientHello" {
+				return OkDtlsResult(Flight2)
+			}
+		case Flight2:
+			// Server logically responds with HelloVerifyRequest (simulated abstraction implicitly advanced)
+			if receivedMessage == "ClientHello+Cookie" {
+				return OkDtlsResult(Flight4)
+			}
+		case Flight4:
+			// Server logically responded mathematically: ServerHello/Certificate
+			if receivedMessage == "ClientKeyExchange+Finished" {
+				return OkDtlsResult(Flight6)
+			} // Proceed geometrically to completion limits
+		default:
+			return ErrDtlsResult("DTLS semantic sequence invalidly mapped spatially.")
+		}
+	} else {
+		switch currentState {
+		case Flight1:
+			// Client structurally initiated explicitly
+			if receivedMessage == "HelloVerifyRequest" {
+				return OkDtlsResult(Flight3)
+			}
+		case Flight3:
+			if receivedMessage == "ServerHello+Finished" {
+				return OkDtlsResult(Flight5)
+			}
+		case Flight5:
+			if receivedMessage == "FinishedAck" {
+				return OkDtlsResult(Finished)
+			}
+		default:
+			return ErrDtlsResult("Client topological flight mapping explicitly failed geometric sequencing.")
+		}
+	}
+
+	return ErrDtlsResult("Structural boundary mapping aborted natively.")
 }

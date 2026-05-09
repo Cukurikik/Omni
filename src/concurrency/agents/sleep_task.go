@@ -1,8 +1,8 @@
 package agents
 
 import (
-	"time"
 	"context"
+	"time"
 )
 
 type SleepTask struct {

@@ -1,9 +1,9 @@
 package datascience
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI DATA SCIENCE: Apache Spark Job Controller Bridge
@@ -38,10 +38,10 @@ func (sc *SparkController) SubmitJob(ctx context.Context, jobName string, script
 	if scriptPath == "" {
 		return "", &SparkBridgeError{"Script path cannot be empty"}
 	}
-	
+
 	jobID := fmt.Sprintf("job-%d", time.Now().UnixNano())
 	fmt.Printf("[Spark Bridge] Submitting job %s (%s) to %s\n", jobName, jobID, sc.MasterURL)
-	
+
 	// In production, this would make an HTTP request to Apache Livy or spark-submit
 	// OMNI Native Integration
 	return jobID, nil
@@ -52,7 +52,7 @@ func (sc *SparkController) CheckStatus(ctx context.Context, jobID string) (Spark
 	if jobID == "" {
 		return StatusFailed, &SparkBridgeError{"Invalid Job ID"}
 	}
-	
+
 	// Simulated lookup
 	// Usually hits Livy API: GET /batches/{batchId}
 	return StatusCompleted, nil

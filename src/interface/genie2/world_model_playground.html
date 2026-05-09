@@ -1,0 +1,103 @@
+<!-- @omni-layer Interface | @omni-source lucidrains/genie2-pytorch | @omni-lang HTML
+     @omni-description World model playground: interactive environment simulator
+     with action controls, frame preview, and trajectory timeline. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMNI World Model Playground</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#0a0e17;color:#e2e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1f36,#0d1224);padding:18px 28px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:1.4rem;background:linear-gradient(135deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.status{padding:4px 12px;border-radius:12px;font-size:0.75rem;font-weight:600;background:#22d3ee20;color:#22d3ee;border:1px solid #22d3ee40}
+.main{display:grid;grid-template-columns:1fr 280px;gap:16px;padding:20px}
+.viewport{background:#1a1f36;border-radius:12px;padding:20px;min-height:400px;display:flex;flex-direction:column}
+.frame-display{flex:1;background:#0a0e17;border-radius:8px;display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:12px;align-content:start}
+.token-cell{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#ffffff80;transition:background 0.3s}
+.controls{display:flex;gap:8px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+.action-btn{padding:8px 18px;border-radius:8px;border:none;font-size:0.85rem;cursor:pointer;font-weight:600;transition:all 0.2s}
+.action-btn:hover{transform:scale(1.05)}
+.side-panel{display:flex;flex-direction:column;gap:12px}
+.panel-card{background:#1a1f36;border-radius:10px;padding:14px}
+.panel-card h4{color:#93c5fd;font-size:0.85rem;margin-bottom:8px}
+.timeline{display:flex;gap:4px;flex-wrap:wrap}
+.timeline-dot{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;cursor:pointer;transition:all 0.2s}
+.timeline-dot:hover{transform:scale(1.2)}
+.stat-row{display:flex;justify-content:space-between;font-size:0.8rem;padding:3px 0}
+.stat-val{color:#60a5fa;font-weight:600}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🌍 World Model Playground</h1>
+  <span class="status" id="statusBadge">ACTIVE</span>
+</div>
+<div class="main">
+  <div class="viewport">
+    <h3 style="color:#93c5fd;margin-bottom:12px">Frame View</h3>
+    <div class="frame-display" id="frameDisplay"></div>
+    <div class="controls" id="actionControls"></div>
+  </div>
+  <div class="side-panel">
+    <div class="panel-card">
+      <h4>Trajectory Timeline</h4>
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="panel-card">
+      <h4>Session Stats</h4>
+      <div id="sessionStats"></div>
+    </div>
+    <div class="panel-card">
+      <h4>Action History</h4>
+      <div id="actionHistory" style="max-height:200px;overflow-y:auto"></div>
+    </div>
+  </div>
+</div>
+<script>
+const CODEBOOK=512,N_TOKENS=64,N_ACTIONS=8;
+const actionLabels=["⬆️ Up","⬇️ Down","⬅️ Left","➡️ Right","🔄 Rotate","⚡ Jump","🎯 Interact","⏸️ Wait"];
+const actionColors=["#60a5fa","#a78bfa","#22d3ee","#f472b6","#f59e0b","#10b981","#ef4444","#64748b"];
+let tokens=Array.from({length:N_TOKENS},(_,i)=>(i*7+42)%CODEBOOK);
+let history=[{step:0,tokens:[...tokens],action:-1}];
+function tokenToColor(t){const h=(t/CODEBOOK)*360;return `hsl(${h},50%,${25+t%30}%)`}
+function renderFrame(){
+  const fd=document.getElementById("frameDisplay");
+  fd.innerHTML=tokens.map((t,i)=>`<div class="token-cell" style="background:${tokenToColor(t)}">${t%100}</div>`).join("");
+}
+function renderControls(){
+  document.getElementById("actionControls").innerHTML=actionLabels.map((l,i)=>
+    `<button class="action-btn" style="background:${actionColors[i]}30;color:${actionColors[i]};border:1px solid ${actionColors[i]}50" onclick="takeAction(${i})">${l}</button>`
+  ).join("");
+}
+function takeAction(a){
+  tokens=tokens.map(t=>{const off=(a*7+t)%CODEBOOK;const n=(t*3+5)%5;return(t+off+n)%CODEBOOK});
+  history.push({step:history.length,tokens:[...tokens],action:a});
+  renderFrame();renderTimeline();renderStats();renderActionHistory();
+}
+function renderTimeline(){
+  document.getElementById("timeline").innerHTML=history.map((h,i)=>
+    `<div class="timeline-dot" style="background:${i===history.length-1?'#60a5fa':'#1e293b'};color:${i===history.length-1?'white':'#64748b'}" title="Step ${i}">${i}</div>`
+  ).join("");
+}
+function renderStats(){
+  const unique=new Set(tokens).size;
+  document.getElementById("sessionStats").innerHTML=`
+    <div class="stat-row"><span>Step</span><span class="stat-val">${history.length-1}</span></div>
+    <div class="stat-row"><span>Unique Tokens</span><span class="stat-val">${unique}</span></div>
+    <div class="stat-row"><span>Token Diversity</span><span class="stat-val">${(unique/N_TOKENS*100).toFixed(1)}%</span></div>
+    <div class="stat-row"><span>Actions Used</span><span class="stat-val">${new Set(history.map(h=>h.action).filter(a=>a>=0)).size}</span></div>`;
+}
+function renderActionHistory(){
+  const last=history.slice(-10).reverse();
+  document.getElementById("actionHistory").innerHTML=last.map(h=>
+    h.action>=0?`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.8rem;border-bottom:1px solid #1e293b20">
+      <span style="color:#64748b">Step ${h.step}</span><span style="color:${actionColors[h.action]}">${actionLabels[h.action]}</span></div>`:''
+  ).join("");
+}
+renderFrame();renderControls();renderTimeline();renderStats();
+</script>
+</body>
+</html>

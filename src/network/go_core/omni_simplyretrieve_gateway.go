@@ -1,6 +1,6 @@
 // Omni SimplyRetrieve RAG Gateway (Go)
 // Ref: RCGAI/SimplyRetrieve — MIT
-package go_core
+package network_gocore
 
 import (
 	"math"
@@ -33,6 +33,9 @@ func RetrieveTopK(query string, docs []RetrievedDoc, k int) []RetrievedDoc {
 		docs[i].Score = score / math.Max(float64(len(qTokens)), 1)
 	}
 	sort.Slice(docs, func(i, j int) bool { return docs[i].Score > docs[j].Score })
-	if k > len(docs) { k = len(docs) }
+	if k > len(docs) {
+		k = len(docs)
+	}
 	return docs[:k]
 }
+

@@ -1,9 +1,9 @@
 package dlmusic
 
 import (
-	"time"
 	"errors"
 	"sync"
+	"time"
 )
 
 // OMNI CONCURRENCY LAYER: DL Music
@@ -54,9 +54,9 @@ func (p *AudioStreamPool) worker() {
 			p.results <- OmniResult{Err: errors.New("empty chunk payload")}
 			continue
 		}
-		
+
 		// Simulated FFI call to C++ FFT (real call would use cgo)
-		mfccMock := chunk.Payload[0] * 1.5 
+		mfccMock := chunk.Payload[0] * 1.5
 		p.results <- OmniResult{Ok: &AudioFeature{ID: chunk.ID, MFCC: mfccMock}}
 	}
 }

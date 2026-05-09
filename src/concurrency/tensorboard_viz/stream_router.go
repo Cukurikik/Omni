@@ -30,7 +30,7 @@ func NewStreamRouter() *StreamRouter {
 func (r *StreamRouter) Subscribe(tag string, bufferSize int) chan Event {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	
+
 	ch := make(chan Event, bufferSize)
 	r.subscribers[tag] = ch
 	return ch
@@ -50,6 +50,6 @@ func (r *StreamRouter) PublishEvent(event Event) OmniResult {
 			fmt.Printf("TB Router: Warning, dropped event for tag %s\n", event.Tag)
 		}
 	}
-	
+
 	return OmniResult{Value: true}
 }

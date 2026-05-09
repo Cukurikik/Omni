@@ -734,14 +734,14 @@ func (li *LinkedInAdapter) Publish(ctx context.Context, post *SocialPost) (*Publ
 	apiURL := "https://api.linkedin.com/v2/ugcPosts"
 
 	shareContent := map[string]interface{}{
-		"shareCommentary": map[string]string{"text": post.Content},
+		"shareCommentary":    map[string]string{"text": post.Content},
 		"shareMediaCategory": "NONE",
 	}
 	if post.Link != "" {
 		shareContent["shareMediaCategory"] = "ARTICLE"
 		shareContent["media"] = []map[string]interface{}{
 			{
-				"status": "READY",
+				"status":      "READY",
 				"originalUrl": post.Link,
 			},
 		}
@@ -1074,12 +1074,12 @@ type SocialMediaAutomationEngine struct {
 	analytics       map[string]*PostAnalytics
 
 	// Stats
-	totalPublished   int64
-	totalFailed      int64
-	totalScheduled   int64
-	totalDeleted     int64
+	totalPublished    int64
+	totalFailed       int64
+	totalScheduled    int64
+	totalDeleted      int64
 	totalMediaUploads int64
-	errors           []string
+	errors            []string
 }
 
 // NewSocialMediaAutomationEngine creates a new engine instance.
@@ -1313,10 +1313,10 @@ func (sme *SocialMediaAutomationEngine) Diagnostics() map[string]interface{} {
 	}
 
 	return map[string]interface{}{
-		"engine":     "SocialMediaAutomationEngine",
-		"version":    "1.0.0",
-		"status":     "operational",
-		"started_at": sme.startedAt.Format(time.RFC3339),
+		"engine":              "SocialMediaAutomationEngine",
+		"version":             "1.0.0",
+		"status":              "operational",
+		"started_at":          sme.startedAt.Format(time.RFC3339),
 		"connected_platforms": platforms,
 		"stats": map[string]interface{}{
 			"total_published":     sme.totalPublished,

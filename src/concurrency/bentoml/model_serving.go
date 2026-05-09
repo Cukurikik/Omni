@@ -1,8 +1,8 @@
 package bentoml
 
 import (
-	"errors"
 	"context"
+	"errors"
 	"sync"
 )
 
@@ -15,7 +15,7 @@ type ModelResponse struct {
 }
 
 type BentoServer struct {
-	mu sync.RWMutex
+	mu       sync.RWMutex
 	isActive bool
 }
 

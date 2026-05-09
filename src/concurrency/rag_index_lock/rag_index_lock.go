@@ -1,14 +1,10 @@
 package concurrency
 
-import (
-)
-
 // Result is the monadic result type for this engine.
 type Result struct {
 	Value interface{}
 	Error error
 }
-
 
 type RAGLockError struct {
 	Msg string
@@ -64,10 +60,10 @@ func (e *RagIndexLockEngine) ValidateReaderTopology(vectorDimension int, count i
 	if vectorDimension <= 0 {
 		return Result{nil, &RAGLockError{Msg: "Vector dimension singularity map zero"}}
 	}
-	
+
 	if count > 10000 {
-		 return Result{nil, &RAGLockError{Msg: "Node degree exceeds distributed limits structure"}}
+		return Result{nil, &RAGLockError{Msg: "Node degree exceeds distributed limits structure"}}
 	}
-	
+
 	return Result{true, nil}
 }

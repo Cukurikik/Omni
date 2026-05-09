@@ -26,7 +26,7 @@ func (r *llm_table_surveyRouter) Execute(ctx context.Context, data []byte) (*llm
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &llm_table_surveyResult{
 		Success: true,
 		Status:  "computed",

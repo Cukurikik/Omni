@@ -1,13 +1,13 @@
 package implicit
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI IMPLICIT: Click Stream
-// Go event streamer that captures user interactions (clicks, views) in real-time 
+// Go event streamer that captures user interactions (clicks, views) in real-time
 // and buffers them for batch matrix updates.
 // Source: benfred/implicit
 
@@ -54,7 +54,7 @@ func (c *ClickStream) StartWorker(ctx context.Context) {
 				return
 			case evt := <-c.streamChan:
 				// Simulate writing to PostgreSQL or TimescaleDB
-				fmt.Printf("[Data Ingestion] User: %s | Item: %s | Event: %s\n", 
+				fmt.Printf("[Data Ingestion] User: %s | Item: %s | Event: %s\n",
 					evt.UserID, evt.ItemID, evt.EventType)
 			}
 		}

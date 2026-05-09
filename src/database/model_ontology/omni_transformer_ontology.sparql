@@ -1,0 +1,81 @@
+# @omni-layer Database | @omni-lang SPARQL | @omni-batch 18 | @omni-semester 16
+# @omni-description SPARQL queries for transformer model ontology: RDF-based
+# model lineage, capability reasoning, and knowledge graph traversal.
+
+PREFIX omni: <http://omni.dev/transformer#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ml: <http://ml-ontology.org/model#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+# === Query 1: Find all models and their capabilities ===
+SELECT ?model ?type ?version ?params ?capability
+WHERE {
+  ?model rdf:type omni:TransformerModel ;
+         omni:modelType ?type ;
+         omni:version ?version ;
+         omni:paramsMillion ?params ;
+         omni:hasCapability ?capability .
+}
+ORDER BY DESC(?params)
+
+# === Query 2: Model lineage - find foundation and derivatives ===
+SELECT ?derived ?foundation ?method ?dataset
+WHERE {
+  ?derived omni:derivedFrom ?foundation ;
+           omni:trainingMethod ?method .
+  OPTIONAL { ?derived omni:trainedOn ?dataset }
+  ?foundation rdf:type omni:FoundationModel .
+}
+
+# === Query 3: Find models suitable for a task with constraints ===
+SELECT ?model ?type ?params ?latencyP95
+WHERE {
+  ?model rdf:type omni:TransformerModel ;
+         omni:modelType ?type ;
+         omni:paramsMillion ?params ;
+         omni:benchmarkResult ?bench .
+  ?bench omni:metric "latency_p95_ms" ;
+         omni:value ?latencyP95 .
+  FILTER(?type = "ner" && ?params <= 500 && ?latencyP95 <= 50)
+}
+ORDER BY ?latencyP95
+
+# === Query 4: Knowledge edit provenance ===
+SELECT ?edit ?subject ?relation ?oldObj ?newObj ?editor ?timestamp ?verified
+WHERE {
+  ?edit rdf:type omni:KnowledgeEdit ;
+        omni:subject ?subject ;
+        omni:relation ?relation ;
+        omni:oldObject ?oldObj ;
+        omni:newObject ?newObj ;
+        omni:editedBy ?editor ;
+        dct:created ?timestamp ;
+        omni:verified ?verified .
+}
+ORDER BY DESC(?timestamp)
+LIMIT 100
+
+# === Query 5: Attention pattern analysis metadata ===
+SELECT ?model ?layer ?headIdx ?entropyMean ?isUniform
+WHERE {
+  ?model omni:attentionAnalysis ?analysis .
+  ?analysis omni:layer ?layer ;
+            omni:headIndex ?headIdx ;
+            omni:entropyMean ?entropyMean ;
+            omni:isUniform ?isUniform .
+  FILTER(?entropyMean > 3.0)
+}
+
+# === Query 6: Cross-model performance comparison ===
+SELECT ?model ?metric ?value ?dataset
+WHERE {
+  ?model rdf:type omni:TransformerModel ;
+         omni:performanceMetric ?perfNode .
+  ?perfNode omni:metricName ?metric ;
+            omni:metricValue ?value ;
+            omni:evaluationDataset ?dataset .
+  FILTER(?metric IN ("mae", "rmse", "f1", "accuracy"))
+}
+ORDER BY ?metric DESC(?value)

@@ -34,17 +34,17 @@ import (
 type AIPatternCategory string
 
 const (
-	PatternAgenticWorkflow  AIPatternCategory = "agentic_workflow"
+	PatternAgenticWorkflow   AIPatternCategory = "agentic_workflow"
 	PatternPromptEngineering AIPatternCategory = "prompt_engineering"
-	PatternCodeReview       AIPatternCategory = "code_review"
-	PatternTestGeneration   AIPatternCategory = "test_generation"
-	PatternDocGeneration    AIPatternCategory = "doc_generation"
-	PatternRefactoring      AIPatternCategory = "refactoring"
-	PatternSecurityAudit    AIPatternCategory = "security_audit"
-	PatternArchDesign       AIPatternCategory = "architecture_design"
-	PatternDeployment       AIPatternCategory = "deployment"
-	PatternObservability    AIPatternCategory = "observability"
-	PatternIncidentResponse AIPatternCategory = "incident_response"
+	PatternCodeReview        AIPatternCategory = "code_review"
+	PatternTestGeneration    AIPatternCategory = "test_generation"
+	PatternDocGeneration     AIPatternCategory = "doc_generation"
+	PatternRefactoring       AIPatternCategory = "refactoring"
+	PatternSecurityAudit     AIPatternCategory = "security_audit"
+	PatternArchDesign        AIPatternCategory = "architecture_design"
+	PatternDeployment        AIPatternCategory = "deployment"
+	PatternObservability     AIPatternCategory = "observability"
+	PatternIncidentResponse  AIPatternCategory = "incident_response"
 )
 
 // AIModelProvider represents an AI model provider.
@@ -62,14 +62,14 @@ const (
 type PipelineStage string
 
 const (
-	StageAnalyze     PipelineStage = "analyze"
-	StagePlan        PipelineStage = "plan"
-	StageGenerate    PipelineStage = "generate"
-	StageReview      PipelineStage = "review"
-	StageTest        PipelineStage = "test"
-	StageRefine      PipelineStage = "refine"
-	StageDeploy      PipelineStage = "deploy"
-	StageMonitor     PipelineStage = "monitor"
+	StageAnalyze  PipelineStage = "analyze"
+	StagePlan     PipelineStage = "plan"
+	StageGenerate PipelineStage = "generate"
+	StageReview   PipelineStage = "review"
+	StageTest     PipelineStage = "test"
+	StageRefine   PipelineStage = "refine"
+	StageDeploy   PipelineStage = "deploy"
+	StageMonitor  PipelineStage = "monitor"
 )
 
 // QualityGate represents a quality checkpoint in the pipeline.
@@ -107,14 +107,14 @@ type AIPattern struct {
 
 // PromptTemplate is a structured prompt with variables.
 type PromptTemplate struct {
-	ID           string            `json:"id"`
-	Name         string            `json:"name"`
-	Category     AIPatternCategory `json:"category"`
-	Template     string            `json:"template"`
-	SystemPrompt string            `json:"system_prompt"`
+	ID           string             `json:"id"`
+	Name         string             `json:"name"`
+	Category     AIPatternCategory  `json:"category"`
+	Template     string             `json:"template"`
+	SystemPrompt string             `json:"system_prompt"`
 	Variables    []TemplateVariable `json:"variables"`
-	Examples     []PromptExample   `json:"examples"`
-	Version      string            `json:"version"`
+	Examples     []PromptExample    `json:"examples"`
+	Version      string             `json:"version"`
 }
 
 // TemplateVariable defines a substitutable variable in a prompt.
@@ -152,71 +152,71 @@ type Guardrail struct {
 
 // CodeReviewRequest represents a request for AI code review.
 type CodeReviewRequest struct {
-	FilePath    string   `json:"file_path"`
-	Content     string   `json:"content"`
-	Language    string   `json:"language"`
-	Context     string   `json:"context"`
-	FocusAreas  []string `json:"focus_areas"` // security, performance, readability, correctness
-	DiffOnly    bool     `json:"diff_only"`
-	Diff        string   `json:"diff,omitempty"`
+	FilePath   string   `json:"file_path"`
+	Content    string   `json:"content"`
+	Language   string   `json:"language"`
+	Context    string   `json:"context"`
+	FocusAreas []string `json:"focus_areas"` // security, performance, readability, correctness
+	DiffOnly   bool     `json:"diff_only"`
+	Diff       string   `json:"diff,omitempty"`
 }
 
 // CodeReviewResult holds the AI-generated review.
 type CodeReviewResult struct {
-	FilePath     string           `json:"file_path"`
-	OverallScore int              `json:"overall_score"` // 0-100
-	Findings     []ReviewFinding  `json:"findings"`
-	Suggestions  []string         `json:"suggestions"`
-	Summary      string           `json:"summary"`
-	ReviewedAt   time.Time        `json:"reviewed_at"`
-	ModelUsed    AIModelProvider  `json:"model_used"`
-	TokensUsed   int              `json:"tokens_used"`
+	FilePath     string          `json:"file_path"`
+	OverallScore int             `json:"overall_score"` // 0-100
+	Findings     []ReviewFinding `json:"findings"`
+	Suggestions  []string        `json:"suggestions"`
+	Summary      string          `json:"summary"`
+	ReviewedAt   time.Time       `json:"reviewed_at"`
+	ModelUsed    AIModelProvider `json:"model_used"`
+	TokensUsed   int             `json:"tokens_used"`
 }
 
 // ReviewFinding represents a single code review issue.
 type ReviewFinding struct {
-	Line       int    `json:"line"`
-	EndLine    int    `json:"end_line,omitempty"`
-	Severity   string `json:"severity"` // critical, major, minor, info
-	Category   string `json:"category"` // security, performance, bug, style, complexity
-	Message    string `json:"message"`
-	Suggestion string `json:"suggestion"`
+	Line       int     `json:"line"`
+	EndLine    int     `json:"end_line,omitempty"`
+	Severity   string  `json:"severity"` // critical, major, minor, info
+	Category   string  `json:"category"` // security, performance, bug, style, complexity
+	Message    string  `json:"message"`
+	Suggestion string  `json:"suggestion"`
 	Confidence float64 `json:"confidence"` // 0.0-1.0
 }
 
 // TestGenerationRequest represents a request for AI test generation.
 type TestGenerationRequest struct {
-	FilePath    string `json:"file_path"`
-	Content     string `json:"content"`
-	Language    string `json:"language"`
-	Framework   string `json:"test_framework"` // jest, pytest, go test, junit
-	Coverage    string `json:"coverage_target"` // unit, integration, e2e
-	Style       string `json:"style"`           // bdd, tdd, table-driven
+	FilePath  string `json:"file_path"`
+	Content   string `json:"content"`
+	Language  string `json:"language"`
+	Framework string `json:"test_framework"`  // jest, pytest, go test, junit
+	Coverage  string `json:"coverage_target"` // unit, integration, e2e
+	Style     string `json:"style"`           // bdd, tdd, table-driven
 }
 
 // TestGenerationResult contains generated test code.
 type TestGenerationResult struct {
-	TestCode     string   `json:"test_code"`
-	TestFilePath string   `json:"test_file_path"`
-	TestCount    int      `json:"test_count"`
-	Coverage     float64  `json:"estimated_coverage"`
-	Dependencies []string `json:"dependencies"`
+	TestCode     string    `json:"test_code"`
+	TestFilePath string    `json:"test_file_path"`
+	TestCount    int       `json:"test_count"`
+	Coverage     float64   `json:"estimated_coverage"`
+	Dependencies []string  `json:"dependencies"`
 	GeneratedAt  time.Time `json:"generated_at"`
 }
 
 // PipelineRun tracks execution of an AI development pipeline.
 type PipelineRun struct {
-	RunID       string                    `json:"run_id"`
-	Pipeline    string                    `json:"pipeline"`
-	Stages      []PipelineStageResult     `json:"stages"`
-	Status      string                    `json:"status"` // running, completed, failed
-	StartedAt   time.Time                 `json:"started_at"`
-	CompletedAt *time.Time                `json:"completed_at,omitempty"`
-	Duration    time.Duration             `json:"duration"`
-	TotalTokens int                       `json:"total_tokens"`
-	QualityGate QualityGateStatus         `json:"quality_gate"`
-	Artifacts   map[string]string         `json:"artifacts"`
-	Metadata    map[string]string         `json:"metadata"`
+	RunID       string                `json:"run_id"`
+	Pipeline    string                `json:"pipeline"`
+	Stages      []PipelineStageResult `json:"stages"`
+	Status      string                `json:"status"` // running, completed, failed
+	StartedAt   time.Time             `json:"started_at"`
+	CompletedAt *time.Time            `json:"completed_at,omitempty"`
+	Duration    time.Duration         `json:"duration"`
+	TotalTokens int                   `json:"total_tokens"`
+	QualityGate QualityGateStatus     `json:"quality_gate"`
+	Artifacts   map[string]string     `json:"artifacts"`
+	Metadata    map[string]string     `json:"metadata"`
 }
 
 // PipelineStageResult captures the result of one stage.
@@ -233,38 +233,38 @@ type PipelineStageResult struct {
 
 // AgenticLoop represents an iterative AI agent execution cycle.
 type AgenticLoop struct {
-	LoopID       string            `json:"loop_id"`
-	Objective    string            `json:"objective"`
-	MaxIter      int               `json:"max_iterations"`
-	CurrentIter  int               `json:"current_iteration"`
-	Status       string            `json:"status"`
-	Iterations   []LoopIteration   `json:"iterations"`
-	FinalResult  string            `json:"final_result,omitempty"`
-	Converged    bool              `json:"converged"`
-	StartedAt    time.Time         `json:"started_at"`
-	CompletedAt  *time.Time        `json:"completed_at,omitempty"`
+	LoopID      string          `json:"loop_id"`
+	Objective   string          `json:"objective"`
+	MaxIter     int             `json:"max_iterations"`
+	CurrentIter int             `json:"current_iteration"`
+	Status      string          `json:"status"`
+	Iterations  []LoopIteration `json:"iterations"`
+	FinalResult string          `json:"final_result,omitempty"`
+	Converged   bool            `json:"converged"`
+	StartedAt   time.Time       `json:"started_at"`
+	CompletedAt *time.Time      `json:"completed_at,omitempty"`
 }
 
 // LoopIteration captures a single agentic iteration.
 type LoopIteration struct {
-	Index     int               `json:"index"`
-	Action    string            `json:"action"`
-	Reasoning string            `json:"reasoning"`
-	Result    string            `json:"result"`
-	Score     float64           `json:"score"` // quality score 0.0-1.0
-	Feedback  string            `json:"feedback,omitempty"`
-	Duration  time.Duration     `json:"duration"`
+	Index     int           `json:"index"`
+	Action    string        `json:"action"`
+	Reasoning string        `json:"reasoning"`
+	Result    string        `json:"result"`
+	Score     float64       `json:"score"` // quality score 0.0-1.0
+	Feedback  string        `json:"feedback,omitempty"`
+	Duration  time.Duration `json:"duration"`
 }
 
 // SecurityScanResult holds AI-powered security analysis results.
 type SecurityScanResult struct {
-	FilePath        string             `json:"file_path"`
-	Language        string             `json:"language"`
+	FilePath        string                 `json:"file_path"`
+	Language        string                 `json:"language"`
 	Vulnerabilities []VulnerabilityFinding `json:"vulnerabilities"`
-	RiskScore       int                `json:"risk_score"` // 0-100
-	Compliant       bool               `json:"compliant"`
-	Standards       []string           `json:"standards_checked"` // OWASP, CWE, etc.
-	ScannedAt       time.Time          `json:"scanned_at"`
+	RiskScore       int                    `json:"risk_score"` // 0-100
+	Compliant       bool                   `json:"compliant"`
+	Standards       []string               `json:"standards_checked"` // OWASP, CWE, etc.
+	ScannedAt       time.Time              `json:"scanned_at"`
 }
 
 // VulnerabilityFinding represents a detected security vulnerability.
@@ -303,9 +303,9 @@ func NewPatternRegistry() *PatternRegistry {
 func (pr *PatternRegistry) loadBuiltinPatterns() {
 	// Code Review Pattern
 	pr.RegisterPattern(&AIPattern{
-		ID:       "code-review-v1",
-		Name:     "Comprehensive Code Review",
-		Category: PatternCodeReview,
+		ID:          "code-review-v1",
+		Name:        "Comprehensive Code Review",
+		Category:    PatternCodeReview,
 		Description: "AI-powered code review focusing on security, performance, correctness, and maintainability",
 		SystemPrompt: `You are an expert code reviewer. Analyze the provided code with focus on:
 1. Security vulnerabilities (injection, auth, data exposure)
@@ -315,10 +315,10 @@ func (pr *PatternRegistry) loadBuiltinPatterns() {
 5. Best practices for the specific language/framework
 
 Provide specific line-level findings with severity and actionable suggestions.`,
-		PromptTemplate: "Review the following {{language}} code from file {{file_path}}:\n\n```{{language}}\n{{content}}\n```\n\nFocus areas: {{focus_areas}}",
+		PromptTemplate:  "Review the following {{language}} code from file {{file_path}}:\n\n```{{language}}\n{{content}}\n```\n\nFocus areas: {{focus_areas}}",
 		ModelPreference: ProviderGemini,
-		Temperature:    0.2,
-		MaxTokens:      4096,
+		Temperature:     0.2,
+		MaxTokens:       4096,
 		QualityChecks: []QualityCheck{
 			{Name: "has_findings", Type: "structural", Rule: "findings.length > 0", Severity: "warning"},
 			{Name: "has_summary", Type: "structural", Rule: "summary.length > 50", Severity: "error"},
@@ -333,9 +333,9 @@ Provide specific line-level findings with severity and actionable suggestions.`,
 
 	// Test Generation Pattern
 	pr.RegisterPattern(&AIPattern{
-		ID:       "test-gen-v1",
-		Name:     "Intelligent Test Generation",
-		Category: PatternTestGeneration,
+		ID:          "test-gen-v1",
+		Name:        "Intelligent Test Generation",
+		Category:    PatternTestGeneration,
 		Description: "Generate comprehensive test suites with edge cases and boundary conditions",
 		SystemPrompt: `You are an expert test engineer. Generate thorough test suites that:
 1. Cover all public functions/methods
@@ -344,19 +344,19 @@ Provide specific line-level findings with severity and actionable suggestions.`,
 4. Use table-driven tests where appropriate
 5. Follow the specified testing framework conventions
 6. Aim for high code coverage without trivial tests`,
-		PromptTemplate: "Generate {{coverage}} tests for the following {{language}} code using {{framework}}:\n\n```{{language}}\n{{content}}\n```\n\nTest style: {{style}}",
+		PromptTemplate:  "Generate {{coverage}} tests for the following {{language}} code using {{framework}}:\n\n```{{language}}\n{{content}}\n```\n\nTest style: {{style}}",
 		ModelPreference: ProviderGemini,
-		Temperature:    0.3,
-		MaxTokens:      8192,
-		Version:        "1.0.0",
-		Tags:           []string{"testing", "quality", "automation"},
+		Temperature:     0.3,
+		MaxTokens:       8192,
+		Version:         "1.0.0",
+		Tags:            []string{"testing", "quality", "automation"},
 	})
 
 	// Security Audit Pattern
 	pr.RegisterPattern(&AIPattern{
-		ID:       "security-audit-v1",
-		Name:     "AI Security Audit",
-		Category: PatternSecurityAudit,
+		ID:          "security-audit-v1",
+		Name:        "AI Security Audit",
+		Category:    PatternSecurityAudit,
 		Description: "Deep security analysis with CWE/OWASP classification",
 		SystemPrompt: `You are a senior application security engineer. Analyze code for:
 1. OWASP Top 10 vulnerabilities
@@ -368,19 +368,19 @@ Provide specific line-level findings with severity and actionable suggestions.`,
 7. Dependency vulnerabilities
 
 Provide CWE IDs and remediation for each finding.`,
-		PromptTemplate: "Perform a security audit on the following {{language}} code:\n\n```{{language}}\n{{content}}\n```",
+		PromptTemplate:  "Perform a security audit on the following {{language}} code:\n\n```{{language}}\n{{content}}\n```",
 		ModelPreference: ProviderGemini,
-		Temperature:    0.1,
-		MaxTokens:      4096,
-		Version:        "1.0.0",
-		Tags:           []string{"security", "audit", "compliance"},
+		Temperature:     0.1,
+		MaxTokens:       4096,
+		Version:         "1.0.0",
+		Tags:            []string{"security", "audit", "compliance"},
 	})
 
 	// Documentation Generation Pattern
 	pr.RegisterPattern(&AIPattern{
-		ID:       "doc-gen-v1",
-		Name:     "API Documentation Generator",
-		Category: PatternDocGeneration,
+		ID:          "doc-gen-v1",
+		Name:        "API Documentation Generator",
+		Category:    PatternDocGeneration,
 		Description: "Generate comprehensive API documentation with examples",
 		SystemPrompt: `You are a technical writer specializing in API documentation. Generate:
 1. Function/method descriptions
@@ -389,19 +389,19 @@ Provide CWE IDs and remediation for each finding.`,
 4. Usage examples with common patterns
 5. Error scenarios and handling
 6. Related function references`,
-		PromptTemplate: "Generate documentation for the following {{language}} code:\n\n```{{language}}\n{{content}}\n```",
+		PromptTemplate:  "Generate documentation for the following {{language}} code:\n\n```{{language}}\n{{content}}\n```",
 		ModelPreference: ProviderGemini,
-		Temperature:    0.3,
-		MaxTokens:      4096,
-		Version:        "1.0.0",
-		Tags:           []string{"documentation", "api", "developer-experience"},
+		Temperature:     0.3,
+		MaxTokens:       4096,
+		Version:         "1.0.0",
+		Tags:            []string{"documentation", "api", "developer-experience"},
 	})
 
 	// Refactoring Pattern
 	pr.RegisterPattern(&AIPattern{
-		ID:       "refactor-v1",
-		Name:     "Intelligent Refactoring",
-		Category: PatternRefactoring,
+		ID:          "refactor-v1",
+		Name:        "Intelligent Refactoring",
+		Category:    PatternRefactoring,
 		Description: "AI-suggested code refactoring with safety guarantees",
 		SystemPrompt: `You are an expert software architect. Suggest refactoring improvements:
 1. Extract complex methods into smaller functions
@@ -412,19 +412,19 @@ Provide CWE IDs and remediation for each finding.`,
 6. Ensure backwards compatibility
 
 Provide before/after code comparisons with rationale.`,
-		PromptTemplate: "Suggest refactoring for the following {{language}} code:\n\n```{{language}}\n{{content}}\n```\n\nContext: {{context}}",
+		PromptTemplate:  "Suggest refactoring for the following {{language}} code:\n\n```{{language}}\n{{content}}\n```\n\nContext: {{context}}",
 		ModelPreference: ProviderGemini,
-		Temperature:    0.3,
-		MaxTokens:      8192,
-		Version:        "1.0.0",
-		Tags:           []string{"refactoring", "quality", "maintainability"},
+		Temperature:     0.3,
+		MaxTokens:       8192,
+		Version:         "1.0.0",
+		Tags:            []string{"refactoring", "quality", "maintainability"},
 	})
 
 	// Architecture Design Pattern
 	pr.RegisterPattern(&AIPattern{
-		ID:       "arch-design-v1",
-		Name:     "Architecture Design Advisor",
-		Category: PatternArchDesign,
+		ID:          "arch-design-v1",
+		Name:        "Architecture Design Advisor",
+		Category:    PatternArchDesign,
 		Description: "AI-guided system architecture design and review",
 		SystemPrompt: `You are a principal software architect. Analyze and advise on:
 1. System component decomposition
@@ -436,12 +436,12 @@ Provide before/after code comparisons with rationale.`,
 7. Technology stack recommendations
 
 Provide architecture diagrams in Mermaid format when helpful.`,
-		PromptTemplate: "Design/review the architecture for: {{objective}}\n\nConstraints: {{constraints}}\nExisting code context:\n```\n{{content}}\n```",
+		PromptTemplate:  "Design/review the architecture for: {{objective}}\n\nConstraints: {{constraints}}\nExisting code context:\n```\n{{content}}\n```",
 		ModelPreference: ProviderGemini,
-		Temperature:    0.4,
-		MaxTokens:      8192,
-		Version:        "1.0.0",
-		Tags:           []string{"architecture", "design", "enterprise"},
+		Temperature:     0.4,
+		MaxTokens:       8192,
+		Version:         "1.0.0",
+		Tags:            []string{"architecture", "design", "enterprise"},
 	})
 
 	// Prompt templates
@@ -869,19 +869,19 @@ func generateRunID(pipeline string) string {
 
 // ArtifactStore manages AI-generated artifacts on disk.
 type ArtifactStore struct {
-	mu       sync.Mutex
-	baseDir  string
-	catalog  map[string]ArtifactEntry
+	mu      sync.Mutex
+	baseDir string
+	catalog map[string]ArtifactEntry
 }
 
 // ArtifactEntry tracks a stored artifact.
 type ArtifactEntry struct {
-	ID        string    `json:"id"`
-	Type      string    `json:"type"` // code, test, doc, review, config
-	Path      string    `json:"path"`
-	Checksum  string    `json:"checksum"`
-	CreatedAt time.Time `json:"created_at"`
-	PipelineID string   `json:"pipeline_id,omitempty"`
+	ID         string    `json:"id"`
+	Type       string    `json:"type"` // code, test, doc, review, config
+	Path       string    `json:"path"`
+	Checksum   string    `json:"checksum"`
+	CreatedAt  time.Time `json:"created_at"`
+	PipelineID string    `json:"pipeline_id,omitempty"`
 }
 
 func NewArtifactStore(baseDir string) *ArtifactStore {
@@ -962,15 +962,15 @@ type AIDevPatternsEngine struct {
 	startedAt    time.Time
 
 	// Stats
-	totalReviews     int64
-	totalTestGens    int64
-	totalSecScans    int64
-	totalDocGens     int64
-	totalRefactors   int64
-	totalPrompts     int64
-	totalPipelines   int64
-	totalViolations  int64
-	errors           []string
+	totalReviews    int64
+	totalTestGens   int64
+	totalSecScans   int64
+	totalDocGens    int64
+	totalRefactors  int64
+	totalPrompts    int64
+	totalPipelines  int64
+	totalViolations int64
+	errors          []string
 }
 
 // NewAIDevPatternsEngine creates a new engine instance.
@@ -1006,8 +1006,8 @@ func (engine *AIDevPatternsEngine) ReviewCode(ctx context.Context, req *CodeRevi
 	// Prepare prompt
 	vars := map[string]string{
 		"language":    req.Language,
-		"file_path":  req.FilePath,
-		"content":    req.Content,
+		"file_path":   req.FilePath,
+		"content":     req.Content,
 		"focus_areas": strings.Join(req.FocusAreas, ", "),
 	}
 
@@ -1058,9 +1058,9 @@ func (engine *AIDevPatternsEngine) GenerateTests(ctx context.Context, req *TestG
 	vars := map[string]string{
 		"language":  req.Language,
 		"framework": req.Framework,
-		"content":  req.Content,
-		"coverage": req.Coverage,
-		"style":    req.Style,
+		"content":   req.Content,
+		"coverage":  req.Coverage,
+		"style":     req.Style,
 	}
 
 	_, _, err := engine.promptEngine.RenderPattern("test-gen-v1", vars)

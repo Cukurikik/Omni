@@ -1,0 +1,124 @@
+# OMNI Infrastructure — Helm Chart values for K8s inference deployment
+# Production Helm values for OMNI inference cluster.
+
+replicaCount: 3
+
+image:
+  repository: omni/inference-server
+  tag: "2.0.0"
+  pullPolicy: IfNotPresent
+
+nameOverride: "omni-inference"
+fullnameOverride: "omni-inference"
+
+service:
+  type: ClusterIP
+  httpPort: 8080
+  grpcPort: 50051
+  metricsPort: 9090
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: inference.omni.dev
+      paths:
+        - path: /api
+          pathType: Prefix
+  tls:
+    - secretName: omni-inference-tls
+      hosts:
+        - inference.omni.dev
+
+resources:
+  requests:
+    cpu: "4"
+    memory: "16Gi"
+    nvidia.com/gpu: "1"
+  limits:
+    cpu: "8"
+    memory: "32Gi"
+    nvidia.com/gpu: "1"
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+  customMetrics:
+    - type: Pods
+      pods:
+        metric:
+          name: gpu_utilization
+        target:
+          type: AverageValue
+          averageValue: "80"
+
+env:
+  - name: MODEL_ID
+    value: "omni-7b"
+  - name: MAX_BATCH_SIZE
+    value: "32"
+  - name: NUM_WORKERS
+    value: "4"
+  - name: LOG_LEVEL
+    value: "info"
+  - name: REDIS_URL
+    valueFrom:
+      secretKeyRef:
+        name: omni-secrets
+        key: redis-url
+
+volumes:
+  - name: model-weights
+    persistentVolumeClaim:
+      claimName: omni-model-weights
+      readOnly: true
+  - name: cache
+    emptyDir:
+      sizeLimit: 10Gi
+
+volumeMounts:
+  - name: model-weights
+    mountPath: /models
+    readOnly: true
+  - name: cache
+    mountPath: /cache
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 60
+  periodSeconds: 15
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 5
+
+tolerations:
+  - key: "nvidia.com/gpu"
+    operator: "Exists"
+    effect: "NoSchedule"
+
+nodeSelector:
+  accelerator: nvidia-gpu
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  scrapeTimeout: 10s

@@ -26,7 +26,7 @@ func (r *speech_llmRouter) Execute(ctx context.Context, data []byte) (*speech_ll
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &speech_llmResult{
 		Success: true,
 		Status:  "computed",

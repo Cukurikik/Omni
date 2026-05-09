@@ -6,7 +6,7 @@ import (
 )
 
 type FloraResult struct {
-	Norm float64
+	Norm     float64
 	IsStable bool
 }
 
@@ -19,9 +19,9 @@ func (r *FloraRouter) ProcessNorm(ctx context.Context, norm float64) (*FloraResu
 	if norm < 0 {
 		return nil, errors.New("negative norm detected")
 	}
-	
+
 	return &FloraResult{
-		Norm: norm,
+		Norm:     norm,
 		IsStable: norm <= r.MaxNorm,
 	}, nil
 }

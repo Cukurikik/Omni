@@ -1,0 +1,44 @@
+// OMNI Data & Network Layer
+// FlatBuffers Zero-Copy Schema
+// Based on google/flatbuffers.
+// Used for ultra-low latency, zero-copy messaging between Omni nodes and edge devices.
+
+namespace Omni.Protocol;
+
+/// Defines a high-performance tensor metadata payload that can be read 
+/// instantly in C++, Rust, Go, or Python without deserialization overhead.
+table OmniTensorMetadata {
+    tensor_id: string;
+    dtype: byte;           // 0: FP32, 1: FP16, 2: INT8
+    dimensions: [uint32];  // Tensor shape
+    byte_size: uint64;     // Total size in bytes
+    checksum: uint32;      // Integrity hash
+}
+
+table OmniInferenceRequest {
+    request_id: string;
+    model_identifier: string;
+    target_node: string;
+    input_metadata: OmniTensorMetadata;
+    timeout_ms: uint32 = 5000;
+}
+
+table OmniInferenceResponse {
+    request_id: string;
+    status_code: int32; // 0 = OK, non-zero = Omni Error Code
+    output_metadata: OmniTensorMetadata;
+    execution_time_us: uint64;
+}
+
+/// The root packet encompassing all network events.
+union Payload {
+    OmniInferenceRequest,
+    OmniInferenceResponse
+}
+
+table OmniPacket {
+    timestamp: uint64;
+    payload: Payload;
+}
+
+root_type OmniPacket;

@@ -26,7 +26,7 @@ func (r *m3exam_benchmarkRouter) Execute(ctx context.Context, data []byte) (*m3e
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &m3exam_benchmarkResult{
 		Success: true,
 		Status:  "computed",

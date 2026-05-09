@@ -1,7 +1,7 @@
 package milvusdb
 
 import (
-	"github.com/omni/core/result"
+	"omni-engines/core/result"
 )
 
 type CollectionManager struct {

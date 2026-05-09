@@ -19,13 +19,13 @@ func (r *APIRouter) RouteRequest(ctx context.Context, requested, remaining float
 	if requested < 0 {
 		return nil, errors.New("cannot request negative tokens")
 	}
-	
+
 	allowed := remaining >= requested
 	newRemaining := remaining
 	if allowed {
 		newRemaining -= requested
 	}
-	
+
 	return &RateResult{
 		Allowed:   allowed,
 		Remaining: newRemaining,

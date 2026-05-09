@@ -1,4 +1,4 @@
-package omni_milvus
+package network
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package omni_velocity_js
+package network
 
 import "fmt"
 

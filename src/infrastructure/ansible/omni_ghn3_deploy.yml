@@ -1,0 +1,30 @@
+---
+# OMNI Ansible Playbook - GHN3 Hypernetwork Deployment
+- name: Deploy GHN3 Hypernetwork Nodes
+  hosts: gpu_cluster
+  become: yes
+  vars:
+    omni_model_dir: "/opt/omni/models/ghn3"
+    
+  tasks:
+    - name: Ensure target directory exists
+      file:
+        path: "{{ omni_model_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Pull GHN3 Docker Image
+      docker_image:
+        name: omni-registry/ghn3-compute:latest
+        source: pull
+
+    - name: Start GHN3 Inference Daemon
+      docker_container:
+        name: omni_ghn3_daemon
+        image: omni-registry/ghn3-compute:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "8089:8089"
+        device_requests:
+          - capabilities: [gpu]

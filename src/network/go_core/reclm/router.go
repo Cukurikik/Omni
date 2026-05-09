@@ -20,10 +20,10 @@ func (r *RecRouter) EvaluateScore(ctx context.Context, posScore, negScore float6
 	if math.IsNaN(posScore) || math.IsNaN(negScore) {
 		return nil, errors.New("invalid NaN scores provided")
 	}
-	
+
 	diff := posScore - negScore
 	sigmoid := 1.0 / (1.0 + math.Exp(-diff))
-	
+
 	return &RecResult{
 		Score: sigmoid,
 		Valid: sigmoid >= r.Threshold,

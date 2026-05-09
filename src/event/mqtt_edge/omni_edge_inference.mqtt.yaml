@@ -1,0 +1,91 @@
+// @omni-layer Event | @omni-lang MQTT Config | @omni-batch 18 | @omni-semester 16
+// @omni-description MQTT topics and rules for edge transformer inference:
+// device model sync, inference events, and telemetry for IoT deployment.
+schema: mqtt-edge-inference/v1
+broker:
+  host: mqtt.omni.internal
+  port: 8883
+  protocol: mqtts
+  tls:
+    ca_cert: /etc/omni/certs/ca.pem
+    client_cert: /etc/omni/certs/client.pem
+    client_key: /etc/omni/certs/client-key.pem
+
+topics:
+  model_sync:
+    pattern: "omni/edge/{device_id}/model/sync"
+    qos: 2
+    retain: true
+    description: "Triggers model weight sync to edge device"
+    payload:
+      model_id: string
+      version: string
+      model_url: string
+      checksum_sha256: string
+      quantization: string  # Q4_K_M, Q8_0, F16
+
+  inference_request:
+    pattern: "omni/edge/{device_id}/inference/request"
+    qos: 1
+    retain: false
+    payload:
+      request_id: string
+      model_id: string
+      input_tokens: int[]
+      max_tokens: int
+      temperature: float
+
+  inference_response:
+    pattern: "omni/edge/{device_id}/inference/response"
+    qos: 1
+    retain: false
+    payload:
+      request_id: string
+      output_tokens: int[]
+      confidence: float
+      latency_ms: float
+      device_gpu_temp: float
+
+  telemetry:
+    pattern: "omni/edge/{device_id}/telemetry"
+    qos: 0
+    retain: false
+    interval_seconds: 30
+    payload:
+      device_id: string
+      cpu_percent: float
+      memory_percent: float
+      gpu_util_percent: float
+      gpu_temp_celsius: float
+      model_loaded: string
+      inference_count: int
+      uptime_seconds: int
+
+  health:
+    pattern: "omni/edge/{device_id}/health"
+    qos: 1
+    retain: true
+    payload:
+      status: string  # healthy, degraded, offline
+      last_inference_at: string
+      models_loaded: string[]
+      firmware_version: string
+
+rules:
+  - name: auto_scale_model
+    trigger: "omni/edge/+/telemetry"
+    condition: "payload.gpu_util_percent > 90 AND payload.inference_count > 1000"
+    action:
+      topic: "omni/cloud/autoscale/request"
+      payload:
+        device_id: "${trigger.device_id}"
+        reason: "high_gpu_utilization"
+
+  - name: model_health_alert
+    trigger: "omni/edge/+/health"
+    condition: "payload.status == 'degraded'"
+    action:
+      topic: "omni/alerts/model_health"
+      payload:
+        severity: "warning"
+        device_id: "${trigger.device_id}"

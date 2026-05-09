@@ -1,0 +1,115 @@
+# @omni-layer Infrastructure | @omni-lang Pulumi/TS | @omni-batch 18 | @omni-semester 16
+# @omni-description CloudFormation template for serverless transformer inference
+# with Lambda, API Gateway, DynamoDB model registry, and SQS queue.
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: OMNI Transformer Serverless Inference Stack - Batch 18
+
+Parameters:
+  Environment:
+    Type: String
+    Default: production
+    AllowedValues: [development, staging, production]
+  ModelBucket:
+    Type: String
+    Default: omni-transformer-models-b18
+
+Resources:
+  ModelRegistryTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub omni-transformer-registry-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: model_id
+          AttributeType: S
+        - AttributeName: version
+          AttributeType: S
+      KeySchema:
+        - AttributeName: model_id
+          KeyType: HASH
+        - AttributeName: version
+          KeyType: RANGE
+
+  InferenceQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub omni-inference-queue-${Environment}
+      VisibilityTimeout: 300
+      MessageRetentionPeriod: 86400
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt InferenceDLQ.Arn
+        maxReceiveCount: 3
+
+  InferenceDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub omni-inference-dlq-${Environment}
+      MessageRetentionPeriod: 1209600
+
+  InferenceLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub omni-transformer-inference-${Environment}
+      Runtime: python3.12
+      Handler: handler.lambda_handler
+      MemorySize: 3008
+      Timeout: 300
+      Environment:
+        Variables:
+          MODEL_BUCKET: !Ref ModelBucket
+          TABLE_NAME: !Ref ModelRegistryTable
+          ENVIRONMENT: !Ref Environment
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ModelBucket
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ModelRegistryTable
+
+  InferenceApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub omni-transformer-api-${Environment}
+      Description: OMNI Transformer Inference API
+
+  InferenceResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref InferenceApi
+      ParentId: !GetAtt InferenceApi.RootResourceId
+      PathPart: inference
+
+  InferenceMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref InferenceApi
+      ResourceId: !Ref InferenceResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${InferenceLambda.Arn}/invocations
+
+  MetricsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub omni-inference-errors-${Environment}
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 2
+      Threshold: 10
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref InferenceLambda
+
+Outputs:
+  ApiUrl:
+    Value: !Sub https://${InferenceApi}.execute-api.${AWS::Region}.amazonaws.com/prod/inference
+  QueueUrl:
+    Value: !Ref InferenceQueue
+  TableName:
+    Value: !Ref ModelRegistryTable

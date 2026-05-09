@@ -1,0 +1,94 @@
+<!-- @omni-layer Interface | @omni-source HamedBabaei/LLMs4OL | @omni-lang HTML
+     @omni-description Ontology explorer: interactive taxonomy tree visualization
+     with concept details, relation graph, and search. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMNI Ontology Explorer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#0a0e17;color:#e2e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1f36,#0d1224);padding:20px 32px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:1.5rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.search-box{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:8px 16px;color:#e2e8f0;width:300px;font-size:0.9rem}
+.main{display:grid;grid-template-columns:320px 1fr 300px;gap:0;height:calc(100vh - 72px)}
+.tree-panel{background:#0f1629;border-right:1px solid #1e293b;overflow-y:auto;padding:16px}
+.tree-node{padding:6px 8px;margin:2px 0;border-radius:6px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;gap:8px;transition:background 0.2s}
+.tree-node:hover{background:#1e293b}
+.tree-node.active{background:#1e3a5f;border-left:3px solid #60a5fa}
+.tree-node .icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700}
+.type-entity .icon{background:#22d3ee20;color:#22d3ee}
+.type-process .icon{background:#a78bfa20;color:#a78bfa}
+.type-attribute .icon{background:#f59e0b20;color:#f59e0b}
+.graph-panel{padding:24px;overflow-y:auto}
+.concept-card{background:linear-gradient(135deg,#1a1f36,#0f1629);border:1px solid #1e293b;border-radius:12px;padding:20px;margin-bottom:16px}
+.concept-card h2{font-size:1.2rem;margin-bottom:8px;color:#93c5fd}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.75rem;font-weight:600;margin-right:6px}
+.badge-type{background:#60a5fa20;color:#60a5fa;border:1px solid #60a5fa40}
+.badge-conf{background:#22d3ee20;color:#22d3ee;border:1px solid #22d3ee40}
+.relation-list{list-style:none;margin-top:12px}
+.relation-list li{padding:8px 12px;background:#0a0e17;border-radius:8px;margin:4px 0;display:flex;justify-content:space-between;font-size:0.85rem}
+.relation-arrow{color:#a78bfa;font-weight:600}
+.stats-panel{background:#0f1629;border-left:1px solid #1e293b;padding:16px;overflow-y:auto}
+.stat-card{background:#1a1f36;border-radius:8px;padding:12px;margin-bottom:8px}
+.stat-value{font-size:1.4rem;font-weight:700;color:#60a5fa}
+.stat-label{font-size:0.75rem;color:#64748b;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🧬 OMNI Ontology Explorer</h1>
+  <input class="search-box" id="searchInput" placeholder="Search concepts..." oninput="filterTree(this.value)">
+</div>
+<div class="main">
+  <div class="tree-panel" id="treePanel"></div>
+  <div class="graph-panel" id="graphPanel">
+    <div class="concept-card">
+      <h2>Select a concept from the tree</h2>
+      <p style="color:#64748b">Click on any concept to view its details, relations, and position in the taxonomy.</p>
+    </div>
+  </div>
+  <div class="stats-panel" id="statsPanel"></div>
+</div>
+<script>
+const concepts=[
+  {id:"c1",name:"Machine Learning",type:"process",confidence:0.92,parent:null,relations:[{pred:"has-property",obj:"Supervised"},{pred:"is-a",obj:"AI"}]},
+  {id:"c2",name:"Neural Network",type:"entity",confidence:0.88,parent:"c1",relations:[{pred:"part-of",obj:"Deep Learning"},{pred:"has-property",obj:"Layers"}]},
+  {id:"c3",name:"Transformer",type:"entity",confidence:0.95,parent:"c2",relations:[{pred:"is-a",obj:"Neural Network"},{pred:"has-property",obj:"Attention"}]},
+  {id:"c4",name:"Attention",type:"attribute",confidence:0.91,parent:"c3",relations:[{pred:"causes",obj:"Context Mixing"}]},
+  {id:"c5",name:"Deep Learning",type:"process",confidence:0.89,parent:"c1",relations:[{pred:"is-a",obj:"Machine Learning"}]},
+  {id:"c6",name:"NLP",type:"process",confidence:0.87,parent:"c1",relations:[{pred:"similar-to",obj:"NLU"}]},
+  {id:"c7",name:"Computer Vision",type:"process",confidence:0.86,parent:"c1",relations:[{pred:"has-property",obj:"Image"}]},
+  {id:"c8",name:"Ontology",type:"entity",confidence:0.93,parent:null,relations:[{pred:"has-property",obj:"Concepts"},{pred:"has-property",obj:"Relations"}]},
+];
+function renderTree(filter=""){
+  const panel=document.getElementById("treePanel");
+  const filtered=filter?concepts.filter(c=>c.name.toLowerCase().includes(filter.toLowerCase())):concepts;
+  panel.innerHTML=filtered.map(c=>`<div class="tree-node type-${c.type}" onclick="selectConcept('${c.id}')"><div class="icon">${c.type[0].toUpperCase()}</div><span>${c.name}</span></div>`).join("");
+}
+function selectConcept(id){
+  const c=concepts.find(x=>x.id===id);if(!c)return;
+  document.querySelectorAll('.tree-node').forEach(n=>n.classList.remove('active'));
+  const nodes=document.querySelectorAll('.tree-node');
+  const idx=concepts.indexOf(c);if(nodes[idx])nodes[idx].classList.add('active');
+  document.getElementById("graphPanel").innerHTML=`
+    <div class="concept-card"><h2>${c.name}</h2>
+    <span class="badge badge-type">${c.type}</span>
+    <span class="badge badge-conf">Confidence: ${(c.confidence*100).toFixed(1)}%</span>
+    <ul class="relation-list">${c.relations.map(r=>`<li><span class="relation-arrow">${r.pred}</span><span>${r.obj}</span></li>`).join("")}</ul></div>`;
+}
+function filterTree(v){renderTree(v)}
+function renderStats(){
+  const types={};concepts.forEach(c=>{types[c.type]=(types[c.type]||0)+1});
+  const avgConf=concepts.reduce((s,c)=>s+c.confidence,0)/concepts.length;
+  document.getElementById("statsPanel").innerHTML=`
+    <div class="stat-card"><div class="stat-value">${concepts.length}</div><div class="stat-label">Total Concepts</div></div>
+    <div class="stat-card"><div class="stat-value">${(avgConf*100).toFixed(1)}%</div><div class="stat-label">Avg Confidence</div></div>
+    ${Object.entries(types).map(([t,n])=>`<div class="stat-card"><div class="stat-value">${n}</div><div class="stat-label">${t}</div></div>`).join("")}`;
+}
+renderTree();renderStats();
+</script>
+</body>
+</html>

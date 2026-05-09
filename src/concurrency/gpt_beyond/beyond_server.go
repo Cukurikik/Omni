@@ -2,7 +2,8 @@ package gpt_beyond
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func InitializeBeyondServer(ctx context.Context) result.Result[bool] {

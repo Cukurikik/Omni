@@ -54,16 +54,16 @@ func (t TriggerType) String() string {
 // ---- Pipeline Step --------------------------------------------------------
 
 type PipelineStep struct {
-	Name       string
-	Type       StepType
-	Config     map[string]interface{}
-	DependsOn  []string
-	ErrorMode  string // "ignore" or "fail" (default)
-	RetryMax   int
-	Outputs    map[string]interface{}
-	Completed  bool
-	Failed     bool
-	Duration   time.Duration
+	Name      string
+	Type      StepType
+	Config    map[string]interface{}
+	DependsOn []string
+	ErrorMode string // "ignore" or "fail" (default)
+	RetryMax  int
+	Outputs   map[string]interface{}
+	Completed bool
+	Failed    bool
+	Duration  time.Duration
 }
 
 func (ps *PipelineStep) Execute() error {
@@ -94,8 +94,12 @@ func (ps *PipelineStep) Execute() error {
 func (ps *PipelineStep) execHTTP() error {
 	url, _ := ps.Config["url"].(string)
 	method, _ := ps.Config["method"].(string)
-	if method == "" { method = "GET" }
-	if url == "" { return fmt.Errorf("http step requires 'url'") }
+	if method == "" {
+		method = "GET"
+	}
+	if url == "" {
+		return fmt.Errorf("http step requires 'url'")
+	}
 
 	// Real: net/http request. Here we record the intent.
 	ps.Outputs = map[string]interface{}{
@@ -120,7 +124,9 @@ func (ps *PipelineStep) execTransform() error {
 
 func (ps *PipelineStep) execQuery() error {
 	sql, _ := ps.Config["sql"].(string)
-	if sql == "" { return fmt.Errorf("query step requires 'sql'") }
+	if sql == "" {
+		return fmt.Errorf("query step requires 'sql'")
+	}
 	ps.Outputs = map[string]interface{}{"rows": []interface{}{}, "sql": sql}
 	fmt.Printf("  [%s] Query: %s\n", ps.Name, sql[:min(60, len(sql))])
 	return nil
@@ -366,7 +372,9 @@ type ExecutionResult struct {
 
 func (er *ExecutionResult) String() string {
 	status := "SUCCESS"
-	if !er.Success { status = "FAILED" }
+	if !er.Success {
+		status = "FAILED"
+	}
 	return fmt.Sprintf("Execution[%s] %s: %s (%d steps, %dms)",
 		er.ID, er.Pipeline, status, len(er.Steps), er.Duration.Milliseconds())
 }
@@ -393,12 +401,16 @@ var BuiltInMods = []FlowpipeMod{
 }
 
 func min(a, b int) int {
-	if a < b { return a }
+	if a < b {
+		return a
+	}
 	return b
 }
 
 func max(a, b int) int {
-	if a > b { return a }
+	if a > b {
+		return a
+	}
 	return b
 }
 

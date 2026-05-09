@@ -45,7 +45,7 @@ func (s *ComputeStreamer) process(id int) {
 			s.outChan <- OmniResult{Error: fmt.Errorf("invalid data size for job %s", job.JobID)}
 			continue
 		}
-		
+
 		// Deterministic computation (e.g. FFT algorithmic complexity N log N)
 		complexity := job.DataSize * math.Log2(job.DataSize)
 		s.outChan <- OmniResult{Value: fmt.Sprintf("Worker %d | Job %s | Complexity: %.2f O(N log N)", id, job.JobID, complexity)}

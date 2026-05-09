@@ -1,0 +1,39 @@
+# moe_prs_biobank_schema.graphql — Domain
+# Layer: Domain — Biobank PRS GraphQL Schema
+# Inspired by: moe-prs-paper (MoE Polygenic Risk Scores)
+
+# OMNI Framework GraphQL Contract
+# Enforces strict data types for Genotype queries.
+
+type PatientCohort {
+    id: ID!
+    cohortName: String!
+    sampleSize: Int!
+    phenotypeTarget: String!
+    patients: [Patient!]!
+}
+
+type Patient {
+    id: ID!
+    age: Int!
+    biologicalSex: String!
+    # Array of binary encoded SNPs (Single Nucleotide Polymorphisms)
+    snps: [Int!]!
+    
+    # Calculated via moe_polygenic_risk_score.r
+    calculatedPrsScore: Float
+    expertRouterPath: String
+}
+
+type Query {
+    # Fetch a cohort for PRS processing
+    getCohort(id: ID!): PatientCohort
+    
+    # Fetch an individual's completed PRS results
+    getPatientRiskScore(patientId: ID!): Patient
+}
+
+type Mutation {
+    # Initiates the Elixir distributed worker pipeline for the cohort
+    triggerPrsCalculation(cohortId: ID!): Boolean!
+}

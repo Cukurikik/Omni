@@ -1,4 +1,4 @@
-package omnicluster
+package network
 
 import (
     "fmt"

@@ -1,4 +1,4 @@
-package omni_tencent_cos
+package network
 
 import "sync"
 

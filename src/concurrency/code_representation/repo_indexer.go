@@ -44,7 +44,7 @@ func (r *RepoIndexer) worker(id int) {
 			r.results <- OmniResult{Error: fmt.Errorf("invalid file count for %s", task.RepoURL)}
 			continue
 		}
-		
+
 		// Deterministic index calculation
 		indexTime := float64(task.Files) * 0.05
 		r.results <- OmniResult{Value: fmt.Sprintf("Worker %d indexed %s: %.2f ms", id, task.RepoURL, indexTime)}

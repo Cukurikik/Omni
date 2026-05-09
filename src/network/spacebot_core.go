@@ -44,13 +44,13 @@ type TelemetryFrame struct {
 
 // OrbitalElement holds Keplerian orbital parameters.
 type OrbitalElement struct {
-	SemiMajorAxis  float64 // km
-	Eccentricity   float64
-	Inclination    float64 // degrees
-	RAAN           float64 // Right Ascension of Ascending Node
-	ArgPerigee     float64
-	MeanAnomaly    float64
-	EpochTime      time.Time
+	SemiMajorAxis float64 // km
+	Eccentricity  float64
+	Inclination   float64 // degrees
+	RAAN          float64 // Right Ascension of Ascending Node
+	ArgPerigee    float64
+	MeanAnomaly   float64
+	EpochTime     time.Time
 }
 
 // Satellite represents a tracked satellite.
@@ -78,14 +78,14 @@ type GroundStation struct {
 
 // SpaceBotRelay manages telemetry routing between satellites and ground stations.
 type SpaceBotRelay struct {
-	satellites    map[string]*Satellite
-	stations      map[string]*GroundStation
-	telemetryCh   chan TelemetryFrame
-	subscribers   map[string][]chan TelemetryFrame // satID → subscriber channels
-	mu            sync.RWMutex
-	totalFrames   uint64
-	isRunning     bool
-	stopCh        chan struct{}
+	satellites  map[string]*Satellite
+	stations    map[string]*GroundStation
+	telemetryCh chan TelemetryFrame
+	subscribers map[string][]chan TelemetryFrame // satID → subscriber channels
+	mu          sync.RWMutex
+	totalFrames uint64
+	isRunning   bool
+	stopCh      chan struct{}
 }
 
 // NewSpaceBotRelay creates a new relay engine.
@@ -190,9 +190,9 @@ func (r *SpaceBotRelay) GetStats() map[string]int {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	return map[string]int{
-		"satellites":   len(r.satellites),
-		"stations":     len(r.stations),
-		"subscribers":  len(r.subscribers),
-		"totalFrames":  int(r.totalFrames),
+		"satellites":  len(r.satellites),
+		"stations":    len(r.stations),
+		"subscribers": len(r.subscribers),
+		"totalFrames": int(r.totalFrames),
 	}
 }

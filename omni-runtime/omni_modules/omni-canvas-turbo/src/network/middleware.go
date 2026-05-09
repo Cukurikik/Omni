@@ -1,4 +1,4 @@
-package omni_canvas_turbo
+package network
 
 import (
 	"net/http"

@@ -1,4 +1,4 @@
-package omni_crypto_usdc
+package network
 
 import "fmt"
 

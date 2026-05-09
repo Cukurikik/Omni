@@ -1,0 +1,62 @@
+# OMNI MOTHER: GraphQL Schema for MoE Control Plane
+# Provides a strongly typed API to manage and query the MoE cluster.
+
+type Query {
+  "Get all registered experts in the MoE cluster"
+  allExperts: [ExpertNode!]!
+  
+  "Get an expert by its unique ID"
+  expertById(id: ID!): ExpertNode
+  
+  "Get cluster-wide routing metrics"
+  clusterMetrics: ClusterMetrics!
+}
+
+type Mutation {
+  "Register a new expert node dynamically"
+  registerExpert(input: RegisterExpertInput!): ExpertNode!
+  
+  "Take an expert offline for maintenance"
+  drainExpert(id: ID!): Boolean!
+  
+  "Adjust the routing strategy globally"
+  setGlobalRoutingStrategy(strategy: RoutingStrategy!): Boolean!
+}
+
+type ExpertNode {
+  id: ID!
+  ipAddress: String!
+  status: ExpertStatus!
+  maxCapacity: Int!
+  currentLoad: Int!
+  hardwareType: String
+}
+
+enum ExpertStatus {
+  ONLINE
+  DRAINING
+  OFFLINE
+  FAILED
+}
+
+enum RoutingStrategy {
+  ROUND_ROBIN
+  LEAST_LOADED
+  LATENCY_OPTIMIZED
+  ADAPTIVE
+}
+
+type ClusterMetrics {
+  totalTokensProcessed: BigInt!
+  averageRoutingLatencyMs: Float!
+  imbalanceFactor: Float!
+}
+
+input RegisterExpertInput {
+  id: ID!
+  ipAddress: String!
+  maxCapacity: Int!
+  hardwareType: String
+}
+
+scalar BigInt

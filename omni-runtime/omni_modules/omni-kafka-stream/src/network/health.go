@@ -1,4 +1,4 @@
-package omni_kafka_stream
+package network
 
 import "time"
 

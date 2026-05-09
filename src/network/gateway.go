@@ -52,12 +52,12 @@ type Route struct {
 // ---- Gateway Router -------------------------------------------------------
 
 type OmniGateway struct {
-	routes        []Route
+	routes           []Route
 	globalMiddleware []MiddlewareFn
-	mu            sync.RWMutex
-	requestCount  uint64
-	errorCount    uint64
-	startedAt     time.Time
+	mu               sync.RWMutex
+	requestCount     uint64
+	errorCount       uint64
+	startedAt        time.Time
 }
 
 func NewOmniGateway() *OmniGateway {
@@ -88,10 +88,18 @@ func (g *OmniGateway) Route(method, pattern string, handler HandlerFn, middlewar
 }
 
 // GET/POST/PUT/DELETE convenience methods.
-func (g *OmniGateway) GET(pattern string, h HandlerFn, mw ...MiddlewareFn)    { g.Route("GET", pattern, h, mw...) }
-func (g *OmniGateway) POST(pattern string, h HandlerFn, mw ...MiddlewareFn)   { g.Route("POST", pattern, h, mw...) }
-func (g *OmniGateway) PUT(pattern string, h HandlerFn, mw ...MiddlewareFn)    { g.Route("PUT", pattern, h, mw...) }
-func (g *OmniGateway) DELETE(pattern string, h HandlerFn, mw ...MiddlewareFn) { g.Route("DELETE", pattern, h, mw...) }
+func (g *OmniGateway) GET(pattern string, h HandlerFn, mw ...MiddlewareFn) {
+	g.Route("GET", pattern, h, mw...)
+}
+func (g *OmniGateway) POST(pattern string, h HandlerFn, mw ...MiddlewareFn) {
+	g.Route("POST", pattern, h, mw...)
+}
+func (g *OmniGateway) PUT(pattern string, h HandlerFn, mw ...MiddlewareFn) {
+	g.Route("PUT", pattern, h, mw...)
+}
+func (g *OmniGateway) DELETE(pattern string, h HandlerFn, mw ...MiddlewareFn) {
+	g.Route("DELETE", pattern, h, mw...)
+}
 
 // HandleRequest processes an incoming request through the middleware chain.
 func (g *OmniGateway) HandleRequest(ctx *RequestContext) *ResponseContext {
@@ -118,7 +126,9 @@ func (g *OmniGateway) HandleRequest(ctx *RequestContext) *ResponseContext {
 	for _, mw := range g.globalMiddleware {
 		resp, err := mw(ctx)
 		if err != nil || resp != nil {
-			if resp != nil { return resp }
+			if resp != nil {
+				return resp
+			}
 			g.errorCount++
 			return &ResponseContext{StatusCode: 500, Body: []byte(err.Error())}
 		}
@@ -128,7 +138,9 @@ func (g *OmniGateway) HandleRequest(ctx *RequestContext) *ResponseContext {
 	for _, mw := range matched.Middleware {
 		resp, err := mw(ctx)
 		if err != nil || resp != nil {
-			if resp != nil { return resp }
+			if resp != nil {
+				return resp
+			}
 			g.errorCount++
 			return &ResponseContext{StatusCode: 500, Body: []byte(err.Error())}
 		}
@@ -185,8 +197,8 @@ func RateLimitMiddleware(maxPerMinute int) MiddlewareFn {
 
 		if count > maxPerMinute {
 			return &ResponseContext{
-				StatusCode: 429,
-				Body:       []byte(`{"error":"rate limit exceeded"}`),
+				StatusCode:  429,
+				Body:        []byte(`{"error":"rate limit exceeded"}`),
 				ContentType: "application/json",
 			}, nil
 		}
@@ -210,11 +222,15 @@ func (g *OmniGateway) HealthHandler() HandlerFn {
 func matchPattern(pattern, path string, ctx *RequestContext) bool {
 	patParts := strings.Split(pattern, "/")
 	pathParts := strings.Split(path, "/")
-	if len(patParts) != len(pathParts) { return false }
+	if len(patParts) != len(pathParts) {
+		return false
+	}
 
 	for i, pp := range patParts {
 		if strings.HasPrefix(pp, ":") {
-			if ctx.RouteParams == nil { ctx.RouteParams = make(map[string]string) }
+			if ctx.RouteParams == nil {
+				ctx.RouteParams = make(map[string]string)
+			}
 			ctx.RouteParams[pp[1:]] = pathParts[i]
 		} else if pp != pathParts[i] {
 			return false

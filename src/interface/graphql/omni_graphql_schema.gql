@@ -1,0 +1,60 @@
+# Omni GraphQL Schema
+# Interface Layer
+# Provides a strongly typed contract for querying the Transformer engine status,
+# initiating generation, and checking token throughput.
+
+type ModelConfig {
+  id: ID!
+  name: String!
+  parameters: String!
+  quantization: String!
+  status: ModelStatus!
+}
+
+enum ModelStatus {
+  LOADING
+  ACTIVE
+  INACTIVE
+  ERROR
+}
+
+type GenerationResponse {
+  id: ID!
+  text: String!
+  promptTokens: Int!
+  completionTokens: Int!
+  latencyMs: Int!
+  tokensPerSecond: Float!
+}
+
+input GenerationParams {
+  modelId: ID!
+  prompt: String!
+  maxTokens: Int = 1024
+  temperature: Float = 0.7
+  topP: Float = 0.95
+}
+
+type Query {
+  # Fetches active models currently loaded in VRAM
+  activeModels: [ModelConfig!]!
+  
+  # Retrieves historical metadata of a model
+  modelDetails(id: ID!): ModelConfig
+}
+
+type Mutation {
+  # Initiates a synchronous generation request
+  generate(params: GenerationParams!): GenerationResponse!
+  
+  # Loads a model into VRAM
+  loadModel(id: ID!): Boolean!
+  
+  # Unloads a model from VRAM
+  unloadModel(id: ID!): Boolean!
+}
+
+type Subscription {
+  # Real-time token streaming
+  tokenStream(generationId: ID!): String!
+}

@@ -4,9 +4,9 @@ package concurrency
 // Concurrency Layer - Golang API Observability and Routing with strict throughput bounds
 
 import (
-	"time"
 	"context"
 	"sync/atomic"
+	"time"
 )
 
 type OmniError struct {
@@ -22,7 +22,7 @@ type OmniResult[T any] struct {
 	Error *OmniError
 }
 
-func Ok[T any](val T) OmniResult[T] { return OmniResult[T]{IsOk: true, Value: val} }
+func Ok[T any](val T) OmniResult[T]           { return OmniResult[T]{IsOk: true, Value: val} }
 func Err[T any](err *OmniError) OmniResult[T] { return OmniResult[T]{IsOk: false, Error: err} }
 
 // Physical Limit bounds for Telemetry routing

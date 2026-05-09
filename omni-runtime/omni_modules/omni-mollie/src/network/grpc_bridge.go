@@ -1,4 +1,4 @@
-package omni_mollie
+package network
 
 import "fmt"
 

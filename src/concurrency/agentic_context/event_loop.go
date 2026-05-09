@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -75,7 +75,7 @@ func (l *AgenticEventLoop) Dispatch(payload []float64) OmniResult {
 func (l *AgenticEventLoop) Stop() {
 	l.mu.Lock()
 	defer l.mu.Unlock()
-	
+
 	if l.active {
 		l.active = false
 		close(l.events)

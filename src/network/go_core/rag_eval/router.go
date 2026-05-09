@@ -36,18 +36,18 @@ func (r *Router) handleMRR(w http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(w).Encode(OmniResult[float64]{Ok: false, Error: "Method not allowed"})
 		return
 	}
-	
+
 	var payload RankRequest
 	if err := json.NewDecoder(req.Body).Decode(&payload); err != nil {
 		json.NewEncoder(w).Encode(OmniResult[float64]{Ok: false, Error: "Invalid payload"})
 		return
 	}
-	
+
 	if len(payload.Positions) == 0 {
 		json.NewEncoder(w).Encode(OmniResult[float64]{Ok: false, Error: "Empty positions"})
 		return
 	}
-	
+
 	// Delegate to compute layer (mock response for network router logic)
 	json.NewEncoder(w).Encode(OmniResult[float64]{Ok: true, Value: 0.85})
 }

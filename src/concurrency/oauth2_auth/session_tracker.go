@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -26,7 +26,7 @@ func NewSessionTracker() *SessionTracker {
 	t := &SessionTracker{
 		sessions: make(map[string]AuthSession),
 	}
-	
+
 	// Start background cleanup routine
 	go t.cleanupLoop()
 	return t
@@ -50,7 +50,7 @@ func (t *SessionTracker) cleanupLoop() {
 func (t *SessionTracker) UpsertSession(session AuthSession) OmniResult {
 	t.mu.Lock()
 	defer t.mu.Unlock()
-	
+
 	t.sessions[session.SessionID] = session
 	return OmniResult{Value: true}
 }

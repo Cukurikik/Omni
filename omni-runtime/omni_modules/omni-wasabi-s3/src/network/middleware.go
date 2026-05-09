@@ -1,4 +1,4 @@
-package omni_wasabi_s3
+package network
 
 import (
 	"net/http"

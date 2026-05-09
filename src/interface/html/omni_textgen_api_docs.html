@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Text-Generator.io API</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0d1117; color: #c9d1d9; margin: 0; padding: 40px; }
+        h1 { color: #58a6ff; }
+        .endpoint { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid #30363d; margin-bottom: 20px; }
+        .method { display: inline-block; padding: 5px 10px; border-radius: 5px; font-weight: bold; background: #238636; color: white; margin-right: 10px;}
+        code { background: #010409; padding: 10px; display: block; border-radius: 5px; color: #79c0ff; }
+    </style>
+</head>
+<body>
+    <h1>OMNI Text-Generator.io API Documentation</h1>
+    <p>High-performance multimodal inference endpoints (Vision, TTS, STT).</p>
+
+    <div class="endpoint">
+        <h2><span class="method">POST</span> /api/v1/generate</h2>
+        <p>Generates text based on prompt and/or image inputs.</p>
+        <code>
+            curl -X POST https://omni.local/api/v1/generate \<br>
+            &nbsp;&nbsp;-H "Content-Type: application/json" \<br>
+            &nbsp;&nbsp;-d '{"prompt": "Describe this image", "image_url": "..."}'
+        </code>
+    </div>
+
+    <div class="endpoint">
+        <h2><span class="method">POST</span> /api/v1/tts</h2>
+        <p>Converts text to speech using OMNI neural engines.</p>
+        <code>
+            curl -X POST https://omni.local/api/v1/tts \<br>
+            &nbsp;&nbsp;-H "Content-Type: application/json" \<br>
+            &nbsp;&nbsp;-d '{"text": "OMNI Polyglot framework initialized.", "voice": "en-US-neural"}'
+        </code>
+    </div>
+</body>
+</html>

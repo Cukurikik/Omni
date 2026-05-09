@@ -2,7 +2,8 @@ package m3exam
 
 import (
 	"context"
-	"github.com/omni/core/result"
+
+	"omni-engines/core/result"
 )
 
 func VerifyExamIntegrity(ctx context.Context, hash string) result.Result[bool] {

@@ -1,0 +1,27 @@
+name: omni_polyglot
+description: OMNI Polyglot workspace
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
+  genkit: any
+  firebase_core: any
+  firebase_vertexai: any
+  omni_bridge_network:
+    path: ./omni-runtime/core/omni_bridge_network # fallback if needed or we just use any
+  omni_bridge_domain:
+    path: ./omni-runtime/core/omni_bridge_domain
+  http: ^1.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.6

@@ -1,0 +1,49 @@
+# OMNI Framework - GraphQL Schema for Transformer APIs
+
+type Query {
+  # List available domain-specific models
+  listModels(domain: String): [ModelInfo!]!
+  
+  # Fetch sentiment for crypto tracking
+  cryptoSentiment(text: String!): SentimentResult!
+  
+  # Parse human clothing from an image URL
+  parseHumanImage(imageUrl: String!): SegmentationResult!
+}
+
+type Mutation {
+  # Generate humorous caption for an image
+  generateMemeCaption(imageUrl: String!): MemeResult!
+  
+  # Translate Sumerian text
+  translateSumerian(text: String!): TranslationResult!
+}
+
+type ModelInfo {
+  id: ID!
+  name: String!
+  domain: String!
+  quantizationBits: Int
+}
+
+type SentimentResult {
+  signal: String!
+  confidence: Float!
+  positiveScore: Float!
+  negativeScore: Float!
+}
+
+type SegmentationResult {
+  maskUrl: String!
+  detectedClasses: [String!]!
+}
+
+type MemeResult {
+  caption: String!
+  latencyMs: Int!
+}
+
+type TranslationResult {
+  englishText: String!
+  sourceTokens: Int!
+}

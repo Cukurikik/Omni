@@ -62,28 +62,28 @@ type Device struct {
 
 // UIElement represents a single UI element in the element tree.
 type UIElement struct {
-	ID             string      `json:"id"`
-	Type           string      `json:"type"`            // e.g. "android.widget.Button"
-	ClassName      string      `json:"class_name"`      // Short class name
-	Text           string      `json:"text"`
-	ContentDesc    string      `json:"content_desc"`    // Accessibility description
-	ResourceID     string      `json:"resource_id"`     // Android resource ID
-	Label          string      `json:"label"`           // iOS accessibility label
-	Value          string      `json:"value"`
-	Placeholder    string      `json:"placeholder"`
-	Bounds         Rect        `json:"bounds"`
-	Enabled        bool        `json:"enabled"`
-	Visible        bool        `json:"visible"`
-	Clickable      bool        `json:"clickable"`
-	Focusable      bool        `json:"focusable"`
-	Scrollable     bool        `json:"scrollable"`
-	Selected       bool        `json:"selected"`
-	Checked        bool        `json:"checked"`
-	Password       bool        `json:"password"`
-	Index          int         `json:"index"`
-	XPath          string      `json:"xpath"`
-	Children       []UIElement `json:"children"`
-	Depth          int         `json:"depth"`
+	ID          string      `json:"id"`
+	Type        string      `json:"type"`       // e.g. "android.widget.Button"
+	ClassName   string      `json:"class_name"` // Short class name
+	Text        string      `json:"text"`
+	ContentDesc string      `json:"content_desc"` // Accessibility description
+	ResourceID  string      `json:"resource_id"`  // Android resource ID
+	Label       string      `json:"label"`        // iOS accessibility label
+	Value       string      `json:"value"`
+	Placeholder string      `json:"placeholder"`
+	Bounds      Rect        `json:"bounds"`
+	Enabled     bool        `json:"enabled"`
+	Visible     bool        `json:"visible"`
+	Clickable   bool        `json:"clickable"`
+	Focusable   bool        `json:"focusable"`
+	Scrollable  bool        `json:"scrollable"`
+	Selected    bool        `json:"selected"`
+	Checked     bool        `json:"checked"`
+	Password    bool        `json:"password"`
+	Index       int         `json:"index"`
+	XPath       string      `json:"xpath"`
+	Children    []UIElement `json:"children"`
+	Depth       int         `json:"depth"`
 }
 
 // Rect represents element bounds.
@@ -477,16 +477,16 @@ func (f *ElementFinder) MaxDepth(root *UIElement, current int) int {
 // Discovers devices, extracts UI element trees, captures screenshots,
 // and provides element search for Android (ADB) and iOS (WDA).
 type AppInspectorEngine struct {
-	DataDir      string
-	ADB          *ADBClient
-	WDA          *WDAClient
-	TreeParser   *UITreeParser
-	Finder       *ElementFinder
+	DataDir    string
+	ADB        *ADBClient
+	WDA        *WDAClient
+	TreeParser *UITreeParser
+	Finder     *ElementFinder
 
-	mu           sync.RWMutex
-	devices      map[string]Device
-	inspections  []InspectionResult
-	startedAt    time.Time
+	mu          sync.RWMutex
+	devices     map[string]Device
+	inspections []InspectionResult
+	startedAt   time.Time
 }
 
 func NewAppInspectorEngine(dataDir string) *AppInspectorEngine {
@@ -539,10 +539,10 @@ func (e *AppInspectorEngine) DiscoverDevices() map[string]interface{} {
 	iosAvailable := e.WDA.IsAvailable()
 
 	return map[string]interface{}{
-		"android_devices": androidList,
-		"android_count":   len(androidList),
+		"android_devices":   androidList,
+		"android_count":     len(androidList),
 		"ios_wda_available": iosAvailable,
-		"total_devices":   len(e.devices),
+		"total_devices":     len(e.devices),
 	}
 }
 
@@ -676,10 +676,10 @@ func (e *AppInspectorEngine) Diagnostics() map[string]interface{} {
 		"status":     "operational",
 		"started_at": e.startedAt.UTC().Format(time.RFC3339),
 		"stats": map[string]interface{}{
-			"discovered_devices":  len(e.devices),
-			"total_inspections":   len(e.inspections),
-			"devices":             deviceList,
-			"ios_wda_available":   e.WDA.IsAvailable(),
+			"discovered_devices": len(e.devices),
+			"total_inspections":  len(e.inspections),
+			"devices":            deviceList,
+			"ios_wda_available":  e.WDA.IsAvailable(),
 		},
 		"capabilities": []string{
 			"android_adb_discovery", "ios_wda_discovery",

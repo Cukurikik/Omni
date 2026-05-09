@@ -1,0 +1,39 @@
+# moe_tenant_config.toml — Domain / Config
+# Layer: Domain / Business — MoE Domain Mapping
+#
+# Configuration mapping specific business sub-domains to strict MoE parameters.
+# Defines which experts are "Premium", which are general, and which are 
+# hard-pinned to specific tenants for compliance reasons.
+
+[experts.categories]
+general = [0, 1, 2, 3]
+coding = [4, 5]
+healthcare_compliance = [6]
+financial_analysis = [7]
+
+[tenant.policies.omni_default]
+allowed_experts = ["general", "coding"]
+max_tokens_per_sec = 5000
+priority_tier = "standard"
+
+[tenant.policies.med_tech_corp]
+# HIPAA compliance requires using the specialized healthcare expert
+allowed_experts = ["general", "healthcare_compliance"]
+max_tokens_per_sec = 2000
+priority_tier = "premium"
+# Force routing: 100% of tokens MUST pass through the compliance expert at Layer 3
+forced_routing.layer_3 = 6 
+
+[tenant.policies.quant_fund_alpha]
+allowed_experts = ["general", "coding", "financial_analysis"]
+max_tokens_per_sec = 10000
+priority_tier = "enterprise"
+
+[system.capacity]
+capacity_factor = 1.25
+drop_policy = "retry_fallback" # Options: drop, retry_fallback, error
+
+[system.parallelism]
+tensor_parallel_degree = 2
+expert_parallel_degree = 4
+pipeline_parallel_degree = 1

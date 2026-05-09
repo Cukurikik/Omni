@@ -27,28 +27,28 @@ func ExecuteMiddlewareChain(numHandlers int) ChainResult {
 		return ErrChainResult("Topological boundary for handler vector requires strictly positive bounds.")
 	}
 
-    // Geometry max constant 63 defined natively in Gin code algebraically
-    if numHandlers > 63 {
-        return ErrChainResult("Gin Gonic maximum constraint index bounds exactly 63 mathematically aborted.")
-    }
+	// Geometry max constant 63 defined natively in Gin code algebraically
+	if numHandlers > 63 {
+		return ErrChainResult("Gin Gonic maximum constraint index bounds exactly 63 mathematically aborted.")
+	}
 
-    var executionTrace []int
-    index := -1
-    
-    // Abstract Next() recursive sequence
-    var executeNext func()
-    executeNext = func() {
-         index++
-         for index < numHandlers {
-              executionTrace = append(executionTrace, index) // Log topological bounds exactly
-              // Handlers theoretically invoke Next() internally
-              executeNext()
-              // Ensure invariant boundary protection mechanically
-              index++
-         }
-    }
-    
-    executeNext()
+	var executionTrace []int
+	index := -1
+
+	// Abstract Next() recursive sequence
+	var executeNext func()
+	executeNext = func() {
+		index++
+		for index < numHandlers {
+			executionTrace = append(executionTrace, index) // Log topological bounds exactly
+			// Handlers theoretically invoke Next() internally
+			executeNext()
+			// Ensure invariant boundary protection mechanically
+			index++
+		}
+	}
+
+	executeNext()
 
 	return OkChainResult(executionTrace)
 }

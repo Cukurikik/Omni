@@ -12,7 +12,7 @@ func (cs *ChunkStreamer) StreamDocuments(docs []string) OmniResult {
 	if len(docs) == 0 {
 		return OmniResult{Value: nil, Error: errors.New("empty documents array")}
 	}
-	
+
 	// Concurrent streaming of retrieved chunks to the frontend
 	go func() {
 		for _, doc := range docs {
@@ -28,6 +28,6 @@ func (cs *ChunkStreamer) StreamDocuments(docs []string) OmniResult {
 		}
 		close(cs.DataStream)
 	}()
-	
+
 	return OmniResult{Value: "Streaming initiated", Error: nil}
 }

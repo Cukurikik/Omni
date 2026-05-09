@@ -1,0 +1,106 @@
+# OMNI Infrastructure Layer — AWS CloudFormation for Inference Stack
+# GPU inference infrastructure on AWS with SageMaker endpoints.
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: OMNI Transformer Inference Stack
+
+Parameters:
+  ModelName:
+    Type: String
+    Default: omni-7b
+  InstanceType:
+    Type: String
+    Default: ml.g5.xlarge
+    AllowedValues: [ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.p4d.24xlarge]
+  MinInstances:
+    Type: Number
+    Default: 1
+  MaxInstances:
+    Type: Number
+    Default: 10
+  ModelDataUrl:
+    Type: String
+    Description: S3 URI for model artifacts
+
+Resources:
+  InferenceExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ModelName}-inference-role'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: sagemaker.amazonaws.com }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+  InferenceModel:
+    Type: AWS::SageMaker::Model
+    Properties:
+      ModelName: !Sub '${ModelName}-model'
+      ExecutionRoleArn: !GetAtt InferenceExecutionRole.Arn
+      PrimaryContainer:
+        Image: !Sub '763104351884.dkr.ecr.${AWS::Region}.amazonaws.com/pytorch-inference:2.1-gpu-py310'
+        ModelDataUrl: !Ref ModelDataUrl
+        Environment:
+          OMNI_MODEL_NAME: !Ref ModelName
+          OMNI_MAX_BATCH_SIZE: '32'
+          OMNI_MAX_SEQ_LEN: '4096'
+
+  EndpointConfig:
+    Type: AWS::SageMaker::EndpointConfig
+    Properties:
+      EndpointConfigName: !Sub '${ModelName}-config'
+      ProductionVariants:
+        - VariantName: primary
+          ModelName: !GetAtt InferenceModel.ModelName
+          InstanceType: !Ref InstanceType
+          InitialInstanceCount: !Ref MinInstances
+          InitialVariantWeight: 1.0
+
+  InferenceEndpoint:
+    Type: AWS::SageMaker::Endpoint
+    Properties:
+      EndpointName: !Sub '${ModelName}-endpoint'
+      EndpointConfigName: !GetAtt EndpointConfig.EndpointConfigName
+
+  AutoScalingTarget:
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    Properties:
+      MaxCapacity: !Ref MaxInstances
+      MinCapacity: !Ref MinInstances
+      ResourceId: !Sub 'endpoint/${ModelName}-endpoint/variant/primary'
+      ScalableDimension: sagemaker:variant:DesiredInstanceCount
+      ServiceNamespace: sagemaker
+
+  ScalingPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: !Sub '${ModelName}-scaling'
+      PolicyType: TargetTrackingScaling
+      ScalingTargetId: !Ref AutoScalingTarget
+      TargetTrackingScalingPolicyConfiguration:
+        TargetValue: 70.0
+        PredefinedMetricSpecification:
+          PredefinedMetricType: SageMakerVariantInvocationsPerInstance
+        ScaleInCooldown: 300
+        ScaleOutCooldown: 60
+
+  InferenceDashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Sub '${ModelName}-dashboard'
+      DashboardBody: !Sub |
+        {"widgets":[{"type":"metric","properties":{"metrics":[
+          ["AWS/SageMaker","Invocations","EndpointName","${ModelName}-endpoint"],
+          ["AWS/SageMaker","ModelLatency","EndpointName","${ModelName}-endpoint"]
+        ],"period":60,"stat":"Average","title":"Inference Metrics"}}]}
+
+Outputs:
+  EndpointName:
+    Value: !GetAtt InferenceEndpoint.EndpointName
+  EndpointArn:
+    Value: !Ref InferenceEndpoint

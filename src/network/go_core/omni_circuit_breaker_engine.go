@@ -12,7 +12,7 @@
 //   4. Half-Open: limited probing calls to test if service recovered
 //   5. Retry with exponential backoff prevents thundering herd
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,8 +34,8 @@ type CBState int32
 
 const (
 	CBStateClosed   CBState = iota // Normal operation
-	CBStateOpen                  // Failing fast
-	CBStateHalfOpen              // Probing for recovery
+	CBStateOpen                    // Failing fast
+	CBStateHalfOpen                // Probing for recovery
 )
 
 func (s CBState) String() string {
@@ -53,11 +53,11 @@ func (s CBState) String() string {
 
 // CircuitBreakerConfig holds configuration parameters.
 type CircuitBreakerConfig struct {
-	MaxFailures       int           // Failures before opening
-	Timeout           time.Duration // How long to stay open before half-open
-	HalfOpenMaxCalls  int           // Max probe calls in half-open
-	SuccessThreshold  int           // Successes needed to close from half-open
-	OnStateChange     func(from, to CBState)
+	MaxFailures      int           // Failures before opening
+	Timeout          time.Duration // How long to stay open before half-open
+	HalfOpenMaxCalls int           // Max probe calls in half-open
+	SuccessThreshold int           // Successes needed to close from half-open
+	OnStateChange    func(from, to CBState)
 }
 
 // DefaultCircuitBreakerConfig returns sensible defaults.
@@ -100,7 +100,7 @@ func NewCBEngine(name string, config CircuitBreakerConfig) *CircuitBreaker {
 }
 
 var (
-	ErrCircuitOpen = errors.New("circuit breaker is open")
+	ErrCircuitOpen  = errors.New("circuit breaker is open")
 	ErrTooManyCalls = errors.New("too many calls in half-open state")
 )
 
@@ -390,3 +390,4 @@ func (cb *CircuitBreaker) Diagnostics() map[string]interface{} {
 		},
 	}
 }
+

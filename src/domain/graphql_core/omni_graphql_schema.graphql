@@ -1,0 +1,9 @@
+# OMNI Domain Layer: GraphQL Base Schema
+type OmniResponse {
+  success: Boolean!
+  message: String
+}
+
+type Query {
+  healthCheck: OmniResponse!
+}

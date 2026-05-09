@@ -1,0 +1,165 @@
+// @omni-layer Event | @omni-lang gRPC Proto | @omni-batch 18 | @omni-semester 16
+// @omni-description gRPC service for transformer inference streaming,
+// weight sync events, and knowledge edit notifications.
+
+syntax = "proto3";
+package omni.transformer.v1;
+
+option go_package = "omni/transformer/v1;transformerv1";
+option java_package = "dev.omni.transformer.v1";
+
+// === Inference Service ===
+service TransformerInference {
+  rpc Predict(PredictRequest) returns (PredictResponse);
+  rpc StreamPredict(PredictRequest) returns (stream TokenResponse);
+  rpc BatchPredict(BatchPredictRequest) returns (BatchPredictResponse);
+  rpc ForecastTimeSeries(ForecastRequest) returns (ForecastResponse);
+  rpc ClassifyVideo(VideoRequest) returns (ClassifyResponse);
+  rpc ExtractEntities(NERRequest) returns (NERResponse);
+  rpc SegmentImage(SegmentRequest) returns (SegmentResponse);
+}
+
+// === Weight Sync Service ===
+service WeightSync {
+  rpc InitiateTransfer(TransferInit) returns (TransferAck);
+  rpc StreamShards(stream ShardData) returns (TransferComplete);
+  rpc GetSyncStatus(SyncStatusRequest) returns (SyncStatusResponse);
+}
+
+// === Knowledge Edit Service ===
+service KnowledgeEditor {
+  rpc EditFact(EditRequest) returns (EditResponse);
+  rpc BatchEdit(BatchEditRequest) returns (BatchEditResponse);
+  rpc VerifyEdit(VerifyRequest) returns (VerifyResponse);
+}
+
+// === Common Messages ===
+message PredictRequest {
+  string model_id = 1;
+  repeated int32 token_ids = 2;
+  int32 max_tokens = 3;
+  float temperature = 4;
+  string task = 5;
+}
+
+message PredictResponse {
+  repeated int32 output_ids = 1;
+  repeated float logits = 2;
+  float latency_ms = 3;
+  string model_version = 4;
+}
+
+message TokenResponse {
+  int32 token_id = 1;
+  float probability = 2;
+  bool is_final = 3;
+}
+
+message BatchPredictRequest { repeated PredictRequest requests = 1; }
+message BatchPredictResponse { repeated PredictResponse responses = 1; float total_latency_ms = 2; }
+
+message ForecastRequest {
+  repeated SeriesData series = 1;
+  int32 horizon = 2;
+  string model_id = 3;
+}
+
+message SeriesData { repeated double values = 1; string name = 2; }
+
+message ForecastResponse {
+  repeated SeriesData forecasts = 1;
+  repeated double confidence = 2;
+  float latency_ms = 3;
+}
+
+message VideoRequest {
+  repeated bytes frames = 1;
+  string model_id = 2;
+  int32 top_k = 3;
+}
+
+message ClassifyResponse {
+  string label = 1;
+  float confidence = 2;
+  repeated LabelScore top_labels = 3;
+}
+
+message LabelScore { string label = 1; float score = 2; }
+
+message NERRequest {
+  string text = 1;
+  string model_id = 2;
+  string language = 3;
+}
+
+message NERResponse {
+  repeated EntitySpan entities = 1;
+  int32 token_count = 2;
+}
+
+message EntitySpan {
+  string text = 1;
+  string type = 2;
+  int32 start = 3;
+  int32 end = 4;
+  float confidence = 5;
+}
+
+message SegmentRequest {
+  bytes pixel_data = 1;
+  int32 width = 2;
+  int32 height = 3;
+  string model_id = 4;
+}
+
+message SegmentResponse {
+  repeated int32 mask = 1;
+  int32 n_classes = 2;
+  float latency_ms = 3;
+}
+
+message TransferInit {
+  int32 source_rank = 1;
+  int32 target_rank = 2;
+  repeated string shard_ids = 3;
+  string protocol = 4;
+}
+
+message TransferAck { string request_id = 1; bool accepted = 2; float estimated_ms = 3; }
+
+message ShardData {
+  string shard_id = 1;
+  bytes data = 2;
+  uint32 checksum = 3;
+  string param_name = 4;
+}
+
+message TransferComplete {
+  int32 shards_received = 1;
+  int64 bytes_total = 2;
+  float duration_ms = 3;
+  int32 version = 4;
+}
+
+message SyncStatusRequest { string cluster_id = 1; }
+message SyncStatusResponse { int64 completed = 1; int64 pending = 2; double throughput_gbps = 3; }
+
+message EditRequest {
+  string subject = 1;
+  string relation = 2;
+  string old_object = 3;
+  string new_object = 4;
+  string model_id = 5;
+}
+
+message EditResponse {
+  bool success = 1;
+  string edit_id = 2;
+  int32 layer_modified = 3;
+}
+
+message BatchEditRequest { repeated EditRequest edits = 1; }
+message BatchEditResponse { int32 total = 1; int32 successful = 2; repeated EditResponse results = 3; }
+
+message VerifyRequest { string edit_id = 1; string test_input = 2; }
+message VerifyResponse { bool verified = 1; string model_output = 2; }

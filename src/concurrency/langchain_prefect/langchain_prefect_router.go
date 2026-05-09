@@ -26,7 +26,7 @@ func (r *langchain_prefectRouter) Execute(ctx context.Context, data []byte) (*la
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &langchain_prefectResult{
 		Success: true,
 		Status:  "computed",

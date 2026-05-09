@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: omni-moe-expert-node
+  namespace: omni-system
+spec:
+  serviceName: "omni-moe-experts"
+  replicas: 8 # e.g., 8 GPUs cluster
+  selector:
+    matchLabels:
+      app: omni-expert-engine
+  template:
+    metadata:
+      labels:
+        app: omni-expert-engine
+    spec:
+      affinity:
+        # Prevent placing two experts on the same physical node if possible
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - omni-expert-engine
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: cuda-engine
+        image: nexus.omniframework.dev/omni-moe-cpp-cuda:v3.0.0
+        ports:
+        - containerPort: 50051 # gRPC
+        - containerPort: 29500 # NCCL/UCCL Comms
+        resources:
+          requests:
+            nvidia.com/gpu: 1
+            memory: "64Gi"
+            cpu: "8"
+          limits:
+            nvidia.com/gpu: 1
+            memory: "128Gi"
+            cpu: "16"
+        volumeMounts:
+        - name: model-weights
+          mountPath: /models
+  volumeClaimTemplates:
+  - metadata:
+      name: model-weights
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "fast-nvme"
+      resources:
+        requests:
+          storage: 500Gi

@@ -9,7 +9,7 @@ type Result[T any] struct {
 	Err   error
 }
 
-func Ok[T any](v T) Result[T] { return Result[T]{Value: v, Err: nil} }
+func Ok[T any](v T) Result[T]      { return Result[T]{Value: v, Err: nil} }
 func Err[T any](e error) Result[T] { return Result[T]{Value: *new(T), Err: e} }
 
 type Message struct {
@@ -55,7 +55,7 @@ func (w *WorkerPool) Superstep(computeFunc func(*Vertex, []Message) Result[[]Mes
 
 	for id, vertex := range w.vertices {
 		messages := w.inboxes[id]
-		
+
 		res := computeFunc(vertex, messages)
 		if res.Err != nil {
 			return Err[int](res.Err)

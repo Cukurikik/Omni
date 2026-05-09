@@ -56,19 +56,19 @@ const (
 
 // ChiefProjectConfig defines a project's task orchestration config.
 type ChiefProjectConfig struct {
-	ProjectID       string            `json:"project_id"`
-	ProjectName     string            `json:"project_name"`
-	Description     string            `json:"description"`
-	WorkingDir      string            `json:"working_dir"`
-	AgentProvider   AgentProvider     `json:"agent_provider"`
-	AgentCLIPath    string            `json:"agent_cli_path,omitempty"`
-	MaxIterations   int               `json:"max_iterations"`    // max loops per task
-	CommitPerTask   bool              `json:"commit_per_task"`   // one commit per completed task
-	AutoReview      bool              `json:"auto_review"`       // auto-review after each task
-	GitBranch       string            `json:"git_branch"`
-	SystemPrompt    string            `json:"system_prompt,omitempty"`
-	Environment     map[string]string `json:"environment,omitempty"`
-	CreatedAt       time.Time         `json:"created_at"`
+	ProjectID     string            `json:"project_id"`
+	ProjectName   string            `json:"project_name"`
+	Description   string            `json:"description"`
+	WorkingDir    string            `json:"working_dir"`
+	AgentProvider AgentProvider     `json:"agent_provider"`
+	AgentCLIPath  string            `json:"agent_cli_path,omitempty"`
+	MaxIterations int               `json:"max_iterations"`  // max loops per task
+	CommitPerTask bool              `json:"commit_per_task"` // one commit per completed task
+	AutoReview    bool              `json:"auto_review"`     // auto-review after each task
+	GitBranch     string            `json:"git_branch"`
+	SystemPrompt  string            `json:"system_prompt,omitempty"`
+	Environment   map[string]string `json:"environment,omitempty"`
+	CreatedAt     time.Time         `json:"created_at"`
 }
 
 // ChiefTask represents a single task in a project.
@@ -108,11 +108,11 @@ type TaskIteration struct {
 
 // TaskTemplate is a reusable template for creating tasks.
 type TaskTemplate struct {
-	TemplateID     string   `json:"template_id"`
-	Name           string   `json:"name"`
-	DescTemplate   string   `json:"description_template"`
+	TemplateID      string   `json:"template_id"`
+	Name            string   `json:"name"`
+	DescTemplate    string   `json:"description_template"`
 	DefaultCriteria []string `json:"default_criteria"`
-	Tags           []string `json:"tags"`
+	Tags            []string `json:"tags"`
 }
 
 // ---------------------------------------------------------------------------
@@ -148,16 +148,16 @@ type ChiefTaskOrchestrator struct {
 
 // ChiefStats tracks orchestration metrics.
 type ChiefStats struct {
-	TotalProjects       int       `json:"total_projects"`
-	TotalTasks          int       `json:"total_tasks"`
-	TasksCompleted      int       `json:"tasks_completed"`
-	TasksFailed         int       `json:"tasks_failed"`
-	TasksPending        int       `json:"tasks_pending"`
-	TotalIterations     int64     `json:"total_iterations"`
-	TotalTokensUsed     int64     `json:"total_tokens_used"`
-	TotalCommits        int       `json:"total_commits"`
-	AverageIterPerTask  float64   `json:"avg_iterations_per_task"`
-	LastActivity        time.Time `json:"last_activity"`
+	TotalProjects      int       `json:"total_projects"`
+	TotalTasks         int       `json:"total_tasks"`
+	TasksCompleted     int       `json:"tasks_completed"`
+	TasksFailed        int       `json:"tasks_failed"`
+	TasksPending       int       `json:"tasks_pending"`
+	TotalIterations    int64     `json:"total_iterations"`
+	TotalTokensUsed    int64     `json:"total_tokens_used"`
+	TotalCommits       int       `json:"total_commits"`
+	AverageIterPerTask float64   `json:"avg_iterations_per_task"`
+	LastActivity       time.Time `json:"last_activity"`
 }
 
 // NewChiefTaskOrchestrator creates a new orchestrator engine.
@@ -851,21 +851,21 @@ func (e *ChiefTaskOrchestrator) Diagnostics() map[string]interface{} {
 	defer e.mu.RUnlock()
 
 	return map[string]interface{}{
-		"engine":              "OmniChiefTaskOrchestrator",
-		"version":             e.engineVersion,
-		"uptime":              time.Since(e.startedAt).String(),
-		"started_at":          e.startedAt,
-		"total_projects":      e.stats.TotalProjects,
-		"total_tasks":         e.stats.TotalTasks,
-		"tasks_completed":     e.stats.TasksCompleted,
-		"tasks_failed":        e.stats.TasksFailed,
-		"tasks_pending":       e.stats.TasksPending,
-		"total_iterations":    e.stats.TotalIterations,
-		"total_tokens_used":   e.stats.TotalTokensUsed,
-		"total_commits":       e.stats.TotalCommits,
-		"avg_iter_per_task":   e.stats.AverageIterPerTask,
-		"templates_count":     len(e.templates),
-		"last_activity":       e.stats.LastActivity,
-		"status":              "OPERATIONAL",
+		"engine":            "OmniChiefTaskOrchestrator",
+		"version":           e.engineVersion,
+		"uptime":            time.Since(e.startedAt).String(),
+		"started_at":        e.startedAt,
+		"total_projects":    e.stats.TotalProjects,
+		"total_tasks":       e.stats.TotalTasks,
+		"tasks_completed":   e.stats.TasksCompleted,
+		"tasks_failed":      e.stats.TasksFailed,
+		"tasks_pending":     e.stats.TasksPending,
+		"total_iterations":  e.stats.TotalIterations,
+		"total_tokens_used": e.stats.TotalTokensUsed,
+		"total_commits":     e.stats.TotalCommits,
+		"avg_iter_per_task": e.stats.AverageIterPerTask,
+		"templates_count":   len(e.templates),
+		"last_activity":     e.stats.LastActivity,
+		"status":            "OPERATIONAL",
 	}
 }

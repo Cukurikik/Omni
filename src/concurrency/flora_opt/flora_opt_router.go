@@ -26,7 +26,7 @@ func (r *flora_optRouter) Execute(ctx context.Context, data []byte) (*flora_optR
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &flora_optResult{
 		Success: true,
 		Status:  "computed",

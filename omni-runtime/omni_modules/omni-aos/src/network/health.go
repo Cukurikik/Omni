@@ -1,4 +1,4 @@
-package omni_aos
+package network
 
 import "time"
 

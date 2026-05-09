@@ -1,4 +1,4 @@
-package omni_threejs
+package network
 
 import "time"
 

@@ -1,0 +1,52 @@
+---
+# OMNI Framework - Cerbos Resource Policy
+# Defines granular authorization rules for interacting with the MoE cluster API
+
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  resource: moe_cluster_endpoint
+  rules:
+    # Read-only access for telemetry
+    - actions:
+        - view_telemetry
+      effect: EFFECT_ALLOW
+      roles:
+        - developer
+        - admin
+
+    # Inference access based on tenant quota status
+    - actions:
+        - execute_inference
+      effect: EFFECT_ALLOW
+      roles:
+        - tenant_user
+        - tenant_admin
+      condition:
+        match:
+          expr: request.resource.attr.quota_exceeded == false
+
+    # Admin actions for cluster management
+    - actions:
+        - scale_experts
+        - flush_kv_cache
+        - hot_swap_lora
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+      condition:
+        match:
+          expr: request.principal.attr.mfa_authenticated == true
+
+    # Specific restriction: Only VIP tenants can use the DeepSeek-671B model directly
+    - actions:
+        - execute_671B
+      effect: EFFECT_ALLOW
+      roles:
+        - tenant_admin
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.principal.attr.subscription_tier == "VIP"
+              - expr: request.resource.attr.quota_exceeded == false

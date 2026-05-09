@@ -19,7 +19,7 @@ func (r *MetaRouter) RouteEdit(ctx context.Context, distance int32) (*EditResult
 	if distance < 0 {
 		return nil, errors.New("edit distance cannot be negative")
 	}
-	
+
 	return &EditResult{
 		Distance: distance,
 		Match:    distance <= r.MaxDistance,

@@ -1,4 +1,4 @@
-package omni_rive_animation
+package network
 
 import (
 	"context"

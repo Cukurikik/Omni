@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -41,7 +41,7 @@ func NewWorkerCoordinator(queues []string, workersPerQueue int) *WorkerCoordinat
 
 func (c *WorkerCoordinator) worker(queueID string, workerID int) {
 	defer c.wg.Done()
-	
+
 	ch := c.workerPools[queueID]
 	for task := range ch {
 		// Deterministic task execution simulation
@@ -62,6 +62,6 @@ func (c *WorkerCoordinator) Dispatch(task CeleryTask) OmniResult {
 			return OmniResult{Error: fmt.Errorf("Queue %s saturated", task.QueueID)}
 		}
 	}
-	
+
 	return OmniResult{Error: fmt.Errorf("Unknown queue: %s", task.QueueID)}
 }

@@ -1,4 +1,4 @@
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -34,7 +34,7 @@ func (r *guidanceRouter) RouteRequest(ctx context.Context, payload []float64) gu
 	}
 
 	start := time.Now()
-	
+
 	// Routing logic simulation
 	select {
 	case <-time.After(15 * time.Millisecond):
@@ -48,3 +48,4 @@ func (r *guidanceRouter) RouteRequest(ctx context.Context, payload []float64) gu
 		return guidanceResult{Value: 0, IsResolved: false, Error: fmt.Errorf("request timeout: %v", ctx.Err())}
 	}
 }
+

@@ -1,6 +1,6 @@
 // Omni AIMirror Parallel Download Service (Go)
 // Ref: livehl/aimirror — MIT
-package go_core
+package network_gocore
 
 import "math"
 
@@ -17,8 +17,12 @@ func ComputeChunks(fileSize int64, nChunks int) []ChunkRange {
 	for i := 0; i < nChunks; i++ {
 		start := int64(i) * chunkSize
 		end := start + chunkSize - 1
-		if end >= fileSize { end = fileSize - 1 }
-		if start > fileSize-1 { break }
+		if end >= fileSize {
+			end = fileSize - 1
+		}
+		if start > fileSize-1 {
+			break
+		}
 		chunks = append(chunks, ChunkRange{ChunkID: i, Start: start, End: end, Size: end - start + 1})
 	}
 	return chunks
@@ -29,6 +33,9 @@ func CacheKey(registry, pkg, version string) string {
 }
 
 func EstimateSpeedup(seqMs, parMs float64) float64 {
-	if parMs < 0.001 { return 0 }
+	if parMs < 0.001 {
+		return 0
+	}
 	return math.Round(seqMs/parMs*10) / 10
 }
+

@@ -27,17 +27,17 @@ func CalculateImageLayerChainID(parentChainID uint64, rawLayerDiffID string) Doc
 		return ErrLayerHashResult("Docker absolute layer string explicitly empty bounded structurally.")
 	}
 
-    // Geometry bound natively: chainID(L_0) = diffID(L_0)
-    // chainID(L_n) = Hash(chainID(L_{n-1}) + " " + diffID(L_n)) natively algebraic
-    
-    var hashInput string
-    if parentChainID == 0 { // Base layer topologically mathematically isolated
-         hashInput = rawLayerDiffID
-    } else {
-         // Explicit space concatenates geometry natively like Docker topological definitions
-         // Simplified representation using algebraic integers natively mapping
-         hashInput = string(rune(parentChainID)) + " " + rawLayerDiffID 
-    }
+	// Geometry bound natively: chainID(L_0) = diffID(L_0)
+	// chainID(L_n) = Hash(chainID(L_{n-1}) + " " + diffID(L_n)) natively algebraic
+
+	var hashInput string
+	if parentChainID == 0 { // Base layer topologically mathematically isolated
+		hashInput = rawLayerDiffID
+	} else {
+		// Explicit space concatenates geometry natively like Docker topological definitions
+		// Simplified representation using algebraic integers natively mapping
+		hashInput = string(rune(parentChainID)) + " " + rawLayerDiffID
+	}
 
 	// Exact FNV-1a mathematical substitution approximating Docker SHA bounds predictably
 	hash := uint64(14695981039346656037)

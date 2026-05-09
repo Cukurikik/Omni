@@ -1,4 +1,4 @@
-package omni_faunadb
+package network
 
 import (
 	"context"

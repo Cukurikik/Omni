@@ -1,0 +1,192 @@
+# OMNI Business Layer — GraphQL Schema for Model API
+# Type-safe API contract for the OMNI inference platform.
+
+type Query {
+  """List all registered models"""
+  models(status: ModelStatus, limit: Int = 20, offset: Int = 0): ModelConnection!
+
+  """Get a specific model by ID"""
+  model(id: ID!): Model
+
+  """List experiments for a model"""
+  experiments(modelId: ID!, status: ExperimentStatus): [Experiment!]!
+
+  """Get inference statistics"""
+  inferenceStats(modelId: ID!, timeRange: TimeRange!): InferenceStats!
+
+  """Search models"""
+  searchModels(query: String!, architecture: String): [Model!]!
+}
+
+type Mutation {
+  """Register a new model"""
+  createModel(input: CreateModelInput!): Model!
+
+  """Start model training"""
+  startTraining(modelId: ID!, config: TrainingConfigInput!): Experiment!
+
+  """Deploy a model"""
+  deployModel(modelId: ID!, target: DeploymentInput!): Deployment!
+
+  """Run inference"""
+  infer(modelId: ID!, input: InferenceInput!): InferenceResult!
+
+  """Deprecate a model"""
+  deprecateModel(modelId: ID!, reason: String!): Model!
+}
+
+type Subscription {
+  """Stream training metrics in real-time"""
+  trainingMetrics(experimentId: ID!): TrainingMetric!
+
+  """Stream inference tokens"""
+  inferenceStream(modelId: ID!, input: InferenceInput!): StreamToken!
+}
+
+# Core types
+type Model {
+  id: ID!
+  name: String!
+  version: String!
+  architecture: String!
+  status: ModelStatus!
+  parameterCount: Int
+  modelSizeMb: Float
+  metrics: ModelMetrics
+  deployments: [Deployment!]!
+  experiments: [Experiment!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: String!
+}
+
+type ModelConnection {
+  nodes: [Model!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  endCursor: String
+}
+
+type ModelMetrics {
+  accuracy: Float
+  f1Score: Float
+  perplexity: Float
+  bleuScore: Float
+  latencyP50Ms: Float
+  latencyP99Ms: Float
+}
+
+type Experiment {
+  id: ID!
+  modelId: ID!
+  name: String!
+  status: ExperimentStatus!
+  config: TrainingConfig!
+  metrics: [TrainingMetric!]!
+  startedAt: DateTime!
+  completedAt: DateTime
+}
+
+type TrainingConfig {
+  epochs: Int!
+  batchSize: Int!
+  learningRate: Float!
+  optimizer: String!
+  scheduler: String
+  warmupSteps: Int
+}
+
+type TrainingMetric {
+  epoch: Int!
+  step: Int!
+  loss: Float!
+  learningRate: Float!
+  accuracy: Float
+  timestamp: DateTime!
+}
+
+type Deployment {
+  id: ID!
+  modelId: ID!
+  environment: String!
+  region: String!
+  replicas: Int!
+  computeType: String!
+  status: DeploymentStatus!
+  endpointUrl: String
+  deployedAt: DateTime!
+}
+
+type InferenceResult {
+  requestId: ID!
+  generatedText: String!
+  tokensGenerated: Int!
+  latencyMs: Float!
+  finishReason: String!
+  usage: TokenUsage!
+}
+
+type TokenUsage {
+  promptTokens: Int!
+  completionTokens: Int!
+  totalTokens: Int!
+}
+
+type StreamToken {
+  delta: String!
+  tokenIndex: Int!
+  finishReason: String
+}
+
+type InferenceStats {
+  totalRequests: Int!
+  avgLatencyMs: Float!
+  p99LatencyMs: Float!
+  errorRate: Float!
+  tokensGenerated: Int!
+  requestsPerSecond: Float!
+}
+
+# Enums
+enum ModelStatus { DRAFT TRAINING VALIDATING READY DEPLOYED DEPRECATED ARCHIVED }
+enum ExperimentStatus { RUNNING COMPLETED FAILED CANCELLED }
+enum DeploymentStatus { PENDING DEPLOYING ACTIVE DRAINING TERMINATED }
+enum TimeRange { HOUR DAY WEEK MONTH }
+
+# Inputs
+input CreateModelInput {
+  name: String!
+  version: String!
+  architecture: String!
+}
+
+input TrainingConfigInput {
+  epochs: Int! = 10
+  batchSize: Int! = 32
+  learningRate: Float! = 0.0001
+  optimizer: String = "adamw"
+  scheduler: String = "cosine"
+  warmupSteps: Int = 100
+}
+
+input DeploymentInput {
+  environment: String!
+  region: String!
+  replicas: Int! = 1
+  computeType: String = "gpu-a100"
+}
+
+input InferenceInput {
+  prompt: String!
+  maxTokens: Int = 256
+  temperature: Float = 0.7
+  topP: Float = 0.9
+  stopSequences: [String!]
+}
+
+scalar DateTime

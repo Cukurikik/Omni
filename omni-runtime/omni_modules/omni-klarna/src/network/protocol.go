@@ -1,4 +1,4 @@
-package omni_klarna
+package network
 
 import (
 	"encoding/binary"

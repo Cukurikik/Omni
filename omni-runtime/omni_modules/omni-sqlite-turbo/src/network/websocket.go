@@ -1,4 +1,4 @@
-package omni_sqlite_turbo
+package network
 
 import "fmt"
 

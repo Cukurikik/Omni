@@ -1,4 +1,4 @@
-package omni_alipay
+package network
 
 import "sync"
 

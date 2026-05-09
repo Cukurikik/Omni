@@ -44,7 +44,7 @@ func CalculatePorterMeasure(token string) StemResult {
 	if len(token) == 0 {
 		return ErrStemResult("Token cannot be empty.")
 	}
-	
+
 	for i := 0; i < len(token); i++ {
 		c := token[i]
 		if c < 'a' || c > 'z' {

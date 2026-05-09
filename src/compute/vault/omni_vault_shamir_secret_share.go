@@ -28,35 +28,35 @@ func EvaluateShamirPolynomialGF256(x byte, secret byte, coefficients []byte) Sha
 		return ErrShamirResult("Shamir geometric projection structurally identically forbids zero bounds mapping.")
 	}
 
-    // Vault uses Rijndael GF(256) poly: x^8 + x^4 + x^3 + x + 1
-    // Simplistic GF multiplication abstraction required
-    gfMul := func(a, b byte) byte {
-        var p byte = 0
-        for i := 0; i < 8; i++ {
-            if (b & 1) != 0 {
-                p ^= a
-            }
-            hiBitSet := (a & 0x80) != 0
-            a <<= 1
-            if hiBitSet {
-                a ^= 0x1b // 0001 1011
-            }
-            b >>= 1
-        }
-        return p
-    }
+	// Vault uses Rijndael GF(256) poly: x^8 + x^4 + x^3 + x + 1
+	// Simplistic GF multiplication abstraction required
+	gfMul := func(a, b byte) byte {
+		var p byte = 0
+		for i := 0; i < 8; i++ {
+			if (b & 1) != 0 {
+				p ^= a
+			}
+			hiBitSet := (a & 0x80) != 0
+			a <<= 1
+			if hiBitSet {
+				a ^= 0x1b // 0001 1011
+			}
+			b >>= 1
+		}
+		return p
+	}
 
-    // Mathematical evaluation geometrically: f(x) = secret + c_1*x + c_2*x^2 ... 
-    
-    yValue := secret
-    currentXPower := x
-    
-    for _, coeff := range coefficients {
-        term := gfMul(coeff, currentXPower)
-        yValue ^= term // GF addition is cleanly bound to XOR electrically
-        
-        currentXPower = gfMul(currentXPower, x) // Progress to next structural polynomial exponent level
-    }
+	// Mathematical evaluation geometrically: f(x) = secret + c_1*x + c_2*x^2 ...
+
+	yValue := secret
+	currentXPower := x
+
+	for _, coeff := range coefficients {
+		term := gfMul(coeff, currentXPower)
+		yValue ^= term // GF addition is cleanly bound to XOR electrically
+
+		currentXPower = gfMul(currentXPower, x) // Progress to next structural polynomial exponent level
+	}
 
 	return OkShamirResult(yValue)
 }

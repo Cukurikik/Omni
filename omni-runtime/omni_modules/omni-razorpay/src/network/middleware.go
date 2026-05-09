@@ -1,4 +1,4 @@
-package omni_razorpay
+package network
 
 import (
 	"net/http"

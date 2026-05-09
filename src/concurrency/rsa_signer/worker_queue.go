@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -35,7 +35,7 @@ func NewWorkerQueue(workers int) *WorkerQueue {
 
 func (q *WorkerQueue) worker(id int) {
 	defer q.wg.Done()
-	
+
 	for req := range q.queue {
 		// Simulate heavy RSA signing latency (PKCS#1 v1.5 / PSS)
 		time.Sleep(10 * time.Millisecond)

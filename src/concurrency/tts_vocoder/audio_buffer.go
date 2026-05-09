@@ -36,7 +36,7 @@ func (b *AudioBuffer) WriteChunk(chunk AudioChunk) OmniResult {
 	defer b.mu.Unlock()
 
 	b.chunks = append(b.chunks, chunk)
-	
+
 	// Deterministic sorting to ensure in-order playback sequence
 	for i := len(b.chunks) - 1; i > 0; i-- {
 		if b.chunks[i].SequenceID < b.chunks[i-1].SequenceID {
@@ -58,6 +58,6 @@ func (b *AudioBuffer) ReadNext() OmniResult {
 
 	chunk := b.chunks[0]
 	b.chunks = b.chunks[1:]
-	
+
 	return OmniResult{Value: chunk}
 }

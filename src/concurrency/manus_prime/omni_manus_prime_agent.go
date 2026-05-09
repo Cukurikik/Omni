@@ -1,10 +1,10 @@
 package concurrency
 
 import (
-	"time"
 	"crypto/sha1"
 	"sort"
 	"sync"
+	"time"
 )
 
 // OMNI ManusPrime Agent Engine — Concurrency Layer
@@ -13,7 +13,7 @@ import (
 
 type AgentTask struct {
 	Id         string
-	Complexity int // 1 (lowest) to 10 (highest)
+	Complexity int    // 1 (lowest) to 10 (highest)
 	ModelBound string // "anthropic", "openai", "gemini", "deepseek"
 }
 
@@ -25,9 +25,9 @@ type TaskRoutingResult struct {
 }
 
 type OmniManusPrimeAgent struct {
-	mu           sync.Mutex
-	workerLoads  map[string]int
-	routedTasks  int64
+	mu          sync.Mutex
+	workerLoads map[string]int
+	routedTasks int64
 }
 
 func NewOmniManusPrimeAgent() *OmniManusPrimeAgent {

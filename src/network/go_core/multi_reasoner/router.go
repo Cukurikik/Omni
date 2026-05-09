@@ -19,7 +19,7 @@ func (r *ReasonRouter) RouteDivergence(ctx context.Context, kl float64) (*KLResu
 	if kl < 0 {
 		return nil, errors.New("KL divergence cannot be negative")
 	}
-	
+
 	return &KLResult{
 		Divergence: kl,
 		Similar:    kl <= r.MaxDivergence,

@@ -1,4 +1,4 @@
-package omni_backblaze_b2
+package network
 
 import "time"
 

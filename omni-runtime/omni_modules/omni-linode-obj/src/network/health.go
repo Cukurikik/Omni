@@ -1,4 +1,4 @@
-package omni_linode_obj
+package network
 
 import "time"
 

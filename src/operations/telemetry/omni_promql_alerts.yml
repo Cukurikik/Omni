@@ -1,0 +1,52 @@
+# Omni Prometheus Alerting Rules (YAML)
+# Operations & Observability Layer
+# Defines critical alerts for managing global GPU clusters running Omni workloads.
+
+groups:
+  - name: omni_gpu_alerts
+    rules:
+      # Alert when GPU VRAM usage exceeds 95% for 5 minutes (OOM risk)
+      - alert: OmniHighVRAMUsage
+        expr: (omni_gpu_memory_used_bytes / omni_gpu_memory_total_bytes) * 100 > 95
+        for: 5m
+        labels:
+          severity: critical
+          tier: hardware
+        annotations:
+          summary: "GPU {{ $labels.gpu_id }} is approaching OOM."
+          description: "Node {{ $labels.instance }} has >95% VRAM utilization. May impact KV Cache allocations."
+
+      # Alert when GPU Temperature exceeds 85C for 2 minutes (Thermal Throttling)
+      - alert: OmniGPUThermalThrottling
+        expr: omni_gpu_temperature_celsius > 85
+        for: 2m
+        labels:
+          severity: warning
+          tier: hardware
+        annotations:
+          summary: "GPU {{ $labels.gpu_id }} is overheating."
+          description: "Temperature on {{ $labels.instance }} is {{ $value }}C. Clock speeds may throttle."
+
+  - name: omni_software_alerts
+    rules:
+      # Alert when inference latency spikes beyond 2 seconds
+      - alert: OmniHighInferenceLatency
+        expr: histogram_quantile(0.99, rate(omni_inference_duration_seconds_bucket[5m])) > 2.0
+        for: 2m
+        labels:
+          severity: critical
+          tier: software
+        annotations:
+          summary: "P99 Inference Latency is high on {{ $labels.model_id }}."
+          description: "Model {{ $labels.model_id }} is taking >2s to respond. Check Kafka queues and KV Cache fragmentation."
+
+      # Alert when Elixir Worker Nodes disconnect from the cluster
+      - alert: OmniNodeDisconnected
+        expr: up{job="omni_elixir_cluster"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          tier: software
+        annotations:
+          summary: "Omni Actor Node offline."
+          description: "Elixir node {{ $labels.instance }} has been unreachable for 1 minute."

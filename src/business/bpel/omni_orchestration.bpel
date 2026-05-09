@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OMNI Business — BPEL Orchestration -->
+<!-- Orchestrates multi-cloud deployment and initialization sequence -->
+<process name="OmniClusterProvisioning" 
+         targetNamespace="http://omni.framework/bpel"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+         
+    <sequence>
+        <receive name="ReceiveProvisionRequest" 
+                 partnerLink="client" 
+                 portType="ProvisioningPort" 
+                 operation="StartProvisioning" 
+                 variable="request" 
+                 createInstance="yes" />
+                 
+        <flow name="ParallelCloudProvisioning">
+            <invoke name="ProvisionAWS" 
+                    partnerLink="awsProvider" 
+                    operation="CreateEC2GPUs" 
+                    inputVariable="awsReq" />
+                    
+            <invoke name="ProvisionGCP" 
+                    partnerLink="gcpProvider" 
+                    operation="CreateTPUs" 
+                    inputVariable="gcpReq" />
+        </flow>
+        
+        <invoke name="InitializeK8s" 
+                partnerLink="kubernetes" 
+                operation="ApplyHelmCharts" 
+                inputVariable="k8sConfig" />
+                
+        <reply name="SendProvisionResponse" 
+               partnerLink="client" 
+               operation="StartProvisioning" 
+               variable="response" />
+    </sequence>
+</process>

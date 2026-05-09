@@ -1,0 +1,36 @@
+# moe_tenant_limits.toml — Domain / Config
+# Layer: Domain / Configuration — Tenant API Limits
+#
+# Static configuration mapping tenant tiers to token processing speeds and 
+# expert access levels. Ingested by the Go JWT Authorizer and Ruby Billing Worker.
+
+[tiers.free]
+max_tokens_per_second = 100
+max_tokens_per_month = 1_000_000
+allowed_expert_classes = ["general", "chat", "summarization"]
+priority = "low"
+
+[tiers.standard]
+max_tokens_per_second = 2000
+max_tokens_per_month = 50_000_000
+allowed_expert_classes = ["general", "chat", "summarization", "coding", "translation"]
+priority = "normal"
+
+[tiers.premium]
+max_tokens_per_second = 10_000
+max_tokens_per_month = 500_000_000
+allowed_expert_classes = ["general", "coding", "analytics", "medical_base", "legal_base"]
+priority = "high"
+
+[tiers.enterprise]
+max_tokens_per_second = 100_000
+max_tokens_per_month = 9_999_999_999
+allowed_expert_classes = ["ALL"]
+priority = "critical"
+dedicated_nodes = true
+
+[system_overrides]
+# During cluster contention, throttle free tier by this percentage
+free_tier_contention_throttle = 0.80
+# Drop context length for lower tiers during high load
+dynamic_context_window_reduction = true

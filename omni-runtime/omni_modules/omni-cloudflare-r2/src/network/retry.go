@@ -1,4 +1,4 @@
-package omni_cloudflare_r2
+package network
 
 import (
 	"context"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @omni-layer Natural Language | @omni-lang AIML | @omni-batch 18 | @omni-semester 16 -->
+<!-- @omni-description AIML chatbot for OMNI transformer system guidance -->
+<aiml version="2.0">
+
+<category>
+  <pattern>WHAT IS THE OMNI TRANSFORMER</pattern>
+  <template>
+    OMNI Transformer is a unified multi-model inference platform supporting
+    time series forecasting (TEMPO), medical segmentation (HiFormer), NER,
+    video classification, knowledge editing, and more. It spans 30+ programming
+    languages with zero-mock production engines.
+  </template>
+</category>
+
+<category>
+  <pattern>HOW DO I DEPLOY A MODEL</pattern>
+  <template>
+    To deploy a transformer model:
+    1. Register the model: omni model register --id model-name --path /models/
+    2. Build for target: omni build --release --target all
+    3. Deploy: omni cloud deploy --model model-name --replicas 2
+    4. Verify health: omni cloud health --model model-name
+  </template>
+</category>
+
+<category>
+  <pattern>WHAT MODELS ARE AVAILABLE</pattern>
+  <template>
+    Batch 18 models include:
+    - TEMPO Forecaster: Time series prediction with seasonal decomposition
+    - HiFormer: Medical image segmentation with hierarchical attention
+    - BERT-NER: Named entity recognition with BIO tagging
+    - Video Classifier: Video understanding with temporal attention
+    - Knowledge Editor: Factual knowledge editing in transformer LMs
+    - Long Text Classifier: Document classification for texts over 512 tokens
+    - TACTiS Copula: Multivariate probabilistic forecasting
+    - HyperTransformer: Few-shot learning via hypernetwork adapters
+  </template>
+</category>
+
+<category>
+  <pattern>EXPLAIN ATTENTION *</pattern>
+  <template>
+    Attention is the core mechanism in transformers. It computes relevance
+    scores between all pairs of input tokens, allowing the model to focus on
+    the most important parts of the input. The formula is:
+    Attention(Q,K,V) = softmax(QK^T / sqrt(d_k)) * V
+    In OMNI, we support full O(n^2), linear O(n), and sparse attention variants.
+  </template>
+</category>
+
+<category>
+  <pattern>HOW TO CHECK MODEL HEALTH</pattern>
+  <template>
+    Use these commands to check model health:
+    - omni model health --id model-name
+    - omni metrics --model model-name --last 1h
+    - Check the Grafana dashboard at /metrics endpoint
+    Key metrics: P95 latency, error rate, GPU utilization, queue depth.
+    The CLIPS expert system automatically diagnoses issues.
+  </template>
+</category>
+
+<category>
+  <pattern>WHAT IS WEIGHT SYNC</pattern>
+  <template>
+    Weight synchronization (AWEX-inspired) enables second-level parameter
+    updates between training and inference processes. Key components:
+    - WeightWriter: Collects and transmits shards from training
+    - WeightReader: Receives and applies updates on inference side
+    - UnifiedWeightConverter: Handles parallelism strategy conversion
+    Supports NCCL and RDMA backends for trillion-parameter sync.
+  </template>
+</category>
+
+</aiml>

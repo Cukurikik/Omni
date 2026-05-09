@@ -115,19 +115,19 @@ type FirewallRule struct {
 func (r *FirewallRule) ToJSON() ([]byte, error) {
 	payload := map[string]interface{}{
 		"rule": map[string]interface{}{
-			"description": r.Description,
-			"action":      r.Action.String(),
-			"interface":   r.Interface,
-			"direction":   r.Direction.String(),
-			"ipprotocol":  "inet",
-			"protocol":    r.Protocol.String(),
-			"source_net":  r.SourceNet,
-			"source_port": r.SourcePort,
-			"destination": r.DestNet,
+			"description":      r.Description,
+			"action":           r.Action.String(),
+			"interface":        r.Interface,
+			"direction":        r.Direction.String(),
+			"ipprotocol":       "inet",
+			"protocol":         r.Protocol.String(),
+			"source_net":       r.SourceNet,
+			"source_port":      r.SourcePort,
+			"destination":      r.DestNet,
 			"destination_port": r.DestPort,
-			"log":         r.Log,
-			"enabled":     r.Enabled,
-			"sequence":    r.Sequence,
+			"log":              r.Log,
+			"enabled":          r.Enabled,
+			"sequence":         r.Sequence,
 		},
 	}
 	return json.Marshal(payload)
@@ -186,7 +186,7 @@ type VLAN struct {
 	Tag         int    // 1-4094
 	ParentIF    string // e.g. "igb0"
 	Description string
-	Priority    int    // 802.1p priority 0-7
+	Priority    int // 802.1p priority 0-7
 }
 
 // ---- VPN Tunnel -----------------------------------------------------------
@@ -210,7 +210,7 @@ type VPNTunnel struct {
 	LocalAddr  string
 	RemoteAddr string
 	ListenPort int
-	PublicKey   string
+	PublicKey  string
 	PrivateKey string
 	AllowedIPs []string
 	Enabled    bool
@@ -289,10 +289,10 @@ type FirmwareInfo struct {
 }
 
 type FirmwarePackage struct {
-	Name           string
-	InstalledVer   string
-	AvailableVer   string
-	NeedsUpgrade   bool
+	Name         string
+	InstalledVer string
+	AvailableVer string
+	NeedsUpgrade bool
 }
 
 // ---- API Client -----------------------------------------------------------
@@ -519,10 +519,10 @@ func (e *OPNsenseEngine) AddVLAN(vlan *VLAN) (*APIResponse, error) {
 
 	payload, _ := json.Marshal(map[string]interface{}{
 		"vlan": map[string]interface{}{
-			"tag":         vlan.Tag,
-			"if":          vlan.ParentIF,
-			"descr":       vlan.Description,
-			"pcp":         vlan.Priority,
+			"tag":   vlan.Tag,
+			"if":    vlan.ParentIF,
+			"descr": vlan.Description,
+			"pcp":   vlan.Priority,
 		},
 	})
 
@@ -548,10 +548,10 @@ func (e *OPNsenseEngine) AddWireGuardPeer(tunnel *VPNTunnel) (*APIResponse, erro
 
 	payload, _ := json.Marshal(map[string]interface{}{
 		"client": map[string]interface{}{
-			"name":        tunnel.Name,
-			"pubkey":      tunnel.PublicKey,
+			"name":          tunnel.Name,
+			"pubkey":        tunnel.PublicKey,
 			"tunneladdress": strings.Join(tunnel.AllowedIPs, ","),
-			"enabled":     tunnel.Enabled,
+			"enabled":       tunnel.Enabled,
 		},
 	})
 
@@ -590,11 +590,11 @@ func (e *OPNsenseEngine) AddHAProxyBackend(backend *HAProxyBackend) (*APIRespons
 
 	payload, _ := json.Marshal(map[string]interface{}{
 		"backend": map[string]interface{}{
-			"name":         backend.Name,
-			"mode":         backend.Mode.String(),
-			"algorithm":    backend.BalanceAlgo,
-			"healthCheck":  backend.HealthCheck,
-			"servers":      servers,
+			"name":        backend.Name,
+			"mode":        backend.Mode.String(),
+			"algorithm":   backend.BalanceAlgo,
+			"healthCheck": backend.HealthCheck,
+			"servers":     servers,
 		},
 	})
 
@@ -657,12 +657,12 @@ func (e *OPNsenseEngine) ConfigureInterface(iface *InterfaceConfig) (*APIRespons
 
 	payload, _ := json.Marshal(map[string]interface{}{
 		"interface": map[string]interface{}{
-			"descr":       iface.Description,
-			"if":          iface.Device,
-			"ipaddr":      iface.IPv4Addr,
-			"subnet":      iface.IPv4Subnet,
-			"gateway":     iface.IPv4Gateway,
-			"enable":      iface.Enabled,
+			"descr":   iface.Description,
+			"if":      iface.Device,
+			"ipaddr":  iface.IPv4Addr,
+			"subnet":  iface.IPv4Subnet,
+			"gateway": iface.IPv4Gateway,
+			"enable":  iface.Enabled,
 		},
 	})
 

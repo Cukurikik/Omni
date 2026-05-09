@@ -25,13 +25,13 @@ import (
 
 // YutuOAuthConfig holds OAuth 2.0 credentials for YouTube API.
 type YutuOAuthConfig struct {
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
-	RedirectURI  string `json:"redirect_uri"`
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
+	ClientID     string    `json:"client_id"`
+	ClientSecret string    `json:"client_secret"`
+	RedirectURI  string    `json:"redirect_uri"`
+	AccessToken  string    `json:"access_token"`
+	RefreshToken string    `json:"refresh_token"`
 	TokenExpiry  time.Time `json:"token_expiry"`
-	ProjectID    string `json:"project_id"`
+	ProjectID    string    `json:"project_id"`
 }
 
 // YutuVideo represents a YouTube video resource.
@@ -56,43 +56,43 @@ type YutuVideo struct {
 
 // YutuPlaylist represents a YouTube playlist.
 type YutuPlaylist struct {
-	PlaylistID    string   `json:"playlist_id"`
-	Title         string   `json:"title"`
-	Description   string   `json:"description"`
-	PrivacyStatus string   `json:"privacy_status"`
-	VideoIDs      []string `json:"video_ids"`
-	ItemCount     int      `json:"item_count"`
+	PlaylistID    string    `json:"playlist_id"`
+	Title         string    `json:"title"`
+	Description   string    `json:"description"`
+	PrivacyStatus string    `json:"privacy_status"`
+	VideoIDs      []string  `json:"video_ids"`
+	ItemCount     int       `json:"item_count"`
 	CreatedAt     time.Time `json:"created_at"`
 }
 
 // YutuComment represents a YouTube comment.
 type YutuComment struct {
-	CommentID    string    `json:"comment_id"`
-	VideoID      string    `json:"video_id"`
-	AuthorName   string    `json:"author_name"`
-	AuthorID     string    `json:"author_id"`
-	Text         string    `json:"text"`
-	LikeCount    int       `json:"like_count"`
-	ReplyCount   int       `json:"reply_count"`
-	PublishedAt  time.Time `json:"published_at"`
-	IsReply      bool      `json:"is_reply"`
-	ParentID     string    `json:"parent_id,omitempty"`
-	ModStatus    string    `json:"moderation_status"` // published, heldForReview, rejected
+	CommentID   string    `json:"comment_id"`
+	VideoID     string    `json:"video_id"`
+	AuthorName  string    `json:"author_name"`
+	AuthorID    string    `json:"author_id"`
+	Text        string    `json:"text"`
+	LikeCount   int       `json:"like_count"`
+	ReplyCount  int       `json:"reply_count"`
+	PublishedAt time.Time `json:"published_at"`
+	IsReply     bool      `json:"is_reply"`
+	ParentID    string    `json:"parent_id,omitempty"`
+	ModStatus   string    `json:"moderation_status"` // published, heldForReview, rejected
 }
 
 // YutuChannel represents a YouTube channel.
 type YutuChannel struct {
-	ChannelID      string    `json:"channel_id"`
-	Title          string    `json:"title"`
-	Description    string    `json:"description"`
-	CustomURL      string    `json:"custom_url"`
-	Country        string    `json:"country"`
-	SubscriberCount int64   `json:"subscriber_count"`
-	VideoCount     int64     `json:"video_count"`
-	ViewCount      int64     `json:"view_count"`
-	BannerURL      string    `json:"banner_url"`
-	ThumbnailURL   string    `json:"thumbnail_url"`
-	UpdatedAt      time.Time `json:"updated_at"`
+	ChannelID       string    `json:"channel_id"`
+	Title           string    `json:"title"`
+	Description     string    `json:"description"`
+	CustomURL       string    `json:"custom_url"`
+	Country         string    `json:"country"`
+	SubscriberCount int64     `json:"subscriber_count"`
+	VideoCount      int64     `json:"video_count"`
+	ViewCount       int64     `json:"view_count"`
+	BannerURL       string    `json:"banner_url"`
+	ThumbnailURL    string    `json:"thumbnail_url"`
+	UpdatedAt       time.Time `json:"updated_at"`
 }
 
 // YutuSubscription represents a channel subscription.
@@ -115,11 +115,11 @@ type YutuCaption struct {
 
 // YutuWatermark represents a channel watermark/branding.
 type YutuWatermark struct {
-	ImageURL     string `json:"image_url"`
-	Position     string `json:"position"` // topLeft, topRight, bottomLeft, bottomRight
-	TimingType   string `json:"timing_type"` // offsetFromStart, offsetFromEnd
-	OffsetMs     int64  `json:"offset_ms"`
-	DurationMs   int64  `json:"duration_ms"`
+	ImageURL   string `json:"image_url"`
+	Position   string `json:"position"`    // topLeft, topRight, bottomLeft, bottomRight
+	TimingType string `json:"timing_type"` // offsetFromStart, offsetFromEnd
+	OffsetMs   int64  `json:"offset_ms"`
+	DurationMs int64  `json:"duration_ms"`
 }
 
 // YutuAnalytics holds video/channel analytics data.
@@ -141,16 +141,16 @@ type YutuAnalytics struct {
 
 // AIOptimization holds AI-generated optimization suggestions.
 type AIOptimization struct {
-	OptID          string   `json:"optimization_id"`
-	VideoID        string   `json:"video_id"`
-	OriginalTitle  string   `json:"original_title"`
-	SuggestedTitle string   `json:"suggested_title"`
-	SuggestedDesc  string   `json:"suggested_description"`
-	SuggestedTags  []string `json:"suggested_tags"`
-	ThumbnailTips  string   `json:"thumbnail_tips"`
-	SEOScore       float64  `json:"seo_score"` // 0-100
+	OptID          string    `json:"optimization_id"`
+	VideoID        string    `json:"video_id"`
+	OriginalTitle  string    `json:"original_title"`
+	SuggestedTitle string    `json:"suggested_title"`
+	SuggestedDesc  string    `json:"suggested_description"`
+	SuggestedTags  []string  `json:"suggested_tags"`
+	ThumbnailTips  string    `json:"thumbnail_tips"`
+	SEOScore       float64   `json:"seo_score"` // 0-100
 	CreatedAt      time.Time `json:"created_at"`
-	Applied        bool     `json:"applied"`
+	Applied        bool      `json:"applied"`
 }
 
 // ---------------------------------------------------------------------------

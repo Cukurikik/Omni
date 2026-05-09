@@ -1,4 +1,4 @@
-package omni_dynamodb_native
+package network
 
 import (
 	"encoding/binary"

@@ -47,7 +47,7 @@ func (p *WorkerPool) SubmitTask(task Task) OmniResult {
 	if task.ID == "" {
 		return OmniResult{Error: fmt.Errorf("task ID cannot be empty")}
 	}
-	
+
 	select {
 	case p.taskQueue <- task:
 		return OmniResult{Value: "Task submitted successfully"}

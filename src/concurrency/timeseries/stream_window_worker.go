@@ -1,9 +1,9 @@
 package timeseries
 
 import (
-	"time"
 	"context"
 	"sync"
+	"time"
 )
 
 // OMNI CONCURRENCY LAYER: Stream Window Worker
@@ -39,18 +39,18 @@ func NewWindowWorker(windowSize time.Duration, stream <-chan DataPoint) *WindowW
 func (w *WindowWorker) Start(ctx context.Context) <-chan WindowResult {
 	w.wg.Add(1)
 	go w.process(ctx)
-	
+
 	go func() {
 		w.wg.Wait()
 		close(w.results)
 	}()
-	
+
 	return w.results
 }
 
 func (w *WindowWorker) process(ctx context.Context) {
 	defer w.wg.Done()
-	
+
 	var currentWindowStart time.Time
 	var sum float64
 	var count int
@@ -73,7 +73,7 @@ func (w *WindowWorker) process(ctx context.Context) {
 
 			if dp.Timestamp.Sub(currentWindowStart) >= w.windowSize {
 				w.emitWindow(currentWindowStart, sum, count)
-				
+
 				// Reset for next window
 				currentWindowStart = dp.Timestamp.Truncate(w.windowSize)
 				sum = 0

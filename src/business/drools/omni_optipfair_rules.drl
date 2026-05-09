@@ -1,0 +1,25 @@
+// OMNI Framework - Drools Business Rules for Optipfair Bias Thresholds
+package com.omni.optipfair.rules;
+
+import com.omni.business.BiasMetric;
+import com.omni.business.ModelDeploymentAction;
+
+rule "Block Deployment if Gender Bias Exceeds Threshold"
+    when
+        $metric : BiasMetric( demographicCategory == "Gender", disparityScore > 0.05 )
+        $action : ModelDeploymentAction( status == "PENDING" )
+    then
+        $action.setStatus("REJECTED");
+        $action.setReason("OMNI Drools: Gender disparity score exceeds the 5% fairness threshold.");
+        update($action);
+end
+
+rule "Require Human Audit if Race Bias is Borderline"
+    when
+        $metric : BiasMetric( demographicCategory == "Race", disparityScore > 0.03, disparityScore <= 0.05 )
+        $action : ModelDeploymentAction( status == "PENDING" )
+    then
+        $action.setStatus("REQUIRES_AUDIT");
+        $action.setReason("OMNI Drools: Race disparity score is borderline. Manual AI Ethics audit required.");
+        update($action);
+end

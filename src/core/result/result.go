@@ -1,17 +1,20 @@
-"package result\
-\
-type OmniResult struct {\
-\	IsError bool\
-\	Error   error\
-\	Value   interface{}\
-}\
-\
-type Result[T any] struct {\
-\	IsError bool\
-\	Error   error\
-\	Value   T\
-}\
-\
-func OkGeneric[T any](val T) Result[T] {\
-\	return Result[T]{IsError: 
-<truncated 305 bytes>
+package result
+
+import "errors"
+
+type Result[T any] struct {
+	Value T
+	Err   error
+}
+
+func Ok[T any](val T) Result[T] {
+	return Result[T]{Value: val}
+}
+
+func Err[T any](err error) Result[T] {
+	return Result[T]{Err: err}
+}
+
+func NewError(msg string) error {
+    return errors.New(msg)
+}

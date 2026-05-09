@@ -1,9 +1,9 @@
 package autogpt
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI AUTOGPT: Agent Event Emitter

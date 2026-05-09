@@ -47,7 +47,7 @@ func (p *FrameWorkerPool) worker() {
 		// For zero-mock, we simulate deterministic tensor math splitting
 		vocalPart := make([]float32, len(frame.Data))
 		accompPart := make([]float32, len(frame.Data))
-		
+
 		for i, v := range frame.Data {
 			vocalPart[i] = v * 0.6 // Mask projection
 			accompPart[i] = v * 0.4

@@ -19,7 +19,7 @@ func (r *PlanRouter) EvaluateUncertainty(ctx context.Context, entropy float64) (
 	if entropy < 0 {
 		return nil, errors.New("entropy cannot be negative")
 	}
-	
+
 	return &EntropyResult{
 		Entropy: entropy,
 		Certain: entropy <= r.CertainThreshold,

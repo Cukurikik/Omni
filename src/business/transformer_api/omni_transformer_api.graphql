@@ -1,0 +1,80 @@
+// @omni-layer Business | @omni-lang GraphQL | @omni-batch 18 | @omni-semester 16
+// @omni-repo All 30 Transformer repos
+// @omni-description Transformer API schema: comprehensive GraphQL API for
+// OMNI Batch 18 transformer services (forecast, NER, video, knowledge edit).
+
+type Query {
+  forecast(input: ForecastInput!): ForecastResult!
+  classifyText(input: TextInput!): ClassificationResult!
+  classifyLongText(input: LongTextInput!): MultiLabelResult!
+  extractEntities(input: TextInput!): NERResult!
+  linkEntities(mention: String!, topK: Int): [EntityMatch!]!
+  classifyVideo(input: VideoInput!): VideoClassResult!
+  captionVideo(input: VideoInput!): CaptionResult!
+  segmentMedicalImage(input: ImageInput!): SegmentationResult!
+  explainPrediction(input: ExplainInput!): ExplainResult!
+  generateQuestions(text: String!, count: Int): [GeneratedQuestion!]!
+  embedText(text: String!, dim: Int): EmbeddingResult!
+  syncWeightStatus: WeightSyncStatus!
+}
+
+type Mutation {
+  editKnowledge(edit: KnowledgeEditInput!): KnowledgeEditResult!
+  batchEditKnowledge(edits: [KnowledgeEditInput!]!): BatchEditResult!
+  augmentText(input: AugmentInput!): AugmentResult!
+  submitWeightTransfer(request: TransferRequestInput!): TransferResponse!
+}
+
+# === Forecasting (TEMPO/TACTiS) ===
+input ForecastInput { series: [[Float!]!]!; horizon: Int!; lookback: Int }
+type ForecastResult { forecasts: [[Float!]!]!; confidence: [Float!]!; model: String! }
+
+# === Text Classification ===
+input TextInput { text: String!; modelId: String }
+type ClassificationResult { label: String!; confidence: Float!; allLabels: [LabelScore!]! }
+type LabelScore { label: String!; score: Float! }
+
+# === Long Text / Multi-Label ===
+input LongTextInput { text: String!; maxChunk: Int; topK: Int }
+type MultiLabelResult { labels: [LabelScore!]!; chunksProcessed: Int!; poolingStrategy: String! }
+
+# === NER (BERT-NER) ===
+type NERResult { entities: [Entity!]!; tokenCount: Int! }
+type Entity { text: String!; type: String!; start: Int!; end: Int!; confidence: Float! }
+
+# === Entity Linking (LinkTransformer) ===
+type EntityMatch { name: String!; similarity: Float!; entityId: String }
+
+# === Video (video-transformers / AuroraCap) ===
+input VideoInput { frameUrls: [String!]!; modelId: String }
+type VideoClassResult { label: String!; confidence: Float!; topLabels: [LabelScore!]! }
+type CaptionResult { caption: String!; tokens: [Int!]!; latencyMs: Float! }
+
+# === Medical Segmentation (HiFormer) ===
+input ImageInput { pixelData: [Float!]!; width: Int!; height: Int! }
+type SegmentationResult { mask: [Int!]!; classes: Int!; model: String! }
+
+# === Explainability (thermostat) ===
+input ExplainInput { text: String!; predictionLabel: Int! }
+type ExplainResult { attributions: [TokenAttribution!]!; method: String! }
+type TokenAttribution { token: String!; score: Float!; rank: Int! }
+
+# === Knowledge Editing (KnowledgeEditor) ===
+input KnowledgeEditInput { subject: String!; relation: String!; oldObject: String!; newObject: String! }
+type KnowledgeEditResult { success: Boolean!; editId: String!; layerModified: Int! }
+type BatchEditResult { total: Int!; successful: Int!; edits: [KnowledgeEditResult!]! }
+
+# === Data Augmentation ===
+input AugmentInput { tokenIds: [Int!]!; count: Int!; maskRatio: Float }
+type AugmentResult { augmented: [[Int!]!]!; count: Int! }
+
+# === Embedding ===
+type EmbeddingResult { embedding: [Float!]!; dim: Int!; script: String! }
+
+# === Question Generation ===
+type GeneratedQuestion { question: String!; answer: String!; distractors: [String!]! }
+
+# === Weight Sync (AWEX) ===
+input TransferRequestInput { sourceRank: Int!; targetRank: Int!; shardIds: [String!]! }
+type TransferResponse { requestId: String!; estimatedMs: Float!; status: String! }
+type WeightSyncStatus { completed: Int!; pending: Int!; totalBytes: Float!; throughputGbps: Float! }

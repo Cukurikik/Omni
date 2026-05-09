@@ -26,7 +26,7 @@ func (r *llm_compilerRouter) Execute(ctx context.Context, data []byte) (*llm_com
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &llm_compilerResult{
 		Success: true,
 		Status:  "computed",

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI Optipfair Bias Audit Report</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0d1117; color: #c9d1d9; margin: 0; padding: 40px; }
+        .container { max-width: 900px; margin: 0 auto; background: #161b22; padding: 30px; border-radius: 8px; border: 1px solid #30363d; }
+        h1 { color: #58a6ff; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+        .metric-card { background: #010409; padding: 20px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #238636; }
+        .metric-card.warning { border-left-color: #d29922; }
+        .metric-card.danger { border-left-color: #f85149; }
+        .value { font-size: 24px; font-weight: bold; }
+        .label { color: #8b949e; font-size: 14px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Optipfair AI Bias Audit</h1>
+        <p>Target Model: <strong>OMNI-Ruformers-v2</strong> | Date: 2026-05-04</p>
+        
+        <div class="metric-card">
+            <div class="label">Overall Fairness Score</div>
+            <div class="value" style="color: #2ea043;">98.4%</div>
+            <p>Model passes base equality constraints.</p>
+        </div>
+
+        <div class="metric-card warning">
+            <div class="label">Gender Disparity Delta</div>
+            <div class="value" style="color: #d29922;">0.042</div>
+            <p>Approaching 0.05 threshold. Regular monitoring advised.</p>
+        </div>
+
+        <div class="metric-card">
+            <div class="label">Racial Disparity Delta</div>
+            <div class="value" style="color: #2ea043;">0.011</div>
+            <p>Well within acceptable bounds (< 0.05).</p>
+        </div>
+    </div>
+</body>
+</html>

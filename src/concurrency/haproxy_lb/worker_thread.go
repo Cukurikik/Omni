@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -36,7 +36,7 @@ func NewWorkerThreadPool(threads int) *WorkerThreadPool {
 
 func (p *WorkerThreadPool) worker(id int) {
 	defer p.wg.Done()
-	
+
 	for task := range p.queue {
 		// Extremely fast zero-mock forwarding simulation
 		time.Sleep(1 * time.Millisecond)

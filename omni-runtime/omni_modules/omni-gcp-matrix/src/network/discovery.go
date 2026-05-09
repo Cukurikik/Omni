@@ -1,7 +1,7 @@
 // OMNI-GCP-MATRIX: Network Layer (Go)
 // Directly maps the Google API Discovery engine to OMNI memory blocks.
 
-package omnigcp
+package network
 
 import (
     "fmt"

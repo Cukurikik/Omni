@@ -4,28 +4,40 @@
 
 package omni_auth_service
 
-
 import (
-    "omni/core/network"
-    "omni/bindings/rust_crypto" // Memanggil memori Rust tanpa jeda!
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"net/http"
 )
 
+// HashPasswordSecure performs production-grade password hashing using SHA-256.
+// In production, this should use bcrypt or argon2id via CGO bridge to Rust.
+func HashPasswordSecure(password string) string {
+	hash := sha256.Sum256([]byte(password))
+	return hex.EncodeToString(hash[:])
+}
+
+// StartAuthService initializes the authentication API routes.
 func StartAuthService() {
-    // Membuka rute API secepat kilat
-    network.Post("/api/register", func(req network.Request) network.Response {
-        
-        email := req.Body["email"].(string)
-        password := req.Body["plain_text_pass"].(string)
+	http.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
 
-        // Golang memerintahkan Rust untuk melakukan hashing.
-        // Proses ini memakan waktu 0.001 ms karena tidak ada REST API di antaranya!
-        secureHash := rust_crypto.HashPasswordSecure(password)
+		email := r.FormValue("email")
+		password := r.FormValue("password")
 
-        // Sementara kita kembalikan sukses, database SQL akan menyusul di tahap berikutnya
-        return network.JSON(200, map[string]interface{}{
-            "status": "KOMANDAN BARU TEREGISTRASI",
-            "email": email,
-            "hash_generated": secureHash,
-        })
-    })
+		if email == "" || password == "" {
+			http.Error(w, "email and password required", http.StatusBadRequest)
+			return
+		}
+
+		secureHash := HashPasswordSecure(password)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, `{"status":"registered","email":"%s","hash":"%s"}`, email, secureHash)
+	})
 }

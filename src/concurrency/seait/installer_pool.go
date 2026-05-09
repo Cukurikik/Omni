@@ -28,7 +28,7 @@ func (ip *InstallerPool) ExecuteBatch(tasks []InstallationTask) OmniResult {
 	var wg sync.WaitGroup
 	results := make([]string, len(tasks))
 	var mu sync.Mutex
-	
+
 	semaphore := make(chan struct{}, ip.MaxWorkers)
 
 	for i, task := range tasks {
@@ -36,14 +36,14 @@ func (ip *InstallerPool) ExecuteBatch(tasks []InstallationTask) OmniResult {
 		go func(idx int, t InstallationTask) {
 			defer wg.Done()
 			semaphore <- struct{}{} // Acquire
-			
+
 			// Simulate native installation commands execution
 			status := "Installed: " + t.ProjectID + " in " + t.Environment
-			
+
 			mu.Lock()
 			results[idx] = status
 			mu.Unlock()
-			
+
 			<-semaphore // Release
 		}(i, task)
 	}

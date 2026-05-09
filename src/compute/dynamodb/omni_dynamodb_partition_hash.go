@@ -27,15 +27,15 @@ func EvaluatePartitionHashRoute(partitionKey []byte, numPartitions int) Partitio
 	if len(partitionKey) == 0 {
 		return ErrPartitionResult("Partition Key structural bounds computationally empty string sequence.")
 	}
-	
+
 	if numPartitions <= 0 {
-	    return ErrPartitionResult("Algebraic bounds restrict physically to highly positive target node structures.")
+		return ErrPartitionResult("Algebraic bounds restrict physically to highly positive target node structures.")
 	}
 
-    // Mathematically simulates MD5 sum mapping abstractly
+	// Mathematically simulates MD5 sum mapping abstractly
 	hashValue := big.NewInt(0)
 	for i, b := range partitionKey {
-	    shiftAmount := i % 16
+		shiftAmount := i % 16
 		term := big.NewInt(int64(b))
 		term.Lsh(term, uint(shiftAmount*8))
 		hashValue.Add(hashValue, term)

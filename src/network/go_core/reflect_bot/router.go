@@ -19,7 +19,7 @@ func (r *BotRouter) RouteActuation(ctx context.Context, actuation float64) (*Con
 	if actuation < -r.MaxOutput || actuation > r.MaxOutput {
 		return nil, errors.New("actuation signal exceeds safe limits")
 	}
-	
+
 	return &ControlResult{
 		Actuation: actuation,
 		Stable:    true,

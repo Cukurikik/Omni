@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -23,9 +23,9 @@ const HIFIBERRY_ENGINE_VERSION = "1.0.0-omni"
 // --- Monadic Error Definition ---
 
 var (
-	ErrServiceInactive   = errors.New("HIFIBERRY_ERR: Target service is currently inactive")
-	ErrPortConflict      = errors.New("HIFIBERRY_ERR: Port alignment conflict detected")
-	ErrSinkOverload      = errors.New("HIFIBERRY_ERR: Hardware audio sink overload")
+	ErrServiceInactive = errors.New("HIFIBERRY_ERR: Target service is currently inactive")
+	ErrPortConflict    = errors.New("HIFIBERRY_ERR: Port alignment conflict detected")
+	ErrSinkOverload    = errors.New("HIFIBERRY_ERR: Hardware audio sink overload")
 )
 
 // Orchestrates individual audio endpoint daemons similar to HiFiBerry's Docker/Sysd configs
@@ -44,7 +44,7 @@ type OmniHiFiBerryOSEngine struct {
 	activeStream string
 	isBooted     bool
 	// Hardware loop simulation channel preventing mutex deadlocks
-	alsaBridge   chan []byte 
+	alsaBridge chan []byte
 }
 
 func NewOmniHiFiBerryOSEngine() *OmniHiFiBerryOSEngine {
@@ -162,3 +162,4 @@ func (engine *OmniHiFiBerryOSEngine) Diagnostics() map[string]interface{} {
 		"buffer":  len(engine.alsaBridge),
 	}
 }
+

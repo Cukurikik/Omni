@@ -1,4 +1,4 @@
-package omni_adyen
+package network
 
 import "time"
 

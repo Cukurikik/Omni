@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -36,7 +36,7 @@ func NewStreamCompressor(workers int) *StreamCompressor {
 
 func (c *StreamCompressor) worker() {
 	defer c.wg.Done()
-	
+
 	for chunk := range c.chunkQueue {
 		// Simulate fast compression overhead
 		time.Sleep(2 * time.Millisecond)

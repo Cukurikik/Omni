@@ -1,0 +1,121 @@
+/* OMNI MOTHER: Moebuntu UI Token System (Production Grade) */
+/* A comprehensive CSS variable system for applying the kawaii anime aesthetic 
+   across all OMNI dashboard interfaces. */
+
+:root {
+    /* Base Color Palette */
+    --moe-pink-primary: #FFB5D4;
+    --moe-pink-secondary: #FFA3C8;
+    --moe-pink-accent: #FF7EB3;
+    
+    --moe-white-base: #FFF5F8;
+    --moe-white-surface: #FFFFFF;
+    
+    --moe-text-dark: #4A3B42;
+    --moe-text-light: #8E7A85;
+    
+    --moe-bg-gradient: linear-gradient(135deg, #FFF5F8 0%, #FFEBF2 100%);
+    
+    /* Semantic Colors */
+    --moe-success: #88E0A1;
+    --moe-warning: #FFD166;
+    --moe-danger: #FF6B6B;
+    --moe-info: #7EC8E3;
+    
+    /* Typography */
+    --moe-font-primary: 'Nunito', 'Comic Sans MS', sans-serif;
+    --moe-font-heading: 'M PLUS Rounded 1c', sans-serif;
+    --moe-font-mono: 'Fira Code', monospace;
+    
+    /* Shadows & Effects */
+    --moe-shadow-soft: 0 8px 24px rgba(255, 126, 179, 0.15);
+    --moe-shadow-float: 0 12px 36px rgba(255, 126, 179, 0.25);
+    --moe-border-radius: 16px;
+    --moe-border-pill: 9999px;
+    
+    /* Transitions */
+    --moe-transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --moe-transition-smooth: all 0.2s ease-in-out;
+}
+
+/* Global Reset & Base */
+body.moebuntu-theme {
+    background: var(--moe-bg-gradient);
+    color: var(--moe-text-dark);
+    font-family: var(--moe-font-primary);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Glassmorphism Surface Component */
+.moe-glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--moe-border-radius);
+    box-shadow: var(--moe-shadow-soft);
+    padding: 24px;
+    transition: var(--moe-transition-smooth);
+}
+
+.moe-glass-panel:hover {
+    box-shadow: var(--moe-shadow-float);
+    transform: translateY(-2px);
+}
+
+/* Kawaii Buttons */
+.moe-btn {
+    background-color: var(--moe-pink-primary);
+    color: white;
+    border: none;
+    border-radius: var(--moe-border-pill);
+    padding: 12px 24px;
+    font-family: var(--moe-font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 181, 212, 0.5);
+    transition: var(--moe-transition-bounce);
+    position: relative;
+    overflow: hidden;
+}
+
+.moe-btn:hover {
+    background-color: var(--moe-pink-accent);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(255, 126, 179, 0.6);
+}
+
+.moe-btn:active {
+    transform: scale(0.95);
+}
+
+/* AI Clash Specific Overrides */
+.omni-clash-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.omni-result-card {
+    background: var(--moe-white-surface);
+    border-radius: var(--moe-border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--moe-shadow-soft);
+    border: 2px solid transparent;
+    transition: var(--moe-transition-smooth);
+}
+
+.omni-result-card.winner {
+    border-color: var(--moe-warning);
+    box-shadow: 0 0 20px rgba(255, 209, 102, 0.4);
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 209, 102, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 209, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 209, 102, 0); }
+}

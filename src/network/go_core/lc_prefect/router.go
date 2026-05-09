@@ -19,7 +19,7 @@ func (r *PrefectRouter) ProcessGraph(ctx context.Context, depth int32) (*DAGResu
 	if depth < 0 {
 		return nil, errors.New("negative graph depth is invalid")
 	}
-	
+
 	return &DAGResult{
 		MaxDepth: depth,
 		Valid:    depth <= r.MaxAllowedDepth,

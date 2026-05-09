@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -65,7 +65,7 @@ func (engine *OmniBirdNetEngine) AnalyzeRemoteAcousticFeatures(audioBuffer []flo
 	engine.mu.RUnlock()
 
 	if len(audioBuffer) < 48000 {
-		// Mock constraint: Need at least 1 second of data 
+		// Mock constraint: Need at least 1 second of data
 		return nil, ErrInvalidFeatures
 	}
 
@@ -107,3 +107,4 @@ func (engine *OmniBirdNetEngine) Diagnostics() map[string]interface{} {
 		"queued":  len(engine.throttleChan),
 	}
 }
+

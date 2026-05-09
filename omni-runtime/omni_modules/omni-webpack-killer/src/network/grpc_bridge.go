@@ -1,4 +1,4 @@
-package omni_webpack_killer
+package network
 
 import "fmt"
 

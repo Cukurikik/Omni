@@ -1,12 +1,12 @@
 package higgsfield
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
 // OMNI HIGGSFIELD: Job Scheduler
-// Go domain logic for scheduling large-scale distributed training jobs 
+// Go domain logic for scheduling large-scale distributed training jobs
 // with fault-tolerance and retry mechanisms.
 // Source: higgsfield-ai/higgsfield
 

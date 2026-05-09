@@ -1,4 +1,4 @@
-package omni_auth_jwt
+package network
 
 import "fmt"
 

@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -34,7 +34,7 @@ func NewMapSynchronizer() *MapSynchronizer {
 
 func (s *MapSynchronizer) syncLoop() {
 	defer s.wg.Done()
-	
+
 	for entry := range s.updateQueue {
 		// Simulate userspace-to-kernel eBPF map sync overhead
 		time.Sleep(1 * time.Millisecond)

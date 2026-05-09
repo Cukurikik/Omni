@@ -1,0 +1,124 @@
+// @omni-layer Business | @omni-lang Drools (DRL) | @omni-batch 17
+// @omni-description Inference routing rules: Drools rule engine for
+// dynamic model selection, SLA enforcement, and workload routing.
+
+package omni.inference.rules;
+
+import omni.inference.InferenceRequest;
+import omni.inference.ModelInfo;
+import omni.inference.RoutingDecision;
+
+declare InferenceRequest
+    requestId : String
+    taskType : String
+    maxLatencyMs : int
+    maxMemoryMb : int
+    priority : String  // "low", "medium", "high", "critical"
+    dataClassification : String
+end
+
+declare ModelInfo
+    modelId : String
+    name : String
+    taskType : String
+    latencyMs : int
+    memoryMb : int
+    accuracy : double
+    status : String
+    gpuRequired : boolean
+end
+
+declare RoutingDecision
+    requestId : String
+    selectedModelId : String
+    reason : String
+    confidence : double
+    fallback : boolean
+end
+
+// Rule 1: Route to best matching model within latency SLA
+rule "Route to Optimal Model"
+    salience 100
+    when
+        $req : InferenceRequest(taskType != null, maxLatencyMs > 0)
+        $model : ModelInfo(
+            taskType == $req.taskType,
+            status == "active",
+            latencyMs <= $req.maxLatencyMs,
+            memoryMb <= $req.maxMemoryMb
+        )
+        not ModelInfo(
+            taskType == $req.taskType,
+            status == "active",
+            accuracy > $model.accuracy,
+            latencyMs <= $req.maxLatencyMs,
+            memoryMb <= $req.maxMemoryMb
+        )
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "Optimal model: " + $model.getName() + " (accuracy=" + $model.getAccuracy() + ")",
+            $model.getAccuracy(),
+            false
+        ));
+end
+
+// Rule 2: Fallback to lighter model when SLA violated
+rule "Latency SLA Fallback"
+    salience 80
+    when
+        $req : InferenceRequest(maxLatencyMs > 0)
+        not ModelInfo(
+            taskType == $req.taskType,
+            status == "active",
+            latencyMs <= $req.maxLatencyMs
+        )
+        $fallback : ModelInfo(
+            taskType == $req.taskType,
+            status == "active"
+        )
+        not ModelInfo(
+            taskType == $req.taskType,
+            status == "active",
+            latencyMs < $fallback.latencyMs
+        )
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $fallback.getModelId(),
+            "SLA fallback: no model within " + $req.getMaxLatencyMs() + "ms",
+            0.5,
+            true
+        ));
+end
+
+// Rule 3: Critical priority override
+rule "Critical Priority Override"
+    salience 200
+    when
+        $req : InferenceRequest(priority == "critical")
+        $model : ModelInfo(
+            taskType == $req.taskType,
+            status == "active",
+            gpuRequired == true
+        )
+    then
+        insert(new RoutingDecision(
+            $req.getRequestId(),
+            $model.getModelId(),
+            "Critical priority: GPU-accelerated " + $model.getName(),
+            0.95,
+            false
+        ));
+end
+
+// Rule 4: Data classification gate
+rule "Confidential Data Gate"
+    salience 300
+    when
+        $req : InferenceRequest(dataClassification == "confidential")
+        $model : ModelInfo(status == "active", taskType == $req.taskType)
+    then
+        modify($model) { setStatus("requires_audit") };
+end

@@ -1,23 +1,39 @@
 [package]
-name        = "omni-batch-37"
-version     = "1.0.0"
-authors     = ["Mother <mother@antigravity.dev>"]
-description = "OMNI Semester 12 Batch 37 Production Engines"
+name        = "omni-ai-nexus"
+version     = "3.1.0"
+authors     = ["ANTIGRAVITY MOTHER <mother@omniframework.dev>"]
+description = "OMNI Polyglot Framework - AI/Transformer Global Implementations"
 license     = "OMNI-Open"
+homepage    = "https://nexus.omniframework.dev"
 edition     = "omni-2026"
 
 [dependencies]
-omni-std     = "^2.0"
+omni-std     = "^3.0"
+omni-net     = "^2.0"
+omni-crypto  = "^3.0"
+omni-tensor  = "^1.5"
 
-[permissions.fs]
-allow_read  = ["./**"]
-allow_write = ["./**"]
+[layer.service]
+name = "OMNI Polyglot Service Bridge"
+languages = ["Proto3", "Go", "PHP"]
+path = "src/domain/proto"
+orchestrator = "src/network/omni_service_orchestrator.go"
+client_php = "src/business/omni_service_client.php"
+protocol = "gRPC"
+port = 50051
 
-[permissions]
-allow_net    = ["api.github.com", "gemini.googleapis.com"]
+[layer.business]
+allow_net    = ["api.github.com", "huggingface.co", "0.0.0.0/0"]
+allow_fs     = ["/tmp/omni_weights/**", "C:/Users/IKYY/Downloads/Omni/**"]
+allow_env    = ["HF_TOKEN", "OMNI_DEVICE"]
 allow_thread = true
+allow_ebpf   = true
 
 [build]
-target       = ["wasm32", "x86_64-linux", "aarch64-apple"]
+target       = ["wasm32", "x86_64-linux", "aarch64-apple", "x86_64-windows"]
 optimize     = "release"
-llvm_passes  = ["vectorize", "inline", "unroll"]
+llvm_passes  = ["vectorize", "inline", "unroll", "polly"]
+
+[publish]
+registry     = "https://nexus.omniframework.dev"
+visibility   = "public"

@@ -13,13 +13,13 @@ import (
 type WorkflowState int
 
 const (
-	StateCreated    WorkflowState = iota // Workflow registered but not started
-	StateRunning                         // Actively executing activities
-	StateCompleted                       // Successfully finished
-	StateFailed                          // Terminal failure
-	StateCancelled                       // Externally cancelled
-	StateTimedOut                        // Exceeded workflow execution timeout
-	StateContinuedAsNew                  // Restarted with new run ID
+	StateCreated        WorkflowState = iota // Workflow registered but not started
+	StateRunning                             // Actively executing activities
+	StateCompleted                           // Successfully finished
+	StateFailed                              // Terminal failure
+	StateCancelled                           // Externally cancelled
+	StateTimedOut                            // Exceeded workflow execution timeout
+	StateContinuedAsNew                      // Restarted with new run ID
 )
 
 // WorkflowExecution holds the mutable state of a running Temporal workflow.
@@ -44,9 +44,10 @@ type StateTransitionResult struct {
 // Temporal workflows MUST be deterministic — same inputs always produce same state.
 //
 // Valid transitions:
-//   Created  -> Running
-//   Running  -> Completed | Failed | Cancelled | TimedOut | ContinuedAsNew
-//   All terminal states are final (no transitions out).
+//
+//	Created  -> Running
+//	Running  -> Completed | Failed | Cancelled | TimedOut | ContinuedAsNew
+//	All terminal states are final (no transitions out).
 func EvaluateStateTransition(exec *WorkflowExecution, event string) StateTransitionResult {
 	if exec == nil {
 		return StateTransitionResult{NewState: StateFailed, Error: errors.New("Temporal requires non-nil workflow execution.")}

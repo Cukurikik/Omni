@@ -1,4 +1,4 @@
-package omni_moment_turbo
+package network
 
 import "fmt"
 

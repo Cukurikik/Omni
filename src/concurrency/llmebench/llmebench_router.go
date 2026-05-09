@@ -26,7 +26,7 @@ func (r *llmebenchRouter) Execute(ctx context.Context, data []byte) (*llmebenchR
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &llmebenchResult{
 		Success: true,
 		Status:  "computed",

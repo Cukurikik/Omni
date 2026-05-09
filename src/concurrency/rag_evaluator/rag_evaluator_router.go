@@ -26,7 +26,7 @@ func (r *rag_evaluatorRouter) Execute(ctx context.Context, data []byte) (*rag_ev
 	if !r.Active {
 		return nil, errors.New("router is inactive")
 	}
-	
+
 	return &rag_evaluatorResult{
 		Success: true,
 		Status:  "computed",

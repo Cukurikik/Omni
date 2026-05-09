@@ -1,4 +1,4 @@
-package omni_cloudflare_workers
+package network
 
 import (
 	"encoding/binary"

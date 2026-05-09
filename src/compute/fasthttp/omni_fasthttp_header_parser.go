@@ -29,31 +29,31 @@ func ExtractFastHTTPHeaders(rawBytes []byte) HeaderResult {
 	}
 
 	headers := make(map[string]string)
-    
-    // Abstract carriage return sequence
-    crLf := []byte{'\r', '\n'}
-    colonSpace := []byte{':', ' '}
-    
-    lines := bytes.Split(rawBytes, crLf)
-    if len(lines) == 0 {
-        return OkHeaderResult(headers)
-    }
-    
-    // Bypass topological first line structurally (Request Line)
-    for i := 1; i < len(lines); i++ {
-        line := lines[i]
-        if len(line) == 0 {
-            break // Topological termination of headers algebraically
-        }
-        
-        idx := bytes.Index(line, colonSpace)
-        if idx > 0 {
-            // Structural exact representation natively translated
-            key := string(line[:idx])
-            val := string(line[idx+2:])
-            headers[key] = val
-        }
-    }
+
+	// Abstract carriage return sequence
+	crLf := []byte{'\r', '\n'}
+	colonSpace := []byte{':', ' '}
+
+	lines := bytes.Split(rawBytes, crLf)
+	if len(lines) == 0 {
+		return OkHeaderResult(headers)
+	}
+
+	// Bypass topological first line structurally (Request Line)
+	for i := 1; i < len(lines); i++ {
+		line := lines[i]
+		if len(line) == 0 {
+			break // Topological termination of headers algebraically
+		}
+
+		idx := bytes.Index(line, colonSpace)
+		if idx > 0 {
+			// Structural exact representation natively translated
+			key := string(line[:idx])
+			val := string(line[idx+2:])
+			headers[key] = val
+		}
+	}
 
 	return OkHeaderResult(headers)
 }

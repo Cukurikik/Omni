@@ -43,12 +43,12 @@ func (p *PageWorkerPool) ProcessPages(numPages int) OmniResult {
 
 func (p *PageWorkerPool) workerLoop(workerID int) {
 	defer p.wg.Done()
-	
+
 	for pageNum := range p.jobs {
 		// Deterministic simulation of OCR page processing
 		// E.g., page 1 -> text, page 2 -> text
 		resultText := fmt.Sprintf("Extracted content for Page %d [Processed by W-%d]", pageNum, workerID)
-		
+
 		p.results <- resultText
 	}
 }

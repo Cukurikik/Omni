@@ -88,21 +88,25 @@ func (e *OmniFinFactEngine) ValidateFact(ctx context.Context, claim string, sour
 	}
 
 	e.factsVerified.Add(1)
-	
+
 	// Fast zero-mock implementation: naive substring match (in prod this connects to an LLM entailment model or regex parser)
 	// For OMNI strictly deterministic code, we simulate structural inclusion.
 	// We implement a fast BM (Boyer-Moore) string search.
-	
+
 	match := isSubstring(src.Content, claim)
-	
+
 	return FinFactResult[bool]{Value: match}
 }
 
 // isSubstring is a deterministic O(N*M) naive implementation to ensure zero dependency.
 func isSubstring(text, sub string) bool {
-	if len(sub) == 0 { return true }
-	if len(text) < len(sub) { return false }
-	
+	if len(sub) == 0 {
+		return true
+	}
+	if len(text) < len(sub) {
+		return false
+	}
+
 	for i := 0; i <= len(text)-len(sub); i++ {
 		if text[i:i+len(sub)] == sub {
 			return true

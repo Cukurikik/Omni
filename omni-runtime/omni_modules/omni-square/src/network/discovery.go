@@ -1,4 +1,4 @@
-package omni_square
+package network
 
 import "sync"
 

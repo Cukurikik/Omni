@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -35,7 +35,7 @@ func (q *StreamReassemblyQueue) PushSegment(seg TcpSegment) OmniResult {
 
 	// Simulate O(1) TCP stream reassembly tracking
 	time.Sleep(1 * time.Microsecond)
-	
+
 	if seg.SeqNum < q.nextSeq {
 		return OmniResult{Error: fmt.Errorf("Duplicate or old segment")}
 	}

@@ -1,6 +1,8 @@
 package workflows
 
 import (
+	"context"
+	"errors"
 )
 
 func OmniTrainingSaga(ctx context.Context, modelID string) error {
@@ -9,17 +11,23 @@ func OmniTrainingSaga(ctx context.Context, modelID string) error {
 	}
 
 	err := extractData(ctx)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 
 	err = trainModel(ctx)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 
 	err = validateModel(ctx)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func extractData(ctx context.Context) error { return nil }
-func trainModel(ctx context.Context) error { return nil }
+func extractData(ctx context.Context) error   { return nil }
+func trainModel(ctx context.Context) error    { return nil }
 func validateModel(ctx context.Context) error { return nil }

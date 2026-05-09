@@ -1,4 +1,4 @@
-package omni_timescaledb
+package network
 
 import (
 	"context"

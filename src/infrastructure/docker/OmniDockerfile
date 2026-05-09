@@ -1,0 +1,19 @@
+# OMNI Universal Production Container Image
+FROM ubuntu:24.04 AS builder
+
+# Install core LLVM-Omni toolchain dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential curl wget git cmake ninja-build \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /omni_build
+
+# Copy the universal binary builder
+COPY omni-core-binary /usr/local/bin/omni
+RUN chmod +x /usr/local/bin/omni
+
+# Target Image
+FROM distroless/cc-debian12
+
+COPY --from=builder /usr/local/bin/omni /omni
+ENTRYPOINT ["/omni", "daemon", "start"]

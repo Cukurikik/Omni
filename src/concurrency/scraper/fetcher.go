@@ -1,10 +1,10 @@
 package scraper
 
 import (
-	"time"
 	"context"
 	"io"
 	"net/http"
+	"time"
 )
 
 type Fetcher struct {

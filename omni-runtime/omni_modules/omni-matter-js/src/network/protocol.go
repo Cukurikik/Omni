@@ -1,4 +1,4 @@
-package omni_matter_js
+package network
 
 import (
 	"encoding/binary"

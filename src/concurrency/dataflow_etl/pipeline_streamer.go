@@ -44,13 +44,13 @@ func (s *PipelineStreamer) process(id int) {
 			s.outChan <- OmniResult{Error: fmt.Errorf("empty chunk %s", task.ChunkID)}
 			continue
 		}
-		
+
 		// Deterministic hash/processing
 		sum := 0
 		for _, b := range task.DataChunk {
 			sum += int(b)
 		}
-		
+
 		s.outChan <- OmniResult{Value: fmt.Sprintf("Worker %d processed %s: checksum %d", id, task.ChunkID, sum)}
 	}
 }

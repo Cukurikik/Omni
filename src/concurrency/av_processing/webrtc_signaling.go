@@ -11,9 +11,9 @@ type SignalingResult[T any] struct {
 	Err   error
 }
 
-func Ok[T any](val T) SignalingResult[T] { return SignalingResult[T]{Value: val, Err: nil} }
+func Ok[T any](val T) SignalingResult[T]      { return SignalingResult[T]{Value: val, Err: nil} }
 func Err[T any](err error) SignalingResult[T] { return SignalingResult[T]{Value: *new(T), Err: err} }
-func (r SignalingResult[T]) IsSuccess() bool { return r.Err == nil }
+func (r SignalingResult[T]) IsSuccess() bool  { return r.Err == nil }
 
 type SDP struct {
 	Type string // offer, answer

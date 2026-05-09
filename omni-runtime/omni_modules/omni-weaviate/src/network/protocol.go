@@ -1,4 +1,4 @@
-package omni_weaviate
+package network
 
 import (
 	"encoding/binary"

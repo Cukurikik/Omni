@@ -1,0 +1,51 @@
+#=============================================================================
+# OMNI INFRASTRUCTURE LAYER — CI PIPELINE (YAML)
+# BATCH: 31 | SEMESTER: 16
+# DESCRIPTION: GitHub Actions pipeline to validate and build the Omni 
+#              Universal Binary for all platforms.
+#=============================================================================
+
+name: OMNI Universal Build Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Omni CLI
+      run: curl -sSL https://nexus.omniframework.dev/install.sh | bash
+
+    - name: Omni Architecture Audit (Section 17 check)
+      run: |
+        omni check --strict
+        # Ensures no mocks, no empty TODOs, and correct Domain Separation
+
+    - name: Run Polyglot Test Suite
+      run: omni test --all --coverage
+
+    - name: Build Universal Binaries (Linux, macOS, Windows, WASM)
+      run: omni build --release --target all
+
+    - name: Build Unikernel Image for Cloud
+      run: omni unikernel build --target cloud
+
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: omni-binaries
+        path: build/*
+
+    - name: Deploy to Omni Cloud (Nexus)
+      if: github.ref == 'refs/heads/main'
+      env:
+        OMNI_API_KEY: ${{ secrets.OMNI_API_KEY }}
+      run: |
+        omni cloud deploy app.ukl --region id-jkt-1

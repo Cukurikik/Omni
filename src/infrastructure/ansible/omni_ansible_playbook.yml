@@ -1,0 +1,76 @@
+---
+# Omni Ansible Playbook (YAML)
+# Infrastructure Layer
+# Automates the bare-metal provisioning of NVIDIA GPU servers,
+# installing drivers, CUDA, and configuring the Omni Universal Binary.
+
+- name: Provision Omni Bare-Metal GPU Cluster
+  hosts: omni_gpu_nodes
+  become: yes
+  vars:
+    omni_version: "3.0.0"
+    cuda_version: "12-2"
+    
+  tasks:
+    - name: Update apt cache and upgrade system packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Ensure required dependencies are installed
+      apt:
+        name: 
+          - build-essential
+          - curl
+          - git
+          - linux-headers-generic
+        state: present
+
+    - name: Add NVIDIA package repositories
+      shell: |
+        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+        dpkg -i cuda-keyring_1.1-1_all.deb
+        apt-get update
+      args:
+        creates: /etc/apt/sources.list.d/cuda-ubuntu2204-x86_64.list
+
+    - name: Install CUDA Toolkit and NVIDIA Drivers
+      apt:
+        name: cuda-toolkit-{{ cuda_version }}
+        state: present
+
+    - name: Enable Persistence Mode for GPUs
+      systemd:
+        name: nvidia-persistenced
+        state: started
+        enabled: yes
+
+    - name: Download Omni Universal Binary
+      get_url:
+        url: "https://nexus.omniframework.dev/releases/v{{ omni_version }}/omni_universal_binary_linux_amd64"
+        dest: "/usr/local/bin/omni_universal_binary"
+        mode: '0755'
+
+    - name: Setup Omni Systemd Service
+      copy:
+        dest: /etc/systemd/system/omni.service
+        content: |
+          [Unit]
+          Description=Omni Mother Nexus Node
+          After=network.target
+
+          [Service]
+          ExecStart=/usr/local/bin/omni_universal_binary --config /etc/omni/Omnifile.toml
+          Restart=always
+          User=root
+          Environment="CUDA_VISIBLE_DEVICES=all"
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start Omni Service
+      systemd:
+        name: omni
+        state: started
+        enabled: yes
+        daemon_reload: yes

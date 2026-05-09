@@ -1,9 +1,9 @@
 package peft
 
 import (
-	"time"
-	"fmt"
 	"context"
+	"fmt"
+	"time"
 )
 
 // OMNI PEFT: Adapter Load Stream
@@ -55,7 +55,7 @@ func (aes *AdapterEventStream) Start(ctx context.Context) {
 				return
 			case event := <-aes.sinkChan:
 				// Simulated push to Datadog/Prometheus
-				fmt.Printf("[PEFT Telemetry] %s %s on %s | Latency: %.1fms\n", 
+				fmt.Printf("[PEFT Telemetry] %s %s on %s | Latency: %.1fms\n",
 					event.Action, event.AdapterName, event.BaseModel, event.LatencyMs)
 			}
 		}

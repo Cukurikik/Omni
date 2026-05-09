@@ -1,4 +1,4 @@
-package omni_websocket_cluster
+package network
 
 import (
 	"encoding/binary"

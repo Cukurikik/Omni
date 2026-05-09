@@ -1,4 +1,4 @@
-package omni_aws_s3
+package network
 
 import (
 	"encoding/binary"

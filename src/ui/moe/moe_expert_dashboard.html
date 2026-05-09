@@ -1,0 +1,100 @@
+<!-- moe_expert_dashboard.html — Interface / UI -->
+<!-- Layer: Interface / Web — Raw HTML MoE Dashboard -->
+<!-- 
+  A dependency-free, raw HTML/JS template for quickly visualizing
+  the MoE cluster topology without requiring React or complex build tools.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI MoE Topology Viewer</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #58a6ff; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .expert-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+        }
+        .status-dot {
+            height: 10px;
+            width: 10px;
+            background-color: #238636;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .progress-bar {
+            background-color: #21262d;
+            border-radius: 3px;
+            height: 8px;
+            width: 100%;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background-color: #58a6ff;
+            height: 100%;
+            width: 0%; /* Set via JS */
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>OMNI MoE Cluster Topology</h1>
+    <p>Live visualization of Expert Nodes via WebSocket telemetry.</p>
+    
+    <div class="grid" id="expert-grid">
+        <!-- Expert cards injected here via JS -->
+    </div>
+
+    <script>
+        // Mocking the WebSocket telemetry
+        const numExperts = 16;
+        const grid = document.getElementById('expert-grid');
+
+        // Initialize grid
+        for (let i = 0; i < numExperts; i++) {
+            grid.innerHTML += `
+                <div class="expert-card" id="expert-${i}">
+                    <div><span class="status-dot"></span><strong>Expert ${i}</strong></div>
+                    <div style="font-size: 12px; color: #8b949e; margin-top: 5px;">Tokens / Sec: <span id="tps-${i}">0</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="fill-${i}"></div></div>
+                </div>
+            `;
+        }
+
+        // Simulate live updates
+        setInterval(() => {
+            for (let i = 0; i < numExperts; i++) {
+                // Randomize load
+                const load = Math.floor(Math.random() * 100);
+                const tps = Math.floor(load * 50); // mock calculation
+                
+                document.getElementById(`tps-${i}`).innerText = tps;
+                document.getElementById(`fill-${i}`).style.width = `${load}%`;
+                
+                // Color change on high load
+                const fill = document.getElementById(`fill-${i}`);
+                fill.style.backgroundColor = load > 85 ? '#da3633' : '#58a6ff';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

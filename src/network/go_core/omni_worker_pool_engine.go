@@ -12,7 +12,7 @@
 //   4. Semaphore pattern limits concurrent access
 //   5. Graceful shutdown: close job channel, drain workers, wait
 
-package go_core
+package network_gocore
 
 import (
 	"context"
@@ -388,3 +388,4 @@ func WorkerPoolDiagnostics() map[string]interface{} {
 		},
 	}
 }
+

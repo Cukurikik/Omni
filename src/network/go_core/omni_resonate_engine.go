@@ -6,7 +6,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -31,36 +31,36 @@ const (
 
 // DurablePromise is a persistent asynchronous execution unit.
 type DurablePromise struct {
-	ID          string
-	State       PromiseState
-	CreatedAt   time.Time
-	ResolvedAt  *time.Time
-	TimeoutMs   int64
-	RetryCount  int
-	MaxRetries  int
-	Result      interface{}
-	Error       string
-	Tags        map[string]string
+	ID         string
+	State      PromiseState
+	CreatedAt  time.Time
+	ResolvedAt *time.Time
+	TimeoutMs  int64
+	RetryCount int
+	MaxRetries int
+	Result     interface{}
+	Error      string
+	Tags       map[string]string
 }
 
 // ScheduleEntry represents a scheduled durable task.
 type ScheduleEntry struct {
-	ID          string
-	CronExpr    string
-	NextRunAt   time.Time
-	LastRunAt   *time.Time
-	RunCount    int
-	Enabled     bool
+	ID        string
+	CronExpr  string
+	NextRunAt time.Time
+	LastRunAt *time.Time
+	RunCount  int
+	Enabled   bool
 }
 
 // OmniResonateEngine provides durable distributed execution
 // with persistent promises, retry logic, timeout management,
 // and scheduled task orchestration using Go channels.
 type OmniResonateEngine struct {
-	mu          sync.RWMutex
-	promises    map[string]*DurablePromise
-	schedules   map[string]*ScheduleEntry
-	maxRetries  int
+	mu             sync.RWMutex
+	promises       map[string]*DurablePromise
+	schedules      map[string]*ScheduleEntry
+	maxRetries     int
 	defaultTimeout int64
 	resolvedCount  int
 	rejectedCount  int
@@ -68,8 +68,12 @@ type OmniResonateEngine struct {
 
 // NewOmniResonateEngine creates a new durable execution engine.
 func NewOmniResonateEngine(maxRetries int, defaultTimeoutMs int64) *OmniResonateEngine {
-	if maxRetries < 0 { maxRetries = 3 }
-	if defaultTimeoutMs < 100 { defaultTimeoutMs = 30000 }
+	if maxRetries < 0 {
+		maxRetries = 3
+	}
+	if defaultTimeoutMs < 100 {
+		defaultTimeoutMs = 30000
+	}
 	return &OmniResonateEngine{
 		promises:       make(map[string]*DurablePromise),
 		schedules:      make(map[string]*ScheduleEntry),
@@ -86,8 +90,12 @@ func (e *OmniResonateEngine) CreatePromise(id string, timeoutMs int64, tags map[
 	if _, exists := e.promises[id]; exists {
 		return nil, errors.New(fmt.Sprintf("promise '%s' already exists", id))
 	}
-	if timeoutMs <= 0 { timeoutMs = e.defaultTimeout }
-	if tags == nil { tags = make(map[string]string) }
+	if timeoutMs <= 0 {
+		timeoutMs = e.defaultTimeout
+	}
+	if tags == nil {
+		tags = make(map[string]string)
+	}
 
 	p := &DurablePromise{
 		ID:         id,
@@ -151,11 +159,11 @@ func (e *OmniResonateEngine) RejectPromise(id, errMsg string) (map[string]interf
 	p.RetryCount++
 	if p.RetryCount < p.MaxRetries {
 		return map[string]interface{}{
-			"status":    "retry",
-			"promiseId": id,
-			"attempt":   p.RetryCount,
+			"status":     "retry",
+			"promiseId":  id,
+			"attempt":    p.RetryCount,
 			"maxRetries": p.MaxRetries,
-			"message":   errMsg,
+			"message":    errMsg,
 		}, nil
 	}
 
@@ -182,7 +190,9 @@ func (e *OmniResonateEngine) CheckTimeouts() (map[string]interface{}, error) {
 	now := time.Now()
 
 	for id, p := range e.promises {
-		if p.State != PromisePending { continue }
+		if p.State != PromisePending {
+			continue
+		}
 		elapsed := now.Sub(p.CreatedAt).Milliseconds()
 		if elapsed > p.TimeoutMs {
 			p.State = PromiseTimedOut
@@ -193,8 +203,8 @@ func (e *OmniResonateEngine) CheckTimeouts() (map[string]interface{}, error) {
 	}
 
 	return map[string]interface{}{
-		"status":       "success",
-		"timedOutIds":  timedOut,
+		"status":        "success",
+		"timedOutIds":   timedOut,
 		"timedOutCount": len(timedOut),
 	}, nil
 }
@@ -232,7 +242,9 @@ func (e *OmniResonateEngine) GetStats() map[string]interface{} {
 
 	pending := 0
 	for _, p := range e.promises {
-		if p.State == PromisePending { pending++ }
+		if p.State == PromisePending {
+			pending++
+		}
 	}
 
 	return map[string]interface{}{
@@ -245,3 +257,4 @@ func (e *OmniResonateEngine) GetStats() map[string]interface{} {
 		"successRate":   math.Round(float64(e.resolvedCount)/math.Max(float64(e.resolvedCount+e.rejectedCount), 1)*10000) / 100,
 	}
 }
+

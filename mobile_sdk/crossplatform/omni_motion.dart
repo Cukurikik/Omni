@@ -5,7 +5,6 @@
 // Via Dart FFI -> Rust LLVM -> Go Engine.
 
 import 'dart:ui';
-import 'dart:ffi' as ffi;
 
 class OmniFlutterMotion {
   static final OmniFlutterMotion _instance = OmniFlutterMotion._internal();

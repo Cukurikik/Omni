@@ -1,0 +1,44 @@
+---
+# OMNI Framework - Ansible Playbook for Grokking Cluster
+# Deploys Python/PyTorch environments configured for small algorithmic datasets
+
+- name: Setup Grokking Research Cluster
+  hosts: ai_research_nodes
+  become: yes
+  vars:
+    grokking_dir: "/opt/omni/grokking"
+    
+  tasks:
+    - name: Ensure grokking directory exists
+      file:
+        path: "{{ grokking_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Install required PyTorch and Transformers libraries
+      pip:
+        name: 
+          - torch>=2.0.0
+          - transformers
+          - accelerate
+        executable: pip3
+        extra_args: "--no-cache-dir"
+
+    - name: Deploy OMNI Grokking Training Script
+      copy:
+        src: files/omni_grokking_train.py
+        dest: "{{ grokking_dir }}/train.py"
+        mode: '0744'
+
+    - name: Initialize Systemd Service for Background Training
+      template:
+        src: templates/omni-grokking.service.j2
+        dest: /etc/systemd/system/omni-grokking.service
+      notify: Reload Systemd
+      
+  handlers:
+    - name: Reload Systemd
+      systemd:
+        daemon_reload: yes
+        name: omni-grokking
+        state: restarted

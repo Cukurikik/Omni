@@ -19,7 +19,7 @@ func (r *KRouter) RouteUpdate(ctx context.Context, shift float64, updates int32)
 	if shift < 0 {
 		return nil, errors.New("shift delta cannot be negative")
 	}
-	
+
 	return &CentroidResult{
 		UpdatesProcessed: updates,
 		Converged:        shift <= r.ConvergenceDelta,

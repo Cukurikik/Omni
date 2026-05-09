@@ -1,4 +1,4 @@
-package omni_scaleway_obj
+package network
 
 import "sync"
 

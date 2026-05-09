@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-	"time"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type OmniResult struct {
@@ -58,6 +58,6 @@ func (m *UdpMultiplexer) RoutePacket(pkt UdpPacket) OmniResult {
 			return OmniResult{Error: fmt.Errorf("Queue full for peer %s, dropping UDP packet", pkt.PeerPubKey)}
 		}
 	}
-	
+
 	return OmniResult{Error: fmt.Errorf("Unknown peer public key")}
 }

@@ -1,4 +1,4 @@
-package omni_xendit
+package network
 
 import (
 	"context"

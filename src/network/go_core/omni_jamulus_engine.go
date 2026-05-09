@@ -10,7 +10,7 @@
 // OMNI Layer: network/go_core
 // @since 2026.4.0
 
-package go_core
+package network_gocore
 
 import (
 	"errors"
@@ -22,7 +22,7 @@ const JAMULUS_ENGINE_VERSION = "1.0.0-omni"
 // --- Monadic Error Definition ---
 
 var (
-	ErrBufferUnderrun = errors.New("JAMULUS_ERR: Jitter buffer strictly exhausted")
+	ErrBufferUnderrun  = errors.New("JAMULUS_ERR: Jitter buffer strictly exhausted")
 	ErrStreamSaturated = errors.New("JAMULUS_ERR: Packet arrival exceeds ingestion bounds")
 )
 
@@ -72,10 +72,9 @@ func (jb *JitterBuffer) Pop() (AudioDatagram, error) {
 	return pkt, nil
 }
 
-
 // Engine representing the concurrent server logic routing bare-metal audio datagrams without UI overhead
 type OmniJamulusEngine struct {
-	mu           sync.RWMutex
+	mu            sync.RWMutex
 	clientBuffers map[uint16]*JitterBuffer
 	isRunning     bool
 }
@@ -86,7 +85,7 @@ func NewOmniJamulusEngine() *OmniJamulusEngine {
 	}
 }
 
-// Emulates UDP Network listening binding channels to bypass raw OS sockets simulating locally 
+// Emulates UDP Network listening binding channels to bypass raw OS sockets simulating locally
 func (engine *OmniJamulusEngine) RegisterClient(clientID uint16) {
 	engine.mu.Lock()
 	defer engine.mu.Unlock()
@@ -96,7 +95,7 @@ func (engine *OmniJamulusEngine) RegisterClient(clientID uint16) {
 	}
 }
 
-// Ingest method simulating packet reception from an OPUS-encoded UDP socket 
+// Ingest method simulating packet reception from an OPUS-encoded UDP socket
 func (engine *OmniJamulusEngine) IngestDatagram(pkt AudioDatagram) error {
 	engine.mu.RLock()
 	buffer, exists := engine.clientBuffers[pkt.ClientID]
@@ -111,7 +110,7 @@ func (engine *OmniJamulusEngine) IngestDatagram(pkt AudioDatagram) error {
 }
 
 // Extraction bounds mixing buffers strictly mapping clock derivations locally.
-// Generates the deterministic mixing pass inherently without OS-layer blocking 
+// Generates the deterministic mixing pass inherently without OS-layer blocking
 func (engine *OmniJamulusEngine) ExtractMixedFrame(activeClients []uint16) ([]AudioDatagram, error) {
 	engine.mu.RLock()
 	defer engine.mu.RUnlock()
@@ -125,9 +124,9 @@ func (engine *OmniJamulusEngine) ExtractMixedFrame(activeClients []uint16) ([]Au
 			}
 		}
 	}
-	
+
 	if len(mixedFrame) == 0 {
-	    return nil, ErrBufferUnderrun
+		return nil, ErrBufferUnderrun
 	}
 
 	return mixedFrame, nil
@@ -139,7 +138,8 @@ func (engine *OmniJamulusEngine) Diagnostics() map[string]interface{} {
 	defer engine.mu.RUnlock()
 
 	return map[string]interface{}{
-		"version": JAMULUS_ENGINE_VERSION,
+		"version":        JAMULUS_ENGINE_VERSION,
 		"active_clients": len(engine.clientBuffers),
 	}
 }
+

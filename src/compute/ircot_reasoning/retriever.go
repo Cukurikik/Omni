@@ -1,8 +1,8 @@
 package ircot
 
-import "github.com/omni/core/result"
+import "omni-engines/core/result"
 
-type Retriever struct {}
+type Retriever struct{}
 
 func (r *Retriever) Fetch(query string) result.Result[string] {
 	if query == "" {

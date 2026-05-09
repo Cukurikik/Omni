@@ -14,10 +14,10 @@ import (
 // Explicit zero-allocation parsing and asymmetric cryptographic verification of JSON Web Tokens.
 
 var (
-	ErrMalformedToken      = errors.New("OMNI_FATAL: JWT structure violates 3-part header.payload.sig specification")
-	ErrInvalidSignature    = errors.New("OMNI_FATAL: Cryptographic signature mismatch")
-	ErrUnsupportedHeader   = errors.New("OMNI_FATAL: Token specifies invalid algorithm, expects RS256")
-	ErrKeyMismatch         = errors.New("OMNI_FATAL: Public key not compatible with RS256 verification")
+	ErrMalformedToken    = errors.New("OMNI_FATAL: JWT structure violates 3-part header.payload.sig specification")
+	ErrInvalidSignature  = errors.New("OMNI_FATAL: Cryptographic signature mismatch")
+	ErrUnsupportedHeader = errors.New("OMNI_FATAL: Token specifies invalid algorithm, expects RS256")
+	ErrKeyMismatch       = errors.New("OMNI_FATAL: Public key not compatible with RS256 verification")
 )
 
 type JwtVerifier struct {
@@ -54,7 +54,7 @@ func (v *JwtVerifier) VerifyRs256(rawToken string) error {
 	// 4. Hash the Signing Input
 	// The data actually signed is "header.payload"
 	signingInput := headerB64 + "." + payloadB64
-	
+
 	hasher := sha256.New()
 	hasher.Write([]byte(signingInput))
 	hashedInput := hasher.Sum(nil)
