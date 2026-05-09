@@ -7,7 +7,7 @@
 
 [omni]
 name = "OMNI Framework"
-version = "5.0.0-semester5"
+version = "2.1.0"
 edition = "omni-2026"
 description = "Polylingual AI/ML Production Framework"
 
@@ -29,7 +29,7 @@ catalog_output_path = "./docs/api/engine_catalog.json"
 host = "0.0.0.0"
 port = 8080
 workers = 4
-cors_origins = ["http://localhost:3000"]
+cors_origins = ["http://localhost:3000", "https://omniframework.dev"]
 rate_limit_per_minute = 100
 
 [logging]
@@ -61,3 +61,16 @@ max_instances = 100
 target = ["x86_64-linux", "aarch64-apple", "wasm32"]
 optimize = "release"
 unikernel_enabled = false
+
+[repository]
+main_url = "https://github.com/omni-framework/omni"
+documentation_url = "https://docs.omniframework.dev"
+api_docs_url = "https://api.omniframework.dev"
+nexus_registry = "https://nexus.omniframework.dev"
+
+[package_release]
+current_version = "2.1.0"
+registry_url = "https://nexus.omniframework.dev"
+release_channel = "stable"
+auto_update = true
+last_published = "2026-05-10T02:39:10Z"

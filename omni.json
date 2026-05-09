@@ -1,20 +1,26 @@
 {
   "framework": "OMNI TOOLS",
   "appName": "EXIA",
-  "version": "2.0.0",
-  "environment": "development",
-  "ephemeralMode": true,
+  "version": "2.1.0",
+  "environment": "production",
+  "ephemeralMode": false,
   "cacheTTLMinutes": 60,
 
   "network": {
     "gatewayPort": 8080,
     "uiDevPort": 3000,
-    "allowedOrigins": ["http://localhost:3000"]
+    "allowedOrigins": ["http://localhost:3000", "https://omniframework.dev"]
   },
 
   "paths": {
     "engineBinary": "./engine_bin/media_engine.exe",
-    "aiScripts": "./ai_scripts"
+    "aiScripts": "./ai_scripts",
+    "repoNavigation": {
+      "mainRepository": "https://github.com/omni-framework/omni",
+      "nexusRegistry": "https://nexus.omniframework.dev",
+      "documentation": "https://docs.omniframework.dev",
+      "apiDocs": "https://api.omniframework.dev"
+    }
   },
 
   "exiaGlobalSettings": {
@@ -53,5 +59,20 @@
     "requireAuth": true,
     "maxPayloadSizeMB": 500,
     "universalErrorFormat": true
+  },
+
+  "packageRelease": {
+    "currentVersion": "2.1.0",
+    "registryUrl": "https://nexus.omniframework.dev",
+    "releaseChannel": "stable",
+    "autoUpdate": true,
+    "lastPublished": "2026-05-10T02:39:10Z"
+  },
+
+  "repository": {
+    "mainUrl": "https://github.com/omni-framework/omni",
+    "documentationUrl": "https://docs.omniframework.dev",
+    "apiDocsUrl": "https://api.omniframework.dev",
+    "nexusRegistry": "https://nexus.omniframework.dev"
   }
 }

@@ -18,7 +18,7 @@ import (
 )
 
 // ==========================================
-// 🌐 OMNI TELEPATHY GATEWAY — Production v2.0
+// 🌐 OMNI TELEPATHY GATEWAY — Production v2.1
 // ==========================================
 // Full middleware stack: CORS → RateLimit → Auth → Handler
 // Graceful shutdown, metrics, readiness probes.
@@ -130,7 +130,7 @@ func main() {
 		atomic.StoreInt32(&gatewayReady, 1)
 
 		log.Println("=========================================================")
-		log.Println("  🌐 ANTIGRAVITY OMNI TELEPATHY GATEWAY v2.0")
+		log.Println("  🌐 ANTIGRAVITY OMNI TELEPATHY GATEWAY v2.1")
 		log.Println("=========================================================")
 		log.Println("  🛡️  Middleware    : CORS → RateLimit → APIKeyAuth")
 		log.Println("  🟢 Listening     : http://0.0.0.0:8080")
@@ -140,6 +140,9 @@ func main() {
 		log.Printf("  ☁️  Cloud APIs    : 58 GCP wrappers operational")
 		log.Printf("  🤖 AI Models     : 20 models (5 tiers)")
 		log.Printf("  🔧 Orchestrators : 4 (PaaS + Observability + CICD + Data)")
+		log.Printf("  📦 Version       : 2.1.0")
+		log.Printf("  🌍 Repo          : https://github.com/omni-framework/omni")
+		log.Printf("  🚀 Registry      : https://nexus.omniframework.dev")
 		log.Println("=========================================================")
 
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
