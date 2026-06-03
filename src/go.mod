@@ -5,22 +5,19 @@ go 1.26.1
 require (
 	github.com/apache/pulsar-client-go v0.19.0
 	github.com/confluentinc/confluent-kafka-go v1.9.2
-	github.com/eclipse/paho.mqtt.golang v1.5.1
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/gorilla/websocket v1.5.3
-	github.com/lib/pq v1.10.9
 	github.com/libp2p/go-libp2p v0.48.0
 	github.com/milvus-io/milvus-sdk-go/v2 v2.4.2
 	github.com/multiformats/go-multiaddr v0.16.0
 	github.com/nsqio/go-nsq v1.1.0
-	github.com/quic-go/quic-go v0.59.0
 	github.com/rabbitmq/amqp091-go v1.11.0
 	github.com/segmentio/kafka-go v0.4.51
 	github.com/spf13/cobra v1.8.1
 	github.com/streadway/amqp v1.1.0
 	go.temporal.io/sdk v1.43.0
-	golang.org/x/net v0.52.0
-	google.golang.org/grpc v1.80.0
+	golang.org/x/net v0.54.0
+	google.golang.org/grpc v1.81.1
 )
 
 require (
@@ -46,7 +43,7 @@ require (
 	github.com/flynn/noise v1.1.0 // indirect
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
 	github.com/getsentry/sentry-go v0.12.0 // indirect
-	github.com/go-jose/go-jose/v4 v4.1.3 // indirect
+	github.com/go-jose/go-jose/v4 v4.1.4 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
@@ -125,6 +122,7 @@ require (
 	github.com/prometheus/common v0.64.0 // indirect
 	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
+	github.com/quic-go/quic-go v0.59.1 // indirect
 	github.com/quic-go/webtransport-go v0.10.0 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
@@ -139,8 +137,7 @@ require (
 	github.com/wlynxg/anet v0.0.5 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.61.0 // indirect
-	go.opentelemetry.io/otel v1.43.0 // indirect
-	go.opentelemetry.io/otel/sdk/metric v1.43.0 // indirect
+	go.opentelemetry.io/otel v1.44.0 // indirect
 	go.temporal.io/api v1.62.11 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/dig v1.19.0 // indirect
@@ -148,16 +145,16 @@ require (
 	go.uber.org/mock v0.5.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/crypto v0.49.0 // indirect
+	golang.org/x/crypto v0.52.0 // indirect
 	golang.org/x/exp v0.0.0-20250606033433-dcc06ee1d476 // indirect
-	golang.org/x/mod v0.33.0 // indirect
-	golang.org/x/oauth2 v0.34.0 // indirect
+	golang.org/x/mod v0.35.0 // indirect
+	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.43.0 // indirect
-	golang.org/x/telemetry v0.0.0-20260209163413-e7419c687ee4 // indirect
-	golang.org/x/text v0.35.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
+	golang.org/x/telemetry v0.0.0-20260409153401-be6f6cb8b1fa // indirect
+	golang.org/x/text v0.37.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
-	golang.org/x/tools v0.42.0 // indirect
+	golang.org/x/tools v0.44.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260427160629-7cedc36a6bc4 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260427160629-7cedc36a6bc4 // indirect
